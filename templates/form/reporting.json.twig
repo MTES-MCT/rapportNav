@@ -1,0 +1,124 @@
+{
+    "title": "Rapportage mission",
+    "pages": [
+        {
+            "name": "page1",
+            "elements": [
+                {
+                    "type": "panel",
+                    "name": "panel1",
+                    "elements": [
+                        {
+                            "type": "text",
+                            "inputType": "date",
+                            "name": "question1",
+                            "title": "Date de la mission"
+                        },
+                        {
+                            "type": "dropdown",
+                            "name": "question2",
+                            "title": "Agents embauchés",
+                            "choices": [
+                                {
+                                    "value": "item1",
+                                    "text": "Bob l'éponge"
+                                },
+                                {
+                                    "value": "item2",
+                                    "text": "Ursula l'am"
+                                },
+                                {
+                                    "value": "item3",
+                                    "text": "Pierre-Yves"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "matrixdynamic",
+                            "name": "question5",
+                            "title": "Moyens mobilisés",
+                            "columns": [
+                                {
+                                    "name": "type_moyen",
+                                    "title": "Moyen utilisé"
+                                },
+                                {
+                                    "name": "moyen_distance_heure",
+                                    "title": "temps moteur / km parcourus",
+                                    "cellType": "text"
+                                }
+                            ],
+                            "choices": [
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        },
+                        {
+                            "type": "dropdown",
+                            "name": "question4",
+                            "title": "Type de mission",
+                            "choices": [
+                                {
+                                    "value": "item1",
+                                    "text": "En Mer"
+                                },
+                                {
+                                    "value": "item2",
+                                    "text": "À terre"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "dropdown",
+                            "name": "question6",
+                            "title": "Type de mission",
+                            "choices": [
+                                {
+                                    "value": "item1",
+                                    "text": "Pêche"
+                                },
+                                {
+                                    "value": "item2",
+                                    "text": "Environnement"
+                                },
+                                {
+                                    "value": "item3",
+                                    "text": "Sécurité"
+                                },
+                                {
+                                    "value": "item4",
+                                    "text": "..."
+                                }
+                            ]
+                        },
+                        {
+                            "type": "panel",
+                            "name": "panel2",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "name": "question8",
+                                    "title": "Nombre de navire contrôlés"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "question3",
+                                    "title": "Nombre de PV émis"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "question7",
+                                    "title": "Durée"
+                                }
+                            ],
+                            "title": "Résultats de la mission"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

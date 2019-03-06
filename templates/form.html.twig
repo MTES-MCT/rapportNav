@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <link href="https://surveyjs.azureedge.net/1.0.72/survey.css" type="text/css" rel="stylesheet" />
+{% endblock stylesheets %}
+{% block body %}
+    <div id="surveyContainer"><survey :survey="survey"></survey></div>
+
+{% endblock body %}
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+    <script src="https://surveyjs.azureedge.net/1.0.72/survey.vue.min.js"></script>
+    <script type="application/javascript">
+        let surveyJSON = {{ form.data | raw }};
+        let survey = new Survey.Model(surveyJSON);
+        new Vue({ el: '#surveyContainer', data: { survey: survey } });
+
+        function sendDataToServer(survey) {
+            let resultAsString = JSON.stringify(survey.data);
+            alert("sending" + resultAsString);
+
+            fetch("/submit/{{ form.id }}",
+                {
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify(resultAsString)
+                })
+                .then(function(res){ console.log(res) })
+
+        }
+
+        survey.onComplete.add(sendDataToServer);
+    </script>
+{% endblock javascripts %}

@@ -28,3 +28,6 @@
 
 ### node modules 
 /node_modules
+
+### Ignoring local datafixtures
+/src/DataFixtures/*.local.php
