@@ -6,7 +6,7 @@
 {% block body %}
     <ul>
         {% for submission in submissions %}
-            <li>{{ submission.id }} - {{ submission.lastEdition | date('d/m/Y H:i') }} - {{ submission.relatedForm.id }}</li>
+            <li>{{ submission.id }} - {{ submission.lastEdition | date('d/m/Y H:i') }} - {{ submission.relatedForm.id }} <a href="{{ path('edit_submission', {'id': submission.id}) }}">edit</a></a> </li>
         {% endfor %}
     </ul>
 

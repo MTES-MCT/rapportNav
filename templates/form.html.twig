@@ -1,10 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
-    <link href="https://surveyjs.azureedge.net/1.0.72/survey.css" type="text/css" rel="stylesheet" />
+    <link href="https://surveyjs.azureedge.net/1.0.72/survey.css" type="text/css" rel="stylesheet"/>
 {% endblock stylesheets %}
 {% block body %}
-    <div id="surveyContainer"><survey :survey="survey"></survey></div>
+    <div id="surveyContainer">
+        <survey :survey="survey"></survey>
+    </div>
 
 {% endblock body %}
 {% block javascripts %}
@@ -13,25 +15,34 @@
     <script type="application/javascript">
         let surveyJSON = {{ form.data | raw }};
         let survey = new Survey.Model(surveyJSON);
-        new Vue({ el: '#surveyContainer', data: { survey: survey } });
+
+        {% if submission is defined %}
+            survey.data = {{ submission.data|raw }};
+        {% endif %}
+
 
         function sendDataToServer(survey) {
             let resultAsString = JSON.stringify(survey.data);
-            alert("sending" + resultAsString);
-
-            fetch("/submit/{{ form.id }}",
+            let url = "/submit/{{ form.id }}";
+            {% if submission is defined %}
+                url += "/"+{{ submission.id }};
+            {% endif %}
+            fetch(url,
                 {
                     headers: {
-                      'Accept': 'application/json',
-                      'Content-Type': 'application/json'
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
                     },
                     method: "POST",
                     body: JSON.stringify(resultAsString)
                 })
-                .then(function(res){ console.log(res) })
-
+                .then(function (res) {
+                    console.log(res)
+                })
         }
 
         survey.onComplete.add(sendDataToServer);
+
+        new Vue({el: '#surveyContainer', data: {survey: survey}});
     </script>
 {% endblock javascripts %}
