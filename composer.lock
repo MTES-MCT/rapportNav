@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0d86e212286f1ee7236e16666ce09e6",
+    "content-hash": "fb3a9ee43814964022cf462e561d9c58",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -5554,6 +5554,80 @@
             "time": "2018-05-16T17:37:13+00:00"
         },
         {
+            "name": "liip/functional-test-bundle",
+            "version": "2.0.0-alpha14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/liip/LiipFunctionalTestBundle.git",
+                "reference": "0b0569854983c073cb9d30ef140f7c284ea34222"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/liip/LiipFunctionalTestBundle/zipball/0b0569854983c073cb9d30ef140f7c284ea34222",
+                "reference": "0b0569854983c073cb9d30ef140f7c284ea34222",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "^2.0",
+                "php": "^7.1",
+                "symfony/browser-kit": "^3.4 || ^4.1",
+                "symfony/framework-bundle": "^3.4 || ^4.1"
+            },
+            "require-dev": {
+                "doctrine/data-fixtures": "^1.3",
+                "doctrine/doctrine-bundle": "^1.8",
+                "doctrine/doctrine-fixtures-bundle": "^3.0.2",
+                "doctrine/orm": "^2.6",
+                "jackalope/jackalope-doctrine-dbal": "^1.3",
+                "phpunit/phpunit": "^6.1 || ^7.0",
+                "symfony/monolog-bundle": "^3.1",
+                "symfony/phpunit-bridge": "^3.4 || ^4.1",
+                "symfony/symfony": "^3.4 || ^4.1",
+                "theofidry/alice-data-fixtures": "^1.0.1",
+                "twig/twig": "^2.0"
+            },
+            "suggest": {
+                "brianium/paratest": "Required when using paratest to parallelize tests",
+                "doctrine/dbal": "Required when using the fixture loading functionality with an ORM and SQLite",
+                "doctrine/doctrine-fixtures-bundle": "Required when using the fixture loading functionality",
+                "doctrine/orm": "Required when using the fixture loading functionality with an ORM and SQLite",
+                "hautelook/alice-bundle": "Required when using loadFixtureFiles functionality with custom providers",
+                "theofidry/alice-data-fixtures": "Required when using loadFixtureFiles functionality"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Liip\\FunctionalTestBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Liip AG",
+                    "homepage": "http://www.liip.ch/"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/liip/LiipFunctionalTestBundle/contributors"
+                }
+            ],
+            "description": "This bundles provides additional functional test-cases for Symfony applications",
+            "keywords": [
+                "fixtures",
+                "symfony",
+                "testing"
+            ],
+            "time": "2019-03-02T19:11:28+00:00"
+        },
+        {
             "name": "nikic/php-parser",
             "version": "v4.2.1",
             "source": {
@@ -6383,7 +6457,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "liip/functional-test-bundle": 15
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

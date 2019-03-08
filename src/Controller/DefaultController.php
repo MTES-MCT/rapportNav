@@ -11,6 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController {
     /**
+     * @Route("/", name="home")
+     */
+    public function home() {
+        return $this->redirectToRoute('list_forms');
+    }
+
+
+    /**
      * @Route("/show_form/{id}", name="show_form", requirements={"id": "\d+"})
      *
      * @param int                    $id

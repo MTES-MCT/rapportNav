@@ -25,7 +25,6 @@ class Form {
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Form")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $activeVersion;
 
