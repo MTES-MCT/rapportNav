@@ -17,10 +17,6 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
-### Symfony binaries
-/bin/console
-/bin/phpunit
-
 ### PHPStorm IDE specific files
 .idea/workspace.xml
 .idea/usage.statistics.xml
