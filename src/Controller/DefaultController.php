@@ -61,7 +61,7 @@ class DefaultController extends AbstractController {
             throw $this->createNotFoundException("No form found");
         }
 
-        $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent());
 
         if(is_null($submission_id)) {
             $submission = new Submission();

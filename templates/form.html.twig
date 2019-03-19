@@ -13,11 +13,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
     <script src="https://surveyjs.azureedge.net/1.0.72/survey.vue.min.js"></script>
     <script type="application/javascript">
-        let surveyJSON = {{ form.data | raw }};
+        let surveyJSON = {{ form.data |json_encode|raw }};
         let survey = new Survey.Model(surveyJSON);
 
         {% if submission is defined %}
-            survey.data = {{ submission.data|raw }};
+            survey.data = {{ submission.data|json_encode|raw }};
         {% endif %}
 
 
@@ -34,7 +34,7 @@
                         'Content-Type': 'application/json'
                     },
                     method: "POST",
-                    body: JSON.stringify(resultAsString)
+                    body: resultAsString
                 })
                 .then(function (res) {
                     console.log(res)
