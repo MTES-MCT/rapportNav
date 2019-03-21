@@ -1,13 +1,30 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link href="https://surveyjs.azureedge.net/1.0.72/survey.css" type="text/css" rel="stylesheet" />
 {% endblock stylesheets %}
-{% block body %}
-    <ul>
-        {% for submission in submissions %}
-            <li>{{ submission.id }} - {{ submission.lastEdition | date('d/m/Y H:i') }} - {{ submission.relatedForm.id }} <a href="{{ path('edit_submission', {'id': submission.id}) }}">edit</a></a> </li>
-        {% endfor %}
-    </ul>
 
-{% endblock body %}
+{% block body_banner %}{% endblock body_banner %}
+{% block body_main %}
+    <section class="section">
+        <div class="container">
+            <div class="row grid">
+                {% for submission in submissions %}
+                    <div class="card">
+                        <div class="card__content">
+                            <h3>{{ submission.relatedForm.name }}</h3>
+                            <div class="card__meta">
+                                <span>Edité le : {{ submission.lastEdition |date }}</span>
+                            </div>
+                            <div class="card__extra">
+                                <a class="button" href="{{ path('edit_submission', {'id': submission.id }) }}">Éditer</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock body_main %}

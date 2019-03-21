@@ -1,14 +1,22 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link href="https://surveyjs.azureedge.net/1.0.72/survey.css" type="text/css" rel="stylesheet"/>
+    <style>
+        form {
+            max-width: 100%;
+        }
+    </style>
 {% endblock stylesheets %}
-{% block body %}
-    <div id="surveyContainer">
+
+{% block body_banner %}{% endblock body_banner %}
+{% block body_main %}
+    <div id="surveyContainer" class="container">
         <survey :survey="survey"></survey>
     </div>
 
-{% endblock body %}
+{% endblock body_main %}
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
     <script src="https://surveyjs.azureedge.net/1.0.72/survey.vue.min.js"></script>

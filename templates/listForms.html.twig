@@ -1,13 +1,30 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
-    <link href="https://surveyjs.azureedge.net/1.0.72/survey.css" type="text/css" rel="stylesheet" />
+    {{ parent() }}
+    <link href="https://surveyjs.azureedge.net/1.0.72/survey.css" type="text/css" rel="stylesheet"/>
 {% endblock stylesheets %}
-{% block body %}
-    <ul>
-        {% for form in forms %}
-            <li><a href="{{ path('show_form', {'id': form.id }) }}">{{ form.name }} - V{{ form.version }}</a></li>
-        {% endfor %}
-    </ul>
 
-{% endblock body %}
+{% block body_banner %}{% endblock body_banner %}
+{% block body_main %}
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                {% for form in forms %}
+                    <div class="card">
+                        <div class="card__content">
+                            <h3>{{ form.name }}</h3>
+                            <div class="card__meta">
+                                <span>Version {{ form.version }}</span>
+                            </div>
+                            <div class="card__extra">
+                                <a class="button" href="{{ path('show_form', {'id': form.id }) }}">Compléter</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock body_main %}
