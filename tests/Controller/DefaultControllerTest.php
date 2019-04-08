@@ -3,14 +3,10 @@
 namespace App\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
-use App\DataFixtures\FormFixture;
 
 class DefaultControllerTest extends WebTestCase {
 
     public function setUp() {
-        $this->loadFixtures([
-            FormFixture::class,
-        ]);
     }
 
     /**
@@ -23,50 +19,32 @@ class DefaultControllerTest extends WebTestCase {
         $this->assertStatusCode(302, $client);
     }
 
-/**
-     * Testing form display
+    /**
+     * Testing form display and submission
      */
-    public function testShowForm() {
+    public function testRapportControlePeche() {
         $client = $this->makeClient();
 
-        $client->request('GET', '/show_form/1');
+        //Testing page display
+        $crawler = $client->request('GET', '/controle_peche');
         $this->assertStatusCode(200, $client);
 
-        $client->request('GET', '/show_form/42');
-        $this->assertStatusCode(404, $client);
+        //Testing form submission
+        $form = $crawler->selectButton('Enregistrer')->form();
+        $form->setValues(['controle_peche[dureeMission]' => '185']);
+        $client->submit($form);
+        $this->assertStatusCode(302, $client);
+
     }
 
     /**
-     * Testing submission and submission edit
+     * Testing displaying all forms
      */
-    public function testResults() {
+    public function testListForms() {
         $client = $this->makeClient();
 
-        //Testing new submission
-        $client->request(
-            'POST',
-            '/submit/1',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"question1": "10-12-2019"}');
-
+        $client->request('GET', '/list_forms');
         $this->assertStatusCode(200, $client);
-
-        $this->assertSame('{"status":"success","data":""}', $client->getResponse()->getContent());
-
-        $client->request(
-            'POST',
-            '/submit/1/1',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"question1": "12-12-2019"}');
-
-        $this->assertStatusCode(200, $client);
-
-        $this->assertSame('{"status":"success","data":""}', $client->getResponse()->getContent());
-
     }
 
     /**
@@ -80,12 +58,12 @@ class DefaultControllerTest extends WebTestCase {
     }
 
     /**
-     * Testing displaying all forms
+     * Testing displaying KPI
      */
-    public function testListForms() {
+    public function testShowKpi() {
         $client = $this->makeClient();
 
-        $client->request('GET', '/list_forms');
+        $client->request('GET', '/show_kpi');
         $this->assertStatusCode(200, $client);
     }
 }
