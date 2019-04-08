@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\ControlePeche;
-use App\Entity\Form;
-use App\Entity\Submission;
 use App\Form\ControlePecheType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +38,8 @@ class DefaultController extends AbstractController {
 
        $form->handleRequest($request);
        if($form->isSubmitted() && $form->isValid()) {
-
+           $em->persist($controle);
+           $em->flush();
            return $this->redirectToRoute('list_forms');
        }
 
