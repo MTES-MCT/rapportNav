@@ -6,11 +6,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block head_title %} - Rapportage CibNav{% endblock %}</title>
 
-    {% block stylesheets %}
+    {% block head_stylesheets %}
         {{ encore_entry_link_tags('app') }}
-    {% endblock %}
+    {% endblock head_stylesheets %}
     <!-- Polyfils for IE -->
     <script type="text/javascript">
         if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
@@ -35,7 +35,7 @@
             <ul class="nav__links">
                 <li class="nav__item"><a href="{{ path('list_forms') }}">Ajouter un rapport</a></li>
                 <li class="nav__item"><a href="{{ path('list_submissions') }}">Voir les rapports</a></li>
-                <li class="nav__item"><a href="">Suivi des indicateurs</a></li>
+                <li class="nav__item"><a href="{{ path('show_kpi') }}">Suivi des indicateurs</a></li>
             </ul>
             {% endblock body_header_nav %}
         </nav>

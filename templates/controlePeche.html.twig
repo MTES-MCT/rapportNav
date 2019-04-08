@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+
+{% block head_stylesheets %}
+    {{ parent() }}
+{% endblock head_stylesheets %}
+
+{% block head_title %}Contrôle des pêches {{ parent() }}{% endblock head_title %}
+
+{% block body_banner %}{% endblock body_banner %}
+{% block body_main %}
+
+    <h1>Contrôle des pêches</h1>
+
+    {{ form_start(form) }}
+
+    <div class="form__group">
+        {{ form_label(form.dateMission) }}
+        {{ form_errors(form.dateMission) }}
+        {{ form_widget(form.dateMission) }}
+    </div>
+
+    <div class="form__group">
+        {{ form_label(form.typeControle) }}
+        {{ form_errors(form.typeControle) }}
+        {{ form_widget(form.typeControle) }}
+    </div>
+
+    <div class="form__group">
+        <fieldset>
+            <legend>{{ form_label(form.agents) }}</legend>
+            {{ form_errors(form.agents) }}
+            {% for box in form.agents %}
+            {{ form_widget(box) }}
+            {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+            {% endfor %}
+        </fieldset>
+    </div>
+    <br>
+
+    <div class="form__group">
+        {{ form_label(form.lieuMission) }}
+        {{ form_errors(form.lieuMission) }}
+        {{ form_widget(form.lieuMission) }}
+    </div>
+
+    <div class="form__group">
+        {{ form_label(form.zoneMission) }}
+        {{ form_errors(form.zoneMission) }}
+        {{ form_widget(form.zoneMission) }}
+    </div>
+
+    <div class="form__group">
+        {{ form_label(form.dureeMission) }}
+        {{ form_errors(form.dureeMission) }}
+        {{ form_widget(form.dureeMission) }}
+    </div>
+
+    <div class="form__group">
+        <fieldset>
+            <legend>{{ form_label(form.moyens) }}</legend>
+            {{ form_errors(form.moyens) }}
+            {% for box in form.moyens %}
+                {{ form_widget(box) }}
+                {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+            {% endfor %}
+        </fieldset>
+    </div>
+    <br>
+
+    {{ form_rest(form) }}
+
+    {{ form_end(form) }}
+
+    <br>
+    <br>
+
+{% endblock body_main %}
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+{% endblock javascripts %}
