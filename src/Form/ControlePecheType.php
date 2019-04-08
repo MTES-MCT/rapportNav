@@ -3,17 +3,17 @@
 namespace App\Form;
 
 use App\Entity\ControlePeche;
+use App\Entity\Navire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ControlePecheType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class ControlePecheType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('dateMission')
             ->add('typeControle', ChoiceType::class, ['choices' => ['Ciblé' => 0, 'Ciblé manuellement' => 1, 'Aléatoire' => 2, 'Opportunité' => 3], 'multiple' => false, 'expanded' => false])
@@ -22,13 +22,18 @@ class ControlePecheType extends AbstractType
             ->add('zoneMission', ChoiceType::class, ['choices' => ['Rade LO' => 0, 'Groix et courreaux' => 1, 'Rives Etel' => 2, 'Ouest Quiberon' => 3], 'multiple' => false, 'expanded' => false])
             ->add('dureeMission', NumberType::class)
             ->add('moyens', null, ['multiple' => true, 'expanded' => true])
+            ->add('navires', CollectionType::class, [
+                'entry_type' => SimpleControleNavireType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'label' => false,
+            ])
             ->add('commentaire')
-            ->add('Enregistrer', SubmitType::class)
-        ;
+            ->add('Enregistrer', SubmitType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => ControlePeche::class,
         ]);

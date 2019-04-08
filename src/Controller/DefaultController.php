@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\ControleNavire;
 use App\Entity\ControlePeche;
 use App\Form\ControlePecheType;
+use \DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use \Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,22 +31,29 @@ class DefaultController extends AbstractController {
      * @return RedirectResponse|Response
      */
     public function rapportControlePeche(Request $request, EntityManagerInterface $em) {
-       $controle = new ControlePeche();
+        $controle = new ControlePeche();
 
-       try{
-           $controle->setDateMission(new \DateTime());
-       } catch(\Exception $e) {}
+        $form = $this->createForm(ControlePecheType::class, $controle);
 
-       $form = $this->createForm(ControlePecheType::class, $controle);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($controle);
+            $em->flush();
+            return $this->redirectToRoute('list_forms');
+        }
 
-       $form->handleRequest($request);
-       if($form->isSubmitted() && $form->isValid()) {
-           $em->persist($controle);
-           $em->flush();
-           return $this->redirectToRoute('list_forms');
-       }
+        //Setting default values on new form
+        if(!$form->isSubmitted()) {
+            
+            $form->get('navires')->setData([new ControleNavire()]);
+        }
+        try {
+            $form->get('dateMission')->setData(new DateTime());
+        } catch(Exception $e) {
+        }
 
-       return $this->render('controlePeche.html.twig', ['form' => $form->createView()]);
+
+        return $this->render('controlePeche.html.twig', ['form' => $form->createView()]);
     }
 
     /**

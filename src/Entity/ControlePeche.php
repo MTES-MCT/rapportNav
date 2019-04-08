@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ControlePecheRepository")
@@ -57,6 +58,12 @@ class ControlePeche {
      */
     private $commentaire;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ControleNavire", mappedBy="controle", cascade={"persist"})
+     * @Assert\Valid
+     */
+    private $navires;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -64,6 +71,7 @@ class ControlePeche {
     public function __construct() {
         $this->agents = new ArrayCollection();
         $this->moyens = new ArrayCollection();
+        $this->navires = new ArrayCollection();
     }
 
     public function getDateMission(): ?\DateTimeInterface {
@@ -171,4 +179,33 @@ class ControlePeche {
 
         return $this;
     }
+
+    /**
+     * @return Collection|ControleNavire[]
+     */
+    public function getNavires(): Collection {
+        return $this->navires;
+    }
+
+    public function addNavire(ControleNavire $navire): self {
+        if(!$this->navires->contains($navire)) {
+            $this->navires[] = $navire;
+            $navire->setControle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNavire(ControleNavire $navire): self {
+        if($this->navires->contains($navire)) {
+            $this->navires->removeElement($navire);
+            // set the owning side to null (unless already changed)
+            if($navire->getControle() === $this) {
+                $navire->setControle(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
