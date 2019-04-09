@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SimpleNavireType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('immatriculation_fr', TextType::class)
+            ->add('immatriculation_fr', TextType::class, ['attr' => ['class' => "immatriculation_fr"]])
             ->add('nom', TextType::class)
             ->add('longueurHorsTout', NumberType::class);
     }

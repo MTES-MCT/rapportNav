@@ -30,8 +30,8 @@
             <legend>{{ form_label(form.agents) }}</legend>
             {{ form_errors(form.agents) }}
             {% for box in form.agents %}
-            {{ form_widget(box) }}
-            {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+                {{ form_widget(box) }}
+                {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
             {% endfor %}
         </fieldset>
     </div>
@@ -117,7 +117,7 @@
             var $removeFormButton = $('<button type="button">Supprimer ce contrôle</button>');
             $navireFormLi.append($removeFormButton);
 
-            $removeFormButton.on('click', function(e) {
+            $removeFormButton.on('click', function (e) {
                 // remove the li for the Navires form
                 $navireFormLi.remove();
             });
@@ -130,12 +130,12 @@
         var $addTagButton = $('<button type="button" class="add_navire_link">Ajouter un navire contrôlé</button>');
         var $newLinkLi = $('<li></li>').append($addTagButton);
 
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             // Get the ul that holds the collection of Navires
             $collectionHolder = $('ul.navires');
 
             // add a delete link to all of the existing Navire form li elements
-            $collectionHolder.find('li').each(function() {
+            $collectionHolder.find('li').each(function () {
                 addTagFormDeleteLink($(this));
             });
 
@@ -145,10 +145,21 @@
             // keep index count up-to-date
             $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-            $addTagButton.on('click', function(e) {
+            $addTagButton.on('click', function (e) {
                 // add a new Navire form (see next code block)
                 addTagForm($collectionHolder, $newLinkLi);
             });
+
+            $('.immatriculation_fr').on('focusout', function () {
+                var input = $(this);
+                $.get("http://localhost:8080/api/navires/" + $(this).val()).done(function (data) {
+                    console.log(data.numImmatFrancais + "-" + data.nomNavire);
+                    input.parents("li").find("input[id$=_navire_nom]").val(data.nomNavire);
+                    input.parents("li").find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout)
+                })
+            })
+
         });
+
     </script>
 {% endblock javascripts %}
