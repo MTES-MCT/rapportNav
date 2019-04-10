@@ -111,6 +111,7 @@
             var $newFormLi = $('<li></li>').append(newForm);
             $newLinkLi.before($newFormLi);
             addTagFormDeleteLink($newFormLi);
+            $('.immatriculation_fr').last().on('focusout', navireDataComplete);
         }
 
         function addTagFormDeleteLink($navireFormLi) {
@@ -123,8 +124,32 @@
             });
         }
 
+        function navireDataComplete() {
+            var input = $(this);
+            $.get("http://localhost:8080/api/navires/" + $(this).val())
+                .done(function (data) {
+                    input.parents("li").find("input[id$=_navire_nom]").val(data.nomNavire);
+                    input.parents("li").find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout);
+                    input.parents("li").find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur);
+                    if(input.parent().find(".immatriculation_invalide")) {
+                        input.parent().find(".immatriculation_invalide").remove();
+                    }
+                })
+                .fail(function (data) {
+                    if(data.status  === 404) {
+                        input.parent().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
+                        input.parents("li").find("input[id$=_navire_nom]").val("");
+                        input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
+                        input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
+                    } else {
+                        console.log(data.status);
+                    }
+                })
+        }
 
-        var $collectionHolder;
+
+
+            var $collectionHolder;
 
         // setup an "Ajouter un navire contrôlé" link
         var $addTagButton = $('<button type="button" class="add_navire_link">Ajouter un navire contrôlé</button>');
@@ -150,23 +175,7 @@
                 addTagForm($collectionHolder, $newLinkLi);
             });
 
-            $('.immatriculation_fr').on('focusout', function () {
-                var input = $(this);
-                $.get("http://localhost:8080/api/navires/" + $(this).val())
-                    .done(function (data) {
-                        input.parents("li").find("input[id$=_navire_nom]").val(data.nomNavire);
-                        input.parents("li").find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout)
-                        input.parents("li").find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur)
-                    })
-                    .fail(function (data) {
-                        console.log(data);
-                        if(data.status  === 404) {
-                            console.log("Immatriculation non trouvée");
-                        } else {
-                            console.log(data.status);
-                        }
-                    })
-            })
+            $('.immatriculation_fr').on('focusout', navireDataComplete);
 
         });
 
