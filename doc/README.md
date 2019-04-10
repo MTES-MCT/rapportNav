@@ -6,6 +6,7 @@ PHP7.2
 php7.2-xml
 php7.2-zip
 php7.2-pgsql
+php7.2-intl
 PostGreSQL >=9.4 (because of use of JSONB), used 10.6 (dev, change in `config/packages/doctrine.yaml` if required)
 For testes SQLite and php_sqlite are required. 
 

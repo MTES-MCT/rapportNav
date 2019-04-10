@@ -14,9 +14,15 @@ class SimpleControleNavireType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('navire', SimpleNavireType::class, ['label' => false,])
-            ->add('pv', CheckboxType::class, ['required' => false])
-            ->add('natinf', TextType::class, ['required' => false])
-            ->add('commentaire', TextType::class, ['required' => false])
+            ->add('pv', CheckboxType::class, [
+                'required' => false,
+                'label' => "PV émis ?"])
+            ->add('natinf', TextType::class, [
+                'required' => false,
+                'label' => "Code(s) NATINF "])
+            ->add('commentaire', TextType::class, [
+                'required' => false,
+                'label' => "Notes et commentaires"])
         ;
     }
 

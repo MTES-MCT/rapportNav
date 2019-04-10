@@ -13,9 +13,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SimpleNavireType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('immatriculation_fr', TextType::class, ['attr' => ['class' => "immatriculation_fr"]])
-            ->add('nom', TextType::class, ['attr' => ['disabled' => ""]])
-            ->add('longueurHorsTout', NumberType::class, ['attr' => ['disabled' => ""]])
+            ->add('immatriculation_fr', TextType::class, [
+                'attr' => ['class' => "immatriculation_fr"],
+                'label' => "Immatriculation du navire"])
+            ->add('nom', TextType::class, [
+                'attr' => ['disabled' => ""],
+            'label' => "Nom du navire (se complète automatiquement)"])
+            ->add('longueurHorsTout', NumberType::class, [
+                'attr' => ['disabled' => ""],
+                'label' => "Longueur (se complète automatiquement)"])
             ->add('idNavFloteur', HiddenType::class)
         ;
     }
