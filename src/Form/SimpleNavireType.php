@@ -14,8 +14,8 @@ class SimpleNavireType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('immatriculation_fr', TextType::class, ['attr' => ['class' => "immatriculation_fr"]])
-            ->add('nom', TextType::class)
-            ->add('longueurHorsTout', NumberType::class)
+            ->add('nom', TextType::class, ['attr' => ['disabled' => ""]])
+            ->add('longueurHorsTout', NumberType::class, ['attr' => ['disabled' => ""]])
             ->add('idNavFloteur', HiddenType::class)
         ;
     }

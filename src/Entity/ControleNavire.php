@@ -35,6 +35,16 @@ class ControleNavire {
      */
     private $pv;
 
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    private $natinf;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $commentaire;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -65,6 +75,30 @@ class ControleNavire {
 
     public function setControle(?ControlePeche $controle): self {
         $this->controle = $controle;
+
+        return $this;
+    }
+
+    public function getNatinf(): ?string
+    {
+        return $this->natinf;
+    }
+
+    public function setNatinf(?string $natinf): self
+    {
+        $this->natinf = $natinf;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?string $commentaire): self
+    {
+        $this->commentaire = $commentaire;
 
         return $this;
     }
