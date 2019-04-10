@@ -152,11 +152,20 @@
 
             $('.immatriculation_fr').on('focusout', function () {
                 var input = $(this);
-                $.get("http://localhost:8080/api/navires/" + $(this).val()).done(function (data) {
-                    console.log(data.numImmatFrancais + "-" + data.nomNavire);
-                    input.parents("li").find("input[id$=_navire_nom]").val(data.nomNavire);
-                    input.parents("li").find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout)
-                })
+                $.get("http://localhost:8080/api/navires/" + $(this).val())
+                    .done(function (data) {
+                        input.parents("li").find("input[id$=_navire_nom]").val(data.nomNavire);
+                        input.parents("li").find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout)
+                        input.parents("li").find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur)
+                    })
+                    .fail(function (data) {
+                        console.log(data);
+                        if(data.status  === 404) {
+                            console.log("Immatriculation non trouvée");
+                        } else {
+                            console.log(data.status);
+                        }
+                    })
             })
 
         });
