@@ -31,9 +31,9 @@ class ControleNavire {
     private $navire;
 
     /**
-     * @ORM\Column(type="binary")
+     * @ORM\Column(type="boolean")
      */
-    private $pv;
+    private $pv = false;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
