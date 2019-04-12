@@ -7,53 +7,38 @@
 {% block head_title %}Contrôle des pêches {{ parent() }}{% endblock head_title %}
 
 {% block body_banner %}{% endblock body_banner %}
-{% block body_main %}
+{% block body_main_container %}
 
     <h1>Contrôle des pêches</h1>
 
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'style': "max-width: 100%"}}) }}
 
-    <div class="form__group">
-        {{ form_label(form.dateMission) }}
-        {{ form_errors(form.dateMission) }}
-        {{ form_widget(form.dateMission) }}
+    <div class="row">
+        <div class="form__group horizontal_form">
+            {{ form_label(form.dateMission) }}
+            {{ form_errors(form.dateMission) }}
+            {{ form_widget(form.dateMission) }}
+        </div>
+
+        <div class="form__group horizontal_form">
+            {{ form_label(form.typeControle) }}
+            {{ form_errors(form.typeControle) }}
+            {{ form_widget(form.typeControle) }}
+        </div>
+
+        <div class="form__group horizontal_form">
+            <fieldset>
+                <legend>{{ form_label(form.agents) }}</legend>
+                {{ form_errors(form.agents) }}
+                {% for box in form.agents %}
+                    {{ form_widget(box) }}
+                    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+                {% endfor %}
+            </fieldset>
+        </div>
     </div>
 
-    <div class="form__group">
-        {{ form_label(form.typeControle) }}
-        {{ form_errors(form.typeControle) }}
-        {{ form_widget(form.typeControle) }}
-    </div>
-
-    <div class="form__group">
-        <fieldset>
-            <legend>{{ form_label(form.agents) }}</legend>
-            {{ form_errors(form.agents) }}
-            {% for box in form.agents %}
-                {{ form_widget(box) }}
-                {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-            {% endfor %}
-        </fieldset>
-    </div>
     <br>
-
-    <div class="form__group">
-        {{ form_label(form.lieuMission) }}
-        {{ form_errors(form.lieuMission) }}
-        {{ form_widget(form.lieuMission) }}
-    </div>
-
-    <div class="form__group">
-        {{ form_label(form.zoneMission) }}
-        {{ form_errors(form.zoneMission) }}
-        {{ form_widget(form.zoneMission) }}
-    </div>
-
-    <div class="form__group">
-        {{ form_label(form.dureeMission) }}
-        {{ form_errors(form.dureeMission) }}
-        {{ form_widget(form.dureeMission) }}
-    </div>
 
     <div class="form__group">
         <fieldset>
@@ -67,9 +52,67 @@
     </div>
     <br>
 
+    <div class="row">
+        <div class="form__group horizontal_form">
+            {{ form_label(form.lieuMission) }}
+            {{ form_errors(form.lieuMission) }}
+            {{ form_widget(form.lieuMission) }}
+        </div>
+
+        <div class="form__group horizontal_form">
+            {{ form_label(form.zoneMission) }}
+            {{ form_errors(form.zoneMission) }}
+            {{ form_widget(form.zoneMission) }}
+        </div>
+
+        <div class="form__group horizontal_form">
+            {{ form_label(form.dureeMission) }}
+            {{ form_errors(form.dureeMission) }}
+            {{ form_widget(form.dureeMission) }}
+        </div>
+    </div>
+    <br>
+
     <p>Navires contrôlés</p>
-    <ul class="navires" data-prototype="{{ form_widget(form.navires.vars.prototype)|e('html_attr') }}">
-        <li>{{ form_row(form.navires.0) }}</li>
+    <ul class="navires" data-prototype='<div class="form__group horizontal_form">
+{{ form_widget(form.navires.vars.prototype.navire)|e('html_attr') }}
+</div>
+<div class="form__group horizontal_form">
+{{ form_label(form.navires.vars.prototype.pv)|e('html_attr') }}
+{{ form_errors(form.navires.vars.prototype.pv)|e('html_attr') }}
+{{ form_widget(form.navires.vars.prototype.pv)|e('html_attr') }}
+</div>
+<div class="form__group horizontal_form">
+{{ form_label(form.navires.vars.prototype.natinf)|e('html_attr') }}
+{{ form_errors(form.navires.vars.prototype.natinf)|e('html_attr') }}
+{{ form_widget(form.navires.vars.prototype.natinf)|e('html_attr') }}
+</div>
+<div class="form__group horizontal_form">
+{{ form_label(form.navires.vars.prototype.commentaire)|e('html_attr') }}
+{{ form_errors(form.navires.vars.prototype.commentaire)|e('html_attr') }}
+{{ form_widget(form.navires.vars.prototype.commentaire)|e('html_attr') }}
+</div>
+'>
+        <li class="row">
+            <div class="form__group horizontal_form">
+                {{ form_widget(form.navires.0.navire) }}
+            </div>
+            <div class="form__group horizontal_form">
+                {{ form_label(form.navires.0.pv) }}
+                {{ form_errors(form.navires.0.pv) }}
+                {{ form_widget(form.navires.0.pv) }}
+            </div>
+            <div class="form__group horizontal_form">
+                {{ form_label(form.navires.0.natinf) }}
+                {{ form_errors(form.navires.0.natinf) }}
+                {{ form_widget(form.navires.0.natinf) }}
+            </div>
+            <div class="form__group horizontal_form">
+                {{ form_label(form.navires.0.commentaire) }}
+                {{ form_errors(form.navires.0.commentaire) }}
+                {{ form_widget(form.navires.0.commentaire) }}
+            </div>
+        </li>
     </ul>
 
     <br>
@@ -86,7 +129,7 @@
     <br>
     <br>
 
-{% endblock body_main %}
+{% endblock body_main_container %}
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -108,7 +151,7 @@
             $collectionHolder.data('index', index + 1);
 
             // Display the form in the page in an li, before the "Ajouter un navire contrôlé" link li
-            var $newFormLi = $('<li></li>').append(newForm);
+            var $newFormLi = $('<li class="row"></li>').append(newForm);
             $newLinkLi.before($newFormLi);
             addTagFormDeleteLink($newFormLi);
             $('.immatriculation_fr').last().on('focusout', navireDataComplete);
@@ -131,12 +174,12 @@
                     input.parents("li").find("input[id$=_navire_nom]").val(data.nomNavire);
                     input.parents("li").find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout);
                     input.parents("li").find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur);
-                    if(input.parent().find(".immatriculation_invalide")) {
+                    if (input.parent().find(".immatriculation_invalide")) {
                         input.parent().find(".immatriculation_invalide").remove();
                     }
                 })
                 .fail(function (data) {
-                    if(data.status  === 404) {
+                    if (data.status === 404) {
                         input.parent().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
                         input.parents("li").find("input[id$=_navire_nom]").val("");
                         input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
@@ -148,8 +191,7 @@
         }
 
 
-
-            var $collectionHolder;
+        var $collectionHolder;
 
         // setup an "Ajouter un navire contrôlé" link
         var $addTagButton = $('<button type="button" class="add_navire_link">Ajouter un navire contrôlé</button>');

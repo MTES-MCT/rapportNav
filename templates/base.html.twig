@@ -54,6 +54,10 @@
 
 <main role="main">
     {% block body_main %}
+        <div class="container">
+            {% block body_main_container %}
+            {% endblock body_main_container %}
+        </div>
     {% endblock body_main %}
 </main>
 

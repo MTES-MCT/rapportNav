@@ -4,6 +4,6 @@
  */
 
 // CSS files
-require('../css/app.css');
 require('../css/template.css');
+require('../css/app.css');
 
