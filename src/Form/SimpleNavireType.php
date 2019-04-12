@@ -17,10 +17,10 @@ class SimpleNavireType extends AbstractType {
                 'attr' => ['class' => "immatriculation_fr"],
                 'label' => "Immatriculation du navire"])
             ->add('nom', TextType::class, [
-                'attr' => ['disabled' => ""],
+                'attr' => ['readonly' =>  true],
             'label' => "Nom du navire (se complète automatiquement)"])
             ->add('longueurHorsTout', NumberType::class, [
-                'attr' => ['disabled' => ""],
+                'attr' => ['readonly' => true],
                 'label' => "Longueur (se complète automatiquement)"])
             ->add('idNavFloteur', HiddenType::class)
         ;

@@ -93,26 +93,28 @@
 {{ form_widget(form.navires.vars.prototype.commentaire)|e('html_attr') }}
 </div>
 '>
+        {% for navireControle in form.navires %}
         <li class="row">
             <div class="form__group horizontal_form">
-                {{ form_widget(form.navires.0.navire) }}
+                {{ form_widget(navireControle.navire) }}
             </div>
             <div class="form__group horizontal_form">
-                {{ form_label(form.navires.0.pv) }}
-                {{ form_errors(form.navires.0.pv) }}
-                {{ form_widget(form.navires.0.pv) }}
+                {{ form_label(navireControle.pv) }}
+                {{ form_errors(navireControle.pv) }}
+                {{ form_widget(navireControle.pv) }}
             </div>
             <div class="form__group horizontal_form">
-                {{ form_label(form.navires.0.natinf) }}
-                {{ form_errors(form.navires.0.natinf) }}
-                {{ form_widget(form.navires.0.natinf) }}
+                {{ form_label(navireControle.natinf) }}
+                {{ form_errors(navireControle.natinf) }}
+                {{ form_widget(navireControle.natinf) }}
             </div>
             <div class="form__group horizontal_form">
-                {{ form_label(form.navires.0.commentaire) }}
-                {{ form_errors(form.navires.0.commentaire) }}
-                {{ form_widget(form.navires.0.commentaire) }}
+                {{ form_label(navireControle.commentaire) }}
+                {{ form_errors(navireControle.commentaire) }}
+                {{ form_widget(navireControle.commentaire) }}
             </div>
         </li>
+        {% endfor %}
     </ul>
 
     <br>
