@@ -54,8 +54,6 @@ class DefaultController extends AbstractController {
         } catch(Exception $e) {
         }
 
-        dump($controle);
-
         return $this->render('controlePeche.html.twig', ['form' => $form->createView()]);
     }
 
@@ -94,7 +92,9 @@ class DefaultController extends AbstractController {
             $em->persist($controle);
             $em->flush();
 
-            return $this->redirectToRoute('edit_controle_des_peches', ['id_edit' => $id_edit]);
+            $this->addFlash("success", "Modification enregistrée");
+
+            return $this->redirectToRoute('list_submissions');
         }
 
         return $this->render('controlePeche.html.twig', ['form' => $editForm->createView()]);
@@ -120,7 +120,11 @@ class DefaultController extends AbstractController {
      */
     public function listSubmission(EntityManagerInterface $em) {
 
-        return $this->render('listSubmissions.html.twig');
+        $controlePeche = $em->getRepository('App:ControlePeche')->findBy([], ['dateMission' => "DESC"], 16);
+
+        $list = ['Contrôle des pêches' => $controlePeche];
+
+        return $this->render('listSubmissions.html.twig', ['list' => $list]);
 
     }
 

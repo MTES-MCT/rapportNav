@@ -54,6 +54,15 @@
 
 <main role="main">
     {% block body_main %}
+        <div class="notifications">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="notification {{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
         <div class="container">
             {% block body_main_container %}
             {% endblock body_main_container %}

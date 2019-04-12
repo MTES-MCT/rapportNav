@@ -5,10 +5,18 @@
 {% endblock head_stylesheets %}
 
 {% block body_banner %}{% endblock body_banner %}
-{% block body_main %}
-    <section class="section">
-        <div class="container">
-        </div>
-    </section>
+{% block body_main_container %}
 
-{% endblock body_main %}
+    <ul>
+        {% for typeName, type in list %}
+            <li>{{ typeName }}
+                <ul>
+                    {% for submission in type %}
+                        <li><a href="{{ path('edit_controle_des_peches', {'id_edit': submission.id}) }}">Mission du {{ submission.dateMission | date('d/m/Y') }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock body_main_container %}
