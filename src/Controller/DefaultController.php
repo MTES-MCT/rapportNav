@@ -41,7 +41,8 @@ class DefaultController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()) {
             $em->persist($controle);
             $em->flush();
-            return $this->redirectToRoute('list_forms');
+            $this->addFlash("success", "Rapport enregistré");
+            return $this->redirectToRoute('list_submissions');
         }
 
         //Setting default values on new form
