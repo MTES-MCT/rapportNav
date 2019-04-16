@@ -55,7 +55,6 @@ class ControlePecheType extends AbstractType {
             ])
             ->add('commentaire', null, [
                 'label' => "Commentaires et remarques (pour note interne)"])
-            ->add('Enregistrer', SubmitType::class)
         ;
     }
 

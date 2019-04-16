@@ -94,7 +94,7 @@
 </div>
 '>
         {% for navireControle in form.navires %}
-            <li class="row">
+            <li class="row navire">
                 <div class="form__group horizontal_form">
                     {{ form_widget(navireControle.navire) }}
                 </div>
@@ -124,7 +124,12 @@
         {{ form_errors(form.commentaire) }}
         {{ form_widget(form.commentaire) }}
     </div>
+
     {{ form_rest(form) }}
+
+    <br>
+
+    <input type="submit" value="Enregistrer" class="button">
 
     {{ form_end(form) }}
 
@@ -153,7 +158,7 @@
             $collectionHolder.data('index', index + 1);
 
             // Display the form in the page in an li, before the "Ajouter un navire contrôlé" link li
-            var $newFormLi = $('<li class="row"></li>').append(newForm);
+            var $newFormLi = $('<li class="row navire"></li>').append(newForm);
             $newLinkLi.before($newFormLi);
             addTagFormDeleteLink($newFormLi);
             $('.immatriculation_fr').last().on('focusout', navireDataComplete);
@@ -184,12 +189,14 @@
                     if(input.parent().find(".immatriculation_invalide")) {
                         input.parent().find(".immatriculation_invalide").remove();
                     }
+
                     if (data.status === 404) {
                         input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
                     } else {
                         console.log(data.status);
                         input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
                     }
+
                     input.parents("li").find("input[id$=_navire_nom]").val("");
                     input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
                     input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
@@ -200,7 +207,7 @@
         var $collectionHolder;
 
         // setup an "Ajouter un navire contrôlé" link
-        var $addTagButton = $('<button type="button" class="add_navire_link">Ajouter un navire contrôlé</button>');
+        var $addTagButton = $('<button type="button" class="add_navire_link button">Ajouter un navire contrôlé</button>');
         var $newLinkLi = $('<li></li>').append($addTagButton);
 
         jQuery(document).ready(function () {
@@ -208,7 +215,7 @@
             $collectionHolder = $('ul.navires');
 
             // add a delete link to all of the existing Navire form li elements
-            $collectionHolder.find('li').each(function () {
+            $collectionHolder.find('li.navire').each(function () {
                 addTagFormDeleteLink($(this));
             });
 
