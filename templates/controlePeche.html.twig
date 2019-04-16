@@ -94,26 +94,26 @@
 </div>
 '>
         {% for navireControle in form.navires %}
-        <li class="row">
-            <div class="form__group horizontal_form">
-                {{ form_widget(navireControle.navire) }}
-            </div>
-            <div class="form__group horizontal_form">
-                {{ form_label(navireControle.pv) }}
-                {{ form_errors(navireControle.pv) }}
-                {{ form_widget(navireControle.pv) }}
-            </div>
-            <div class="form__group horizontal_form">
-                {{ form_label(navireControle.natinf) }}
-                {{ form_errors(navireControle.natinf) }}
-                {{ form_widget(navireControle.natinf) }}
-            </div>
-            <div class="form__group horizontal_form">
-                {{ form_label(navireControle.commentaire) }}
-                {{ form_errors(navireControle.commentaire) }}
-                {{ form_widget(navireControle.commentaire) }}
-            </div>
-        </li>
+            <li class="row">
+                <div class="form__group horizontal_form">
+                    {{ form_widget(navireControle.navire) }}
+                </div>
+                <div class="form__group horizontal_form">
+                    {{ form_label(navireControle.pv) }}
+                    {{ form_errors(navireControle.pv) }}
+                    {{ form_widget(navireControle.pv) }}
+                </div>
+                <div class="form__group horizontal_form">
+                    {{ form_label(navireControle.natinf) }}
+                    {{ form_errors(navireControle.natinf) }}
+                    {{ form_widget(navireControle.natinf) }}
+                </div>
+                <div class="form__group horizontal_form">
+                    {{ form_label(navireControle.commentaire) }}
+                    {{ form_errors(navireControle.commentaire) }}
+                    {{ form_widget(navireControle.commentaire) }}
+                </div>
+            </li>
         {% endfor %}
     </ul>
 
@@ -181,14 +181,18 @@
                     }
                 })
                 .fail(function (data) {
+                    if(input.parent().find(".immatriculation_invalide")) {
+                        input.parent().find(".immatriculation_invalide").remove();
+                    }
                     if (data.status === 404) {
-                        input.parent().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
-                        input.parents("li").find("input[id$=_navire_nom]").val("");
-                        input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
-                        input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
+                        input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
                     } else {
                         console.log(data.status);
+                        input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
                     }
+                    input.parents("li").find("input[id$=_navire_nom]").val("");
+                    input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
+                    input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
                 })
         }
 
