@@ -49,10 +49,11 @@ class DefaultController extends AbstractController {
         if(!$form->isSubmitted()) {
 
             $form->get('navires')->setData([new ControleNavire()]);
-        }
-        try {
-            $form->get('dateMission')->setData(new DateTime());
-        } catch(Exception $e) {
+
+            try {
+                $form->get('dateMission')->setData(new DateTime());
+            } catch(Exception $e) {
+            }
         }
 
         return $this->render('controlePeche.html.twig', ['form' => $form->createView()]);
