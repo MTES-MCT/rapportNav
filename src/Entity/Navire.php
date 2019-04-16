@@ -24,8 +24,10 @@ class Navire {
     private $immatriculation_fr;
 
     /**
-     * Identifiant du référentiel Floteurs
+     * Identifiant du référentiel Flotteur
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type(type="integer")
      */
     private $id_nav_floteur;
 
@@ -38,6 +40,7 @@ class Navire {
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $longueurHorsTout;
 

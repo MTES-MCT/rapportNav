@@ -32,6 +32,7 @@ class ControleNavire {
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\Type(type="bool")
      */
     private $pv = false;
 

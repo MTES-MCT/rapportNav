@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,36 +21,48 @@ class ControlePeche {
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank
+     *
+     * @var DateTimeInterface
      */
     private $dateMission;
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\NotBlank()
+     *
      */
     private $typeControle;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Agent")
+     * @Assert\NotBlank()
+     * @Assert\Count(min = 1, minMessage = "Vous devez selectionner au moins un agent")
      */
     private $agents;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Moyen")
+     * @Assert\NotBlank()
      */
     private $moyens;
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\NotBlank()
      */
     private $lieuMission;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $zoneMission;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\GreaterThan(value="9", message="Cette valeur doit être en minutes")
      */
     private $dureeMission;
 
@@ -74,11 +87,11 @@ class ControlePeche {
         $this->navires = new ArrayCollection();
     }
 
-    public function getDateMission(): ?\DateTimeInterface {
+    public function getDateMission(): ?DateTimeInterface {
         return $this->dateMission;
     }
 
-    public function setDateMission(\DateTimeInterface $dateMission): self {
+    public function setDateMission(DateTimeInterface $dateMission): self {
         $this->dateMission = $dateMission;
 
         return $this;
