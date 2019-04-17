@@ -17,6 +17,12 @@ class RapportBord extends Rapport {
      */
     private $navires;
 
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     */
+    private $typeMission;
+
     public function __construct() {
         parent::__construct();
         $this->navires = new ArrayCollection();
@@ -46,6 +52,16 @@ class RapportBord extends Rapport {
                 $navire->setRapport(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTypeMission(): ?int {
+        return $this->typeMission;
+    }
+
+    public function setTypeMission(int $typeMission): self {
+        $this->typeMission = $typeMission;
 
         return $this;
     }

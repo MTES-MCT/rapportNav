@@ -31,6 +31,11 @@ class RapportNavire {
     private $navire;
 
     /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $controles;
+
+    /**
      * @ORM\Column(type="boolean")
      * @Assert\Type(type="bool")
      */
@@ -100,6 +105,18 @@ class RapportNavire {
     public function setCommentaire(?string $commentaire): self
     {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getControles(): ?array
+    {
+        return $this->controles;
+    }
+
+    public function setControles(?array $controles): self
+    {
+        $this->controles = $controles;
 
         return $this;
     }

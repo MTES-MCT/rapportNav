@@ -64,6 +64,12 @@
         </div>
 
         <div class="form__group horizontal_form">
+            {{ form_label(form.arme) }}
+            {{ form_errors(form.arme) }}
+            {{ form_widget(form.arme) }}
+        </div>
+
+        <div class="form__group horizontal_form">
             {{ form_label(form.dureeMission) }}
             {{ form_errors(form.dureeMission) }}
             {{ form_widget(form.dureeMission) }}

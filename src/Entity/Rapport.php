@@ -63,6 +63,12 @@ abstract class Rapport {
     private $zoneMission;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @Assert\Type(type="bool")
+     */
+    private $arme;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\GreaterThan(value="9", message="Cette valeur doit être en minutes")
@@ -185,6 +191,16 @@ abstract class Rapport {
 
     public function setCommentaire(?string $commentaire): self {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getArme(): ?bool {
+        return $this->arme;
+    }
+
+    public function setArme(bool $arme): self {
+        $this->arme = $arme;
 
         return $this;
     }

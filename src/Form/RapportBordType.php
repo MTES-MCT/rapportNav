@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Rapport;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -26,6 +27,13 @@ class RapportBordType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Agents embauchés sur la mission"])
+            ->add('typeMission', ChoiceType::class, [
+                'choices' => ['Contrôle de navire(s)' => 0, 'Visite de sécurité' => 1],
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+                'placeholder' => '',
+                'label' => "Type de mission"])
             ->add('lieuMission', ChoiceType::class, [
                 'choices' => ['Mer' => 0, 'Terre' => 1],
                 'multiple' => false,
@@ -38,6 +46,9 @@ class RapportBordType extends AbstractType {
                 'expanded' => false,
                 'placeholder' => '',
                 'label' => "Zone de la mission"])
+            ->add('arme', CheckboxType::class, [
+                'required' => false,
+                'label' => "Mission armée ?"])
             ->add('dureeMission', IntegerType::class, [
                 'required' => true,
                 'label' => "Durée de la mission (en minutes)"])

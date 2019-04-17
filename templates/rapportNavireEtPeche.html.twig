@@ -6,12 +6,23 @@
 
 {% block body_main_container_rapport_objects %}
 
+    <div class="form__group horizontal_form">
+        {{ form_label(form.typeMission) }}
+        {{ form_errors(form.typeMission) }}
+        {{ form_widget(form.typeMission) }}
+    </div>
+
     <p>Navires contrôlés</p>
     <ul class="navires" data-prototype='
         <div class="form__group horizontal_form">
             {{ form_widget(form.navires.vars.prototype.navire)|e('html_attr') }}
         </div>
         <div class="form__group horizontal_form">
+            {{ form_label(form.navires.vars.prototype.controles)|e('html_attr') }}
+            {{ form_errors(form.navires.vars.prototype.controles)|e('html_attr') }}
+            {{ form_widget(form.navires.vars.prototype.controles)|e('html_attr') }}
+        </div>
+<div class="form__group horizontal_form">
             {{ form_label(form.navires.vars.prototype.pv)|e('html_attr') }}
             {{ form_errors(form.navires.vars.prototype.pv)|e('html_attr') }}
             {{ form_widget(form.navires.vars.prototype.pv)|e('html_attr') }}
@@ -31,6 +42,11 @@
             <li class="row navire">
                 <div class="form__group horizontal_form">
                     {{ form_widget(navireControle.navire) }}
+                </div>
+                <div class="form__group horizontal_form">
+                    {{ form_label(navireControle.controles) }}
+                    {{ form_errors(navireControle.controles) }}
+                    {{ form_widget(navireControle.controles) }}
                 </div>
                 <div class="form__group horizontal_form">
                     {{ form_label(navireControle.pv) }}

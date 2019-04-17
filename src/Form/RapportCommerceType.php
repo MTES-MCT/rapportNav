@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Rapport;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -38,6 +39,9 @@ class RapportCommerceType extends AbstractType {
                 'expanded' => false,
                 'placeholder' => '',
                 'label' => "Zone de la mission"])
+            ->add('arme', CheckboxType::class, [
+                'required' => false,
+                'label' => "Mission armée ?"])
             ->add('dureeMission', IntegerType::class, [
                 'required' => true,
                 'label' => "Durée de la mission (en minutes)"])
