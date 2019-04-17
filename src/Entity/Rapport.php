@@ -10,8 +10,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RapportRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"bord" = "RapportBord", "commerce" = "RapportCommerce"})
  */
-class Rapport {
+abstract class Rapport {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -32,7 +35,7 @@ class Rapport {
      * @Assert\NotBlank()
      *
      */
-    private $typeControle;
+    private $typeRapport;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Agent")
@@ -71,12 +74,6 @@ class Rapport {
      */
     private $commentaire;
 
-    /**
-     * @ORM\OneToMany(targetEntity="RapportNavire", mappedBy="controle", cascade={"persist"})
-     * @Assert\Valid
-     */
-    private $navires;
-
     public function getId(): ?int {
         return $this->id;
     }
@@ -84,7 +81,6 @@ class Rapport {
     public function __construct() {
         $this->agents = new ArrayCollection();
         $this->moyens = new ArrayCollection();
-        $this->navires = new ArrayCollection();
     }
 
     public function getDateMission(): ?DateTimeInterface {
@@ -97,12 +93,12 @@ class Rapport {
         return $this;
     }
 
-    public function getTypeControle(): ?int {
-        return $this->typeControle;
+    public function getTypeRapport(): ?int {
+        return $this->typeRapport;
     }
 
-    public function setTypeControle(int $typeControle): self {
-        $this->typeControle = $typeControle;
+    public function setTypeRapport(int $typeRapport): self {
+        $this->typeRapport = $typeRapport;
 
         return $this;
     }
@@ -189,34 +185,6 @@ class Rapport {
 
     public function setCommentaire(?string $commentaire): self {
         $this->commentaire = $commentaire;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|RapportNavire[]
-     */
-    public function getNavires(): Collection {
-        return $this->navires;
-    }
-
-    public function addNavire(RapportNavire $navire): self {
-        if(!$this->navires->contains($navire)) {
-            $this->navires[] = $navire;
-            $navire->setControle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNavire(RapportNavire $navire): self {
-        if($this->navires->contains($navire)) {
-            $this->navires->removeElement($navire);
-            // set the owning side to null (unless already changed)
-            if($navire->getControle() === $this) {
-                $navire->setControle(null);
-            }
-        }
 
         return $this;
     }

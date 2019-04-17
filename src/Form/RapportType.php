@@ -16,7 +16,7 @@ class RapportType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('dateMission', DateType::class, ['required' => true, 'label' => "Date de la mission"])
-            ->add('typeControle', ChoiceType::class, [
+            ->add('typeRapport', ChoiceType::class, [
                 'choices' => ['Ciblé' => 0, 'Ciblé manuellement' => 1, 'Aléatoire' => 2, 'Opportunité' => 3],
                 'multiple' => false,
                 'expanded' => false,

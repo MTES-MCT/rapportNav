@@ -17,11 +17,11 @@ class RapportNavire {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Rapport", inversedBy="navires")
+     * @ORM\ManyToOne(targetEntity="RapportBord", inversedBy="navires")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
-    private $controle;
+    private $rapport;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Navire", cascade={"persist"})
@@ -70,12 +70,12 @@ class RapportNavire {
         return $this;
     }
 
-    public function getControle(): ?Rapport {
-        return $this->controle;
+    public function getRapport(): ?Rapport {
+        return $this->rapport;
     }
 
-    public function setControle(?Rapport $controle): self {
-        $this->controle = $controle;
+    public function setRapport(?Rapport $rapport): self {
+        $this->rapport = $rapport;
 
         return $this;
     }
