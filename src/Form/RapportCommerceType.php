@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RapportType extends AbstractType {
+class RapportCommerceType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('dateMission', DateType::class, ['required' => true, 'label' => "Date de la mission"])
@@ -45,8 +45,8 @@ class RapportType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Moyens utilisés"])
-            ->add('navires', CollectionType::class, [
-                'entry_type' => SimpleRapportNavireType::class,
+            ->add('etablissements', CollectionType::class, [
+                'entry_type' => SimpleRapportEtablissementType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -54,8 +54,7 @@ class RapportType extends AbstractType {
                 'label' => false,
             ])
             ->add('commentaire', null, [
-                'label' => "Commentaires et remarques (pour note interne)"])
-        ;
+                'label' => "Commentaires et remarques (pour note interne)"]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

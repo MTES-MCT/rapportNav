@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\RapportBord;
+use App\Entity\RapportEtablissement;
 use App\Entity\RapportNavire;
 use App\Entity\Rapport;
-use App\Form\RapportType;
+use App\Form\RapportBordType;
+use App\Form\RapportCommerceType;
 use \DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use \Exception;
+use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,38 +27,60 @@ class DefaultController extends AbstractController {
     }
 
     /**
-     * @Route("/rapport", name="rapport_create")
+     * @Route("/rapport/{type}", name="rapport_create", requirements={"type":
+     *                           "controle_a_bord|filiere_commercialisation"})
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
      *
      * @return RedirectResponse|Response
      */
-    public function rapportCreate(Request $request, EntityManagerInterface $em) {
-        $controle = new RapportBord();
+    public function rapportCreate(Request $request, EntityManagerInterface $em, string $type) {
 
-        $form = $this->createForm(RapportType::class, $controle);
+        $typeRapportToClass = ['controle_a_bord' => "RapportBord", 'filiere_commercialisation' => "RapportCommerce"];
+
+        $rapportClass = "\\App\\Entity\\".$typeRapportToClass[$type];
+        $formClass = "\\App\\Form\\".$typeRapportToClass[$type]."Type";
+
+        $rapport = new $rapportClass();
+
+        $form = $this->createForm($formClass, $rapport);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            $em->persist($controle);
+            $em->persist($rapport);
             $em->flush();
+
             $this->addFlash("success", "Rapport enregistré");
             return $this->redirectToRoute('list_submissions');
         }
 
         //Setting default values on new form
         if(!$form->isSubmitted()) {
-
-            $form->get('navires')->setData([new RapportNavire()]);
-
             try {
                 $form->get('dateMission')->setData(new DateTime());
             } catch(Exception $e) {
             }
+            switch($type) {
+                case "controle_a_bord":
+                    $form->get('navires')->setData([new RapportNavire()]);
+                    break;
+                case "filiere_commercialisation":
+                    $form->get('etablissements')->setData([new RapportEtablissement()]);
+                    break;
+            }
         }
 
-        return $this->render('controlePeche.html.twig', ['form' => $form->createView()]);
+        switch($type) {
+            case "controle_a_bord":
+                return $this->render('controlePeche.html.twig', ['form' => $form->createView()]);
+                break;
+            case "filiere_commercialisation":
+                return $this->render('rapportCommercialisation.html.twig', ['form' => $form->createView()]);
+                break;
+            default:
+                throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
+        }
     }
 
     /**
@@ -74,20 +98,29 @@ class DefaultController extends AbstractController {
             throw $this->createNotFoundException('Pas de contrôle trouvé avec cet identifiant '.$id_edit);
         }
 
-        $currentNavires = new ArrayCollection();
+        $currentControlledObjects = new ArrayCollection();
+        $getControlledObjects = "";
 
-        foreach($controle->getNavires() as $navire) {
-            $currentNavires->add($navire);
+        if(get_class($controle) === "App\\Entity\\RapportBord") {
+            $getControlledObjects = "getNavires";
+            $formClass = RapportBordType::class;
+        } else {
+            $getControlledObjects = "getEtablissements";
+            $formClass = RapportCommerceType::class;
         }
 
-        $editForm = $this->createForm(RapportType::class, $controle);
+        foreach($controle->$getControlledObjects() as $object) {
+            $currentControlledObjects->add($object);
+        }
+
+        $editForm = $this->createForm($formClass, $controle);
 
         $editForm->handleRequest($request);
 
         if($editForm->isSubmitted() && $editForm->isValid()) {
-            foreach($currentNavires as $navire) {
-                if(false === $controle->getNavires()->contains($navire)) {
-                    $em->remove($navire);
+            foreach($currentControlledObjects as $object) {
+                if(false === $controle->$getControlledObjects()->contains($object)) {
+                    $em->remove($object);
                 }
             }
 
@@ -99,7 +132,16 @@ class DefaultController extends AbstractController {
             return $this->redirectToRoute('list_submissions');
         }
 
-        return $this->render('controlePeche.html.twig', ['form' => $editForm->createView()]);
+        switch($formClass) {
+            case RapportBordType::class:
+                return $this->render('controlePeche.html.twig', ['form' => $editForm->createView()]);
+                break;
+            case RapportCommerceType::class:
+                return $this->render('rapportCommercialisation.html.twig', ['form' => $editForm->createView()]);
+                break;
+            default:
+                throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
+        }
     }
 
     /**
