@@ -1,77 +1,10 @@
-{% extends "base.html.twig" %}
+{% extends "rapport.html.twig" %}
 
-{% block head_stylesheets %}
-    {{ parent() }}
-{% endblock head_stylesheets %}
+{% block head_title %}Contrôle de la filière commercialisation {{ parent() }}{% endblock head_title %}
 
-{% block head_title %}Contrôle des pêches {{ parent() }}{% endblock head_title %}
+{% block body_main_container_title %}Contrôle de la filière commercialisation et d'établissements{% endblock body_main_container_title %}
 
-{% block body_banner %}{% endblock body_banner %}
-{% block body_main_container %}
-
-    <h1>Contrôle des pêches</h1>
-
-    {{ form_start(form, {'attr': {'style': "max-width: 100%"}}) }}
-
-    <div class="row">
-        <div class="form__group horizontal_form">
-            {{ form_label(form.dateMission) }}
-            {{ form_errors(form.dateMission) }}
-            {{ form_widget(form.dateMission) }}
-        </div>
-
-        <div class="form__group horizontal_form">
-            {{ form_label(form.typeRapport) }}
-            {{ form_errors(form.typeRapport) }}
-            {{ form_widget(form.typeRapport) }}
-        </div>
-
-        <div class="form__group horizontal_form">
-            <fieldset>
-                <legend>{{ form_label(form.agents) }}</legend>
-                {{ form_errors(form.agents) }}
-                {% for box in form.agents %}
-                    {{ form_widget(box) }}
-                    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-                {% endfor %}
-            </fieldset>
-        </div>
-    </div>
-
-    <br>
-
-    <div class="form__group">
-        <fieldset>
-            <legend>{{ form_label(form.moyens) }}</legend>
-            {{ form_errors(form.moyens) }}
-            {% for box in form.moyens %}
-                {{ form_widget(box) }}
-                {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-            {% endfor %}
-        </fieldset>
-    </div>
-    <br>
-
-    <div class="row">
-        <div class="form__group horizontal_form">
-            {{ form_label(form.lieuMission) }}
-            {{ form_errors(form.lieuMission) }}
-            {{ form_widget(form.lieuMission) }}
-        </div>
-
-        <div class="form__group horizontal_form">
-            {{ form_label(form.zoneMission) }}
-            {{ form_errors(form.zoneMission) }}
-            {{ form_widget(form.zoneMission) }}
-        </div>
-
-        <div class="form__group horizontal_form">
-            {{ form_label(form.dureeMission) }}
-            {{ form_errors(form.dureeMission) }}
-            {{ form_widget(form.dureeMission) }}
-        </div>
-    </div>
-    <br>
+{% block body_main_container_rapport_objects %}
 
     <p>Établissements contrôlés</p>
     <ul class="etablissements" data-prototype='
@@ -128,31 +61,10 @@
         {% endfor %}
     </ul>
 
-    <br>
+{% endblock body_main_container_rapport_objects %}
 
-    <div class="form__group">
-        {{ form_label(form.commentaire) }}
-        {{ form_errors(form.commentaire) }}
-        {{ form_widget(form.commentaire) }}
-    </div>
-
-    {{ form_rest(form) }}
-
-    <br>
-
-    <input type="submit" value="Enregistrer" class="button">
-
-    {{ form_end(form) }}
-
-    <br>
-    <br>
-
-{% endblock body_main_container %}
 {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
+    {{ parent() }}
     <script>
         function addTagForm($collectionHolder, $newLinkLi) {
             var prototype = $collectionHolder.data('prototype');
