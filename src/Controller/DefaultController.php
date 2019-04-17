@@ -73,7 +73,7 @@ class DefaultController extends AbstractController {
 
         switch($type) {
             case "controle_a_bord":
-                return $this->render('controlePeche.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportNavireEtPeche.html.twig', ['form' => $form->createView()]);
                 break;
             case "filiere_commercialisation":
                 return $this->render('rapportCommercialisation.html.twig', ['form' => $form->createView()]);
@@ -134,7 +134,7 @@ class DefaultController extends AbstractController {
 
         switch($formClass) {
             case RapportBordType::class:
-                return $this->render('controlePeche.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportNavireEtPeche.html.twig', ['form' => $editForm->createView()]);
                 break;
             case RapportCommerceType::class:
                 return $this->render('rapportCommercialisation.html.twig', ['form' => $editForm->createView()]);
