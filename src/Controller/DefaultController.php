@@ -25,14 +25,14 @@ class DefaultController extends AbstractController {
     }
 
     /**
-     * @Route("/controle_peche", name="controle_des_peches")
+     * @Route("/rapport", name="rapport_create")
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
      *
      * @return RedirectResponse|Response
      */
-    public function rapportControlePeche(Request $request, EntityManagerInterface $em) {
+    public function rapportCreate(Request $request, EntityManagerInterface $em) {
         $controle = new Rapport();
 
         $form = $this->createForm(RapportType::class, $controle);
@@ -60,7 +60,7 @@ class DefaultController extends AbstractController {
     }
 
     /**
-     * @Route("/controle_peche/edit/{id_edit}", name="edit_controle_des_peches", requirements={"id_edit": "\d+"})
+     * @Route("/rapport/edit/{id_edit}", name="rapport_edit", requirements={"id_edit": "\d+"})
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
@@ -69,9 +69,9 @@ class DefaultController extends AbstractController {
      *
      * @return RedirectResponse|Response
      */
-    public function editRapportControlePeche(Request $request, EntityManagerInterface $em, int $id_edit = null) {
+    public function rapportEdit(Request $request, EntityManagerInterface $em, int $id_edit = null) {
         if(null === $controle = $em->getRepository(Rapport::class)->find($id_edit)) {
-            throw $this->createNotFoundException('Pas de controle trouvé avec cet identifiant '.$id_edit);
+            throw $this->createNotFoundException('Pas de contrôle trouvé avec cet identifiant '.$id_edit);
         }
 
         $currentNavires = new ArrayCollection();
@@ -138,7 +138,7 @@ class DefaultController extends AbstractController {
      */
     public function showKpi(EntityManagerInterface $em) {
 
-        return $this->render('listSubmissions.html.twig');
+        return $this->render('listKpi.html.twig');
 
     }
 }
