@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\ControlePeche;
+use App\Entity\Rapport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ControlePecheType extends AbstractType {
+class RapportType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('dateMission', DateType::class, ['required' => true, 'label' => "Date de la mission"])
@@ -46,7 +46,7 @@ class ControlePecheType extends AbstractType {
                 'expanded' => true,
                 'label' => "Moyens utilisés"])
             ->add('navires', CollectionType::class, [
-                'entry_type' => SimpleControleNavireType::class,
+                'entry_type' => SimpleRapportNavireType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -60,7 +60,7 @@ class ControlePecheType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => ControlePeche::class,
+            'data_class' => Rapport::class,
         ]);
     }
 }

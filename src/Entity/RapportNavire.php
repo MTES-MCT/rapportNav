@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ControleNavireRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RapportNavireRepository")
  */
-class ControleNavire {
+class RapportNavire {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -17,7 +17,7 @@ class ControleNavire {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ControlePeche", inversedBy="navires")
+     * @ORM\ManyToOne(targetEntity="Rapport", inversedBy="navires")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
@@ -70,11 +70,11 @@ class ControleNavire {
         return $this;
     }
 
-    public function getControle(): ?ControlePeche {
+    public function getControle(): ?Rapport {
         return $this->controle;
     }
 
-    public function setControle(?ControlePeche $controle): self {
+    public function setControle(?Rapport $controle): self {
         $this->controle = $controle;
 
         return $this;

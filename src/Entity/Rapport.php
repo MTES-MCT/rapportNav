@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ControlePecheRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RapportRepository")
  */
-class ControlePeche {
+class Rapport {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -72,7 +72,7 @@ class ControlePeche {
     private $commentaire;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ControleNavire", mappedBy="controle", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="RapportNavire", mappedBy="controle", cascade={"persist"})
      * @Assert\Valid
      */
     private $navires;
@@ -194,13 +194,13 @@ class ControlePeche {
     }
 
     /**
-     * @return Collection|ControleNavire[]
+     * @return Collection|RapportNavire[]
      */
     public function getNavires(): Collection {
         return $this->navires;
     }
 
-    public function addNavire(ControleNavire $navire): self {
+    public function addNavire(RapportNavire $navire): self {
         if(!$this->navires->contains($navire)) {
             $this->navires[] = $navire;
             $navire->setControle($this);
@@ -209,7 +209,7 @@ class ControlePeche {
         return $this;
     }
 
-    public function removeNavire(ControleNavire $navire): self {
+    public function removeNavire(RapportNavire $navire): self {
         if($this->navires->contains($navire)) {
             $this->navires->removeElement($navire);
             // set the owning side to null (unless already changed)

@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\ControleNavire;
-use App\Entity\ControlePeche;
-use App\Form\ControlePecheType;
+use App\Entity\RapportNavire;
+use App\Entity\Rapport;
+use App\Form\RapportType;
 use \DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,9 +33,9 @@ class DefaultController extends AbstractController {
      * @return RedirectResponse|Response
      */
     public function rapportControlePeche(Request $request, EntityManagerInterface $em) {
-        $controle = new ControlePeche();
+        $controle = new Rapport();
 
-        $form = $this->createForm(ControlePecheType::class, $controle);
+        $form = $this->createForm(RapportType::class, $controle);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -48,7 +48,7 @@ class DefaultController extends AbstractController {
         //Setting default values on new form
         if(!$form->isSubmitted()) {
 
-            $form->get('navires')->setData([new ControleNavire()]);
+            $form->get('navires')->setData([new RapportNavire()]);
 
             try {
                 $form->get('dateMission')->setData(new DateTime());
@@ -70,7 +70,7 @@ class DefaultController extends AbstractController {
      * @return RedirectResponse|Response
      */
     public function editRapportControlePeche(Request $request, EntityManagerInterface $em, int $id_edit = null) {
-        if(null === $controle = $em->getRepository(ControlePeche::class)->find($id_edit)) {
+        if(null === $controle = $em->getRepository(Rapport::class)->find($id_edit)) {
             throw $this->createNotFoundException('Pas de controle trouvé avec cet identifiant '.$id_edit);
         }
 
@@ -80,7 +80,7 @@ class DefaultController extends AbstractController {
             $currentNavires->add($navire);
         }
 
-        $editForm = $this->createForm(ControlePecheType::class, $controle);
+        $editForm = $this->createForm(RapportType::class, $controle);
 
         $editForm->handleRequest($request);
 
@@ -122,7 +122,7 @@ class DefaultController extends AbstractController {
      */
     public function listSubmission(EntityManagerInterface $em) {
 
-        $controlePeche = $em->getRepository('App:ControlePeche')->findBy([], ['dateMission' => "DESC"], 16);
+        $controlePeche = $em->getRepository('App:Rapport')->findBy([], ['dateMission' => "DESC"], 16);
 
         $list = ['Contrôle des pêches' => $controlePeche];
 
