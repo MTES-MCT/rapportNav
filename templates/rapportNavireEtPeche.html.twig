@@ -6,10 +6,18 @@
 
 {% block body_main_container_rapport_objects %}
 
-    <div class="form__group horizontal_form">
-        {{ form_label(form.typeMission) }}
-        {{ form_errors(form.typeMission) }}
-        {{ form_widget(form.typeMission) }}
+    <div class="row">
+        <div class="form__group horizontal_form">
+            {{ form_label(form.typeMission) }}
+            {{ form_errors(form.typeMission) }}
+            {{ form_widget(form.typeMission) }}
+        </div>
+        <div class="form__group horizontal_form">
+            {{ form_label(form.aireMarineSpeciale) }}
+            {{ form_errors(form.aireMarineSpeciale) }}
+            {{ form_widget(form.aireMarineSpeciale) }}
+        </div>
+        <div></div>
     </div>
 
     <p>Navires contrôlés</p>
@@ -158,7 +166,19 @@
                 addTagForm($collectionHolder, $newLinkLi);
             });
 
+            if($('#rapport_bord_typeMission').val() !== "2") {
+                $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', true);
+            }
+
             $('.immatriculation_fr').on('focusout', navireDataComplete);
+
+            $('#rapport_bord_typeMission').on('change', function() {
+                if($(this).val() === "2") {
+                    $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', false);
+                } else {
+                    $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', true);
+                }
+            })
 
         });
 

@@ -23,6 +23,11 @@ class RapportBord extends Rapport {
      */
     private $typeMission;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $aireMarineSpeciale;
+
     public function __construct() {
         parent::__construct();
         $this->navires = new ArrayCollection();
@@ -62,6 +67,16 @@ class RapportBord extends Rapport {
 
     public function setTypeMission(int $typeMission): self {
         $this->typeMission = $typeMission;
+
+        return $this;
+    }
+
+    public function getAireMarineSpeciale(): ?array {
+        return $this->aireMarineSpeciale;
+    }
+
+    public function setAireMarineSpeciale(array $aireMarineSpeciale): self {
+        $this->aireMarineSpeciale = $aireMarineSpeciale;
 
         return $this;
     }

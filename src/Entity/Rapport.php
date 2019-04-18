@@ -51,6 +51,11 @@ abstract class Rapport {
     private $moyens;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $distanceTerrestre;
+
+    /**
      * @ORM\Column(type="smallint")
      * @Assert\NotBlank()
      */
@@ -202,6 +207,15 @@ abstract class Rapport {
     public function setArme(bool $arme): self {
         $this->arme = $arme;
 
+        return $this;
+    }
+
+    public function getDistanceTerrestre(): ?int {
+        return $this->distanceTerrestre;
+    }
+
+    public function setDistanceTerrestre(?int $distanceTerrestre): self{
+        $this->distanceTerrestre = $distanceTerrestre;
         return $this;
     }
 

@@ -49,6 +49,9 @@ class RapportCommerceType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Moyens utilisés"])
+            ->add('distanceTerrestre', IntegerType::class, [
+                'required' => false,
+                'label' => "Distance parcourue par véhicule (si pertinent)"])
             ->add('etablissements', CollectionType::class, [
                 'entry_type' => SimpleRapportEtablissementType::class,
                 'entry_options' => ['label' => false],

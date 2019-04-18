@@ -38,15 +38,23 @@
 
     <br>
 
-    <div class="form__group">
-        <fieldset>
-            <legend>{{ form_label(form.moyens) }}</legend>
-            {{ form_errors(form.moyens) }}
-            {% for box in form.moyens %}
-                {{ form_widget(box) }}
-                {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-            {% endfor %}
-        </fieldset>
+    <div class="row">
+        <div class="form__group horizontal_form">
+            <fieldset>
+                <legend>{{ form_label(form.moyens) }}</legend>
+                {{ form_errors(form.moyens) }}
+                {% for box in form.moyens %}
+                    {{ form_widget(box) }}
+                    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+                {% endfor %}
+            </fieldset>
+        </div>
+        <div class="form__group horizontal_form">
+            {{ form_label(form.distanceTerrestre) }}
+            {{ form_errors(form.distanceTerrestre) }}
+            {{ form_widget(form.distanceTerrestre) }}
+        </div>
+        <div></div>
     </div>
     <br>
 

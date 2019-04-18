@@ -26,6 +26,7 @@ class Navire {
     /**
      * Identifiant du référentiel Flotteur
      * @ORM\Column(type="integer")
+     *
      * @Assert\NotBlank
      * @Assert\Type(type="integer")
      */
@@ -43,6 +44,12 @@ class Navire {
      * @Assert\NotBlank
      */
     private $longueurHorsTout;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     */
+    private $typeUsage;
 
     public function getId(): ?int {
         return $this->id;
@@ -85,6 +92,15 @@ class Navire {
     public function setLongueurHorsTout(float $longueurHorsTout): self {
         $this->longueurHorsTout = $longueurHorsTout;
 
+        return $this;
+    }
+
+    public function getTypeUsage(): int {
+        return $this->typeUsage;
+    }
+
+    public function setTypeUsage($typeUsage): self {
+        $this->typeUsage = $typeUsage;
         return $this;
     }
 }

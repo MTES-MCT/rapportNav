@@ -9,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,12 +27,22 @@ class RapportBordType extends AbstractType {
                 'expanded' => true,
                 'label' => "Agents embauchés sur la mission"])
             ->add('typeMission', ChoiceType::class, [
-                'choices' => ['Contrôle de navire(s)' => 0, 'Visite de sécurité' => 1],
+                'choices' => [
+                    'Visite de sécurité' => 0,
+                    'Contrôle de navire(s)' => 1,
+                    'Surveillance d\'aire marine'=> 2],
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
                 'placeholder' => '',
                 'label' => "Type de mission"])
+            ->add('aireMarineSpeciale', ChoiceType::class, [
+                'choices' => ['Aire marine protégée' => 0, 'DPM ou contrôle d\'AOT du DPM' => 1],
+                'multiple' => true,
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => '',
+                'label' => "Aire marine spécifique"])
             ->add('lieuMission', ChoiceType::class, [
                 'choices' => ['Mer' => 0, 'Terre' => 1],
                 'multiple' => false,
@@ -56,6 +65,9 @@ class RapportBordType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Moyens utilisés"])
+            ->add('distanceTerrestre', IntegerType::class, [
+                'required' => false,
+                'label' => "Distance parcourue par véhicule (si pertinent)"])
             ->add('navires', CollectionType::class, [
                 'entry_type' => SimpleRapportNavireType::class,
                 'entry_options' => ['label' => false],
