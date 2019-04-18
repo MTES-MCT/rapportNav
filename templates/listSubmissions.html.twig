@@ -7,16 +7,17 @@
 {% block body_banner %}{% endblock body_banner %}
 {% block body_main_container %}
 
-    <ul>
+    <div class="row">
         {% for typeName, type in list %}
-            <li>{{ typeName }}
+            <div>
+                <h2>{{ typeName }}</h2>
                 <ul>
                     {% for submission in type %}
                         <li><a href="{{ path('rapport_edit', {'id_edit': submission.id}) }}">Mission du {{ submission.dateMission | date('d/m/Y') }}</a></li>
                     {% endfor %}
                 </ul>
-            </li>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 
 {% endblock body_main_container %}

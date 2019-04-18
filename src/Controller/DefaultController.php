@@ -164,12 +164,13 @@ class DefaultController extends AbstractController {
      */
     public function listSubmission(EntityManagerInterface $em) {
 
-        $controlePeche = $em->getRepository('App:Rapport')->findBy([], ['dateMission' => "DESC"], 16);
+        $controlePeche = $em->getRepository('App:RapportBord')->findBy([], ['dateMission' => "DESC"], 20);
+        $controleCommerce = $em->getRepository('App:RapportCommerce')->findBy([], ['dateMission' => "DESC"], 20);
 
-        $list = ['Contrôle des pêches' => $controlePeche];
+
+        $list = ['Contrôle de navire' => $controlePeche, 'Contrôle de la filière commercialisation' => $controleCommerce];
 
         return $this->render('listSubmissions.html.twig', ['list' => $list]);
-
     }
 
     /**
