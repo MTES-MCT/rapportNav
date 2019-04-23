@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Agent;
+use App\Entity\Moyen;
 use App\Entity\Rapport;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,6 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RapportBordType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        isset($options['service']) ? $service = $options['service'] : $service = "ulam35";
+
         $builder
             ->add('dateMission', DateType::class, ['required' => true, 'label' => "Date de la mission"])
             ->add('typeRapport', ChoiceType::class, [
@@ -22,7 +28,14 @@ class RapportBordType extends AbstractType {
                 'expanded' => false,
                 'placeholder' => '',
                 'label' => "Type de contrôle"])
-            ->add('agents', null, [
+            ->add('agents', EntityType::class, [
+                'class' => Agent::class,
+                'query_builder' => function (EntityRepository $er) use ( $service ) {
+                    return $er->createQueryBuilder('a')
+                        ->where('a.service = :service')
+                        ->setParameter("service", $service)
+                        ;
+                },
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Agents embauchés sur la mission"])
@@ -61,7 +74,15 @@ class RapportBordType extends AbstractType {
             ->add('dureeMission', IntegerType::class, [
                 'required' => true,
                 'label' => "Durée de la mission (en minutes)"])
-            ->add('moyens', null, [
+            ->add('moyens', EntityType::class, [
+                'class' => Moyen::class,
+                'choice_label' => 'nom',
+                'query_builder' => function (EntityRepository $er) use ($service) {
+                return $er->createQueryBuilder('m')
+                    ->where('m.possesseur = :service')
+                    ->setParameter("service", $service)
+                    ;
+                },
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Moyens utilisés"])
@@ -84,6 +105,7 @@ class RapportBordType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => Rapport::class,
+            'service' => "ulam35",
         ]);
     }
 }

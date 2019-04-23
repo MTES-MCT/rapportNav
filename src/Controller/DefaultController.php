@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\RapportEtablissement;
 use App\Entity\RapportNavire;
 use App\Entity\Rapport;
+use App\Entity\User;
 use App\Form\RapportBordType;
 use App\Form\RapportCommerceType;
 use \DateTime;
@@ -44,7 +45,10 @@ class DefaultController extends AbstractController {
 
         $rapport = new $rapportClass();
 
-        $form = $this->createForm($formClass, $rapport);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $form = $this->createForm($formClass, $rapport, ['service' => $user->getService()]);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
