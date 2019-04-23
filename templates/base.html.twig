@@ -36,21 +36,17 @@
                 <li class="nav__item"><a href="{{ path('list_forms') }}">Ajouter un rapport</a></li>
                 <li class="nav__item"><a href="{{ path('list_submissions') }}">Voir les rapports</a></li>
                 <li class="nav__item"><a href="{{ path('show_kpi') }}">Suivi des indicateurs</a></li>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <li class="nav__item"><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
+                {% else %}
+                    <li class="nav__item"><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
+                {% endif %}
             </ul>
             {% endblock body_header_nav %}
         </nav>
         {% endblock body_header %}
     </div>
 </header>
-
-<div class="hero" role="banner">
-    {% block body_banner %}
-    <div class="hero__container">
-        <h1 class="hero__white-background">Titre chili con carne</h1>
-        <p class="hero__white-background">Tagline libérer les données sans effort et sur data.gouv.fr</p>
-        {% endblock body_banner %}
-    </div>
-</div>
 
 <main role="main">
     {% block body_main %}
