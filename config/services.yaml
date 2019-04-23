@@ -27,3 +27,21 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # SonataAdminBundle related services
+    admin.navire:
+        class: App\Admin\NavireAdmin
+        arguments: [~, App\Entity\Navire, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Navire }
+    admin.rapport:
+        class: App\Admin\RapportAdmin
+        arguments: [~, App\Entity\Rapport, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Rapport }
+    admin.etablissement:
+        class: App\Admin\EtablissementAdmin
+        arguments: [~, App\Entity\Etablissement, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Etablissement }
+

@@ -15,3 +15,6 @@ framework:
     #fragments: true
     php_errors:
         log: true
+    # Translation and i18n
+    translator: { fallbacks: ['%locale%'] }
+
