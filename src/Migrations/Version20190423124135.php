@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190417173616 extends AbstractMigration
+final class Version20190423124135 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,12 +22,9 @@ final class Version20190417173616 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('ALTER TABLE rapport ADD arme BOOLEAN DEFAULT false');
-        $this->addSql('ALTER TABLE rapport ALTER arme DROP DEFAULT ');
-        $this->addSql('ALTER TABLE rapport ALTER arme SET NOT NULL ');
-        $this->addSql('ALTER TABLE rapport ADD type_mission INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE rapport_navire ADD controles TEXT DEFAULT NULL');
-        $this->addSql('COMMENT ON COLUMN rapport_navire.controles IS \'(DC2Type:array)\'');
+        $this->addSql('ALTER TABLE agent ADD service VARCHAR(45) DEFAULT \'ulam35\'');
+        $this->addSql('ALTER TABLE agent ALTER service DROP DEFAULT');
+        $this->addSql('ALTER TABLE agent ALTER service SET NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -35,8 +32,6 @@ final class Version20190417173616 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('ALTER TABLE rapport_navire DROP controles');
-        $this->addSql('ALTER TABLE rapport DROP arme');
-        $this->addSql('ALTER TABLE rapport DROP type_mission');
+        $this->addSql('ALTER TABLE agent DROP service');
     }
 }

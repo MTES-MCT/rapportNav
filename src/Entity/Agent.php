@@ -31,6 +31,11 @@ class Agent
      */
     private $matricule;
 
+    /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $service;
+
     public function __toString() {
         return $this->prenom." ".$this->nom;
     }
@@ -72,6 +77,18 @@ class Agent
     public function setMatricule(string $matricule): self
     {
         $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    public function getService(): ?string
+    {
+        return $this->service;
+    }
+
+    public function setService(string $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }
