@@ -36,6 +36,11 @@
                 <li class="nav__item"><a href="{{ path('list_forms') }}">Ajouter un rapport</a></li>
                 <li class="nav__item"><a href="{{ path('list_submissions') }}">Voir les rapports</a></li>
                 <li class="nav__item"><a href="{{ path('show_kpi') }}">Suivi des indicateurs</a></li>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <li class="nav__item"><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
+                {% else %}
+                    <li class="nav__item"><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
+                {% endif %}
             </ul>
             {% endblock body_header_nav %}
         </nav>

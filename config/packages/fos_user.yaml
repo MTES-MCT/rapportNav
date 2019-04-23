@@ -5,3 +5,4 @@ fos_user:
   from_email:
     address: "hello@aquanote.com"
     sender_name: "AquaNote Postman"
+  registration:
