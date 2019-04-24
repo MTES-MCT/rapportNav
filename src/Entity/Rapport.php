@@ -62,8 +62,7 @@ abstract class Rapport {
     private $lieuMission;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
+     * @ORM\Column(type="smallint", nullable=true)
      */
     private $zoneMission;
 

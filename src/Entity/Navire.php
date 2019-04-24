@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NavireRepository")
  */
-class Navire {
+class  Navire {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -95,7 +95,7 @@ class Navire {
         return $this;
     }
 
-    public function getTypeUsage(): int {
+    public function getTypeUsage(): ?int {
         return $this->typeUsage;
     }
 
