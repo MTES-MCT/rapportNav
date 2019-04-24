@@ -63,11 +63,26 @@ class RapportBordType extends AbstractType {
                 'placeholder' => '',
                 'label' => "Lieu de la mission"])
             ->add('zoneMission', ChoiceType::class, [
-                'choices' => ['Rade LO' => 0, 'Groix et courreaux' => 1, 'Rives Etel' => 2, 'Ouest Quiberon' => 3],
+                'choices' => ['Ouest 56' => 0,
+                    'Est 56' => 1,
+                    'Rade LO' => 2,
+                    'Groix et courreaux' => 3,
+                    'Riv Etel' => 4,
+                    'Ouest Quiberon' => 5,
+                    'Belle-Ile et courreaux' => 6,
+                    'Houat' => 7,
+                    'Hoëdic' => 8,
+                    'Baie Quiberon' => 9,
+                    'Golfe' => 10,
+                    'Riv Auray' => 11,
+                    'Littoral Est' => 12,
+                    'Vilaine' => 13,
+                ],
                 'multiple' => false,
                 'expanded' => false,
                 'placeholder' => '',
-                'label' => "Zone de la mission"])
+                'required' => false,
+                'label' => "Zone de la mission (ULAM56)"])
             ->add('arme', CheckboxType::class, [
                 'required' => false,
                 'label' => "Mission armée ?"])
