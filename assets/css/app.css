@@ -1,3 +1,7 @@
 .horizontal_form {
     margin-top: 0 !important;
 }
+
+ul.no-decoration {
+    list-style-type: none;
+}

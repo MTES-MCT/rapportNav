@@ -28,10 +28,19 @@
             <fieldset>
                 <legend>{{ form_label(form.agents) }}</legend>
                 {{ form_errors(form.agents) }}
-                {% for box in form.agents %}
-                    {{ form_widget(box) }}
-                    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-                {% endfor %}
+                {% set half_agents = ((form.agents|length)/2)|round %}
+                <div class="row">
+                    {% for row in form.agents|batch(half_agents) %}
+                        <ul class="no-decoration">
+                            {% for checkbox in row %}
+                                <li>
+                                    {{ form_widget(checkbox) }}
+                                    {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline"}}) }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </div>
             </fieldset>
         </div>
     </div>
@@ -43,10 +52,19 @@
             <fieldset>
                 <legend>{{ form_label(form.moyens) }}</legend>
                 {{ form_errors(form.moyens) }}
-                {% for box in form.moyens %}
-                    {{ form_widget(box) }}
-                    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-                {% endfor %}
+                {% set half_moyens = ((form.moyens|length)/2)|round %}
+                <div class="row">
+                    {% for row in form.moyens|batch(half_moyens) %}
+                        <ul class="no-decoration">
+                            {% for checkbox in row %}
+                                <li>
+                                    {{ form_widget(checkbox) }}
+                                    {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline"}}) }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </div>
             </fieldset>
         </div>
         <div class="form__group horizontal_form">
