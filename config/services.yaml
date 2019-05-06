@@ -44,4 +44,9 @@ services:
         arguments: [~, App\Entity\Etablissement, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Etablissement }
+    admin.moyen:
+        class: App\Admin\MoyenAdmin
+        arguments: [~, App\Entity\Moyen, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Moyen }
 
