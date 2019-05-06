@@ -1,0 +1,31 @@
+.horizontal__form {
+    margin-top: 0 !important;
+}
+
+.form__checkbox {
+    display: block;
+    position: relative;
+    padding-left: 2em;
+}
+
+.form__checkbox label {
+    display: inline-block;
+}
+
+.form__checkbox input[type="checkbox"] {
+    position: absolute;
+    left: 0;
+}
+
+legend.required::after {
+    content: '✱';
+    color: #d63626;
+    color: var(--red);
+    font-weight: 700;
+    margin-left: 0.5em;
+    margin-left: var(--space-xs);
+}
+
+.button {
+    margin: 1em 0;
+}

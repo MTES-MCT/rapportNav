@@ -7,40 +7,54 @@
 {% block body_main_container_rapport_objects %}
 
     <div class="row">
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.typeMission) }}
             {{ form_errors(form.typeMission) }}
             {{ form_widget(form.typeMission) }}
         </div>
-        <div class="form__group horizontal_form">
-            {{ form_label(form.aireMarineSpeciale) }}
-            {{ form_errors(form.aireMarineSpeciale) }}
-            {{ form_widget(form.aireMarineSpeciale) }}
+        <div class="form__group horizontal__form">
+            <fieldset>
+                {{ form_label(form.aireMarineSpeciale, null, {'element': 'legend'} ) }}
+                {{ form_errors(form.aireMarineSpeciale) }}
+                {% for box in form.aireMarineSpeciale %}
+                    <span class="form__checkbox">
+                        {{ form_widget(box) }}
+                        {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+                    </span>
+                {% endfor %}
+            </fieldset>
         </div>
         <div></div>
     </div>
 
     <p>Navires contrôlés</p>
-    <ul class="navires" data-prototype='
-        <div class="form__group horizontal_form">
+    <ul class="navires no-decoration" data-prototype='
+        <div class="form__group horizontal__form">
             {{ form_widget(form.navires.vars.prototype.navire)|e('html_attr') }}
         </div>
-        <div class="form__group horizontal_form">
-            {{ form_label(form.navires.vars.prototype.controles)|e('html_attr') }}
-            {{ form_errors(form.navires.vars.prototype.controles)|e('html_attr') }}
-            {{ form_widget(form.navires.vars.prototype.controles)|e('html_attr') }}
-        </div>
-<div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
+                    <fieldset>
+                        {{ form_label(form.navires.vars.prototype.controles, null, {'element': 'legend'} ) }}
+                        {{ form_errors(form.navires.vars.prototype.controles) }}
+                        {% for box in form.navires.vars.prototype.controles %}
+                         <span class="form__checkbox">
+                            {{ form_widget(box) }}
+                            {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+                            </span>
+                        {% endfor %}
+                    </fieldset>
+                </div>
+<div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.pv)|e('html_attr') }}
             {{ form_errors(form.navires.vars.prototype.pv)|e('html_attr') }}
             {{ form_widget(form.navires.vars.prototype.pv)|e('html_attr') }}
         </div>
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.natinf)|e('html_attr') }}
             {{ form_errors(form.navires.vars.prototype.natinf)|e('html_attr') }}
             {{ form_widget(form.navires.vars.prototype.natinf)|e('html_attr') }}
         </div>
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.commentaire)|e('html_attr') }}
             {{ form_errors(form.navires.vars.prototype.commentaire)|e('html_attr') }}
             {{ form_widget(form.navires.vars.prototype.commentaire)|e('html_attr') }}
@@ -48,25 +62,32 @@
     '>
         {% for navireControle in form.navires %}
             <li class="row navire">
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_widget(navireControle.navire) }}
                 </div>
-                <div class="form__group horizontal_form">
-                    {{ form_label(navireControle.controles) }}
-                    {{ form_errors(navireControle.controles) }}
-                    {{ form_widget(navireControle.controles) }}
+                <div class="form__group horizontal__form">
+                    <fieldset>
+                        {{ form_label(navireControle.controles, null, {'element': 'legend'} ) }}
+                        {{ form_errors(navireControle.controles) }}
+                        {% for box in navireControle.controles %}
+                            <span class="form__checkbox">
+                                {{ form_widget(box) }}
+                                {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+                            </span>
+                        {% endfor %}
+                    </fieldset>
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(navireControle.pv) }}
                     {{ form_errors(navireControle.pv) }}
-                    {{ form_widget(navireControle.pv) }}
+                    {{ form_widget(navireControle.pv, {'attr': {'class': 'center'}}) }}
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(navireControle.natinf) }}
                     {{ form_errors(navireControle.natinf) }}
                     {{ form_widget(navireControle.natinf) }}
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(navireControle.commentaire) }}
                     {{ form_errors(navireControle.commentaire) }}
                     {{ form_widget(navireControle.commentaire) }}
@@ -94,7 +115,8 @@
             $collectionHolder.data('index', index + 1);
 
             // Display the form in the page in an li, before the "Ajouter un navire contrôlé" link li
-            var $newFormLi = $('<li class="row navire"></li>').append(newForm);
+            var cssClass = (index % 2 ? '' : 'section-grey');
+            var $newFormLi = $('<li class="row navire ' + cssClass + '"></li>').append(newForm);
             $newLinkLi.before($newFormLi);
             addTagFormDeleteLink($newFormLi);
             $('.immatriculation_fr').last().on('focusout', navireDataComplete);
@@ -122,7 +144,7 @@
                     }
                 })
                 .fail(function (data) {
-                    if(input.parent().find(".immatriculation_invalide")) {
+                    if (input.parent().find(".immatriculation_invalide")) {
                         input.parent().find(".immatriculation_invalide").remove();
                     }
 
@@ -166,14 +188,14 @@
                 addTagForm($collectionHolder, $newLinkLi);
             });
 
-            if($('#rapport_bord_typeMission').val() !== "2") {
+            if ($('#rapport_bord_typeMission').val() !== "2") {
                 $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', true);
             }
 
             $('.immatriculation_fr').on('focusout', navireDataComplete);
 
-            $('#rapport_bord_typeMission').on('change', function() {
-                if($(this).val() === "2") {
+            $('#rapport_bord_typeMission').on('change', function () {
+                if ($(this).val() === "2") {
                     $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', false);
                 } else {
                     $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', true);

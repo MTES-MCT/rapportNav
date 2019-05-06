@@ -12,28 +12,27 @@
     {{ form_start(form, {'attr': {'style': "max-width: 100%"}}) }}
 
     <div class="row">
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.dateMission) }}
             {{ form_errors(form.dateMission) }}
             {{ form_widget(form.dateMission) }}
         </div>
 
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.typeRapport) }}
             {{ form_errors(form.typeRapport) }}
             {{ form_widget(form.typeRapport) }}
         </div>
-
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             <fieldset>
-                <legend>{{ form_label(form.agents) }}</legend>
+                {{ form_label(form.agents, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.agents) }}
                 {% set half_agents = ((form.agents|length)/2)|round %}
                 <div class="row">
                     {% for row in form.agents|batch(half_agents) %}
-                        <ul class="no-decoration">
+                        <ul class="no-decoration stacked-list">
                             {% for checkbox in row %}
-                                <li>
+                                <li class="form__checkbox">
                                     {{ form_widget(checkbox) }}
                                     {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline"}}) }}
                                 </li>
@@ -48,16 +47,16 @@
     <br>
 
     <div class="row">
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             <fieldset>
-                <legend>{{ form_label(form.moyens) }}</legend>
+                {{ form_label(form.moyens, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.moyens) }}
                 {% set half_moyens = ((form.moyens|length)/2)|round %}
                 <div class="row">
                     {% for row in form.moyens|batch(half_moyens) %}
-                        <ul class="no-decoration">
+                        <ul class="no-decoration stacked-list">
                             {% for checkbox in row %}
-                                <li>
+                                <li class="form__checkbox">
                                     {{ form_widget(checkbox) }}
                                     {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline"}}) }}
                                 </li>
@@ -67,7 +66,7 @@
                 </div>
             </fieldset>
         </div>
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.distanceTerrestre) }}
             {{ form_errors(form.distanceTerrestre) }}
             {{ form_widget(form.distanceTerrestre) }}
@@ -77,25 +76,25 @@
     <br>
 
     <div class="row">
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.lieuMission) }}
             {{ form_errors(form.lieuMission) }}
             {{ form_widget(form.lieuMission) }}
         </div>
 
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.zoneMission) }}
             {{ form_errors(form.zoneMission) }}
             {{ form_widget(form.zoneMission) }}
         </div>
 
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.arme) }}
             {{ form_errors(form.arme) }}
-            {{ form_widget(form.arme) }}
+            {{ form_widget(form.arme, {'attr': {'class': 'center'}}) }}
         </div>
 
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.dureeMission) }}
             {{ form_errors(form.dureeMission) }}
             {{ form_widget(form.dureeMission) }}

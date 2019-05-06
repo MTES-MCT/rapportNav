@@ -7,26 +7,26 @@
 {% block body_main_container_rapport_objects %}
 
     <p>Établissements contrôlés</p>
-    <ul class="etablissements" data-prototype='
-        <div class="form__group horizontal_form">
+    <ul class="etablissements no-decoration" data-prototype='
+        <div class="form__group horizontal__form">
             {{ form_widget(form.etablissements.vars.prototype.etablissement)|e('html_attr') }}
         </div>
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.etablissements.vars.prototype.bateauxControles) }}
             {{ form_errors(form.etablissements.vars.prototype.bateauxControles) }}
             {{ form_widget(form.etablissements.vars.prototype.bateauxControles) }}
         </div>
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.etablissements.vars.prototype.pv)|e('html_attr') }}
             {{ form_errors(form.etablissements.vars.prototype.pv)|e('html_attr') }}
             {{ form_widget(form.etablissements.vars.prototype.pv)|e('html_attr') }}
         </div>
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.etablissements.vars.prototype.natinf)|e('html_attr') }}
             {{ form_errors(form.etablissements.vars.prototype.natinf)|e('html_attr') }}
             {{ form_widget(form.etablissements.vars.prototype.natinf)|e('html_attr') }}
         </div>
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.etablissements.vars.prototype.commentaire)|e('html_attr') }}
             {{ form_errors(form.etablissements.vars.prototype.commentaire)|e('html_attr') }}
             {{ form_widget(form.etablissements.vars.prototype.commentaire)|e('html_attr') }}
@@ -34,25 +34,25 @@
     '>
         {% for etablissementControle in form.etablissements %}
             <li class="row etablissement">
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_widget(etablissementControle.etablissement) }}
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(etablissementControle.bateauxControles) }}
                     {{ form_errors(etablissementControle.bateauxControles) }}
                     {{ form_widget(etablissementControle.bateauxControles) }}
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(etablissementControle.pv) }}
                     {{ form_errors(etablissementControle.pv) }}
                     {{ form_widget(etablissementControle.pv) }}
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(etablissementControle.natinf) }}
                     {{ form_errors(etablissementControle.natinf) }}
                     {{ form_widget(etablissementControle.natinf) }}
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(etablissementControle.commentaire) }}
                     {{ form_errors(etablissementControle.commentaire) }}
                     {{ form_widget(etablissementControle.commentaire) }}
@@ -81,7 +81,8 @@
             $collectionHolder.data('index', index + 1);
 
             // Display the form in the page in an li, before the "Ajouter un etablissement contrôlé" link li
-            var $newFormLi = $('<li class="row etablissement"></li>').append(newForm);
+            var cssClass = (index % 2 ? '' : 'section-grey');
+            var $newFormLi = $('<li class="row etablissement ' + cssClass + '"></li>').append(newForm);
             $newLinkLi.before($newFormLi);
             addTagFormDeleteLink($newFormLi);
         }
