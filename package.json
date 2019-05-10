@@ -8,6 +8,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "jquery": "^3.4.1",
         "survey-vue": "^1.0.74",
         "vue": "^2.6.8"
     },

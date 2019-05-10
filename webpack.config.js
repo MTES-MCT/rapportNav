@@ -20,6 +20,12 @@ Encore
     //Common for most pages
     .addEntry('app', './assets/js/app.js')
 
+    //For Rapport Navire
+    .addEntry('rapportNavire', './assets/js/rapportBord.js')
+
+    //For Rapport filière Commercialisation
+    .addEntry('rapportCommercialisation', './assets/js/rapportCommercialisation.js')
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
