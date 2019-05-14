@@ -35,7 +35,7 @@ abstract class Rapport {
      * @Assert\NotBlank()
      *
      */
-    private $typeRapport;
+    private $methodeCiblage;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Agent")
@@ -103,12 +103,12 @@ abstract class Rapport {
         return $this;
     }
 
-    public function getTypeRapport(): ?int {
-        return $this->typeRapport;
+    public function getMethodeCiblage(): ?int {
+        return $this->methodeCiblage;
     }
 
-    public function setTypeRapport(int $typeRapport): self {
-        $this->typeRapport = $typeRapport;
+    public function setMethodeCiblage(int $methodeCiblage): self {
+        $this->methodeCiblage = $methodeCiblage;
 
         return $this;
     }

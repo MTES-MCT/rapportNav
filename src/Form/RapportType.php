@@ -20,15 +20,15 @@ class RapportType extends AbstractType {
         isset($options['service']) ? $service = $options['service'] : $service = "ulam35";
         $builder
             ->add('dateMission', DateType::class, ['required' => true, 'label' => "Date de la mission"])
-            ->add('typeRapport', ChoiceType::class, [
-                'choices' => ['Ciblé' => 0, 'Ciblé manuellement' => 1, 'Aléatoire' => 2, 'Opportunité' => 3],
+            ->add('methodeCiblage', ChoiceType::class, [
+                'choices' => ['Ciblé via outil' => 0, 'Ciblé manuellement' => 1, 'Opportunité' => 3],
                 'multiple' => false,
                 'expanded' => false,
                 'placeholder' => '',
-                'label' => "Type de contrôle"])
+                'label' => "Méthode de contrôle"])
             ->add('distanceTerrestre', IntegerType::class, [
                 'required' => false,
-                'label' => "Distance parcourue par véhicule (si pertinent)"])
+                'label' => "Kilomètres parcourus par véhicule terrestre (si pertinent)"])
             ->add('lieuMission', ChoiceType::class, [
                 'choices' => ['Mer' => 0, 'Terre' => 1],
                 'multiple' => false,

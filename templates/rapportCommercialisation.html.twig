@@ -5,8 +5,8 @@
 {% block body_main_container_title %}Contrôle de la filière commercialisation et d'établissements{% endblock body_main_container_title %}
 
 {% block body_main_container_rapport_objects %}
+    <h2>Établissements contrôlés</h2>
 
-    <p>Établissements contrôlés</p>
     <ul class="etablissements no-decoration" data-prototype='
         <div class="form__group horizontal__form">
             {{ form_widget(form.etablissements.vars.prototype.etablissement)|e('html_attr') }}

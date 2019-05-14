@@ -9,7 +9,9 @@
 
     <h1>{% block body_main_container_title %}{% endblock body_main_container_title %}</h1>
 
-    {{ form_start(form, {'attr': {'style': "max-width: 100%"}}) }}
+    {{ form_start(form, {'attr': {'style': "max-width: 100%", 'id': "rapport"}}) }}
+
+    <h2>Éléments généraux</h2>
 
     <div class="row">
         <div class="form__group horizontal__form">
@@ -19,10 +21,11 @@
         </div>
 
         <div class="form__group horizontal__form">
-            {{ form_label(form.typeRapport) }}
-            {{ form_errors(form.typeRapport) }}
-            {{ form_widget(form.typeRapport) }}
+            {{ form_label(form.methodeCiblage) }}
+            {{ form_errors(form.methodeCiblage) }}
+            {{ form_widget(form.methodeCiblage) }}
         </div>
+
         <div class="form__group horizontal__form">
             <fieldset>
                 {{ form_label(form.agents, null, {'element': 'legend'} ) }}
@@ -44,7 +47,31 @@
         </div>
     </div>
 
-    <br>
+    <div class="row">
+        <div class="form__group horizontal__form">
+            {{ form_label(form.lieuMission) }}
+            {{ form_errors(form.lieuMission) }}
+            {{ form_widget(form.lieuMission) }}
+        </div>
+
+        <div class="form__group horizontal__form">
+            {{ form_label(form.zoneMission) }}
+            {{ form_errors(form.zoneMission) }}
+            {{ form_widget(form.zoneMission) }}
+        </div>
+
+        <div class="form__group horizontal__form">
+            {{ form_label(form.arme) }}
+            {{ form_errors(form.arme) }}
+            {{ form_widget(form.arme, {'attr': {'class': 'center'}}) }}
+        </div>
+
+        <div class="form__group horizontal__form">
+            {{ form_label(form.dureeMission) }}
+            {{ form_errors(form.dureeMission) }}
+            {{ form_widget(form.dureeMission) }}
+        </div>
+    </div>
 
     <div class="row">
         <div class="form__group horizontal__form">
@@ -73,36 +100,10 @@
         </div>
         <div></div>
     </div>
-    <br>
 
-    <div class="row">
-        <div class="form__group horizontal__form">
-            {{ form_label(form.lieuMission) }}
-            {{ form_errors(form.lieuMission) }}
-            {{ form_widget(form.lieuMission) }}
-        </div>
-
-        <div class="form__group horizontal__form">
-            {{ form_label(form.zoneMission) }}
-            {{ form_errors(form.zoneMission) }}
-            {{ form_widget(form.zoneMission) }}
-        </div>
-
-        <div class="form__group horizontal__form">
-            {{ form_label(form.arme) }}
-            {{ form_errors(form.arme) }}
-            {{ form_widget(form.arme, {'attr': {'class': 'center'}}) }}
-        </div>
-
-        <div class="form__group horizontal__form">
-            {{ form_label(form.dureeMission) }}
-            {{ form_errors(form.dureeMission) }}
-            {{ form_widget(form.dureeMission) }}
-        </div>
-    </div>
-    <br>
 
     {% block body_main_container_rapport_objects %}
+        <h2>Éléments spécifiques</h2>
     {% endblock body_main_container_rapport_objects %}
 
     <br>

@@ -1,18 +1,17 @@
 {% extends "rapport.html.twig" %}
 
-{% block head_title %}Contrôle des pêches {{ parent() }}{% endblock head_title %}
+{% block head_title %}Contrôle de navires {{ parent() }}{% endblock head_title %}
 
-{% block body_main_container_title %}Contrôle des pêches{% endblock body_main_container_title %}
+{% block body_main_container_title %}Contrôle de navires (à quai ou en mer){% endblock body_main_container_title %}
 
 {% block body_main_container_rapport_objects %}
-
     <div class="row">
         <div class="form__group horizontal__form">
             {{ form_label(form.typeMission) }}
             {{ form_errors(form.typeMission) }}
-            {{ form_widget(form.typeMission) }}
+            {{ form_widget(form.typeMission, {'attr': {'v-on:change': "tooggleAireMarine" }}) }}
         </div>
-        <div class="form__group horizontal__form">
+        <div class="form__group horizontal__form" v-if="aireMarine">
             <fieldset>
                 {{ form_label(form.aireMarineSpeciale, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.aireMarineSpeciale) }}
@@ -27,24 +26,28 @@
         <div></div>
     </div>
 
-    <p>Navires contrôlés</p>
+    <div class="row">
+        <h2>Navires contrôlés</h2>
+    </div>
+
+
     <ul class="navires no-decoration" data-prototype='
         <div class="form__group horizontal__form">
             {{ form_widget(form.navires.vars.prototype.navire)|e('html_attr') }}
         </div>
         <div class="form__group horizontal__form">
-                    <fieldset>
-                        {{ form_label(form.navires.vars.prototype.controles, null, {'element': 'legend'} ) }}
-                        {{ form_errors(form.navires.vars.prototype.controles) }}
-                        {% for box in form.navires.vars.prototype.controles %}
-                         <span class="form__checkbox">
-                            {{ form_widget(box) }}
-                            {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-                            </span>
-                        {% endfor %}
-                    </fieldset>
-                </div>
-<div class="form__group horizontal__form">
+            <fieldset>
+                {{ form_label(form.navires.vars.prototype.controles, null, {'element': 'legend'} ) }}
+                {{ form_errors(form.navires.vars.prototype.controles) }}
+                {% for box in form.navires.vars.prototype.controles %}
+                 <span class="form__checkbox">
+                    {{ form_widget(box) }}
+                    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+                    </span>
+                {% endfor %}
+            </fieldset>
+        </div>
+        <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.pv)|e('html_attr') }}
             {{ form_errors(form.navires.vars.prototype.pv)|e('html_attr') }}
             {{ form_widget(form.navires.vars.prototype.pv)|e('html_attr') }}
@@ -100,4 +103,20 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('rapportNavire') }}
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var vm = new Vue({
+            el: "#rapport",
+            data: {aireMarine: false},
+            methods: {
+                tooggleAireMarine: function (event) {
+                    if (event.target.options[event.target.selectedIndex].text === "Surveillance d'aire marine") {
+                        this.aireMarine = true;
+                    } else {
+                        this.aireMarine = false
+                    }
+                }
+            }
+        });
+    </script>
 {% endblock javascripts %}

@@ -29,3 +29,7 @@ legend.required::after {
 .button {
     margin: 1em 0;
 }
+
+.row + .row {
+    margin-top: 30px;
+}
