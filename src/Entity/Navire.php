@@ -46,10 +46,22 @@ class  Navire {
     private $longueurHorsTout;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank
+     * @Assert\Length(min = 1, max = 45)
      */
     private $typeUsage;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isErreur = false;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $erreurTexte;
+
 
     public function getId(): ?int {
         return $this->id;
@@ -101,6 +113,24 @@ class  Navire {
 
     public function setTypeUsage($typeUsage): self {
         $this->typeUsage = $typeUsage;
+        return $this;
+    }
+
+    public function getIsErreur(): bool {
+        return $this->isErreur;
+    }
+
+    public function setIsErreur($isErreur): self {
+        $this->isErreur = $isErreur;
+        return $this;
+    }
+
+    public function getErreurTexte(): string {
+        return $this->erreurTexte;
+    }
+
+    public function setErreurTexte($erreurTexte): self {
+        $this->erreurTexte = $erreurTexte;
         return $this;
     }
 }

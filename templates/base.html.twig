@@ -11,13 +11,15 @@
     {% block head_stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock head_stylesheets %}
-    <!-- Polyfils for IE -->
-    <script type="text/javascript">
-        if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-            document.write('<script src="https://unpkg.com/@babel/polyfill@7.0.0/dist/polyfill.js"><\/script>');
-            document.write('<script src="https://unpkg.com/url-polyfill@1.0.14/url-polyfill.js"><\/script>');
-        }
-    </script>
+    {% block head_javascripts %}
+        <!-- Polyfils for IE -->
+        <script type="text/javascript">
+            if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+                document.write('<script src="https://unpkg.com/@babel/polyfill@7.0.0/dist/polyfill.js"><\/script>');
+                document.write('<script src="https://unpkg.com/url-polyfill@1.0.14/url-polyfill.js"><\/script>');
+            }
+        </script>
+    {% endblock head_javascripts %}
 </head>
 
 <body>

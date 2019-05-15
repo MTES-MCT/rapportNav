@@ -33,7 +33,6 @@ final class Version20190424163121 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE rapport ALTER zone_mission TYPE VARCHAR(100)');
         $this->addSql('ALTER TABLE rapport ALTER zone_mission DROP DEFAULT');
         $this->addSql('ALTER TABLE rapport ALTER zone_mission SET NOT NULL');

@@ -13,7 +13,6 @@
         </div>
         <div class="form__group horizontal__form" v-if="aireMarine">
             <fieldset>
-                {{ form_label(form.aireMarineSpeciale, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.aireMarineSpeciale) }}
                 {% for box in form.aireMarineSpeciale %}
                     <span class="form__checkbox">
@@ -30,20 +29,16 @@
         <h2>Navires contrôlés</h2>
     </div>
 
-
     <ul class="navires no-decoration" data-prototype='
         <div class="form__group horizontal__form">
-            {{ form_widget(form.navires.vars.prototype.navire)|e('html_attr') }}
+            {% include 'formThemes/navireFormTheme.html.twig' with {'navire': form.navires.vars.prototype.navire} %}
         </div>
         <div class="form__group horizontal__form">
             <fieldset>
                 {{ form_label(form.navires.vars.prototype.controles, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.navires.vars.prototype.controles) }}
                 {% for box in form.navires.vars.prototype.controles %}
-                 <span class="form__checkbox">
-                    {{ form_widget(box) }}
-                    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-                    </span>
+                    {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box} %}
                 {% endfor %}
             </fieldset>
         </div>
@@ -66,17 +61,14 @@
         {% for navireControle in form.navires %}
             <li class="row navire">
                 <div class="form__group horizontal__form">
-                    {{ form_widget(navireControle.navire) }}
+                    {% include 'formThemes/navireFormTheme.html.twig' with {'navire': navireControle.navire} %}
                 </div>
                 <div class="form__group horizontal__form">
                     <fieldset>
                         {{ form_label(navireControle.controles, null, {'element': 'legend'} ) }}
                         {{ form_errors(navireControle.controles) }}
                         {% for box in navireControle.controles %}
-                            <span class="form__checkbox">
-                                {{ form_widget(box) }}
-                                {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-                            </span>
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box} %}
                         {% endfor %}
                     </fieldset>
                 </div>
@@ -103,20 +95,4 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('rapportNavire') }}
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script>
-        var vm = new Vue({
-            el: "#rapport",
-            data: {aireMarine: false},
-            methods: {
-                tooggleAireMarine: function (event) {
-                    if (event.target.options[event.target.selectedIndex].text === "Surveillance d'aire marine") {
-                        this.aireMarine = true;
-                    } else {
-                        this.aireMarine = false
-                    }
-                }
-            }
-        });
-    </script>
 {% endblock javascripts %}

@@ -1,13 +1,16 @@
 import Rapport from './rapport';
+import Vue from 'vue';
 import $ from 'jquery';
 
 function navireDataComplete() {
     var input = $(this);
     $.get("http://localhost:8080/api/navires/" + $(this).val())
         .done(function (data) {
-            input.parents("li").find("input[id$=_navire_nom]").val(data.nomNavire);
-            input.parents("li").find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout);
-            input.parents("li").find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur);
+            let parent = input.parents("li");
+            parent.find("input[id$=_navire_nom]").val(data.nomNavire);
+            parent.find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout);
+            parent.find("input[id$=_navire_]").val(data.idNavFlotteur);
+            parent.find("input[id$=_navire_idNavFloteur_typeUsage]").val(data.genreNavigation);
             if (input.parent().find(".immatriculation_invalide")) {
                 input.parent().find(".immatriculation_invalide").remove();
             }
@@ -30,8 +33,26 @@ function navireDataComplete() {
         })
 }
 
+function toogleErrorText (event) {
+    if(event.currentTarget.checked) {
+        $(this).parents('div.form__group').find('div:last').show();
+    } else {
+        $(this).parents('div.form__group').find('div:last').hide();
+    }
+}
 
 $(document).ready(function () {
+
+    let vm = new Vue({
+        el: "#rapport",
+        data: {aireMarine: false},
+        methods: {
+            tooggleAireMarine: function (event) {
+                this.aireMarine = event.target.options[event.target.selectedIndex].text === "Surveillance d'aire marine";
+            }
+        }
+    });
+
     // Get the ul that holds the collection of Navires
     let $collectionHolder = $('ul.navires');
 
@@ -55,18 +76,11 @@ $(document).ready(function () {
         // add a new Navire form (see next code block)
         rapportNavire.addTagForm($collectionHolder);
         $('.immatriculation_fr').last().on('focusout', navireDataComplete);
+        $('.isNavireHasError').last().on('change', toogleErrorText)
     });
 
-    if ($('#rapport_bord_typeMission').val() !== "2") {
-        $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', true);
-    }
-
-    $('#rapport_bord_typeMission').on('change', function () {
-        if ($(this).val() === "2") {
-            $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', false);
-        } else {
-            $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', true);
-        }
-    })
+    //hide/show the details in case of error the data from Navires API
+    $('.isNavireHasError').on('change', toogleErrorText);
 
 });
+
