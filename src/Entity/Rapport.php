@@ -23,12 +23,21 @@ abstract class Rapport {
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      * @Assert\NotBlank
      *
      * @var DateTimeInterface
      */
-    private $dateMission;
+    private $dateDebutMission;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
+     *
+     * @var DateTimeInterface
+     */
+    private $dateFinMission;
+
 
     /**
      * @ORM\Column(type="smallint")
@@ -47,11 +56,13 @@ abstract class Rapport {
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Moyen")
      * @Assert\NotBlank()
+     * @Assert\Count(min = 1, minMessage = "Vous devez selectionner au moins un moyen")
      */
     private $moyens;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(0)
      */
     private $distanceTerrestre;
 
@@ -62,22 +73,20 @@ abstract class Rapport {
     private $lieuMission;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\ZoneGeographique")
      */
     private $zoneMission;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $detailHorsZone;
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\Type(type="bool")
      */
     private $arme;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @Assert\GreaterThan(value="9", message="Cette valeur doit être en minutes")
-     */
-    private $dureeMission;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -93,12 +102,22 @@ abstract class Rapport {
         $this->moyens = new ArrayCollection();
     }
 
-    public function getDateMission(): ?DateTimeInterface {
-        return $this->dateMission;
+    public function getDateDebutMission(): ?DateTimeInterface {
+        return $this->dateDebutMission;
     }
 
-    public function setDateMission(DateTimeInterface $dateMission): self {
-        $this->dateMission = $dateMission;
+    public function setDateDebutMission(DateTimeInterface $dateDebutMission): self {
+        $this->dateDebutMission = $dateDebutMission;
+
+        return $this;
+    }
+
+    public function getDateFinMission(): ?DateTimeInterface {
+        return $this->dateFinMission;
+    }
+
+    public function setDateFinMission(DateTimeInterface $dateFinMission): self {
+        $this->dateFinMission = $dateFinMission;
 
         return $this;
     }
@@ -169,22 +188,12 @@ abstract class Rapport {
         return $this;
     }
 
-    public function getZoneMission(): ?string {
+    public function getZoneMission(): ?ZoneGeographique {
         return $this->zoneMission;
     }
 
-    public function setZoneMission(string $zoneMission): self {
+    public function setZoneMission(ZoneGeographique $zoneMission): self {
         $this->zoneMission = $zoneMission;
-
-        return $this;
-    }
-
-    public function getDureeMission(): ?string {
-        return $this->dureeMission;
-    }
-
-    public function setDureeMission(string $dureeMission): self {
-        $this->dureeMission = $dureeMission;
 
         return $this;
     }
@@ -213,8 +222,17 @@ abstract class Rapport {
         return $this->distanceTerrestre;
     }
 
-    public function setDistanceTerrestre(?int $distanceTerrestre): self{
+    public function setDistanceTerrestre(?int $distanceTerrestre): self {
         $this->distanceTerrestre = $distanceTerrestre;
+        return $this;
+    }
+
+    public function getDetailHorsZone(): ?string {
+        return $this->detailHorsZone;
+    }
+
+    public function setDetailHorsZone($detailHorsZone): self {
+        $this->detailHorsZone = $detailHorsZone;
         return $this;
     }
 

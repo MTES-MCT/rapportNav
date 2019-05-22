@@ -5,12 +5,13 @@ namespace App\Form;
 use App\Entity\Agent;
 use App\Entity\Moyen;
 use App\Entity\Rapport;
+use App\Entity\ZoneGeographique;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +20,8 @@ class RapportType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         isset($options['service']) ? $service = $options['service'] : $service = "ulam35";
         $builder
-            ->add('dateMission', DateType::class, ['required' => true, 'label' => "Date de la mission"])
+            ->add('dateDebutMission', DateTimeType::class, ['required' => true, 'label' => "Démarrage de la mission"])
+            ->add('dateFinMission', DateTimeType::class, ['required' => true, 'label' => "Fin de mission"])
             ->add('methodeCiblage', ChoiceType::class, [
                 'choices' => ['Ciblé via outil' => 0, 'Ciblé manuellement' => 1, 'Opportunité' => 3],
                 'multiple' => false,
@@ -35,33 +37,16 @@ class RapportType extends AbstractType {
                 'expanded' => false,
                 'placeholder' => '',
                 'label' => "Lieu de la mission"])
-            ->add('zoneMission', ChoiceType::class, [
-                'choices' => ['Ouest 56' => 0,
-                    'Est 56' => 1,
-                    'Rade LO' => 2,
-                    'Groix et courreaux' => 3,
-                    'Riv Etel' => 4,
-                    'Ouest Quiberon' => 5,
-                    'Belle-Ile et courreaux' => 6,
-                    'Houat' => 7,
-                    'Hoëdic' => 8,
-                    'Baie Quiberon' => 9,
-                    'Golfe' => 10,
-                    'Riv Auray' => 11,
-                    'Littoral Est' => 12,
-                    'Vilaine' => 13,
-                ],
+            ->add('zoneMission', EntityType::class, [
+                'class' => ZoneGeographique::class,
+                'choice_label' => "nom",
                 'multiple' => false,
                 'expanded' => false,
-                'placeholder' => '',
                 'required' => false,
-                'label' => "Zone de la mission (ULAM56)"])
+                'label' => "Zone de la mission"])
             ->add('arme', CheckboxType::class, [
                 'required' => false,
                 'label' => "Mission armée ?"])
-            ->add('dureeMission', IntegerType::class, [
-                'required' => true,
-                'label' => "Durée de la mission (en minutes)"])
             ->add('moyens', EntityType::class, [
                 'class' => Moyen::class,
                 'choice_label' => 'nom',

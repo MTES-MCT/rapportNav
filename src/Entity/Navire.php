@@ -125,7 +125,7 @@ class  Navire {
         return $this;
     }
 
-    public function getErreurTexte(): string {
+    public function getErreurTexte(): ?string {
         return $this->erreurTexte;
     }
 

@@ -14,10 +14,17 @@
     <h2>Éléments généraux</h2>
 
     <div class="row">
-        <div class="form__group horizontal__form">
-            {{ form_label(form.dateMission) }}
-            {{ form_errors(form.dateMission) }}
-            {{ form_widget(form.dateMission) }}
+        <div>
+            <div class="form__group horizontal__form">
+                {{ form_label(form.dateDebutMission) }}
+                {{ form_errors(form.dateDebutMission) }}
+                {{ form_widget(form.dateDebutMission) }}
+            </div>
+            <div>
+                {{ form_label(form.dateFinMission) }}
+                {{ form_errors(form.dateFinMission) }}
+                {{ form_widget(form.dateFinMission) }}
+            </div>
         </div>
 
         <div class="form__group horizontal__form">
@@ -64,12 +71,6 @@
             {{ form_label(form.arme) }}
             {{ form_errors(form.arme) }}
             {{ form_widget(form.arme, {'attr': {'class': 'center'}}) }}
-        </div>
-
-        <div class="form__group horizontal__form">
-            {{ form_label(form.dureeMission) }}
-            {{ form_errors(form.dureeMission) }}
-            {{ form_widget(form.dureeMission) }}
         </div>
     </div>
 

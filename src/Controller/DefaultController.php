@@ -8,7 +8,9 @@ use App\Entity\Rapport;
 use App\Entity\User;
 use App\Form\RapportBordType;
 use App\Form\RapportCommerceType;
+use DateInterval;
 use \DateTime;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use \Exception;
@@ -62,9 +64,13 @@ class DefaultController extends AbstractController {
         //Setting default values on new form
         if(!$form->isSubmitted()) {
             try {
-                $form->get('dateMission')->setData(new DateTime());
+                $now = new DateTimeImmutable();
+                $later = $now->add(new DateInterval('PT2H'));
             } catch(Exception $e) {
+                throw new InvalidArgumentException("Erreur à l'initialisation du formulaire : impossible de récupérer la date et l'heure courante");
             }
+            $form->get('dateDebutMission')->setData($now);
+            $form->get('dateFinMission')->setData($later);
             switch($type) {
                 case "controle_a_bord":
                     $form->get('navires')->setData([new RapportNavire()]);
@@ -168,8 +174,8 @@ class DefaultController extends AbstractController {
      */
     public function listSubmission(EntityManagerInterface $em) {
 
-        $controlePeche = $em->getRepository('App:RapportBord')->findBy([], ['dateMission' => "DESC"], 20);
-        $controleCommerce = $em->getRepository('App:RapportCommerce')->findBy([], ['dateMission' => "DESC"], 20);
+        $controlePeche = $em->getRepository('App:RapportBord')->findBy([], ['dateDebutMission' => "DESC"], 20);
+        $controleCommerce = $em->getRepository('App:RapportCommerce')->findBy([], ['dateDebutMission' => "DESC"], 20);
 
 
         $list = ['Contrôle de navire' => $controlePeche, 'Contrôle de la filière commercialisation' => $controleCommerce];

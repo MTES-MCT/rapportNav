@@ -33,20 +33,25 @@ services:
         class: App\Admin\NavireAdmin
         arguments: [~, App\Entity\Navire, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Navire }
+            - { name: sonata.admin, manager_type: orm, label: "Navires" }
     admin.rapport:
         class: App\Admin\RapportAdmin
         arguments: [~, App\Entity\Rapport, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Rapport }
+            - { name: sonata.admin, manager_type: orm, label: "Rapports" }
     admin.etablissement:
         class: App\Admin\EtablissementAdmin
         arguments: [~, App\Entity\Etablissement, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Etablissement }
+            - { name: sonata.admin, manager_type: orm, label: "Établissements" }
     admin.moyen:
         class: App\Admin\MoyenAdmin
         arguments: [~, App\Entity\Moyen, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Moyen }
+            - { name: sonata.admin, manager_type: orm, label: "Moyens par unité" }
+    admin.zoneGeographique:
+        class: App\Admin\ZoneGeographiqueAdmin
+        arguments: [~, App\Entity\ZoneGeographique, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Zones Géographiques" }
 

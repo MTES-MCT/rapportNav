@@ -20,7 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 class RapportAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-            ->add('dateMission', DateType::class)
+            ->add('dateDebutMission', DateType::class)
+            ->add('dateFinMission', DateType::class)
             ->add('typeRapport', ChoiceType::class)
             ->add('agents', null)
 //            ->add('typeMission', ChoiceType::class)
@@ -44,7 +45,8 @@ class RapportAdmin extends AbstractAdmin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-            ->add('dateMission')
+            ->add('dateDebutMission')
+            ->add('dateFinMission')
             ->add('typeRapport')
             ->add('agents')
 //            ->add('typeMission')
@@ -62,7 +64,8 @@ class RapportAdmin extends AbstractAdmin {
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-            ->addIdentifier('dateMission')
+            ->addIdentifier('dateDebutMission')
+            ->addIdentifier('dateFinMission')
             ->addIdentifier('typeRapport')
             ->addIdentifier('agents')
 //            ->addIdentifier('typeMission')
