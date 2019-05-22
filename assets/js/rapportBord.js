@@ -9,8 +9,8 @@ function navireDataComplete() {
             let parent = input.parents("li");
             parent.find("input[id$=_navire_nom]").val(data.nomNavire);
             parent.find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout);
-            parent.find("input[id$=_navire_]").val(data.idNavFlotteur);
-            parent.find("input[id$=_navire_idNavFloteur_typeUsage]").val(data.genreNavigation);
+            parent.find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur);
+            parent.find("input[id$=_navire_typeUsage]").val(data.genreNavigation);
             if (input.parent().find(".immatriculation_invalide")) {
                 input.parent().find(".immatriculation_invalide").remove();
             }
@@ -23,7 +23,6 @@ function navireDataComplete() {
             if (data.status === 404) {
                 input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
             } else {
-                console.log(data.status);
                 input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
             }
 
