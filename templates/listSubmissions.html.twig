@@ -13,7 +13,7 @@
                 <h2>{{ typeName }}</h2>
                 <ul>
                     {% for submission in type %}
-                        <li><a href="{{ path('rapport_edit', {'id_edit': submission.id}) }}">Mission du {{ submission.dateMission | date('d/m/Y') }}</a></li>
+                        <li><a href="{{ path('rapport_edit', {'id_edit': submission.id}) }}">Mission du {{ submission.dateDebutMission | date('d/m/Y') }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
