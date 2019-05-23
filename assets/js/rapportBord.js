@@ -1,10 +1,11 @@
 import Rapport from './rapport';
 import Vue from 'vue';
 import $ from 'jquery';
+import params from './params.json';
 
 function navireDataComplete() {
     var input = $(this);
-    $.get("http://localhost:8080/api/navires/" + input.val())
+    $.get(params.apiReferentiel+ "navires/" + input.val())
         .done(function (data) {
             let parent = input.parents("li");
             parent.find("input[id$=_navire_nom]").val(data.nomNavire);
@@ -17,7 +18,7 @@ function navireDataComplete() {
         })
         .fail(function (data) {
             console.log("immatriculation non trouvée dans Navires");
-            $.get("http://localhost:8080/api/plaisances/" + input.val())
+            $.get(params.apiReferentiel+ "plaisances/" + input.val())
                 .done(function (data) {
                     let parent = input.parents("li");
                     parent.find("input[id$=_navire_nom]").val(data.nomNavire);
