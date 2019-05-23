@@ -125,8 +125,7 @@ class DefaultController extends AbstractController {
             $currentControlledObjects->add($object);
         }
 
-        $editForm = $this->createForm($formClass, $controle);
-
+        $editForm = $this->createForm($formClass, $controle, ['service' => $this->getUser()->getService()]);
         $editForm->handleRequest($request);
 
         if($editForm->isSubmitted() && $editForm->isValid()) {

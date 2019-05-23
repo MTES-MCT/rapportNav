@@ -18,7 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RapportType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        isset($options['service']) ? $service = $options['service'] : $service = "ulam35";
+        $service = $options['service'];
+
         $builder
             ->add('dateDebutMission', DateTimeType::class, ['required' => true, 'label' => "Démarrage de la mission"])
             ->add('dateFinMission', DateTimeType::class, ['required' => true, 'label' => "Fin de mission"])
@@ -76,7 +77,7 @@ class RapportType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => Rapport::class,
-            'service' => "ulam35",
+            'service' => "",
         ]);
     }
 }

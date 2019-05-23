@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RapportCommerceType extends RapportType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
-        isset($options['service']) ? $service = $options['service'] : $service = "ulam35";
 
         $builder
             ->add('etablissements', CollectionType::class, [
@@ -27,7 +26,7 @@ class RapportCommerceType extends RapportType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => Rapport::class,
-            'service' => "ulam35",
+            'service' => "",
         ]);
     }
 }

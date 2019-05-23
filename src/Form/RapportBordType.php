@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RapportBordType extends RapportType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        isset($options['service']) ? $service = $options['service'] : $service = "ulam35";
         parent::buildForm($builder, $options);
 
         $builder
@@ -44,7 +43,7 @@ class RapportBordType extends RapportType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => Rapport::class,
-            'service' => "ulam35",
+            'service' => "",
         ]);
     }
 }
