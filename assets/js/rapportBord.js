@@ -4,7 +4,7 @@ import $ from 'jquery';
 
 function navireDataComplete() {
     var input = $(this);
-    $.get("http://localhost:8080/api/navires/" + $(this).val())
+    $.get("http://localhost:8080/api/navires/" + input.val())
         .done(function (data) {
             let parent = input.parents("li");
             parent.find("input[id$=_navire_nom]").val(data.nomNavire);
@@ -16,20 +16,34 @@ function navireDataComplete() {
             }
         })
         .fail(function (data) {
-            if (input.parent().find(".immatriculation_invalide")) {
-                input.parent().find(".immatriculation_invalide").remove();
-            }
+            console.log("immatriculation non trouvée dans Navires");
+            $.get("http://localhost:8080/api/plaisances/" + input.val())
+                .done(function (data) {
+                    let parent = input.parents("li");
+                    parent.find("input[id$=_navire_nom]").val(data.nomNavire);
+                    parent.find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur);
+                    parent.find("input[id$=_navire_typeUsage]").val("Plaisance");
+                    if (input.parent().find(".immatriculation_invalide")) {
+                        input.parent().find(".immatriculation_invalide").remove();
+                    }
+                    parent.find("input[id$=_navire_longueurHorsTout]").val("");
+                })
+                .fail(function (data) {
+                    if (input.parent().find(".immatriculation_invalide")) {
+                        input.parent().find(".immatriculation_invalide").remove();
+                    }
 
-            if (data.status === 404) {
-                input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
-            } else {
-                input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
-            }
+                    if (data.status === 404) {
+                        input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
+                    } else {
+                        input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
+                    }
 
-            input.parents("li").find("input[id$=_navire_nom]").val("");
-            input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
-            input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
-            input.parents("li").find("input[id$=_navire_typeUsage]").val("");
+                    input.parents("li").find("input[id$=_navire_nom]").val("");
+                    input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
+                    input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
+                    input.parents("li").find("input[id$=_navire_typeUsage]").val("");
+                })
         })
 }
 

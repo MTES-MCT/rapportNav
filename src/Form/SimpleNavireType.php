@@ -23,6 +23,7 @@ class SimpleNavireType extends AbstractType {
                 'attr' => ['readonly' =>  true],
             'label' => "Nom du navire (se complète automatiquement)"])
             ->add('longueurHorsTout', NumberType::class, [
+                'required' => false,
                 'attr' => ['readonly' => true],
                 'label' => "Longueur (se complète automatiquement)"])
             ->add('typeUsage', TextType::class, [

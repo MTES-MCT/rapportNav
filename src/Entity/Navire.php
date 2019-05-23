@@ -18,9 +18,9 @@ class  Navire {
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=6)
+     * @ORM\Column(type="text")
      * @Assert\NotBlank
-     * @Assert\Length(min = 1, max = 6)
+     * @Assert\Length(min = 1)
      */
     private $immatriculation_fr;
 
@@ -41,8 +41,7 @@ class  Navire {
     private $nom;
 
     /**
-     * @ORM\Column(type="float")
-     * @Assert\NotBlank
+     * @ORM\Column(type="float", nullable=true)
      */
     private $longueurHorsTout;
 
