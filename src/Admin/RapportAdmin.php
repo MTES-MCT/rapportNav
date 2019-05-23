@@ -5,7 +5,6 @@ namespace App\Admin;
 
 
 use App\Entity\Moyen;
-use App\Entity\Navire;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -16,20 +15,21 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RapportAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
+            ->add('serviceCreateur', TextType::class)
             ->add('dateDebutMission', DateType::class)
             ->add('dateFinMission', DateType::class)
-            ->add('typeRapport', ChoiceType::class)
+            ->add('methodeCiblage', ChoiceType::class)
             ->add('agents', null)
 //            ->add('typeMission', ChoiceType::class)
 //            ->add('aireMarineSpeciale', ChoiceType::class)
             ->add('lieuMission', ChoiceType::class)
             ->add('zoneMission', ChoiceType::class)
             ->add('arme', CheckboxType::class)
-            ->add('dureeMission', IntegerType::class)
             ->add('moyens', ModelType::class, [
                 'class' => Moyen::class,
                 'property' => 'nom',
@@ -45,16 +45,16 @@ class RapportAdmin extends AbstractAdmin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
+            ->add('serviceCreateur')
             ->add('dateDebutMission')
             ->add('dateFinMission')
-            ->add('typeRapport')
+            ->add('methodeCiblage')
             ->add('agents')
 //            ->add('typeMission')
 //            ->add('aireMarineSpeciale')
             ->add('lieuMission')
             ->add('zoneMission')
             ->add('arme')
-            ->add('dureeMission')
             ->add('moyens')
 //            ->add('distanceTerrestre')
 //            ->add('navires')
@@ -64,16 +64,16 @@ class RapportAdmin extends AbstractAdmin {
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
+            ->addIdentifier('serviceCreateur')
             ->addIdentifier('dateDebutMission')
             ->addIdentifier('dateFinMission')
-            ->addIdentifier('typeRapport')
+            ->addIdentifier('methodeCiblage')
             ->addIdentifier('agents')
 //            ->addIdentifier('typeMission')
 //            ->addIdentifier('aireMarineSpeciale')
             ->addIdentifier('lieuMission')
             ->addIdentifier('zoneMission')
             ->addIdentifier('arme')
-            ->addIdentifier('dureeMission')
             ->addIdentifier('moyens')
 //            ->addIdentifier('distanceTerrestre')
 //            ->addIdentifier('navires')
