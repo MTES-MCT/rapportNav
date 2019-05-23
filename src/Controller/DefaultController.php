@@ -45,7 +45,9 @@ class DefaultController extends AbstractController {
         $rapportClass = "\\App\\Entity\\".$typeRapportToClass[$type];
         $formClass = "\\App\\Form\\".$typeRapportToClass[$type]."Type";
 
+        /** @var Rapport $rapport */
         $rapport = new $rapportClass();
+        $rapport->setServiceCreateur($this->getUser()->getservice());
 
         /** @var User $user */
         $user = $this->getUser();
@@ -173,9 +175,16 @@ class DefaultController extends AbstractController {
      * @return Response
      */
     public function listSubmission(EntityManagerInterface $em) {
+        $service = $this->getUser()->getService();
 
-        $controlePeche = $em->getRepository('App:RapportBord')->findBy([], ['dateDebutMission' => "DESC"], 20);
-        $controleCommerce = $em->getRepository('App:RapportCommerce')->findBy([], ['dateDebutMission' => "DESC"], 20);
+        $controlePeche = $em->getRepository('App:RapportBord')->findBy(
+            ['serviceCreateur' => $service],
+            ['dateDebutMission' => "DESC"],
+            20);
+        $controleCommerce = $em->getRepository('App:RapportCommerce')->findBy(
+            ['serviceCreateur' => $service],
+            ['dateDebutMission' => "DESC"],
+            20);
 
 
         $list = ['Contrôle de navire' => $controlePeche, 'Contrôle de la filière commercialisation' => $controleCommerce];

@@ -23,6 +23,11 @@ abstract class Rapport {
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $serviceCreateur;
+
+    /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank
      *
@@ -37,7 +42,6 @@ abstract class Rapport {
      * @var DateTimeInterface
      */
     private $dateFinMission;
-
 
     /**
      * @ORM\Column(type="smallint")
@@ -233,6 +237,16 @@ abstract class Rapport {
 
     public function setDetailHorsZone($detailHorsZone): self {
         $this->detailHorsZone = $detailHorsZone;
+        return $this;
+    }
+
+    public function getServiceCreateur(): ?string {
+        return $this->serviceCreateur;
+    }
+
+    public function setServiceCreateur(string $serviceCreateur): self {
+        $this->serviceCreateur = $serviceCreateur;
+
         return $this;
     }
 
