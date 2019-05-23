@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\DocBlock\Tags\BaseTag;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -81,7 +82,7 @@ class  Navire {
         return $this->id_nav_floteur;
     }
 
-    public function setIdNavFloteur(int $id_nav_floteur): self {
+    public function setIdNavFloteur(?int $id_nav_floteur): self {
         $this->id_nav_floteur = $id_nav_floteur;
 
         return $this;
@@ -91,7 +92,7 @@ class  Navire {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self {
+    public function setNom(?string $nom): self {
         $this->nom = $nom;
 
         return $this;
@@ -101,17 +102,17 @@ class  Navire {
         return $this->longueurHorsTout;
     }
 
-    public function setLongueurHorsTout(float $longueurHorsTout): self {
+    public function setLongueurHorsTout(?float $longueurHorsTout): self {
         $this->longueurHorsTout = $longueurHorsTout;
 
         return $this;
     }
 
-    public function getTypeUsage(): ?int {
+    public function getTypeUsage(): ?string {
         return $this->typeUsage;
     }
 
-    public function setTypeUsage($typeUsage): self {
+    public function setTypeUsage(string $typeUsage): self {
         $this->typeUsage = $typeUsage;
         return $this;
     }

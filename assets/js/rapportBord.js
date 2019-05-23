@@ -29,6 +29,7 @@ function navireDataComplete() {
             input.parents("li").find("input[id$=_navire_nom]").val("");
             input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
             input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
+            input.parents("li").find("input[id$=_navire_typeUsage]").val("");
         })
 }
 
