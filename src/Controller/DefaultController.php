@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\RapportEtablissement;
+use App\Entity\RapportFormation;
 use App\Entity\RapportNavire;
 use App\Entity\Rapport;
 use App\Entity\User;
 use App\Form\RapportAdministratifType;
 use App\Form\RapportBordType;
 use App\Form\RapportCommerceType;
+use App\Form\RapportFormationType;
 use DateInterval;
 use \DateTime;
 use DateTimeImmutable;
@@ -31,19 +33,21 @@ class DefaultController extends AbstractController {
     }
 
     /**
-     * @Route("/rapport/{type}", name="rapport_create", requirements={"type":
-     *                           "controle_a_bord|filiere_commercialisation|administratif"})
+     * @Route("/rapport/{type}",
+     *     name="rapport_create",
+     *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation"})
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
+     * @param string                 $type
      *
      * @return RedirectResponse|Response
      */
     public function rapportCreate(Request $request, EntityManagerInterface $em, string $type) {
-
         $typeRapportToClass = ['controle_a_bord' => "RapportBord",
             'filiere_commercialisation' => "RapportCommerce",
-            'administratif' => "RapportAdministratif"];
+            'administratif' => "RapportAdministratif",
+            "formation" => "RapportFormation"];
 
         $rapportClass = "\\App\\Entity\\".$typeRapportToClass[$type];
         $formClass = "\\App\\Form\\".$typeRapportToClass[$type]."Type";
@@ -96,6 +100,9 @@ class DefaultController extends AbstractController {
             case "administratif":
                 return $this->render('rapportAdministratif.html.twig', ['form' => $form->createView()]);
                 break;
+            case "formation":
+                return $this->render('rapportFormation.html.twig', ['form' => $form->createView()]);
+                break;
             default:
                 throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
         }
@@ -125,9 +132,14 @@ class DefaultController extends AbstractController {
         } elseif(get_class($controle) === "App\\Entity\\RapportCommerce") {
             $getControlledObjects = "getEtablissements";
             $formClass = RapportCommerceType::class;
-        } else {
+        } elseif(get_class($controle) === "App\\Entity\\RapportAdministratif") {
             $getControlledObjects = false;
             $formClass = RapportAdministratifType::class;
+        } elseif(get_class($controle) === "App\\Entity\\RapportFormation") {
+            $getControlledObjects = false;
+            $formClass = RapportFormationType::class;
+        } else {
+            throw new InvalidArgumentException("Type de rapport inconnu");
         }
 
         if($getControlledObjects) {
@@ -163,6 +175,9 @@ class DefaultController extends AbstractController {
                 break;
             case RapportAdministratifType::class:
                 return $this->render('rapportAdministratif.html.twig', ['form' => $editForm->createView()]);
+                break;
+            case RapportFormationType::class:
+                return $this->render('rapportFormation.html.twig', ['form' => $editForm->createView()]);
                 break;
             default:
                 throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
@@ -202,11 +217,16 @@ class DefaultController extends AbstractController {
             ['serviceCreateur' => $service],
             ['dateDebutMission' => "DESC"],
             20);
-
+        $formations = $em->getRepository('App:RapportFormation')->findBy(
+            ['serviceCreateur' => $service],
+            ['dateDebutMission' => "DESC"],
+            20);
 
         $list = ['Contrôle de navire' => $controlePeche,
             'Contrôle de la filière commercialisation' => $controleCommerce,
-            'Actions administatives' => $administratif];
+            'Actions administratives' => $administratif,
+            'Actions de formation' => $formations,
+        ];
 
         return $this->render('listSubmissions.html.twig', ['list' => $list]);
     }

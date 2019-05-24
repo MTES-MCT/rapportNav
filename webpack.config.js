@@ -26,9 +26,6 @@ Encore
     //For Rapport filière Commercialisation
     .addEntry('rapportCommercialisation', './assets/js/rapportCommercialisation.js')
 
-    //For Rapport Admisistratif
-    .addEntry('rapportAdministratif', './assets/js/rapportAdministratif.js')
-
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

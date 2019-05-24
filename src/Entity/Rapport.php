@@ -12,7 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\RapportRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"bord" = "RapportBord", "commerce" = "RapportCommerce", "administratif" = "RapportAdministratif"})
+ * @ORM\DiscriminatorMap({"bord" = "RapportBord",
+ *     "commerce" = "RapportCommerce",
+ *     "administratif" = "RapportAdministratif",
+ *     "formation" = "RapportFormation"})
  */
 abstract class Rapport {
     /**

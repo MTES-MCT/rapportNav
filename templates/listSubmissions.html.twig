@@ -7,17 +7,22 @@
 {% block body_banner %}{% endblock body_banner %}
 {% block body_main_container %}
 
-    <div class="row">
-        {% for typeName, type in list %}
-            <div>
-                <h2>{{ typeName }}</h2>
-                <ul>
-                    {% for submission in type %}
-                        <li><a href="{{ path('rapport_edit', {'id_edit': submission.id}) }}">Mission n°{{ submission.id }} du {{ submission.dateDebutMission | date('d/m/Y') }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endfor %}
-    </div>
+    {% for row in list|batch(3) %}
+        <div class="row">
+            {% for title, rapports in row %}
+                <div>
+                    <h2>{{ title }}</h2>
+                    <ul>
+                        {% for rapport in rapports %}
+                            <li><a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
+                                    Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
+                                </a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
 
 {% endblock body_main_container %}
+
