@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"bord" = "RapportBord",
  *     "commerce" = "RapportCommerce",
+ *     "pecheapied" = "RapportPechePied",
  *     "administratif" = "RapportAdministratif",
  *     "formation" = "RapportFormation"})
  */

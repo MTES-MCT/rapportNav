@@ -1,0 +1,79 @@
+{% extends "rapport.html.twig" %}
+
+{% block head_title %}Contrôle de la pêche à pied {{ parent() }}{% endblock head_title %}
+
+{% block body_main_container_title %}Contrôle de la pêche à pied (pro et loisir){% endblock body_main_container_title %}
+
+{% block body_main_container_rapport_objects %}
+    <h2>Pêcheurs contrôlés</h2>
+
+    <ul class="pecheurs no-decoration" data-prototype='
+        <div class="form__group horizontal__form">
+            <div>
+                        {{ form_label(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
+                        {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
+                        {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
+                        {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
+                        {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
+                    </div>
+                    {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': form.pecheursPied.vars.prototype.pecheurPied.estPro } %}
+        </div>
+        <div class="form__group horizontal__form">
+            {{ form_label(form.pecheursPied.vars.prototype.pv)|e('html_attr') }}
+            {{ form_errors(form.pecheursPied.vars.prototype.pv)|e('html_attr') }}
+            {{ form_widget(form.pecheursPied.vars.prototype.pv)|e('html_attr') }}
+        </div>
+        <div class="form__group horizontal__form">
+            {{ form_label(form.pecheursPied.vars.prototype.natinf)|e('html_attr') }}
+            {{ form_errors(form.pecheursPied.vars.prototype.natinf)|e('html_attr') }}
+            {{ form_widget(form.pecheursPied.vars.prototype.natinf)|e('html_attr') }}
+        </div>
+        <div class="form__group horizontal__form">
+            {{ form_label(form.pecheursPied.vars.prototype.commentaire)|e('html_attr') }}
+            {{ form_errors(form.pecheursPied.vars.prototype.commentaire)|e('html_attr') }}
+            {{ form_widget(form.pecheursPied.vars.prototype.commentaire)|e('html_attr') }}
+        </div>
+    '>
+        {% for pecheurPiedControle in form.pecheursPied %}
+            <li class="row pecheur">
+                <div class="form__group horizontal__form">
+                    <div>
+                        {{ form_label(pecheurPiedControle.pecheurPied.nom) }}
+                        {{ form_errors(pecheurPiedControle.pecheurPied.nom) }}
+                        {{ form_widget(pecheurPiedControle.pecheurPied.nom) }}
+                    </div>
+                    <div>
+                        {{ form_label(pecheurPiedControle.pecheurPied.prenom) }}
+                        {{ form_errors(pecheurPiedControle.pecheurPied.prenom) }}
+                        {{ form_widget(pecheurPiedControle.pecheurPied.prenom) }}
+                    </div>
+                    {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': pecheurPiedControle.pecheurPied.estPro } %}
+                </div>
+                <div class="form__group horizontal__form">
+                    {{ form_label(pecheurPiedControle.pv) }}
+                    {{ form_widget(pecheurPiedControle.pv) }}
+                    {{ form_errors(pecheurPiedControle.pv) }}
+                </div>
+                <div class="form__group horizontal__form">
+                    {{ form_label(pecheurPiedControle.natinf) }}
+                    {{ form_errors(pecheurPiedControle.natinf) }}
+                    {{ form_widget(pecheurPiedControle.natinf) }}
+                </div>
+                <div class="form__group horizontal__form">
+                    {{ form_label(pecheurPiedControle.commentaire) }}
+                    {{ form_errors(pecheurPiedControle.commentaire) }}
+                    {{ form_widget(pecheurPiedControle.commentaire) }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock body_main_container_rapport_objects %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('rapportPechePied') }}
+{% endblock javascripts %}

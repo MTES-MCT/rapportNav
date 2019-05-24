@@ -23,6 +23,9 @@ Encore
     //For Rapport Navire
     .addEntry('rapportNavire', './assets/js/rapportBord.js')
 
+    //For Rapport Pêche À Pied
+    .addEntry('rapportPechePied', './assets/js/rapportPechePied.js')
+
     //For Rapport filière Commercialisation
     .addEntry('rapportCommercialisation', './assets/js/rapportCommercialisation.js')
 
@@ -36,13 +39,13 @@ Encore
 
     .autoProvidejQuery()
 
-/*
- * FEATURE CONFIG
- *
- * Enable & configure other features below. For a full
- * list of features, see:
- * https://symfony.com/doc/current/frontend.html#adding-more-features
- */
+    /*
+     * FEATURE CONFIG
+     *
+     * Enable & configure other features below. For a full
+     * list of features, see:
+     * https://symfony.com/doc/current/frontend.html#adding-more-features
+     */
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())

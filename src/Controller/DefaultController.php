@@ -11,6 +11,7 @@ use App\Form\RapportAdministratifType;
 use App\Form\RapportBordType;
 use App\Form\RapportCommerceType;
 use App\Form\RapportFormationType;
+use App\Form\RapportPechePiedType;
 use DateInterval;
 use \DateTime;
 use DateTimeImmutable;
@@ -35,7 +36,7 @@ class DefaultController extends AbstractController {
     /**
      * @Route("/rapport/{type}",
      *     name="rapport_create",
-     *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation"})
+     *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation|peche_a_pied"})
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
@@ -47,7 +48,9 @@ class DefaultController extends AbstractController {
         $typeRapportToClass = ['controle_a_bord' => "RapportBord",
             'filiere_commercialisation' => "RapportCommerce",
             'administratif' => "RapportAdministratif",
-            "formation" => "RapportFormation"];
+            "formation" => "RapportFormation",
+            "peche_a_pied" => "RapportPechePied",
+        ];
 
         $rapportClass = "\\App\\Entity\\".$typeRapportToClass[$type];
         $formClass = "\\App\\Form\\".$typeRapportToClass[$type]."Type";
@@ -97,6 +100,9 @@ class DefaultController extends AbstractController {
             case "filiere_commercialisation":
                 return $this->render('rapportCommercialisation.html.twig', ['form' => $form->createView()]);
                 break;
+            case "peche_a_pied":
+                return $this->render('rapportPechePied.html.twig', ['form' => $form->createView()]);
+                break;
             case "administratif":
                 return $this->render('rapportAdministratif.html.twig', ['form' => $form->createView()]);
                 break;
@@ -132,6 +138,9 @@ class DefaultController extends AbstractController {
         } elseif(get_class($controle) === "App\\Entity\\RapportCommerce") {
             $getControlledObjects = "getEtablissements";
             $formClass = RapportCommerceType::class;
+        } elseif(get_class($controle) === "App\\Entity\\RapportPechePied") {
+            $getControlledObjects = "getPecheursPied";
+            $formClass = RapportPechePiedType::class;
         } elseif(get_class($controle) === "App\\Entity\\RapportAdministratif") {
             $getControlledObjects = false;
             $formClass = RapportAdministratifType::class;
@@ -173,6 +182,9 @@ class DefaultController extends AbstractController {
             case RapportCommerceType::class:
                 return $this->render('rapportCommercialisation.html.twig', ['form' => $editForm->createView()]);
                 break;
+            case RapportPechePiedType::class:
+                return $this->render('rapportPechePied.html.twig', ['form' => $editForm->createView()]);
+                break;
             case RapportAdministratifType::class:
                 return $this->render('rapportAdministratif.html.twig', ['form' => $editForm->createView()]);
                 break;
@@ -213,6 +225,10 @@ class DefaultController extends AbstractController {
             ['serviceCreateur' => $service],
             ['dateDebutMission' => "DESC"],
             20);
+        $controlePechePied = $em->getRepository('App:RapportPechePied')->findBy(
+            ['serviceCreateur' => $service],
+            ['dateDebutMission' => "DESC"],
+            20);
         $administratif = $em->getRepository('App:RapportAdministratif')->findBy(
             ['serviceCreateur' => $service],
             ['dateDebutMission' => "DESC"],
@@ -224,6 +240,7 @@ class DefaultController extends AbstractController {
 
         $list = ['Contrôle de navire' => $controlePeche,
             'Contrôle de la filière commercialisation' => $controleCommerce,
+            'Contrôle de la pêche à pied' => $controlePechePied,
             'Actions administratives' => $administratif,
             'Actions de formation' => $formations,
         ];
