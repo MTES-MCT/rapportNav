@@ -1,0 +1,14 @@
+{% extends "rapport.html.twig" %}
+
+{% block head_title %}Ajout d'une activité administrative {{ parent() }}{% endblock head_title %}
+
+{% block body_main_container_title %}Ajout d'une activité administrative{% endblock body_main_container_title %}
+
+{% block body_main_container_rapport_objects %}
+    <h2>Activités réalisées</h2>
+    {{ form_widget(form.activite) }}
+{% endblock body_main_container_rapport_objects %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('rapportAdministratif') }}
+{% endblock javascripts %}

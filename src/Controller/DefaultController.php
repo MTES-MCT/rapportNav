@@ -6,6 +6,7 @@ use App\Entity\RapportEtablissement;
 use App\Entity\RapportNavire;
 use App\Entity\Rapport;
 use App\Entity\User;
+use App\Form\RapportAdministratifType;
 use App\Form\RapportBordType;
 use App\Form\RapportCommerceType;
 use DateInterval;
@@ -31,7 +32,7 @@ class DefaultController extends AbstractController {
 
     /**
      * @Route("/rapport/{type}", name="rapport_create", requirements={"type":
-     *                           "controle_a_bord|filiere_commercialisation"})
+     *                           "controle_a_bord|filiere_commercialisation|administratif"})
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
@@ -40,7 +41,9 @@ class DefaultController extends AbstractController {
      */
     public function rapportCreate(Request $request, EntityManagerInterface $em, string $type) {
 
-        $typeRapportToClass = ['controle_a_bord' => "RapportBord", 'filiere_commercialisation' => "RapportCommerce"];
+        $typeRapportToClass = ['controle_a_bord' => "RapportBord",
+            'filiere_commercialisation' => "RapportCommerce",
+            'administratif' => "RapportAdministratif"];
 
         $rapportClass = "\\App\\Entity\\".$typeRapportToClass[$type];
         $formClass = "\\App\\Form\\".$typeRapportToClass[$type]."Type";
@@ -90,6 +93,9 @@ class DefaultController extends AbstractController {
             case "filiere_commercialisation":
                 return $this->render('rapportCommercialisation.html.twig', ['form' => $form->createView()]);
                 break;
+            case "administratif":
+                return $this->render('rapportAdministratif.html.twig', ['form' => $form->createView()]);
+                break;
             default:
                 throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
         }
@@ -116,13 +122,18 @@ class DefaultController extends AbstractController {
         if(get_class($controle) === "App\\Entity\\RapportBord") {
             $getControlledObjects = "getNavires";
             $formClass = RapportBordType::class;
-        } else {
+        } elseif(get_class($controle) === "App\\Entity\\RapportCommerce") {
             $getControlledObjects = "getEtablissements";
             $formClass = RapportCommerceType::class;
+        } else {
+            $getControlledObjects = false;
+            $formClass = RapportAdministratifType::class;
         }
 
-        foreach($controle->$getControlledObjects() as $object) {
-            $currentControlledObjects->add($object);
+        if($getControlledObjects) {
+            foreach($controle->$getControlledObjects() as $object) {
+                $currentControlledObjects->add($object);
+            }
         }
 
         $editForm = $this->createForm($formClass, $controle, ['service' => $this->getUser()->getService()]);
@@ -130,7 +141,7 @@ class DefaultController extends AbstractController {
 
         if($editForm->isSubmitted() && $editForm->isValid()) {
             foreach($currentControlledObjects as $object) {
-                if(false === $controle->$getControlledObjects()->contains($object)) {
+                if($getControlledObjects() && false === $controle->$getControlledObjects()->contains($object)) {
                     $em->remove($object);
                 }
             }
@@ -149,6 +160,9 @@ class DefaultController extends AbstractController {
                 break;
             case RapportCommerceType::class:
                 return $this->render('rapportCommercialisation.html.twig', ['form' => $editForm->createView()]);
+                break;
+            case RapportAdministratifType::class:
+                return $this->render('rapportAdministratif.html.twig', ['form' => $editForm->createView()]);
                 break;
             default:
                 throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
@@ -184,9 +198,15 @@ class DefaultController extends AbstractController {
             ['serviceCreateur' => $service],
             ['dateDebutMission' => "DESC"],
             20);
+        $administratif = $em->getRepository('App:RapportAdministratif')->findBy(
+            ['serviceCreateur' => $service],
+            ['dateDebutMission' => "DESC"],
+            20);
 
 
-        $list = ['Contrôle de navire' => $controlePeche, 'Contrôle de la filière commercialisation' => $controleCommerce];
+        $list = ['Contrôle de navire' => $controlePeche,
+            'Contrôle de la filière commercialisation' => $controleCommerce,
+            'Actions administatives' => $administratif];
 
         return $this->render('listSubmissions.html.twig', ['list' => $list]);
     }
