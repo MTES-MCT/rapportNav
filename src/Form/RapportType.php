@@ -32,11 +32,18 @@ class RapportType extends AbstractType {
                 'expanded' => false,
                 'placeholder' => '',
                 'label' => "Lieu de la mission"])
-            ->add('zoneMission', EntityType::class, [
+            ->add('zoneMissions', EntityType::class, [
                 'class' => ZoneGeographique::class,
+                'query_builder' => function(EntityRepository $er) use ($service) {
+                    return $er->createQueryBuilder('z')
+                        ->where('z.direction = :service OR z.alias = :alias OR z.direction = \'tous\' ')
+                        ->setParameters([
+                            'service' => "DDTM" . mb_strcut($service, 4),
+                            'alias' => mb_strcut($service, 4)]);
+                },
                 'choice_label' => "nom",
-                'multiple' => false,
-                'expanded' => false,
+                'multiple' => true,
+                'expanded' => true,
                 'required' => false,
                 'label' => "Zone de la mission"])
             ->add('arme', CheckboxType::class, [

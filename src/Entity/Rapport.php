@@ -73,9 +73,9 @@ abstract class Rapport {
     private $lieuMission;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ZoneGeographique")
+     * @ORM\ManyToMany(targetEntity="App\Entity\ZoneGeographique")
      */
-    private $zoneMission;
+    private $zoneMissions;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -100,6 +100,7 @@ abstract class Rapport {
     public function __construct() {
         $this->agents = new ArrayCollection();
         $this->moyens = new ArrayCollection();
+        $this->zoneMissions = new ArrayCollection();
     }
 
     public function getDateDebutMission(): ?DateTimeInterface {
@@ -174,16 +175,28 @@ abstract class Rapport {
 
     public function setLieuMission(int $lieuMission): self {
         $this->lieuMission = $lieuMission;
+        return $this;
+    }
+
+    /**
+     * @return Collection|ZoneGeographique[]
+     */
+    public function getZoneMissions(): Collection {
+        return $this->zoneMissions;
+    }
+
+    public function addZoneMission(ZoneGeographique $zoneMission): self {
+        if(!$this->zoneMissions->contains($zoneMission)) {
+            $this->zoneMissions[] = $zoneMission;
+        }
 
         return $this;
     }
 
-    public function getZoneMission(): ?ZoneGeographique {
-        return $this->zoneMission;
-    }
-
-    public function setZoneMission(ZoneGeographique $zoneMission): self {
-        $this->zoneMission = $zoneMission;
+    public function removeZoneMission(ZoneGeographique $zoneMission): self {
+        if($this->zoneMissions->contains($zoneMission)) {
+            $this->zoneMissions->removeElement($zoneMission);
+        }
 
         return $this;
     }
@@ -235,5 +248,4 @@ abstract class Rapport {
 
         return $this;
     }
-
 }

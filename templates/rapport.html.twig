@@ -28,11 +28,11 @@
         </div>
 
         {% if form.methodeCiblage is defined %}
-        <div class="form__group horizontal__form">
-            {{ form_label(form.methodeCiblage) }}
-            {{ form_errors(form.methodeCiblage) }}
-            {{ form_widget(form.methodeCiblage) }}
-        </div>
+            <div class="form__group horizontal__form">
+                {{ form_label(form.methodeCiblage) }}
+                {{ form_errors(form.methodeCiblage) }}
+                {{ form_widget(form.methodeCiblage) }}
+            </div>
         {% endif %}
 
         <div class="form__group horizontal__form">
@@ -64,9 +64,23 @@
         </div>
 
         <div class="form__group horizontal__form">
-            {{ form_label(form.zoneMission) }}
-            {{ form_errors(form.zoneMission) }}
-            {{ form_widget(form.zoneMission) }}
+            <fieldset>
+                {{ form_label(form.zoneMissions, null, {'element': 'legend'} ) }}
+                {{ form_errors(form.zoneMissions) }}
+                {% set part_elements = ((form.zoneMissions|length)/3)|round %}
+                <div class="row">
+                    {% for row in form.zoneMissions|batch(part_elements) %}
+                        <ul class="no-decoration stacked-list">
+                            {% for checkbox in row %}
+                                <li class="form__checkbox">
+                                    {{ form_widget(checkbox) }}
+                                    {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline"}}) }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </div>
+            </fieldset>
         </div>
 
         <div class="form__group horizontal__form">

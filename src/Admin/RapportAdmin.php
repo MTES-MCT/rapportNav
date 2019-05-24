@@ -23,24 +23,17 @@ class RapportAdmin extends AbstractAdmin {
             ->add('serviceCreateur', TextType::class)
             ->add('dateDebutMission', DateType::class)
             ->add('dateFinMission', DateType::class)
-            ->add('methodeCiblage', ChoiceType::class)
-            ->add('agents', null)
-//            ->add('typeMission', ChoiceType::class)
-//            ->add('aireMarineSpeciale', ChoiceType::class)
+            ->add('agents')
             ->add('lieuMission', ChoiceType::class)
-            ->add('zoneMission', ChoiceType::class)
+            ->add('zoneMissions', ModelType::class, ['multiple' => true])
             ->add('arme', CheckboxType::class)
             ->add('moyens', ModelType::class, [
                 'class' => Moyen::class,
                 'property' => 'nom',
+                'multiple' => true,
             ])
             ->add('distanceTerrestre', IntegerType::class)
-//            ->add('navires', ModelType::class, [
-//                'class' => Navire::class,
-//                'property' => 'immatriculation',
-//            ])
-            ->add('commentaire', TextareaType::class)
-        ;
+            ->add('commentaire', TextareaType::class);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
@@ -48,18 +41,13 @@ class RapportAdmin extends AbstractAdmin {
             ->add('serviceCreateur')
             ->add('dateDebutMission')
             ->add('dateFinMission')
-            ->add('methodeCiblage')
             ->add('agents')
-//            ->add('typeMission')
-//            ->add('aireMarineSpeciale')
             ->add('lieuMission')
-            ->add('zoneMission')
+            ->add('zoneMissions')
             ->add('arme')
             ->add('moyens')
-//            ->add('distanceTerrestre')
-//            ->add('navires')
-            ->add('commentaire')
-        ;
+            ->add('distanceTerrestre')
+            ->add('commentaire');
     }
 
     protected function configureListFields(ListMapper $listMapper) {
@@ -67,18 +55,13 @@ class RapportAdmin extends AbstractAdmin {
             ->addIdentifier('serviceCreateur')
             ->addIdentifier('dateDebutMission')
             ->addIdentifier('dateFinMission')
-            ->addIdentifier('methodeCiblage')
             ->addIdentifier('agents')
-//            ->addIdentifier('typeMission')
-//            ->addIdentifier('aireMarineSpeciale')
             ->addIdentifier('lieuMission')
-            ->addIdentifier('zoneMission')
+            ->addIdentifier('zoneMissions')
             ->addIdentifier('arme')
             ->addIdentifier('moyens')
-//            ->addIdentifier('distanceTerrestre')
-//            ->addIdentifier('navires')
-            ->addIdentifier('commentaire')
-        ;
+            ->addIdentifier('distanceTerrestre')
+            ->addIdentifier('commentaire');
     }
 
 }
