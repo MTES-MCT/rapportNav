@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\RapportCommerceRepository")
  */
 class RapportCommerce extends Rapport {
+    use RapportControle;
     /**
      * @ORM\OneToMany(targetEntity="RapportEtablissement", mappedBy="rapport", cascade={"persist"})
      * @Assert\Valid

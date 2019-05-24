@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\RapportRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"bord" = "RapportBord", "commerce" = "RapportCommerce"})
+ * @ORM\DiscriminatorMap({"bord" = "RapportBord", "commerce" = "RapportCommerce", "administratif" = "RapportAdministratif"})
  */
 abstract class Rapport {
     /**
@@ -44,13 +44,6 @@ abstract class Rapport {
     private $dateFinMission;
 
     /**
-     * @ORM\Column(type="smallint")
-     * @Assert\NotBlank()
-     *
-     */
-    private $methodeCiblage;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Agent")
      * @Assert\NotBlank()
      * @Assert\Count(min = 1, minMessage = "Vous devez selectionner au moins un agent")
@@ -59,8 +52,7 @@ abstract class Rapport {
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Moyen")
-     * @Assert\NotBlank()
-     * @Assert\Count(min = 1, minMessage = "Vous devez selectionner au moins un moyen")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $moyens;
 
@@ -122,16 +114,6 @@ abstract class Rapport {
 
     public function setDateFinMission(DateTimeInterface $dateFinMission): self {
         $this->dateFinMission = $dateFinMission;
-
-        return $this;
-    }
-
-    public function getMethodeCiblage(): ?int {
-        return $this->methodeCiblage;
-    }
-
-    public function setMethodeCiblage(int $methodeCiblage): self {
-        $this->methodeCiblage = $methodeCiblage;
 
         return $this;
     }

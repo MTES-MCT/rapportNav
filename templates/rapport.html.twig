@@ -27,11 +27,13 @@
             </div>
         </div>
 
+        {% if form.methodeCiblage is defined %}
         <div class="form__group horizontal__form">
             {{ form_label(form.methodeCiblage) }}
             {{ form_errors(form.methodeCiblage) }}
             {{ form_widget(form.methodeCiblage) }}
         </div>
+        {% endif %}
 
         <div class="form__group horizontal__form">
             <fieldset>

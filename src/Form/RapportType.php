@@ -23,12 +23,6 @@ class RapportType extends AbstractType {
         $builder
             ->add('dateDebutMission', DateTimeType::class, ['required' => true, 'label' => "Démarrage de la mission"])
             ->add('dateFinMission', DateTimeType::class, ['required' => true, 'label' => "Fin de mission"])
-            ->add('methodeCiblage', ChoiceType::class, [
-                'choices' => ['Ciblé via outil' => 0, 'Ciblé manuellement' => 1, 'Opportunité' => 3],
-                'multiple' => false,
-                'expanded' => false,
-                'placeholder' => '',
-                'label' => "Méthode de contrôle"])
             ->add('distanceTerrestre', IntegerType::class, [
                 'required' => false,
                 'label' => "Kilomètres parcourus par véhicule terrestre (si pertinent)"])
