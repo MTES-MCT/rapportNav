@@ -1,3 +1,37 @@
-.horizontal_form {
-    margin-top: 0 !important;
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.footer {
+    flex-shrink: 0;
+}
+
+ul.no-decoration {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.stacked-list {
+    margin: 0 1em 1em 0;
+}
+
+.navire, .etablissement, .pecheur {
+    padding: 15px;
+}
+
+.center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-right: auto !important;
+    margin-left: auto !important;
 }

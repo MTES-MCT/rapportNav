@@ -12,7 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\RapportRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"bord" = "RapportBord", "commerce" = "RapportCommerce"})
+ * @ORM\DiscriminatorMap({"bord" = "RapportBord",
+ *     "commerce" = "RapportCommerce",
+ *     "pecheapied" = "RapportPechePied",
+ *     "administratif" = "RapportAdministratif",
+ *     "formation" = "RapportFormation"})
  */
 abstract class Rapport {
     /**
@@ -23,19 +27,25 @@ abstract class Rapport {
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=45)
+     */
+    private $serviceCreateur;
+
+    /**
+     * @ORM\Column(type="datetime")
      * @Assert\NotBlank
      *
      * @var DateTimeInterface
      */
-    private $dateMission;
+    private $dateDebutMission;
 
     /**
-     * @ORM\Column(type="smallint")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
      *
+     * @var DateTimeInterface
      */
-    private $typeRapport;
+    private $dateFinMission;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Agent")
@@ -46,12 +56,13 @@ abstract class Rapport {
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Moyen")
-     * @Assert\NotBlank()
+     * @ORM\JoinColumn(nullable=true)
      */
     private $moyens;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(0)
      */
     private $distanceTerrestre;
 
@@ -62,22 +73,20 @@ abstract class Rapport {
     private $lieuMission;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\ZoneGeographique")
      */
-    private $zoneMission;
+    private $zoneMissions;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $detailHorsZone;
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\Type(type="bool")
      */
     private $arme;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @Assert\GreaterThan(value="9", message="Cette valeur doit être en minutes")
-     */
-    private $dureeMission;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -91,24 +100,25 @@ abstract class Rapport {
     public function __construct() {
         $this->agents = new ArrayCollection();
         $this->moyens = new ArrayCollection();
+        $this->zoneMissions = new ArrayCollection();
     }
 
-    public function getDateMission(): ?DateTimeInterface {
-        return $this->dateMission;
+    public function getDateDebutMission(): ?DateTimeInterface {
+        return $this->dateDebutMission;
     }
 
-    public function setDateMission(DateTimeInterface $dateMission): self {
-        $this->dateMission = $dateMission;
+    public function setDateDebutMission(DateTimeInterface $dateDebutMission): self {
+        $this->dateDebutMission = $dateDebutMission;
 
         return $this;
     }
 
-    public function getTypeRapport(): ?int {
-        return $this->typeRapport;
+    public function getDateFinMission(): ?DateTimeInterface {
+        return $this->dateFinMission;
     }
 
-    public function setTypeRapport(int $typeRapport): self {
-        $this->typeRapport = $typeRapport;
+    public function setDateFinMission(DateTimeInterface $dateFinMission): self {
+        $this->dateFinMission = $dateFinMission;
 
         return $this;
     }
@@ -165,26 +175,28 @@ abstract class Rapport {
 
     public function setLieuMission(int $lieuMission): self {
         $this->lieuMission = $lieuMission;
+        return $this;
+    }
+
+    /**
+     * @return Collection|ZoneGeographique[]
+     */
+    public function getZoneMissions(): Collection {
+        return $this->zoneMissions;
+    }
+
+    public function addZoneMission(ZoneGeographique $zoneMission): self {
+        if(!$this->zoneMissions->contains($zoneMission)) {
+            $this->zoneMissions[] = $zoneMission;
+        }
 
         return $this;
     }
 
-    public function getZoneMission(): ?string {
-        return $this->zoneMission;
-    }
-
-    public function setZoneMission(string $zoneMission): self {
-        $this->zoneMission = $zoneMission;
-
-        return $this;
-    }
-
-    public function getDureeMission(): ?string {
-        return $this->dureeMission;
-    }
-
-    public function setDureeMission(string $dureeMission): self {
-        $this->dureeMission = $dureeMission;
+    public function removeZoneMission(ZoneGeographique $zoneMission): self {
+        if($this->zoneMissions->contains($zoneMission)) {
+            $this->zoneMissions->removeElement($zoneMission);
+        }
 
         return $this;
     }
@@ -213,9 +225,27 @@ abstract class Rapport {
         return $this->distanceTerrestre;
     }
 
-    public function setDistanceTerrestre(?int $distanceTerrestre): self{
+    public function setDistanceTerrestre(?int $distanceTerrestre): self {
         $this->distanceTerrestre = $distanceTerrestre;
         return $this;
     }
 
+    public function getDetailHorsZone(): ?string {
+        return $this->detailHorsZone;
+    }
+
+    public function setDetailHorsZone($detailHorsZone): self {
+        $this->detailHorsZone = $detailHorsZone;
+        return $this;
+    }
+
+    public function getServiceCreateur(): ?string {
+        return $this->serviceCreateur;
+    }
+
+    public function setServiceCreateur(string $serviceCreateur): self {
+        $this->serviceCreateur = $serviceCreateur;
+
+        return $this;
+    }
 }

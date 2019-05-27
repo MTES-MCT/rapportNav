@@ -5,7 +5,6 @@ namespace App\Admin;
 
 
 use App\Entity\Moyen;
-use App\Entity\Navire;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -16,66 +15,53 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RapportAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-            ->add('dateMission', DateType::class)
-            ->add('typeRapport', ChoiceType::class)
-            ->add('agents', null)
-//            ->add('typeMission', ChoiceType::class)
-//            ->add('aireMarineSpeciale', ChoiceType::class)
+            ->add('serviceCreateur', TextType::class)
+            ->add('dateDebutMission', DateType::class)
+            ->add('dateFinMission', DateType::class)
+            ->add('agents')
             ->add('lieuMission', ChoiceType::class)
-            ->add('zoneMission', ChoiceType::class)
+            ->add('zoneMissions', ModelType::class, ['multiple' => true])
             ->add('arme', CheckboxType::class)
-            ->add('dureeMission', IntegerType::class)
             ->add('moyens', ModelType::class, [
                 'class' => Moyen::class,
                 'property' => 'nom',
+                'multiple' => true,
             ])
             ->add('distanceTerrestre', IntegerType::class)
-//            ->add('navires', ModelType::class, [
-//                'class' => Navire::class,
-//                'property' => 'immatriculation',
-//            ])
-            ->add('commentaire', TextareaType::class)
-        ;
+            ->add('commentaire', TextareaType::class);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-            ->add('dateMission')
-            ->add('typeRapport')
+            ->add('serviceCreateur')
+            ->add('dateDebutMission')
+            ->add('dateFinMission')
             ->add('agents')
-//            ->add('typeMission')
-//            ->add('aireMarineSpeciale')
             ->add('lieuMission')
-            ->add('zoneMission')
+            ->add('zoneMissions')
             ->add('arme')
-            ->add('dureeMission')
             ->add('moyens')
-//            ->add('distanceTerrestre')
-//            ->add('navires')
-            ->add('commentaire')
-        ;
+            ->add('distanceTerrestre')
+            ->add('commentaire');
     }
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-            ->addIdentifier('dateMission')
-            ->addIdentifier('typeRapport')
+            ->addIdentifier('serviceCreateur')
+            ->addIdentifier('dateDebutMission')
+            ->addIdentifier('dateFinMission')
             ->addIdentifier('agents')
-//            ->addIdentifier('typeMission')
-//            ->addIdentifier('aireMarineSpeciale')
             ->addIdentifier('lieuMission')
-            ->addIdentifier('zoneMission')
+            ->addIdentifier('zoneMissions')
             ->addIdentifier('arme')
-            ->addIdentifier('dureeMission')
             ->addIdentifier('moyens')
-//            ->addIdentifier('distanceTerrestre')
-//            ->addIdentifier('navires')
-            ->addIdentifier('commentaire')
-        ;
+            ->addIdentifier('distanceTerrestre')
+            ->addIdentifier('commentaire');
     }
 
 }

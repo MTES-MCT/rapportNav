@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\DocBlock\Tags\BaseTag;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -17,9 +18,9 @@ class  Navire {
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=6)
+     * @ORM\Column(type="text")
      * @Assert\NotBlank
-     * @Assert\Length(min = 1, max = 6)
+     * @Assert\Length(min = 1)
      */
     private $immatriculation_fr;
 
@@ -40,16 +41,27 @@ class  Navire {
     private $nom;
 
     /**
-     * @ORM\Column(type="float")
-     * @Assert\NotBlank
+     * @ORM\Column(type="float", nullable=true)
      */
     private $longueurHorsTout;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank
+     * @Assert\Length(min = 1, max = 45)
      */
     private $typeUsage;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isErreur = false;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $erreurTexte;
+
 
     public function getId(): ?int {
         return $this->id;
@@ -69,7 +81,7 @@ class  Navire {
         return $this->id_nav_floteur;
     }
 
-    public function setIdNavFloteur(int $id_nav_floteur): self {
+    public function setIdNavFloteur(?int $id_nav_floteur): self {
         $this->id_nav_floteur = $id_nav_floteur;
 
         return $this;
@@ -79,7 +91,7 @@ class  Navire {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self {
+    public function setNom(?string $nom): self {
         $this->nom = $nom;
 
         return $this;
@@ -89,18 +101,36 @@ class  Navire {
         return $this->longueurHorsTout;
     }
 
-    public function setLongueurHorsTout(float $longueurHorsTout): self {
+    public function setLongueurHorsTout(?float $longueurHorsTout): self {
         $this->longueurHorsTout = $longueurHorsTout;
 
         return $this;
     }
 
-    public function getTypeUsage(): ?int {
+    public function getTypeUsage(): ?string {
         return $this->typeUsage;
     }
 
-    public function setTypeUsage($typeUsage): self {
+    public function setTypeUsage(string $typeUsage): self {
         $this->typeUsage = $typeUsage;
+        return $this;
+    }
+
+    public function getIsErreur(): bool {
+        return $this->isErreur;
+    }
+
+    public function setIsErreur($isErreur): self {
+        $this->isErreur = $isErreur;
+        return $this;
+    }
+
+    public function getErreurTexte(): ?string {
+        return $this->erreurTexte;
+    }
+
+    public function setErreurTexte($erreurTexte): self {
+        $this->erreurTexte = $erreurTexte;
         return $this;
     }
 }

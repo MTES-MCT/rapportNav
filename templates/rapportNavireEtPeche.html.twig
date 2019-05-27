@@ -1,46 +1,58 @@
 {% extends "rapport.html.twig" %}
 
-{% block head_title %}Contrôle des pêches {{ parent() }}{% endblock head_title %}
+{% block head_title %}Contrôle de navires {{ parent() }}{% endblock head_title %}
 
-{% block body_main_container_title %}Contrôle des pêches{% endblock body_main_container_title %}
+{% block body_main_container_title %}Contrôle de navires (à quai ou en mer){% endblock body_main_container_title %}
 
 {% block body_main_container_rapport_objects %}
-
     <div class="row">
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.typeMission) }}
             {{ form_errors(form.typeMission) }}
-            {{ form_widget(form.typeMission) }}
+            {{ form_widget(form.typeMission, {'attr': {'v-on:change': "tooggleAireMarine" }}) }}
         </div>
-        <div class="form__group horizontal_form">
-            {{ form_label(form.aireMarineSpeciale) }}
-            {{ form_errors(form.aireMarineSpeciale) }}
-            {{ form_widget(form.aireMarineSpeciale) }}
+        <div class="form__group horizontal__form" v-if="aireMarine">
+            <fieldset>
+                {{ form_errors(form.aireMarineSpeciale) }}
+                {% for box in form.aireMarineSpeciale %}
+                    <span class="form__checkbox">
+                        {{ form_widget(box) }}
+                        {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+                    </span>
+                {% endfor %}
+            </fieldset>
         </div>
         <div></div>
     </div>
 
-    <p>Navires contrôlés</p>
-    <ul class="navires" data-prototype='
-        <div class="form__group horizontal_form">
-            {{ form_widget(form.navires.vars.prototype.navire)|e('html_attr') }}
+    <div class="row">
+        <h2>Navires contrôlés</h2>
+    </div>
+
+    <ul class="navires no-decoration" data-prototype='
+        <div class="form__group horizontal__form">
+            {% include 'formThemes/navireFormTheme.html.twig' with {'navire': form.navires.vars.prototype.navire} %}
         </div>
-        <div class="form__group horizontal_form">
-            {{ form_label(form.navires.vars.prototype.controles)|e('html_attr') }}
-            {{ form_errors(form.navires.vars.prototype.controles)|e('html_attr') }}
-            {{ form_widget(form.navires.vars.prototype.controles)|e('html_attr') }}
+        <div class="form__group horizontal__form">
+            <fieldset>
+                {{ form_label(form.navires.vars.prototype.controles, null, {'element': 'legend'} ) }}
+                {{ form_errors(form.navires.vars.prototype.controles) }}
+                {% for box in form.navires.vars.prototype.controles %}
+                    {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box} %}
+                {% endfor %}
+            </fieldset>
         </div>
-<div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.pv)|e('html_attr') }}
             {{ form_errors(form.navires.vars.prototype.pv)|e('html_attr') }}
             {{ form_widget(form.navires.vars.prototype.pv)|e('html_attr') }}
         </div>
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.natinf)|e('html_attr') }}
             {{ form_errors(form.navires.vars.prototype.natinf)|e('html_attr') }}
             {{ form_widget(form.navires.vars.prototype.natinf)|e('html_attr') }}
         </div>
-        <div class="form__group horizontal_form">
+        <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.commentaire)|e('html_attr') }}
             {{ form_errors(form.navires.vars.prototype.commentaire)|e('html_attr') }}
             {{ form_widget(form.navires.vars.prototype.commentaire)|e('html_attr') }}
@@ -48,25 +60,29 @@
     '>
         {% for navireControle in form.navires %}
             <li class="row navire">
-                <div class="form__group horizontal_form">
-                    {{ form_widget(navireControle.navire) }}
+                <div class="form__group horizontal__form">
+                    {% include 'formThemes/navireFormTheme.html.twig' with {'navire': navireControle.navire} %}
                 </div>
-                <div class="form__group horizontal_form">
-                    {{ form_label(navireControle.controles) }}
-                    {{ form_errors(navireControle.controles) }}
-                    {{ form_widget(navireControle.controles) }}
+                <div class="form__group horizontal__form">
+                    <fieldset>
+                        {{ form_label(navireControle.controles, null, {'element': 'legend'} ) }}
+                        {{ form_errors(navireControle.controles) }}
+                        {% for box in navireControle.controles %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box} %}
+                        {% endfor %}
+                    </fieldset>
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(navireControle.pv) }}
                     {{ form_errors(navireControle.pv) }}
-                    {{ form_widget(navireControle.pv) }}
+                    {{ form_widget(navireControle.pv, {'attr': {'class': 'center'}}) }}
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(navireControle.natinf) }}
                     {{ form_errors(navireControle.natinf) }}
                     {{ form_widget(navireControle.natinf) }}
                 </div>
-                <div class="form__group horizontal_form">
+                <div class="form__group horizontal__form">
                     {{ form_label(navireControle.commentaire) }}
                     {{ form_errors(navireControle.commentaire) }}
                     {{ form_widget(navireControle.commentaire) }}
@@ -78,109 +94,5 @@
 {% endblock body_main_container_rapport_objects %}
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        function addTagForm($collectionHolder, $newLinkLi) {
-            var prototype = $collectionHolder.data('prototype');
-
-            //New index
-            var index = $collectionHolder.data('index');
-
-            var newForm = prototype;
-
-            // Replace '__name__' in the prototype's HTML to instead be a number based on how many items we have
-            newForm = newForm.replace(/__name__/g, index);
-
-            // increase the index with one for the next item
-            $collectionHolder.data('index', index + 1);
-
-            // Display the form in the page in an li, before the "Ajouter un navire contrôlé" link li
-            var $newFormLi = $('<li class="row navire"></li>').append(newForm);
-            $newLinkLi.before($newFormLi);
-            addTagFormDeleteLink($newFormLi);
-            $('.immatriculation_fr').last().on('focusout', navireDataComplete);
-        }
-
-        function addTagFormDeleteLink($navireFormLi) {
-            var $removeFormButton = $('<button type="button">Supprimer ce contrôle</button>');
-            $navireFormLi.append($removeFormButton);
-
-            $removeFormButton.on('click', function (e) {
-                // remove the li for the Navires form
-                $navireFormLi.remove();
-            });
-        }
-
-        function navireDataComplete() {
-            var input = $(this);
-            $.get("http://localhost:8080/api/navires/" + $(this).val())
-                .done(function (data) {
-                    input.parents("li").find("input[id$=_navire_nom]").val(data.nomNavire);
-                    input.parents("li").find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout);
-                    input.parents("li").find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur);
-                    if (input.parent().find(".immatriculation_invalide")) {
-                        input.parent().find(".immatriculation_invalide").remove();
-                    }
-                })
-                .fail(function (data) {
-                    if(input.parent().find(".immatriculation_invalide")) {
-                        input.parent().find(".immatriculation_invalide").remove();
-                    }
-
-                    if (data.status === 404) {
-                        input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
-                    } else {
-                        console.log(data.status);
-                        input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
-                    }
-
-                    input.parents("li").find("input[id$=_navire_nom]").val("");
-                    input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
-                    input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
-                })
-        }
-
-
-        var $collectionHolder;
-
-        // setup an "Ajouter un navire contrôlé" link
-        var $addTagButton = $('<button type="button" class="add_navire_link button">Ajouter un navire contrôlé</button>');
-        var $newLinkLi = $('<li></li>').append($addTagButton);
-
-        jQuery(document).ready(function () {
-            // Get the ul that holds the collection of Navires
-            $collectionHolder = $('ul.navires');
-
-            // add a delete link to all of the existing Navire form li elements
-            $collectionHolder.find('li.navire').each(function () {
-                addTagFormDeleteLink($(this));
-            });
-
-            // add the "Ajouter un navire contrôlé" anchor and li to the Navires ul
-            $collectionHolder.append($newLinkLi);
-
-            // keep index count up-to-date
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-            $addTagButton.on('click', function (e) {
-                // add a new Navire form (see next code block)
-                addTagForm($collectionHolder, $newLinkLi);
-            });
-
-            if($('#rapport_bord_typeMission').val() !== "2") {
-                $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', true);
-            }
-
-            $('.immatriculation_fr').on('focusout', navireDataComplete);
-
-            $('#rapport_bord_typeMission').on('change', function() {
-                if($(this).val() === "2") {
-                    $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', false);
-                } else {
-                    $('[id^=rapport_bord_aireMarineSpeciale_]').prop('disabled', true);
-                }
-            })
-
-        });
-
-    </script>
+    {{ encore_entry_script_tags('rapportNavire') }}
 {% endblock javascripts %}

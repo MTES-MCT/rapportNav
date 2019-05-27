@@ -7,7 +7,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 
 Encore
-    // directory where compiled assets will be stored
+// directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
     .setPublicPath('/build')
@@ -20,11 +20,24 @@ Encore
     //Common for most pages
     .addEntry('app', './assets/js/app.js')
 
+    //For Rapport Navire
+    .addEntry('rapportNavire', './assets/js/rapportBord.js')
+
+    //For Rapport Pêche À Pied
+    .addEntry('rapportPechePied', './assets/js/rapportPechePied.js')
+
+    //For Rapport filière Commercialisation
+    .addEntry('rapportCommercialisation', './assets/js/rapportCommercialisation.js')
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
     // only one instance of modules even for multiple require in js files (ex. : required in aps.js and page.js)
     .enableSingleRuntimeChunk()
+
+    .enableVueLoader()
+
+    .autoProvidejQuery()
 
     /*
      * FEATURE CONFIG
@@ -39,15 +52,15 @@ Encore
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
 
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
+// uncomment if you use TypeScript
+//.enableTypeScriptLoader()
 
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+// uncomment if you're having problems with a jQuery plugin
+//.autoProvidejQuery()
 
-    // uncomment if you use API Platform Admin (composer req api-admin)
-    //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+// uncomment if you use API Platform Admin (composer req api-admin)
+//.enableReactPreset()
+//.addEntry('admin', './assets/js/admin.js')
 ;
 
 module.exports = Encore.getWebpackConfig();

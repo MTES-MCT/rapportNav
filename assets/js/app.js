@@ -5,5 +5,6 @@
 
 // CSS files
 require('../css/template.css');
+require('../css/template-override.css');
 require('../css/app.css');
 
