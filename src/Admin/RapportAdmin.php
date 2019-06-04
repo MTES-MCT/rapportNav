@@ -11,7 +11,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -24,16 +23,16 @@ class RapportAdmin extends AbstractAdmin {
             ->add('dateDebutMission', DateType::class)
             ->add('dateFinMission', DateType::class)
             ->add('agents')
-            ->add('lieuMission', ChoiceType::class)
+            ->add('lieuMission', IntegerType::class)
             ->add('zoneMissions', ModelType::class, ['multiple' => true])
-            ->add('arme', CheckboxType::class)
+            ->add('arme', CheckboxType::class, ['required' => false])
             ->add('moyens', ModelType::class, [
                 'class' => Moyen::class,
                 'property' => 'nom',
                 'multiple' => true,
             ])
             ->add('distanceTerrestre', IntegerType::class)
-            ->add('commentaire', TextareaType::class);
+            ->add('commentaire', TextareaType::class, ['required' => false]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
