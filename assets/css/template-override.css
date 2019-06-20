@@ -2,19 +2,9 @@
     margin-top: 0 !important;
 }
 
-.form__checkbox {
-    display: block;
-    position: relative;
-    padding-left: 2em;
-}
-
-.form__checkbox label {
-    display: inline-block;
-}
-
-.form__checkbox input[type="checkbox"] {
-    position: absolute;
-    left: 0;
+fieldset {
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 legend.required::after {
@@ -26,8 +16,8 @@ legend.required::after {
     margin-left: var(--space-xs);
 }
 
-.button {
-    margin: 1em 0;
+.form__checkbox {
+    padding-bottom: var(--space-xs);
 }
 
 .row + .row {
