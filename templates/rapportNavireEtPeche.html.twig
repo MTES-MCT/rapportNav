@@ -13,12 +13,11 @@
         </div>
         <div class="form__group horizontal__form" v-if="aireMarine">
             <fieldset>
+                <legend>Particularités de l'aire marine (si pertinent)</legend>
                 {{ form_errors(form.aireMarineSpeciale) }}
                 {% for box in form.aireMarineSpeciale %}
-                    <span class="form__checkbox">
-                        {{ form_widget(box) }}
-                        {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-                    </span>
+                    {{ form_widget(box) }}
+                    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
                 {% endfor %}
             </fieldset>
         </div>
@@ -34,7 +33,7 @@
             {% include 'formThemes/navireFormTheme.html.twig' with {'navire': form.navires.vars.prototype.navire} %}
         </div>
         <div class="form__group horizontal__form">
-            <fieldset>
+            <fieldset class="vertical">
                 {{ form_label(form.navires.vars.prototype.controles, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.navires.vars.prototype.controles) }}
                 {% for box in form.navires.vars.prototype.controles %}
@@ -64,7 +63,7 @@
                     {% include 'formThemes/navireFormTheme.html.twig' with {'navire': navireControle.navire} %}
                 </div>
                 <div class="form__group horizontal__form">
-                    <fieldset>
+                    <fieldset class="vertical">
                         {{ form_label(navireControle.controles, null, {'element': 'legend'} ) }}
                         {{ form_errors(navireControle.controles) }}
                         {% for box in navireControle.controles %}

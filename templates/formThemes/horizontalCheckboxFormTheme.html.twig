@@ -1,3 +1,4 @@
+{% spaceless %}
 <span class="form__checkbox">
     {% if attr is defined %}
         {{ form_widget(box, {'attr': attr}) }}
@@ -6,3 +7,4 @@
     {% endif %}
     {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
 </span>
+{% endspaceless %}

@@ -2,7 +2,7 @@
     margin-top: 0 !important;
 }
 
-fieldset {
+fieldset.vertical {
     align-items: flex-start;
     flex-direction: column;
 }
@@ -18,6 +18,11 @@ legend.required::after {
 
 .form__checkbox {
     padding-bottom: var(--space-xs);
+    display: flex;
+}
+
+.form__checkbox input {
+    flex-shrink: 0;
 }
 
 .row + .row {
