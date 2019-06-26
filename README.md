@@ -3,9 +3,23 @@
 Outil pour éditer des rapports de mission de contrôle, à destination des agents de la Direction des Affaires Maritimes (DAM). 
 L'objectif de l'outil est de permettre la centralisation des données d'une mission de contrôle pour produire à l'ensemble des parties prenantes (environnement, sécurité maritime, gens de mers, ...) les rapports nécessaire ou exposer la base à un outil de visualisation pour le suivi d'indicateurs. 
 
-L'application est développée avec Symfony 4, apprès avoir cloné le dépôt et installé les dépenances avec composer il est nécessaire de configurer l'application. 
+L'application est développée avec Symfony 4, après avoir cloné le dépôt et installé les dépendances via composer il est nécessaire de configurer l'application. 
 Pour ce faire, renommer le fichier d'exemple `.template.env` en `.env.local`  et y insérer les informations nécessaires (connexion à la base de données, ...). 
 La documentation plus détaillée est en anglais ci-dessous. 
+Le même prérequis est nécessaire pour la configuration du front : créer le fichier `assets/js/params.json` à partir du template `assets/js/template.params.json` et compléter la localisation de l'API pour les Navires et NatInf.  
+
+## Contributions
+Vous pouvez contribuer à ce code en ouvrant des issues pour indiquer des bugs. 
+Pour proposer de nouvelles fonctionnalités ouvrez d'abord une issue pour échanger sur l'intérêt de son intégration dans le projet.
+
+## Licence, Auteurs
+
+Les contenus accessibles dans ce dépôt sont placés sous `**TODO : licence libre à valider**`. Vous êtes libre de réutiliser les contenus de ce dépôt sous les conditions précisées dans cette licence.
+
+Les droits d'auteur sont détenus par le Ministère de la transition écologique et solidaire, Sébastien Touzé et tout contributeur dont les nom sont disponible dans l'historique des commits du dépôt. 
+Pour tout contact, vous pouvez ouvrir une issue ou envoyer un mail à [sebastien.touze@developpement-durable.gouv.fr](mailto:sebastien.touze@developpement-durable.gouv.fr). 
+
+Ce projet développé dans le cadre du programme [Entrepreneurs d'intérêt général](https://entrepreneur-interet-general.etalab.gouv.fr/) 2019. 
 
 # RapportNav (en) 
 
@@ -50,10 +64,19 @@ $ sudo -u www-data bin/console doctrine:migration:migrate
 
 For tests only it is required to create a `var/data` folder where a SQLite database for tests will be instantiated. 
 
+## Contribution 
 
-## Conventions
+You are welcome to contribute with tests, bug reports. 
+To propose new features please open an issue first to be sure it fits the project goal.
+
+### Coding conventions
 
 Regarding coding style, if you use PHPStorm it should follow the coding rules in `.idea/codeStyle/codeStyleConfig.xml`. 
 
+## Authors, licence
 
+This code is under `**TODO**` licence. 
+
+© Ministère de la transition écologique et Solidaire, Sébastien Touzé
+© Contributors visible in repository history
 

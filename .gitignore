@@ -34,3 +34,6 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+### front ###
+assets/js/params.json
