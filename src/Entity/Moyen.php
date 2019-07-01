@@ -7,8 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MoyenRepository")
  */
-class Moyen
-{
+class Moyen {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -35,42 +34,35 @@ class Moyen
         return $this->nom;
     }
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getPossesseur(): ?string
-    {
+    public function getPossesseur(): ?string {
         return $this->possesseur;
     }
 
-    public function setPossesseur(string $possesseur): self
-    {
+    public function setPossesseur(string $possesseur): self {
         $this->possesseur = $possesseur;
 
         return $this;
     }
 
-    public function getNom(): ?string
-    {
+    public function getNom(): ?string {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
-    {
+    public function setNom(string $nom): self {
         $this->nom = $nom;
 
         return $this;
     }
 
-    public function getType(): ?int
-    {
+    public function getType(): ?int {
         return $this->type;
     }
 
-    public function setType(int $type): self
-    {
+    public function setType(int $type): self {
         $this->type = $type;
 
         return $this;

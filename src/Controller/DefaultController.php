@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Moyen;
+use App\Entity\RapportBord;
 use App\Entity\RapportEtablissement;
 use App\Entity\RapportFormation;
+use App\Entity\RapportMoyen;
 use App\Entity\RapportNavire;
 use App\Entity\Rapport;
 use App\Entity\User;
@@ -11,7 +14,9 @@ use App\Form\RapportAdministratifType;
 use App\Form\RapportBordType;
 use App\Form\RapportCommerceType;
 use App\Form\RapportFormationType;
+use App\Form\RapportMoyenType;
 use App\Form\RapportPechePiedType;
+use App\Form\RapportType;
 use DateInterval;
 use \DateTime;
 use DateTimeImmutable;
@@ -57,7 +62,9 @@ class DefaultController extends AbstractController {
 
         /** @var Rapport $rapport */
         $rapport = new $rapportClass();
-        $rapport->setServiceCreateur($this->getUser()->getservice());
+        $service = $this->getUser()->getservice();
+        $rapport->setServiceCreateur($service);
+        $rapport->addMoyen(new RapportMoyen());
 
         /** @var User $user */
         $user = $this->getUser();

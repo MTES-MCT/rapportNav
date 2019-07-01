@@ -21,13 +21,13 @@ Encore
     .addEntry('app', './assets/js/app.js')
 
     //For Rapport Navire
-    .addEntry('rapportNavire', './assets/js/rapportBord.js')
+    .addEntry('rapportNavire', ['./assets/js/rapportBord.js', './assets/js/moyenManage.js'])
 
     //For Rapport Pêche À Pied
-    .addEntry('rapportPechePied', './assets/js/rapportPechePied.js')
+    .addEntry('rapportPechePied', ['./assets/js/rapportPechePied.js', './assets/js/moyenManage.js'])
 
     //For Rapport filière Commercialisation
-    .addEntry('rapportCommercialisation', './assets/js/rapportCommercialisation.js')
+    .addEntry('rapportCommercialisation', ['./assets/js/rapportCommercialisation.js', './assets/js/moyenManage.js'])
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Agent;
-use App\Entity\Moyen;
 use App\Entity\Rapport;
 use App\Entity\ZoneGeographique;
 use Doctrine\ORM\EntityRepository;
@@ -11,8 +10,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,9 +22,6 @@ class RapportType extends AbstractType {
         $builder
             ->add('dateDebutMission', DateTimeType::class, ['required' => true, 'label' => "Démarrage de la mission"])
             ->add('dateFinMission', DateTimeType::class, ['required' => true, 'label' => "Fin de mission"])
-            ->add('distanceTerrestre', IntegerType::class, [
-                'required' => false,
-                'label' => "Kilomètres parcourus par véhicule terrestre (si pertinent)"])
             ->add('lieuMission', ChoiceType::class, [
                 'choices' => ['Mer' => 0, 'Terre' => 1],
                 'multiple' => false,
@@ -49,17 +45,13 @@ class RapportType extends AbstractType {
             ->add('arme', CheckboxType::class, [
                 'required' => false,
                 'label' => "Mission armée ?"])
-            ->add('moyens', EntityType::class, [
-                'class' => Moyen::class,
-                'choice_label' => 'nom',
-                'query_builder' => function(EntityRepository $er) use ($service) {
-                    return $er->createQueryBuilder('m')
-                        ->where('m.possesseur = :service')
-                        ->setParameter("service", $service);
-                },
-                'multiple' => true,
-                'expanded' => true,
-                'label' => "Moyens utilisés"])
+            ->add("moyens", CollectionType::class, [
+                'entry_type' => RapportMoyenType::class,
+                'entry_options' => ['service' => $service],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+            ])
             ->add('agents', EntityType::class, [
                 'class' => Agent::class,
                 'query_builder' => function(EntityRepository $er) use ($service) {

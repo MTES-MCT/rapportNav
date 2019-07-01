@@ -95,27 +95,48 @@
             <fieldset>
                 {{ form_label(form.moyens, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.moyens) }}
-                {% set half_moyens = ((form.moyens|length)/2)|round %}
-                <div class="row">
-                    {% for row in form.moyens|batch(half_moyens) %}
-                        <ul class="no-decoration stacked-list">
-                            {% for checkbox in row %}
-                                <li class="form__checkbox">
-                                    {{ form_widget(checkbox) }}
-                                    {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline"}}) }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endfor %}
-                </div>
+                <ul class="no-decoration stacked-list">
+                    <li>
+                        {% if form.moyens|length > 0 %}
+                            <ul id="moyen-list" class="no-decoration stacked-list" data-prototype='
+                                <span>
+                                    {{ form_label(form.moyens.vars.prototype.moyen)|e('html_attr') }}
+                                    {{ form_widget(form.moyens.vars.prototype.moyen)|e('html_attr') }}
+                                </span>
+                                <span class="" style="display: none;">
+                                    {{ form_label(form.moyens.vars.prototype.distance, "Distance (km)")|e('html_attr') }}
+                                    {{ form_widget(form.moyens.vars.prototype.distance)|e('html_attr') }}
+                                </span>
+                                <span class="" style="display: none;">
+                                    {{ form_label(form.moyens.vars.prototype.tempsMoteur, "Temps moteur (min)")|e('html_attr') }}
+                                    {{ form_widget(form.moyens.vars.prototype.tempsMoteur)|e('html_attr') }}
+                                </span>
+                            '>
+                                {% for moyen in form.moyens %}
+                                    <li class="row moyen">
+                                    <span>
+                                    {{ form_label(moyen.moyen) }}
+                                        {{ form_widget(moyen.moyen) }}
+                                    </span>
+                                        <span class="" style="display: none;">
+                                        {{ form_label(moyen.distance, "Distance (km)") }}
+                                            {{ form_widget(moyen.distance) }}
+                                        </span>
+                                        <span class="" style="display: none;">
+                                        {{ form_label(moyen.tempsMoteur, "Temps moteur (min)") }}
+                                            {{ form_widget(moyen.tempsMoteur) }}
+                                    </span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                    <li>
+                        <button type="button" id="add-new-moyen" class="button" style="">Ajouter un moyen utilisé</button>
+                    </li>
+                </ul>
             </fieldset>
         </div>
-        <div class="form__group horizontal__form">
-            {{ form_label(form.distanceTerrestre) }}
-            {{ form_errors(form.distanceTerrestre) }}
-            {{ form_widget(form.distanceTerrestre) }}
-        </div>
-        <div></div>
     </div>
 
 

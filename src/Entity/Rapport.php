@@ -55,18 +55,6 @@ abstract class Rapport {
     private $agents;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Moyen")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $moyens;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Assert\GreaterThanOrEqual(0)
-     */
-    private $distanceTerrestre;
-
-    /**
      * @ORM\Column(type="smallint")
      * @Assert\NotBlank()
      */
@@ -93,14 +81,19 @@ abstract class Rapport {
      */
     private $commentaire;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RapportMoyen", mappedBy="rapport", orphanRemoval=true)
+     */
+    private $moyens;
+
     public function getId(): ?int {
         return $this->id;
     }
 
     public function __construct() {
         $this->agents = new ArrayCollection();
-        $this->moyens = new ArrayCollection();
         $this->zoneMissions = new ArrayCollection();
+        $this->moyens = new ArrayCollection();
     }
 
     public function getDateDebutMission(): ?DateTimeInterface {
@@ -141,29 +134,6 @@ abstract class Rapport {
     public function removeAgent(Agent $agent): self {
         if($this->agents->contains($agent)) {
             $this->agents->removeElement($agent);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Moyen[]
-     */
-    public function getMoyens(): Collection {
-        return $this->moyens;
-    }
-
-    public function addMoyen(Moyen $moyen): self {
-        if(!$this->moyens->contains($moyen)) {
-            $this->moyens[] = $moyen;
-        }
-
-        return $this;
-    }
-
-    public function removeMoyen(Moyen $moyen): self {
-        if($this->moyens->contains($moyen)) {
-            $this->moyens->removeElement($moyen);
         }
 
         return $this;
@@ -221,15 +191,6 @@ abstract class Rapport {
         return $this;
     }
 
-    public function getDistanceTerrestre(): ?int {
-        return $this->distanceTerrestre;
-    }
-
-    public function setDistanceTerrestre(?int $distanceTerrestre): self {
-        $this->distanceTerrestre = $distanceTerrestre;
-        return $this;
-    }
-
     public function getDetailHorsZone(): ?string {
         return $this->detailHorsZone;
     }
@@ -245,6 +206,34 @@ abstract class Rapport {
 
     public function setServiceCreateur(string $serviceCreateur): self {
         $this->serviceCreateur = $serviceCreateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RapportMoyen[]
+     */
+    public function getMoyens(): Collection {
+        return $this->moyens;
+    }
+
+    public function addMoyen(RapportMoyen $moyen): self {
+        if(!$this->moyens->contains($moyen)) {
+            $this->moyens[] = $moyen;
+            $moyen->setRapport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMoyen(RapportMoyen $moyen): self {
+        if($this->moyens->contains($moyen)) {
+            $this->moyens->removeElement($moyen);
+            // set the owning side to null (unless already changed)
+            if($moyen->getRapport() === $this) {
+                $moyen->setRapport(null);
+            }
+        }
 
         return $this;
     }
