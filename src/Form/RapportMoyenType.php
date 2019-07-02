@@ -27,7 +27,6 @@ class RapportMoyenType extends AbstractType {
             'multiple' => false,
             'expanded' => false,
             'placeholder' => "Sélectionnez un moyen utilisé",
-            'label' => false,
             'choice_attr' => function($choice, $key, $val) {
                 /** @var Moyen $choice */
                 return ['data-type' => $choice->getType()];

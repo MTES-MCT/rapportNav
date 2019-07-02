@@ -35,3 +35,11 @@ ul.stacked-list {
     margin-right: auto !important;
     margin-left: auto !important;
 }
+
+.moyen {
+    align-items: flex-end;
+}
+
+.icon {
+    margin-right: .5em;
+}

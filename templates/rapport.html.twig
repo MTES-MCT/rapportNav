@@ -111,6 +111,10 @@
                                     {{ form_label(form.moyens.vars.prototype.tempsMoteur, "Temps moteur (min)")|e('html_attr') }}
                                     {{ form_widget(form.moyens.vars.prototype.tempsMoteur)|e('html_attr') }}
                                 </span>
+                                <button class="button moyen-delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                    <span class="">Supprimer</span>
+                                </button>
                             '>
                                 {% for moyen in form.moyens %}
                                     <li class="row moyen">
@@ -135,21 +139,25 @@
                                         <span class="" style="{% if not displayTM %}display: none;{% endif %}">
                                             {{ form_label(moyen.tempsMoteur, "Temps moteur (min)") }}
                                             {{ form_widget(moyen.tempsMoteur, {'required': displayTM}) }}
-                                    </span>
+                                        </span>
+                                        <button class="button moyen-delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                            <span class="">Supprimer</span>
+                                        </button>
                                     </li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
                     </li>
                     <li>
-                        <button type="button" id="add-new-moyen" class="button" style="">Ajouter un moyen utilisé
+                        <button type="button" id="add-new-moyen" class="button" style="">
+                            Ajouter un moyen utilisé
                         </button>
                     </li>
                 </ul>
             </fieldset>
         </div>
     </div>
-
 
     {% block body_main_container_rapport_objects %}
         <h2>Éléments spécifiques</h2>

@@ -7,4 +7,5 @@
 require('../css/template.css');
 require('../css/template-override.css');
 require('../css/app.css');
+require('@fortawesome/fontawesome-free/css/all.css');
 

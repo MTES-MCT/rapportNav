@@ -17,7 +17,13 @@ $(document).ready(function () {
         applicable.find("input").prop("required", true);
     }
 
+    function deleteMoyen(event) {
+        let parent = $(event.target).parents("li.moyen");
+        parent.remove();
+    }
+
     $("select[id^=rapport_bord_moyens_]").on("change", showMetaData);
+    $(".moyen-delete").on("click", deleteMoyen);
 
     function addNewMoyen(root) {
         let prototype = root.data('prototype');
@@ -28,6 +34,7 @@ $(document).ready(function () {
         root.data('index', index + 1);
         root.append(newMoyen);
         root.children().last().find("select").on("change", showMetaData);
+        root.children().last().find("button.moyen-delete").on("click", deleteMoyen)
     }
 
     let moyenRoot = $("#moyen-list");
