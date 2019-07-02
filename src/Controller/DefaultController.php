@@ -169,7 +169,7 @@ class DefaultController extends AbstractController {
 
         if($editForm->isSubmitted() && $editForm->isValid()) {
             foreach($currentControlledObjects as $object) {
-                if($getControlledObjects() && false === $controle->$getControlledObjects()->contains($object)) {
+                if($getControlledObjects && false === $controle->$getControlledObjects()->contains($object)) {
                     $em->remove($object);
                 }
             }

@@ -50,6 +50,7 @@ class RapportType extends AbstractType {
                 'entry_options' => ['service' => $service],
                 'allow_add' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
                 'prototype' => true,
             ])
             ->add('agents', EntityType::class, [

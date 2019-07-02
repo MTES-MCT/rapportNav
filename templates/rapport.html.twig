@@ -114,17 +114,27 @@
                             '>
                                 {% for moyen in form.moyens %}
                                     <li class="row moyen">
-                                    <span>
-                                    {{ form_label(moyen.moyen) }}
-                                        {{ form_widget(moyen.moyen) }}
-                                    </span>
-                                        <span class="" style="display: none;">
-                                        {{ form_label(moyen.distance, "Distance (km)") }}
-                                            {{ form_widget(moyen.distance) }}
+                                        <span>
+                                            {{ form_label(moyen.moyen) }}
+                                            {{ form_widget(moyen.moyen) }}
                                         </span>
-                                        <span class="" style="display: none;">
-                                        {{ form_label(moyen.tempsMoteur, "Temps moteur (min)") }}
-                                            {{ form_widget(moyen.tempsMoteur) }}
+                                        {% if moyen.distance.vars.value is empty %}
+                                            {% set displayDist = false %}
+                                        {% else %}
+                                            {% set displayDist = true %}
+                                        {% endif %}
+                                        <span class="" style="{% if not displayDist %}display: none;{% endif %}">
+                                            {{ form_label(moyen.distance, "Distance (km)") }}
+                                            {{ form_widget(moyen.distance, {"required": displayDist}) }}
+                                        </span>
+                                        {% if moyen.tempsMoteur.vars.value is empty %}
+                                            {% set displayTM = false %}
+                                        {% else %}
+                                            {% set displayTM = true %}
+                                        {% endif %}
+                                        <span class="" style="{% if not displayTM %}display: none;{% endif %}">
+                                            {{ form_label(moyen.tempsMoteur, "Temps moteur (min)") }}
+                                            {{ form_widget(moyen.tempsMoteur, {'required': displayTM}) }}
                                     </span>
                                     </li>
                                 {% endfor %}
@@ -132,7 +142,8 @@
                         {% endif %}
                     </li>
                     <li>
-                        <button type="button" id="add-new-moyen" class="button" style="">Ajouter un moyen utilisé</button>
+                        <button type="button" id="add-new-moyen" class="button" style="">Ajouter un moyen utilisé
+                        </button>
                     </li>
                 </ul>
             </fieldset>

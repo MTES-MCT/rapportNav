@@ -10,9 +10,11 @@ $(document).ready(function () {
             applicable = parent.find("input[id$=_distance]").parent();
             notApplicable = parent.find("input[id$=_tempsMoteur]").parent();
         }
-        notApplicable.val(null);
+        notApplicable.find("input").val(null);
+        notApplicable.find("input").prop("required", false);
         notApplicable.hide();
         applicable.show();
+        applicable.find("input").prop("required", true);
     }
 
     $("select[id^=rapport_bord_moyens_]").on("change", showMetaData);
@@ -25,7 +27,7 @@ $(document).ready(function () {
         newMoyen = $("<li class='row moyen'></li>").append(newMoyen);
         root.data('index', index + 1);
         root.append(newMoyen);
-        root.children().last().on("change", showMetaData);
+        root.children().last().find("select").on("change", showMetaData);
     }
 
     let moyenRoot = $("#moyen-list");

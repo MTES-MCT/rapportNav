@@ -82,7 +82,7 @@ abstract class Rapport {
     private $commentaire;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RapportMoyen", mappedBy="rapport", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\RapportMoyen", mappedBy="rapport", orphanRemoval=true, cascade={"persist"})
      */
     private $moyens;
 
