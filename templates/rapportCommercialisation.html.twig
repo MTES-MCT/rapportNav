@@ -2,6 +2,11 @@
 
 {% block head_title %}Contrôle de la filière commercialisation {{ parent() }}{% endblock head_title %}
 
+{% block head_stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('rapportCommercialisation') }}
+{% endblock head_stylesheets %}
+
 {% block body_main_container_title %}Contrôle de la filière commercialisation et d'établissements{% endblock body_main_container_title %}
 
 {% block body_main_container_rapport_objects %}
@@ -24,7 +29,7 @@
         <div class="form__group horizontal__form">
             {{ form_label(form.etablissements.vars.prototype.natinf)|e('html_attr') }}
             {{ form_errors(form.etablissements.vars.prototype.natinf)|e('html_attr') }}
-            {{ form_widget(form.etablissements.vars.prototype.natinf)|e('html_attr') }}
+            {{ form_widget(form.etablissements.vars.prototype.natinf, {'attr': {'class': "select2"}})|e('html_attr') }}
         </div>
         <div class="form__group horizontal__form">
             {{ form_label(form.etablissements.vars.prototype.commentaire)|e('html_attr') }}
@@ -50,7 +55,7 @@
                 <div class="form__group horizontal__form">
                     {{ form_label(etablissementControle.natinf) }}
                     {{ form_errors(etablissementControle.natinf) }}
-                    {{ form_widget(etablissementControle.natinf) }}
+                    {{ form_widget(etablissementControle.natinf, {'attr': {'class': "select2"}}) }}
                 </div>
                 <div class="form__group horizontal__form">
                     {{ form_label(etablissementControle.commentaire) }}

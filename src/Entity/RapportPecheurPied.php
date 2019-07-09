@@ -33,7 +33,7 @@ class RapportPecheurPied {
     private $pv;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $natinf;
 
@@ -76,23 +76,21 @@ class RapportPecheurPied {
         return $this;
     }
 
-    public function getNatinf(): ?string {
+    public function getNatinf(): ?array {
         return $this->natinf;
     }
 
-    public function setNatinf(string $natinf): self {
+    public function setNatinf(array $natinf): self {
         $this->natinf = $natinf;
 
         return $this;
     }
 
-    public function getCommentaire(): ?string
-    {
+    public function getCommentaire(): ?string {
         return $this->commentaire;
     }
 
-    public function setCommentaire(?string $commentaire): self
-    {
+    public function setCommentaire(?string $commentaire): self {
         $this->commentaire = $commentaire;
 
         return $this;

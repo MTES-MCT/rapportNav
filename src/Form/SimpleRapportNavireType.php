@@ -41,7 +41,7 @@ class SimpleRapportNavireType extends AbstractType {
                 'required' => false,
                 'label' => "Notes et commentaires"]);
 
-        //Dynamic addition of
+        //Dynamic addition of Natinf
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function(FormEvent $event) {

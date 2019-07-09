@@ -25,6 +25,7 @@ final class Version20190702171412 extends AbstractMigration
         $this->addSql('ALTER TABLE rapport_navire ALTER natinf TYPE TEXT');
         $this->addSql('ALTER TABLE rapport_navire ALTER natinf DROP DEFAULT');
         $this->addSql('COMMENT ON COLUMN rapport_navire.natinf IS \'(DC2Type:array)\'');
+        $this->addSql('UPDATE rapport_navire SET natinf = NULL');
     }
 
     public function down(Schema $schema) : void

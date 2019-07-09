@@ -37,7 +37,7 @@ class RapportEtablissement {
     private $pv = false;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $natinf;
 
@@ -65,11 +65,11 @@ class RapportEtablissement {
         return $this;
     }
 
-    public function getNatinf(): ?string {
+    public function getNatinf(): ?array {
         return $this->natinf;
     }
 
-    public function setNatinf(?string $natinf): self {
+    public function setNatinf(?array $natinf): self {
         $this->natinf = $natinf;
 
         return $this;

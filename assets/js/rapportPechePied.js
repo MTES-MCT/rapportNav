@@ -1,27 +1,68 @@
 import Rapport from './rapport';
 import $ from 'jquery';
 
+require('select2/dist/js/select2.min');
+require('select2/dist/css/select2.min.css');
+
 $(document).ready(function () {
-        // Get the ul that holds the collection of Navires
-        let $collectionHolder = $('ul.pecheurs');
+    $(".select2").select2({
+        minimumInputLength: 3,
+        ajax: {
+            url: function (data) {
+                return 'http://localhost:8090/api/natinfs/' + data.term;
+            },
+            data: {},
+            delay: 250,
+            dataType: 'json',
+            processResults: function (data) {
+                return {
+                    results: [{
+                        "id": data.natinf,
+                        "text": data.natinf
+                    }]
+                };
+            }
+        }
+    });
 
-        let rapportCommerce = new Rapport("pecheur");
+    // Get the ul that holds the collection of Navires
+    let $collectionHolder = $('ul.pecheurs');
 
-        // add a delete link to all of the existing Navire form li elements
-        $collectionHolder.find('li.pecheur').each(function () {
-            rapportCommerce.addTagFormDeleteLink($(this));
+    let rapportCommerce = new Rapport("pecheur");
+
+    // add a delete link to all of the existing Navire form li elements
+    $collectionHolder.find('li.pecheur').each(function () {
+        rapportCommerce.addTagFormDeleteLink($(this));
+    });
+
+    // add the "Ajouter un établissement contrôlé" anchor and li to the Navires ul
+    $collectionHolder.append(rapportCommerce.$newLinkLi);
+
+    // keep index count up-to-date
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+    $('.add_pecheur_link').on('click', function (e) {
+        // add a new Navire form (see next code block)
+        rapportCommerce.addTagForm($collectionHolder);
+        $(".select2").last().select2({
+            minimumInputLength: 3,
+            ajax: {
+                url: function (data) {
+                    return 'http://localhost:8090/api/natinfs/' + data.term;
+                },
+                data: {},
+                delay: 250,
+                dataType: 'json',
+                processResults: function (data) {
+                    return {
+                        results: [{
+                            "id": data.natinf,
+                            "text": data.natinf
+                        }]
+                    };
+                }
+            }
         });
+    });
 
-        // add the "Ajouter un établissement contrôlé" anchor and li to the Navires ul
-        $collectionHolder.append(rapportCommerce.$newLinkLi);
-
-        // keep index count up-to-date
-        $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-        $('.add_pecheur_link').on('click', function (e) {
-            // add a new Navire form (see next code block)
-            rapportCommerce.addTagForm($collectionHolder);
-        });
-
-    }
-);
+});
