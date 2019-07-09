@@ -2,10 +2,15 @@
 
 {% block head_title %}Contrôle de navires {{ parent() }}{% endblock head_title %}
 
+{% block head_stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('rapportNavire') }}
+{% endblock head_stylesheets %}
+
 {% block body_main_container_title %}Contrôle de navires (à quai ou en mer){% endblock body_main_container_title %}
 
 {% block body_main_container_rapport_objects %}
-    <div class="row">
+    <div class="row" id="aireMarine">
         <div class="form__group horizontal__form">
             {{ form_label(form.typeMission) }}
             {{ form_errors(form.typeMission) }}
@@ -49,7 +54,7 @@
         <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.natinf)|e('html_attr') }}
             {{ form_errors(form.navires.vars.prototype.natinf)|e('html_attr') }}
-            {{ form_widget(form.navires.vars.prototype.natinf)|e('html_attr') }}
+            {{ form_widget(form.navires.vars.prototype.natinf, {'attr': {'class': "select2"}})|e('html_attr') }}
         </div>
         <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.commentaire)|e('html_attr') }}
@@ -79,7 +84,7 @@
                 <div class="form__group horizontal__form">
                     {{ form_label(navireControle.natinf) }}
                     {{ form_errors(navireControle.natinf) }}
-                    {{ form_widget(navireControle.natinf) }}
+                    {{ form_widget(navireControle.natinf, {'attr': {'class': "select2"}}) }}
                 </div>
                 <div class="form__group horizontal__form">
                     {{ form_label(navireControle.commentaire) }}

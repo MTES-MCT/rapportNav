@@ -3,9 +3,12 @@ import Vue from 'vue';
 import $ from 'jquery';
 import params from './params.json';
 
+require('select2/dist/js/select2.min');
+require('select2/dist/css/select2.min.css');
+
 function navireDataComplete() {
     var input = $(this);
-    $.get(params.apiReferentiel+ "navires/" + input.val())
+    $.get(params.apiReferentiel + "navires/" + input.val())
         .done(function (data) {
             let parent = input.parents("li");
             parent.find("input[id$=_navire_nom]").val(data.nomNavire);
@@ -18,7 +21,7 @@ function navireDataComplete() {
         })
         .fail(function (data) {
             console.log("immatriculation non trouvée dans Navires");
-            $.get(params.apiReferentiel+ "plaisances/" + input.val())
+            $.get(params.apiReferentiel + "plaisances/" + input.val())
                 .done(function (data) {
                     let parent = input.parents("li");
                     parent.find("input[id$=_navire_nom]").val(data.nomNavire);
@@ -48,8 +51,8 @@ function navireDataComplete() {
         })
 }
 
-function toogleErrorText (event) {
-    if(event.currentTarget.checked) {
+function toogleErrorText(event) {
+    if (event.currentTarget.checked) {
         $(this).parents('div.form__group').find('div:last').show();
     } else {
         $(this).parents('div.form__group').find('div:last').hide();
@@ -58,8 +61,28 @@ function toogleErrorText (event) {
 
 $(document).ready(function () {
 
+    $(".select2").select2({
+        minimumInputLength: 3,
+        ajax: {
+            url: function (data) {
+                return 'http://localhost:8090/api/natinfs/' + data.term;
+            },
+            data: {},
+            delay: 250,
+            dataType: 'json',
+            processResults: function (data) {
+                return {
+                    results: [{
+                        "id": data.natinf,
+                        "text": data.natinf
+                    }]
+                };
+            }
+        }
+    });
+
     let vm = new Vue({
-        el: "#rapport",
+        el: "#aireMarine",
         data: {aireMarine: false},
         methods: {
             tooggleAireMarine: function (event) {
@@ -91,7 +114,26 @@ $(document).ready(function () {
         // add a new Navire form (see next code block)
         rapportNavire.addTagForm($collectionHolder);
         $('.immatriculation_fr').last().on('focusout', navireDataComplete);
-        $('.isNavireHasError').last().on('change', toogleErrorText)
+        $('.isNavireHasError').last().on('change', toogleErrorText);
+        $(".select2").last().select2({
+            minimumInputLength: 3,
+            ajax: {
+                url: function (data) {
+                    return 'http://localhost:8090/api/natinfs/' + data.term;
+                },
+                data: {},
+                delay: 250,
+                dataType: 'json',
+                processResults: function (data) {
+                    return {
+                        results: [{
+                            "id": data.natinf,
+                            "text": data.natinf
+                        }]
+                    };
+                }
+            }
+        });
     });
 
     //hide/show the details in case of error the data from Navires API
