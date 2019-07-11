@@ -1,3 +1,4 @@
 {
-  "apiReferentiel": "http://localhost:8080/api/"
+  "apiNavires": "http://localhost:8080/api/",
+  "apiNatinf": "http://localhost:8090/api/"
 }

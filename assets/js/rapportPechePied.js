@@ -1,5 +1,6 @@
 import Rapport from './rapport';
 import $ from 'jquery';
+import params from './params.json';
 
 require('select2/dist/js/select2.min');
 require('select2/dist/css/select2.min.css');
@@ -9,7 +10,7 @@ $(document).ready(function () {
         minimumInputLength: 3,
         ajax: {
             url: function (data) {
-                return 'http://localhost:8090/api/natinfs/' + data.term;
+                return params.apiNatinf + 'natinfs/' + data.term;
             },
             data: {},
             delay: 250,
@@ -48,7 +49,7 @@ $(document).ready(function () {
             minimumInputLength: 3,
             ajax: {
                 url: function (data) {
-                    return 'http://localhost:8090/api/natinfs/' + data.term;
+                    return params.apiNatinf + 'natinfs/' + data.term;
                 },
                 data: {},
                 delay: 250,

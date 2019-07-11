@@ -26,12 +26,6 @@ class RapportAdmin extends AbstractAdmin {
             ->add('lieuMission', IntegerType::class)
             ->add('zoneMissions', ModelType::class, ['multiple' => true])
             ->add('arme', CheckboxType::class, ['required' => false])
-            ->add('moyens', ModelType::class, [
-                'class' => Moyen::class,
-                'property' => 'nom',
-                'multiple' => true,
-            ])
-            ->add('distanceTerrestre', IntegerType::class)
             ->add('commentaire', TextareaType::class, ['required' => false]);
     }
 
@@ -44,8 +38,6 @@ class RapportAdmin extends AbstractAdmin {
             ->add('lieuMission')
             ->add('zoneMissions')
             ->add('arme')
-            ->add('moyens')
-            ->add('distanceTerrestre')
             ->add('commentaire');
     }
 
@@ -58,8 +50,6 @@ class RapportAdmin extends AbstractAdmin {
             ->addIdentifier('lieuMission')
             ->addIdentifier('zoneMissions')
             ->addIdentifier('arme')
-            ->addIdentifier('moyens')
-            ->addIdentifier('distanceTerrestre')
             ->addIdentifier('commentaire');
     }
 
