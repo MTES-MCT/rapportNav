@@ -28,3 +28,16 @@ legend.required::after {
 .row + .row {
     margin-top: 30px;
 }
+
+.form__validators {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form__validators button,
+.form__validators button:focus,
+.form__validators button:active,
+.form__validators button:visited{
+    width: 33.33%;
+}

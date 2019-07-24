@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Draft;
 use App\Entity\Moyen;
 use App\Entity\RapportBord;
 use App\Entity\RapportEtablissement;
@@ -119,6 +120,33 @@ class DefaultController extends AbstractController {
             default:
                 throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
         }
+    }
+
+
+    /**
+     * @Route("rapport/{type}/draft",
+     *     methods={"POST"},
+     *     name="rapport_draft",
+     *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation|peche_a_pied"})
+     * @param Request                $request
+     * @param EntityManagerInterface $em
+     * @param string                 $type
+     *
+     * @return Response
+     */
+    public function rapportDraft(Request $request, EntityManagerInterface $em, string $type) {
+        $data = $request->request->all();
+
+        $draft = new Draft();
+        $draft->setData($data);
+        $draft->setOwner($this->getUser()->getUsername());
+
+        $em->persist($draft);
+        $em->flush();
+
+        $this->addFlash("success", "Brouillon enregistré avec succès");
+
+        return $this->redirectToRoute("list_submissions");
     }
 
     /**
