@@ -1,28 +1,48 @@
 {% extends "base.html.twig" %}
 
+{% block head_title %}Rapports de mon unité {{ parent() }}{% endblock %}
+
 {% block head_stylesheets %}
     {{ parent() }}
 {% endblock head_stylesheets %}
 
 {% block body_banner %}{% endblock body_banner %}
 {% block body_main_container %}
-
-    {% for row in list|batch(3) %}
-        <div class="row">
-            {% for title, rapports in row %}
-                <div>
-                    <h2>{{ title }}</h2>
-                    <ul>
-                        {% for rapport in rapports %}
-                            <li><a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
-                                    Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
-                                </a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endfor %}
-        </div>
+    <h1>Liste des rapports pour {{ app.user.service }}</h1>
+    <h2>Rapports en cours d'édition</h2>
+    {% set colLength = (drafts|length)/3 %}
+    <div class="row">
+    {% for row in drafts|batch(colLength) %}
+            <ul>
+                {% for rapport in row %}
+                    <li>
+                        <a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
+                            Brouillon {{ rapport.id }} de {{ rapport.rapportType }} du {{ rapport.lastEdit | date('d/m/Y H:m') }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
     {% endfor %}
+    </div>
+
+{% for row in list|batch(3) %}
+    <div class="row">
+        {% for title, rapports in row %}
+            <div style="width: 33%">
+                <h2>{{ title }}</h2>
+                <ul>
+                    {% for rapport in rapports %}
+                        <li>
+                            <a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
+                                Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
 
 {% endblock body_main_container %}
 

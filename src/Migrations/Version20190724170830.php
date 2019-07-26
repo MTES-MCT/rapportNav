@@ -20,7 +20,8 @@ final class Version20190724170830 extends AbstractMigration {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('CREATE SEQUENCE draft_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE draft (id INT NOT NULL, data JSON NOT NULL, owner VARCHAR(45) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE draft (id INT NOT NULL, data JSON NOT NULL, owner VARCHAR(45) NOT NULL, rapport_type VARCHAR(45) NOT NULL, last_edit TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+
     }
 
     public function down(Schema $schema): void {

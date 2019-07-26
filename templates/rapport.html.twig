@@ -193,9 +193,29 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script type="application/javascript">
+
+        redirectToList = function (data) {
+            var notif = '<div class="notification success">' + data.text + '</div>'
+            $('.notifications').append($(notif));
+            setTimeout(function() {window.location.href = window.location.protocol + "//" + window.location.host + "/list_submissions"},
+            3000);
+        };
+
         $(document).ready(function () {
             $("#form-save").on("click", function (elem) {
-                $.post("http://localhost:8000/rapport/controle_a_bord/draft", $("form").serialize());
+                $.ajax({
+                    type: "POST",
+                    url: window.location.pathname + "/draft",
+                    data: JSON.stringify($("form").serializeArray()),
+                    processData: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if ("success" === data.status) {
+                            redirectToList(data);
+                        }
+                    }
+                });
 
             })
         });

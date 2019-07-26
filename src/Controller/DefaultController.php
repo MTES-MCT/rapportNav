@@ -3,27 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Draft;
-use App\Entity\Moyen;
-use App\Entity\RapportBord;
+use App\Entity\Rapport;
 use App\Entity\RapportEtablissement;
-use App\Entity\RapportFormation;
 use App\Entity\RapportMoyen;
 use App\Entity\RapportNavire;
-use App\Entity\Rapport;
 use App\Entity\User;
 use App\Form\RapportAdministratifType;
 use App\Form\RapportBordType;
 use App\Form\RapportCommerceType;
 use App\Form\RapportFormationType;
-use App\Form\RapportMoyenType;
 use App\Form\RapportPechePiedType;
-use App\Form\RapportType;
 use DateInterval;
-use \DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use \Exception;
+use Exception;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -32,6 +26,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController {
+
+    private $typeRapportToClass = ['controle_a_bord' => "RapportBord",
+        'filiere_commercialisation' => "RapportCommerce",
+        'administratif' => "RapportAdministratif",
+        "formation" => "RapportFormation",
+        "peche_a_pied" => "RapportPechePied",
+    ];
+
     /**
      * @Route("/", name="home")
      */
@@ -51,15 +53,10 @@ class DefaultController extends AbstractController {
      * @return RedirectResponse|Response
      */
     public function rapportCreate(Request $request, EntityManagerInterface $em, string $type) {
-        $typeRapportToClass = ['controle_a_bord' => "RapportBord",
-            'filiere_commercialisation' => "RapportCommerce",
-            'administratif' => "RapportAdministratif",
-            "formation" => "RapportFormation",
-            "peche_a_pied" => "RapportPechePied",
-        ];
 
-        $rapportClass = "\\App\\Entity\\".$typeRapportToClass[$type];
-        $formClass = "\\App\\Form\\".$typeRapportToClass[$type]."Type";
+
+        $rapportClass = "\\App\\Entity\\".$this->typeRapportToClass[$type];
+        $formClass = "\\App\\Form\\".$this->typeRapportToClass[$type]."Type";
 
         /** @var Rapport $rapport */
         $rapport = new $rapportClass();
@@ -124,7 +121,7 @@ class DefaultController extends AbstractController {
 
 
     /**
-     * @Route("rapport/{type}/draft",
+     * @Route("rapport/{type}/draft/{id}",
      *     methods={"POST"},
      *     name="rapport_draft",
      *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation|peche_a_pied"})
@@ -132,21 +129,65 @@ class DefaultController extends AbstractController {
      * @param EntityManagerInterface $em
      * @param string                 $type
      *
+     * @param int|null               $id
+     *
      * @return Response
+     * @throws Exception For DateTimeImmutable creation
      */
-    public function rapportDraft(Request $request, EntityManagerInterface $em, string $type) {
-        $data = $request->request->all();
+    public function rapportDraft(Request $request, EntityManagerInterface $em, string $type, ?int $id=null) {
+        $data = json_decode($request->getContent(), true);
 
-        $draft = new Draft();
+        //Search and delete the CRSF token, this element is often at the end so taking the array in reverse order
+        for($i = count($data) -1 ; $i > 0 ; $i--) {
+            if(mb_strpos($data[$i]['name'], "_token")) {
+                unset($data[$i]);
+                break;
+            }
+        }
+
+        if(null === $id) {
+            $draft = new Draft();
+            $draft->setOwner($this->getUser()->getService());
+            $draft->setRapportType($this->typeRapportToClass[$type]);
+        } else {
+            $draft = $em->getRepository("App:Draft")->find($id);
+        }
         $draft->setData($data);
-        $draft->setOwner($this->getUser()->getUsername());
+        $draft->setLastEdit(new DateTimeImmutable());
 
         $em->persist($draft);
         $em->flush();
 
-        $this->addFlash("success", "Brouillon enregistré avec succès");
+        if(in_array("application/json", $request->getAcceptableContentTypes()) ) {
+            return $this->json(["status"=> "success",
+                "text" => "Brouillon enregistré avec succès"]);
+        } else {
+            $this->addFlash("success", "Brouillon enregistré avec succès");
+            return $this->redirectToRoute("list_submissions");
+        }
 
-        return $this->redirectToRoute("list_submissions");
+    }
+
+    /**
+     * @Route("rapport/{type}/draft/{id}",
+     *     methods={"GET"},
+     *     name="rapport_draft_edit",
+     *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation|peche_a_pied"})
+     * @param Request                $request
+     * @param EntityManagerInterface $em
+     * @param string                 $type
+     * @param int|null               $id
+     *
+     * @return Response
+     *
+     * @todo
+     */
+    public function rapportEditDraft(Request $request, EntityManagerInterface $em, string $type, ?int $id) {
+        if(null === $id) {
+            $this->redirectToRoute("rapport_create", ['type' => $type]);
+        }
+
+        return new Response("TODO");
     }
 
     /**
@@ -252,6 +293,11 @@ class DefaultController extends AbstractController {
     public function listSubmission(EntityManagerInterface $em) {
         $service = $this->getUser()->getService();
 
+        $drafts = $em->getRepository("App:Draft")->findBy(
+            ['owner' => $service],
+            ['lastEdit' => "DESC"],
+            20);
+
         $controlePeche = $em->getRepository('App:RapportBord')->findBy(
             ['serviceCreateur' => $service],
             ['dateDebutMission' => "DESC"],
@@ -280,7 +326,7 @@ class DefaultController extends AbstractController {
             'Actions de formation' => $formations,
         ];
 
-        return $this->render('listSubmissions.html.twig', ['list' => $list]);
+        return $this->render('listSubmissions.html.twig', ['list' => $list, 'drafts' => $drafts]);
     }
 
     /**
