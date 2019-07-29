@@ -64,11 +64,11 @@ class Draft {
     }
 
     public function setRapportType(string $rapportType): self {
-        if(in_array($rapportType, Rapport::RAPPORTTYPES)) {
+//        if(array_key_exists($rapportType, Rapport::RAPPORTTYPES)) {
             $this->rapportType = $rapportType;
-        } else {
-            throw new \InvalidArgumentException("Expecting a Rapport type (see Rapport::RAPPORTTYPE, got ".$rapportType);
-        }
+//        } else {
+//            throw new \InvalidArgumentException("Expecting a Rapport type (see Rapport::RAPPORTTYPE), got ".$rapportType);
+//        }
 
         return $this;
     }

@@ -19,6 +19,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,8 +54,6 @@ class DefaultController extends AbstractController {
      * @return RedirectResponse|Response
      */
     public function rapportCreate(Request $request, EntityManagerInterface $em, string $type) {
-
-
         $rapportClass = "\\App\\Entity\\".$this->typeRapportToClass[$type];
         $formClass = "\\App\\Form\\".$this->typeRapportToClass[$type]."Type";
 
@@ -100,13 +99,13 @@ class DefaultController extends AbstractController {
 
         switch($type) {
             case "controle_a_bord":
-                return $this->render('rapportNavireEtPeche.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportControleABord.html.twig', ['form' => $form->createView()]);
                 break;
             case "filiere_commercialisation":
-                return $this->render('rapportCommercialisation.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $form->createView()]);
                 break;
             case "peche_a_pied":
-                return $this->render('rapportPechePied.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportPecheAPied.html.twig', ['form' => $form->createView()]);
                 break;
             case "administratif":
                 return $this->render('rapportAdministratif.html.twig', ['form' => $form->createView()]);
@@ -148,7 +147,7 @@ class DefaultController extends AbstractController {
         if(null === $id) {
             $draft = new Draft();
             $draft->setOwner($this->getUser()->getService());
-            $draft->setRapportType($this->typeRapportToClass[$type]);
+            $draft->setRapportType($type);
         } else {
             $draft = $em->getRepository("App:Draft")->find($id);
         }
@@ -173,21 +172,31 @@ class DefaultController extends AbstractController {
      *     methods={"GET"},
      *     name="rapport_draft_edit",
      *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation|peche_a_pied"})
+     * @ParamConverter("draft", class="App:Draft")
+     *
      * @param Request                $request
      * @param EntityManagerInterface $em
      * @param string                 $type
-     * @param int|null               $id
+     * @param Draft                  $draft
      *
      * @return Response
-     *
-     * @todo
      */
-    public function rapportEditDraft(Request $request, EntityManagerInterface $em, string $type, ?int $id) {
-        if(null === $id) {
+    public function rapportEditDraft(Request $request, EntityManagerInterface $em, string $type, Draft $draft) {
+        if(null === $draft) {
             $this->redirectToRoute("rapport_create", ['type' => $type]);
         }
 
-        return new Response("TODO");
+        $rapportClass = "\\App\\Entity\\".$this->typeRapportToClass[$type];
+        $formClass = "\\App\\Form\\".$this->typeRapportToClass[$type]."Type";
+        $user = $this->getUser();
+        /** @var Rapport $rapport */
+        $rapport = new $rapportClass();
+        $rapport->addMoyen(new RapportMoyen());
+
+        $form = $this->createForm($formClass, $rapport, ['service' => $user->getService()]);
+
+        return $this->render("rapport" . str_replace('_', '', ucwords($type, '_')).".html.twig",
+            ['form' => $form->createView(), 'data' => json_encode($draft->getData())]);
     }
 
     /**
@@ -253,13 +262,13 @@ class DefaultController extends AbstractController {
 
         switch($formClass) {
             case RapportBordType::class:
-                return $this->render('rapportNavireEtPeche.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportControleABord.html.twig', ['form' => $editForm->createView()]);
                 break;
             case RapportCommerceType::class:
-                return $this->render('rapportCommercialisation.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $editForm->createView()]);
                 break;
             case RapportPechePiedType::class:
-                return $this->render('rapportPechePied.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportPecheAPied.html.twig', ['form' => $editForm->createView()]);
                 break;
             case RapportAdministratifType::class:
                 return $this->render('rapportAdministratif.html.twig', ['form' => $editForm->createView()]);
