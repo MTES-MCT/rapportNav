@@ -37,11 +37,11 @@ $(document).ready(function () {
         rapportCommerce.addTagFormDeleteLink($(this));
     });
 
+    // keep index count up-to-date
+    $collectionHolder.data('index', $collectionHolder.find('li.etablissement').length);
+
     // add the "Ajouter un établissement contrôlé" anchor and li to the Navires ul
     $collectionHolder.append(rapportCommerce.$newLinkLi);
-
-    // keep index count up-to-date
-    $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
     $('.add_etablissement_link').on('click', function (e) {
         // add a new Etablissement form

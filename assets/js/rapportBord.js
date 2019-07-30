@@ -60,7 +60,6 @@ function toogleErrorText(event) {
 }
 
 $(document).ready(function () {
-
     $(".select2").select2({
         minimumInputLength: 3,
         ajax: {
@@ -104,11 +103,11 @@ $(document).ready(function () {
         rapportNavire.addTagFormDeleteLink($(this));
     });
 
+    // keep index count up-to-date
+    $collectionHolder.data('index', $collectionHolder.find('li.navire').length);
+
     // add the "Ajouter un navire contrôlé" anchor and li to the Navires ul
     $collectionHolder.append(rapportNavire.$newLinkLi);
-
-    // keep index count up-to-date
-    $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
     $('.add_navire_link').on('click', function (e) {
         // add a new Navire form (see next code block)

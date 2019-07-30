@@ -36,11 +36,11 @@ $(document).ready(function () {
         rapportCommerce.addTagFormDeleteLink($(this));
     });
 
+    // keep index count up-to-date
+    $collectionHolder.data('index', $collectionHolder.find('li.pecheur').length);
+
     // add the "Ajouter un établissement contrôlé" anchor and li to the Navires ul
     $collectionHolder.append(rapportCommerce.$newLinkLi);
-
-    // keep index count up-to-date
-    $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
     $('.add_pecheur_link').on('click', function (e) {
         // add a new Navire form (see next code block)

@@ -133,14 +133,38 @@ class DefaultController extends AbstractController {
      * @return Response
      * @throws Exception For DateTimeImmutable creation
      */
-    public function rapportDraft(Request $request, EntityManagerInterface $em, string $type, ?int $id=null) {
+    public function rapportDraft(Request $request, EntityManagerInterface $em, string $type, ?int $id = null) {
         $data = json_decode($request->getContent(), true);
 
-        //Search and delete the CRSF token, this element is often at the end so taking the array in reverse order
-        for($i = count($data) -1 ; $i > 0 ; $i--) {
+        //Search and delete the CRSF token and re-number the elements (Moyens, PecherAPied, NAvires and Etablissements
+        $renumbers = ["[moyens][" => 0, "[pecheursPied][" => 0, "[navires][" => 0, "[etablissements][" => 0];
+        for($i = 0 ; $i < count($data) ; $i++) {
+
+            foreach($renumbers as $elemName => $nbElems) {
+                $j=0;
+                $oldName = "";
+                while(($pos = mb_strpos($data[$i + $j]['name'], $elemName)) &&
+                    ("" === $oldName || false !== mb_strpos($data[$i + $j]['name'], $oldName))
+                ) {
+                    if(0 === $j) {
+                        $oldName = substr($data[$i]['name'], 0, $pos + mb_strlen($elemName) + 1);
+                    }
+                    $data[$i + $j]['name'] = substr($data[$i + $j]['name'], 0, $pos + mb_strlen($elemName)).
+                        $nbElems.
+                        substr($data[$i + $j]['name'], $pos + mb_strlen($elemName) + 1);
+                    $j++;
+                }
+                if($j > 0) {
+                    $renumbers[$elemName]++;
+
+                    $i += $j -1;
+                    continue 2;
+                }
+            }
+
             if(mb_strpos($data[$i]['name'], "_token")) {
                 unset($data[$i]);
-                break;
+                continue;
             }
         }
 
@@ -153,12 +177,11 @@ class DefaultController extends AbstractController {
         }
         $draft->setData($data);
         $draft->setLastEdit(new DateTimeImmutable());
-
         $em->persist($draft);
         $em->flush();
 
-        if(in_array("application/json", $request->getAcceptableContentTypes()) ) {
-            return $this->json(["status"=> "success",
+        if(in_array("application/json", $request->getAcceptableContentTypes())) {
+            return $this->json(["status" => "success",
                 "text" => "Brouillon enregistré avec succès"]);
         } else {
             $this->addFlash("success", "Brouillon enregistré avec succès");
@@ -195,7 +218,7 @@ class DefaultController extends AbstractController {
 
         $form = $this->createForm($formClass, $rapport, ['service' => $user->getService()]);
 
-        return $this->render("rapport" . str_replace('_', '', ucwords($type, '_')).".html.twig",
+        return $this->render("rapport".str_replace('_', '', ucwords($type, '_')).".html.twig",
             ['form' => $form->createView(), 'data' => json_encode($draft->getData())]);
     }
 
