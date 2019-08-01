@@ -13,7 +13,7 @@ class RapportCommerceType extends RapportControleType {
 
         $builder
             ->add('etablissements', CollectionType::class, [
-                'entry_type' => SimpleRapportEtablissementType::class,
+                'entry_type' => RapportEtablissementType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,

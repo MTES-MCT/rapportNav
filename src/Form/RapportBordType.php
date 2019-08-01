@@ -31,7 +31,7 @@ class RapportBordType extends RapportControleType {
                 'placeholder' => '',
                 'label' => "Type de mission"])
             ->add('navires', CollectionType::class, [
-                'entry_type' => SimpleRapportNavireType::class,
+                'entry_type' => RapportNavireType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,

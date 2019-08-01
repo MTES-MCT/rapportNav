@@ -12,10 +12,10 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SimpleRapportNavireType extends AbstractType {
+class RapportNavireType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('navire', SimpleNavireType::class, ['label' => false,])
+            ->add('navire', NavireType::class, ['label' => false,])
             ->add('controles', ChoiceType::class, [
                 'choices' => [
                     'Contrôles Pêche / Sanitaire' => 0,

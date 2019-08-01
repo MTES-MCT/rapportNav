@@ -13,10 +13,10 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SimpleRapportEtablissementType extends AbstractType {
+class RapportEtablissementType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('etablissement', SimpleEtablissementType::class, ['label' => false,])
+            ->add('etablissement', EtablissementType::class, ['label' => false,])
             ->add('pv', CheckboxType::class, [
                 'required' => false,
                 'label' => "PV émis ?"])
