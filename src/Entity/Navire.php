@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\DocBlock\Tags\BaseTag;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

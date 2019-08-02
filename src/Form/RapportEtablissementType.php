@@ -2,10 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Natinf;
 use App\Entity\RapportEtablissement;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,13 +16,27 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RapportEtablissementType extends AbstractType {
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    public function __construct(EntityManagerInterface $em) {
+        $this->em = $em;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('etablissement', EtablissementType::class, ['label' => false,])
             ->add('pv', CheckboxType::class, [
                 'required' => false,
                 'label' => "PV émis ?"])
-            ->add('natinf', ChoiceType::class, [
+            ->add('natinfs', EntityType::class, [
+                'class' => Natinf::class,
+                'choice_label' => "numero",
+                'choice_value' => "numero",
+                'multiple' => true,
+                'expanded' => false,
                 'required' => false,
                 'label' => "Code(s) NATINF "])
             ->add('bateauxControles', IntegerType::class, [
@@ -28,38 +44,23 @@ class RapportEtablissementType extends AbstractType {
                 'label' => 'Nombre de navires contrôlés'])
             ->add('commentaire', TextType::class, [
                 'required' => false,
-                'label' => "Notes et commentaires"])
-        ;
+                'label' => "Notes et commentaires"]);
 
         //Dynamic addition of Natinf
         $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
+            FormEvents::PRE_SUBMIT,
             function(FormEvent $event) {
                 /** @var ?Navire $data */
                 $data = $event->getData();
-                $natinf = $data ? $data->getNatinf() : [];
-                $form = $event->getForm();
-                $toDisplay = $this->transformNatinfArray($natinf);
-                $form->add('natinf', ChoiceType::class, [
-                    'required' => false,
-                    'multiple' => true,
-                    'expanded' => false,
-                    'choices' => $toDisplay,
-                    'label' => "Code(s) NATINF"]);
+                $natinfs = $data['natinfs'] ? $data['natinfs'] : [];
+                foreach($natinfs as $codeNatinf) {
+                    $natinf = new Natinf();
+                    $natinf->setNumero($codeNatinf);
+                    $this->em->persist($natinf);
+                }
+                $this->em->flush();
             }
         );
-
-        $builder->addEventListener(FormEvents::PRE_SUBMIT,
-            function(FormEvent $event) {
-                $natinf = $event->getData()['natinf'];
-                $form = $event->getForm();
-                $form->add('natinf', ChoiceType::class, [
-                    'required' => false,
-                    'multiple' => true,
-                    'expanded' => false,
-                    'choices' => $natinf,
-                    'label' => "Code(s) NATINF"]);
-            });
     }
 
     public function configureOptions(OptionsResolver $resolver) {

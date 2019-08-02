@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,7 +33,9 @@ class RapportNavire {
     private $navire;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\RapportNavireControle")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid
      */
     private $controles;
 
@@ -42,14 +46,20 @@ class RapportNavire {
     private $pv = false;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Natinf", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $natinf;
+    private $natinfs;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $commentaire;
+
+    public function __construct() {
+        $this->controles = new ArrayCollection();
+        $this->natinfs = new ArrayCollection();
+    }
 
     public function getId(): ?int {
         return $this->id;
@@ -85,16 +95,6 @@ class RapportNavire {
         return $this;
     }
 
-    public function getNatinf(): ?array {
-        return $this->natinf;
-    }
-
-    public function setNatinf(?array $natinf): self {
-        $this->natinf = $natinf;
-
-        return $this;
-    }
-
     public function getCommentaire(): ?string {
         return $this->commentaire;
     }
@@ -105,12 +105,48 @@ class RapportNavire {
         return $this;
     }
 
-    public function getControles(): ?array {
+    /**
+     * @return Collection|Natinf[]
+     */
+    public function getNatinfs(): Collection {
+        return $this->natinfs;
+    }
+
+    public function addNatinf(Natinf $natinf): self {
+        if(!$this->natinfs->contains($natinf)) {
+            $this->natinfs[] = $natinf;
+        }
+
+        return $this;
+    }
+
+    public function removeNatinf(Natinf $natinf): self {
+        if($this->natinfs->contains($natinf)) {
+            $this->natinfs->removeElement($natinf);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RapportNavireControle[]
+     */
+    public function getControles(): Collection {
         return $this->controles;
     }
 
-    public function setControles(?array $controles): self {
-        $this->controles = $controles;
+    public function addControle(RapportNavireControle $controle): self {
+        if(!$this->controles->contains($controle)) {
+            $this->controles[] = $controle;
+        }
+
+        return $this;
+    }
+
+    public function removeControle(RapportNavireControle $controle): self {
+        if($this->controles->contains($controle)) {
+            $this->controles->removeElement($controle);
+        }
 
         return $this;
     }

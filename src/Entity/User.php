@@ -18,12 +18,22 @@ class User extends BaseUser {
      */
     protected $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Service")
+     */
+    protected $service;
+
     public function getId() {
         return $this->id;
     }
 
-    public function getService() {
-        return $this->getUsername();
+    public function getService(): ?Service {
+        return $this->service;
     }
 
+    public function setService(?Service $service): self {
+        $this->service = $service;
+
+        return $this;
+    }
 }

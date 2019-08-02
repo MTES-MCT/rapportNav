@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -37,9 +39,10 @@ class RapportEtablissement {
     private $pv = false;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Natinf", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $natinf;
+    private $natinfs;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -51,6 +54,10 @@ class RapportEtablissement {
      */
     private $commentaire;
 
+    public function __construct() {
+        $this->natinfs = new ArrayCollection();
+    }
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -61,16 +68,6 @@ class RapportEtablissement {
 
     public function setPv(bool $pv): self {
         $this->pv = $pv;
-
-        return $this;
-    }
-
-    public function getNatinf(): ?array {
-        return $this->natinf;
-    }
-
-    public function setNatinf(?array $natinf): self {
-        $this->natinf = $natinf;
 
         return $this;
     }
@@ -111,6 +108,29 @@ class RapportEtablissement {
 
     public function setBateauxControles(?int $bateauxControles): self {
         $this->bateauxControles = $bateauxControles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Natinf[]
+     */
+    public function getNatinfs(): Collection {
+        return $this->natinfs;
+    }
+
+    public function addNatinf(Natinf $natinf): self {
+        if(!$this->natinfs->contains($natinf)) {
+            $this->natinfs[] = $natinf;
+        }
+
+        return $this;
+    }
+
+    public function removeNatinf(Natinf $natinf): self {
+        if($this->natinfs->contains($natinf)) {
+            $this->natinfs->removeElement($natinf);
+        }
 
         return $this;
     }

@@ -32,9 +32,9 @@
             {{ form_widget(form.pecheursPied.vars.prototype.pv)|e('html_attr') }}
         </div>
         <div class="form__group horizontal__form">
-            {{ form_label(form.pecheursPied.vars.prototype.natinf)|e('html_attr') }}
-            {{ form_errors(form.pecheursPied.vars.prototype.natinf)|e('html_attr') }}
-            {{ form_widget(form.pecheursPied.vars.prototype.natinf, {'attr': {'class': "select2"}})|e('html_attr') }}
+            {{ form_label(form.pecheursPied.vars.prototype.natinfs)|e('html_attr') }}
+            {{ form_errors(form.pecheursPied.vars.prototype.natinfs)|e('html_attr') }}
+            {{ form_widget(form.pecheursPied.vars.prototype.natinfs, {'attr': {'class': "select2"}})|e('html_attr') }}
         </div>
         <div class="form__group horizontal__form">
             {{ form_label(form.pecheursPied.vars.prototype.commentaire)|e('html_attr') }}
@@ -63,9 +63,9 @@
                     {{ form_errors(pecheurPiedControle.pv) }}
                 </div>
                 <div class="form__group horizontal__form">
-                    {{ form_label(pecheurPiedControle.natinf) }}
-                    {{ form_errors(pecheurPiedControle.natinf) }}
-                    {{ form_widget(pecheurPiedControle.natinf, {'attr': {'class': "select2"}}) }}
+                    {{ form_label(pecheurPiedControle.natinfs) }}
+                    {{ form_errors(pecheurPiedControle.natinfs) }}
+                    {{ form_widget(pecheurPiedControle.natinfs, {'attr': {'class': "select2"}}) }}
                 </div>
                 <div class="form__group horizontal__form">
                     {{ form_label(pecheurPiedControle.commentaire) }}

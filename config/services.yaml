@@ -49,7 +49,7 @@ services:
         arguments: [~, App\Entity\Moyen, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: services, label: "Moyens par unité" }
-    admin.zoneGeographique:
+    admin.zone_geographique:
         class: App\Admin\ZoneGeographiqueAdmin
         arguments: [~, App\Entity\ZoneGeographique, ~]
         tags:
@@ -59,3 +59,10 @@ services:
         arguments: [~, App\Entity\Agent, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: services, label: Agent }
+
+    admin.moyen_type_navire:
+        class: App\Admin\MoyenTypeNavireAdmin
+        arguments: [~, App\Entity\MoyenTypeNavire, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: "Type de navire" }
+        public: true
