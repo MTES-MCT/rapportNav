@@ -8,6 +8,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "friendsofsymfony/user-bundle": "^2.1",
+        "guzzlehttp/guzzle": "^6.3",
         "sensio/framework-extra-bundle": "^5.1",
         "sonata-project/admin-bundle": "^3.48",
         "sonata-project/doctrine-orm-admin-bundle": "^3.9",
