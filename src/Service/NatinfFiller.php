@@ -32,10 +32,11 @@ class NatinfFiller {
      * Convert an array of Natinf numbers to an array of Natinf objects
      *
      * @param array $natinfs
+     * @param bool  $returnObjects
      *
      * @return array
      */
-    public function fromArray(array $natinfs) {
+    public function fromArray(array $natinfs, bool $returnObjects = false): array {
         $result = [];
         if(0 === count($natinfs)) {
             return $result;
@@ -62,13 +63,16 @@ class NatinfFiller {
 
                 $exists = $this->em->getRepository('App:Natinf')->findOneBy(['numero' => $natinfObj->getNumero()]);
 
-                if($exists) {
+                if($returnObjects && $exists) {
                     $result[$key] = $exists;
                 } else {
                     $this->em->persist($natinfObj);
-                    $result[$key] = $natinfObj;
+                    if($returnObjects) {
+                        $result[$key] = $natinfObj;
+                    }
                 }
-            } else {
+            } elseif($returnObjects) {
+
                 $natinfObj = new Natinf();
                 $natinfObj->setNumero($key);
 
@@ -78,7 +82,11 @@ class NatinfFiller {
 
         $this->em->flush();
 
-        return $result;
+        if($returnObjects) {
+            return $result;
+        } else {
+            return $natinfs;
+        }
 
     }
 

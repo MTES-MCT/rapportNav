@@ -2,27 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Moyen;
-use App\Entity\RapportBord;
+use App\Entity\Rapport;
 use App\Entity\RapportEtablissement;
-use App\Entity\RapportFormation;
 use App\Entity\RapportMoyen;
 use App\Entity\RapportNavire;
-use App\Entity\Rapport;
 use App\Entity\User;
 use App\Form\RapportAdministratifType;
 use App\Form\RapportBordType;
 use App\Form\RapportCommerceType;
 use App\Form\RapportFormationType;
-use App\Form\RapportMoyenType;
 use App\Form\RapportPechePiedType;
-use App\Form\RapportType;
 use DateInterval;
-use \DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use \Exception;
+use Exception;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;

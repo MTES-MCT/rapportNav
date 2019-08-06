@@ -6,9 +6,8 @@
 parameters:
     locale: 'fr'
     app.version: '%env(resolve:APP_VERSION)%'
-    api:
-        navire: '%env(resolve:API_NAVIRE)%'
-        natinf: '%env(resolve:API_NATINF)%'
+    api_navire: '%env(resolve:API_NAVIRE)%'
+    api_natinf: '%env(resolve:API_NATINF)%'
 
 services:
     # default configuration for services in *this* file
@@ -32,7 +31,8 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Service\NatinfFiller:
-        arguments: [api.natinf]
+        arguments:
+            $api: '%api_natinf%'
 
     # SonataAdminBundle related services
     admin.navire:

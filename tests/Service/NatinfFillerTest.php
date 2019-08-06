@@ -3,10 +3,9 @@
 namespace App\Tests\Service;
 
 use App\Entity\Natinf;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Service\NatinfFiller;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
-use App\Service\NatinfFiller;
 
 class NatinfFillerTest extends TestCase {
     public function testFromArray() {
@@ -14,7 +13,7 @@ class NatinfFillerTest extends TestCase {
         $natinfFiller = new NatinfFiller($fakeEm, "http://localhost:8090/api/");
 
         $data = ["32208", "00000"];
-        $results = $natinfFiller->fromArray($data);
+        $results = $natinfFiller->fromArray($data, true);
 
         $this->assertEquals(2, count($results));
         $this->assertTrue(is_a($results['32208'], Natinf::class));
