@@ -6,6 +6,7 @@ use App\Entity\Natinf;
 use App\entity\RapportPecheurPied;
 use App\Service\NatinfFiller;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -47,21 +48,51 @@ class RapportPecheurPiedType extends AbstractType {
             ->add('commentaire', TextType::class, ['required' => false]);
 
         //Dynamic addition of Natinf
-        $builder->get('natinfs')->addEventListener(
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function(FormEvent $event) {
+                $data = ($event->getData()) ? $event->getData()->getNatinfs() : null;
+                $event->getForm()->add('natinfs', EntityType::class, [
+                    'class' => Natinf::class,
+                    'query_builder' => function(EntityRepository $er) use ($data) {
+                        return $er->createQueryBuilder('n')
+                            ->where("n.id IN (:natinfs)")
+                            ->setParameter('natinfs', $data);
+                    },
+                    'choice_label' => "numero",
+                    'choice_value' => "numero",
+                    'required' => false,
+                    'multiple' => true,
+                    'expanded' => false,
+                    'allow_extra_fields' => true,
+                    'label' => "Code(s) NATINF",
+                    'validation_groups' => false]);
+            }
+        );
+
+        //Dynamic addition of Natinf
+        $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
             function(FormEvent $event) {
                 /** @var ?Navire $data */
-                $data = $event->getData();
+                $data = $event->getData()['natinfs'];
                 $natinfs = $data ?: [];
                 $this->dbRecorder->fromArray($natinfs);
-                $event->getForm()->getParent()->add('natinfs', EntityType::class, [
+                $event->getForm()->add('natinfs', EntityType::class, [
                     'class' => Natinf::class,
+                    'query_builder' => function(EntityRepository $er) use ($data) {
+                        return $er->createQueryBuilder('n')
+                            ->where("n.numero IN (:natinfs)")
+                            ->setParameter('natinfs', $data);
+                    },
                     'choice_label' => "numero",
                     'choice_value' => "numero",
+                    'required' => false,
                     'multiple' => true,
                     'expanded' => false,
-                    'required' => false,
-                    'label' => "Code(s) NATINF "]);
+                    'allow_extra_fields' => true,
+                    'label' => "Code(s) NATINF",
+                    'validation_groups' => false]);
             }
         );
     }
