@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -52,7 +51,8 @@ class RapportNavireType extends AbstractType {
                 'multiple' => true,
                 'expanded' => false,
                 'allow_extra_fields' => true,
-                'label' => "Code(s) NATINF"])
+                'label' => "Code(s) NATINF",
+                'validation_groups' => false])
             ->add('commentaire', TextType::class, [
                 'required' => false,
                 'label' => "Notes et commentaires"]);
@@ -65,6 +65,16 @@ class RapportNavireType extends AbstractType {
                 $data = $event->getData();
                 $natinfs = $data ?: [];
                 $this->dbRecorder->fromArray($natinfs);
+                $event->getForm()->getParent()->add('natinfs', EntityType::class, [
+                    'class' => Natinf::class,
+                    'choice_label' => "numero",
+                    'choice_value' => "numero",
+                    'required' => false,
+                    'multiple' => true,
+                    'expanded' => false,
+                    'allow_extra_fields' => true,
+                    'label' => "Code(s) NATINF",
+                    'validation_groups' => false]);
             }
         );
 
@@ -74,18 +84,5 @@ class RapportNavireType extends AbstractType {
         $resolver->setDefaults([
             'data_class' => RapportNavire::class,
         ]);
-    }
-
-    private function transformNatinfArray(?array $natinfs): ?array {
-        $result = [];
-        if(!$natinfs) {
-            return $result;
-        }
-
-        foreach($natinfs as $natinf) {
-            $result[] = [$natinf => $natinf];
-        }
-
-        return $result;
     }
 }

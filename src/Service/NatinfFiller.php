@@ -6,7 +6,7 @@ namespace App\Service;
 use App\Entity\Natinf;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
-use GuzzleHttp\Promise;
+use GuzzleHttp\Pool;
 
 /**
  * Class NatinfFiller request NatInf API with Natinf Number to create the NatInf object then persit it if the Natinf
@@ -32,61 +32,64 @@ class NatinfFiller {
      * Convert an array of Natinf numbers to an array of Natinf objects
      *
      * @param array $natinfs
-     * @param bool  $returnObjects
+     * @param bool  $returnValidObjects
      *
      * @return array
      */
-    public function fromArray(array $natinfs, bool $returnObjects = false): array {
+    public function fromArray(array $natinfs, bool $returnValidObjects = false): array {
         $result = [];
+        $newNatinfs = [];
         if(0 === count($natinfs)) {
             return $result;
         }
 
-        $client = new Client(['base_uri' => $this->api]);
-
-        $promises = [];
-
-        foreach($natinfs as $codeNatinf) {
-            $promises[$codeNatinf] = $client->getAsync("natinfs/".$codeNatinf);
+        foreach($natinfs as $natinf) {
+            /** @var string $natinf */
+            $exists = $this->em->getRepository('App:Natinf')->findOneBy(['numero' => $natinf]);
+            if(!$exists) {
+                $newNatinfs[] = $natinf;
+            } elseif($returnValidObjects) {
+                $result[] = $exists;
+            }
+        }
+        if(0 === count($newNatinfs)) {
+            return $returnValidObjects ? $result : $natinfs;
         }
 
-        $responses = Promise\settle($promises)->wait();
+        $client = new Client(['base_uri' => $this->api]);
 
-        foreach($responses as $key => $natinfResponse) {
-            if("fulfilled" === $natinfResponse['state']) {
-                $bodyStr = (string)($natinfResponse['value']->getBody());
+        $requests = function(array $natinfs) use ($client) {
+            $uri = 'natinfs/';
+            for($i = 0 ; $i < count($natinfs) ; $i++) {
+                yield function() use ($client, $uri, $natinfs, $i) {
+                    return $client->getAsync($uri.$natinfs[$i]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($newNatinfs), [
+            'concurrency' => 5,
+            'fulfilled' => function($response, $index) use ($returnValidObjects, &$result) {
+                $bodyStr = (string)($response->getBody());
                 $body = json_decode($bodyStr);
                 $natinfObj = new Natinf();
                 $natinfObj->setNumero($body->natinf)
                     ->setDescription($body->qualificationInfraction)
                     ->setLibelle($body->libelleNataff);
+                $this->em->persist($natinfObj);
 
-                $exists = $this->em->getRepository('App:Natinf')->findOneBy(['numero' => $natinfObj->getNumero()]);
-
-                if($returnObjects && $exists) {
-                    $result[$key] = $exists;
-                } else {
-                    $this->em->persist($natinfObj);
-                    if($returnObjects) {
-                        $result[$key] = $natinfObj;
-                    }
+                if($returnValidObjects) {
+                    $result[] = $natinfObj;
                 }
-            } elseif($returnObjects) {
+            },
+        ]);
 
-                $natinfObj = new Natinf();
-                $natinfObj->setNumero($key);
-
-                $result[$key] = $natinfObj;
-            }
-        }
+        $promises = $pool->promise();
+        $promises->wait();
 
         $this->em->flush();
 
-        if($returnObjects) {
-            return $result;
-        } else {
-            return $natinfs;
-        }
+        return $returnValidObjects ? $result : $natinfs;
 
     }
 

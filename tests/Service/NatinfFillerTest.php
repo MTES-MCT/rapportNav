@@ -23,10 +23,9 @@ class NatinfFillerTest extends TestCase {
         $data = ["32208", "00000"];
         $results = $natinfFiller->fromArray($data, true);
 
-        $this->assertEquals(2, count($results));
-        $this->assertTrue(is_a($results['32208'], Natinf::class));
-        $this->assertTrue(is_a($results['00000'], Natinf::class));
-        $this->assertEquals(32208, $results['32208']->getNumero());
-        $this->assertEquals(0, $results['00000']->getNumero());
+        //Only one is valid
+        $this->assertEquals(1, count($results));
+        $this->assertTrue(is_a($results[0], Natinf::class));
+        $this->assertEquals(32208, $results[0]->getNumero());
     }
 }

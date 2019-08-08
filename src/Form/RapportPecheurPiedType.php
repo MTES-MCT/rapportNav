@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Natinf;
 use App\entity\RapportPecheurPied;
+use App\Service\NatinfFiller;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -19,9 +20,14 @@ class RapportPecheurPiedType extends AbstractType {
      * @var EntityManagerInterface
      */
     private $em;
+    /**
+     * @var NatinfFiller
+     */
+    private $dbRecorder;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, NatinfFiller $dbRecorder) {
         $this->em = $em;
+        $this->dbRecorder = $dbRecorder;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
@@ -41,18 +47,21 @@ class RapportPecheurPiedType extends AbstractType {
             ->add('commentaire', TextType::class, ['required' => false]);
 
         //Dynamic addition of Natinf
-        $builder->addEventListener(
+        $builder->get('natinfs')->addEventListener(
             FormEvents::PRE_SUBMIT,
             function(FormEvent $event) {
                 /** @var ?Navire $data */
                 $data = $event->getData();
-                $natinfs = $data['natinfs'] ? $data['natinfs'] : [];
-                foreach($natinfs as $codeNatinf) {
-                    $natinf = new Natinf();
-                    $natinf->setNumero($codeNatinf);
-                    $this->em->persist($natinf);
-                }
-                $this->em->flush();
+                $natinfs = $data ?: [];
+                $this->dbRecorder->fromArray($natinfs);
+                $event->getForm()->getParent()->add('natinfs', EntityType::class, [
+                    'class' => Natinf::class,
+                    'choice_label' => "numero",
+                    'choice_value' => "numero",
+                    'multiple' => true,
+                    'expanded' => false,
+                    'required' => false,
+                    'label' => "Code(s) NATINF "]);
             }
         );
     }
@@ -63,16 +72,4 @@ class RapportPecheurPiedType extends AbstractType {
         ]);
     }
 
-    private function transformNatinfArray(?array $natinfs): ?array {
-        $result = [];
-        if(!$natinfs) {
-            return $result;
-        }
-
-        foreach($natinfs as $natinf) {
-            $result[] = [$natinf => $natinf];
-        }
-
-        return $result;
-    }
 }

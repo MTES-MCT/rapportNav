@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Natinf;
 use App\Entity\RapportEtablissement;
+use App\Service\NatinfFiller;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -20,9 +21,14 @@ class RapportEtablissementType extends AbstractType {
      * @var EntityManagerInterface
      */
     private $em;
+    /**
+     * @var NatinfFiller
+     */
+    private $dbRecorder;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, NatinfFiller $dbRecorder) {
         $this->em = $em;
+        $this->dbRecorder = $dbRecorder;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
@@ -47,18 +53,21 @@ class RapportEtablissementType extends AbstractType {
                 'label' => "Notes et commentaires"]);
 
         //Dynamic addition of Natinf
-        $builder->addEventListener(
+        $builder->get('natinfs')->addEventListener(
             FormEvents::PRE_SUBMIT,
             function(FormEvent $event) {
                 /** @var ?Navire $data */
                 $data = $event->getData();
-                $natinfs = $data['natinfs'] ? $data['natinfs'] : [];
-                foreach($natinfs as $codeNatinf) {
-                    $natinf = new Natinf();
-                    $natinf->setNumero($codeNatinf);
-                    $this->em->persist($natinf);
-                }
-                $this->em->flush();
+                $natinfs = $data ?: [];
+                $this->dbRecorder->fromArray($natinfs);
+                $event->getForm()->getParent()->add('natinfs', EntityType::class, [
+                    'class' => Natinf::class,
+                    'choice_label' => "numero",
+                    'choice_value' => "numero",
+                    'multiple' => true,
+                    'expanded' => false,
+                    'required' => false,
+                    'label' => "Code(s) NATINF "]);
             }
         );
     }
@@ -67,18 +76,5 @@ class RapportEtablissementType extends AbstractType {
         $resolver->setDefaults([
             'data_class' => RapportEtablissement::class,
         ]);
-    }
-
-    private function transformNatinfArray(?array $natinfs): ?array {
-        $result = [];
-        if(!$natinfs) {
-            return $result;
-        }
-
-        foreach($natinfs as $natinf) {
-            $result[] = [$natinf => $natinf];
-        }
-
-        return $result;
     }
 }
