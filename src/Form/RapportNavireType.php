@@ -82,7 +82,7 @@ class RapportNavireType extends AbstractType {
                     'expanded' => false,
                     'allow_extra_fields' => true,
                     'label' => "Code(s) NATINF",
-                    'validation_groups' => false]);
+                    ]);
             }
         );
 
@@ -108,7 +108,7 @@ class RapportNavireType extends AbstractType {
                     'expanded' => false,
                     'allow_extra_fields' => true,
                     'label' => "Code(s) NATINF",
-                    'validation_groups' => false]);
+                    ]);
             }
         );
 
