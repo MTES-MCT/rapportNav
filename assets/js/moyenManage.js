@@ -22,7 +22,7 @@ $(document).ready(function () {
         parent.remove();
     }
 
-    $("select[id^=rapport_bord_moyens_]").on("change", showMetaData);
+    $("select[id$=_moyen]").on("change", showMetaData);
     $(".moyen-delete").on("click", deleteMoyen);
 
     function addNewMoyen(root) {
