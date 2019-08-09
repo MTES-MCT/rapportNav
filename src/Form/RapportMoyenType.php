@@ -29,7 +29,7 @@ class RapportMoyenType extends AbstractType {
             'placeholder' => "Sélectionnez un moyen utilisé",
             'choice_attr' => function($choice, $key, $val) {
                 /** @var Moyen $choice */
-                return ['data-type' => $choice->getTerrestre()];
+                return ['data-type' => (int)($choice->getTerrestre())];
             }
         ])
             ->add("distance", IntegerType::class)
