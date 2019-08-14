@@ -26,8 +26,7 @@ $(document).ready(function () {
     $(".moyen-delete").on("click", deleteMoyen);
 
     function addNewMoyen(root) {
-        let prototype = root.data('prototype');
-        let newMoyen = prototype;
+        let newMoyen = root.data('prototype');
         let index = root.data('index');
         newMoyen = newMoyen.replace(/__name__/g, index);
         newMoyen = $("<li class='row moyen'></li>").append(newMoyen);

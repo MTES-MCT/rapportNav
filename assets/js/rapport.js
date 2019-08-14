@@ -5,7 +5,7 @@ export default class Rapport {
     constructor(typeRapport) {
         this._typeRapport = typeRapport;
         this._$addTagButton = $('' +
-            '<button type="button" class="add_' + this.typeRapport + '_link button">' +
+            '<button type="button" id="add-controlled-elem" class="add_' + this.typeRapport + '_link button">' +
             'Ajouter un ' + this.typeRapport + ' contrôlé' +
             '</button>');
         this._$newLinkLi = $('<li></li>').append(this.$addTagButton);

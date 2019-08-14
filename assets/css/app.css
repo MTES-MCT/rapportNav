@@ -43,3 +43,9 @@ ul.stacked-list {
 .icon {
     margin-right: .5em;
 }
+
+.notifications {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}

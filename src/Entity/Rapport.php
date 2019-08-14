@@ -19,6 +19,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "formation" = "RapportFormation"})
  */
 abstract class Rapport {
+
+    public const RAPPORTTYPES = [
+        "bord" => "RapportBord",
+        "commerce" => "RapportCommerce",
+        "pecheapied" => "RapportPechePied",
+        "administratif" => "RapportAdministratif",
+        "formation" => "RapportFormation"];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -2,27 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Moyen;
-use App\Entity\RapportBord;
+use App\Entity\Rapport;
 use App\Entity\RapportEtablissement;
-use App\Entity\RapportFormation;
 use App\Entity\RapportMoyen;
 use App\Entity\RapportNavire;
-use App\Entity\Rapport;
 use App\Entity\User;
 use App\Form\RapportAdministratifType;
 use App\Form\RapportBordType;
 use App\Form\RapportCommerceType;
 use App\Form\RapportFormationType;
-use App\Form\RapportMoyenType;
 use App\Form\RapportPechePiedType;
-use App\Form\RapportType;
 use DateInterval;
-use \DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use \Exception;
+use Exception;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -31,6 +25,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController {
+
+    private $typeRapportToClass = ['controle_a_bord' => "RapportBord",
+        'filiere_commercialisation' => "RapportCommerce",
+        'administratif' => "RapportAdministratif",
+        "formation" => "RapportFormation",
+        "peche_a_pied" => "RapportPechePied",
+    ];
+
     /**
      * @Route("/", name="home")
      */
@@ -50,15 +52,8 @@ class DefaultController extends AbstractController {
      * @return RedirectResponse|Response
      */
     public function rapportCreate(Request $request, EntityManagerInterface $em, string $type) {
-        $typeRapportToClass = ['controle_a_bord' => "RapportBord",
-            'filiere_commercialisation' => "RapportCommerce",
-            'administratif' => "RapportAdministratif",
-            "formation" => "RapportFormation",
-            "peche_a_pied" => "RapportPechePied",
-        ];
-
-        $rapportClass = "\\App\\Entity\\".$typeRapportToClass[$type];
-        $formClass = "\\App\\Form\\".$typeRapportToClass[$type]."Type";
+        $rapportClass = "\\App\\Entity\\".$this->typeRapportToClass[$type];
+        $formClass = "\\App\\Form\\".$this->typeRapportToClass[$type]."Type";
 
         /** @var Rapport $rapport */
         $rapport = new $rapportClass();
@@ -100,21 +95,22 @@ class DefaultController extends AbstractController {
             }
         }
 
+        $crud = ['deletable' => true, 'draftable' => true];
         switch($type) {
             case "controle_a_bord":
-                return $this->render('rapportNavireEtPeche.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportControleABord.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             case "filiere_commercialisation":
-                return $this->render('rapportCommercialisation.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             case "peche_a_pied":
-                return $this->render('rapportPechePied.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportPecheAPied.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             case "administratif":
-                return $this->render('rapportAdministratif.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportAdministratif.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             case "formation":
-                return $this->render('rapportFormation.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportFormation.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             default:
                 throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
@@ -182,21 +178,22 @@ class DefaultController extends AbstractController {
             return $this->redirectToRoute('list_submissions');
         }
 
+        $crud = ['deletable' => false, 'draftable' => false];
         switch($formClass) {
             case RapportBordType::class:
-                return $this->render('rapportNavireEtPeche.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportControleABord.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             case RapportCommerceType::class:
-                return $this->render('rapportCommercialisation.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             case RapportPechePiedType::class:
-                return $this->render('rapportPechePied.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportPecheAPied.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             case RapportAdministratifType::class:
-                return $this->render('rapportAdministratif.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportAdministratif.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             case RapportFormationType::class:
-                return $this->render('rapportFormation.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportFormation.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             default:
                 throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
@@ -223,6 +220,11 @@ class DefaultController extends AbstractController {
      */
     public function listSubmission(EntityManagerInterface $em) {
         $service = $this->getUser()->getService();
+
+        $drafts = $em->getRepository("App:Draft")->findBy(
+            ['owner' => $service],
+            ['lastEdit' => "DESC"],
+            20);
 
         $controlePeche = $em->getRepository('App:RapportBord')->findBy(
             ['serviceCreateur' => $service],
@@ -252,7 +254,7 @@ class DefaultController extends AbstractController {
             'Actions de formation' => $formations,
         ];
 
-        return $this->render('listSubmissions.html.twig', ['list' => $list]);
+        return $this->render('listSubmissions.html.twig', ['list' => $list, 'drafts' => $drafts]);
     }
 
     /**

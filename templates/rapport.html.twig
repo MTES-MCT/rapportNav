@@ -175,7 +175,15 @@
 
     <br>
 
-    <input type="submit" value="Enregistrer" class="button">
+    <div class="form__group form__validators">
+        {% if crud.deletable is defined and crud.deletable %}
+        <button type="button" id="form-delete" class="button large warning"><i class="fas fa-trash-alt"></i> Supprimer le rapport</button>
+        {% endif %}
+        {% if crud.draftable is defined and crud.draftable %}
+        <button type="button" id="form-save" class="button large"><i class="far fa-save"></i> Enregistrer le brouillon</button>
+        {% endif %}
+        <button type="submit" id="form-submit" class="button large"><i class="far fa-check-circle"></i> Valider le rapport</button>
+    </div>
 
     {{ form_end(form) }}
 
@@ -188,4 +196,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
+    {% if data is defined %}
+        <span id="draft-data" style="display: none" data-content="{{ data }}"></span>
+    {% endif %}
 {% endblock javascripts %}
