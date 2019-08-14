@@ -1,15 +1,16 @@
 import $ from 'jquery';
 
 let redirectToList = function (data) {
-    var notif = '<div class="notification success">' + data.text + '</div>'
+    var notif = '<div class="notification success">' + data.text + '<br>Redirection vers la liste des rapports dans 3 secondes. </div>'
     $('.notifications').append($(notif));
     setTimeout(function () {window.location.href = window.location.protocol + "//" + window.location.host + "/list_submissions"},
         3000);
 };
+
 $(window).on("load", function () {
     $("#form-save").on("click", function (elem) {
         let path = window.location.pathname;
-        if (!path.search("draft")) {
+        if (-1 === path.search("draft")) {
             //creating a new draft,sending to draft URL
             path += "/draft";
         }
@@ -27,6 +28,44 @@ $(window).on("load", function () {
                 }
             }
         });
+    });
+
+    $("#form-delete").on("click", function (elem) {
+        let deleteRapport = confirm("Voulez vous supprimer les données de ce rapport ? \n" +
+            "Cette action est définitive, il sera impossible de récupérer les données. ");
+        if (deleteRapport) {
+            let path = window.location.pathname;
+            //If this is a brand new Rapport, nothing is saved so nothing to delete, just quits the page
+            if (-1 !== path.search("draft")) {
+                $.ajax({
+                    type: "DELETE",
+                    url: path,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                })
+                .catch(function (reason) {
+                    if(405 === reason.status ||
+                        403 === reason.status ||
+                        400 === reason.status) {
+                        //retries with fallback URL
+                        return $.ajax({
+                            type: "POST",
+                            url: path+"/delete",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        });
+                    }
+                })
+                .then(function (data) {
+                    if ("success" === data.status) {
+                        redirectToList(data);
+                    }
+                })
+                ;
+            } else {
+                redirectToList({"text": "Rapport supprimé avec succès"})
+            }
+        }
     });
 
     //Q&D fix to wait all the JS to be applied

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Draft;
 use App\Entity\Rapport;
 use App\Entity\RapportEtablissement;
 use App\Entity\RapportMoyen;
@@ -19,7 +18,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,129 +95,26 @@ class DefaultController extends AbstractController {
             }
         }
 
+        $crud = ['deletable' => true, 'draftable' => true];
         switch($type) {
             case "controle_a_bord":
-                return $this->render('rapportControleABord.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportControleABord.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             case "filiere_commercialisation":
-                return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             case "peche_a_pied":
-                return $this->render('rapportPecheAPied.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportPecheAPied.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             case "administratif":
-                return $this->render('rapportAdministratif.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportAdministratif.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             case "formation":
-                return $this->render('rapportFormation.html.twig', ['form' => $form->createView()]);
+                return $this->render('rapportFormation.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
                 break;
             default:
                 throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
         }
-    }
-
-
-    /**
-     * @Route("rapport/{type}/draft/{id}",
-     *     methods={"POST"},
-     *     name="rapport_draft",
-     *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation|peche_a_pied"})
-     * @param Request                $request
-     * @param EntityManagerInterface $em
-     * @param string                 $type
-     *
-     * @param int|null               $id
-     *
-     * @return Response
-     * @throws Exception For DateTimeImmutable creation
-     */
-    public function rapportDraft(Request $request, EntityManagerInterface $em, string $type, ?int $id = null) {
-        $data = json_decode($request->getContent(), true);
-
-        //Search and delete the CRSF token and re-number the elements (Moyens, PecherAPied, NAvires and Etablissements
-        $renumbers = ["[moyens][" => 0, "[pecheursPied][" => 0, "[navires][" => 0, "[etablissements][" => 0];
-        for($i = 0 ; $i < count($data) ; $i++) {
-
-            foreach($renumbers as $elemName => $nbElems) {
-                $j=0;
-                $oldName = "";
-                while(($pos = mb_strpos($data[$i + $j]['name'], $elemName)) &&
-                    ("" === $oldName || false !== mb_strpos($data[$i + $j]['name'], $oldName))
-                ) {
-                    if(0 === $j) {
-                        $oldName = substr($data[$i]['name'], 0, $pos + mb_strlen($elemName) + 1);
-                    }
-                    $data[$i + $j]['name'] = substr($data[$i + $j]['name'], 0, $pos + mb_strlen($elemName)).
-                        $nbElems.
-                        substr($data[$i + $j]['name'], $pos + mb_strlen($elemName) + 1);
-                    $j++;
-                }
-                if($j > 0) {
-                    $renumbers[$elemName]++;
-
-                    $i += $j -1;
-                    continue 2;
-                }
-            }
-
-            if(mb_strpos($data[$i]['name'], "_token")) {
-                unset($data[$i]);
-                continue;
-            }
-        }
-
-        if(null === $id) {
-            $draft = new Draft();
-            $draft->setOwner($this->getUser()->getService());
-            $draft->setRapportType($type);
-        } else {
-            $draft = $em->getRepository("App:Draft")->find($id);
-        }
-        $draft->setData($data);
-        $draft->setLastEdit(new DateTimeImmutable());
-        $em->persist($draft);
-        $em->flush();
-
-        if(in_array("application/json", $request->getAcceptableContentTypes())) {
-            return $this->json(["status" => "success",
-                "text" => "Brouillon enregistré avec succès"]);
-        } else {
-            $this->addFlash("success", "Brouillon enregistré avec succès");
-            return $this->redirectToRoute("list_submissions");
-        }
-
-    }
-
-    /**
-     * @Route("rapport/{type}/draft/{id}",
-     *     methods={"GET"},
-     *     name="rapport_draft_edit",
-     *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation|peche_a_pied"})
-     * @ParamConverter("draft", class="App:Draft")
-     *
-     * @param Request                $request
-     * @param EntityManagerInterface $em
-     * @param string                 $type
-     * @param Draft                  $draft
-     *
-     * @return Response
-     */
-    public function rapportEditDraft(Request $request, EntityManagerInterface $em, string $type, Draft $draft) {
-        if(null === $draft) {
-            $this->redirectToRoute("rapport_create", ['type' => $type]);
-        }
-
-        $rapportClass = "\\App\\Entity\\".$this->typeRapportToClass[$type];
-        $formClass = "\\App\\Form\\".$this->typeRapportToClass[$type]."Type";
-        $user = $this->getUser();
-        /** @var Rapport $rapport */
-        $rapport = new $rapportClass();
-        $rapport->addMoyen(new RapportMoyen());
-
-        $form = $this->createForm($formClass, $rapport, ['service' => $user->getService()]);
-
-        return $this->render("rapport".str_replace('_', '', ucwords($type, '_')).".html.twig",
-            ['form' => $form->createView(), 'data' => json_encode($draft->getData())]);
     }
 
     /**
@@ -283,21 +178,22 @@ class DefaultController extends AbstractController {
             return $this->redirectToRoute('list_submissions');
         }
 
+        $crud = ['deletable' => false, 'draftable' => false];
         switch($formClass) {
             case RapportBordType::class:
-                return $this->render('rapportControleABord.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportControleABord.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             case RapportCommerceType::class:
-                return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             case RapportPechePiedType::class:
-                return $this->render('rapportPecheAPied.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportPecheAPied.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             case RapportAdministratifType::class:
-                return $this->render('rapportAdministratif.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportAdministratif.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             case RapportFormationType::class:
-                return $this->render('rapportFormation.html.twig', ['form' => $editForm->createView()]);
+                return $this->render('rapportFormation.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             default:
                 throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
