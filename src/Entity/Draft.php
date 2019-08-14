@@ -21,7 +21,8 @@ class Draft {
     private $data = [];
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Service")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $owner;
 

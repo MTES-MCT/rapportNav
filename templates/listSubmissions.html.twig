@@ -10,7 +10,7 @@
 {% block body_main_container %}
     <h1>Liste des rapports pour {{ app.user.service }}</h1>
     <h2>Rapports en cours d'édition</h2>
-    {% set colLength = (drafts|length)/3 %}
+    {% set colLength = max(1, (drafts|length)/3) %}
     <div class="row">
     {% for row in drafts|batch(colLength) %}
             <ul>
