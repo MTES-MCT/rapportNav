@@ -19,15 +19,9 @@ class RapportBord extends Rapport {
     private $navires;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\NotBlank
+     * @ORM\ManyToOne(targetEntity="App\Entity\TypeMissionControle")
      */
-    private $typeMission;
-
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $aireMarineSpeciale;
+    private $typeMissionControle;
 
     public function __construct() {
         parent::__construct();
@@ -62,22 +56,12 @@ class RapportBord extends Rapport {
         return $this;
     }
 
-    public function getTypeMission(): ?int {
-        return $this->typeMission;
+    public function getTypeMissionControle(): ?TypeMissionControle {
+        return $this->typeMissionControle;
     }
 
-    public function setTypeMission(int $typeMission): self {
-        $this->typeMission = $typeMission;
-
-        return $this;
-    }
-
-    public function getAireMarineSpeciale(): ?array {
-        return $this->aireMarineSpeciale;
-    }
-
-    public function setAireMarineSpeciale(array $aireMarineSpeciale): self {
-        $this->aireMarineSpeciale = $aireMarineSpeciale;
+    public function setTypeMissionControle(?TypeMissionControle $typeMissionControle): self {
+        $this->typeMissionControle = $typeMissionControle;
 
         return $this;
     }

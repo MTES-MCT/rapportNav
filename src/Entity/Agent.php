@@ -7,8 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AgentRepository")
  */
-class Agent
-{
+class Agent {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -32,7 +31,8 @@ class Agent
     private $matricule;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Service")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $service;
 
@@ -40,54 +40,45 @@ class Agent
         return $this->prenom." ".$this->nom;
     }
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getNom(): ?string
-    {
+    public function getNom(): ?string {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
-    {
+    public function setNom(string $nom): self {
         $this->nom = $nom;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
-    {
+    public function getPrenom(): ?string {
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): self
-    {
+    public function setPrenom(string $prenom): self {
         $this->prenom = $prenom;
 
         return $this;
     }
 
-    public function getMatricule(): ?string
-    {
+    public function getMatricule(): ?string {
         return $this->matricule;
     }
 
-    public function setMatricule(string $matricule): self
-    {
+    public function setMatricule(string $matricule): self {
         $this->matricule = $matricule;
 
         return $this;
     }
 
-    public function getService(): ?string
-    {
+    public function getService(): ?string {
         return $this->service;
     }
 
-    public function setService(string $service): self
-    {
+    public function setService(string $service): self {
         $this->service = $service;
 
         return $this;

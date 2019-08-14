@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="RapportPecheurPiedRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RapportPecheurPiedRepository")
  */
 class RapportPecheurPied {
     /**
@@ -33,14 +35,19 @@ class RapportPecheurPied {
     private $pv;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Natinf", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $natinf;
+    private $natinfs;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $commentaire;
+
+    public function __construct() {
+        $this->natinfs = new ArrayCollection();
+    }
 
     public function getId(): ?int {
         return $this->id;
@@ -76,22 +83,35 @@ class RapportPecheurPied {
         return $this;
     }
 
-    public function getNatinf(): ?array {
-        return $this->natinf;
-    }
-
-    public function setNatinf(array $natinf): self {
-        $this->natinf = $natinf;
-
-        return $this;
-    }
-
     public function getCommentaire(): ?string {
         return $this->commentaire;
     }
 
     public function setCommentaire(?string $commentaire): self {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Natinf[]
+     */
+    public function getNatinfs(): Collection {
+        return $this->natinfs;
+    }
+
+    public function addNatinf(Natinf $natinf): self {
+        if(!$this->natinfs->contains($natinf)) {
+            $this->natinfs[] = $natinf;
+        }
+
+        return $this;
+    }
+
+    public function removeNatinf(Natinf $natinf): self {
+        if($this->natinfs->contains($natinf)) {
+            $this->natinfs->removeElement($natinf);
+        }
 
         return $this;
     }

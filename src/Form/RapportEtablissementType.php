@@ -3,20 +3,21 @@
 namespace App\Form;
 
 use App\Entity\Natinf;
-use App\entity\RapportPecheurPied;
+use App\Entity\RapportEtablissement;
 use App\Service\NatinfFiller;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RapportPecheurPiedType extends AbstractType {
+class RapportEtablissementType extends AbstractType {
     /**
      * @var EntityManagerInterface
      */
@@ -33,7 +34,7 @@ class RapportPecheurPiedType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('pecheurPied', PecheurPiedType::class, ['label' => false,])
+            ->add('etablissement', EtablissementType::class, ['label' => false,])
             ->add('pv', CheckboxType::class, [
                 'required' => false,
                 'label' => "PV émis ?"])
@@ -45,7 +46,12 @@ class RapportPecheurPiedType extends AbstractType {
                 'expanded' => false,
                 'required' => false,
                 'label' => "Code(s) NATINF "])
-            ->add('commentaire', TextType::class, ['required' => false]);
+            ->add('bateauxControles', IntegerType::class, [
+                'required' => false,
+                'label' => 'Nombre de navires contrôlés'])
+            ->add('commentaire', TextType::class, [
+                'required' => false,
+                'label' => "Notes et commentaires"]);
 
         //Dynamic addition of Natinf
         $builder->addEventListener(
@@ -99,8 +105,7 @@ class RapportPecheurPiedType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => RapportPecheurPied::class,
+            'data_class' => RapportEtablissement::class,
         ]);
     }
-
 }

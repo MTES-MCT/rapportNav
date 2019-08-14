@@ -6,6 +6,8 @@
 parameters:
     locale: 'fr'
     app.version: '%env(resolve:APP_VERSION)%'
+    api_navire: '%env(resolve:API_NAVIRE)%'
+    api_natinf: '%env(resolve:API_NATINF)%'
 
 services:
     # default configuration for services in *this* file
@@ -28,6 +30,10 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\Service\NatinfFiller:
+        arguments:
+            $api: '%api_natinf%'
+
     # SonataAdminBundle related services
     admin.navire:
         class: App\Admin\NavireAdmin
@@ -49,7 +55,7 @@ services:
         arguments: [~, App\Entity\Moyen, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: services, label: "Moyens par unité" }
-    admin.zoneGeographique:
+    admin.zone_geographique:
         class: App\Admin\ZoneGeographiqueAdmin
         arguments: [~, App\Entity\ZoneGeographique, ~]
         tags:
@@ -59,3 +65,10 @@ services:
         arguments: [~, App\Entity\Agent, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: services, label: Agent }
+
+    admin.moyen_type_navire:
+        class: App\Admin\MoyenTypeNavireAdmin
+        arguments: [~, App\Entity\MoyenTypeNavire, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: "Type de navire" }
+        public: true

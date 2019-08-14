@@ -3,7 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Natinf;
-use App\entity\RapportPecheurPied;
+use App\Entity\RapportNavire;
+use App\Entity\RapportNavireControle;
 use App\Service\NatinfFiller;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -15,8 +16,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function foo\func;
 
-class RapportPecheurPiedType extends AbstractType {
+class RapportNavireType extends AbstractType {
     /**
      * @var EntityManagerInterface
      */
@@ -33,19 +35,33 @@ class RapportPecheurPiedType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('pecheurPied', PecheurPiedType::class, ['label' => false,])
+            ->add('navire', NavireType::class, ['label' => false,])
+            ->add('controles', EntityType::class, [
+                'class' => RapportNavireControle::class,
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'label' => "Contrôles réalisés"])
             ->add('pv', CheckboxType::class, [
                 'required' => false,
                 'label' => "PV émis ?"])
             ->add('natinfs', EntityType::class, [
                 'class' => Natinf::class,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('n')
+                        ->setMaxResults(1);
+                },
                 'choice_label' => "numero",
                 'choice_value' => "numero",
+                'required' => false,
                 'multiple' => true,
                 'expanded' => false,
+                'allow_extra_fields' => true,
+                'label' => "Code(s) NATINF",
+            ])
+            ->add('commentaire', TextType::class, [
                 'required' => false,
-                'label' => "Code(s) NATINF "])
-            ->add('commentaire', TextType::class, ['required' => false]);
+                'label' => "Notes et commentaires"]);
 
         //Dynamic addition of Natinf
         $builder->addEventListener(
@@ -95,12 +111,12 @@ class RapportPecheurPiedType extends AbstractType {
                     ]);
             }
         );
+
     }
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => RapportPecheurPied::class,
+            'data_class' => RapportNavire::class,
         ]);
     }
-
 }

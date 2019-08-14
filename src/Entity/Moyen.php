@@ -16,9 +16,10 @@ class Moyen {
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Service")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $possesseur;
+    private $serviceProprietaire;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -26,9 +27,15 @@ class Moyen {
     private $nom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
-    private $type;
+    private $terrestre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\MoyenTypeNavire")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $typeNavire;
 
     public function __toString() {
         return $this->nom;
@@ -36,16 +43,6 @@ class Moyen {
 
     public function getId(): ?int {
         return $this->id;
-    }
-
-    public function getPossesseur(): ?string {
-        return $this->possesseur;
-    }
-
-    public function setPossesseur(string $possesseur): self {
-        $this->possesseur = $possesseur;
-
-        return $this;
     }
 
     public function getNom(): ?string {
@@ -58,12 +55,32 @@ class Moyen {
         return $this;
     }
 
-    public function getType(): ?int {
-        return $this->type;
+    public function getTypeNavire(): ?MoyenTypeNavire {
+        return $this->typeNavire;
     }
 
-    public function setType(int $type): self {
-        $this->type = $type;
+    public function setTypeNavire(?MoyenTypeNavire $typeNavire): self {
+        $this->typeNavire = $typeNavire;
+
+        return $this;
+    }
+
+    public function getTerrestre(): ?bool {
+        return $this->terrestre;
+    }
+
+    public function setTerrestre(bool $terrestre): self {
+        $this->terrestre = $terrestre;
+
+        return $this;
+    }
+
+    public function getServiceProprietaire(): ?Service {
+        return $this->serviceProprietaire;
+    }
+
+    public function setServiceProprietaire(?Service $serviceProprietaire): self {
+        $this->serviceProprietaire = $serviceProprietaire;
 
         return $this;
     }

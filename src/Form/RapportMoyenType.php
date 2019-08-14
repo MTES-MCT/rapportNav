@@ -21,7 +21,7 @@ class RapportMoyenType extends AbstractType {
             'class' => Moyen::class,
             'query_builder' => function(EntityRepository $er) use ($service) {
                 return $er->createQueryBuilder("m")
-                    ->where("m.possesseur = :service")
+                    ->where("m.serviceProprietaire = :service")
                     ->setParameter("service", $service);
             },
             'multiple' => false,
@@ -29,7 +29,7 @@ class RapportMoyenType extends AbstractType {
             'placeholder' => "Sélectionnez un moyen utilisé",
             'choice_attr' => function($choice, $key, $val) {
                 /** @var Moyen $choice */
-                return ['data-type' => $choice->getType()];
+                return ['data-type' => (int)($choice->getTerrestre())];
             }
         ])
             ->add("distance", IntegerType::class)

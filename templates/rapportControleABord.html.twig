@@ -12,19 +12,9 @@
 {% block body_main_container_rapport_objects %}
     <div class="row" id="aireMarine">
         <div class="form__group horizontal__form">
-            {{ form_label(form.typeMission) }}
-            {{ form_errors(form.typeMission) }}
-            {{ form_widget(form.typeMission, {'attr': {'v-on:change': "tooggleAireMarine" }}) }}
-        </div>
-        <div class="form__group horizontal__form" v-if="aireMarine">
-            <fieldset>
-                <legend>Particularités de l'aire marine (si pertinent)</legend>
-                {{ form_errors(form.aireMarineSpeciale) }}
-                {% for box in form.aireMarineSpeciale %}
-                    {{ form_widget(box) }}
-                    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
-                {% endfor %}
-            </fieldset>
+            {{ form_label(form.typeMissionControle) }}
+            {{ form_errors(form.typeMissionControle) }}
+            {{ form_widget(form.typeMissionControle, {'attr': {'v-on:change': "tooggleAireMarine" }}) }}
         </div>
         <div></div>
     </div>
@@ -52,9 +42,9 @@
             {{ form_widget(form.navires.vars.prototype.pv)|e('html_attr') }}
         </div>
         <div class="form__group horizontal__form">
-            {{ form_label(form.navires.vars.prototype.natinf)|e('html_attr') }}
-            {{ form_errors(form.navires.vars.prototype.natinf)|e('html_attr') }}
-            {{ form_widget(form.navires.vars.prototype.natinf, {'attr': {'class': "select2"}})|e('html_attr') }}
+            {{ form_label(form.navires.vars.prototype.natinfs)|e('html_attr') }}
+            {{ form_errors(form.navires.vars.prototype.natinfs)|e('html_attr') }}
+            {{ form_widget(form.navires.vars.prototype.natinfs, {'attr': {'class': "select2"}})|e('html_attr') }}
         </div>
         <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.commentaire)|e('html_attr') }}
@@ -82,9 +72,9 @@
                     {{ form_widget(navireControle.pv, {'attr': {'class': 'center'}}) }}
                 </div>
                 <div class="form__group horizontal__form">
-                    {{ form_label(navireControle.natinf) }}
-                    {{ form_errors(navireControle.natinf) }}
-                    {{ form_widget(navireControle.natinf, {'attr': {'class': "select2"}}) }}
+                    {{ form_label(navireControle.natinfs) }}
+                    {{ form_errors(navireControle.natinfs) }}
+                    {{ form_widget(navireControle.natinfs, {'attr': {'class': "select2"}}) }}
                 </div>
                 <div class="form__group horizontal__form">
                     {{ form_label(navireControle.commentaire) }}

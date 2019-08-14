@@ -12,11 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\RapportRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"bord" = "RapportBord",
+ * @ORM\DiscriminatorMap({
+ *     "bord" = "RapportBord",
  *     "commerce" = "RapportCommerce",
  *     "pecheapied" = "RapportPechePied",
  *     "administratif" = "RapportAdministratif",
- *     "formation" = "RapportFormation"})
+ *     "formation" = "RapportFormation"
+ *     })
  */
 abstract class Rapport {
 
@@ -35,7 +37,8 @@ abstract class Rapport {
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Service")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $serviceCreateur;
 
@@ -63,10 +66,10 @@ abstract class Rapport {
     private $agents;
 
     /**
-     * @ORM\Column(type="smallint")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="boolean")
+     * @Assert\Type(type="bool")
      */
-    private $lieuMission;
+    private $terrestre;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\ZoneGeographique")
@@ -147,15 +150,6 @@ abstract class Rapport {
         return $this;
     }
 
-    public function getLieuMission(): ?int {
-        return $this->lieuMission;
-    }
-
-    public function setLieuMission(int $lieuMission): self {
-        $this->lieuMission = $lieuMission;
-        return $this;
-    }
-
     /**
      * @return Collection|ZoneGeographique[]
      */
@@ -208,16 +202,6 @@ abstract class Rapport {
         return $this;
     }
 
-    public function getServiceCreateur(): ?string {
-        return $this->serviceCreateur;
-    }
-
-    public function setServiceCreateur(string $serviceCreateur): self {
-        $this->serviceCreateur = $serviceCreateur;
-
-        return $this;
-    }
-
     /**
      * @return Collection|RapportMoyen[]
      */
@@ -242,6 +226,26 @@ abstract class Rapport {
                 $moyen->setRapport(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTerrestre(): ?bool {
+        return $this->terrestre;
+    }
+
+    public function setTerrestre(bool $terrestre): self {
+        $this->terrestre = $terrestre;
+
+        return $this;
+    }
+
+    public function getServiceCreateur(): ?Service {
+        return $this->serviceCreateur;
+    }
+
+    public function setServiceCreateur(?Service $serviceCreateur): self {
+        $this->serviceCreateur = $serviceCreateur;
 
         return $this;
     }

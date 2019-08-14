@@ -23,7 +23,7 @@ class RapportAdmin extends AbstractAdmin {
             ->add('dateDebutMission', DateType::class)
             ->add('dateFinMission', DateType::class)
             ->add('agents')
-            ->add('lieuMission', IntegerType::class)
+            ->add('terrestre')
             ->add('zoneMissions', ModelType::class, ['multiple' => true])
             ->add('arme', CheckboxType::class, ['required' => false])
             ->add('commentaire', TextareaType::class, ['required' => false]);
@@ -35,7 +35,7 @@ class RapportAdmin extends AbstractAdmin {
             ->add('dateDebutMission')
             ->add('dateFinMission')
             ->add('agents')
-            ->add('lieuMission')
+            ->add('terrestre')
             ->add('zoneMissions')
             ->add('arme')
             ->add('commentaire');
@@ -47,7 +47,7 @@ class RapportAdmin extends AbstractAdmin {
             ->addIdentifier('dateDebutMission')
             ->addIdentifier('dateFinMission')
             ->addIdentifier('agents')
-            ->addIdentifier('lieuMission')
+            ->addIdentifier('terrestre')
             ->addIdentifier('zoneMissions')
             ->addIdentifier('arme')
             ->addIdentifier('commentaire');
