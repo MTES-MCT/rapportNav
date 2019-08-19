@@ -81,7 +81,7 @@ class RapportEtablissementType extends AbstractType {
             FormEvents::PRE_SUBMIT,
             function(FormEvent $event) {
                 /** @var ?Navire $data */
-                $data = $event->getData()['natinfs'];
+                $data = array_key_exists("natinfs", $event->getData()) ? $event->getData()['natinfs'] : null;
                 $natinfs = $data ?: [];
                 $this->dbRecorder->fromArray($natinfs);
                 $event->getForm()->add('natinfs', EntityType::class, [

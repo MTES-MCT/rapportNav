@@ -23,6 +23,8 @@ class Draft {
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Service")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @var int
      */
     private $owner;
 
@@ -54,7 +56,7 @@ class Draft {
         return $this->owner;
     }
 
-    public function setOwner(string $owner): self {
+    public function setOwner(Service $owner): self {
         $this->owner = $owner;
 
         return $this;

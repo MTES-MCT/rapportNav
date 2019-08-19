@@ -3,17 +3,15 @@
 namespace App\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
+use App\DataFixtures\Local\UsersFixture;
 
 class DefaultControllerTest extends WebTestCase {
-
-    public function setUp() {
-    }
 
     /**
      * Testing home redirect
      */
     public function testHome() {
-        $client = $this->makeClient();
+        $client = $this->makeClient(true);
 
         $client->request('GET', '/');
         $this->assertStatusCode(302, $client);
@@ -22,18 +20,17 @@ class DefaultControllerTest extends WebTestCase {
     /**
      * Testing form display and submission
      */
-    public function testRapportControlePeche() {
-        $client = $this->makeClient();
+    public function testRapportControleNavires() {
+        $client = $this->makeClient(true);
 
         //Testing page display
-        $crawler = $client->request('GET', '/controle_peche');
+        $crawler = $client->request('GET', '/rapport/controle_a_bord');
         $this->assertStatusCode(200, $client);
 
         //Testing form submission
         $form = $crawler->selectButton('Enregistrer')->form();
-        $form->setValues(['controle_peche[dureeMission]' => '185']);
         $client->submit($form);
-        $this->assertStatusCode(302, $client);
+        $this->assertStatusCode(200, $client);
 
     }
 
@@ -41,7 +38,7 @@ class DefaultControllerTest extends WebTestCase {
      * Testing displaying all forms
      */
     public function testListForms() {
-        $client = $this->makeClient();
+        $client = $this->makeClient(true);
 
         $client->request('GET', '/list_forms');
         $this->assertStatusCode(200, $client);
@@ -51,7 +48,7 @@ class DefaultControllerTest extends WebTestCase {
      * Testing displaying all submissions
      */
     public function testListSubmissions() {
-        $client = $this->makeClient();
+        $client = $this->makeClient(true);
 
         $client->request('GET', '/list_submissions');
         $this->assertStatusCode(200, $client);
@@ -61,7 +58,7 @@ class DefaultControllerTest extends WebTestCase {
      * Testing displaying KPI
      */
     public function testShowKpi() {
-        $client = $this->makeClient();
+        $client = $this->makeClient(true);
 
         $client->request('GET', '/show_kpi');
         $this->assertStatusCode(200, $client);

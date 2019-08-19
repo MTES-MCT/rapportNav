@@ -39,7 +39,7 @@
             <fieldset>
                 {{ form_label(form.agents, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.agents) }}
-                {% set half_agents = ((form.agents|length)/2)|round %}
+                {% set half_agents = max(((form.agents|length)/2)|round,1) %}
                 <div class="row">
                     {% for row in form.agents|batch(half_agents) %}
                         <ul class="no-decoration stacked-list">
@@ -67,7 +67,7 @@
             <fieldset>
                 {{ form_label(form.zoneMissions, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.zoneMissions) }}
-                {% set part_elements = ((form.zoneMissions|length)/3)|round %}
+                {% set part_elements = max(((form.zoneMissions|length)/3)|round,1) %}
                 <div class="row">
                     {% for row in form.zoneMissions|batch(part_elements) %}
                         <ul class="no-decoration stacked-list">
