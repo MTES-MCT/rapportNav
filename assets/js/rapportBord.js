@@ -14,7 +14,7 @@ function navireDataComplete() {
             parent.find("input[id$=_navire_nom]").val(data.nomNavire);
             parent.find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout);
             parent.find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur);
-            parent.find("input[id$=_navire_typeUsage]").val(data.genreNavigation);
+            parent.find("input[id$=_navire_typeUsage]").val(data.genreNavigation || "Inconnu");
             if (input.parent().find(".immatriculation_invalide")) {
                 input.parent().find(".immatriculation_invalide").remove();
             }
