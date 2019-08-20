@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export default class Rapport {
+export default class RapportTopic {
 
     constructor(typeRapport) {
         this._typeRapport = typeRapport;

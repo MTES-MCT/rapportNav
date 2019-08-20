@@ -20,6 +20,9 @@ Encore
     //Common for most pages
     .addEntry('app', './assets/js/app.js')
 
+    //Common for all rapport forms
+    .addEntry('rapport', ['./assets/js/rapportCommon.js'])
+
     //For Rapport Navire
     .addEntry('rapportNavire', ['./assets/js/rapportBord.js', './assets/js/moyenManage.js', './assets/js/manageDraft.js'])
 

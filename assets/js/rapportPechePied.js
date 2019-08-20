@@ -1,4 +1,4 @@
-import Rapport from './rapport';
+import RapportTopic from './rapportTopic';
 import $ from 'jquery';
 import params from './params.json';
 
@@ -29,7 +29,7 @@ $(document).ready(function () {
     // Get the ul that holds the collection of Navires
     let $collectionHolder = $('ul.pecheurs');
 
-    let rapportCommerce = new Rapport("pecheur");
+    let rapportCommerce = new RapportTopic("pecheur");
 
     // add a delete link to all of the existing Navire form li elements
     $collectionHolder.find('li.pecheur').each(function () {
@@ -42,7 +42,7 @@ $(document).ready(function () {
     // add the "Ajouter un établissement contrôlé" anchor and li to the Navires ul
     $collectionHolder.append(rapportCommerce.$newLinkLi);
 
-    $('.add_pecheur_link').on('click', function (e) {
+    $('.add_pecheur_link').on('click', function () {
         // add a new Navire form (see next code block)
         rapportCommerce.addTagForm($collectionHolder);
         $(".select2").last().select2({

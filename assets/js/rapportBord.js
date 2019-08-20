@@ -1,4 +1,4 @@
-import Rapport from './rapport';
+import RapportTopic from './rapportTopic';
 import Vue from 'vue';
 import $ from 'jquery';
 import params from './params.json';
@@ -93,7 +93,7 @@ $(document).ready(function () {
     // Get the ul that holds the collection of Navires
     let $collectionHolder = $('ul.navires');
 
-    let rapportNavire = new Rapport("navire");
+    let rapportNavire = new RapportTopic("navire");
 
     //adding autocompletion of Navire data
     $('.immatriculation_fr').on('focusout', navireDataComplete);
@@ -109,7 +109,7 @@ $(document).ready(function () {
     // add the "Ajouter un navire contrôlé" anchor and li to the Navires ul
     $collectionHolder.append(rapportNavire.$newLinkLi);
 
-    $('.add_navire_link').on('click', function (e) {
+    $('.add_navire_link').on('click', function () {
         // add a new Navire form (see next code block)
         rapportNavire.addTagForm($collectionHolder);
         $('.immatriculation_fr').last().on('focusout', navireDataComplete);
