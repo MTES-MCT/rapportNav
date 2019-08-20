@@ -34,6 +34,17 @@ services:
         arguments:
             $api: '%api_natinf%'
 
+    # Explicit wiring for forms with event listeners
+    App\Form\RapportNavireType:
+        arguments: ['@App\Form\EventListener\ResetNatinfDataListener']
+
+    App\Form\RapportEtablissementType:
+        arguments: ['@App\Form\EventListener\ResetNatinfDataListener']
+
+    App\Form\RapportPecheurPiedType:
+        arguments: ['@App\Form\EventListener\ResetNatinfDataListener']
+
+
     # SonataAdminBundle related services
     admin.navire:
         class: App\Admin\NavireAdmin
