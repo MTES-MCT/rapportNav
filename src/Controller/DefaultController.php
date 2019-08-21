@@ -6,6 +6,7 @@ use App\Entity\Rapport;
 use App\Entity\RapportEtablissement;
 use App\Entity\RapportMoyen;
 use App\Entity\RapportNavire;
+use App\Entity\Service;
 use App\Entity\User;
 use App\Form\RapportAdministratifType;
 use App\Form\RapportBordType;
@@ -122,7 +123,6 @@ class DefaultController extends AbstractController {
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
-     *
      * @param int|null               $id_edit
      *
      * @return RedirectResponse|Response
@@ -132,8 +132,14 @@ class DefaultController extends AbstractController {
             throw $this->createNotFoundException('Pas de contrôle trouvé avec cet identifiant '.$id_edit);
         }
 
+        /** @var Service $userService */
+        $userService = $this->getUser()->getService();
+        if($controle->getServiceCreateur() !== $userService) {
+            throw $this->createNotFoundException("Brouillon non trouvé pour ce service");
+        }
+
         $currentControlledObjects = new ArrayCollection();
-        $getControlledObjects = "";
+        $getControlledObjects = false;
 
         if(get_class($controle) === "App\\Entity\\RapportBord") {
             $getControlledObjects = "getNavires";
@@ -145,10 +151,8 @@ class DefaultController extends AbstractController {
             $getControlledObjects = "getPecheursPied";
             $formClass = RapportPechePiedType::class;
         } elseif(get_class($controle) === "App\\Entity\\RapportAdministratif") {
-            $getControlledObjects = false;
             $formClass = RapportAdministratifType::class;
         } elseif(get_class($controle) === "App\\Entity\\RapportFormation") {
-            $getControlledObjects = false;
             $formClass = RapportFormationType::class;
         } else {
             throw new InvalidArgumentException("Type de rapport inconnu");
@@ -160,7 +164,7 @@ class DefaultController extends AbstractController {
             }
         }
 
-        $editForm = $this->createForm($formClass, $controle, ['service' => $this->getUser()->getService()]);
+        $editForm = $this->createForm($formClass, $controle, ['service' => $userService]);
         $editForm->handleRequest($request);
 
         if($editForm->isSubmitted() && $editForm->isValid()) {
@@ -202,11 +206,10 @@ class DefaultController extends AbstractController {
 
     /**
      * @Route("/list_forms", name="list_forms", methods={"GET"})
-     * @param EntityManagerInterface $em
      *
      * @return Response
      */
-    public function listForms(EntityManagerInterface $em) {
+    public function listForms() {
 
         return $this->render('listForms.html.twig');
 
@@ -219,31 +222,31 @@ class DefaultController extends AbstractController {
      * @return Response
      */
     public function listSubmission(EntityManagerInterface $em) {
-        $service = $this->getUser()->getService();
+        $userService = $this->getUser()->getService();
 
         $drafts = $em->getRepository("App:Draft")->findBy(
-            ['owner' => $service],
+            ['owner' => $userService],
             ['lastEdit' => "DESC"],
             20);
 
         $controlePeche = $em->getRepository('App:RapportBord')->findBy(
-            ['serviceCreateur' => $service],
+            ['serviceCreateur' => $userService],
             ['dateDebutMission' => "DESC"],
             20);
         $controleCommerce = $em->getRepository('App:RapportCommerce')->findBy(
-            ['serviceCreateur' => $service],
+            ['serviceCreateur' => $userService],
             ['dateDebutMission' => "DESC"],
             20);
         $controlePechePied = $em->getRepository('App:RapportPechePied')->findBy(
-            ['serviceCreateur' => $service],
+            ['serviceCreateur' => $userService],
             ['dateDebutMission' => "DESC"],
             20);
         $administratif = $em->getRepository('App:RapportAdministratif')->findBy(
-            ['serviceCreateur' => $service],
+            ['serviceCreateur' => $userService],
             ['dateDebutMission' => "DESC"],
             20);
         $formations = $em->getRepository('App:RapportFormation')->findBy(
-            ['serviceCreateur' => $service],
+            ['serviceCreateur' => $userService],
             ['dateDebutMission' => "DESC"],
             20);
 
@@ -259,11 +262,10 @@ class DefaultController extends AbstractController {
 
     /**
      * @Route("/show_kpi", name="show_kpi", methods={"GET"})
-     * @param EntityManagerInterface $em
      *
      * @return Response
      */
-    public function showKpi(EntityManagerInterface $em) {
+    public function showKpi() {
 
         return $this->render('listKpi.html.twig');
 

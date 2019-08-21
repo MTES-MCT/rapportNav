@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Draft;
 use App\Entity\Rapport;
 use App\Entity\RapportMoyen;
+use App\Entity\User;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -113,13 +114,14 @@ class DraftController extends AbstractController {
      * @return Response
      */
     public function edit(string $type, Draft $draft) {
-        if(null === $draft) {
-            $this->redirectToRoute("rapport_create", ['type' => $type]);
+        /** @var User $user */
+        $user = $this->getUser();
+        if($draft->getOwner() != $user->getService()) {
+            throw $this->createNotFoundException("Brouillon non trouvé pour ce service");
         }
 
         $rapportClass = "\\App\\Entity\\".$this->typeRapportToClass[$type];
         $formClass = "\\App\\Form\\".$this->typeRapportToClass[$type]."Type";
-        $user = $this->getUser();
         /** @var Rapport $rapport */
         $rapport = new $rapportClass();
         $rapport->addMoyen(new RapportMoyen());
@@ -159,6 +161,12 @@ class DraftController extends AbstractController {
      * @return JsonResponse|RedirectResponse
      */
     public function delete(EntityManagerInterface $em, Request $request, Draft $draft) {
+        /** @var User $user */
+        $user = $this->getUser();
+        if($draft->getOwner() !== $user->getService()) {
+            throw $this->createNotFoundException("Brouillon non trouvé pour ce service");
+        }
+
         $em->remove($draft);
         $em->flush();
 
