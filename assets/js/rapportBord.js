@@ -7,48 +7,44 @@ require('select2/dist/js/select2.min');
 require('select2/dist/css/select2.min.css');
 
 function navireDataComplete() {
-    var input = $(this);
+    let input = $(this), plaisance = false;
     $.get(params.apiNavires + "navires/" + input.val())
-        .done(function (data) {
+        .catch(function (reason) {
+            console.log("Immatriculation non trouvée dans Navires (err. " + reason.status + ")");
+            plaisance = true;
+            return $.get(params.apiNavires + "plaisances/" + input.val())
+        })
+        .catch(function (data) {
+            if (input.parent().find(".immatriculation_invalide")) {
+                input.parent().find(".immatriculation_invalide").remove();
+            }
+
+            if (data.status === 404) {
+                input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
+            } else {
+                input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
+            }
+
+            input.parents("li").find("input[id$=_navire_nom]").val("");
+            input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
+            input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
+            input.parents("li").find("input[id$=_navire_typeUsage]").val("");
+        })
+        .then(function (data) {
             let parent = input.parents("li");
             parent.find("input[id$=_navire_nom]").val(data.nomNavire);
             parent.find("input[id$=_navire_longueurHorsTout]").val(data.longueurHorsTout);
             parent.find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur);
-            parent.find("input[id$=_navire_typeUsage]").val(data.genreNavigation || "Inconnu");
+            if(!plaisance) {
+                parent.find("input[id$=_navire_typeUsage]").val(data.genreNavigation || "Inconnu");
+            } else {
+                parent.find("input[id$=_navire_typeUsage]").val("Plaisance");
+            }
             if (input.parent().find(".immatriculation_invalide")) {
                 input.parent().find(".immatriculation_invalide").remove();
             }
         })
-        .fail(function (data) {
-            console.log("immatriculation non trouvée dans Navires");
-            $.get(params.apiNavires + "plaisances/" + input.val())
-                .done(function (data) {
-                    let parent = input.parents("li");
-                    parent.find("input[id$=_navire_nom]").val(data.nomNavire);
-                    parent.find("input[id$=_navire_idNavFloteur]").val(data.idNavFlotteur);
-                    parent.find("input[id$=_navire_typeUsage]").val("Plaisance");
-                    if (input.parent().find(".immatriculation_invalide")) {
-                        input.parent().find(".immatriculation_invalide").remove();
-                    }
-                    parent.find("input[id$=_navire_longueurHorsTout]").val("");
-                })
-                .fail(function (data) {
-                    if (input.parent().find(".immatriculation_invalide")) {
-                        input.parent().find(".immatriculation_invalide").remove();
-                    }
 
-                    if (data.status === 404) {
-                        input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
-                    } else {
-                        input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
-                    }
-
-                    input.parents("li").find("input[id$=_navire_nom]").val("");
-                    input.parents("li").find("input[id$=_navire_longueurHorsTout]").val("");
-                    input.parents("li").find("input[id$=_navire_idNavFloteur]").val("");
-                    input.parents("li").find("input[id$=_navire_typeUsage]").val("");
-                })
-        })
 }
 
 function toogleErrorText(event) {
