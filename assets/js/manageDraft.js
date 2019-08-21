@@ -1,13 +1,14 @@
 import $ from 'jquery';
 
 let redirectToList = function (data) {
-    var notif = '<div class="notification success">' + data.text + '<br>Redirection vers la liste des rapports dans 3 secondes. </div>'
+    var notif = '<div class="notification success">' + data.text + '<br>Redirection vers la liste des rapports dans 3 secondes. </div>';
     $('.notifications').append($(notif));
     setTimeout(function () {window.location.href = window.location.protocol + "//" + window.location.host + "/list_submissions"},
         3000);
 };
 
 $(window).on("load", function () {
+    //Save
     $("#form-save").on("click", function (elem) {
         let path = window.location.pathname;
         if (-1 === path.search("draft")) {
@@ -30,6 +31,7 @@ $(window).on("load", function () {
         });
     });
 
+    //delete
     $("#form-delete").on("click", function (elem) {
         let deleteRapport = confirm("Voulez vous supprimer les données de ce rapport ? \n" +
             "Cette action est définitive, il sera impossible de récupérer les données. ");
@@ -44,16 +46,20 @@ $(window).on("load", function () {
                     dataType: "json",
                 })
                 .catch(function (reason) {
+                    //Maybe DELETE is not allowed, trying fallback URL
                     if(405 === reason.status ||
                         403 === reason.status ||
                         400 === reason.status) {
-                        //retries with fallback URL
                         return $.ajax({
                             type: "POST",
                             url: path+"/delete",
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                         });
+                    } else {
+                        var notif = '<div class="notification error">Une erreur est survenue (' + reason.status + ') </div>';
+                        $('.notifications').append($(notif));
+                        setTimeout($('.notification').fadeOut(400), 180000);
                     }
                 })
                 .then(function (data) {
