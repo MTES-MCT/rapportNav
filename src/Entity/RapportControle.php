@@ -7,16 +7,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 trait RapportControle {
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\RapportMethodeCiblage")
+     * @ORM\ManyToOne(targetEntity="MethodeCiblage")
      * @Assert\NotBlank()
      */
     private $methodeCiblage;
 
-    public function getMethodeCiblage(): ?RapportMethodeCiblage {
+    public function getMethodeCiblage(): ?MethodeCiblage {
         return $this->methodeCiblage;
     }
 
-    public function setMethodeCiblage(RapportMethodeCiblage $methodeCiblage): self {
+    public function setMethodeCiblage(MethodeCiblage $methodeCiblage): self {
         $this->methodeCiblage = $methodeCiblage;
 
         return $this;

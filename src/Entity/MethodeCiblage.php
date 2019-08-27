@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\RapportMethodeCiblageRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\MethodeCiblageRepository")
  */
-class RapportMethodeCiblage {
+class MethodeCiblage {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

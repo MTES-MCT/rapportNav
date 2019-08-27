@@ -11,9 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\MissionCommerceRepository")
  */
 class MissionCommerce extends Mission {
-    use RapportControle;
     /**
-     * @ORM\OneToMany(targetEntity="RapportEtablissement", mappedBy="rapport", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ControleEtablissement", mappedBy="rapport", cascade={"persist"})
      * @Assert\Valid
      */
     private $etablissements;
@@ -24,13 +23,13 @@ class MissionCommerce extends Mission {
     }
 
     /**
-     * @return Collection|RapportEtablissement[]
+     * @return Collection|ControleEtablissement[]
      */
     public function getEtablissements(): Collection {
         return $this->etablissements;
     }
 
-    public function addEtablissement(RapportEtablissement $etablissement): self {
+    public function addEtablissement(ControleEtablissement $etablissement): self {
         if(!$this->etablissements->contains($etablissement)) {
             $this->etablissements[] = $etablissement;
             $etablissement->setRapport($this);
@@ -39,7 +38,7 @@ class MissionCommerce extends Mission {
         return $this;
     }
 
-    public function removeEtablissement(RapportEtablissement $etablissement): self {
+    public function removeEtablissement(ControleEtablissement $etablissement): self {
         if($this->etablissements->contains($etablissement)) {
             $this->etablissements->removeElement($etablissement);
             // set the owning side to null (unless already changed)

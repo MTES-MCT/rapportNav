@@ -4,7 +4,7 @@
 namespace App\Form;
 
 
-use App\Entity\RapportMethodeCiblage;
+use App\Entity\MethodeCiblage;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +14,7 @@ abstract class RapportControleType extends RapportType {
         parent::buildForm($builder, $options);
         $builder
             ->add('methodeCiblage', EntityType::class, [
-                'class' => RapportMethodeCiblage::class,
+                'class' => MethodeCiblage::class,
                 'multiple' => false,
                 'expanded' => false,
                 'placeholder' => '',

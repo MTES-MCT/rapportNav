@@ -35,13 +35,13 @@ services:
             $api: '%api_natinf%'
 
     # Explicit wiring for forms with event listeners
-    App\Form\RapportNavireType:
+    App\Form\ControleNavireType:
         arguments: ['@App\Form\EventListener\ResetNatinfDataListener']
 
-    App\Form\RapportEtablissementType:
+    App\Form\ControleEtablissementType:
         arguments: ['@App\Form\EventListener\ResetNatinfDataListener']
 
-    App\Form\RapportPecheurPiedType:
+    App\Form\ControlePecheurPiedType:
         arguments: ['@App\Form\EventListener\ResetNatinfDataListener']
 
 

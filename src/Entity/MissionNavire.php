@@ -11,9 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\MissionNavireRepository")
  */
 class MissionNavire extends Mission {
-    use RapportControle;
     /**
-     * @ORM\OneToMany(targetEntity="RapportNavire", mappedBy="rapport", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ControleNavire", mappedBy="rapport", cascade={"persist"})
      * @Assert\Valid
      */
     private $navires;
@@ -29,13 +28,13 @@ class MissionNavire extends Mission {
     }
 
     /**
-     * @return Collection|RapportNavire[]
+     * @return Collection|ControleNavire[]
      */
     public function getNavires(): Collection {
         return $this->navires;
     }
 
-    public function addNavire(RapportNavire $navire): self {
+    public function addNavire(ControleNavire $navire): self {
         if(!$this->navires->contains($navire)) {
             $this->navires[] = $navire;
             $navire->setRapport($this);
@@ -44,7 +43,7 @@ class MissionNavire extends Mission {
         return $this;
     }
 
-    public function removeNavire(RapportNavire $navire): self {
+    public function removeNavire(ControleNavire $navire): self {
         if($this->navires->contains($navire)) {
             $this->navires->removeElement($navire);
             // set the owning side to null (unless already changed)

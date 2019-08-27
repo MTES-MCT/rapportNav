@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Natinf;
-use App\entity\RapportPecheurPied;
+use App\entity\ControlePecheurPied;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RapportPecheurPiedType extends AbstractType {
+class ControlePecheurPiedType extends AbstractType {
     /**
      * @var EventSubscriberInterface
      */
@@ -43,7 +43,7 @@ class RapportPecheurPiedType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => RapportPecheurPied::class,
+            'data_class' => ControlePecheurPied::class,
         ]);
     }
 

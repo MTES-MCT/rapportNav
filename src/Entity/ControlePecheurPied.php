@@ -7,9 +7,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\RapportPecheurPiedRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ControlePecheurPiedRepository")
  */
-class RapportPecheurPied {
+class ControlePecheurPied {
+    use RapportControle;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

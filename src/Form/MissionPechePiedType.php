@@ -13,7 +13,7 @@ class MissionPechePiedType extends MissionType {
 
         $builder
             ->add('pecheursPied', CollectionType::class, [
-                'entry_type' => RapportPecheurPiedType::class,
+                'entry_type' => ControlePecheurPiedType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,

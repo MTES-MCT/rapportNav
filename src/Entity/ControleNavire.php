@@ -8,9 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\RapportEtablissementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ControleNavireRepository")
  */
-class RapportEtablissement {
+class ControleNavire {
+    use RapportControle;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -19,18 +21,25 @@ class RapportEtablissement {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="MissionCommerce", inversedBy="etablissements")
+     * @ORM\ManyToOne(targetEntity="MissionNavire", inversedBy="navires")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
     private $rapport;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Etablissement", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Navire", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
-    private $etablissement;
+    private $navire;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\RapportNavireControle")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid
+     */
+    private $controles;
 
     /**
      * @ORM\Column(type="boolean")
@@ -45,16 +54,12 @@ class RapportEtablissement {
     private $natinfs;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $bateauxControles;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $commentaire;
 
     public function __construct() {
+        $this->controles = new ArrayCollection();
         $this->natinfs = new ArrayCollection();
     }
 
@@ -62,12 +67,32 @@ class RapportEtablissement {
         return $this->id;
     }
 
-    public function getPv(): ?bool {
+    public function getNavire(): ?Navire {
+        return $this->navire;
+    }
+
+    public function setNavire(?Navire $navire): self {
+        $this->navire = $navire;
+
+        return $this;
+    }
+
+    public function getPv(): bool {
         return $this->pv;
     }
 
     public function setPv(bool $pv): self {
         $this->pv = $pv;
+
+        return $this;
+    }
+
+    public function getRapport(): ?Mission {
+        return $this->rapport;
+    }
+
+    public function setRapport(?Mission $rapport): self {
+        $this->rapport = $rapport;
 
         return $this;
     }
@@ -78,36 +103,6 @@ class RapportEtablissement {
 
     public function setCommentaire(?string $commentaire): self {
         $this->commentaire = $commentaire;
-
-        return $this;
-    }
-
-    public function getRapport(): ?MissionCommerce {
-        return $this->rapport;
-    }
-
-    public function setRapport(?MissionCommerce $rapport): self {
-        $this->rapport = $rapport;
-
-        return $this;
-    }
-
-    public function getEtablissement(): ?Etablissement {
-        return $this->etablissement;
-    }
-
-    public function setEtablissement(?Etablissement $etablissement): self {
-        $this->etablissement = $etablissement;
-
-        return $this;
-    }
-
-    public function getBateauxControles(): ?int {
-        return $this->bateauxControles;
-    }
-
-    public function setBateauxControles(?int $bateauxControles): self {
-        $this->bateauxControles = $bateauxControles;
 
         return $this;
     }
@@ -130,6 +125,29 @@ class RapportEtablissement {
     public function removeNatinf(Natinf $natinf): self {
         if($this->natinfs->contains($natinf)) {
             $this->natinfs->removeElement($natinf);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RapportNavireControle[]
+     */
+    public function getControles(): Collection {
+        return $this->controles;
+    }
+
+    public function addControle(RapportNavireControle $controle): self {
+        if(!$this->controles->contains($controle)) {
+            $this->controles[] = $controle;
+        }
+
+        return $this;
+    }
+
+    public function removeControle(RapportNavireControle $controle): self {
+        if($this->controles->contains($controle)) {
+            $this->controles->removeElement($controle);
         }
 
         return $this;
