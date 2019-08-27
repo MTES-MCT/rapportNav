@@ -19,7 +19,7 @@ class RapportNavire {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="RapportBord", inversedBy="navires")
+     * @ORM\ManyToOne(targetEntity="MissionNavire", inversedBy="navires")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
@@ -75,21 +75,21 @@ class RapportNavire {
         return $this;
     }
 
-    public function getPv() {
+    public function getPv(): bool {
         return $this->pv;
     }
 
-    public function setPv($pv): self {
+    public function setPv(bool $pv): self {
         $this->pv = $pv;
 
         return $this;
     }
 
-    public function getRapport(): ?Rapport {
+    public function getRapport(): ?Mission {
         return $this->rapport;
     }
 
-    public function setRapport(?Rapport $rapport): self {
+    public function setRapport(?Mission $rapport): self {
         $this->rapport = $rapport;
 
         return $this;

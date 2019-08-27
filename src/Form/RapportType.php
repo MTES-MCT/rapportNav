@@ -21,23 +21,6 @@ class RapportType extends AbstractType {
         $builder
             ->add('dateDebutMission', DateTimeType::class, ['required' => true, 'label' => "Démarrage de la mission"])
             ->add('dateFinMission', DateTimeType::class, ['required' => true, 'label' => "Fin de mission"])
-            ->add('terrestre', CheckboxType::class, [
-                'required' => false,
-                'label' => "Mission à terre (en mer si non cochée)"])
-            ->add('zoneMissions', EntityType::class, [
-                'class' => ZoneGeographique::class,
-                'query_builder' => function(EntityRepository $er) use ($service) {
-                    return $er->createQueryBuilder('z')
-                        ->where('z.direction = :service OR z.alias = :alias OR z.direction = \'tous\' ')
-                        ->setParameters([
-                            'service' => "DDTM".mb_strcut($service, 4),
-                            'alias' => mb_strcut($service, 4)]);
-                },
-                'choice_label' => "nom",
-                'multiple' => true,
-                'expanded' => true,
-                'required' => false,
-                'label' => "Zone de la mission"])
             ->add('arme', CheckboxType::class, [
                 'required' => false,
                 'label' => "Mission armée ?"])
@@ -59,6 +42,7 @@ class RapportType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Agents embauchés sur la mission"])
+            ->add('missions', CollectionType::class)
             ->add('commentaire', null, [
                 'label' => "Commentaires et remarques (pour note interne)"]);
     }

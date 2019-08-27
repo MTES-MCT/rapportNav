@@ -18,7 +18,7 @@ class RapportPecheurPied {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\RapportPechePied", inversedBy="pecheursPied")
+     * @ORM\ManyToOne(targetEntity="MissionPechePied", inversedBy="pecheursPied")
      * @ORM\JoinColumn(nullable=false)
      */
     private $rapport;
@@ -53,11 +53,11 @@ class RapportPecheurPied {
         return $this->id;
     }
 
-    public function getRapport(): ?RapportPechePied {
+    public function getRapport(): ?MissionPechePied {
         return $this->rapport;
     }
 
-    public function setRapport(?RapportPechePied $rapport): self {
+    public function setRapport(?MissionPechePied $rapport): self {
         $this->rapport = $rapport;
 
         return $this;

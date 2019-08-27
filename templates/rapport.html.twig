@@ -57,31 +57,7 @@
     </div>
 
     <div class="row">
-        <div class="form__group horizontal__form">
-            {{ form_label(form.terrestre) }}
-            {{ form_errors(form.terrestre) }}
-            {{ form_widget(form.terrestre) }}
-        </div>
 
-        <div class="form__group horizontal__form">
-            <fieldset>
-                {{ form_label(form.zoneMissions, null, {'element': 'legend'} ) }}
-                {{ form_errors(form.zoneMissions) }}
-                {% set part_elements = max(((form.zoneMissions|length)/3)|round,1) %}
-                <div class="row">
-                    {% for row in form.zoneMissions|batch(part_elements) %}
-                        <ul class="no-decoration stacked-list">
-                            {% for checkbox in row %}
-                                <li class="form__checkbox">
-                                    {{ form_widget(checkbox) }}
-                                    {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline"}}) }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endfor %}
-                </div>
-            </fieldset>
-        </div>
 
         <div class="form__group horizontal__form">
             {{ form_label(form.arme) }}
@@ -89,72 +65,66 @@
             {{ form_widget(form.arme, {'attr': {'class': 'center'}}) }}
         </div>
     </div>
-
     <div class="row">
         <div class="form__group horizontal__form">
             <fieldset>
                 {{ form_label(form.moyens, null, {'element': 'legend'} ) }}
                 {{ form_errors(form.moyens) }}
-                <ul class="no-decoration stacked-list">
-                    <li>
-                        {% if form.moyens|length > 0 %}
-                            <ul id="moyen-list" class="no-decoration stacked-list" data-prototype='
-                                <span>
-                                    {{ form_label(form.moyens.vars.prototype.moyen)|e('html_attr') }}
-                                    {{ form_widget(form.moyens.vars.prototype.moyen)|e('html_attr') }}
-                                </span>
-                                <span class="" style="display: none;">
-                                    {{ form_label(form.moyens.vars.prototype.distance, "Distance (km)")|e('html_attr') }}
-                                    {{ form_widget(form.moyens.vars.prototype.distance)|e('html_attr') }}
-                                </span>
-                                <span class="" style="display: none;">
-                                    {{ form_label(form.moyens.vars.prototype.tempsMoteur, "Temps moteur (min)")|e('html_attr') }}
-                                    {{ form_widget(form.moyens.vars.prototype.tempsMoteur)|e('html_attr') }}
-                                </span>
-                                <button class="button moyen-delete">
-                                    <i class="fas fa-trash-alt"></i>
-                                    <span class="">Supprimer</span>
-                                </button>
-                            '>
-                                {% for moyen in form.moyens %}
-                                    <li class="row moyen">
-                                        <span>
-                                            {{ form_label(moyen.moyen) }}
-                                            {{ form_widget(moyen.moyen) }}
-                                        </span>
-                                        {% if moyen.distance.vars.value is empty %}
-                                            {% set displayDist = false %}
-                                        {% else %}
-                                            {% set displayDist = true %}
-                                        {% endif %}
-                                        <span class="" style="{% if not displayDist %}display: none;{% endif %}">
+                <ul id="moyen-list" class="no-decoration stacked-list" data-prototype='
+                    <span>
+                        {{ form_label(form.moyens.vars.prototype.moyen)|e('html_attr') }}
+                        {{ form_widget(form.moyens.vars.prototype.moyen)|e('html_attr') }}
+                    </span>
+                    <span class="" style="display: none;">
+                        {{ form_label(form.moyens.vars.prototype.distance, "Distance (km)")|e('html_attr') }}
+                        {{ form_widget(form.moyens.vars.prototype.distance)|e('html_attr') }}
+                    </span>
+                    <span class="" style="display: none;">
+                        {{ form_label(form.moyens.vars.prototype.tempsMoteur, "Temps moteur (min)")|e('html_attr') }}
+                        {{ form_widget(form.moyens.vars.prototype.tempsMoteur)|e('html_attr') }}
+                    </span>
+                    <button class="button moyen-delete">
+                        <i class="fas fa-trash-alt"></i>
+                        <span class="">Supprimer</span>
+                    </button>
+                '>
+                    {% for moyen in form.moyens %}
+                        <li class="row moyen">
+                            <span>
+                                {{ form_label(moyen.moyen) }}
+                                {{ form_widget(moyen.moyen) }}
+                            </span>
+                            {% if moyen.distance.vars.value is empty %}
+                                {% set displayDist = false %}
+                            {% else %}
+                                {% set displayDist = true %}
+                            {% endif %}
+                            <span class="" style="{% if not displayDist %}display: none;{% endif %}">
                                             {{ form_label(moyen.distance, "Distance (km)") }}
-                                            {{ form_widget(moyen.distance, {"required": displayDist}) }}
+                                {{ form_widget(moyen.distance, {"required": displayDist}) }}
                                         </span>
-                                        {% if moyen.tempsMoteur.vars.value is empty %}
-                                            {% set displayTM = false %}
-                                        {% else %}
-                                            {% set displayTM = true %}
-                                        {% endif %}
-                                        <span class="" style="{% if not displayTM %}display: none;{% endif %}">
+                            {% if moyen.tempsMoteur.vars.value is empty %}
+                                {% set displayTM = false %}
+                            {% else %}
+                                {% set displayTM = true %}
+                            {% endif %}
+                            <span class="" style="{% if not displayTM %}display: none;{% endif %}">
                                             {{ form_label(moyen.tempsMoteur, "Temps moteur (min)") }}
-                                            {{ form_widget(moyen.tempsMoteur, {'required': displayTM}) }}
+                                {{ form_widget(moyen.tempsMoteur, {'required': displayTM}) }}
                                         </span>
-                                        <button class="button moyen-delete">
-                                            <i class="fas fa-trash-alt"></i>
-                                            <span class="">Supprimer</span>
-                                        </button>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </li>
+                            <button class="button moyen-delete">
+                                <i class="fas fa-trash-alt"></i>
+                                <span class="">Supprimer</span>
+                            </button>
+                        </li>
+                    {% endfor %}
                     <li>
                         <button type="button" id="add-new-moyen" class="button" style="">
                             Ajouter un moyen utilisé
                         </button>
                     </li>
                 </ul>
+                {% do form.moyens.setRendered %}
             </fieldset>
         </div>
     </div>
@@ -177,12 +147,18 @@
 
     <div class="form__group form__validators">
         {% if crud.deletable is defined and crud.deletable %}
-        <button type="button" id="form-delete" class="button large warning formActionButton"><i class="fas fa-trash-alt"></i> Supprimer le rapport</button>
+            <button type="button" id="form-delete" class="button large warning formActionButton"><i
+                        class="fas fa-trash-alt"></i> Supprimer le rapport
+            </button>
         {% endif %}
         {% if crud.draftable is defined and crud.draftable %}
-        <button type="button" id="form-save" class="button large formActionButton"><i class="far fa-save"></i> Enregistrer le brouillon</button>
+            <button type="button" id="form-save" class="button large formActionButton"><i class="far fa-save"></i>
+                Enregistrer le brouillon
+            </button>
         {% endif %}
-        <button type="submit" id="form-submit" class="button large formActionButton"><i class="far fa-check-circle"></i> Valider le rapport</button>
+        <button type="submit" id="form-submit" class="button large formActionButton"><i class="far fa-check-circle"></i>
+            Valider le rapport
+        </button>
     </div>
 
     {{ form_end(form) }}

@@ -10,24 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RapportRepository")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({
- *     "bord" = "RapportBord",
- *     "commerce" = "RapportCommerce",
- *     "pecheapied" = "RapportPechePied",
- *     "administratif" = "RapportAdministratif",
- *     "formation" = "RapportFormation"
- *     })
  */
-abstract class Rapport {
-
-    public const RAPPORTTYPES = [
-        "bord" => "RapportBord",
-        "commerce" => "RapportCommerce",
-        "pecheapied" => "RapportPechePied",
-        "administratif" => "RapportAdministratif",
-        "formation" => "RapportFormation"];
+class Rapport {
 
     /**
      * @ORM\Id()
@@ -69,22 +53,6 @@ abstract class Rapport {
      * @ORM\Column(type="boolean")
      * @Assert\Type(type="bool")
      */
-    private $terrestre;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ZoneGeographique")
-     */
-    private $zoneMissions;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $detailHorsZone;
-
-    /**
-     * @ORM\Column(type="boolean")
-     * @Assert\Type(type="bool")
-     */
     private $arme;
 
     /**
@@ -97,14 +65,19 @@ abstract class Rapport {
      */
     private $moyens;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mission", mappedBy="rapport", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $missions;
+
     public function getId(): ?int {
         return $this->id;
     }
 
     public function __construct() {
         $this->agents = new ArrayCollection();
-        $this->zoneMissions = new ArrayCollection();
         $this->moyens = new ArrayCollection();
+        $this->missions = new ArrayCollection();
     }
 
     public function getDateDebutMission(): ?DateTimeInterface {
@@ -150,29 +123,6 @@ abstract class Rapport {
         return $this;
     }
 
-    /**
-     * @return Collection|ZoneGeographique[]
-     */
-    public function getZoneMissions(): Collection {
-        return $this->zoneMissions;
-    }
-
-    public function addZoneMission(ZoneGeographique $zoneMission): self {
-        if(!$this->zoneMissions->contains($zoneMission)) {
-            $this->zoneMissions[] = $zoneMission;
-        }
-
-        return $this;
-    }
-
-    public function removeZoneMission(ZoneGeographique $zoneMission): self {
-        if($this->zoneMissions->contains($zoneMission)) {
-            $this->zoneMissions->removeElement($zoneMission);
-        }
-
-        return $this;
-    }
-
     public function getCommentaire(): ?string {
         return $this->commentaire;
     }
@@ -190,15 +140,6 @@ abstract class Rapport {
     public function setArme(bool $arme): self {
         $this->arme = $arme;
 
-        return $this;
-    }
-
-    public function getDetailHorsZone(): ?string {
-        return $this->detailHorsZone;
-    }
-
-    public function setDetailHorsZone($detailHorsZone): self {
-        $this->detailHorsZone = $detailHorsZone;
         return $this;
     }
 
@@ -230,22 +171,43 @@ abstract class Rapport {
         return $this;
     }
 
-    public function getTerrestre(): ?bool {
-        return $this->terrestre;
-    }
-
-    public function setTerrestre(bool $terrestre): self {
-        $this->terrestre = $terrestre;
-
-        return $this;
-    }
-
     public function getServiceCreateur(): ?Service {
         return $this->serviceCreateur;
     }
 
     public function setServiceCreateur(?Service $serviceCreateur): self {
         $this->serviceCreateur = $serviceCreateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mission[]
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): self
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions[] = $mission;
+            $mission->setRapport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): self
+    {
+        if ($this->missions->contains($mission)) {
+            $this->missions->removeElement($mission);
+            // set the owning side to null (unless already changed)
+            if ($mission->getRapport() === $this) {
+                $mission->setRapport(null);
+            }
+        }
 
         return $this;
     }

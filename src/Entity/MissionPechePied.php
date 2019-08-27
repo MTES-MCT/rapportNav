@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\RapportPechePiedRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\MissionPechePiedRepository")
  */
-class RapportPechePied extends Rapport {
+class MissionPechePied extends Mission {
     use RapportControle;
 
     /**

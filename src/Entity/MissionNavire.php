@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\RapportBordRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\MissionNavireRepository")
  */
-class RapportBord extends Rapport {
+class MissionNavire extends Mission {
     use RapportControle;
     /**
      * @ORM\OneToMany(targetEntity="RapportNavire", mappedBy="rapport", cascade={"persist"})

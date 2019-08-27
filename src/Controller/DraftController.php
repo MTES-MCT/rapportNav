@@ -19,11 +19,11 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DraftController extends AbstractController {
-    private $typeRapportToClass = ['controle_a_bord' => "RapportBord",
-        'filiere_commercialisation' => "RapportCommerce",
-        'administratif' => "RapportAdministratif",
-        "formation" => "RapportFormation",
-        "peche_a_pied" => "RapportPechePied",
+    private $typeRapportToClass = ['controle_a_bord' => "MissionNavire",
+        'filiere_commercialisation' => "MissionCommerce",
+        'administratif' => "MissionAdministratif",
+        "formation" => "MissionFormation",
+        "peche_a_pied" => "MissionPechePied",
     ];
 
     /**

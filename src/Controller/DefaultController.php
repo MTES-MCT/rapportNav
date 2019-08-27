@@ -8,11 +8,12 @@ use App\Entity\RapportMoyen;
 use App\Entity\RapportNavire;
 use App\Entity\Service;
 use App\Entity\User;
-use App\Form\RapportAdministratifType;
-use App\Form\RapportBordType;
-use App\Form\RapportCommerceType;
-use App\Form\RapportFormationType;
-use App\Form\RapportPechePiedType;
+use App\Form\MissionAdministratifType;
+use App\Form\MissionNavireType;
+use App\Form\MissionCommerceType;
+use App\Form\MissionFormationType;
+use App\Form\MissionPechePiedType;
+use App\Form\RapportType;
 use DateInterval;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -27,11 +28,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController {
 
-    private $typeRapportToClass = ['controle_a_bord' => "RapportBord",
-        'filiere_commercialisation' => "RapportCommerce",
-        'administratif' => "RapportAdministratif",
-        "formation" => "RapportFormation",
-        "peche_a_pied" => "RapportPechePied",
+    private $typeRapportToClass = ['controle_a_bord' => "MissionNavire",
+        'filiere_commercialisation' => "MissionCommerce",
+        'administratif' => "MissionAdministratif",
+        "formation" => "MissionFormation",
+        "peche_a_pied" => "MissionPechePied",
     ];
 
     /**
@@ -42,30 +43,23 @@ class DefaultController extends AbstractController {
     }
 
     /**
-     * @Route("/rapport/{type}",
-     *     name="rapport_create",
-     *     requirements={"type": "controle_a_bord|filiere_commercialisation|administratif|formation|peche_a_pied"})
+     * @Route("/rapport", name="rapport_create")
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
-     * @param string                 $type
      *
      * @return RedirectResponse|Response
      */
-    public function rapportCreate(Request $request, EntityManagerInterface $em, string $type) {
-        $rapportClass = "\\App\\Entity\\".$this->typeRapportToClass[$type];
-        $formClass = "\\App\\Form\\".$this->typeRapportToClass[$type]."Type";
-
+    public function rapportCreate(Request $request, EntityManagerInterface $em) {
         /** @var Rapport $rapport */
-        $rapport = new $rapportClass();
-        $service = $this->getUser()->getservice();
-        $rapport->setServiceCreateur($service);
-        $rapport->addMoyen(new RapportMoyen());
-
+        $rapport = new Rapport();
         /** @var User $user */
         $user = $this->getUser();
 
-        $form = $this->createForm($formClass, $rapport, ['service' => $user->getService()]);
+        $service = $user->getService();
+        $rapport->setServiceCreateur($service);
+
+        $form = $this->createForm(RapportType::class, $rapport, ['service' => $service]);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -86,36 +80,11 @@ class DefaultController extends AbstractController {
             }
             $form->get('dateDebutMission')->setData($now);
             $form->get('dateFinMission')->setData($later);
-            switch($type) {
-                case "controle_a_bord":
-                    $form->get('navires')->setData([new RapportNavire()]);
-                    break;
-                case "filiere_commercialisation":
-                    $form->get('etablissements')->setData([new RapportEtablissement()]);
-                    break;
-            }
         }
 
         $crud = ['deletable' => true, 'draftable' => true];
-        switch($type) {
-            case "controle_a_bord":
-                return $this->render('rapportControleABord.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
-                break;
-            case "filiere_commercialisation":
-                return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
-                break;
-            case "peche_a_pied":
-                return $this->render('rapportPecheAPied.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
-                break;
-            case "administratif":
-                return $this->render('rapportAdministratif.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
-                break;
-            case "formation":
-                return $this->render('rapportFormation.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
-                break;
-            default:
-                throw new InvalidArgumentException("Le type de formulaire n'est pas reconnu. ");
-        }
+
+        return $this->render('rapport.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
     }
 
     /**
@@ -128,53 +97,53 @@ class DefaultController extends AbstractController {
      * @return RedirectResponse|Response
      */
     public function rapportEdit(Request $request, EntityManagerInterface $em, int $id_edit = null) {
-        if(null === $controle = $em->getRepository(Rapport::class)->find($id_edit)) {
+        if(null === $rapport = $em->getRepository(Rapport::class)->find($id_edit)) {
             throw $this->createNotFoundException('Pas de contrôle trouvé avec cet identifiant '.$id_edit);
         }
 
         /** @var Service $userService */
         $userService = $this->getUser()->getService();
-        if($controle->getServiceCreateur() !== $userService) {
+        if($rapport->getServiceCreateur() !== $userService) {
             throw $this->createNotFoundException("Brouillon non trouvé pour ce service");
         }
 
         $currentControlledObjects = new ArrayCollection();
         $getControlledObjects = false;
 
-        if(get_class($controle) === "App\\Entity\\RapportBord") {
+        if(get_class($rapport->getMissions()->get(0)) === "App\\Entity\\MissionNavire") {
             $getControlledObjects = "getNavires";
-            $formClass = RapportBordType::class;
-        } elseif(get_class($controle) === "App\\Entity\\RapportCommerce") {
+            $formClass = MissionNavireType::class;
+        } elseif(get_class($rapport->getMissions()->get(0)) === "App\\Entity\\MissionCommerce") {
             $getControlledObjects = "getEtablissements";
-            $formClass = RapportCommerceType::class;
-        } elseif(get_class($controle) === "App\\Entity\\RapportPechePied") {
+            $formClass = MissionCommerceType::class;
+        } elseif(get_class($rapport->getMissions()->get(0)) === "App\\Entity\\MissionPechePied") {
             $getControlledObjects = "getPecheursPied";
-            $formClass = RapportPechePiedType::class;
-        } elseif(get_class($controle) === "App\\Entity\\RapportAdministratif") {
-            $formClass = RapportAdministratifType::class;
-        } elseif(get_class($controle) === "App\\Entity\\RapportFormation") {
-            $formClass = RapportFormationType::class;
+            $formClass = MissionPechePiedType::class;
+        } elseif(get_class($rapport->getMissions()->get(0)) === "App\\Entity\\MissionAdministratif") {
+            $formClass = MissionAdministratifType::class;
+        } elseif(get_class($rapport->getMissions()->get(0)) === "App\\Entity\\MissionFormation") {
+            $formClass = MissionFormationType::class;
         } else {
             throw new InvalidArgumentException("Type de rapport inconnu");
         }
 
         if($getControlledObjects) {
-            foreach($controle->$getControlledObjects() as $object) {
+            foreach($rapport->$getControlledObjects() as $object) {
                 $currentControlledObjects->add($object);
             }
         }
 
-        $editForm = $this->createForm($formClass, $controle, ['service' => $userService]);
+        $editForm = $this->createForm($formClass, $rapport, ['service' => $userService]);
         $editForm->handleRequest($request);
 
         if($editForm->isSubmitted() && $editForm->isValid()) {
             foreach($currentControlledObjects as $object) {
-                if($getControlledObjects && false === $controle->$getControlledObjects()->contains($object)) {
+                if($getControlledObjects && false === $rapport->$getControlledObjects()->contains($object)) {
                     $em->remove($object);
                 }
             }
 
-            $em->persist($controle);
+            $em->persist($rapport);
             $em->flush();
 
             $this->addFlash("success", "Modification enregistrée");
@@ -184,19 +153,19 @@ class DefaultController extends AbstractController {
 
         $crud = ['deletable' => false, 'draftable' => false];
         switch($formClass) {
-            case RapportBordType::class:
+            case MissionNavireType::class:
                 return $this->render('rapportControleABord.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
-            case RapportCommerceType::class:
+            case MissionCommerceType::class:
                 return $this->render('rapportFiliereCommercialisation.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
-            case RapportPechePiedType::class:
+            case MissionPechePiedType::class:
                 return $this->render('rapportPecheAPied.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
-            case RapportAdministratifType::class:
+            case MissionAdministratifType::class:
                 return $this->render('rapportAdministratif.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
-            case RapportFormationType::class:
+            case MissionFormationType::class:
                 return $this->render('rapportFormation.html.twig', ['form' => $editForm->createView(), 'crud' => $crud]);
                 break;
             default:
@@ -229,32 +198,36 @@ class DefaultController extends AbstractController {
             ['lastEdit' => "DESC"],
             20);
 
-        $controlePeche = $em->getRepository('App:RapportBord')->findBy(
-            ['serviceCreateur' => $userService],
-            ['dateDebutMission' => "DESC"],
-            20);
-        $controleCommerce = $em->getRepository('App:RapportCommerce')->findBy(
-            ['serviceCreateur' => $userService],
-            ['dateDebutMission' => "DESC"],
-            20);
-        $controlePechePied = $em->getRepository('App:RapportPechePied')->findBy(
-            ['serviceCreateur' => $userService],
-            ['dateDebutMission' => "DESC"],
-            20);
-        $administratif = $em->getRepository('App:RapportAdministratif')->findBy(
-            ['serviceCreateur' => $userService],
-            ['dateDebutMission' => "DESC"],
-            20);
-        $formations = $em->getRepository('App:RapportFormation')->findBy(
+//        $controlePeche = $em->getRepository('App:MissionNavire')->findBy(
+//            ['serviceCreateur' => $userService],
+//            ['dateDebutMission' => "DESC"],
+//            20);
+//        $controleCommerce = $em->getRepository('App:MissionCommerce')->findBy(
+//            ['serviceCreateur' => $userService],
+//            ['dateDebutMission' => "DESC"],
+//            20);
+//        $controlePechePied = $em->getRepository('App:MissionPechePied')->findBy(
+//            ['serviceCreateur' => $userService],
+//            ['dateDebutMission' => "DESC"],
+//            20);
+//        $administratif = $em->getRepository('App:MissionAdministratif')->findBy(
+//            ['serviceCreateur' => $userService],
+//            ['dateDebutMission' => "DESC"],
+//            20);
+//        $formations = $em->getRepository('App:MissionFormation')->findBy(
+//            ['serviceCreateur' => $userService],
+//            ['dateDebutMission' => "DESC"],
+//            20);
+        $rapports = $em->getRepository('App:Rapport')->findBy(
             ['serviceCreateur' => $userService],
             ['dateDebutMission' => "DESC"],
             20);
 
-        $list = ['Contrôle de navire' => $controlePeche,
-            'Contrôle de la filière commercialisation' => $controleCommerce,
-            'Contrôle de la pêche à pied' => $controlePechePied,
-            'Actions administratives' => $administratif,
-            'Actions de formation' => $formations,
+        $list = ['Contrôle de navire' => $rapports,
+            'Contrôle de la filière commercialisation' => [],
+            'Contrôle de la pêche à pied' => [],
+            'Actions administratives' => [],
+            'Actions de formation' => [],
         ];
 
         return $this->render('listSubmissions.html.twig', ['list' => $list, 'drafts' => $drafts]);

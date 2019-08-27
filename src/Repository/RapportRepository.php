@@ -12,10 +12,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Rapport[]    findAll()
  * @method Rapport[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RapportRepository extends ServiceEntityRepository
-{
-    public function __construct(RegistryInterface $registry)
-    {
+class RapportRepository extends ServiceEntityRepository {
+    public function __construct(RegistryInterface $registry) {
         parent::__construct($registry, Rapport::class);
     }
 }

@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\RapportAdministratifRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\MissionFormationRepository")
  */
-class RapportFormation extends Rapport {
+class MissionFormation extends Mission {
     /**
      * @ORM\Column(type="text", nullable=true)
      */

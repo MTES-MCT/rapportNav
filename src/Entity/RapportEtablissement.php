@@ -19,7 +19,7 @@ class RapportEtablissement {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="RapportCommerce", inversedBy="etablissements")
+     * @ORM\ManyToOne(targetEntity="MissionCommerce", inversedBy="etablissements")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
@@ -82,11 +82,11 @@ class RapportEtablissement {
         return $this;
     }
 
-    public function getRapport(): ?RapportCommerce {
+    public function getRapport(): ?MissionCommerce {
         return $this->rapport;
     }
 
-    public function setRapport(?RapportCommerce $rapport): self {
+    public function setRapport(?MissionCommerce $rapport): self {
         $this->rapport = $rapport;
 
         return $this;

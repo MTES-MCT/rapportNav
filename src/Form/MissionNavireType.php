@@ -5,12 +5,11 @@ namespace App\Form;
 use App\Entity\Rapport;
 use App\Entity\TypeMissionControle;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RapportBordType extends RapportControleType {
+class MissionNavireType extends MissionType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
 
