@@ -41,3 +41,17 @@ legend.required::after {
 .form__validators button:visited{
     width: 33.33%;
 }
+
+.form__errors {
+    color: var(--red);
+}
+
+.form__errors ul {
+    list-style: none;
+}
+
+.like-h4 {
+    font-family: "Evolventa", "Trebuchet MS", sans-serif;
+    font-size: 1.25em;
+    font-weight: 700;
+}

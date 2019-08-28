@@ -6,6 +6,8 @@
 // CSS files
 require('../css/template.css');
 require('../css/template-override.css');
+require('../css/switch.css');
+require('../css/toggle-button.css');
 require('../css/app.css');
 require('@fortawesome/fontawesome-free/css/all.css');
 
