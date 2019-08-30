@@ -1,0 +1,79 @@
+{{ form_start(prototype, {'attr': {'style': "max-width: 100%"}}) }}
+
+{% if prototype.navires is defined %}
+    {% set type = "navire" %}
+{% endif %}
+{% if prototype.etablissements is defined %}
+    {% set type = "commerce" %}
+{% endif %}
+{% if prototype.pecheursPied is defined %}
+    {% set type = "pechePied" %}
+{% endif %}
+{% if prototype.activite is defined %}
+    {% set type = "administratif" %}
+{% endif %}
+{% if prototype.formation is defined %}
+    {% set type = "formation" %}
+{% endif %}
+
+
+
+<h2>Mission</h2>
+
+<h4>Lieu de la mission</h4>
+<div style="border: 2px solid var(--grey);padding: 1em;margin-bottom: 1em;">
+    {{ form_errors(prototype.zone) }}
+    <div class="row" style="flex-wrap: wrap;">
+        <div class="form__group">
+            {{ form_label(prototype.terrestre) }}
+            <label class="switch-text">
+                {{ form_widget(prototype.terrestre, {'attr': {'class': "switch"}}) }}
+                <span class="switch-option">Mer</span>
+                <span class="switch-option">Terre</span>
+                <div class="form__errors">
+                    {{ form_errors(prototype.terrestre) }}
+                </div>
+            </label>
+        </div>
+        {% for checkbox in prototype.zone %}
+            <span class="form__checkbox" style="margin: 0 5px 0 0">
+                                    {{ form_widget(checkbox, {'attr': {'class': "button"}}) }}
+                {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline button"}}) }}
+                                </span>
+        {% endfor %}
+    </div>
+    <div id="gps" class="row" style="justify-content: start">
+        <div class="form__group" style="max-width: 20em;">
+            {{ form_label(prototype.gpsLat, null, {'label_attr': {'class': "label-inline"}}) }}
+            {{ form_widget(prototype.gpsLat) }}
+        </div>
+        <div class="form__group" style="max-width: 20em; margin-top: 0;">
+            {{ form_label(prototype.gpsLng, null, {'label_attr': {'class': "label-inline"}}) }}
+            {{ form_widget(prototype.gpsLng) }}
+        </div>
+    </div>
+</div>
+
+    {% include 'mission/mission'~type[0:1]|upper~type[1:]~'Component.html.twig' with {'form': prototype} %}
+
+
+<div class="form__group">
+    {{ form_label(prototype.commentaire) }}
+    {{ form_widget(prototype.commentaire) }}
+</div>
+
+{{ form_rest(prototype) }}
+{{ form_end(prototype) }}
+
+
+<div class="form__group button__group">
+    <a class="button"
+       href="#missions"
+    @click="addMission('{{ type }}')">Valider</a>
+    <a class="button warning"
+       href="#missions"
+       @click="deleteMission('{{ type }}')">
+        <i class="fas fa-trash-alt"></i>
+        <span v-html="missions['{{ type }}'].active ? 'Supprimer' : 'Annuler'"></span>
+    </a>
+</div>

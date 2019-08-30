@@ -2,6 +2,7 @@
 
 {% block head_stylesheets %}
     {{ parent() }}
+    {{ encore_entry_link_tags('rapport') }}
 {% endblock head_stylesheets %}
 
 {% block body_banner %}{% endblock body_banner %}
@@ -11,34 +12,45 @@
 
     {{ form_start(form, {'attr': {'style': "max-width: 100%", 'id': "rapport"}}) }}
 
-    <h2>Éléments généraux</h2>
+    <h2>Informations sur la mission</h2>
 
     <div class="row">
-        <div>
-            <div class="form__group horizontal__form">
+        <div class="grid" style="grid-template-columns: 1fr 1fr;height: min-content; max-width: 50%" id="dates">
+            <h4 style="grid-column: 1 / 3;justify-self: start;">
                 {{ form_label(form.dateDebutMission) }}
-                {{ form_errors(form.dateDebutMission) }}
-                {{ form_widget(form.dateDebutMission) }}
+            </h4>
+            <div style="align-self: end;width:100%" class="form__group horizontal__form">
+                {{ form_widget(form.dateDebutMission.date) }}
+                <div class="form__errors">
+                    {{ form_errors(form.dateDebutMission.date) }}
+                </div>
             </div>
-            <div>
-                {{ form_label(form.dateFinMission) }}
-                {{ form_errors(form.dateFinMission) }}
-                {{ form_widget(form.dateFinMission) }}
+            <div style="align-self: end;width:100%" class="form__group horizontal__form">
+                <span class="form__checkbox">
+                    <input type="checkbox"><label class="label-inline">Mission de plus d'une journée</label>
+                </span>
+                {{ form_widget(form.dateFinMission.date) }}
+                <div class="form__errors">
+                    {{ form_errors(form.dateFinMission.date) }}
+                </div>
+            </div>
+            <div class="form__group horizontal__form" style="width:100%">
+                {{ form_label(form.dateDebutMission.time) }}
+                {{ form_widget(form.dateDebutMission.time) }}
+                {{ form_errors(form.dateDebutMission.time) }}
+            </div>
+            <div class="form__group horizontal__form" style="width:100%">
+                {{ form_label(form.dateFinMission.time) }}
+                {{ form_widget(form.dateFinMission.time) }}
+                {{ form_errors(form.dateFinMission.time) }}
             </div>
         </div>
-
-        {% if form.methodeCiblage is defined %}
-            <div class="form__group horizontal__form">
-                {{ form_label(form.methodeCiblage) }}
-                {{ form_errors(form.methodeCiblage) }}
-                {{ form_widget(form.methodeCiblage) }}
-            </div>
-        {% endif %}
-
         <div class="form__group horizontal__form">
             <fieldset>
+                <div class="form__errors">
+                    {{ form_errors(form.agents) }}
+                </div>
                 {{ form_label(form.agents, null, {'element': 'legend'} ) }}
-                {{ form_errors(form.agents) }}
                 {% set half_agents = max(((form.agents|length)/2)|round,1) %}
                 <div class="row">
                     {% for row in form.agents|batch(half_agents) %}
@@ -54,21 +66,13 @@
                 </div>
             </fieldset>
         </div>
+
     </div>
 
-    <div class="row">
-
-
-        <div class="form__group horizontal__form">
-            {{ form_label(form.arme) }}
-            {{ form_errors(form.arme) }}
-            {{ form_widget(form.arme, {'attr': {'class': 'center'}}) }}
-        </div>
-    </div>
     <div class="row">
         <div class="form__group horizontal__form">
             <fieldset>
-                {{ form_label(form.moyens, null, {'element': 'legend'} ) }}
+                {{ form_label(form.moyens, null, {'element': 'legend', 'attr': {'class': "like-h4"}} ) }}
                 {{ form_errors(form.moyens) }}
                 <ul id="moyen-list" class="no-decoration stacked-list" data-prototype='
                     <span>
@@ -120,6 +124,7 @@
                     {% endfor %}
                     <li>
                         <button type="button" id="add-new-moyen" class="button" style="">
+                            <i class="fas fa-plus-circle"></i>
                             Ajouter un moyen utilisé
                         </button>
                     </li>
@@ -127,10 +132,68 @@
                 {% do form.moyens.setRendered %}
             </fieldset>
         </div>
+        <div>
+            <h4>Arme</h4>
+            <div class="form__group horizontal__form">
+                {{ form_widget(form.arme, {'attr': {'class': 'switch'}}) }}
+                {{ form_label(form.arme, null, {'label_attr': {'class': "label-inline"}}) }}
+                {{ form_errors(form.arme) }}
+            </div>
+        </div>
     </div>
 
     {% block body_main_container_rapport_objects %}
-        <h2>Éléments spécifiques</h2>
+        <div id="missions">
+            <h2>Missions Réalisées</h2>
+            <ul class="no-decoration" data-prototype=''>
+                <li v-for="(mission, index) in missions">
+                    <mission v-bind:mission="mission" v-bind:index="index"></mission>
+                </li>
+                <li>
+                    <a id="add-mission" class="button" href="#modal">
+                        <i class="fas fa-plus-circle"></i>
+                        Ajouter une mission
+                    </a>
+                </li>
+            </ul>
+            {% do form.missions.setRendered %}
+
+
+
+            {% include 'missionTypeChoiceModal.html.twig' with {
+                'prototype': form.missions.vars.prototype,
+                'navire': formNavire,
+            } %}
+            <div class="modal__backdrop" id="modal-navire" style="z-index: 999;">
+                <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
+                    {% include 'missionModal.html.twig' with {'prototype': formNavire} %}
+                </div>
+            </div>
+            <div class="modal__backdrop" id="modal-commerce" style="z-index: 999;">
+                <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
+                    {% include 'missionModal.html.twig' with {'prototype': formCommerce} %}
+                </div>
+            </div>
+            <div class="modal__backdrop" id="modal-pechePied" style="z-index: 999;">
+                <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
+                    {% include 'missionModal.html.twig' with {'prototype': formPechePied} %}
+                </div>
+            </div>
+            <div class="modal__backdrop" id="modal-administratif" style="z-index: 999;">
+                <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
+                    {% include 'missionModal.html.twig' with {'prototype': formAdministratif} %}
+                </div>
+            </div>
+            <div class="modal__backdrop" id="modal-formation" style="z-index: 999;">
+                <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
+                    {% include 'missionModal.html.twig' with {'prototype': formFormation} %}
+                </div>
+            </div>
+
+
+
+        </div>
+
     {% endblock body_main_container_rapport_objects %}
 
     <br>

@@ -1,0 +1,16 @@
+<div class="row" style="align-items: center; padding: 1em;border: 2px solid var(--grey)">
+    <i class="fas fa-ship" style="align-self: center;font-size: 2em;flex-grow: 0;"></i>
+    <div class="" style="flex-grow: 1;max-width: 50%">
+        <h5 style="margin: 0">Contrôle de Navires</h5>
+        <div><span class="label">{{ mission.terrestre ? 'Terre' : 'Mer' }}</span>
+            {% for zone in mission.zone %}
+            <span class="label">{{zone}}</span>
+            {% endfor %}
+        </div>
+    </div>
+    <ul class="no-decoration" style="flex-grow: 1;">
+        <li>2 Navires Contrôlés</li>
+        <li>1 PV</li>
+    </ul>
+    <button class="button" style="flex-grow: 0;"><i class="fas fa-pen"></i> Éditer cette mission</button>
+</div>

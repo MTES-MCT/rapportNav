@@ -81,7 +81,21 @@ class DefaultController extends AbstractController {
 
         $crud = ['deletable' => true, 'draftable' => true];
 
-        return $this->render('rapport.html.twig', ['form' => $form->createView(), 'crud' => $crud]);
+        $formNavire = $this->createForm(MissionNavireType::class, null, ['service' => $service]);
+        $formCommerce = $this->createForm(MissionCommerceType::class, null, ['service' => $service]);
+        $formPechePied = $this->createForm(MissionPechePiedType::class, null, ['service' => $service]);
+        $formAdministratif = $this->createForm(MissionAdministratifType::class, null, ['service' => $service]);
+        $formFormation = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
+
+        return $this->render('rapport.html.twig', [
+            'crud' => $crud,
+            'form' => $form->createView(),
+            'formNavire' => $formNavire->createView(),
+            'formCommerce' => $formCommerce->createView(),
+            'formPechePied' => $formPechePied->createView(),
+            'formAdministratif' => $formAdministratif->createView(),
+            'formFormation' => $formFormation->createView(),
+            ]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\MethodeCiblage;
 use App\Entity\Natinf;
 use App\Entity\ControleNavire;
 use App\Entity\RapportNavireControle;
@@ -10,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,6 +35,13 @@ class ControleNavireType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Contrôles réalisés"])
+            ->add('methodeCiblage', EntityType::class, [
+                'class' => MethodeCiblage::class,
+                'required' => false,
+                'multiple' => false,
+                'expanded' => true,
+                'label' => "Choix du navire par"
+            ])
             ->add('pv', CheckboxType::class, [
                 'required' => false,
                 'label' => "PV émis ?"])
@@ -50,7 +59,7 @@ class ControleNavireType extends AbstractType {
                 'allow_extra_fields' => true,
                 'label' => "Code(s) NATINF",
             ])
-            ->add('commentaire', TextType::class, [
+            ->add('commentaire', TextareaType::class, [
                 'required' => false,
                 'label' => "Notes et commentaires"]);
 

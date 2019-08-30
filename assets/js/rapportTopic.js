@@ -39,13 +39,15 @@ export default class RapportTopic {
 
         // Display the form in the page in an li, before the "Ajouter un <element> contrôlé" link li
         let cssClass = (index % 2 ? '' : 'section-grey');
-        let $newFormLi = $('<li class="row ' + this.typeRapport + ' ' + cssClass + '"></li>').append(newForm);
+        let $newFormLi = $('<li class="' + this.typeRapport + ' ' + cssClass + '"></li>').append(newForm);
         this.$newLinkLi.before($newFormLi);
         this.addTagFormDeleteLink($newFormLi);
     }
 
     addTagFormDeleteLink($elementFormLi) {
-        let $removeFormButton = $('<button type="button">Supprimer ce contrôle</button>');
+        let $removeFormButton = $('<div style="display: flex; justify-content: flex-end">' +
+            '<button type="button" class="button warning"><i class="fas fa-trash-alt"></i> Supprimer ce contrôle</button>' +
+            '</div>');
         $elementFormLi.append($removeFormButton);
 
         $removeFormButton.on('click', function (e) {

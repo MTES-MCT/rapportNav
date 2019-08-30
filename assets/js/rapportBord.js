@@ -76,16 +76,6 @@ $(document).ready(function () {
         }
     });
 
-    let vm = new Vue({
-        el: "#aireMarine",
-        data: {aireMarine: false},
-        methods: {
-            tooggleAireMarine: function (event) {
-                this.aireMarine = event.target.options[event.target.selectedIndex].text === "Surveillance d'aire marine";
-            }
-        }
-    });
-
     // Get the ul that holds the collection of Navires
     let $collectionHolder = $('ul.navires');
 

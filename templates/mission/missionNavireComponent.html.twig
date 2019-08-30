@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="row">
+        <div class="form__group horizontal__form" id="">
+            {{ form_label(form.typeMissionControle) }}
+            {{ form_errors(form.typeMissionControle) }}
+            {{ form_widget(form.typeMissionControle, {'attr': {'v-on:change': "toggleAireMarine" }}) }}
+        </div>
+        <div v-if="missions['navire'].aireMarine">
+            Identification de l'aire Marine
+        </div>
+    </div>
+
+</div>
+<h3>Navires Contrôlés</h3>
+{% include 'controle/controleNavireComponent.html.twig' with {'form': form} %}
+
+

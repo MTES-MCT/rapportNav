@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Rapport;
+use App\Entity\MissionNavire;
 use App\Entity\TypeMissionControle;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -18,7 +18,7 @@ class MissionNavireType extends MissionType {
                 'class' => TypeMissionControle::class,
                 'required' => true,
                 'multiple' => false,
-                'expanded' => false,
+                'expanded' => true,
                 'placeholder' => '',
                 'label' => "Type de mission"])
             ->add('navires', CollectionType::class, [
@@ -28,12 +28,13 @@ class MissionNavireType extends MissionType {
                 'allow_delete' => true,
                 'by_reference' => false,
                 'label' => false,
+                'prototype' => true
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => Rapport::class,
+            'data_class' => MissionNavire::class,
             'service' => "",
         ]);
     }

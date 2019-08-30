@@ -21,16 +21,14 @@ Encore
     .addEntry('app', './assets/js/app.js')
 
     //Common for all rapport forms
-    .addEntry('rapport', ['./assets/js/rapportCommon.js'])
-
-    //For Rapport Navire
-    .addEntry('rapportNavire', ['./assets/js/rapportBord.js', './assets/js/moyenManage.js', './assets/js/manageDraft.js'])
-
-    //For Rapport Pêche À Pied
-    .addEntry('rapportPechePied', ['./assets/js/rapportPechePied.js', './assets/js/moyenManage.js', './assets/js/manageDraft.js'])
-
-    //For Rapport filière Commercialisation
-    .addEntry('rapportCommercialisation', ['./assets/js/rapportCommercialisation.js', './assets/js/moyenManage.js', './assets/js/manageDraft.js'])
+    .addEntry('rapport', ['./assets/js/rapportCommon.js',
+                                    './assets/js/moyenManage.js',
+                                    './assets/js/rapportBord.js',
+                                    './assets/js/rapportPechePied.js',
+                                    './assets/js/rapportCommercialisation.js',
+                                    './assets/js/manageDraft.js',
+                                    './assets/js/mission.js'
+                ])
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

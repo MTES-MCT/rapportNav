@@ -1,0 +1,63 @@
+<ul class="pecheurs no-decoration" data-prototype='
+    <div class="form__group horizontal__form">
+        <div>
+            {{ form_label(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
+            {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
+            {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
+        </div>
+        <div>
+            {{ form_label(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
+            {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
+            {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
+        </div>
+        {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': form.pecheursPied.vars.prototype.pecheurPied.estPro } %}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.pecheursPied.vars.prototype.pv)|e('html_attr') }}
+        {{ form_errors(form.pecheursPied.vars.prototype.pv)|e('html_attr') }}
+        {{ form_widget(form.pecheursPied.vars.prototype.pv)|e('html_attr') }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.pecheursPied.vars.prototype.natinfs)|e('html_attr') }}
+        {{ form_errors(form.pecheursPied.vars.prototype.natinfs)|e('html_attr') }}
+        {{ form_widget(form.pecheursPied.vars.prototype.natinfs, {'attr': {'class': "select2"}})|e('html_attr') }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.pecheursPied.vars.prototype.commentaire)|e('html_attr') }}
+        {{ form_errors(form.pecheursPied.vars.prototype.commentaire)|e('html_attr') }}
+        {{ form_widget(form.pecheursPied.vars.prototype.commentaire)|e('html_attr') }}
+    </div>
+    '>
+    {% for pecheurPiedControle in form.pecheursPied %}
+        <li class="row pecheur">
+            <div class="form__group horizontal__form">
+                <div>
+                    {{ form_label(pecheurPiedControle.pecheurPied.nom) }}
+                    {{ form_errors(pecheurPiedControle.pecheurPied.nom) }}
+                    {{ form_widget(pecheurPiedControle.pecheurPied.nom) }}
+                </div>
+                <div>
+                    {{ form_label(pecheurPiedControle.pecheurPied.prenom) }}
+                    {{ form_errors(pecheurPiedControle.pecheurPied.prenom) }}
+                    {{ form_widget(pecheurPiedControle.pecheurPied.prenom) }}
+                </div>
+                {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': pecheurPiedControle.pecheurPied.estPro } %}
+            </div>
+            <div class="form__group horizontal__form">
+                {{ form_label(pecheurPiedControle.pv) }}
+                {{ form_widget(pecheurPiedControle.pv) }}
+                {{ form_errors(pecheurPiedControle.pv) }}
+            </div>
+            <div class="form__group horizontal__form">
+                {{ form_label(pecheurPiedControle.natinfs) }}
+                {{ form_errors(pecheurPiedControle.natinfs) }}
+                {{ form_widget(pecheurPiedControle.natinfs, {'attr': {'class': "select2"}}) }}
+            </div>
+            <div class="form__group horizontal__form">
+                {{ form_label(pecheurPiedControle.commentaire) }}
+                {{ form_errors(pecheurPiedControle.commentaire) }}
+                {{ form_widget(pecheurPiedControle.commentaire) }}
+            </div>
+        </li>
+    {% endfor %}
+</ul>

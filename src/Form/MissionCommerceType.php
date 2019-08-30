@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\MissionCommerce;
 use App\Entity\Rapport;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,13 +20,12 @@ class MissionCommerceType extends MissionType {
                 'allow_delete' => true,
                 'by_reference' => false,
                 'label' => false,
-            ])
-            ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => Rapport::class,
+            'data_class' => MissionCommerce::class,
             'service' => "",
         ]);
     }

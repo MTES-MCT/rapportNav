@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Agent;
 use App\Entity\Rapport;
-use App\Entity\ZoneGeographique;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -19,8 +18,18 @@ class RapportType extends AbstractType {
         $service = $options['service'];
 
         $builder
-            ->add('dateDebutMission', DateTimeType::class, ['required' => true, 'label' => "Démarrage de la mission"])
-            ->add('dateFinMission', DateTimeType::class, ['required' => true, 'label' => "Fin de mission"])
+            ->add('dateDebutMission', DateTimeType::class, [
+                'required' => true,
+                'date_widget' => "single_text",
+                'time_label' => "Heure de démarrage",
+                'time_widget' => "single_text",
+                'label' => "Date de la mission"])
+            ->add('dateFinMission', DateTimeType::class, [
+                'required' => true,
+                'date_widget' => "single_text",
+                'time_label' => "Heure de fin",
+                'time_widget' => "single_text",
+                'label' => "Fin de mission"])
             ->add('arme', CheckboxType::class, [
                 'required' => false,
                 'label' => "Mission armée ?"])
@@ -42,7 +51,14 @@ class RapportType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Agents embauchés sur la mission"])
-            ->add('missions', CollectionType::class)
+            ->add('missions', CollectionType::class, [
+                'entry_type' => MissionNavireType::class,
+                'entry_options' => ['service' => $service],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'prototype' => true,
+            ])
             ->add('commentaire', null, [
                 'label' => "Commentaires et remarques (pour note interne)"]);
     }
