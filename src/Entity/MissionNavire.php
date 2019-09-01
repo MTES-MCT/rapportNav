@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class MissionNavire extends Mission {
     /**
-     * @ORM\OneToMany(targetEntity="ControleNavire", mappedBy="rapport", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ControleNavire", mappedBy="rapport", cascade={"persist"}, orphanRemoval=true)
      * @Assert\Valid
      */
     private $navires;
@@ -22,9 +22,23 @@ class MissionNavire extends Mission {
      */
     private $typeMissionControle;
 
+    public function getControles() {
+        return $this->getNavires();
+    }
+
     public function __construct() {
         parent::__construct();
         $this->navires = new ArrayCollection();
+    }
+
+    public function jsonSerialize() {
+        $data = parent::jsonSerialize();
+        $data['typeMissionControle'] = $this->getTypeMissionControle()->getId();
+        $data['navires'] = [];
+        foreach($this->getNavires() as $navire) {
+            $data['navires'][] = $navire;
+        }
+        return $data;
     }
 
     /**

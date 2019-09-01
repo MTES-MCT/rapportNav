@@ -1,5 +1,3 @@
-{{ form_start(prototype, {'attr': {'style': "max-width: 100%"}}) }}
-
 {% if prototype.navires is defined %}
     {% set type = "navire" %}
 {% endif %}
@@ -16,18 +14,16 @@
     {% set type = "formation" %}
 {% endif %}
 
-
-
 <h2>Mission</h2>
 
 <h4>Lieu de la mission</h4>
 <div style="border: 2px solid var(--grey);padding: 1em;margin-bottom: 1em;">
-    {{ form_errors(prototype.zone) }}
+    {{ form_errors(prototype.zones) }}
     <div class="row" style="flex-wrap: wrap;">
         <div class="form__group">
             {{ form_label(prototype.terrestre) }}
             <label class="switch-text">
-                {{ form_widget(prototype.terrestre, {'attr': {'class': "switch"}}) }}
+                {{ form_widget(prototype.terrestre, {'attr': {'class': "switch", 'v-model': "missions['"~type~"'].terrestre"}}) }}
                 <span class="switch-option">Mer</span>
                 <span class="switch-option">Terre</span>
                 <div class="form__errors">
@@ -35,9 +31,9 @@
                 </div>
             </label>
         </div>
-        {% for checkbox in prototype.zone %}
+        {% for checkbox in prototype.zones %}
             <span class="form__checkbox" style="margin: 0 5px 0 0">
-                                    {{ form_widget(checkbox, {'attr': {'class': "button"}}) }}
+                                    {{ form_widget(checkbox, {'attr': {'class': "button", 'v-model': "missions['"~type~"'].zones"}}) }}
                 {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline button"}}) }}
                                 </span>
         {% endfor %}
@@ -54,7 +50,7 @@
     </div>
 </div>
 
-    {% include 'mission/mission'~type[0:1]|upper~type[1:]~'Component.html.twig' with {'form': prototype} %}
+{% include 'mission/mission'~type[0:1]|upper~type[1:]~'Component.html.twig' with {'form': prototype} %}
 
 
 <div class="form__group">
@@ -63,13 +59,12 @@
 </div>
 
 {{ form_rest(prototype) }}
-{{ form_end(prototype) }}
 
 
 <div class="form__group button__group">
     <a class="button"
        href="#missions"
-    @click="addMission('{{ type }}')">Valider</a>
+       @click="addMission('{{ type }}')">Valider</a>
     <a class="button warning"
        href="#missions"
        @click="deleteMission('{{ type }}')">

@@ -3,9 +3,9 @@
         <div class="form__group horizontal__form" id="">
             {{ form_label(form.typeMissionControle) }}
             {{ form_errors(form.typeMissionControle) }}
-            {{ form_widget(form.typeMissionControle, {'attr': {'v-on:change': "toggleAireMarine" }}) }}
+            {{ form_widget(form.typeMissionControle) }}
         </div>
-        <div v-if="missions['navire'].aireMarine">
+        <div>
             Identification de l'aire Marine
         </div>
     </div>

@@ -4,27 +4,27 @@
             <h2>Ajouter une mission</h2>
 
             <div class="">
-                <a href="#modal-navire" class="button large" data-prototype=''>
+                <a href="#modal-navire" class="button large" @click="addMission('navire')">
                     Ajouter un contrôle de navire
                 </a>
             </div>
             <div class="">
-                <a href="#modal-commerce" class="button large">
+                <a href="#modal-commerce" class="button large" @click="addMission('commerce')">
                     Ajouter un contrôle de la filière commercialisation
                 </a>
             </div>
             <div class="">
-                <a href="#modal-pechepied" class="button large">
+                <a href="#modal-pechePied" class="button large" @click="addMission('pechePied')">
                     Ajouter un contrôle de la pêche à pied
                 </a>
             </div>
             <div class="">
-                <a href="#modal-administratif" class="button large">
+                <a href="#modal-administratif" class="button large" @click="addMission('administrative')">
                     Ajouter une activité administrative
                 </a>
             </div>
             <div class="">
-                <a href="#modal-formation" class="button large">
+                <a href="#modal-formation" class="button large" @click="addMission('formation')">
                     Ajouter une activité de formation
                 </a>
             </div>

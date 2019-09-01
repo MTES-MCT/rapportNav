@@ -16,8 +16,8 @@
             <ul>
                 {% for rapport in row %}
                     <li>
-                        <a href="{{ path('rapport_draft_edit', {'id': rapport.id, 'type': rapport.rapportType}) }}">
-                            Brouillon {{ rapport.id }} de {{ rapport.rapportType }} du {{ rapport.lastEdit | date('d/m/Y H:i') }}
+                        <a href="{{ path('rapport_draft_edit', {'id': rapport.id}) }}">
+                            Brouillon {{ rapport.id }} du {{ rapport.lastEdit | date('d/m/Y H:i') }}
                         </a>
                     </li>
                 {% endfor %}

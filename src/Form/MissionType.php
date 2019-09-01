@@ -18,7 +18,7 @@ class MissionType extends AbstractType {
             ->add('terrestre', CheckboxType::class, [
                 'required' => false,
                 'label' => "Mission à terre (en mer si non cochée)"])
-            ->add('zone', EntityType::class, [
+            ->add('zones', EntityType::class, [
                 'class' => ZoneGeographique::class,
                 'query_builder' => function(EntityRepository $er) use ($service) {
                     return $er->createQueryBuilder('z')

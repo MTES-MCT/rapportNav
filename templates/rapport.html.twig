@@ -87,7 +87,7 @@
                         {{ form_label(form.moyens.vars.prototype.tempsMoteur, "Temps moteur (min)")|e('html_attr') }}
                         {{ form_widget(form.moyens.vars.prototype.tempsMoteur)|e('html_attr') }}
                     </span>
-                    <button class="button moyen-delete">
+                    <button class="button warning moyen-delete">
                         <i class="fas fa-trash-alt"></i>
                         <span class="">Supprimer</span>
                     </button>
@@ -116,7 +116,7 @@
                                             {{ form_label(moyen.tempsMoteur, "Temps moteur (min)") }}
                                 {{ form_widget(moyen.tempsMoteur, {'required': displayTM}) }}
                                         </span>
-                            <button class="button moyen-delete">
+                            <button class="button warning moyen-delete">
                                 <i class="fas fa-trash-alt"></i>
                                 <span class="">Supprimer</span>
                             </button>
@@ -164,34 +164,31 @@
                 'prototype': form.missions.vars.prototype,
                 'navire': formNavire,
             } %}
-            <div class="modal__backdrop" id="modal-navire" style="z-index: 999;">
+            <div class="modal__backdrop" id="modal-navire" style="z-index: 999;" v-if="missions['navire'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
                     {% include 'missionModal.html.twig' with {'prototype': formNavire} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-commerce" style="z-index: 999;">
+            <div class="modal__backdrop" id="modal-commerce" style="z-index: 999;" v-if="missions['commerce'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
                     {% include 'missionModal.html.twig' with {'prototype': formCommerce} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-pechePied" style="z-index: 999;">
+            <div class="modal__backdrop" id="modal-pechePied" style="z-index: 999;" v-if="missions['pechePied'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
                     {% include 'missionModal.html.twig' with {'prototype': formPechePied} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-administratif" style="z-index: 999;">
+            <div class="modal__backdrop" id="modal-administratif" style="z-index: 999;" v-if="missions['administratif'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
                     {% include 'missionModal.html.twig' with {'prototype': formAdministratif} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-formation" style="z-index: 999;">
+            <div class="modal__backdrop" id="modal-formation" style="z-index: 999;" v-if="missions['formation'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
                     {% include 'missionModal.html.twig' with {'prototype': formFormation} %}
                 </div>
             </div>
-
-
-
         </div>
 
     {% endblock body_main_container_rapport_objects %}
@@ -210,16 +207,18 @@
 
     <div class="form__group form__validators">
         {% if crud.deletable is defined and crud.deletable %}
-            <button type="button" id="form-delete" class="button large warning formActionButton"><i
-                        class="fas fa-trash-alt"></i> Supprimer le rapport
+            <button type="button" id="form-delete" class="button large warning formActionButton" @click="doNotConfirmLeave">
+                <i class="fas fa-trash-alt"></i> Supprimer le rapport
             </button>
         {% endif %}
         {% if crud.draftable is defined and crud.draftable %}
-            <button type="button" id="form-save" class="button large formActionButton"><i class="far fa-save"></i>
+            <button type="button" id="form-save" class="button large formActionButton" @click="doNotConfirmLeave">
+                <i class="far fa-save"></i>
                 Enregistrer le brouillon
             </button>
         {% endif %}
-        <button type="submit" id="form-submit" class="button large formActionButton"><i class="far fa-check-circle"></i>
+        <button type="submit" id="form-submit" class="button large formActionButton" @click="doNotConfirmLeave">
+            <i class="far fa-check-circle"></i>
             Valider le rapport
         </button>
     </div>
@@ -238,5 +237,8 @@
     {{ encore_entry_script_tags('rapport') }}
     {% if data is defined %}
         <span id="draft-data" style="display: none" data-content="{{ data }}"></span>
+    {% endif %}
+    {% if missions is defined %}
+        <span id="missions-data" style="display: none" data-content="{{ missions | json_encode }}"></span>
     {% endif %}
 {% endblock javascripts %}

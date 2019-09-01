@@ -21,7 +21,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
 
     //Common for all rapport forms
-    .addEntry('rapport', ['./assets/js/rapportCommon.js',
+    .addEntry('rapport', [
                                     './assets/js/moyenManage.js',
                                     './assets/js/rapportBord.js',
                                     './assets/js/rapportPechePied.js',

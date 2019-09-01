@@ -29,11 +29,6 @@ class Draft {
     private $owner;
 
     /**
-     * @ORM\Column(type="string", length=45)
-     */
-    private $rapportType;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $lastEdit;

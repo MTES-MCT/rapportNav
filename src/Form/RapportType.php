@@ -52,7 +52,7 @@ class RapportType extends AbstractType {
                 'expanded' => true,
                 'label' => "Agents embauchés sur la mission"])
             ->add('missions', CollectionType::class, [
-                'entry_type' => MissionNavireType::class,
+                'entry_type' => MissionType::class,
                 'entry_options' => ['service' => $service],
                 'allow_add' => true,
                 'allow_delete' => true,

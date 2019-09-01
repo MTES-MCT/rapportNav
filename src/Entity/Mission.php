@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "formation" = "MissionFormation"
  *     })
  */
-abstract class Mission {
+abstract class Mission implements \JsonSerializable {
     public const RAPPORTTYPES = [
         "navire" => "MissionNavire",
         "commerce" => "MissionCommerce",
@@ -46,7 +46,7 @@ abstract class Mission {
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\ZoneGeographique")
      */
-    private $zone;
+    private $zones;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=8, nullable=true)
@@ -64,8 +64,25 @@ abstract class Mission {
      */
     private $commentaire;
 
+    public abstract function getControles();
+
+    public function jsonSerialize() {
+        $data = [];
+
+        $data['terrestre'] = $this->getTerrestre();
+        $data['zones'] = [];
+        foreach($this->getZones() as $zone) {
+            $data['zones'][] = $zone->getId();
+        }
+        $data['gpslat'] = $this->getGpsLat();
+        $data['gpslng'] = $this->getGpsLng();
+        $data['commentaire'] = $this->getCommentaire();
+
+        return $data;
+    }
+
     public function __construct() {
-        $this->zone = new ArrayCollection();
+        $this->zones = new ArrayCollection();
     }
 
     public function getId(): ?int {
@@ -95,21 +112,21 @@ abstract class Mission {
     /**
      * @return Collection|ZoneGeographique[]
      */
-    public function getZone(): Collection {
-        return $this->zone;
+    public function getZones(): Collection {
+        return $this->zones;
     }
 
     public function addZone(ZoneGeographique $zone): self {
-        if(!$this->zone->contains($zone)) {
-            $this->zone[] = $zone;
+        if(!$this->zones->contains($zone)) {
+            $this->zones[] = $zone;
         }
 
         return $this;
     }
 
     public function removeZone(ZoneGeographique $zone): self {
-        if($this->zone->contains($zone)) {
-            $this->zone->removeElement($zone);
+        if($this->zones->contains($zone)) {
+            $this->zones->removeElement($zone);
         }
 
         return $this;

@@ -17,9 +17,22 @@ class MissionPechePied extends Mission {
      */
     private $pecheursPied;
 
+    public function getControles() {
+        return $this->getPecheursPied();
+    }
+
     public function __construct() {
         parent::__construct();
         $this->pecheursPied = new ArrayCollection();
+    }
+
+    public function jsonSerialize() {
+        $data = parent::jsonSerialize();
+        $data['pecheurPied'] = [];
+        foreach($this->getPecheursPied() as $pecheurPied) {
+            $data['pecheurPied'][] = $pecheurPied;
+        }
+        return $data;
     }
 
     /**

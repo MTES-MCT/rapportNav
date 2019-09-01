@@ -13,6 +13,16 @@ class MissionFormation extends Mission {
      */
     private $formation;
 
+    public function getControles() {
+        return null;
+    }
+
+    public function jsonSerialize() {
+        $data = parent::jsonSerialize();
+        $data['formation'] = $this->getFormation();
+        return $data;
+    }
+
     public function getFormation(): ?string {
         return $this->formation;
     }

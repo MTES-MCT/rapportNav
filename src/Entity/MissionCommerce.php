@@ -17,9 +17,22 @@ class MissionCommerce extends Mission {
      */
     private $etablissements;
 
+    public function getControles() {
+        return $this->getEtablissements();
+    }
+
     public function __construct() {
         parent::__construct();
         $this->etablissements = new ArrayCollection();
+    }
+
+    public function jsonSerialize() {
+        $data = parent::jsonSerialize();
+        $data['etablissements'] = [];
+        foreach($this->getEtablissements() as $etablissement) {
+            $data['etablissements'][] = $etablissement;
+        }
+        return $data;
     }
 
     /**
