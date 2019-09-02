@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Navire;
 use App\Entity\Rapport;
 use App\Entity\Service;
 use App\Entity\User;

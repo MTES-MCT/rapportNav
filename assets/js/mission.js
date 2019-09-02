@@ -1,6 +1,8 @@
 import Vue from "vue";
 import mission from './missioncomponent';
 import $ from 'jquery';
+import RapportTopic from "./rapportTopic";
+import params from "./params";
 
 $(document).ready(function () {
     let vmission = new Vue({
@@ -15,7 +17,7 @@ $(document).ready(function () {
                     terrestre: false,
                     zones: [],
                     typeMissionControle: 0,
-                    controles: {nombre: 0, pv: 0},
+                    controles: []
                 },
                 commerce: {
                     type: "commerces",
@@ -23,7 +25,7 @@ $(document).ready(function () {
                     active: false,
                     terrestre: true,
                     zones: [],
-                    controles: {nombre: 0, pv: 0}
+                    controles: []
                 },
                 pechePied: {
                     type: "pêcheurs à pied",
@@ -31,7 +33,7 @@ $(document).ready(function () {
                     active: false,
                     terrestre: true,
                     zones: [],
-                    controles: {nombre: 0, pv: 0}
+                    controles: []
                 },
                 administratif: {
                     type: "administratif",
@@ -41,7 +43,8 @@ $(document).ready(function () {
                     zones: []
                 },
                 formation: {type: "formation", logo: "fas fa-graduation-cap", active: false, terrestre: true, zones: []}
-            }
+            },
+            rapportNavire: new RapportTopic("navire")
         },
         components: {mission},
         mounted: function () {
@@ -49,9 +52,7 @@ $(document).ready(function () {
         },
         created: function () {
             let missions = $('#missions-data').data('content');
-            console.log(missions);
             for (let [index, mission] of Object.entries(missions)) {
-                console.log(index, mission);
                 for (let [property, val] of Object.entries(mission)) {
                     this.missions[index][property] = val;
                 }
@@ -79,6 +80,85 @@ $(document).ready(function () {
             },
             doNotConfirmLeave: function () {
                 this.confirmBeforeLeave = false;
+            },
+            addControle: function() {
+                this.missions['navire'].controles.push(
+                    {
+                        'navire': {"immatriculationFr": null, "nom": null, "longueurHorsTout": null, "typeUsage": null},
+                        'controles': [],
+                        'methodeCiblage': null,
+                        'pv': false,
+                        'natinfs': [],
+                        'commentaire': null
+                    }
+                );
+                $('select[name=mission_navire[navires][__name__][natinfs][]').select2({
+                    minimumInputLength: 3,
+                    ajax: {
+                        url: function (data) {
+                            return params.apiNatinf + 'natinfs/' + data.term;
+                        },
+                        data: {},
+                        delay: 250,
+                        dataType: 'json',
+                        processResults: function (data) {
+                            return {
+                                results: [{
+                                    "id": data.natinf,
+                                    "text": data.natinf
+                                }]
+                            };
+                        }
+                    }
+                });
+            },
+            removeControle: function(index) {
+                this.missions['navire'].controles.splice(index, 1);
+            },
+            getNavireData: function (index, event) {
+                let currentNavire = this.missions['navire'].controles[index].navire;
+                let input = $(event.target), plaisance = false;
+                if("" === input.val()) {
+                    return;
+                }
+                $.get(params.apiNavires + "navires/" + input.val())
+                    .catch(function (reason) {
+                        console.log("Immatriculation non trouvée dans Navires (err. " + reason.status + ")");
+                        plaisance = true;
+                        return $.get(params.apiNavires + "plaisances/" + input.val())
+                    })
+                    .catch(function (data) {
+                        if (input.parent().find(".immatriculation_invalide")) {
+                            input.parent().find(".immatriculation_invalide").remove();
+                        }
+
+                        if (data.status === 404) {
+                            input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
+                        } else {
+                            input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
+                        }
+
+                        currentNavire.nom = "";
+                        currentNavire.longueurHorsTout = "";
+                        currentNavire.typeUsage = "";
+                    })
+                    .then(function (data) {
+                        let parent = input.parents("li");
+                        currentNavire.nom = data.nomNavire;
+                        currentNavire.longueurHorsTout = data.longueurHorsTout;
+                        if(!plaisance) {
+                            parent.find("input[id$=_navire_typeUsage]").val(data.genreNavigation || "Inconnu");
+                            currentNavire.typeUsage = data.genreNavigation || "Inconnu";
+                        } else {
+                            currentNavire.typeUsage = "Plaisance";
+                        }
+                        if (input.parent().find(".immatriculation_invalide")) {
+                            input.parent().find(".immatriculation_invalide").remove();
+                        }
+                    })
+            },
+            getNatinfData: function() {
+
             }
         }
     });

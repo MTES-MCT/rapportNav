@@ -1,23 +1,25 @@
 <div>
     {{ form_label(navire.immatriculation_fr) }}
     {{ form_errors(navire.immatriculation_fr) }}
-    {{ form_widget(navire.immatriculation_fr) }}
+    {{ form_widget(navire.immatriculation_fr, {'attr': {
+        'v-model': "controle.navire.immatriculationFr",
+        '@change': "getNavireData(index, $event)"}}) }}
     {{ form_widget(navire.idNavFloteur) }}
 </div>
 <div>
     {{ form_label(navire.nom) }}
     {{ form_errors(navire.nom) }}
-    {{ form_widget(navire.nom) }}
+    {{ form_widget(navire.nom, {'attr': {'v-model': "controle.navire.nom"}}) }}
 </div>
 <div>
     {{ form_label(navire.longueurHorsTout) }}
     {{ form_errors(navire.longueurHorsTout) }}
-    {{ form_widget(navire.longueurHorsTout) }}
+    {{ form_widget(navire.longueurHorsTout, {'attr': {'v-model': "controle.navire.longueurHorsTout"}}) }}
 </div>
 <div>
     {{ form_label(navire.typeUsage) }}
     {{ form_errors(navire.typeUsage) }}
-    {{ form_widget(navire.typeUsage) }}
+    {{ form_widget(navire.typeUsage, {'attr': {'v-model': "controle.navire.typeUsage"}}) }}
 </div>
 
 {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': navire.isErreur, 'attr': {'class': "isNavireHasError"} } %}

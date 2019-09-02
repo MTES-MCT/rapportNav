@@ -1,4 +1,5 @@
-<ul class="navires no-decoration" id="navires" data-prototype='
+<ul class="navires no-decoration" id="navires">
+    <li class="navire" v-for="(controle, index) in missions['navire'].controles">
         <div class="row">
             <div class="form__group horizontal__form" style="width: 250px;">
                 {% include 'formThemes/navireFormTheme.html.twig' with {'navire': form.navires.vars.prototype.navire} %}
@@ -8,7 +9,7 @@
                     {{ form_label(form.navires.vars.prototype.controles, null, {'element': 'legend'} ) }}
                     {{ form_errors(form.navires.vars.prototype.controles) }}
                     {% for box in form.navires.vars.prototype.controles %}
-                        {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box} %}
+                        {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {'v-model': "controle.controles"}} %}
                     {% endfor %}
                 </fieldset>
             </div>
@@ -20,13 +21,15 @@
         </div>
         <div class="row" style="justify-content: flex-start;align-items: center;">
             <div class="form__group horizontal__form">
-                {{ form_widget(form.navires.vars.prototype.pv, {'attr': {'class': 'switch'}}) }}
+                {{ form_widget(form.navires.vars.prototype.pv, {'attr': {'class': 'switch', 'v-model': "controle.pv"}}) }}
                 {{ form_label(form.navires.vars.prototype.pv, null, {'label_attr': {'class': "label-inline"}}) }}
                 {{ form_errors(form.navires.vars.prototype.pv) }}
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">
                 {{ form_label(form.navires.vars.prototype.natinfs) }}
-                {{ form_widget(form.navires.vars.prototype.natinfs, {'attr': {'class': "select2", 'style': "width: 100%"}}) }}
+                {{ form_widget(form.navires.vars.prototype.natinfs, {
+                    'attr': {'class': "select2", 'style': "width: 100%", 'v-model': "controle.natinfs"}
+                }) }}
                 {{ form_errors(form.navires.vars.prototype.natinfs) }}
             </div>
             <button type="button" class="button"><i class="fas fa-search"></i> Rechercher un code</button>
@@ -34,48 +37,18 @@
         <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.commentaire) }}
             {{ form_errors(form.navires.vars.prototype.commentaire) }}
-            {{ form_widget(form.navires.vars.prototype.commentaire) }}
+            {{ form_widget(form.navires.vars.prototype.commentaire, {'attr': {'v-model': "controle.commentaire"}}) }}
         </div>
-    '>
-    {% for navireControle in form.navires %}
-        <li class="navire">
-            <div class="row">
-                <div class="form__group horizontal__form" style="width: 250px;">
-                    {% include 'formThemes/navireFormTheme.html.twig' with {'navire': navireControle.navire} %}
-                </div>
-                <div class="form__group horizontal__form" style="flex-grow: 2;">
-                    <fieldset class="vertical">
-                        {{ form_label(navireControle.controles, null, {'element': 'legend'} ) }}
-                        {{ form_errors(navireControle.controles) }}
-                        {% for box in navireControle.controles %}
-                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box} %}
-                        {% endfor %}
-                    </fieldset>
-                </div>
-                <div style="flex-grow: 1">
-                    {{ form_label(navireControle.methodeCiblage) }}
-                    {{ form_errors(navireControle.methodeCiblage) }}
-                    {{ form_widget(navireControle.methodeCiblage) }}
-                </div>
-            </div>
-            <div class="row" style="justify-content: flex-start;align-items: center;">
-                <div class="form__group horizontal__form">
-                    {{ form_widget(navireControle.pv, {'attr': {'class': 'switch'}}) }}
-                    {{ form_label(navireControle.pv, null, {'label_attr': {'class': "label-inline"}}) }}
-                    {{ form_errors(navireControle.pv) }}
-                </div>
-                <div class="form__group horizontal__form" style="min-width: 150px;">
-                    {{ form_label(navireControle.natinfs) }}
-                    {{ form_widget(navireControle.natinfs, {'attr': {'class': "select2", 'style': "width: 100%"}}) }}
-                    {{ form_errors(navireControle.natinfs) }}
-                </div>
-                <button type="button" class="button"><i class="fas fa-search"></i> Rechercher un code</button>
-            </div>
-            <div class="form__group horizontal__form">
-                {{ form_label(navireControle.commentaire) }}
-                {{ form_errors(navireControle.commentaire) }}
-                {{ form_widget(navireControle.commentaire) }}
-            </div>
-        </li>
-    {% endfor %}
+        <div style="display: flex; justify-content: flex-end">
+            <button type="button" class="button warning" @click="removeControle(index)">
+                <i class="fas fa-trash-alt"></i>
+                Supprimer ce contrôle
+            </button>
+        </div>
+    </li>
+    <li>
+        <button type="button" id="add-controlled-elem" class="add_navire_link button" @click="addControle">
+            Ajouter un navire contrôlé
+        </button>
+    </li>
 </ul>
