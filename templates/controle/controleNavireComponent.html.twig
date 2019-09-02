@@ -32,17 +32,16 @@
                         name="{{form.navires.vars.prototype.natinfs.vars.full_name}}"
                         v-model="controle.natinfs"
                 style="display:none;">
-                    <option v-for="option in controle.natinfs" v-bind:value="option" v-html="option">
+                    <option v-for="option in controle.natinfs" :value="option" v-html="option">
                     </option>
                 </select>
-                {% do form.navires.vars.prototype.natinfs.setRendered %}
-                {{ form_errors(form.navires.vars.prototype.natinfs) }}
-
                 <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs" :options="natinfsOptions">
                     <template slot="no-options">
                         Entrez un code Natinf
                     </template>
                 </v-select>
+                {% do form.navires.vars.prototype.natinfs.setRendered %}
+                {{ form_errors(form.navires.vars.prototype.natinfs) }}
             </div>
             <button type="button" class="button"><i class="fas fa-search"></i> Rechercher un code</button>
         </div>
@@ -52,14 +51,14 @@
             {{ form_widget(form.navires.vars.prototype.commentaire, {'attr': {'v-model': "controle.commentaire"}}) }}
         </div>
         <div style="display: flex; justify-content: flex-end">
-            <button type="button" class="button warning" @click="removeControle(index)">
+            <button type="button" class="button warning" @click="removeControle('navire', index)">
                 <i class="fas fa-trash-alt"></i>
                 Supprimer ce contrôle
             </button>
         </div>
     </li>
     <li>
-        <button type="button" id="add-controlled-elem" class="add_navire_link button" @click="addControle">
+        <button type="button" id="add-controle-navire" class="add_navire_link button" @click="addControle('navire')">
             Ajouter un navire contrôlé
         </button>
     </li>

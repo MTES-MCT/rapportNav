@@ -1,53 +1,65 @@
-<ul class="etablissements no-decoration" data-prototype='
+<ul class="etablissements no-decoration">
+    <li class="row etablissement" v-for="(controle, index) in missions['commerce'].controles">
         <div class="form__group horizontal__form">
-            {{ form_widget(form.etablissements.vars.prototype.etablissement)|e('html_attr') }}
+            <div>
+                {{ form_label(form.etablissements.vars.prototype.etablissement.nom) }}
+                {{ form_errors(form.etablissements.vars.prototype.etablissement.nom) }}
+                {{ form_widget(form.etablissements.vars.prototype.etablissement.nom, {'attr': {'v-model': "controle.etablissement.nom"}}) }}
+            </div>
+            <div>
+                {{ form_label(form.etablissements.vars.prototype.etablissement.type) }}
+                {{ form_errors(form.etablissements.vars.prototype.etablissement.type) }}
+                {{ form_widget(form.etablissements.vars.prototype.etablissement.type, {'attr': {'v-model': "controle.etablissement.type"}}) }}
+            </div>
         </div>
         <div class="form__group horizontal__form">
             {{ form_label(form.etablissements.vars.prototype.bateauxControles) }}
             {{ form_errors(form.etablissements.vars.prototype.bateauxControles) }}
-            {{ form_widget(form.etablissements.vars.prototype.bateauxControles) }}
+            {{ form_widget(form.etablissements.vars.prototype.bateauxControles, {'attr': {'v-model': "controle.bateauxControles"}}) }}
         </div>
         <div class="form__group horizontal__form">
-            {{ form_label(form.etablissements.vars.prototype.pv)|e('html_attr') }}
-            {{ form_errors(form.etablissements.vars.prototype.pv)|e('html_attr') }}
-            {{ form_widget(form.etablissements.vars.prototype.pv)|e('html_attr') }}
+            {{ form_label(form.etablissements.vars.prototype.pv) }}
+            {{ form_errors(form.etablissements.vars.prototype.pv) }}
+            {{ form_widget(form.etablissements.vars.prototype.pv, {'attr': {'v-model': "controle.pv"}}) }}
         </div>
+
         <div class="form__group horizontal__form">
-            {{ form_label(form.etablissements.vars.prototype.natinfs)|e('html_attr') }}
-            {{ form_errors(form.etablissements.vars.prototype.natinfs)|e('html_attr') }}
-            {{ form_widget(form.etablissements.vars.prototype.natinfs, {'attr': {'class': "select2"}})|e('html_attr') }}
+            {{ form_label(form.etablissements.vars.prototype.natinfs) }}
+            <select multiple
+                    id="{{ form.etablissements.vars.prototype.natinfs.vars.id }}"
+                    name="{{ form.etablissements.vars.prototype.natinfs.vars.full_name }}"
+                    v-model="controle.natinfs"
+                    style="display:none;">
+                <option v-for="option in controle.natinfs" :value="option" v-html="option">
+                </option>
+            </select>
+            <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs"
+                      :options="natinfsOptions">
+                <template slot="no-options">
+                    Entrez un code Natinf
+                </template>
+            </v-select>
+            {% do form.etablissements.vars.prototype.natinfs.setRendered %}
+            {{ form_errors(form.etablissements.vars.prototype.natinfs) }}
         </div>
+
+
         <div class="form__group horizontal__form">
-            {{ form_label(form.etablissements.vars.prototype.commentaire)|e('html_attr') }}
-            {{ form_errors(form.etablissements.vars.prototype.commentaire)|e('html_attr') }}
-            {{ form_widget(form.etablissements.vars.prototype.commentaire)|e('html_attr') }}
+            {{ form_label(form.etablissements.vars.prototype.commentaire) }}
+            {{ form_errors(form.etablissements.vars.prototype.commentaire) }}
+            {{ form_widget(form.etablissements.vars.prototype.commentaire, {'attr': {'v-model': "controle.commentaire"}}) }}
         </div>
-    '>
-    {% for etablissementControle in form.etablissements %}
-        <li class="row etablissement">
-            <div class="form__group horizontal__form">
-                {{ form_widget(etablissementControle.etablissement) }}
-            </div>
-            <div class="form__group horizontal__form">
-                {{ form_label(etablissementControle.bateauxControles) }}
-                {{ form_errors(etablissementControle.bateauxControles) }}
-                {{ form_widget(etablissementControle.bateauxControles) }}
-            </div>
-            <div class="form__group horizontal__form">
-                {{ form_label(etablissementControle.pv) }}
-                {{ form_errors(etablissementControle.pv) }}
-                {{ form_widget(etablissementControle.pv) }}
-            </div>
-            <div class="form__group horizontal__form">
-                {{ form_label(etablissementControle.natinfs) }}
-                {{ form_errors(etablissementControle.natinfs) }}
-                {{ form_widget(etablissementControle.natinfs, {'attr': {'class': "select2"}}) }}
-            </div>
-            <div class="form__group horizontal__form">
-                {{ form_label(etablissementControle.commentaire) }}
-                {{ form_errors(etablissementControle.commentaire) }}
-                {{ form_widget(etablissementControle.commentaire) }}
-            </div>
-        </li>
-    {% endfor %}
+        <div style="display: flex; justify-content: flex-end">
+            <button type="button" class="button warning" @click="removeControle('commerce', index)">
+                <i class="fas fa-trash-alt"></i>
+                Supprimer ce contrôle
+            </button>
+        </div>
+    </li>
+    <li>
+        <button type="button" id="add-controle-commerce" class="add_navire_link button"
+                @click="addControle('commerce')">
+            Ajouter un établissement contrôlé
+        </button>
+    </li>
 </ul>

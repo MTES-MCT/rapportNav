@@ -23,8 +23,6 @@ Encore
     //Common for all rapport forms
     .addEntry('rapport', [
                                     './assets/js/moyenManage.js',
-                                    './assets/js/rapportPechePied.js',
-                                    './assets/js/rapportCommercialisation.js',
                                     './assets/js/manageDraft.js',
                                     './assets/js/mission.js'
                 ])

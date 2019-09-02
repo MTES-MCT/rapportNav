@@ -52,7 +52,7 @@ $(document).ready(function () {
             },
             rapportNavire: new RapportTopic("navire")
         },
-        components: { mission },
+        components: {mission},
         mounted: function () {
             window.addEventListener('beforeunload', this.handleUnload);
         },
@@ -87,25 +87,41 @@ $(document).ready(function () {
             doNotConfirmLeave: function () {
                 this.confirmBeforeLeave = false;
             },
-            addControle: function() {
-                this.missions['navire'].controles.push(
-                    {
-                        'navire': {"immatriculationFr": null, "nom": null, "longueurHorsTout": null, "typeUsage": null},
-                        'controles': [],
-                        'methodeCiblage': null,
-                        'pv': false,
-                        'natinfs': [],
-                        'commentaire': null
-                    }
-                );
+            addControle: function (type) {
+                let newControle = {
+                    'methodeCiblage': null,
+                    'pv': false,
+                    'natinfs': [],
+                    'commentaire': null
+                };
+
+                switch (type) {
+                    case 'navire':
+                        newControle['navire'] = {
+                            "immatriculationFr": null,
+                            "nom": null,
+                            "longueurHorsTout": null,
+                            "typeUsage": null
+                        };
+                        newControle['controles'] = [];
+                        break;
+                    case 'commerce':
+                        newControle['etablissement'] = {"nom": null, "type": null};
+                        break;
+                    case 'pechePied':
+                        newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
+                }
+
+
+                this.missions[type].controles.push(newControle);
             },
-            removeControle: function(index) {
-                this.missions['navire'].controles.splice(index, 1);
+            removeControle: function (type, index) {
+                this.missions[type].controles.splice(index, 1);
             },
             getNavireData: function (index, event) {
                 let currentNavire = this.missions['navire'].controles[index].navire;
                 let input = $(event.target), plaisance = false;
-                if("" === input.val()) {
+                if ("" === input.val()) {
                     return;
                 }
                 $.get(params.apiNavires + "navires/" + input.val())
@@ -133,7 +149,7 @@ $(document).ready(function () {
                         let parent = input.parents("li");
                         currentNavire.nom = data.nomNavire;
                         currentNavire.longueurHorsTout = data.longueurHorsTout;
-                        if(!plaisance) {
+                        if (!plaisance) {
                             parent.find("input[id$=_navire_typeUsage]").val(data.genreNavigation || "Inconnu");
                             currentNavire.typeUsage = data.genreNavigation || "Inconnu";
                         } else {
@@ -144,7 +160,7 @@ $(document).ready(function () {
                         }
                     })
             },
-            getNatinfData: function(search, loading) {
+            getNatinfData: function (search, loading) {
                 loading(true);
                 let vm = this;
                 $.ajax({
@@ -152,10 +168,10 @@ $(document).ready(function () {
                     data: {},
                     dataType: 'json',
                 })
-                .then(function(data) {
-                    vm.natinfsOptions.push(data.natinf);
-                    loading(false);
-                })
+                    .then(function (data) {
+                        vm.natinfsOptions.push(data.natinf);
+                        loading(false);
+                    })
                 ;
 
             }
