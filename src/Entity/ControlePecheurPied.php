@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ControlePecheurPiedRepository")
  */
-class ControlePecheurPied {
+class ControlePecheurPied implements JsonSerializable {
     use RapportControle;
 
     /**
@@ -46,6 +47,24 @@ class ControlePecheurPied {
      * @ORM\Column(type="text", nullable=true)
      */
     private $commentaire;
+
+    public function jsonSerialize() {
+        $data = [];
+        $data['pv'] = $this->getPv();
+
+        $data['natinfs'] = [];
+        foreach($this->getNatinfs() as $natinf) {
+            $data['natinfs'][] = $natinf->getNumero();
+        }
+
+        $data['commentaire'] = $this->getCommentaire();
+
+        $data['pecheurPied'] = [];
+        foreach($this->getPecheurPied() as $pp) {
+            $data['pecheurPied'][] = $pp;
+        }
+        return $data;
+    }
 
     public function __construct() {
         $this->natinfs = new ArrayCollection();

@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EtablissementRepository")
  */
-class Etablissement {
+class Etablissement implements JsonSerializable {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -27,6 +28,14 @@ class Etablissement {
      * @Assert\NotBlank
      */
     private $nom;
+
+    public function jsonSerialize() {
+        $data = [];
+        $data['type'] = $this->getType();
+        $data['nom'] = $this->getNom();
+
+        return $data;
+    }
 
     public function getId(): ?int {
         return $this->id;

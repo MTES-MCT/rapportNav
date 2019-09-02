@@ -5,12 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ControleNavireRepository")
  */
-class ControleNavire {
+class ControleNavire implements JsonSerializable {
     use RapportControle;
 
     /**
@@ -57,6 +58,29 @@ class ControleNavire {
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $commentaire;
+
+    public function jsonSerialize() {
+        $data = [];
+        $data['pv'] = $this->getPv();
+
+        $data['natinfs'] = [];
+        foreach($this->getNatinfs() as $natinf) {
+            $data['natinfs'][] = $natinf->getNumero();
+        }
+        $data['commentaire'] = $this->getCommentaire();
+
+        $data['navire'] = [];
+        foreach($this->getNavire() as $n) {
+            $data['navire'][] = $n;
+        }
+
+        $data['controles'] = [];
+        foreach($this->getControles() as $controle) {
+            $data['controles'][] = $controle->getId();
+        }
+
+        return $data;
+    }
 
     public function __construct() {
         $this->controles = new ArrayCollection();

@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
- * @ORM\Entity(repositoryClass="PecheurPiedRepository")
+ * @ORM\Entity(repositoryClass="App\REpository\PecheurPiedRepository")
  */
-class PecheurPied {
+class PecheurPied implements JsonSerializable {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -29,6 +30,14 @@ class PecheurPied {
      * @ORM\Column(type="boolean")
      */
     private $estPro = false;
+
+    public function jsonSerialize() {
+        $data = [];
+        $data['nom'] = $this->getNom();
+        $data['prenom'] = $this->getPrenom();
+        $data['estPro'] = $this->getEstPro();
+        return $data;
+    }
 
     public function getId(): ?int {
         return $this->id;

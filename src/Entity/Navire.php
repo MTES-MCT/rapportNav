@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NavireRepository")
  */
-class  Navire {
+class  Navire implements JsonSerializable {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -61,6 +62,15 @@ class  Navire {
      */
     private $erreurTexte;
 
+    public function jsonSerialize() {
+        $data = [];
+        $data['immatriculationFr'] = $this->getImmatriculationFr();
+        $data['nom'] = $this->getNom();
+        $data['longueurHorsTout'] = $this->getLongueurHorsTout();
+        $data['typeUsage'] = $this->getTypeUsage();
+
+        return $data;
+    }
 
     public function getId(): ?int {
         return $this->id;
