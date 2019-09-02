@@ -27,10 +27,22 @@
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">
                 {{ form_label(form.navires.vars.prototype.natinfs) }}
-                {{ form_widget(form.navires.vars.prototype.natinfs, {
-                    'attr': {'class': "select2", 'style': "width: 100%", 'v-model': "controle.natinfs"}
-                }) }}
+                <select multiple
+                        id="{{ form.navires.vars.prototype.natinfs.vars.id }}"
+                        name="{{form.navires.vars.prototype.natinfs.vars.full_name}}"
+                        v-model="controle.natinfs"
+                style="display:none;">
+                    <option v-for="option in controle.natinfs" v-bind:value="option" v-html="option">
+                    </option>
+                </select>
+                {% do form.navires.vars.prototype.natinfs.setRendered %}
                 {{ form_errors(form.navires.vars.prototype.natinfs) }}
+
+                <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs" :options="natinfsOptions">
+                    <template slot="no-options">
+                        Entrez un code Natinf
+                    </template>
+                </v-select>
             </div>
             <button type="button" class="button"><i class="fas fa-search"></i> Rechercher un code</button>
         </div>

@@ -3,11 +3,17 @@ import mission from './missioncomponent';
 import $ from 'jquery';
 import RapportTopic from "./rapportTopic";
 import params from "./params";
+import vSelect from 'vue-select'
+
+import 'vue-select/dist/vue-select.css';
+
+Vue.component('v-select', vSelect);
 
 $(document).ready(function () {
     let vmission = new Vue({
-        el: "#main-container",
+        el: "#missions",
         data: {
+            natinfsOptions: [],
             confirmBeforeLeave: true,
             missions: {
                 navire: {
@@ -46,12 +52,12 @@ $(document).ready(function () {
             },
             rapportNavire: new RapportTopic("navire")
         },
-        components: {mission},
+        components: { mission },
         mounted: function () {
             window.addEventListener('beforeunload', this.handleUnload);
         },
         created: function () {
-            let missions = $('#missions-data').data('content');
+            let missions = $('#missions-data').data('content') || {};
             for (let [index, mission] of Object.entries(missions)) {
                 for (let [property, val] of Object.entries(mission)) {
                     this.missions[index][property] = val;
@@ -65,7 +71,7 @@ $(document).ready(function () {
                 this.missions[index].terrestre = false;
                 this.missions[index].zones = [];
                 if (undefined !== this.missions[index].controles) {
-                    this.missions[index].controles = {nombre: 0, pv: 0}
+                    this.missions[index].controles = []
                 }
             },
             addMission: function (index) {
@@ -92,25 +98,6 @@ $(document).ready(function () {
                         'commentaire': null
                     }
                 );
-                $('select[name=mission_navire[navires][__name__][natinfs][]').select2({
-                    minimumInputLength: 3,
-                    ajax: {
-                        url: function (data) {
-                            return params.apiNatinf + 'natinfs/' + data.term;
-                        },
-                        data: {},
-                        delay: 250,
-                        dataType: 'json',
-                        processResults: function (data) {
-                            return {
-                                results: [{
-                                    "id": data.natinf,
-                                    "text": data.natinf
-                                }]
-                            };
-                        }
-                    }
-                });
             },
             removeControle: function(index) {
                 this.missions['navire'].controles.splice(index, 1);
@@ -157,7 +144,19 @@ $(document).ready(function () {
                         }
                     })
             },
-            getNatinfData: function() {
+            getNatinfData: function(search, loading) {
+                loading(true);
+                let vm = this;
+                $.ajax({
+                    url: params.apiNatinf + 'natinfs/' + search,
+                    data: {},
+                    dataType: 'json',
+                })
+                .then(function(data) {
+                    vm.natinfsOptions.push(data.natinf);
+                    loading(false);
+                })
+                ;
 
             }
         }
