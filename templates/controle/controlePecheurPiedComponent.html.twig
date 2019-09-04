@@ -1,47 +1,50 @@
 <ul class="pecheurs no-decoration">
-    <li class="row pecheur" v-for="(controle, index) in missions['pechePied'].controles">
-        <div class="form__group horizontal__form">
-            <div>
-                {{ form_label(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
-                {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
-                {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.nom, {'attr': {'v-model': "controle.pecheurPied.nom"}}) }}
+    <li :class="index % 2 ? 'pecheur' : 'section-grey pecheur'"
+        v-for="(controle, index) in missions['pechePied'].controles">
+        <div class="row">
+            <div class="form__group horizontal__form">
+                <div>
+                    {{ form_label(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
+                    {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
+                    {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.nom, {'attr': {'v-model': "controle.pecheurPied.nom"}}) }}
+                </div>
+                <div>
+                    {{ form_label(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
+                    {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
+                    {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.prenom, {'attr': {'v-model': "controle.pecheurPied.prenom"}}) }}
+                </div>
+                {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with
+                    {'box': form.pecheursPied.vars.prototype.pecheurPied.estPro, 'attr': {'v-model': "controle.pecheurPied.estPro"} } %}
             </div>
-            <div>
-                {{ form_label(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
-                {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
-                {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.prenom, {'attr': {'v-model': "controle.pecheurPied.prenom"}}) }}
+            <div class="form__group horizontal__form">
+                {{ form_label(form.pecheursPied.vars.prototype.pv) }}
+                {{ form_widget(form.pecheursPied.vars.prototype.pv, {'attr': {'v-model': "controle.pv"}}) }}
+                {{ form_errors(form.pecheursPied.vars.prototype.pv) }}
             </div>
-            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with
-                {'box': form.pecheursPied.vars.prototype.pecheurPied.estPro, 'attr': {'v-model': "controle.pecheurPied.estPro"} } %}
-        </div>
-        <div class="form__group horizontal__form">
-            {{ form_label(form.pecheursPied.vars.prototype.pv) }}
-            {{ form_widget(form.pecheursPied.vars.prototype.pv, {'attr': {'v-model': "controle.pv"}}) }}
-            {{ form_errors(form.pecheursPied.vars.prototype.pv) }}
-        </div>
-        <div class="form__group horizontal__form" style="min-width: 150px;">
-            {{ form_label(form.pecheursPied.vars.prototype.natinfs) }}
-            <select multiple
-                    id="{{ form.pecheursPied.vars.prototype.natinfs.vars.id }}"
-                    name="{{ form.pecheursPied.vars.prototype.natinfs.vars.full_name }}"
-                    v-model="controle.natinfs"
-                    style="display:none;">
-                <option v-for="option in controle.natinfs" :value="option" v-html="option">
-                </option>
-            </select>
-            <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs"
-                      :options="natinfsOptions">
-                <template slot="no-options">
-                    Entrez un code Natinf
-                </template>
-            </v-select>
-            {% do form.pecheursPied.vars.prototype.natinfs.setRendered %}
-            {{ form_errors(form.pecheursPied.vars.prototype.natinfs) }}
-        </div>
-        <div class="form__group horizontal__form">
-            {{ form_label(form.pecheursPied.vars.prototype.commentaire) }}
-            {{ form_errors(form.pecheursPied.vars.prototype.commentaire) }}
-            {{ form_widget(form.pecheursPied.vars.prototype.commentaire, {'attr': {'v-model': "controle.commentaire"}}) }}
+            <div class="form__group horizontal__form" style="min-width: 150px;">
+                {{ form_label(form.pecheursPied.vars.prototype.natinfs) }}
+                <select multiple
+                        id="{{ form.pecheursPied.vars.prototype.natinfs.vars.id }}"
+                        name="{{ form.pecheursPied.vars.prototype.natinfs.vars.full_name }}"
+                        v-model="controle.natinfs"
+                        style="display:none;">
+                    <option v-for="option in controle.natinfs" :value="option" v-html="option">
+                    </option>
+                </select>
+                <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs"
+                          :options="natinfsOptions">
+                    <template slot="no-options">
+                        Entrez un code Natinf
+                    </template>
+                </v-select>
+                {% do form.pecheursPied.vars.prototype.natinfs.setRendered %}
+                {{ form_errors(form.pecheursPied.vars.prototype.natinfs) }}
+            </div>
+            <div class="form__group horizontal__form">
+                {{ form_label(form.pecheursPied.vars.prototype.commentaire) }}
+                {{ form_errors(form.pecheursPied.vars.prototype.commentaire) }}
+                {{ form_widget(form.pecheursPied.vars.prototype.commentaire, {'attr': {'v-model': "controle.commentaire"}}) }}
+            </div>
         </div>
         <div style="display: flex; justify-content: flex-end">
             <button type="button" class="button warning" @click="removeControle('pechePied', index)">
@@ -51,7 +54,8 @@
         </div>
     </li>
     <li>
-        <button type="button" id="add-controle-pechePied" class="add_navire_link button" @click="addControle('pechePied')">
+        <button type="button" id="add-controle-pechePied" class="add_navire_link button"
+                @click="addControle('pechePied')">
             Ajouter un pêcheur contrôlé
         </button>
     </li>

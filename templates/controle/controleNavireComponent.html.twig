@@ -1,5 +1,5 @@
 <ul class="navires no-decoration" id="navires">
-    <li class="navire" v-for="(controle, index) in missions['navire'].controles">
+    <li :class="index % 2 ? 'navire' : 'section-grey navire'" v-for="(controle, index) in missions['navire'].controles">
         <div class="row">
             <div class="form__group horizontal__form" style="width: 250px;">
                 {% include 'formThemes/navireFormTheme.html.twig' with {'navire': form.navires.vars.prototype.navire} %}

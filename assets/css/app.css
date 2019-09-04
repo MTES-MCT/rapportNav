@@ -49,3 +49,10 @@ ul.stacked-list {
     width: 100%;
     z-index: 100;
 }
+
+/** Overwrite v-select elements **/
+.v-select {
+    background: white;
+}
+
+

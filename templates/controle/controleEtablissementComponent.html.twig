@@ -1,5 +1,5 @@
 <ul class="etablissements no-decoration" id="etablissements">
-    <li class="etablissement" v-for="(controle, index) in missions['commerce'].controles">
+    <li :class="index % 2 ? 'etablissement' : 'section-grey etablissement'" v-for="(controle, index) in missions['commerce'].controles">
         <div class="row">
             <div class="form__group horizontal__form">
                 <div>
@@ -30,31 +30,31 @@
             </div>
         </div>
         <div class="row">
-        <div class="form__group horizontal__form">
-            {{ form_label(form.etablissements.vars.prototype.pv) }}
-            {{ form_errors(form.etablissements.vars.prototype.pv) }}
-            {{ form_widget(form.etablissements.vars.prototype.pv, {'attr': {'v-model': "controle.pv"}}) }}
-        </div>
+            <div class="form__group horizontal__form">
+                {{ form_label(form.etablissements.vars.prototype.pv) }}
+                {{ form_errors(form.etablissements.vars.prototype.pv) }}
+                {{ form_widget(form.etablissements.vars.prototype.pv, {'attr': {'v-model': "controle.pv"}}) }}
+            </div>
 
-        <div class="form__group horizontal__form">
-            {{ form_label(form.etablissements.vars.prototype.natinfs) }}
-            <select multiple
-                    id="{{ form.etablissements.vars.prototype.natinfs.vars.id }}"
-                    name="{{ form.etablissements.vars.prototype.natinfs.vars.full_name }}"
-                    v-model="controle.natinfs"
-                    style="display:none;">
-                <option v-for="option in controle.natinfs" :value="option" v-html="option">
-                </option>
-            </select>
-            <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs"
-                      :options="natinfsOptions">
-                <template slot="no-options">
-                    Entrez un code Natinf
-                </template>
-            </v-select>
-            {% do form.etablissements.vars.prototype.natinfs.setRendered %}
-            {{ form_errors(form.etablissements.vars.prototype.natinfs) }}
-        </div>
+            <div class="form__group horizontal__form">
+                {{ form_label(form.etablissements.vars.prototype.natinfs) }}
+                <select multiple
+                        id="{{ form.etablissements.vars.prototype.natinfs.vars.id }}"
+                        name="{{ form.etablissements.vars.prototype.natinfs.vars.full_name }}"
+                        v-model="controle.natinfs"
+                        style="display:none;">
+                    <option v-for="option in controle.natinfs" :value="option" v-html="option">
+                    </option>
+                </select>
+                <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs"
+                          :options="natinfsOptions">
+                    <template slot="no-options">
+                        Entrez un code Natinf
+                    </template>
+                </v-select>
+                {% do form.etablissements.vars.prototype.natinfs.setRendered %}
+                {{ form_errors(form.etablissements.vars.prototype.natinfs) }}
+            </div>
         </div>
 
         <div class="form__group horizontal__form">
