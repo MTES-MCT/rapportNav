@@ -13,8 +13,6 @@ $(document).ready(function () {
     let vmission = new Vue({
         el: "#missions",
         data: {
-            natinfsOptions: [],
-            confirmBeforeLeave: true,
             missions: {
                 navire: {
                     type: "navires",
@@ -43,6 +41,7 @@ $(document).ready(function () {
                     zones: [],
                     controles: []
                 },
+                secours: {type: "sauvetage et assistance", logo: "fas fa-life-ring", active: false, terrestre: false, zones: []},
                 administratif: {
                     type: "administratif",
                     logo: "far fa-file-alt",
@@ -52,9 +51,11 @@ $(document).ready(function () {
                 },
                 formation: {type: "formation", logo: "fas fa-graduation-cap", active: false, terrestre: true, zones: []}
             },
+            natinfsOptions: [],
+            confirmBeforeLeave: true,
             rapportNavire: new RapportTopic("navire")
         },
-        components: {mission},
+        components: { mission },
         mounted: function () {
             window.addEventListener('beforeunload', this.handleUnload);
         },

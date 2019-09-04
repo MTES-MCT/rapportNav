@@ -179,6 +179,11 @@
                     {% include 'missionModal.html.twig' with {'prototype': formPechePied} %}
                 </div>
             </div>
+            <div class="modal__backdrop" id="modal-secours" style="z-index: 999;" v-if="missions['secours'].active">
+                <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
+                    {% include 'missionModal.html.twig' with {'prototype': formSecours} %}
+                </div>
+            </div>
             <div class="modal__backdrop" id="modal-administratif" style="z-index: 999;" v-if="missions['administratif'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
                     {% include 'missionModal.html.twig' with {'prototype': formAdministratif} %}

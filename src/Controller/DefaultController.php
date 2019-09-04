@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\MissionSecours;
 use App\Entity\Navire;
 use App\Entity\Rapport;
 use App\Entity\Service;
@@ -11,6 +12,7 @@ use App\Form\MissionCommerceType;
 use App\Form\MissionFormationType;
 use App\Form\MissionNavireType;
 use App\Form\MissionPechePiedType;
+use App\Form\MissionSecoursType;
 use App\Form\RapportType;
 use DateInterval;
 use DateTimeImmutable;
@@ -62,6 +64,7 @@ class DefaultController extends AbstractController {
         $forms['navire'] = $this->createForm(MissionNavireType::class, null, ['service' => $service]);
         $forms['commerce'] = $this->createForm(MissionCommerceType::class, null, ['service' => $service]);
         $forms['pechePied'] = $this->createForm(MissionPechePiedType::class, null, ['service' => $service]);
+        $forms['secours'] = $this->createForm(MissionSecoursType::class, null, ['service' => $service]);
         $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $service]);
         $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
 
@@ -104,6 +107,7 @@ class DefaultController extends AbstractController {
             'formNavire' => $forms['navire']->createView(),
             'formCommerce' => $forms['commerce']->createView(),
             'formPechePied' => $forms['pechePied']->createView(),
+            'formSecours' => $forms['secours']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
         ]);
@@ -134,6 +138,7 @@ class DefaultController extends AbstractController {
         $forms['navire'] = $this->createForm(MissionNavireType::class, null, ['service' => $userService]);
         $forms['commerce'] = $this->createForm(MissionCommerceType::class, null, ['service' => $userService]);
         $forms['pechePied'] = $this->createForm(MissionPechePiedType::class, null, ['service' => $userService]);
+        $forms['secours'] = $this->createForm(MissionSecoursType::class, null, ['service' => $userService]);
         $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $userService]);
         $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $userService]);
 
@@ -172,6 +177,7 @@ class DefaultController extends AbstractController {
             'formNavire' => $forms['navire']->createView(),
             'formCommerce' => $forms['commerce']->createView(),
             'formPechePied' => $forms['pechePied']->createView(),
+            'formSecours' => $forms['secours']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
             'missions' => $currentMissions,

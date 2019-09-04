@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "navire" = "MissionNavire",
  *     "commerce" = "MissionCommerce",
  *     "pecheapied" = "MissionPechePied",
+ *     "secours" = "MissionSecours",
  *     "administratif" = "MissionAdministratif",
  *     "formation" = "MissionFormation"
  *     })
@@ -23,6 +24,7 @@ abstract class Mission implements \JsonSerializable {
         "navire" => "MissionNavire",
         "commerce" => "MissionCommerce",
         "pecheapied" => "MissionPechePied",
+        "secours" => "MissionSecours",
         "administratif" => "MissionAdministratif",
         "formation" => "MissionFormation"];
 

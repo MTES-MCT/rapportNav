@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -34,8 +35,8 @@ class MissionType extends AbstractType {
                 'label' => "Zone de la mission"])
             ->add('gpsLat')
             ->add('gpsLng')
-            ->add('commentaire', null, [
-                'label' => "Commentaires et remarques (pour note interne)"]);
+            ->add('commentaire', TextareaType::class, [
+                'label' => "Commentaires et remarques (sur la mission)"]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

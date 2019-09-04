@@ -7,6 +7,9 @@
 {% if prototype.pecheursPied is defined %}
     {% set type = "pechePied" %}
 {% endif %}
+{% if prototype.dureeSecours is defined %}
+    {% set type = "secours" %}
+{% endif %}
 {% if prototype.activite is defined %}
     {% set type = "administratif" %}
 {% endif %}
