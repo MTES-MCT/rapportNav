@@ -21,9 +21,11 @@ use Exception;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController {
@@ -234,4 +236,25 @@ class DefaultController extends AbstractController {
         return $this->render('listKpi.html.twig');
 
     }
+
+
+    /**
+     * @Route("/export/sati", name="export_sati", methods={"GET"})
+     *
+     */
+    public function exportSati() {
+        $filePath = $this->getParameter('kernel.project_dir'). "/export_ulam56_20190909.zip";
+
+        $response = new BinaryFileResponse ($filePath);
+        $response->headers->set('Content-Type', 'application/zip');
+
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            "export_ulam56_20190909.zip"
+        );
+
+        return $response;
+
+    }
+
 }
