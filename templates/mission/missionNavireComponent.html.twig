@@ -1,12 +1,10 @@
 <div class="row">
     <div class="row">
-        <div class="form__group horizontal__form" id="">
-            {{ form_label(form.typeMissionControle) }}
-            {{ form_errors(form.typeMissionControle) }}
-            {{ form_widget(form.typeMissionControle) }}
-        </div>
-        <div>
-            Identification de l'aire Marine
+        {% include 'formThemes/stackedRadioFormTheme.html.twig' with {'form': form.typeMissionControle, 'attr': {'@change': "toggleAireMarine" }} %}
+        <div v-if="missions['navire'].showAireMarine">
+            {{ form_label(form.aireMarine) }}
+            {{ form_widget(form.aireMarine, {'attr': {'v-model': "missions['navire'].aireMarine"}}) }}
+            {{ form_errors(form.aireMarine) }}
         </div>
     </div>
 

@@ -40,6 +40,7 @@ class ControleNavireType extends AbstractType {
                 'required' => false,
                 'multiple' => false,
                 'expanded' => true,
+                'placeholder' => false,
                 'label' => "Choix du navire par"
             ])
             ->add('pv', CheckboxType::class, [

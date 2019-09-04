@@ -22,12 +22,12 @@
     {{ form_widget(navire.typeUsage, {'attr': {'v-model': "controle.navire.typeUsage"}}) }}
 </div>
 
-{% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': navire.isErreur, 'attr': {'class': "isNavireHasError"} } %}
+{#{% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': navire.isErreur, 'attr': {'class': "isNavireHasError"} } %}#}
 
-<div id="{{ navire.erreurTexte.vars.id }}_block" style="display: none;">
-    {{ form_label(navire.erreurTexte) }}
-    {{ form_errors(navire.erreurTexte) }}
-    {{ form_widget(navire.erreurTexte) }}
-</div>
+{#<div id="{{ navire.erreurTexte.vars.id }}_block" style="display: none;">#}
+{#    {{ form_label(navire.erreurTexte) }}#}
+{#    {{ form_errors(navire.erreurTexte) }}#}
+{#    {{ form_widget(navire.erreurTexte) }}#}
+{#</div>#}
 
 {{ form_rest(navire) }}

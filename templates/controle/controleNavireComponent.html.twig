@@ -14,9 +14,9 @@
                 </fieldset>
             </div>
             <div style="flex-grow: 1">
-                {{ form_label(form.navires.vars.prototype.methodeCiblage) }}
-                {{ form_errors(form.navires.vars.prototype.methodeCiblage) }}
-                {{ form_widget(form.navires.vars.prototype.methodeCiblage) }}
+                {% include 'formThemes/stackedRadioFormTheme.html.twig' with
+                    {'form': form.navires.vars.prototype.methodeCiblage, 'attr': {'@change': "toggleAireMarine" }}
+                %}
             </div>
         </div>
         <div class="row" style="justify-content: flex-start;align-items: center;">

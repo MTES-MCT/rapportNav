@@ -23,6 +23,8 @@ $(document).ready(function () {
                     terrestre: false,
                     zones: [],
                     typeMissionControle: 0,
+                    aireMarine: null,
+                    showAireMarine: false,
                     controles: []
                 },
                 commerce: {
@@ -71,7 +73,10 @@ $(document).ready(function () {
                 this.missions[index].terrestre = false;
                 this.missions[index].zones = [];
                 if (undefined !== this.missions[index].controles) {
-                    this.missions[index].controles = []
+                    this.missions[index].controles = [];
+                }
+                if (undefined !== this.missions[index].aireMarine) {
+                    this.missions[index].aireMarine = null;
                 }
             },
             addMission: function (index) {
@@ -106,7 +111,7 @@ $(document).ready(function () {
                         newControle['controles'] = [];
                         break;
                     case 'commerce':
-                        newControle['etablissement'] = {"nom": null, "type": null};
+                        newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null};
                         break;
                     case 'pechePied':
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
@@ -174,6 +179,9 @@ $(document).ready(function () {
                     })
                 ;
 
+            },
+            toggleAireMarine: function () {
+                this.missions['navire'].showAireMarine = ("2" === this.missions['navire'].typeMissionControle);
             }
         }
     });

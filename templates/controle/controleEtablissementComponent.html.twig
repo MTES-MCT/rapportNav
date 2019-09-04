@@ -1,22 +1,35 @@
-<ul class="etablissements no-decoration">
-    <li class="row etablissement" v-for="(controle, index) in missions['commerce'].controles">
-        <div class="form__group horizontal__form">
-            <div>
-                {{ form_label(form.etablissements.vars.prototype.etablissement.nom) }}
-                {{ form_errors(form.etablissements.vars.prototype.etablissement.nom) }}
-                {{ form_widget(form.etablissements.vars.prototype.etablissement.nom, {'attr': {'v-model': "controle.etablissement.nom"}}) }}
+<ul class="etablissements no-decoration" id="etablissements">
+    <li class="etablissement" v-for="(controle, index) in missions['commerce'].controles">
+        <div class="row">
+            <div class="form__group horizontal__form">
+                <div>
+                    {{ form_label(form.etablissements.vars.prototype.etablissement.nom) }}
+                    {{ form_errors(form.etablissements.vars.prototype.etablissement.nom) }}
+                    {{ form_widget(form.etablissements.vars.prototype.etablissement.nom, {'attr': {'v-model': "controle.etablissement.nom"}}) }}
+                </div>
+                <div>
+                    {{ form_label(form.etablissements.vars.prototype.etablissement.adresse) }}
+                    {{ form_errors(form.etablissements.vars.prototype.etablissement.adresse) }}
+                    {{ form_widget(form.etablissements.vars.prototype.etablissement.adresse, {'attr': {'v-model': "controle.etablissement.adresse"}}) }}
+                </div>
+                <div>
+                    {{ form_label(form.etablissements.vars.prototype.etablissement.commune) }}
+                    {{ form_errors(form.etablissements.vars.prototype.etablissement.commune) }}
+                    {{ form_widget(form.etablissements.vars.prototype.etablissement.commune, {'attr': {'v-model': "controle.etablissement.commune"}}) }}
+                </div>
+                <div>
+                    {{ form_label(form.etablissements.vars.prototype.etablissement.type) }}
+                    {{ form_errors(form.etablissements.vars.prototype.etablissement.type) }}
+                    {{ form_widget(form.etablissements.vars.prototype.etablissement.type, {'attr': {'v-model': "controle.etablissement.type"}}) }}
+                </div>
             </div>
-            <div>
-                {{ form_label(form.etablissements.vars.prototype.etablissement.type) }}
-                {{ form_errors(form.etablissements.vars.prototype.etablissement.type) }}
-                {{ form_widget(form.etablissements.vars.prototype.etablissement.type, {'attr': {'v-model': "controle.etablissement.type"}}) }}
+            <div class="form__group horizontal__form">
+                {{ form_label(form.etablissements.vars.prototype.bateauxControles) }}
+                {{ form_errors(form.etablissements.vars.prototype.bateauxControles) }}
+                {{ form_widget(form.etablissements.vars.prototype.bateauxControles, {'attr': {'v-model': "controle.bateauxControles"}}) }}
             </div>
         </div>
-        <div class="form__group horizontal__form">
-            {{ form_label(form.etablissements.vars.prototype.bateauxControles) }}
-            {{ form_errors(form.etablissements.vars.prototype.bateauxControles) }}
-            {{ form_widget(form.etablissements.vars.prototype.bateauxControles, {'attr': {'v-model': "controle.bateauxControles"}}) }}
-        </div>
+        <div class="row">
         <div class="form__group horizontal__form">
             {{ form_label(form.etablissements.vars.prototype.pv) }}
             {{ form_errors(form.etablissements.vars.prototype.pv) }}
@@ -42,7 +55,7 @@
             {% do form.etablissements.vars.prototype.natinfs.setRendered %}
             {{ form_errors(form.etablissements.vars.prototype.natinfs) }}
         </div>
-
+        </div>
 
         <div class="form__group horizontal__form">
             {{ form_label(form.etablissements.vars.prototype.commentaire) }}

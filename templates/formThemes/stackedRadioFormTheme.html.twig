@@ -1,0 +1,14 @@
+{% spaceless %}
+    <div class="form__group horizontal__form" id="">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {% for radio in form %}
+            {% if attr is defined %}
+                {{ form_widget(radio, attr) }}
+            {% else %}
+                {{ form_widget(radio, attr) }}
+            {% endif %}
+            {{ form_label(radio, null, {'label_attr': {'class': "label-inline" }}) }}
+        {% endfor %}
+    </div>
+{% endspaceless %}

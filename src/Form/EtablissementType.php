@@ -13,6 +13,8 @@ class EtablissementType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('nom', TextType::class, ['required' => true, 'label' => "Nom (ou N/A pour non applicable)"])
+            ->add('adresse', TextType::class, ['required' => false])
+            ->add('commune', TextType::class, ['required' => false])
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'Marché plaisance : concessionnaire' => 0,
