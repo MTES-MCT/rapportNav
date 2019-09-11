@@ -29,7 +29,7 @@
         {% block body_header %}
         <a class="navbar__home" href="{{ path('home') }}">
             <img class="navbar__logo" src="/images/logo-cib-nav.png" alt="Logo CibNav" />
-            <img src="/images/cibnav-nom.svg" class="navbar__gouvfr" alt="CibNav" />
+            <img src="{{ asset('images/rapportnav-nom.png') }}" class="navbar__gouvfr" alt="RapportNav" />
         </a>
 
         <nav>
@@ -37,7 +37,7 @@
             <ul class="nav__links">
                 <li class="nav__item"><a href="{{ path('list_forms') }}">Ajouter un rapport</a></li>
                 <li class="nav__item"><a href="{{ path('list_submissions') }}">Voir les rapports</a></li>
-                <li class="nav__item"><a href="{{ path('show_kpi') }}">Suivi des indicateurs</a></li>
+                <li class="nav__item"><a href="http://localhost:3000/dashboard/3?intervalle_de_dates=2019-01-01~2019-12-31&service=ulam56">Suivi des indicateurs</a></li>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <li class="nav__item"><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
                 {% else %}
