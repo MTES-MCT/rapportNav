@@ -19,6 +19,8 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -193,7 +195,26 @@ class DefaultController extends AbstractController {
      */
     public function listForms() {
 
-        return $this->render('listForms.html.twig');
+        $metabaseSecretKey = $this->getParameter("metabase_key");
+        $metabaseDbUrl = $this->getParameter("metabase_url");
+
+
+        $token = "";
+
+        $signer = new Sha256();
+        $token = (new Builder())
+            ->set('resource', [
+                'dashboard' => 3
+            ])
+            ->set('params', [
+                'params' => ''
+            ])
+            ->sign($signer, $metabaseSecretKey)
+            ->getToken();
+
+        $metabaseDbUrl .= $token."#bordered=true&titled=true";
+
+        return $this->render('listForms.html.twig', ['iframeUrl' => $metabaseDbUrl]);
 
     }
 
@@ -243,7 +264,7 @@ class DefaultController extends AbstractController {
      *
      */
     public function exportSati() {
-        $filePath = $this->getParameter('kernel.project_dir'). "/export_ulam56_20190909.zip";
+        $filePath = $this->getParameter('kernel.project_dir')."/export_ulam56_20190909.zip";
 
         $response = new BinaryFileResponse ($filePath);
         $response->headers->set('Content-Type', 'application/zip');

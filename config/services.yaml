@@ -8,6 +8,8 @@ parameters:
     app.version: '%env(resolve:APP_VERSION)%'
     api_navire: '%env(resolve:API_NAVIRE)%'
     api_natinf: '%env(resolve:API_NATINF)%'
+    metabase_url: '%env(resolve:METABASE)%'
+    metabase_key: '%env(resolve:METABASE_KEY)%'
 
 services:
     # default configuration for services in *this* file

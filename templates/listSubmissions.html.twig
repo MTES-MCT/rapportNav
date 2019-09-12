@@ -12,7 +12,7 @@
     <h2>Rapports en cours d'édition</h2>
     {% set colLength = max(1, (drafts|length)/3) %}
     <div class="row">
-    {% for row in drafts|batch(colLength) %}
+        {% for row in drafts|batch(colLength) %}
             <ul>
                 {% for rapport in row %}
                     <li>
@@ -22,35 +22,35 @@
                     </li>
                 {% endfor %}
             </ul>
-    {% endfor %}
+        {% endfor %}
     </div>
 
     <h2>Rapports validés</h2>
-{% for row in list|batch(3) %}
     <div class="row">
-        {% for title, rapports in row %}
+        {% for row in list['Contrôle de navire']|batch(7) %}
+
             <div style="width: 33%">
-                <h2>{{ title }}</h2>
                 <ul>
-                    {% for rapport in rapports %}
+                    {% for rapport in row %}
                         <li>
                             <a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
                                 Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
                             </a>
                             {% if rapport.missions | length > 0 %}
-                            <ul>
-                                <li>
-                                    <a href="{{ path('export_sati') }}"><i class="fas fa-file-export"></i> Export SATI</a>
-                                </li>
-                            </ul>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('export_sati') }}"><i class="fas fa-file-export"></i> Export
+                                            SATI</a>
+                                    </li>
+                                </ul>
                             {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
         {% endfor %}
+
     </div>
-{% endfor %}
 
 
 {% endblock body_main_container %}

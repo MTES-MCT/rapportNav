@@ -8,31 +8,22 @@
 {% block body_main %}
     <section class="section">
         <div class="container">
+            <div style="width: 50%">
             <h1>Ajout d'un nouveau rapport</h1>
             <div class="">
-                <a href="{{ path('rapport_create', {'type': "controle_a_bord"}) }}" class="button large">
-                    Ajouter un contrôle de navire
+                <a href="{{ path('rapport_create') }}" class="button large">
+                    Créer un rapport
                 </a>
             </div>
-            <div class="">
-                <a href="{{ path('rapport_create', {'type': "filiere_commercialisation"}) }}" class="button large">
-                    Ajouter un contrôle de la filière commercialisation
-                </a>
             </div>
-            <div class="">
-                <a href="{{ path('rapport_create', {'type': "peche_a_pied"}) }}" class="button large">
-                    Ajouter un contrôle de la pêche à pied
-                </a>
-            </div>
-            <div class="">
-                <a href="{{ path('rapport_create', {'type': "administratif"}) }}" class="button large">
-                    Ajouter une activité administrative
-                </a>
-            </div>
-            <div class="">
-                <a href="{{ path('rapport_create', {'type': "formation"}) }}" class="button large">
-                    Ajouter une Activité de formation
-                </a>
+            <div style="width: 90%">
+                <iframe
+                        src="{{iframeUrl}}"
+                        frameborder="0"
+                        width="1080"
+                        height="600"
+                        allowtransparency
+                ></iframe>
             </div>
         </div>
     </section>
