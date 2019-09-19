@@ -23,7 +23,7 @@ class MissionNavireType extends MissionType {
                 'placeholder' => '',
                 //This is not pretty and should be in a template file but seems not possible so...
                 'choice_attr' => function() { return ['v-model' => "missions['navire'].typeMissionControle"];},
-                'label' => "Type de mission"])
+                'label' => "Type d'activité"])
             ->add('aireMarine', TextType::class, ['required' => false, 'label' => "Nom de l'aire marine"])
             ->add('navires', CollectionType::class, [
                 'entry_type' => ControleNavireType::class,

@@ -7,13 +7,16 @@ fieldset.vertical {
     flex-direction: column;
 }
 
-legend.required::after {
+legend.required::before {
     content: '✱';
     color: #d63626;
     color: var(--red);
     font-weight: 700;
-    margin-left: 0.5em;
-    margin-left: var(--space-xs);
+    padding-right: 0.5em;
+    padding-right: var(--space-xs);
+    position: absolute;
+    left: 0;
+    transform: translateX(-100%);
 }
 
 .form__checkbox {

@@ -76,8 +76,8 @@
                 {{ form_errors(form.moyens) }}
                 <ul id="moyen-list" class="no-decoration stacked-list" data-prototype='
                     <span>
-                        {{ form_label(form.moyens.vars.prototype.moyen)|e('html_attr') }}
                         {{ form_widget(form.moyens.vars.prototype.moyen)|e('html_attr') }}
+                        {{ form_errors(form.moyens.vars.prototype.moyen)|e('html_attr') }}
                     </span>
                     <span class="" style="display: none;">
                         {{ form_label(form.moyens.vars.prototype.distance, "Distance (km)")|e('html_attr') }}
@@ -122,7 +122,7 @@
                             </button>
                         </li>
                     {% endfor %}
-                    <li>
+                    <li id="add-new-moyen-container" class="row">
                         <button type="button" id="add-new-moyen" class="button" style="">
                             <i class="fas fa-plus-circle"></i>
                             Ajouter un moyen utilisé
@@ -144,7 +144,7 @@
 
     {% block body_main_container_rapport_objects %}
         <div id="missions">
-            <h2>Missions Réalisées</h2>
+            <h2>Activité(s) réalisée(s)</h2>
             <ul class="no-decoration" data-prototype=''>
                 <li v-for="(mission, index) in missions">
                     <mission v-bind:mission="mission" v-bind:index="index"></mission>
@@ -152,7 +152,7 @@
                 <li>
                     <a id="add-mission" class="button" href="#modal">
                         <i class="fas fa-plus-circle"></i>
-                        Ajouter une mission
+                        Ajouter une activité
                     </a>
                 </li>
             </ul>

@@ -17,8 +17,8 @@
                     {'box': form.pecheursPied.vars.prototype.pecheurPied.estPro, 'attr': {'v-model': "controle.pecheurPied.estPro"} } %}
             </div>
             <div class="form__group horizontal__form">
-                {{ form_label(form.pecheursPied.vars.prototype.pv) }}
-                {{ form_widget(form.pecheursPied.vars.prototype.pv, {'attr': {'v-model': "controle.pv"}}) }}
+                {{ form_widget(form.pecheursPied.vars.prototype.pv, {'attr': {'class': 'switch', 'v-model': "controle.pv"}}) }}
+                {{ form_label(form.pecheursPied.vars.prototype.pv, null, {'label_attr': {'class': "label-inline"}}) }}
                 {{ form_errors(form.pecheursPied.vars.prototype.pv) }}
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">

@@ -31,9 +31,9 @@ $(document).ready(function () {
         newMoyen = newMoyen.replace(/__name__/g, index);
         newMoyen = $("<li class='row moyen'></li>").append(newMoyen);
         root.data('index', index + 1);
-        root.append(newMoyen);
-        root.children().last().find("select").on("change", showMetaData);
-        root.children().last().find("button.moyen-delete").on("click", deleteMoyen)
+        root.find('#add-new-moyen-container').before(newMoyen);
+        root.children(".moyen").last().find("select").on("change", showMetaData);
+        root.children(".moyen").last().find("button.moyen-delete").on("click", deleteMoyen)
     }
 
     let moyenRoot = $("#moyen-list");
