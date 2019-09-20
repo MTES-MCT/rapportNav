@@ -1,0 +1,4 @@
+{
+  "apiNavires": "http://url-pour-l-api-immatriculation-navires/api/",
+  "apiNatinf": "http://url-pour-l-api-natinf/api/"
+}
