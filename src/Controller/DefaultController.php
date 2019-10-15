@@ -197,6 +197,7 @@ class DefaultController extends AbstractController {
 
         $metabaseSecretKey = $this->getParameter("metabase_key");
         $metabaseDbUrl = $this->getParameter("metabase_url");
+        $metabaseDashboard = $this->getParameter("metabase_dashboard");
 
 
         $token = "";
@@ -204,7 +205,7 @@ class DefaultController extends AbstractController {
         $signer = new Sha256();
         $token = (new Builder())
             ->set('resource', [
-                'dashboard' => 3
+                'dashboard' => $metabaseDashboard
             ])
             ->set('params', [
                 'params' => ''
