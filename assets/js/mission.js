@@ -10,7 +10,7 @@ import 'vue-select/dist/vue-select.css';
 Vue.component('v-select', vSelect);
 
 $(document).ready(function () {
-    let vmission = new Vue({
+    new Vue({
         el: "#missions",
         data: {
             missions: {
@@ -21,8 +21,6 @@ $(document).ready(function () {
                     terrestre: false,
                     zones: [],
                     typeMissionControle: 0,
-                    aireMarine: null,
-                    showAireMarine: false,
                     controles: []
                 },
                 commerce: {
@@ -60,7 +58,7 @@ $(document).ready(function () {
             window.addEventListener('beforeunload', this.handleUnload);
         },
         created: function () {
-            let missions = $('#missions-data').data('content') || {};
+            const missions = $('#missions-data').data('content') || {};
             for (let [index, mission] of Object.entries(missions)) {
                 for (let [property, val] of Object.entries(mission)) {
                     this.missions[index][property] = val;
@@ -75,9 +73,6 @@ $(document).ready(function () {
                 this.missions[index].zones = [];
                 if (undefined !== this.missions[index].controles) {
                     this.missions[index].controles = [];
-                }
-                if (undefined !== this.missions[index].aireMarine) {
-                    this.missions[index].aireMarine = null;
                 }
             },
             addMission: function (index) {
@@ -125,8 +120,8 @@ $(document).ready(function () {
                 this.missions[type].controles.splice(index, 1);
             },
             getNavireData: function (index, event) {
-                let currentNavire = this.missions['navire'].controles[index].navire;
-                let input = $(event.target), plaisance = false;
+                let currentNavire = this.missions['navire'].controles[index].navire, plaisance = false;
+                const input = $(event.target);
                 if ("" === input.val()) {
                     return;
                 }
@@ -152,7 +147,7 @@ $(document).ready(function () {
                         currentNavire.typeUsage = "";
                     })
                     .then(function (data) {
-                        let parent = input.parents("li");
+                        const parent = input.parents("li");
                         currentNavire.nom = data.nomNavire;
                         currentNavire.longueurHorsTout = data.longueurHorsTout;
                         if (!plaisance) {
@@ -181,9 +176,6 @@ $(document).ready(function () {
                 ;
 
             },
-            toggleAireMarine: function () {
-                this.missions['navire'].showAireMarine = ("2" === this.missions['navire'].typeMissionControle);
-            }
         }
     });
 });

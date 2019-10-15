@@ -40,6 +40,7 @@ class RapportType extends AbstractType {
                 'allow_delete' => true,
                 'by_reference' => false,
                 'prototype' => true,
+                'required' => false,
             ])
             ->add('agents', EntityType::class, [
                 'class' => Agent::class,

@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\ControleEtablissementRepository")
  */
 class ControleEtablissement implements JsonSerializable {
-    use RapportControle;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

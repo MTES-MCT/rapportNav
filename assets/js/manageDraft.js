@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-let redirectToList = function (data) {
+const redirectToList = function (data) {
     var notif = '<div class="notification success">' + data.text + '<br>Redirection vers la liste des rapports dans 3 secondes. </div>';
     $('.notifications').append($(notif));
     setTimeout(function () {window.location.href = window.location.protocol + "//" + window.location.host + "/list_submissions"},
@@ -33,7 +33,7 @@ $(window).on("load", function () {
 
     //delete
     $("#form-delete").on("click", function (elem) {
-        let deleteRapport = confirm("Voulez vous supprimer les données de ce rapport ? \n" +
+        const deleteRapport = confirm("Voulez vous supprimer les données de ce rapport ? \n" +
             "Cette action est définitive, il sera impossible de récupérer les données. ");
         if (deleteRapport) {
             let path = window.location.pathname;
@@ -76,7 +76,7 @@ $(window).on("load", function () {
 
     //Q&D fix to wait all the JS to be applied
     setTimeout(function () {
-        let data = $('#draft-data').data("content");
+        const data = $('#draft-data').data("content");
         if (undefined !== data) {
             let nbMoyens = 0, nbCtrlElems = 0;
             data.forEach(function (elem) {

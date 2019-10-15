@@ -15,16 +15,6 @@ class MissionNavireType extends MissionType {
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('typeMissionControle', EntityType::class, [
-                'class' => TypeMissionControle::class,
-                'required' => true,
-                'multiple' => false,
-                'expanded' => true,
-                'placeholder' => '',
-                //This is not pretty and should be in a template file but seems not possible so...
-                'choice_attr' => function() { return ['v-model' => "missions['navire'].typeMissionControle"];},
-                'label' => "Type d'activité"])
-            ->add('aireMarine', TextType::class, ['required' => false, 'label' => "Nom de l'aire marine"])
             ->add('navires', CollectionType::class, [
                 'entry_type' => ControleNavireType::class,
                 'entry_options' => ['label' => false],

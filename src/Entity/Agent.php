@@ -78,7 +78,7 @@ class Agent {
         return $this->service;
     }
 
-    public function setService(string $service): self {
+    public function setService(Service $service): self {
         $this->service = $service;
 
         return $this;

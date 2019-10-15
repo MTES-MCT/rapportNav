@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Natinf;
-use App\entity\ControlePecheurPied;
+use App\Entity\ControlePecheurPied;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;

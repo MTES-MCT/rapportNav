@@ -120,7 +120,7 @@ class  Navire implements JsonSerializable {
         return $this->typeUsage;
     }
 
-    public function setTypeUsage(string $typeUsage): self {
+    public function setTypeUsage(?string $typeUsage): self {
         $this->typeUsage = $typeUsage;
         return $this;
     }

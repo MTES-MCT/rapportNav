@@ -11,7 +11,6 @@ use JsonSerializable;
  * @ORM\Entity(repositoryClass="App\Repository\ControlePecheurPiedRepository")
  */
 class ControlePecheurPied implements JsonSerializable {
-    use RapportControle;
 
     /**
      * @ORM\Id()

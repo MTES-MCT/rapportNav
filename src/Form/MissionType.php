@@ -36,6 +36,7 @@ class MissionType extends AbstractType {
             ->add('gpsLat')
             ->add('gpsLng')
             ->add('commentaire', TextareaType::class, [
+                'required' => false,
                 'label' => "Commentaires et remarques (sur la mission)"]);
     }
 

@@ -20,6 +20,7 @@ class NavireType extends AbstractType {
                 'attr' => ['class' => "immatriculation_fr"],
                 'label' => "Immatriculation du navire"])
             ->add('nom', TextType::class, [
+              'required' => false,
                 'attr' => ['readonly' =>  true],
             'label' => "Nom du navire (se complète automatiquement)"])
             ->add('longueurHorsTout', NumberType::class, [
@@ -27,9 +28,10 @@ class NavireType extends AbstractType {
                 'attr' => ['readonly' => true],
                 'label' => "Longueur (se complète automatiquement)"])
             ->add('typeUsage', TextType::class, [
+              'required' => false,
                 'attr' => ['readonly' =>  true],
                 'label' => "Genre de navigation (se complète automatiquement)"])
-            ->add('idNavFloteur', HiddenType::class)
+            ->add('idNavFloteur', HiddenType::class, ['required' => false])
             ->add('isErreur', CheckboxType::class, [
                 'required' => false,
                 'label' => "Signaler une erreur de données"
