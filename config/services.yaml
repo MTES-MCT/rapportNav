@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    app.version: '0.6'
+    app.version: '0.6.1'
     api_navire: '%env(resolve:API_NAVIRE)%'
     api_natinf: '%env(resolve:API_NATINF)%'
     metabase_root: '%env(resolve:METABASE_LINK)%'
