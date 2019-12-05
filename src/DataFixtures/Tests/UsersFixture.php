@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserManagerInterface;
 
-class UsersFixture extends Fixture implements DependentFixtureInterface {
+class UsersFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
 
     /** @var UserManagerInterface */
     private $userManager;
@@ -26,6 +26,7 @@ class UsersFixture extends Fixture implements DependentFixtureInterface {
             ->setEmail('nope@email.com')
             ->setPlainPassword('ulam35')
             ->setEnabled(true)
+            ->setService($this->getReference("service35"))
             ->setRoles(['ROLE_USER']);
         $manager->persist($user35);
 
@@ -46,4 +47,9 @@ class UsersFixture extends Fixture implements DependentFixtureInterface {
             ServicesFixture::class,
         );
     }
+
+
+  public static function getGroups(): array {
+    return ['default', 'test'];
+  }
 }

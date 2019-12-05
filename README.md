@@ -56,11 +56,15 @@ Then finish install:
 
 ```(bash)
 $ chown -R www-data:www-data app-ppr/
-$ sudo -u www-data composer install
 $ sudo -u www-data composer check-platform-reqs
+$ sudo -u www-data composer install
 $ sudo -u www-data yarn install
+$ sudo -u www-data yarn build
 $ sudo -u www-data bin/console doctrine:migration:migrate
 ```
+
+If you aim to contribute to the code you may prefer to use the `yarn dev` or `yarn watch` commands for js compilation. 
+Some basic fixtures to get a development environment are available using `bin/console doctrine:fixtures:load --group=default`
 
 ### Test environment configuration (for developers)
 
