@@ -111,9 +111,6 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
-    "fig/link-util": {
-        "version": "1.0.0"
-    },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
     },
@@ -302,6 +299,9 @@
     },
     "symfony/dotenv": {
         "version": "v4.2.3"
+    },
+    "symfony/error-handler": {
+        "version": "v4.4.1"
     },
     "symfony/event-dispatcher": {
         "version": "v4.2.3"
