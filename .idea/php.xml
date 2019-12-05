@@ -77,7 +77,6 @@
       <path value="$PROJECT_DIR$/vendor/psr/container" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
       <path value="$PROJECT_DIR$/vendor/psr/link" />
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-code" />
@@ -129,6 +128,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/panther" />
       <path value="$PROJECT_DIR$/vendor/facebook/webdriver" />
       <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
