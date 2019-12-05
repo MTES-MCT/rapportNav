@@ -39,7 +39,7 @@ class MissionSecours extends Mission {
         return $this->dureeSecours;
     }
 
-    public function setDureeSecours(DateTimeInterface $dureeSecours): self {
+    public function setDureeSecours(?DateTimeInterface $dureeSecours): self {
         $this->dureeSecours = $dureeSecours;
 
         return $this;

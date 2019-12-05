@@ -3,7 +3,6 @@
 namespace App\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
-use App\DataFixtures\Local\UsersFixture;
 
 class DefaultControllerTest extends WebTestCase {
 
@@ -20,11 +19,11 @@ class DefaultControllerTest extends WebTestCase {
     /**
      * Testing form display and submission
      */
-    public function testRapportControleNavires() {
+    public function testRapportCreate() {
         $client = $this->makeClient(true);
 
         //Testing page display
-        $crawler = $client->request('GET', '/rapport/controle_a_bord');
+        $crawler = $client->request('GET', '/rapport');
         $this->assertStatusCode(200, $client);
 
         //Testing form submission

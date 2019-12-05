@@ -56,7 +56,7 @@ Then finish install:
 
 ```(bash)
 $ chown -R www-data:www-data app-ppr/
-$ sudo -u www-data composer check-platform-reqs
+$ sudo -u www-data composer check-platform-reqs --no-dev
 $ sudo -u www-data composer install
 $ sudo -u www-data yarn install
 $ sudo -u www-data yarn build
@@ -68,7 +68,8 @@ Some basic fixtures to get a development environment are available using `bin/co
 
 ### Test environment configuration (for developers)
 
-For tests only it is required to create a `var/data` folder where a SQLite database for tests will be instantiated. 
+For tests only it is required to create a `var/data` folder where a SQLite database for tests will be instantiated, the module `php-sqlite3` is also required for running tests. 
+You can check dev requirements with the command `$ sudo -u www-data composer check-platform-reqs`
 
 ## Contribution 
 
@@ -78,6 +79,11 @@ To propose new features please open an issue first to be sure it fits the projec
 ### Coding conventions
 
 Regarding coding style, if you use PHPStorm it should follow the coding rules in `.idea/codeStyle/codeStyleConfig.xml`. 
+
+### Todos
+
+* Draft function is currently broken. 
+* Tests on Service NatinfFiller are dependant of an external service to work. It needs to be encapsulated. 
 
 ## Authors, licence
 

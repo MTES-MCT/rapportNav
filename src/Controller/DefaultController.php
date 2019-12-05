@@ -72,13 +72,12 @@ class DefaultController extends AbstractController {
         $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $service]);
         $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
 
-
         $form->handleRequest($request);
         foreach($forms as $subForm) {
             /** @var FormInterface $subForm */
             $subForm->handleRequest($request);
             if($subForm->isSubmitted() && $subForm->isValid()) {
-                $rapport->addMission($subForm->getData());
+              $rapport->addMission($subForm->getData());
             }
         }
 
