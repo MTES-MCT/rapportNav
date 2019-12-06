@@ -50,13 +50,9 @@ $(document).ready(function () {
                 formation: {type: "formation", logo: "fas fa-graduation-cap", active: false, terrestre: true, zones: []}
             },
             natinfsOptions: [],
-            confirmBeforeLeave: true,
             rapportNavire: new RapportTopic("navire")
         },
         components: { mission },
-        mounted: function () {
-            window.addEventListener('beforeunload', this.handleUnload);
-        },
         created: function () {
             const missions = $('#missions-data').data('content') || {};
             for (let [index, mission] of Object.entries(missions)) {
@@ -77,16 +73,6 @@ $(document).ready(function () {
             },
             addMission: function (index) {
                 this.missions[index].active = true;
-            },
-            handleUnload: function (event) {
-                if (!this.confirmBeforeLeave) {
-                    return true;
-                }
-                event.returnValue = "Si vous quittez cette page les données non enregistrées seront perdues. \nVoulez-vous continuer ?";
-                return "Si vous quittez cette page les données non enregistrées seront perdues. \nVoulez-vous continuer ?";
-            },
-            doNotConfirmLeave: function () {
-                this.confirmBeforeLeave = false;
             },
             addControle: function (type) {
                 let newControle = {

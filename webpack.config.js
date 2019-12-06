@@ -24,7 +24,8 @@ Encore
     .addEntry('rapport', [
                                     './assets/js/moyenManage.js',
                                     './assets/js/manageDraft.js',
-                                    './assets/js/mission.js'
+                                    './assets/js/mission.js',
+                                    './assets/js/actionButtons.js'
                 ])
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

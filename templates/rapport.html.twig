@@ -210,19 +210,19 @@
 
     <br>
 
-    <div class="form__group form__validators">
+    <div id="validation_buttons" class="form__group form__validators">
         {% if crud.deletable is defined and crud.deletable %}
-            <button type="button" id="form-delete" class="button large warning formActionButton" @click="doNotConfirmLeave">
+            <button type="button" id="form-delete" class="button large warning formActionButton" @click="doNotConfirmLeave(); deleteRapport()">
                 <i class="fas fa-trash-alt"></i> Supprimer le rapport
             </button>
         {% endif %}
         {% if crud.draftable is defined and crud.draftable %}
-            <button type="button" id="form-save" class="button large formActionButton" @click="doNotConfirmLeave">
+            <button type="button" id="form-save" class="button large formActionButton" @click="doNotConfirmLeave(); saveDraft()">
                 <i class="far fa-save"></i>
                 Enregistrer le brouillon
             </button>
         {% endif %}
-        <button type="submit" id="form-submit" class="button large formActionButton" @click="doNotConfirmLeave">
+        <button type="submit" id="form-submit" class="button large formActionButton" v-on:click="doNotConfirmLeave">
             <i class="far fa-check-circle"></i>
             Valider le rapport
         </button>
