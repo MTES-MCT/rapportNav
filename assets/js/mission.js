@@ -39,6 +39,14 @@ $(document).ready(function () {
                     zones: [],
                     controles: []
                 },
+                loisir: {
+                    type: "loisirs",
+                    logo: "fas fa-swimmer",
+                    active: false,
+                    terrestre: false,
+                    zones: [],
+                    controles: []
+                },
                 secours: {type: "sauvetage et assistance", logo: "fas fa-life-ring", active: false, terrestre: false, zones: []},
                 administratif: {
                     type: "administratif",
@@ -97,6 +105,10 @@ $(document).ready(function () {
                         break;
                     case 'pechePied':
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
+                        break;
+                    case 'loisir':
+                        newControle['loisir'] = {'nombreControle': 0,'nombrePv': 0};
+                        break;
                 }
 
 

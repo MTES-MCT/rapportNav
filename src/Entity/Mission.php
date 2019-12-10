@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "navire" = "MissionNavire",
  *     "commerce" = "MissionCommerce",
  *     "pecheapied" = "MissionPechePied",
+ *     "loisir" = "MissionLoisir",
  *     "secours" = "MissionSecours",
  *     "administratif" = "MissionAdministratif",
  *     "formation" = "MissionFormation"
@@ -114,7 +115,7 @@ abstract class Mission implements \JsonSerializable {
     /**
      * @return Collection|ZoneGeographique[]
      */
-    public function getZones(): Collection {
+    public function getZones(): ?Collection {
         return $this->zones;
     }
 

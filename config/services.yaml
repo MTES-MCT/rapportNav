@@ -48,6 +48,9 @@ services:
     App\Form\ControlePecheurPiedType:
         arguments: ['@App\Form\EventListener\ResetNatinfDataListener']
 
+    App\Form\ControleLoisirType:
+        arguments: ['@App\Form\EventListener\ResetNatinfDataListener']
+
 
     # SonataAdminBundle related services
     admin.navire:

@@ -166,32 +166,37 @@
             } %}
             <div class="modal__backdrop" id="modal-navire" style="z-index: 999;" v-if="missions['navire'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formNavire} %}
+                    {% include 'missionModal.html.twig' with {'prototype': formNavire, 'type': "navire"} %}
                 </div>
             </div>
             <div class="modal__backdrop" id="modal-commerce" style="z-index: 999;" v-if="missions['commerce'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formCommerce} %}
+                    {% include 'missionModal.html.twig' with {'prototype': formCommerce, 'type': "commerce"} %}
                 </div>
             </div>
             <div class="modal__backdrop" id="modal-pechePied" style="z-index: 999;" v-if="missions['pechePied'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formPechePied} %}
+                    {% include 'missionModal.html.twig' with {'prototype': formPechePied, 'type': "pechePied"} %}
+                </div>
+            </div>
+            <div class="modal__backdrop" id="modal-loisir" style="z-index: 999;" v-if="missions['loisir'].active">
+                <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
+                    {% include 'missionModal.html.twig' with {'prototype': formLoisir, 'type': "loisir"} %}
                 </div>
             </div>
             <div class="modal__backdrop" id="modal-secours" style="z-index: 999;" v-if="missions['secours'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formSecours} %}
+                    {% include 'missionModal.html.twig' with {'prototype': formSecours, 'type': "secours"} %}
                 </div>
             </div>
             <div class="modal__backdrop" id="modal-administratif" style="z-index: 999;" v-if="missions['administratif'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formAdministratif} %}
+                    {% include 'missionModal.html.twig' with {'prototype': formAdministratif, 'type': "administratif"} %}
                 </div>
             </div>
             <div class="modal__backdrop" id="modal-formation" style="z-index: 999;" v-if="missions['formation'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formFormation} %}
+                    {% include 'missionModal.html.twig' with {'prototype': formFormation, 'type': "formation"} %}
                 </div>
             </div>
         </div>
