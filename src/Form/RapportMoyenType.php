@@ -6,14 +6,25 @@ namespace App\Form;
 
 use App\Entity\Moyen;
 use App\Entity\RapportMoyen;
+use App\Form\DataTransformer\TimeToIntegerTransformer;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RapportMoyenType extends AbstractType {
+
+    /** @var TimeToIntegerTransformer */
+    private $transformer;
+
+    public function __construct(TimeToIntegerTransformer $transformer) {
+        $this->transformer = $transformer;
+    }
+
+
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $service = $options['service'];
 
@@ -33,7 +44,12 @@ class RapportMoyenType extends AbstractType {
             }
         ])
             ->add("distance", IntegerType::class)
-            ->add("tempsMoteur", IntegerType::class);
+            ->add("tempsMoteur", TimeType::class, [
+                'widget' => "single_text",
+                'label' => "Temps moteur",
+            ]);
+        $builder->get('tempsMoteur')
+            ->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver) {
