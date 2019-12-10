@@ -38,7 +38,7 @@ class ControleLoisirType extends AbstractType {
             'label' => "Nombre de contrôles réalisés"])
         ->add('nombrePv', IntegerType::class, [
             'required' => false,
-            'label' => "nombre de PV émis"])
+            'label' => "Nombre de PV émis"])
         ->add('natinfs', EntityType::class, [
             'class' => Natinf::class,
             'choice_label' => "numero",
