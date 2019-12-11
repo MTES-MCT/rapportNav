@@ -38,7 +38,7 @@ class MissionNavire extends Mission {
 
     public function jsonSerialize() {
         $data = parent::jsonSerialize();
-        $data['typeMissionControle'] = $this->getTypeMissionControle()->getId();
+        $data['typeMissionControle'] = $this->getTypeMissionControle() ? $this->getTypeMissionControle()->getId() : null;
         $data['controles'] = [];
         foreach($this->getNavires() as $navire) {
             $data['controles'][] = $navire;

@@ -69,10 +69,7 @@ class ControleNavire implements JsonSerializable {
         }
         $data['commentaire'] = $this->getCommentaire();
 
-        $data['navire'] = [];
-        foreach($this->getNavire() as $n) {
-            $data['navire'][] = $n;
-        }
+        $data['navire'] = $this->getNavire();
 
         $data['controles'] = [];
         foreach($this->getControles() as $controle) {
