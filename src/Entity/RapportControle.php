@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait RapportControle {
     /**
      * @ORM\ManyToOne(targetEntity="MethodeCiblage")
-     * @Assert\NotBlank()
+     * @ORM\JoinColumn(nullable=true)
      */
     private $methodeCiblage;
 

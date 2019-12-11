@@ -26,12 +26,9 @@ class  Navire implements JsonSerializable {
 
     /**
      * Identifiant du référentiel Flotteur
-     * @ORM\Column(type="integer")
-     *
-     * @Assert\NotBlank
-     * @Assert\Type(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $id_nav_floteur;
+    private $id_nav_flotteur;
 
     /**
      * @ORM\Column(type="string", length=45)
@@ -86,12 +83,12 @@ class  Navire implements JsonSerializable {
         return $this;
     }
 
-    public function getIdNavFloteur(): ?int {
-        return $this->id_nav_floteur;
+    public function getIdNavFlotteur(): ?int {
+        return $this->id_nav_flotteur;
     }
 
-    public function setIdNavFloteur(?int $id_nav_floteur): self {
-        $this->id_nav_floteur = $id_nav_floteur;
+    public function setIdNavFlotteur(?int $id_nav_flotteur): self {
+        $this->id_nav_flotteur = $id_nav_flotteur;
 
         return $this;
     }

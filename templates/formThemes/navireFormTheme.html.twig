@@ -4,7 +4,6 @@
     {{ form_widget(navire.immatriculation_fr, {'attr': {
         'v-model': "controle.navire.immatriculationFr",
         '@change': "getNavireData(index, $event)"}}) }}
-    {{ form_widget(navire.idNavFloteur) }}
 </div>
 <div>
     {{ form_label(navire.nom) }}

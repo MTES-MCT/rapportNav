@@ -31,7 +31,6 @@ class NavireType extends AbstractType {
               'required' => false,
                 'attr' => ['readonly' =>  true],
                 'label' => "Genre de navigation (se complète automatiquement)"])
-            ->add('idNavFloteur', HiddenType::class, ['required' => false])
             ->add('isErreur', CheckboxType::class, [
                 'required' => false,
                 'label' => "Signaler une erreur de données"
