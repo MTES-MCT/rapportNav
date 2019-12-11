@@ -23,7 +23,7 @@ class MissionSecours extends Mission {
 
     public function jsonSerialize() {
         $data = parent::jsonSerialize();
-        $data['duree'] = $this->getDureeSecours();
+        $data['dureeSecours'] = $this->getDureeSecours()->format("H:i");
         return $data;
     }
 

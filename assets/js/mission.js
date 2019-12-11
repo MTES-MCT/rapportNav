@@ -47,7 +47,14 @@ $(document).ready(function () {
                     zones: [],
                     controles: []
                 },
-                secours: {type: "sauvetage et assistance", logo: "fas fa-life-ring", active: false, terrestre: false, zones: []},
+                secours: {
+                    type: "sauvetage et assistance",
+                    logo: "fas fa-life-ring",
+                    active: false,
+                    terrestre: false,
+                    zones: [],
+                    dureeSecours: null
+                },
                 administratif: {
                     type: "administratif",
                     logo: "far fa-file-alt",
@@ -60,7 +67,7 @@ $(document).ready(function () {
             natinfsOptions: [],
             rapportNavire: new RapportTopic("navire")
         },
-        components: { mission },
+        components: {mission},
         created: function () {
             const missions = $('#missions-data').data('content') || {};
             for (let [index, mission] of Object.entries(missions)) {
@@ -107,7 +114,7 @@ $(document).ready(function () {
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
                         break;
                     case 'loisir':
-                        newControle['loisir'] = {'nombreControle': 0,'nombrePv': 0};
+                        newControle['loisir'] = {'nombreControle': 0, 'nombrePv': 0};
                         break;
                 }
 
