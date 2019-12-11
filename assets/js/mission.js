@@ -60,9 +60,17 @@ $(document).ready(function () {
                     logo: "far fa-file-alt",
                     active: false,
                     terrestre: true,
-                    zones: []
+                    zones: [],
+                    activite: ""
                 },
-                formation: {type: "formation", logo: "fas fa-graduation-cap", active: false, terrestre: true, zones: []}
+                formation: {
+                    type: "formation",
+                    logo: "fas fa-graduation-cap",
+                    active: false,
+                    terrestre: true,
+                    zones: [],
+                    formation: ""
+                }
             },
             natinfsOptions: [],
             rapportNavire: new RapportTopic("navire")
