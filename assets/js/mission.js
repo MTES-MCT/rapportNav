@@ -187,8 +187,10 @@ $(document).ready(function () {
                         loading(false);
                     })
                 ;
-
             },
+            localSave: function () {
+                localStorage.setItem('missions', JSON.stringify(this.missions))
+            }
         }
     });
 });
