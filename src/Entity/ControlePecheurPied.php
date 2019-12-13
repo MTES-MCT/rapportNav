@@ -31,6 +31,12 @@ class ControlePecheurPied implements JsonSerializable {
      */
     private $pecheurPied;
 
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $aireProtegee;
+
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
@@ -41,7 +47,6 @@ class ControlePecheurPied implements JsonSerializable {
      * @ORM\JoinColumn(nullable=true)
      */
     private $natinfs;
-
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -50,6 +55,7 @@ class ControlePecheurPied implements JsonSerializable {
     public function jsonSerialize() {
         $data = [];
         $data['pv'] = $this->getPv();
+        $data['aireProtegee'] = $this->getAireProtegee();
 
         $data['natinfs'] = [];
         foreach($this->getNatinfs() as $natinf) {
@@ -132,6 +138,16 @@ class ControlePecheurPied implements JsonSerializable {
         if($this->natinfs->contains($natinf)) {
             $this->natinfs->removeElement($natinf);
         }
+
+        return $this;
+    }
+
+    public function getAireProtegee(): ?bool {
+        return $this->aireProtegee;
+    }
+
+    public function setAireProtegee(bool $aireProtegee): self {
+        $this->aireProtegee = $aireProtegee;
 
         return $this;
     }

@@ -43,6 +43,10 @@ class ControleNavireType extends AbstractType {
                 'placeholder' => false,
                 'label' => "Choix du navire par"
             ])
+            ->add('aireProtegee', CheckboxType::class, [
+                'required' => false,
+                'label' => "Contrôle en aire marine protégée"
+            ])
             ->add('pv', CheckboxType::class, [
                 'required' => false,
                 'label' => "PV émis ?"])

@@ -25,6 +25,10 @@ class ControlePecheurPiedType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('pecheurPied', PecheurPiedType::class, ['label' => false,])
+            ->add('aireProtegee', CheckboxType::class, [
+                'required' => false,
+                'label' => "Contrôle en aire marine protégée"
+            ])
             ->add('pv', CheckboxType::class, [
                 'required' => false,
                 'label' => "PV émis ?"])

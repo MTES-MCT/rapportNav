@@ -114,15 +114,19 @@ $(document).ready(function () {
                             "typeUsage": null
                         };
                         newControle['controles'] = [];
+                        newControle['aireProtegee'] = false;
                         break;
                     case 'commerce':
                         newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null};
                         break;
                     case 'pechePied':
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
+                        newControle['aireProtegee'] = false;
                         break;
                     case 'loisir':
-                        newControle['loisir'] = {'nombreControle': 0, 'nombrePv': 0};
+                        newControle['nombreControle'] = 0;
+                        newControle['nombreControleAireProtegee'] = 0;
+                        newControle['nombrePv'] = 0;
                         break;
                 }
 

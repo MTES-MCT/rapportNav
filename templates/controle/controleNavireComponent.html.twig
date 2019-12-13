@@ -14,8 +14,12 @@
                 </fieldset>
             </div>
             <div style="flex-grow: 1">
+                <div style="padding-bottom: 1em;">
+                    {{ form_widget(form.navires.vars.prototype.aireProtegee, {'attr': {'v-model': "controle.aireProtegee"} }) }}
+                    {{ form_label(form.navires.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
+                </div>
                 {% include 'formThemes/stackedRadioFormTheme.html.twig' with
-                    {'form': form.navires.vars.prototype.methodeCiblage, 'attr': {'@change': "toggleAireMarine" }}
+                    {'form': form.navires.vars.prototype.methodeCiblage, 'attr': {'v-model': "controle.methodeCiblage" } }
                 %}
             </div>
         </div>

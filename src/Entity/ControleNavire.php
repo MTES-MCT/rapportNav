@@ -44,6 +44,11 @@ class ControleNavire implements JsonSerializable {
 
     /**
      * @ORM\Column(type="boolean")
+     */
+    private $aireProtegee = false;
+
+    /**
+     * @ORM\Column(type="boolean")
      * @Assert\Type(type="bool")
      */
     private $pv = false;
@@ -62,6 +67,7 @@ class ControleNavire implements JsonSerializable {
     public function jsonSerialize() {
         $data = [];
         $data['pv'] = $this->getPv();
+        $data['aireProtegee'] = $this->getAireProtegee();
 
         $data['natinfs'] = [];
         foreach($this->getNatinfs() as $natinf) {
@@ -170,6 +176,16 @@ class ControleNavire implements JsonSerializable {
         if($this->controles->contains($controle)) {
             $this->controles->removeElement($controle);
         }
+
+        return $this;
+    }
+
+    public function getAireProtegee(): ?bool {
+        return $this->aireProtegee;
+    }
+
+    public function setAireProtegee(bool $aireProtegee): self {
+        $this->aireProtegee = $aireProtegee;
 
         return $this;
     }

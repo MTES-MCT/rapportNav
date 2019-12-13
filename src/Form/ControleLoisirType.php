@@ -35,7 +35,10 @@ class ControleLoisirType extends AbstractType {
         ])
         ->add('nombreControle', IntegerType::class, [
             'required' => true,
-            'label' => "Nombre de contrôles réalisés"])
+            'label' => "Nombre de contrôles total réalisés"])
+        ->add('nombreControleAireProtegee', IntegerType::class, [
+            'required' => true,
+            'label' => "Dont nombre de contrôles en aire protégée"])
         ->add('nombrePv', IntegerType::class, [
             'required' => false,
             'label' => "Nombre de PV émis"])

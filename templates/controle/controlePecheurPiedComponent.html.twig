@@ -17,28 +17,37 @@
                     {'box': form.pecheursPied.vars.prototype.pecheurPied.estPro, 'attr': {'v-model': "controle.pecheurPied.estPro"} } %}
             </div>
             <div class="form__group horizontal__form">
-                {{ form_widget(form.pecheursPied.vars.prototype.pv, {'attr': {'class': 'switch', 'v-model': "controle.pv"}}) }}
-                {{ form_label(form.pecheursPied.vars.prototype.pv, null, {'label_attr': {'class': "label-inline"}}) }}
-                {{ form_errors(form.pecheursPied.vars.prototype.pv) }}
+                <div style="padding-bottom: 1em;">
+                    {{ form_widget(form.pecheursPied.vars.prototype.aireProtegee, {'attr': {'v-model': "controle.aireProtegee"} }) }}
+                    {{ form_label(form.pecheursPied.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
+                </div>
+
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">
-                {{ form_label(form.pecheursPied.vars.prototype.natinfs) }}
-                <select multiple
-                        id="{{ form.pecheursPied.vars.prototype.natinfs.vars.id }}"
-                        name="{{ form.pecheursPied.vars.prototype.natinfs.vars.full_name }}"
-                        v-model="controle.natinfs"
-                        style="display:none;">
-                    <option v-for="option in controle.natinfs" :value="option" v-html="option">
-                    </option>
-                </select>
-                <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs"
-                          :options="natinfsOptions">
-                    <template slot="no-options">
-                        Entrez un code Natinf
-                    </template>
-                </v-select>
-                {% do form.pecheursPied.vars.prototype.natinfs.setRendered %}
-                {{ form_errors(form.pecheursPied.vars.prototype.natinfs) }}
+                <div>
+                    {{ form_widget(form.pecheursPied.vars.prototype.pv, {'attr': {'class': 'switch', 'v-model': "controle.pv"}}) }}
+                    {{ form_label(form.pecheursPied.vars.prototype.pv, null, {'label_attr': {'class': "label-inline"}}) }}
+                    {{ form_errors(form.pecheursPied.vars.prototype.pv) }}
+                </div>
+                <div>
+                    {{ form_label(form.pecheursPied.vars.prototype.natinfs) }}
+                    <select multiple
+                            id="{{ form.pecheursPied.vars.prototype.natinfs.vars.id }}"
+                            name="{{ form.pecheursPied.vars.prototype.natinfs.vars.full_name }}"
+                            v-model="controle.natinfs"
+                            style="display:none;">
+                        <option v-for="option in controle.natinfs" :value="option" v-html="option">
+                        </option>
+                    </select>
+                    <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs"
+                              :options="natinfsOptions">
+                        <template slot="no-options">
+                            Entrez un code Natinf
+                        </template>
+                    </v-select>
+                    {% do form.pecheursPied.vars.prototype.natinfs.setRendered %}
+                    {{ form_errors(form.pecheursPied.vars.prototype.natinfs) }}
+                </div>
             </div>
             <div class="form__group horizontal__form">
                 {{ form_label(form.pecheursPied.vars.prototype.commentaire) }}

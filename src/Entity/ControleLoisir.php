@@ -10,8 +10,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ControleLoisirRepository")
- * @Assert\Expression("this.getNombreControle() > this.getNombrePv()", message = "Le nombre de PV ne peut être supérieur au
- *                                         nombre de contrôles. ")
+ * @Assert\Expression("this.getNombreControle() > this.getNombrePv()", message = "Le nombre de PV ne peut être
+ *                                              supérieur au nombre de contrôles. ")
+ * @Assert\Expression("this.getNombreControle() > this.getNombreControleAireProtegee()", message = "Le nombre de
+ *                                              controles en aire marine protégee ne peut être supérieur au nombre de
+ *                                              contrôles total. ")
  */
 class ControleLoisir implements JsonSerializable {
     /**
@@ -39,6 +42,12 @@ class ControleLoisir implements JsonSerializable {
      */
     protected $nombreControle;
 
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nombreControleAireProtegee;
+
     /**
      * @ORM\Column(type="integer")
      * @Assert\GreaterThanOrEqual(value = 0, message = "Nombre de contrôles invalide")
@@ -51,7 +60,6 @@ class ControleLoisir implements JsonSerializable {
      * @ORM\JoinColumn(nullable=true)
      */
     protected $natinfs;
-
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -66,6 +74,7 @@ class ControleLoisir implements JsonSerializable {
         $data['id'] = $this->getId();
         $data['loisir'] = $this->getLoisir();
         $data['nombreControle'] = $this->getNombreControle();
+        $data['nombreControleAireProtegee'] = $this->getNombreControleAireProtegee();
         $data['nombrePv'] = $this->getNombrePv();
 
         return $data;
@@ -143,6 +152,16 @@ class ControleLoisir implements JsonSerializable {
 
     public function setCommentaire($commentaire): self {
         $this->commentaire = $commentaire;
+        return $this;
+    }
+
+    public function getNombreControleAireProtegee(): ?int {
+        return $this->nombreControleAireProtegee;
+    }
+
+    public function setNombreControleAireProtegee(?int $nombreControleAireProtegee): self {
+        $this->nombreControleAireProtegee = $nombreControleAireProtegee;
+
         return $this;
     }
 }
