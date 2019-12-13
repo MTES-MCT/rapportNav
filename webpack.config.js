@@ -7,6 +7,12 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 
 Encore
+    .configureBabel((babelConfig) => {
+        const preset = babelConfig.presets.find(([name]) => name === "@babel/preset-env");
+        if (preset !== undefined) {
+            preset[1].useBuiltIns = false;
+        }
+    })
 // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
