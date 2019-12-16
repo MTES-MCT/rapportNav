@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Helper\TimeConvert;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
@@ -36,8 +37,8 @@ class ControleTache implements JsonSerializable {
     public function jsonSerialize() {
         return [
             'id' => $this->getId(),
-            'tache' => $this->getTache(),
-            'dureeTache' => $this->getDureeTache()
+            'tache' => $this->getTache()->getId(),
+            'dureeTache' => TimeConvert::minutesToTime($this->getDureeTache())->format("H:i")
         ];
     }
 

@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\MissionAdministratif;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,8 +12,8 @@ class MissionAdministratifType extends MissionType {
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('tache', CollectionType::class, [
-                'entry_type' => ControleLoisirType::class,
+            ->add('taches', CollectionType::class, [
+                'entry_type' => ControleTacheType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,

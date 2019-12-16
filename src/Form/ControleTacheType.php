@@ -30,7 +30,8 @@ class ControleTacheType extends AbstractType {
                 'placeholder' => "Sélectionnez l'activité réalisée",
             ])
             ->add('dureeTache', TimeType::class, [
-                'required' => false,
+                'widget' => "single_text",
+                'required' => true,
                 'label' => "Durée de l'activité"])
         ;
 

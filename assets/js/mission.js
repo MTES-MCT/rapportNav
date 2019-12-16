@@ -61,7 +61,8 @@ $(document).ready(function () {
                     active: false,
                     terrestre: true,
                     zones: [],
-                    activite: ""
+                    controles: []
+
                 },
                 formation: {
                     type: "formation",

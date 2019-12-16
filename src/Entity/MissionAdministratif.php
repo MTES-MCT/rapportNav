@@ -24,7 +24,7 @@ class MissionAdministratif extends Mission {
 
     public function jsonSerialize() {
         $data = parent::jsonSerialize();
-        $data['taches'] = $this->getTaches();
+        $data['controles'] = $this->getTaches()->toArray();
         return $data;
     }
 

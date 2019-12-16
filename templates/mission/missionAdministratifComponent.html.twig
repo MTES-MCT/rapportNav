@@ -1,2 +1,2 @@
 <h2>Actions réalisées</h2>
-{{ form_widget(form.activite, {'attr': {'v-model': "missions[\"administratif\"].activite"}}) }}
+{% include 'controle/controleAdministratifComponent.html.twig' with {'form': form} %}

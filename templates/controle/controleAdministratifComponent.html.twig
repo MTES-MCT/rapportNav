@@ -1,0 +1,30 @@
+<ul class="taches no-decoration" id="taches">
+    <li :class="index % 2 ? 'administratif' : 'section-grey administratif'" v-for="(controle, index) in missions['administratif'].controles"
+        style="padding: 15px 15px 0 15px;">
+        <div class="row">
+            <div class="form__group horizontal__form">
+                {{ form_label(form.taches.vars.prototype.tache) }}
+                {{ form_errors(form.taches.vars.prototype.tache) }}
+                {{ form_widget(form.taches.vars.prototype.tache, {'attr': {'v-model': "controle.tache"}}) }}
+            </div>
+            <div class="form__group horizontal__form">
+                    {{ form_label(form.taches.vars.prototype.dureeTache) }}
+                    {{ form_errors(form.taches.vars.prototype.dureeTache) }}
+                    {{ form_widget(form.taches.vars.prototype.dureeTache, {'attr': {'v-model': "controle.dureeTache"}}) }}
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end">
+            <button type="button" class="button warning" @click="removeControle('administratif', index)">
+                <i class="fas fa-trash-alt"></i>
+                Supprimer ce contrôle
+            </button>
+        </div>
+    </li>
+    <li>
+        <button type="button" id="add-controle-administratif" class="add_navire_link button"
+                @click="addControle('administratif')">
+            Ajouter un contrôle
+        </button>
+    </li>
+</ul>
