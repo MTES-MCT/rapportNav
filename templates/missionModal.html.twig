@@ -39,7 +39,7 @@
 
 <div class="form__group">
     {{ form_label(prototype.commentaire) }}
-    {{ form_widget(prototype.commentaire) }}
+    {{ form_widget(prototype.commentaire, {'attr': {'v-model': "missions['"~type~"'].commentaire"}}) }}
 </div>
 
 {{ form_rest(prototype) }}

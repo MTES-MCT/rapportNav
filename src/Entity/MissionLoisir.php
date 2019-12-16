@@ -21,7 +21,11 @@ class MissionLoisir extends Mission {
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ControleLoisir", mappedBy="rapport", orphanRemoval=true,
      *                                                          cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     *
      * @Assert\Valid()
+     *
+     * @var Collection|ControleLoisir[]
      */
     private $loisirs;
 
@@ -30,8 +34,17 @@ class MissionLoisir extends Mission {
         $this->loisirs = new ArrayCollection();
     }
 
-    public function getControles(): ?ControleLoisir {
-        $this->getLoisirs();
+    public function jsonSerialize() {
+        $data = parent::jsonSerialize();
+        $data['controles'] = $this->getLoisirs()->toArray();
+        return $data;
+    }
+
+    /**
+     * @return Collection|ControleLoisir[]
+     */
+    public function getControles(): Collection {
+        return $this->getLoisirs();
     }
 
     public function getId(): ?int {

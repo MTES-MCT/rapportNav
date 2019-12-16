@@ -29,10 +29,8 @@ class MissionCommerce extends Mission {
 
     public function jsonSerialize() {
         $data = parent::jsonSerialize();
-        $data['etablissements'] = [];
-        foreach($this->getEtablissements() as $etablissement) {
-            $data['etablissements'][] = $etablissement;
-        }
+        $data['controles'] = $this->getEtablissements()->toArray();
+
         return $data;
     }
 

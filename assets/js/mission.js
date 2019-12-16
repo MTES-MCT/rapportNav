@@ -21,7 +21,8 @@ $(document).ready(function () {
                     terrestre: false,
                     zones: [],
                     typeMissionControle: 0,
-                    controles: []
+                    controles: [],
+                    commentaire: null
                 },
                 commerce: {
                     type: "commerces",
@@ -29,7 +30,8 @@ $(document).ready(function () {
                     active: false,
                     terrestre: true,
                     zones: [],
-                    controles: []
+                    controles: [],
+                    commentaire: null
                 },
                 pechePied: {
                     type: "pêcheurs à pied",
@@ -37,7 +39,8 @@ $(document).ready(function () {
                     active: false,
                     terrestre: true,
                     zones: [],
-                    controles: []
+                    controles: [],
+                    commentaire: null
                 },
                 loisir: {
                     type: "loisirs",
@@ -45,7 +48,8 @@ $(document).ready(function () {
                     active: false,
                     terrestre: false,
                     zones: [],
-                    controles: []
+                    controles: [],
+                    commentaire: null
                 },
                 secours: {
                     type: "sauvetage et assistance",
@@ -53,7 +57,8 @@ $(document).ready(function () {
                     active: false,
                     terrestre: false,
                     zones: [],
-                    dureeSecours: null
+                    dureeSecours: null,
+                    commentaire: null
                 },
                 administratif: {
                     type: "administratif",
@@ -61,8 +66,8 @@ $(document).ready(function () {
                     active: false,
                     terrestre: true,
                     zones: [],
-                    controles: []
-
+                    controles: [],
+                    commentaire: null
                 },
                 formation: {
                     type: "formation",
@@ -70,7 +75,8 @@ $(document).ready(function () {
                     active: false,
                     terrestre: true,
                     zones: [],
-                    formation: ""
+                    formation: "",
+                    commentaire: null
                 }
             },
             natinfsOptions: [],
@@ -119,6 +125,7 @@ $(document).ready(function () {
                         break;
                     case 'commerce':
                         newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null};
+                        newControle['bateauxControles'] = null;
                         break;
                     case 'pechePied':
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};

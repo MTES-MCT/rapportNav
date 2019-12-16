@@ -29,10 +29,7 @@ class MissionPechePied extends Mission {
 
     public function jsonSerialize() {
         $data = parent::jsonSerialize();
-        $data['pecheurPied'] = [];
-        foreach($this->getPecheursPied() as $pecheurPied) {
-            $data['pecheurPied'][] = $pecheurPied;
-        }
+        $data['controles'] = $this->getPecheursPied()->toArray();
         return $data;
     }
 

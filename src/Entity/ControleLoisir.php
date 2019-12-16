@@ -10,11 +10,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ControleLoisirRepository")
- * @Assert\Expression("this.getNombreControle() > this.getNombrePv()", message = "Le nombre de PV ne peut être
- *                                              supérieur au nombre de contrôles. ")
- * @Assert\Expression("this.getNombreControle() > this.getNombreControleAireProtegee()", message = "Le nombre de
- *                                              controles en aire marine protégee ne peut être supérieur au nombre de
- *                                              contrôles total. ")
+ * @Assert\Expression("this.getNombreControle() >= this.getNombrePv()", message = "Le nombre de PV ne peut être
+                                               supérieur au nombre de contrôles. ")
+ * @Assert\Expression("this.getNombreControle() >= this.getNombreControleAireProtegee()", message = "Le nombre de
+                                               controles en aire marine protégee ne peut être supérieur au nombre de
+                                               contrôles total. ")
  */
 class ControleLoisir implements JsonSerializable {
     /**
@@ -70,14 +70,19 @@ class ControleLoisir implements JsonSerializable {
     }
 
     public function jsonSerialize() {
-        $data = [];
-        $data['id'] = $this->getId();
-        $data['loisir'] = $this->getLoisir();
-        $data['nombreControle'] = $this->getNombreControle();
-        $data['nombreControleAireProtegee'] = $this->getNombreControleAireProtegee();
-        $data['nombrePv'] = $this->getNombrePv();
+        $natinfs = [];
+        foreach($this->getNatinfs() as $natinf) {
+            $natinfs[] = $natinf->getNumero();
+        }
 
-        return $data;
+        return ['id' => $this->getId(),
+            'loisir' => $this->getLoisir()->getId(),
+            'nombreControle' => $this->getNombreControle(),
+            'nombreControleAireProtegee' => $this->getNombreControleAireProtegee(),
+            'nombrePv' => $this->getNombrePv(),
+            'natinfs' => $natinfs,
+            'commentaire' => $this->getCommentaire()
+        ];
     }
 
     public function getId(): ?int {

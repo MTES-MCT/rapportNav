@@ -32,11 +32,12 @@ class PecheurPied implements JsonSerializable {
     private $estPro = false;
 
     public function jsonSerialize() {
-        $data = [];
-        $data['nom'] = $this->getNom();
-        $data['prenom'] = $this->getPrenom();
-        $data['estPro'] = $this->getEstPro();
-        return $data;
+        return [
+            'id' => $this->getId(),
+            'nom' => $this->getNom(),
+            'prenom' => $this->getPrenom(),
+            'estPro' => $this->getEstPro()
+        ];
     }
 
     public function getId(): ?int {

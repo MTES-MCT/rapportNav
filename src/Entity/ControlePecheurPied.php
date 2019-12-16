@@ -53,21 +53,19 @@ class ControlePecheurPied implements JsonSerializable {
     private $commentaire;
 
     public function jsonSerialize() {
-        $data = [];
-        $data['pv'] = $this->getPv();
-        $data['aireProtegee'] = $this->getAireProtegee();
+        $data = [
+            'id' => $this->getId(),
+            'pecheurPied' => $this->getPecheurPied(),
+            'aireProtegee' => $this->getAireProtegee(),
+            'pv' => $this->getPv(),
+            'commentaire' => $this->getCommentaire(),
+        ];
 
         $data['natinfs'] = [];
         foreach($this->getNatinfs() as $natinf) {
             $data['natinfs'][] = $natinf->getNumero();
         }
 
-        $data['commentaire'] = $this->getCommentaire();
-
-        $data['pecheurPied'] = [];
-        foreach($this->getPecheurPied() as $pp) {
-            $data['pecheurPied'][] = $pp;
-        }
         return $data;
     }
 

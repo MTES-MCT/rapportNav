@@ -46,6 +46,7 @@ class RapportMoyenType extends AbstractType {
             ->add("distance", IntegerType::class)
             ->add("tempsMoteur", TimeType::class, [
                 'widget' => "single_text",
+                'invalid_message' => 'Durée invalide',
                 'label' => "Temps moteur",
             ]);
         $builder->get('tempsMoteur')

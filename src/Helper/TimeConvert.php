@@ -22,9 +22,8 @@ class TimeConvert {
         $hour = floor($minutes / 60);
         $remainingMinutes = $minutes % 60;
 
-
         try {
-            $time = new DateTime($hour.":".$remainingMinutes);
+            $time = new DateTime("t".$hour.":".$remainingMinutes);
         } catch(Exception $e) {
             throw new Exception($e->getCode()." : ".$e->getMessage().
                 "Transforming {$minutes} minutes to {$hour}:{$remainingMinutes} as a Time : ".

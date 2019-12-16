@@ -40,11 +40,12 @@ class Etablissement implements JsonSerializable {
     private $commune;
 
     public function jsonSerialize() {
-        $data = [];
-        $data['type'] = $this->getType();
-        $data['nom'] = $this->getNom();
-
-        return $data;
+        return ['id' => $this->getId(),
+            'type' => $this->getType(),
+            'nom' => $this->getNom(),
+            'adresse' => $this->getAdresse(),
+            'commune' => $this->getCommune()
+        ];
     }
 
     public function getId(): ?int {
@@ -71,25 +72,21 @@ class Etablissement implements JsonSerializable {
         return $this;
     }
 
-    public function getAdresse(): ?string
-    {
+    public function getAdresse(): ?string {
         return $this->adresse;
     }
 
-    public function setAdresse(?string $adresse): self
-    {
+    public function setAdresse(?string $adresse): self {
         $this->adresse = $adresse;
 
         return $this;
     }
 
-    public function getCommune(): ?string
-    {
+    public function getCommune(): ?string {
         return $this->commune;
     }
 
-    public function setCommune(?string $commune): self
-    {
+    public function setCommune(?string $commune): self {
         $this->commune = $commune;
 
         return $this;

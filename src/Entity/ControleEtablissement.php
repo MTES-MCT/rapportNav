@@ -22,6 +22,7 @@ class ControleEtablissement implements JsonSerializable {
     /**
      * @ORM\ManyToOne(targetEntity="MissionCommerce", inversedBy="etablissements")
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Assert\Valid
      */
     private $rapport;
@@ -56,20 +57,19 @@ class ControleEtablissement implements JsonSerializable {
     private $commentaire;
 
     public function jsonSerialize() {
-        $data = [];
-        $data['pv'] = $this->getPv();
+        $data = [
+            'id' => $this->getId(),
+            'bateauxControles' => $this->getBateauxControles(),
+            'pv' => $this->getPv(),
+            'commentaire' => $this->getCommentaire()];
 
         $data['natinfs'] = [];
         foreach($this->getNatinfs() as $natinf) {
             $data['natinfs'][] = $natinf->getNumero();
         }
 
-        $data['commentaire'] = $this->getCommentaire();
+        $data['etablissement'] = $this->getEtablissement();
 
-        $data['etablissement'] = [];
-        foreach($this->getEtablissement() as $e) {
-            $data['etablissement'][] = $e;
-        }
         return $data;
     }
 

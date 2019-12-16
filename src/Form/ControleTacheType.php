@@ -32,6 +32,7 @@ class ControleTacheType extends AbstractType {
             ->add('dureeTache', TimeType::class, [
                 'widget' => "single_text",
                 'required' => true,
+                'invalid_message' => 'Durée invalide',
                 'label' => "Durée de l'activité"])
         ;
 

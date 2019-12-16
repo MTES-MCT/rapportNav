@@ -4,27 +4,28 @@
 namespace App\Form\DataTransformer;
 
 
-use DateTimeImmutable;
+use DateTime;
+use Exception;
 use Symfony\Component\Form\DataTransformerInterface;
+use App\Helper\TimeConvert;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class TimeToIntegerTransformer implements DataTransformerInterface {
     /**
      * @param mixed $value
      *
-     * @return DateTimeImmutable|null
+     * @return DateTime|null
      */
     public function transform($value) {
-        if(null === $value) {
-            return null;
-        }
-        $hours = floor($value / 60);
-        $minutes = $value - $hours * 60;
-        $dateString = "t".$this->intHourToString($hours).":".$this->intHourToString($minutes);
+
         try {
-            $time = new DateTimeImmutable($dateString);
-        } catch(\Exception $e) {
-            return null;
+            $time = TimeConvert::minutesToTime($value);
+        } catch(Exception $e) {
+            throw new TransformationFailedException("Error transforming ".$value.". Helper returned following error : (".
+                $e->getCode().") ".
+                $e->getMessage());
         }
+
         return $time;
     }
 
@@ -37,27 +38,10 @@ class TimeToIntegerTransformer implements DataTransformerInterface {
         if(null === $time) {
             return null;
         }
-        /** @var \DateTime $time */
+        /** @var DateTime $time */
         $minutes = (int)$time->format("i") + (int)$time->format("G") * 60;
 
         return $minutes;
-    }
-
-    /**
-     * Helper to transform an int to a 2 char string containing the value
-     *
-     * eg. 2 => "02", 15 => "15"
-     *
-     * @param int $hour
-     *
-     * @return string
-     */
-    private function intHourToString($hour) {
-        $text = (string)((int)$hour);
-        if(mb_strlen($text) < 2) {
-            $text = "0".$text;
-        }
-        return $text;
     }
 
 }
