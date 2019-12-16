@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,27 +11,52 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MissionAdministratif extends Mission {
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ControleTache", mappedBy="rapport", orphanRemoval=true,
+     *                                                         cascade={"persist", "remove"})
      */
-    private $activite;
+    private $taches;
+
+    public function __construct() {
+        parent::__construct();
+        $this->taches = new ArrayCollection();
+    }
 
 
     public function jsonSerialize() {
         $data = parent::jsonSerialize();
-        $data['activite'] = $this->getActivite();
+        $data['taches'] = $this->getTaches();
         return $data;
     }
 
 
     public function getControles() {
-        return null;
+        return $this->getTaches();
     }
 
-    public function getActivite(): ?string {
-        return $this->activite;
+    /**
+     * @return Collection|ControleTache[]
+     */
+    public function getTaches(): Collection {
+        return $this->taches;
     }
-    public function setActivite(?string $activite): self {
-        $this->activite = $activite;
+
+    public function addTache(ControleTache $tache): self {
+        if(!$this->taches->contains($tache)) {
+            $this->taches[] = $tache;
+            $tache->setRapport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTache(ControleTache $tache): self {
+        if($this->taches->contains($tache)) {
+            $this->taches->removeElement($tache);
+            // set the owning side to null (unless already changed)
+            if($tache->getRapport() === $this) {
+                $tache->setRapport(null);
+            }
+        }
 
         return $this;
     }
