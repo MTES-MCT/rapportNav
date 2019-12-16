@@ -12,7 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class MissionNavire extends Mission {
     /**
-     * @ORM\OneToMany(targetEntity="ControleNavire", mappedBy="rapport", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="ControleNavire", mappedBy="rapport", cascade={"persist", "remove"},
+     *                                               orphanRemoval=true)
      * @Assert\Valid
      */
     private $navires;
@@ -84,13 +85,11 @@ class MissionNavire extends Mission {
         return $this;
     }
 
-    public function getAireMarine(): ?string
-    {
+    public function getAireMarine(): ?string {
         return $this->aireMarine;
     }
 
-    public function setAireMarine(?string $aireMarine): self
-    {
+    public function setAireMarine(?string $aireMarine): self {
         $this->aireMarine = $aireMarine;
 
         return $this;

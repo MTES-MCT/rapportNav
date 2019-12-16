@@ -33,9 +33,9 @@ class ControlePecheurPied implements JsonSerializable {
 
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : 0})
      */
-    private $aireProtegee;
+    private $aireProtegee = false;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)

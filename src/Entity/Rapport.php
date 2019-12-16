@@ -61,12 +61,14 @@ class Rapport {
     private $commentaire;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RapportMoyen", mappedBy="rapport", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\RapportMoyen", mappedBy="rapport", orphanRemoval=true,
+     *                                                        cascade={"persist", "remove"})
      */
     private $moyens;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Mission", mappedBy="rapport", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Mission", mappedBy="rapport", orphanRemoval=true,
+     *                                                   cascade={"persist", "remove"})
      */
     private $missions;
 
@@ -184,14 +186,12 @@ class Rapport {
     /**
      * @return Collection|Mission[]
      */
-    public function getMissions(): Collection
-    {
+    public function getMissions(): Collection {
         return $this->missions;
     }
 
-    public function addMission(Mission $mission): self
-    {
-        if (!$this->missions->contains($mission)) {
+    public function addMission(Mission $mission): self {
+        if(!$this->missions->contains($mission)) {
             $this->missions[] = $mission;
             $mission->setRapport($this);
         }
@@ -199,12 +199,11 @@ class Rapport {
         return $this;
     }
 
-    public function removeMission(Mission $mission): self
-    {
-        if ($this->missions->contains($mission)) {
+    public function removeMission(Mission $mission): self {
+        if($this->missions->contains($mission)) {
             $this->missions->removeElement($mission);
             // set the owning side to null (unless already changed)
-            if ($mission->getRapport() === $this) {
+            if($mission->getRapport() === $this) {
                 $mission->setRapport(null);
             }
         }

@@ -12,7 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class MissionCommerce extends Mission {
     /**
-     * @ORM\OneToMany(targetEntity="ControleEtablissement", mappedBy="rapport", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ControleEtablissement", mappedBy="rapport", cascade={"persist", "remove"},
+     *                                                      orphanRemoval=true)
      * @Assert\Valid
      */
     private $etablissements;

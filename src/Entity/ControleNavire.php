@@ -43,7 +43,7 @@ class ControleNavire implements JsonSerializable {
     private $controles;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : 0})
      */
     private $aireProtegee = false;
 
