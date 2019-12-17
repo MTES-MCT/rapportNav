@@ -2,9 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\CategorieEtablissement;
 use App\Entity\Etablissement;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,20 +16,13 @@ class EtablissementType extends AbstractType {
             ->add('nom', TextType::class, ['required' => true, 'label' => "Nom (ou N/A pour non applicable)"])
             ->add('adresse', TextType::class, ['required' => false])
             ->add('commune', TextType::class, ['required' => false])
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Marché plaisance : concessionnaire' => 0,
-                    'Culture marine' => 1,
-                    'Site de débarquement' => 2,
-                    'Criée' => 3,
-                    'Commerce à terre' => 4,
-                    'Mareyeur' => 5,
-                    'contrôle routier' => 6,
-                    'Formation à la conduite mer et eaux intérieures' => 7,
-                    'autre' => 8],
+            ->add('type', EntityType::class, [
+                'class' => CategorieEtablissement::class,
+                'choice_label' => "nom",
+                'required' => true,
                 'multiple' => false,
                 'expanded' => false,
-                'placeholder' => '',
+                'placeholder' => 'Sélectionnez la catégorie d\'établissement',
                 'label' => "Type de d'établissement"])
         ;
     }

@@ -18,7 +18,7 @@ class Etablissement implements JsonSerializable {
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CategorieEtablissement")
      * @Assert\NotBlank
      */
     private $type;
@@ -41,7 +41,7 @@ class Etablissement implements JsonSerializable {
 
     public function jsonSerialize() {
         return ['id' => $this->getId(),
-            'type' => $this->getType(),
+            'type' => $this->getType()->getId(),
             'nom' => $this->getNom(),
             'adresse' => $this->getAdresse(),
             'commune' => $this->getCommune()
@@ -52,11 +52,11 @@ class Etablissement implements JsonSerializable {
         return $this->id;
     }
 
-    public function getType(): ?int {
+    public function getType(): ?CategorieEtablissement {
         return $this->type;
     }
 
-    public function setType(int $type): self {
+    public function setType(CategorieEtablissement $type): self {
         $this->type = $type;
 
         return $this;
