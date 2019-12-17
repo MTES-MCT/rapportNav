@@ -2,13 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\CategorieControleNavire;
 use App\Entity\Navire;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,27 +18,31 @@ class NavireType extends AbstractType {
             ->add('immatriculation_fr', TextType::class, [
                 'attr' => ['class' => "immatriculation_fr"],
                 'label' => "Immatriculation du navire"])
+            ->add('etranger', CheckboxType::class, [
+                'required' => false,
+                'label' => "Navire étranger"
+            ])
+            ->add('pavillon', TextType::class, [
+                'required' => true,
+                'label' => "Pavillon du navire"
+            ])
             ->add('nom', TextType::class, [
-              'required' => false,
-                'attr' => ['readonly' =>  true],
-            'label' => "Nom du navire (se complète automatiquement)"])
+                'required' => true,
+                'label' => "Nom du navire"])
             ->add('longueurHorsTout', NumberType::class, [
                 'required' => false,
-                'attr' => ['readonly' => true],
-                'label' => "Longueur (se complète automatiquement)"])
+                'label' => "Longueur"])
             ->add('typeUsage', TextType::class, [
-              'required' => false,
-                'attr' => ['readonly' =>  true],
-                'label' => "Genre de navigation (se complète automatiquement)"])
-            ->add('isErreur', CheckboxType::class, [
                 'required' => false,
-                'label' => "Signaler une erreur de données"
-            ])
-            ->add('erreurTexte', TextareaType::class, [
-                'required' => false,
-                'label' => "Détails sur l'erreur"
-            ])
-        ;
+                'label' => "Genre de navigation"])
+            ->add('categorieControleNavire', EntityType::class, [
+                'required' => true,
+                'class' => CategorieControleNavire::class,
+                'multiple' => false,
+                'expanded' => false,
+                'placeholder' => "Sélectionnez un moyen utilisé",
+                'choice_label' => "nom",
+                'label' => "Catégorie du navire controlé"]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

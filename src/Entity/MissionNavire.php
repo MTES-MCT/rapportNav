@@ -23,11 +23,6 @@ class MissionNavire extends Mission {
      */
     private $typeMissionControle;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $aireMarine;
-
     public function getControles() {
         return $this->getNavires();
     }
@@ -81,16 +76,6 @@ class MissionNavire extends Mission {
 
     public function setTypeMissionControle(?TypeMissionControle $typeMissionControle): self {
         $this->typeMissionControle = $typeMissionControle;
-
-        return $this;
-    }
-
-    public function getAireMarine(): ?string {
-        return $this->aireMarine;
-    }
-
-    public function setAireMarine(?string $aireMarine): self {
-        $this->aireMarine = $aireMarine;
 
         return $this;
     }
