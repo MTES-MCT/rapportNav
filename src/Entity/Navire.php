@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NavireRepository")
  */
-class  Navire implements JsonSerializable {
+class Navire implements JsonSerializable {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -25,13 +25,23 @@ class  Navire implements JsonSerializable {
     private $immatriculation_fr;
 
     /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $etranger = false;
+
+    /**
+     * @ORM\Column(type="text", nullable=false)
+     */
+    private $pavillon = "Français";
+
+    /**
      * Identifiant du référentiel Flotteur
      * @ORM\Column(type="integer", nullable=true)
      */
     private $id_nav_flotteur;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=45, nullable=false)
      * @Assert\NotBlank
      * @Assert\Length(min = 1, max = 45)
      */
@@ -43,30 +53,27 @@ class  Navire implements JsonSerializable {
     private $longueurHorsTout;
 
     /**
-     * @ORM\Column(type="string", length=45)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=45, nullable=true)
      * @Assert\Length(min = 1, max = 45)
      */
-    private $typeUsage;
+    private $typeUsage = "Inconnu";
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CategorieControleNavire")
      */
-    private $isErreur = false;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $erreurTexte;
+    private $categorieControleNavire;
 
     public function jsonSerialize() {
-        $data = [];
-        $data['immatriculationFr'] = $this->getImmatriculationFr();
-        $data['nom'] = $this->getNom();
-        $data['longueurHorsTout'] = $this->getLongueurHorsTout();
-        $data['typeUsage'] = $this->getTypeUsage();
-
-        return $data;
+        return [
+            'id' => $this->getId(),
+            'immatriculationFr' => $this->getImmatriculationFr(),
+            'etranger' => $this->getEtranger(),
+            'pavillon' => $this->getPavillon(),
+            'nom' => $this->getNom(),
+            'longueurHorsTout' => $this->getLongueurHorsTout(),
+            'typeUsage' => $this->getTypeUsage(),
+            'categorieControleNavire' => (null === $this->getCategorieControleNavire()) ? null : $this->getCategorieControleNavire()->getId(),
+        ];
     }
 
     public function getId(): ?int {
@@ -122,21 +129,33 @@ class  Navire implements JsonSerializable {
         return $this;
     }
 
-    public function getIsErreur(): bool {
-        return $this->isErreur;
+    public function getEtranger(): ?bool {
+        return $this->etranger;
     }
 
-    public function setIsErreur($isErreur): self {
-        $this->isErreur = $isErreur;
+    public function setEtranger(bool $etranger): self {
+        $this->etranger = $etranger;
+
         return $this;
     }
 
-    public function getErreurTexte(): ?string {
-        return $this->erreurTexte;
+    public function getPavillon(): ?string {
+        return $this->pavillon;
     }
 
-    public function setErreurTexte($erreurTexte): self {
-        $this->erreurTexte = $erreurTexte;
+    public function setPavillon(string $pavillon): self {
+        $this->pavillon = $pavillon;
+
+        return $this;
+    }
+
+    public function getCategorieControleNavire(): ?CategorieControleNavire {
+        return $this->categorieControleNavire;
+    }
+
+    public function setCategorieControleNavire(?CategorieControleNavire $categorieControleNavire): self {
+        $this->categorieControleNavire = $categorieControleNavire;
+
         return $this;
     }
 }

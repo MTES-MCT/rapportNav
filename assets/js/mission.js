@@ -116,9 +116,14 @@ $(document).ready(function () {
                     case 'navire':
                         newControle['navire'] = {
                             "immatriculationFr": null,
+                            'immatriculationInvalide': false,
+                            'erreurApiImmatriculation': false,
+                            "etranger": false,
+                            "pavillon": "Français",
                             "nom": null,
                             "longueurHorsTout": null,
-                            "typeUsage": null
+                            "typeUsage": null,
+                            "categorieControleNavire": null,
                         };
                         newControle['controles'] = [];
                         newControle['aireProtegee'] = false;
@@ -144,27 +149,25 @@ $(document).ready(function () {
             removeControle: function (type, index) {
                 this.missions[type].controles.splice(index, 1);
             },
-            getNavireData: function (index, event) {
+            getNavireData: function (index) {
                 let currentNavire = this.missions['navire'].controles[index].navire, plaisance = false;
-                const input = $(event.target);
-                if ("" === input.val()) {
+                const input = this.$refs.controle_navire_immatriculation[index];
+                currentNavire.immatriculationInvalide = false;
+                currentNavire.erreurApiImmatriculation = false;
+                if ("" === input.value) {
                     return;
                 }
-                $.get(params.apiNavires + "navires/" + input.val())
+                $.get(params.apiNavires + "navires/" + input.value)
                     .catch(function (reason) {
                         console.log("Immatriculation non trouvée dans Navires (err. " + reason.status + ")");
                         plaisance = true;
-                        return $.get(params.apiNavires + "plaisances/" + input.val())
+                        return $.get(params.apiNavires + "plaisances/" + input.value)
                     })
                     .catch(function (data) {
-                        if (input.parent().find(".immatriculation_invalide")) {
-                            input.parent().find(".immatriculation_invalide").remove();
-                        }
-
                         if (data.status === 404) {
-                            input.parent().first().append('<p class="immatriculation_invalide">Immatriculation invalide</p>');
+                            currentNavire.immatriculationInvalide = true;
                         } else {
-                            input.parent().first().append('<p class="immatriculation_invalide">Erreur ' + data.status + ' lors de la récupération des informations</p>');
+                            currentNavire.erreurApiImmatriculation = true;
                         }
 
                         currentNavire.nom = "";
@@ -172,17 +175,14 @@ $(document).ready(function () {
                         currentNavire.typeUsage = "";
                     })
                     .then(function (data) {
-                        const parent = input.parents("li");
                         currentNavire.nom = data.nomNavire;
                         currentNavire.longueurHorsTout = data.longueurHorsTout;
+                        currentNavire.immatriculationInvalide = false;
+                        currentNavire.erreurApiImmatriculation = false;
                         if (!plaisance) {
-                            parent.find("input[id$=_navire_typeUsage]").val(data.genreNavigation || "Inconnu");
                             currentNavire.typeUsage = data.genreNavigation || "Inconnu";
                         } else {
                             currentNavire.typeUsage = "Plaisance";
-                        }
-                        if (input.parent().find(".immatriculation_invalide")) {
-                            input.parent().find(".immatriculation_invalide").remove();
                         }
                     })
             },
@@ -199,6 +199,16 @@ $(document).ready(function () {
                         loading(false);
                     })
                 ;
+            },
+            toggleEtranger: function(index) {
+                let currentNavire = this.missions['navire'].controles[index].navire;
+                if(currentNavire.etranger) {
+                    currentNavire.pavillon = "";
+                } else {
+                    currentNavire.pavillon = "Français";
+                    this.getNavireData(index);
+                }
+
             },
             localSave: function () {
                 localStorage.setItem('missions', JSON.stringify(this.missions))
