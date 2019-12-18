@@ -60,6 +60,7 @@ class RapportType extends AbstractType {
                 'by_reference' => false,
                 'prototype' => true,
             ])
+            ->add('repartitionHeures', RapportRepartitionHeuresType::class)
             ->add('commentaire', null, [
                 'label' => "Commentaires et remarques (pour note interne)"]);
     }

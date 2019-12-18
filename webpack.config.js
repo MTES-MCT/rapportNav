@@ -31,7 +31,8 @@ Encore
                                     './assets/js/moyenManage.js',
                                     './assets/js/manageDraft.js',
                                     './assets/js/mission.js',
-                                    './assets/js/actionButtons.js'
+                                    './assets/js/actionButtons.js',
+                                    './assets/js/timeDivision.js'
                 ])
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

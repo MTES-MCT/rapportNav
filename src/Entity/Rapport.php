@@ -72,6 +72,12 @@ class Rapport {
      */
     private $missions;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\RapportRepartitionHeures", mappedBy="rapport", cascade={"persist",
+     *                                                                   "remove"})
+     */
+    private $repartitionHeures;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -206,6 +212,21 @@ class Rapport {
             if($mission->getRapport() === $this) {
                 $mission->setRapport(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getRepartitionHeures(): ?RapportRepartitionHeures {
+        return $this->repartitionHeures;
+    }
+
+    public function setRepartitionHeures(RapportRepartitionHeures $repartitionHeures): self {
+        $this->repartitionHeures = $repartitionHeures;
+
+        // set the owning side of the relation if necessary
+        if($repartitionHeures->getRapport() !== $this) {
+            $repartitionHeures->setRapport($this);
         }
 
         return $this;
