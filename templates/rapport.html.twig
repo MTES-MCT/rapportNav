@@ -203,6 +203,24 @@
 
     {% endblock body_main_container_rapport_objects %}
 
+    {% block body_main_container_rapport_heures %}
+        <div id="time-division">
+            <time-division v-bind:controle-mer.sync="controleMer"
+                           v-bind:controle-terre.sync="controleTerre"
+                           v-bind:controle-aire-protegee-mer.sync="controleAireProtegeeMer"
+                           v-bind:controle-aire-protegee-terre.sync="controleAireProtegeeTerre"
+                           v-bind:visite-securite.sync="visiteSecurite"
+                           v-bind:surveillance-manifestation-mer.sync="surveillanceManifestationMer"
+                           v-bind:surveillance-manifestation-terre.sync="surveillanceManifestationTerre"
+                           v-bind:surveillance-dpm-mer.sync="surveillanceDpmMer"
+                           v-bind:surveillance-dpm-terre.sync="surveillanceDpmTerre"
+            ></time-division>
+            {% include 'timeDivision.html.twig'with {'form': form.repartitionHeures} %}
+
+        </div>
+
+    {% endblock body_main_container_rapport_heures %}
+
     <br>
 
     <div class="form__group">
@@ -250,5 +268,8 @@
     {% endif %}
     {% if missions is defined %}
         <span id="missions-data" style="display: none" data-content="{{ missions | json_encode }}"></span>
+    {% endif %}
+    {% if rapport is defined %}
+        <span id="rapport-data" style="display: none" data-content="{{ rapport | json_encode }}"></span>
     {% endif %}
 {% endblock javascripts %}

@@ -13,6 +13,7 @@ use App\Form\MissionNavireType;
 use App\Form\MissionPechePiedType;
 use App\Form\MissionSecoursType;
 use App\Form\RapportType;
+use App\Helper\TimeConvert;
 use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -137,6 +138,7 @@ class DefaultController extends AbstractController {
         }
 
         $currentMissions = [];
+        $rapportData = [];
 
         $forms['navire'] = $this->createForm(MissionNavireType::class, null, ['service' => $userService]);
         $forms['commerce'] = $this->createForm(MissionCommerceType::class, null, ['service' => $userService]);
@@ -151,6 +153,21 @@ class DefaultController extends AbstractController {
                 $nbChar = strlen("App\\Entity\\Mission");
                 $currentMissions[lcfirst(mb_substr(get_class($mission), $nbChar))] = $mission;
             }
+        }
+        if($rapport->getRepartitionHeures()) {
+            $rapportData['timeDivision'] = [
+                'controleMer' => $rapport->getRepartitionHeures()->getControleMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleMer())->format("H:i"): null,
+                'controleTerre' => $rapport->getRepartitionHeures()->getControleTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleTerre())->format("H:i"): null,
+                'controleAireProtegeeMer' => $rapport->getRepartitionHeures()->getControleAireProtegeeMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleAireProtegeeMer())->format("H:i"): null,
+                'controleAireProtegeeTerre' => $rapport->getRepartitionHeures()->getControleAireProtegeeTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleAireProtegeeTerre())->format("H:i"): null,
+                'visiteSecurite' => $rapport->getRepartitionHeures()->getVisiteSecurite() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getVisiteSecurite())->format("H:i"): null,
+                'surveillanceManifestationMer' => $rapport->getRepartitionHeures()->getSurveillanceManifestationMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationMer())->format("H:i"): null,
+                'surveillanceManifestationTerre' => $rapport->getRepartitionHeures()->getSurveillanceManifestationTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationTerre())->format("H:i"): null,
+                'surveillanceDpmMer' => $rapport->getRepartitionHeures()->getSurveillanceDpmMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceDpmMer())->format("H:i"): null,
+                'surveillanceDpmTerre' => $rapport->getRepartitionHeures()->getSurveillanceDpmTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceDpmTerre())->format("H:i"): null,
+                ];
+        } else {
+            $rapportData = [];
         }
 
         $form = $this->createForm(RapportType::class, $rapport, ['service' => $userService]);
@@ -186,6 +203,7 @@ class DefaultController extends AbstractController {
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
             'missions' => $currentMissions,
+            'rapport' => $rapportData,
         ]);
     }
 
