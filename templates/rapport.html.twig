@@ -269,4 +269,7 @@
     {% if missions is defined %}
         <span id="missions-data" style="display: none" data-content="{{ missions | json_encode }}"></span>
     {% endif %}
+    {% if rapport is defined %}
+        <span id="rapport-data" style="display: none" data-content="{{ rapport | json_encode }}"></span>
+    {% endif %}
 {% endblock javascripts %}
