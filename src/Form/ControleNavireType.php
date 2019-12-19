@@ -2,17 +2,17 @@
 
 namespace App\Form;
 
+use App\Entity\ControleNavire;
 use App\Entity\MethodeCiblage;
 use App\Entity\Natinf;
-use App\Entity\ControleNavire;
 use App\Entity\RapportNavireControle;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -42,6 +42,12 @@ class ControleNavireType extends AbstractType {
                 'expanded' => true,
                 'placeholder' => false,
                 'label' => "Choix du navire par"
+            ])
+            ->add('date', DateTimeType::class, [
+                'required' => true,
+                'widget' => "single_text",
+                'input' => "datetime_immutable",
+                'label' => "Date du contrôle"
             ])
             ->add('aireProtegee', CheckboxType::class, [
                 'required' => false,

@@ -56,6 +56,11 @@ class ControleEtablissement implements JsonSerializable {
      */
     private $commentaire;
 
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $date;
+
     public function jsonSerialize() {
         $data = [
             'id' => $this->getId(),
@@ -150,6 +155,18 @@ class ControleEtablissement implements JsonSerializable {
         if($this->natinfs->contains($natinf)) {
             $this->natinfs->removeElement($natinf);
         }
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeImmutable $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

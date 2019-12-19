@@ -42,6 +42,13 @@ class ControleNavire implements JsonSerializable {
      */
     private $controles;
 
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     * @Assert\NotBlank()
+     */
+    private $date;
+
     /**
      * @ORM\Column(type="boolean", options={"default" : 0})
      */
@@ -58,7 +65,6 @@ class ControleNavire implements JsonSerializable {
      * @ORM\JoinColumn(nullable=true)
      */
     private $natinfs;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -186,6 +192,16 @@ class ControleNavire implements JsonSerializable {
 
     public function setAireProtegee(bool $aireProtegee): self {
         $this->aireProtegee = $aireProtegee;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeImmutable {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeImmutable $date): self {
+        $this->date = $date;
 
         return $this;
     }

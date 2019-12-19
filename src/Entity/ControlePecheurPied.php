@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use JsonSerializable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ControlePecheurPiedRepository")
@@ -37,11 +38,17 @@ class ControlePecheurPied implements JsonSerializable {
      */
     private $aireProtegee = false;
 
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     * @Assert\NotBlank()
+     */
+    private $date;
+
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $pv;
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Natinf", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
@@ -146,6 +153,16 @@ class ControlePecheurPied implements JsonSerializable {
 
     public function setAireProtegee(bool $aireProtegee): self {
         $this->aireProtegee = $aireProtegee;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeImmutable {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeImmutable $date): self {
+        $this->date = $date;
 
         return $this;
     }

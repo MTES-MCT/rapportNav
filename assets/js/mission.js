@@ -139,14 +139,17 @@ $(document).ready(function () {
                         };
                         newControle['controles'] = [];
                         newControle['aireProtegee'] = false;
+                        newControle['date'] = new Date();
                         break;
                     case 'commerce':
                         newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null};
                         newControle['bateauxControles'] = null;
+                        newControle['date'] = new Date();
                         break;
                     case 'pechePied':
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
                         newControle['aireProtegee'] = false;
+                        newControle['date'] = new Date();
                         break;
                     case 'loisir':
                         newControle['nombreControle'] = 0;

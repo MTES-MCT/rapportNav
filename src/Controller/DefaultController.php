@@ -64,6 +64,15 @@ class DefaultController extends AbstractController {
         $service = $user->getService();
         $rapport->setServiceCreateur($service);
 
+        try {
+            $start = new DateTimeImmutable('t08:00');
+            $end = new DateTimeImmutable('t16:45');
+        } catch(Exception $e) {
+            throw new InvalidArgumentException("Erreur à l'initialisation du formulaire : impossible de récupérer la date et l'heure courante");
+        }
+        $rapport->setDateDebutMission($start);
+        $rapport->setDateFinMission($end);
+
         $form = $this->createForm(RapportType::class, $rapport, ['service' => $service]);
 
         $forms['navire'] = $this->createForm(MissionNavireType::class, null, ['service' => $service]);
@@ -92,18 +101,6 @@ class DefaultController extends AbstractController {
 
             $this->addFlash("success", "Rapport enregistré");
             return $this->redirectToRoute('list_submissions');
-        }
-
-        //Setting default values on new form
-        if(!$form->isSubmitted()) {
-            try {
-                $now = new DateTimeImmutable();
-                $later = $now->add(new DateInterval('PT2H'));
-            } catch(Exception $e) {
-                throw new InvalidArgumentException("Erreur à l'initialisation du formulaire : impossible de récupérer la date et l'heure courante");
-            }
-            $form->get('dateDebutMission')->setData($now);
-            $form->get('dateFinMission')->setData($later);
         }
 
         $crud = ['deletable' => true, 'draftable' => true];
