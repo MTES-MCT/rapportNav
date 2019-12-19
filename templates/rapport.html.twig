@@ -145,6 +145,9 @@
     {% block body_main_container_rapport_objects %}
         <div id="missions">
             <h2>Activité(s) réalisée(s)</h2>
+            <ul class="no-decoration form__errors">
+                <li v-for="errorInfo in errorList" v-text="'L\'activité ' + errorInfo + ' contient des erreurs'"></li>
+            </ul>
             <ul class="no-decoration" data-prototype=''>
                 <li v-for="(mission, index) in missions">
                     <mission v-bind:mission="mission" v-bind:index="index"></mission>

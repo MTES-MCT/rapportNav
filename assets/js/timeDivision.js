@@ -22,7 +22,7 @@ $(document).ready(function () {
         },
         mounted: function () {
             const rapport = $('#rapport-data').data('content') || {};
-            if (1 > Object.keys(rapport).length) {
+            if (!('timeDivision' in rapport)) {
                 return
             }
             // this.data = rapport.timeDivision;

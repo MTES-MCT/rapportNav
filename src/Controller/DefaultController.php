@@ -57,6 +57,7 @@ class DefaultController extends AbstractController {
     public function rapportCreate(Request $request, EntityManagerInterface $em) {
         /** @var Rapport $rapport */
         $rapport = new Rapport();
+        $rapportData = [];
         /** @var User $user */
         $user = $this->getUser();
 
@@ -74,11 +75,14 @@ class DefaultController extends AbstractController {
         $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
 
         $form->handleRequest($request);
-        foreach($forms as $subForm) {
+        foreach($forms as $name => $subForm) {
             /** @var FormInterface $subForm */
             $subForm->handleRequest($request);
             if($subForm->isSubmitted() && $subForm->isValid()) {
                 $rapport->addMission($subForm->getData());
+            } elseif($subForm->isSubmitted()) {
+                $rapportData['error'] = true;
+                $rapportData['error_where'] = $name;
             }
         }
 
@@ -114,6 +118,7 @@ class DefaultController extends AbstractController {
             'formSecours' => $forms['secours']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
+            'rapport' => $rapportData,
         ]);
     }
 
@@ -156,28 +161,29 @@ class DefaultController extends AbstractController {
         }
         if($rapport->getRepartitionHeures()) {
             $rapportData['timeDivision'] = [
-                'controleMer' => $rapport->getRepartitionHeures()->getControleMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleMer())->format("H:i"): null,
-                'controleTerre' => $rapport->getRepartitionHeures()->getControleTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleTerre())->format("H:i"): null,
-                'controleAireProtegeeMer' => $rapport->getRepartitionHeures()->getControleAireProtegeeMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleAireProtegeeMer())->format("H:i"): null,
-                'controleAireProtegeeTerre' => $rapport->getRepartitionHeures()->getControleAireProtegeeTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleAireProtegeeTerre())->format("H:i"): null,
-                'visiteSecurite' => $rapport->getRepartitionHeures()->getVisiteSecurite() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getVisiteSecurite())->format("H:i"): null,
-                'surveillanceManifestationMer' => $rapport->getRepartitionHeures()->getSurveillanceManifestationMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationMer())->format("H:i"): null,
-                'surveillanceManifestationTerre' => $rapport->getRepartitionHeures()->getSurveillanceManifestationTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationTerre())->format("H:i"): null,
-                'surveillanceDpmMer' => $rapport->getRepartitionHeures()->getSurveillanceDpmMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceDpmMer())->format("H:i"): null,
-                'surveillanceDpmTerre' => $rapport->getRepartitionHeures()->getSurveillanceDpmTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceDpmTerre())->format("H:i"): null,
-                ];
-        } else {
-            $rapportData = [];
+                'controleMer' => $rapport->getRepartitionHeures()->getControleMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleMer())->format("H:i") : null,
+                'controleTerre' => $rapport->getRepartitionHeures()->getControleTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleTerre())->format("H:i") : null,
+                'controleAireProtegeeMer' => $rapport->getRepartitionHeures()->getControleAireProtegeeMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleAireProtegeeMer())->format("H:i") : null,
+                'controleAireProtegeeTerre' => $rapport->getRepartitionHeures()->getControleAireProtegeeTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleAireProtegeeTerre())->format("H:i") : null,
+                'visiteSecurite' => $rapport->getRepartitionHeures()->getVisiteSecurite() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getVisiteSecurite())->format("H:i") : null,
+                'surveillanceManifestationMer' => $rapport->getRepartitionHeures()->getSurveillanceManifestationMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationMer())->format("H:i") : null,
+                'surveillanceManifestationTerre' => $rapport->getRepartitionHeures()->getSurveillanceManifestationTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationTerre())->format("H:i") : null,
+                'surveillanceDpmMer' => $rapport->getRepartitionHeures()->getSurveillanceDpmMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceDpmMer())->format("H:i") : null,
+                'surveillanceDpmTerre' => $rapport->getRepartitionHeures()->getSurveillanceDpmTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceDpmTerre())->format("H:i") : null,
+            ];
         }
 
         $form = $this->createForm(RapportType::class, $rapport, ['service' => $userService]);
 
         $form->handleRequest($request);
-        foreach($forms as $subForm) {
+        foreach($forms as $name => $subForm) {
             /** @var FormInterface $subForm */
             $subForm->handleRequest($request);
             if($subForm->isSubmitted() && $subForm->isValid()) {
                 $rapport->addMission($subForm->getData());
+            } elseif($subForm->isSubmitted()) {
+                $rapportData['error'] = true;
+                $rapportData['error_where'] = $name;
             }
         }
 

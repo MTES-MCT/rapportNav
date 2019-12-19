@@ -79,6 +79,8 @@ $(document).ready(function () {
                     commentaire: null
                 }
             },
+            error: false,
+            errorList: [],
             natinfsOptions: [],
             rapportNavire: new RapportTopic("navire")
         },
@@ -90,6 +92,16 @@ $(document).ready(function () {
                     this.missions[index][property] = val;
                 }
                 this.missions[index].active = true;
+            }
+            const rapport = $('#rapport-data').data('content') || {};
+            if('error' in rapport) {
+                this.error = rapport.error;
+                if('error_where' in rapport) {
+                    this.errorList.push(rapport.error_where);
+                }
+                console.log(localStorage.getItem('missions'));
+                this.missions = JSON.parse(localStorage.getItem('missions'));
+                console.log(this.missions);
             }
         },
         methods: {

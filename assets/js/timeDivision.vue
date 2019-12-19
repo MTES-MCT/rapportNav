@@ -18,7 +18,7 @@
                 <td><input type="time" class="" v-model="aireProtegeeTerre" v-on:input="$emit('update:aire-protegee-terre', $event.target.value)"></td>
             </tr>
             <tr>
-                <td>Visite de sécurité</td>
+                <td>Visite de sécurité (au titre de l'inspection de la sécurité des navires)</td>
                 <td/>
                 <td><input type="time" class="" v-model="visiteSecurite" v-on:input="$emit('update:visite-securite', $event.target.value)"></td>
             </tr>

@@ -31,6 +31,7 @@ class Navire implements JsonSerializable {
 
     /**
      * @ORM\Column(type="text", nullable=false)
+     * @Assert\NotBlank
      */
     private $pavillon = "Français";
 
@@ -143,7 +144,7 @@ class Navire implements JsonSerializable {
         return $this->pavillon;
     }
 
-    public function setPavillon(string $pavillon): self {
+    public function setPavillon(?string $pavillon): self {
         $this->pavillon = $pavillon;
 
         return $this;
