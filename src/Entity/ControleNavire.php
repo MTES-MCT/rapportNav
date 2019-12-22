@@ -74,6 +74,7 @@ class ControleNavire implements JsonSerializable {
         $data = [];
         $data['pv'] = $this->getPv();
         $data['aireProtegee'] = $this->getAireProtegee();
+        $data['date'] = $this->getDate()->format("Y-m-d H:i");
 
         $data['natinfs'] = [];
         foreach($this->getNatinfs() as $natinf) {

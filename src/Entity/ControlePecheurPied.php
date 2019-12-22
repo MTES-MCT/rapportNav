@@ -65,6 +65,7 @@ class ControlePecheurPied implements JsonSerializable {
             'pecheurPied' => $this->getPecheurPied(),
             'aireProtegee' => $this->getAireProtegee(),
             'pv' => $this->getPv(),
+            'date' => $this->getDate()->format("Y-m-d H:i"),
             'commentaire' => $this->getCommentaire(),
         ];
 

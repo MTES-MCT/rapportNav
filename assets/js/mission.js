@@ -1,13 +1,17 @@
 import Vue from "vue";
-import mission from './missioncomponent';
 import $ from 'jquery';
+import moment from 'moment';
+
 import RapportTopic from "./rapportTopic";
+import mission from './missioncomponent';
 import params from "./params";
 import vSelect from 'vue-select'
+import inputDateTime from "./inputDateTime";
 
 import 'vue-select/dist/vue-select.css';
 
 Vue.component('v-select', vSelect);
+Vue.component('input-date-time', inputDateTime);
 
 $(document).ready(function () {
     new Vue({
@@ -84,7 +88,7 @@ $(document).ready(function () {
             natinfsOptions: [],
             rapportNavire: new RapportTopic("navire")
         },
-        components: {mission},
+        components: { mission },
         created: function () {
             const missions = $('#missions-data').data('content') || {};
             for (let [index, mission] of Object.entries(missions)) {
@@ -124,6 +128,7 @@ $(document).ready(function () {
                     'commentaire': null
                 };
 
+                let now = new moment();
                 switch (type) {
                     case 'navire':
                         newControle['navire'] = {
@@ -139,17 +144,17 @@ $(document).ready(function () {
                         };
                         newControle['controles'] = [];
                         newControle['aireProtegee'] = false;
-                        newControle['date'] = new Date();
+                        newControle['date'] = now.format("YYYY-MM-DD HH:mm");
                         break;
                     case 'commerce':
                         newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null};
                         newControle['bateauxControles'] = null;
-                        newControle['date'] = new Date();
+                        newControle['date'] = now.format("YYYY-MM-DD HH:mm");;
                         break;
                     case 'pechePied':
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
                         newControle['aireProtegee'] = false;
-                        newControle['date'] = new Date();
+                        newControle['date'] = now.format("YYYY-MM-DD HH:mm");;
                         break;
                     case 'loisir':
                         newControle['nombreControle'] = 0;

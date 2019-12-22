@@ -28,10 +28,11 @@
                 {{ form_errors(form.etablissements.vars.prototype.bateauxControles) }}
                 {{ form_widget(form.etablissements.vars.prototype.bateauxControles, {'attr': {'v-model': "controle.bateauxControles"}}) }}
             </div>
-            <div style="padding-bottom: 1em;">
+            <div class="form__group" style="padding-bottom: 1em;">
                 {{ form_label(form.etablissements.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
-                {{ form_widget(form.etablissements.vars.prototype.date, {'attr': {'v-model': "controle.date"} }) }}
                 {{ form_errors(form.etablissements.vars.prototype.date) }}
+                <input-date-time v-model="controle.date" name="{{ form.etablissements.vars.prototype.date.vars.full_name }}"></input-date-time>
+                {% do form.etablissements.vars.prototype.date %}
             </div>
         </div>
         <div class="row">

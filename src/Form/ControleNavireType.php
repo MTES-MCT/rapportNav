@@ -45,7 +45,8 @@ class ControleNavireType extends AbstractType {
             ])
             ->add('date', DateTimeType::class, [
                 'required' => true,
-                'widget' => "single_text",
+                'date_widget' => "single_text",
+                'time_widget' => "single_text",
                 'input' => "datetime_immutable",
                 'label' => "Date du contrôle"
             ])
