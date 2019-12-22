@@ -13,7 +13,7 @@ import 'vue-select/dist/vue-select.css';
 Vue.component('v-select', vSelect);
 Vue.component('input-date-time', inputDateTime);
 
-$(document).ready(function () {
+$(document).ready(function() {
     new Vue({
         el: "#missions",
         data: {
@@ -88,11 +88,11 @@ $(document).ready(function () {
             natinfsOptions: [],
             rapportNavire: new RapportTopic("navire")
         },
-        components: { mission },
-        created: function () {
+        components: {mission},
+        created: function() {
             const missions = $('#missions-data').data('content') || {};
-            for (let [index, mission] of Object.entries(missions)) {
-                for (let [property, val] of Object.entries(mission)) {
+            for(let [index, mission] of Object.entries(missions)) {
+                for(let [property, val] of Object.entries(mission)) {
                     this.missions[index][property] = val;
                 }
                 this.missions[index].active = true;
@@ -109,18 +109,18 @@ $(document).ready(function () {
             }
         },
         methods: {
-            deleteMission: function (index) {
+            deleteMission: function(index) {
                 this.missions[index].active = false;
                 this.missions[index].terrestre = false;
                 this.missions[index].zones = [];
-                if (undefined !== this.missions[index].controles) {
+                if(undefined !== this.missions[index].controles) {
                     this.missions[index].controles = [];
                 }
             },
-            addMission: function (index) {
+            addMission: function(index) {
                 this.missions[index].active = true;
             },
-            addControle: function (type) {
+            addControle: function(type) {
                 let newControle = {
                     'methodeCiblage': null,
                     'pv': false,
@@ -129,7 +129,7 @@ $(document).ready(function () {
                 };
 
                 let now = new moment();
-                switch (type) {
+                switch(type) {
                     case 'navire':
                         newControle['navire'] = {
                             "immatriculationFr": null,
@@ -149,12 +149,14 @@ $(document).ready(function () {
                     case 'commerce':
                         newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null};
                         newControle['bateauxControles'] = null;
-                        newControle['date'] = now.format("YYYY-MM-DD HH:mm");;
+                        newControle['date'] = now.format("YYYY-MM-DD HH:mm");
+                        ;
                         break;
                     case 'pechePied':
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
                         newControle['aireProtegee'] = false;
-                        newControle['date'] = now.format("YYYY-MM-DD HH:mm");;
+                        newControle['date'] = now.format("YYYY-MM-DD HH:mm");
+                        ;
                         break;
                     case 'loisir':
                         newControle['nombreControle'] = 0;
@@ -166,25 +168,25 @@ $(document).ready(function () {
 
                 this.missions[type].controles.push(newControle);
             },
-            removeControle: function (type, index) {
+            removeControle: function(type, index) {
                 this.missions[type].controles.splice(index, 1);
             },
-            getNavireData: function (index) {
+            getNavireData: function(index) {
                 let currentNavire = this.missions['navire'].controles[index].navire, plaisance = false;
                 const input = this.$refs.controle_navire_immatriculation[index];
                 currentNavire.immatriculationInvalide = false;
                 currentNavire.erreurApiImmatriculation = false;
-                if ("" === input.value) {
+                if("" === input.value) {
                     return;
                 }
                 $.get(params.apiNavires + "navires/" + input.value)
-                    .catch(function (reason) {
+                    .catch(function(reason) {
                         console.log("Immatriculation non trouvée dans Navires (err. " + reason.status + ")");
                         plaisance = true;
                         return $.get(params.apiNavires + "plaisances/" + input.value)
                     })
-                    .catch(function (data) {
-                        if (data.status === 404) {
+                    .catch(function(data) {
+                        if(data.status === 404) {
                             currentNavire.immatriculationInvalide = true;
                         } else {
                             currentNavire.erreurApiImmatriculation = true;
@@ -194,19 +196,19 @@ $(document).ready(function () {
                         currentNavire.longueurHorsTout = "";
                         currentNavire.typeUsage = "";
                     })
-                    .then(function (data) {
+                    .then(function(data) {
                         currentNavire.nom = data.nomNavire;
                         currentNavire.longueurHorsTout = data.longueurHorsTout;
                         currentNavire.immatriculationInvalide = false;
                         currentNavire.erreurApiImmatriculation = false;
-                        if (!plaisance) {
+                        if(!plaisance) {
                             currentNavire.typeUsage = data.genreNavigation || "Inconnu";
                         } else {
                             currentNavire.typeUsage = "Plaisance";
                         }
                     })
             },
-            getNatinfData: function (search, loading) {
+            getNatinfData: function(search, loading) {
                 loading(true);
                 let vm = this;
                 $.ajax({
@@ -214,7 +216,7 @@ $(document).ready(function () {
                     data: {},
                     dataType: 'json',
                 })
-                    .then(function (data) {
+                    .then(function(data) {
                         vm.natinfsOptions.push(data.natinf);
                         loading(false);
                     })
@@ -230,7 +232,14 @@ $(document).ready(function () {
                 }
 
             },
-            localSave: function () {
+            updateBateaux: function($event, index) {
+                if(undefined !== $event.target.options[$event.target.selectedIndex].dataset.complement) {
+                    this.missions['commerce'].controles[index].bateauxControles = 0;
+                } else {
+                    this.bateauxControles = null;
+                }
+            },
+            localSave: function() {
                 localStorage.setItem('missions', JSON.stringify(this.missions))
             }
         }

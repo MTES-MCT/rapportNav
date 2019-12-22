@@ -3,6 +3,11 @@
         <div class="row">
             <div>
                 <div class="form__group horizontal__form">
+                    {{ form_label(form.etablissements.vars.prototype.etablissement.type) }}
+                    {{ form_errors(form.etablissements.vars.prototype.etablissement.type) }}
+                    {{ form_widget(form.etablissements.vars.prototype.etablissement.type, {'attr': {'v-model': "controle.etablissement.type", 'v-on:change': "updateBateaux($event,index)"}}) }}
+                </div>
+                <div class="form__group horizontal__form">
                     {{ form_label(form.etablissements.vars.prototype.etablissement.nom) }}
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.nom) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.nom, {'attr': {'v-model': "controle.etablissement.nom"}}) }}
@@ -17,13 +22,8 @@
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.commune) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.commune, {'attr': {'v-model': "controle.etablissement.commune"}}) }}
                 </div>
-                <div class="form__group horizontal__form">
-                    {{ form_label(form.etablissements.vars.prototype.etablissement.type) }}
-                    {{ form_errors(form.etablissements.vars.prototype.etablissement.type) }}
-                    {{ form_widget(form.etablissements.vars.prototype.etablissement.type, {'attr': {'v-model': "controle.etablissement.type"}}) }}
-                </div>
             </div>
-            <div class="form__group horizontal__form">
+            <div class="form__group horizontal__form" v-show="null !== controle.bateauxControles">
                 {{ form_label(form.etablissements.vars.prototype.bateauxControles) }}
                 {{ form_errors(form.etablissements.vars.prototype.bateauxControles) }}
                 {{ form_widget(form.etablissements.vars.prototype.bateauxControles, {'attr': {'v-model': "controle.bateauxControles"}}) }}

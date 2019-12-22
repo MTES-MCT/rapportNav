@@ -22,6 +22,13 @@ class EtablissementType extends AbstractType {
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
+                'choice_attr' => function($choice, $key, $value) {
+                /** @var CategorieEtablissement $choice */
+                    if(null === $choice->getComplementDonnee()) {
+                        return [];
+                    }
+                        return ['data-complement' => $choice->getComplementDonnee()];
+                },
                 'placeholder' => 'Sélectionnez la catégorie d\'établissement',
                 'label' => "Type de d'établissement"])
         ;
