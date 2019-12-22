@@ -2,24 +2,24 @@
     <li :class="index % 2 ? 'loisir' : 'section-grey loisir'" v-for="(controle, index) in missions['loisir'].controles"
         style="padding: 15px 15px 0 15px;">
         <div class="row">
-            <div>
+            <div class="form__group">
                 {{ form_label(form.loisirs.vars.prototype.loisir) }}
                 {{ form_errors(form.loisirs.vars.prototype.loisir) }}
                 {{ form_widget(form.loisirs.vars.prototype.loisir, {'attr': {'v-model': "controle.loisir"}}) }}
             </div>
             <div>
-                <div>
+                <div class="form__group">
                     {{ form_label(form.loisirs.vars.prototype.nombreControle) }}
                     {{ form_errors(form.loisirs.vars.prototype.nombreControle) }}
                     {{ form_widget(form.loisirs.vars.prototype.nombreControle, {'attr': {'v-model': "controle.nombreControle"}}) }}
                 </div>
-                <div>
+                <div class="form__group">
                     {{ form_label(form.loisirs.vars.prototype.nombreControleAireProtegee) }}
                     {{ form_errors(form.loisirs.vars.prototype.nombreControleAireProtegee) }}
                     {{ form_widget(form.loisirs.vars.prototype.nombreControleAireProtegee, {'attr': {'v-model': "controle.nombreControleAireProtegee"}}) }}
                 </div>
             </div>
-            <div>
+            <div class="form__group">
                 {{ form_label(form.loisirs.vars.prototype.nombrePv) }}
                 {{ form_errors(form.loisirs.vars.prototype.nombrePv) }}
                 {{ form_widget(form.loisirs.vars.prototype.nombrePv, {'attr': {'v-model': "controle.nombrePv", 'v-on:input': "val => {controle.pv = val > 0;}"}}) }}

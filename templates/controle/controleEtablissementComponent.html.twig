@@ -1,23 +1,23 @@
 <ul class="etablissements no-decoration" id="etablissements">
     <li :class="index % 2 ? 'etablissement' : 'section-grey etablissement'" v-for="(controle, index) in missions['commerce'].controles">
         <div class="row">
-            <div class="form__group horizontal__form">
-                <div>
+            <div>
+                <div class="form__group horizontal__form">
                     {{ form_label(form.etablissements.vars.prototype.etablissement.nom) }}
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.nom) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.nom, {'attr': {'v-model': "controle.etablissement.nom"}}) }}
                 </div>
-                <div>
+                <div class="form__group horizontal__form">
                     {{ form_label(form.etablissements.vars.prototype.etablissement.adresse) }}
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.adresse) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.adresse, {'attr': {'v-model': "controle.etablissement.adresse"}}) }}
                 </div>
-                <div>
+                <div class="form__group horizontal__form">
                     {{ form_label(form.etablissements.vars.prototype.etablissement.commune) }}
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.commune) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.commune, {'attr': {'v-model': "controle.etablissement.commune"}}) }}
                 </div>
-                <div>
+                <div class="form__group horizontal__form">
                     {{ form_label(form.etablissements.vars.prototype.etablissement.type) }}
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.type) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.type, {'attr': {'v-model': "controle.etablissement.type"}}) }}
