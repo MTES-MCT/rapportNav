@@ -232,7 +232,7 @@ class DefaultController extends AbstractController {
             ->sign($signer, $metabaseSecretKey)
             ->getToken();
 
-        $iframeUrl = $metabaseDbUrl."embed/dashboard".$token."#bordered=true&titled=true";
+        $iframeUrl = $metabaseDbUrl."embed/dashboard/".$token."#bordered=true&titled=true";
 
         return $this->render('listForms.html.twig', ['iframeUrl' => $iframeUrl]);
 
