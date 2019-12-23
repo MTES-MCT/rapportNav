@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\MissionFormation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method MissionFormation|null find($id, $lockMode = null, $lockVersion = null)
@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method MissionFormation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class MissionFormationRepository extends ServiceEntityRepository {
-    public function __construct(RegistryInterface $registry) {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, MissionFormation::class);
     }
 }
