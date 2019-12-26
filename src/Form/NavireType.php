@@ -40,7 +40,7 @@ class NavireType extends AbstractType {
                 'class' => CategorieControleNavire::class,
                 'multiple' => false,
                 'expanded' => false,
-                'placeholder' => "Sélectionnez un moyen utilisé",
+                'placeholder' => "Sélectionnez une catégorie",
                 'choice_label' => "nom",
                 'label' => "Catégorie du navire controlé"]);
     }

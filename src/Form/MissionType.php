@@ -37,7 +37,7 @@ class MissionType extends AbstractType {
             ->add('gpsLng')
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
-                'label' => "Commentaires et remarques (sur la mission)"]);
+                'label' => "Commentaires et remarques (sur l'activité)"]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

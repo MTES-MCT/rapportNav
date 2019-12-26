@@ -19,17 +19,17 @@ $(document).ready(function() {
         data: {
             missions: {
                 navire: {
-                    type: "navires",
+                    type: "Contrôles de navires",
                     logo: "fas fa-ship",
                     active: false,
-                    terrestre: false,
+                    terrestre: true,
                     zones: [],
                     typeMissionControle: 0,
                     controles: [],
                     commentaire: null
                 },
                 commerce: {
-                    type: "commerces",
+                    type: "Contrôles d'établissements",
                     logo: "fas fa-store",
                     active: false,
                     terrestre: true,
@@ -38,7 +38,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 pechePied: {
-                    type: "pêcheurs à pied",
+                    type: "Contrôle de pêcheurs à pied",
                     logo: "fas fa-shoe-prints",
                     active: false,
                     terrestre: true,
@@ -47,7 +47,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 loisir: {
-                    type: "loisirs",
+                    type: "Contrôles de loisirs",
                     logo: "fas fa-swimmer",
                     active: false,
                     terrestre: false,
@@ -56,7 +56,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 secours: {
-                    type: "sauvetage et assistance",
+                    type: "Sauvetage et assistance",
                     logo: "fas fa-life-ring",
                     active: false,
                     terrestre: false,
@@ -65,7 +65,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 administratif: {
-                    type: "administratif",
+                    type: "Activités administratives",
                     logo: "far fa-file-alt",
                     active: false,
                     terrestre: true,
@@ -74,7 +74,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 formation: {
-                    type: "formation",
+                    type: "Activités de formation",
                     logo: "fas fa-graduation-cap",
                     active: false,
                     terrestre: true,

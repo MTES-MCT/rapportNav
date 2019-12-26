@@ -48,7 +48,10 @@ class ControlePecheurPiedType extends AbstractType {
                 'expanded' => false,
                 'required' => false,
                 'label' => "Code(s) NATINF "])
-            ->add('commentaire', TextType::class, ['required' => false]);
+            ->add('commentaire', TextType::class, [
+                'required' => false,
+                'label' => "Commentaire (sur ce contrôle)"
+            ]);
 
         $builder->addEventSubscriber($this->restNatinfDataListener);
     }

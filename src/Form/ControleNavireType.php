@@ -73,7 +73,7 @@ class ControleNavireType extends AbstractType {
             ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
-                'label' => "Notes et commentaires"]);
+                'label' => "Commentaire (sur ce contrôle)"]);
 
         $builder->addEventSubscriber($this->restNatinfDataListener);
 

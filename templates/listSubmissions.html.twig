@@ -36,14 +36,6 @@
                             <a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
                                 Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
                             </a>
-                            {% if rapport.missions | length > 0 %}
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('export_sati') }}"><i class="fas fa-file-export"></i> Export
-                                            SATI</a>
-                                    </li>
-                                </ul>
-                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
