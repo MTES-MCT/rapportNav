@@ -37,9 +37,7 @@
         </div>
         <div class="row">
             <div class="form__group horizontal__form">
-                {{ form_label(form.etablissements.vars.prototype.pv) }}
-                {{ form_errors(form.etablissements.vars.prototype.pv) }}
-                {{ form_widget(form.etablissements.vars.prototype.pv, {'attr': {'v-model': "controle.pv"}}) }}
+                {% include 'formThemes/switchFormTheme.html.twig' with {'form': form.etablissements.vars.prototype.pv, 'attr': {'v-model': "controle.pv"}} %}
             </div>
 
             <div class="form__group horizontal__form">

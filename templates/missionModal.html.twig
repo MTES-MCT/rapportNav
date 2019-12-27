@@ -7,9 +7,11 @@
         <div class="form__group">
             {{ form_label(prototype.terrestre) }}
             <label class="switch-text">
-                {{ form_widget(prototype.terrestre, {'attr': {'class': "switch", 'v-model': "missions['"~type~"'].terrestre"}}) }}
-                <span class="switch-option">Mer</span>
-                <span class="switch-option">Terre</span>
+                {{ form_widget(prototype.terrestre, {'attr': {'v-model': "missions['"~type~"'].terrestre"}}) }}
+                <span class="slider">
+                    <span class="first-option">Mer&nbsp;</span>
+                    <span class="second-option">Terre</span>
+                </span>
                 <div class="form__errors">
                     {{ form_errors(prototype.terrestre) }}
                 </div>

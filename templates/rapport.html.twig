@@ -135,9 +135,7 @@
         <div>
             <h4>Arme</h4>
             <div class="form__group horizontal__form">
-                {{ form_widget(form.arme, {'attr': {'class': 'switch'}}) }}
-                {{ form_label(form.arme, null, {'label_attr': {'class': "label-inline"}}) }}
-                {{ form_errors(form.arme) }}
+                {% include 'formThemes/switchFormTheme.html.twig' with {'form': form.arme} %}
             </div>
         </div>
     </div>

@@ -32,9 +32,7 @@
         </div>
         <div class="row" style="justify-content: flex-start;align-items: center;">
             <div class="form__group horizontal__form">
-                {{ form_widget(form.navires.vars.prototype.pv, {'attr': {'class': 'switch', 'v-model': "controle.pv"}}) }}
-                {{ form_label(form.navires.vars.prototype.pv, null, {'label_attr': {'class': "label-inline"}}) }}
-                {{ form_errors(form.navires.vars.prototype.pv) }}
+                {% include 'formThemes/switchFormTheme.html.twig' with {'form': form.navires.vars.prototype.pv, 'attr': {'v-model': "controle.pv"}} %}
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">
                 {{ form_label(form.navires.vars.prototype.natinfs) }}

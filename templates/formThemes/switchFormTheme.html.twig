@@ -1,0 +1,10 @@
+<label class="switch" for="{{ form.vars.id }}">
+    {% if attr is defined %}
+    {{ form_widget(form, {'attr': attr}) }}
+    {% else %}
+        {{ form_widget(form) }}
+    {% endif %}
+    <span class="slider"></span>
+    {{ form.vars.label }}
+</label>
+{{ form_errors(form) }}

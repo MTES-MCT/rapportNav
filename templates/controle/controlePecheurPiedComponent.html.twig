@@ -30,9 +30,7 @@
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">
                 <div>
-                    {{ form_widget(form.pecheursPied.vars.prototype.pv, {'attr': {'class': 'switch', 'v-model': "controle.pv"}}) }}
-                    {{ form_label(form.pecheursPied.vars.prototype.pv, null, {'label_attr': {'class': "label-inline"}}) }}
-                    {{ form_errors(form.pecheursPied.vars.prototype.pv) }}
+                    {% include 'formThemes/switchFormTheme.html.twig' with {'form': form.pecheursPied.vars.prototype.pv, 'attr': {'v-model': "controle.pv"}} %}
                 </div>
                 <div  class="form__group">
                     {{ form_label(form.pecheursPied.vars.prototype.natinfs) }}
