@@ -50,7 +50,10 @@ class ControleLoisirType extends AbstractType {
             'expanded' => false,
             'required' => false,
             'label' => "Code(s) NATINF "])
-        ->add('commentaire', TextareaType::class, ['required' => false]);
+        ->add('commentaire', TextareaType::class, [
+            'required' => false,
+            'label' => "Commentaire (sur ce contrôle)"
+        ]);
 
     $builder->addEventSubscriber($this->restNatinfDataListener);
 

@@ -5,12 +5,16 @@
             <div class="form__group horizontal__form">
                 {{ form_label(form.taches.vars.prototype.tache) }}
                 {{ form_errors(form.taches.vars.prototype.tache) }}
-                {{ form_widget(form.taches.vars.prototype.tache, {'attr': {'v-model': "controle.tache"}}) }}
+                {{ form_widget(form.taches.vars.prototype.tache, {'attr': {'v-model': "controle.tache",
+                    'v-bind:name': "'mission_administratif[taches]['+index+'][tache]'",
+                    'v-bind:id': "'mission_administratif_taches_'+index+'_tache'"}}) }}
             </div>
             <div class="form__group horizontal__form">
                     {{ form_label(form.taches.vars.prototype.dureeTache) }}
                     {{ form_errors(form.taches.vars.prototype.dureeTache) }}
-                    {{ form_widget(form.taches.vars.prototype.dureeTache, {'attr': {'v-model': "controle.dureeTache"}}) }}
+                    {{ form_widget(form.taches.vars.prototype.dureeTache, {'attr': {'v-model': "controle.dureeTache",
+                        'v-bind:name': "'mission_administratif[taches]['+index+'][dureeTache]'",
+                        'v-bind:id': "'mission_administratif_taches_'+index+'_dureeTache'"}}) }}
             </div>
         </div>
 

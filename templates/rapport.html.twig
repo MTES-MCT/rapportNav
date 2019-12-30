@@ -80,11 +80,11 @@
                         {{ form_errors(form.moyens.vars.prototype.moyen)|e('html_attr') }}
                     </span>
                     <span class="" style="display: none;">
-                        {{ form_label(form.moyens.vars.prototype.distance, "Distance (km)")|e('html_attr') }}
+                        {{ form_label(form.moyens.vars.prototype.distance|e('html_attr')) }}
                         {{ form_widget(form.moyens.vars.prototype.distance)|e('html_attr') }}
                     </span>
                     <span class="" style="display: none;">
-                        {{ form_label(form.moyens.vars.prototype.tempsMoteur, "Temps moteur (min)")|e('html_attr') }}
+                        {{ form_label(form.moyens.vars.prototype.tempsMoteur|e('html_attr')) }}
                         {{ form_widget(form.moyens.vars.prototype.tempsMoteur)|e('html_attr') }}
                     </span>
                     <button class="button warning moyen-delete">
@@ -103,19 +103,19 @@
                             {% else %}
                                 {% set displayDist = true %}
                             {% endif %}
-                            <span class="" style="{% if not displayDist %}display: none;{% endif %}">
-                                            {{ form_label(moyen.distance, "Distance (km)") }}
+                            <span class="form__group" style="{% if not displayDist %}display: none;{% endif %}">
+                                {{ form_label(moyen.distance, null, {"class": "required"}) }}
                                 {{ form_widget(moyen.distance, {"required": displayDist}) }}
-                                        </span>
+                            </span>
                             {% if moyen.tempsMoteur.vars.value is empty %}
                                 {% set displayTM = false %}
                             {% else %}
                                 {% set displayTM = true %}
                             {% endif %}
-                            <span class="" style="{% if not displayTM %}display: none;{% endif %}">
-                                            {{ form_label(moyen.tempsMoteur, "Temps moteur (min)") }}
+                            <span class="form__group" style="{% if not displayTM %}display: none;{% endif %}">
+                                {{ form_label(moyen.tempsMoteur, null, {"class": "required"}) }}
                                 {{ form_widget(moyen.tempsMoteur, {'required': displayTM}) }}
-                                        </span>
+                            </span>
                             <button class="button warning moyen-delete">
                                 <i class="fas fa-trash-alt"></i>
                                 <span class="">Supprimer</span>
@@ -135,9 +135,7 @@
         <div>
             <h4>Arme</h4>
             <div class="form__group horizontal__form">
-                {{ form_widget(form.arme, {'attr': {'class': 'switch'}}) }}
-                {{ form_label(form.arme, null, {'label_attr': {'class': "label-inline"}}) }}
-                {{ form_errors(form.arme) }}
+                {% include 'formThemes/switchFormTheme.html.twig' with {'form': form.arme} %}
             </div>
         </div>
     </div>

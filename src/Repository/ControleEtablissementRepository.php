@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ControleEtablissement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method ControleEtablissement|null find($id, $lockMode = null, $lockVersion = null)
@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method ControleEtablissement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ControleEtablissementRepository extends ServiceEntityRepository {
-    public function __construct(RegistryInterface $registry) {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, ControleEtablissement::class);
     }
 }

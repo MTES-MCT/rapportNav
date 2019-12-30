@@ -5,6 +5,7 @@
         <input
                 type="date"
                 v-bind:name="dateName"
+                v-bind:id="dateId"
                 class="input_date_time__date"
                 ref="date"
                 aria-label="date"
@@ -14,6 +15,7 @@
         <input
                 type="time"
                 v-bind:name="timeName"
+                v-bind:id="timeId"
                 class="input_date_time__time"
                 ref="time"
                 aria-label="heure"
@@ -48,6 +50,12 @@
             },
             timeName: function () {
                 return this.name + "[time]"
+            },
+            dateId: function () {
+                return this.id + "_date"
+            },
+            timeId: function () {
+                return this.id + "_time"
             }
         },
         methods: {

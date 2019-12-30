@@ -5,24 +5,37 @@
             <div class="form__group">
                 {{ form_label(form.loisirs.vars.prototype.loisir) }}
                 {{ form_errors(form.loisirs.vars.prototype.loisir) }}
-                {{ form_widget(form.loisirs.vars.prototype.loisir, {'attr': {'v-model': "controle.loisir"}}) }}
+                {{ form_widget(form.loisirs.vars.prototype.loisir, {'attr': {
+                    'v-model': "controle.loisir",
+                    'v-bind:name': "'mission_loisir[loisirs]['+index+'][loisir]'",
+                    'v-bind:id': "'mission_loisir_loisirs_'+index+'_loisir'"}}) }}
             </div>
             <div>
                 <div class="form__group">
                     {{ form_label(form.loisirs.vars.prototype.nombreControle) }}
                     {{ form_errors(form.loisirs.vars.prototype.nombreControle) }}
-                    {{ form_widget(form.loisirs.vars.prototype.nombreControle, {'attr': {'v-model': "controle.nombreControle"}}) }}
+                    {{ form_widget(form.loisirs.vars.prototype.nombreControle, {'attr': {
+                        'v-model': "controle.nombreControle",
+                        'v-bind:name': "'mission_loisir[loisirs]['+index+'][nombreControle]'",
+                        'v-bind:id': "'mission_loisir_loisirs_'+index+'_nombreControle'"}}) }}
                 </div>
                 <div class="form__group">
                     {{ form_label(form.loisirs.vars.prototype.nombreControleAireProtegee) }}
                     {{ form_errors(form.loisirs.vars.prototype.nombreControleAireProtegee) }}
-                    {{ form_widget(form.loisirs.vars.prototype.nombreControleAireProtegee, {'attr': {'v-model': "controle.nombreControleAireProtegee"}}) }}
+                    {{ form_widget(form.loisirs.vars.prototype.nombreControleAireProtegee, {'attr': {
+                        'v-model': "controle.nombreControleAireProtegee",
+                        'v-bind:name': "'mission_loisir[loisirs]['+index+'][nombreControleAireProtegee]'",
+                        'v-bind:id': "'mission_loisir_loisirs_'+index+'_nombreControleAireProtegee'"}}) }}
                 </div>
             </div>
             <div class="form__group">
                 {{ form_label(form.loisirs.vars.prototype.nombrePv) }}
                 {{ form_errors(form.loisirs.vars.prototype.nombrePv) }}
-                {{ form_widget(form.loisirs.vars.prototype.nombrePv, {'attr': {'v-model': "controle.nombrePv", 'v-on:input': "val => {controle.pv = val > 0;}"}}) }}
+                {{ form_widget(form.loisirs.vars.prototype.nombrePv, {'attr': {
+                    'v-model': "controle.nombrePv",
+                    'v-on:input': "val => {controle.pv = (val > 0);}",
+                    'v-bind:name': "'mission_loisir[loisirs]['+index+'][nombrePv]'",
+                    'v-bind:id': "'mission_loisir_loisirs_'+index+'_nombrePv'"}}) }}
                 <input type="hidden" v-model="controle.pv"/>
             </div>
         </div>
@@ -30,8 +43,8 @@
             <div class="form__group horizontal__form">
                 {{ form_label(form.loisirs.vars.prototype.natinfs) }}
                 <select multiple
-                        id="{{ form.loisirs.vars.prototype.natinfs.vars.id }}"
-                        name="{{ form.loisirs.vars.prototype.natinfs.vars.full_name }}"
+                        v-bind:name="'mission_loisir[loisirs]['+index+'][natinfs]'"
+                        v-bind:id="'mission_loisir_loisirs_'+index+'_natinfs'"
                         v-model="controle.natinfs"
                         style="display:none;">
                     <option v-for="option in controle.natinfs" :value="option" v-html="option">
@@ -51,7 +64,10 @@
         <div class="form__group horizontal__form">
             {{ form_label(form.loisirs.vars.prototype.commentaire) }}
             {{ form_errors(form.loisirs.vars.prototype.commentaire) }}
-            {{ form_widget(form.loisirs.vars.prototype.commentaire, {'attr': {'v-model': "controle.commentaire"}}) }}
+            {{ form_widget(form.loisirs.vars.prototype.commentaire, {'attr': {
+                'v-model': "controle.commentaire",
+                'v-bind:name': "'mission_loisir[loisirs]['+index+'][commentaire]'",
+                'v-bind:id': "'mission_loisir_loisirs_'+index+'_commentaire'"}}) }}
         </div>
         <div style="display: flex; justify-content: flex-end">
             <button type="button" class="button warning" @click="removeControle('loisir', index)">

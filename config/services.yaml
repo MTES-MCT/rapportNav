@@ -6,6 +6,7 @@
 parameters:
     locale: 'fr'
     app.version: '0.7.0'
+    app.warning: '%env(resolve:APP_SHOW_WARNING)%'
     api_navire: '%env(resolve:API_NAVIRE)%'
     api_natinf: '%env(resolve:API_NATINF)%'
     metabase_root: '%env(resolve:METABASE_LINK)%'

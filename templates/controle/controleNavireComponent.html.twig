@@ -9,38 +9,50 @@
                     {{ form_label(form.navires.vars.prototype.controles, null, {'element': 'legend'} ) }}
                     {{ form_errors(form.navires.vars.prototype.controles) }}
                     {% for box in form.navires.vars.prototype.controles %}
-                        {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {'v-model': "controle.controles"}} %}
+                        {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {'v-model': "controle.controles",
+                            'v-bind:name': "'mission_navire[navires]['+index+'][controles][]'",
+                            'v-bind:id': "'mission_navire_navires_'+index+'_controles_'+"~box.vars.value}} %}
                     {% endfor %}
                 </fieldset>
             </div>
             <div style="flex-grow: 1">
                 <div style="padding-bottom: 1em;">
-                    {{ form_widget(form.navires.vars.prototype.aireProtegee, {'attr': {'v-model': "controle.aireProtegee"} }) }}
+                    {{ form_widget(form.navires.vars.prototype.aireProtegee, {'attr': {'v-model': "controle.aireProtegee",
+                        'v-bind:name': "'mission_navire[navires]['+index+'][aireProtegee]'",
+                        'v-bind:id': "'mission_navire_navires_'+index+'_aireProtegee'"}}) }}
                     {{ form_label(form.navires.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.aireProtegee) }}
                 </div>
                 <div style="padding-bottom: 1em;">
                     {{ form_label(form.navires.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.date) }}
-                    <input-date-time v-model="controle.date" name="{{ form.navires.vars.prototype.date.vars.full_name }}"></input-date-time>
+                    <input-date-time v-model="controle.date"
+                                     v-bind:name="'mission_navire[navires]['+index+'][date]'"
+                                     v-bind:id="'mission_navire_navires_'+index+'_date'"></input-date-time>
                     {% do form.navires.vars.prototype.date %}
                 </div>
                 {% include 'formThemes/stackedRadioFormTheme.html.twig' with
-                    {'form': form.navires.vars.prototype.methodeCiblage, 'attr': {'v-model': "controle.methodeCiblage" } }
+                    {'form': form.navires.vars.prototype.methodeCiblage, 'attr': {
+                        'v-model': "controle.methodeCiblage",
+                        'v-bind:name': "'mission_navire[navires]['+index+'][methodeCiblage]'",
+                        'v-bind:id': "'mission_navire_navires_'+index+'_methodeCiblage'"} }
                 %}
             </div>
         </div>
         <div class="row" style="justify-content: flex-start;align-items: center;">
             <div class="form__group horizontal__form">
-                {{ form_widget(form.navires.vars.prototype.pv, {'attr': {'class': 'switch', 'v-model': "controle.pv"}}) }}
-                {{ form_label(form.navires.vars.prototype.pv, null, {'label_attr': {'class': "label-inline"}}) }}
-                {{ form_errors(form.navires.vars.prototype.pv) }}
+                {% include 'formThemes/switchFormTheme.html.twig' with {'form': form.navires.vars.prototype.pv, 'attr': {
+                        'v-model': "controle.pv",
+                        'v-bind:name': "'mission_navire[navires]['+index+'][pv]'",
+                        'v-bind:id': "'mission_navire_navires_'+index+'_pv'"},
+                    'label_attr': {
+                        'v-bind:for': "'mission_navire_navires_'+index+'_pv'"}} %}
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">
                 {{ form_label(form.navires.vars.prototype.natinfs) }}
                 <select multiple
-                        id="{{ form.navires.vars.prototype.natinfs.vars.id }}"
-                        name="{{form.navires.vars.prototype.natinfs.vars.full_name}}"
+                        v-bind:name="'mission_navire[navires]['+index+'][natinfs]'"
+                        v-bind:id="'mission_navire_navires_'+index+'_natinfs'"
                         v-model="controle.natinfs"
                 style="display:none;">
                     <option v-for="option in controle.natinfs" :value="option" v-html="option">
@@ -54,12 +66,13 @@
                 {% do form.navires.vars.prototype.natinfs.setRendered %}
                 {{ form_errors(form.navires.vars.prototype.natinfs) }}
             </div>
-            <button type="button" class="button"><i class="fas fa-search"></i> Rechercher un code</button>
         </div>
         <div class="form__group horizontal__form">
             {{ form_label(form.navires.vars.prototype.commentaire) }}
             {{ form_errors(form.navires.vars.prototype.commentaire) }}
-            {{ form_widget(form.navires.vars.prototype.commentaire, {'attr': {'v-model': "controle.commentaire"}}) }}
+            {{ form_widget(form.navires.vars.prototype.commentaire, {'attr': {'v-model': "controle.commentaire",
+                'v-bind:name': "'mission_navire[navires]['+index+'][commentaire]'",
+                'v-bind:id': "'mission_navire_navires_'+index+'_commentaire'"}}) }}
         </div>
         <div style="display: flex; justify-content: flex-end">
             <button type="button" class="button warning" @click="removeControle('navire', index)">

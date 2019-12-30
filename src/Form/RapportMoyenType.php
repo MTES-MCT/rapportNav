@@ -43,8 +43,13 @@ class RapportMoyenType extends AbstractType {
                 return ['data-type' => (int)($choice->getTerrestre())];
             }
         ])
-            ->add("distance", IntegerType::class)
+            ->add("distance", IntegerType::class, [
+                'required' => false,
+                'label' => "Distance (km)",
+                'invalid_message' => 'Distance invalide',
+            ])
             ->add("tempsMoteur", TimeType::class, [
+                'required' => false,
                 'widget' => "single_text",
                 'invalid_message' => 'Durée invalide',
                 'label' => "Temps moteur",

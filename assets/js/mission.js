@@ -19,17 +19,17 @@ $(document).ready(function() {
         data: {
             missions: {
                 navire: {
-                    type: "navires",
+                    type: "Contrôles de navires",
                     logo: "fas fa-ship",
                     active: false,
-                    terrestre: false,
+                    terrestre: true,
                     zones: [],
                     typeMissionControle: 0,
                     controles: [],
                     commentaire: null
                 },
                 commerce: {
-                    type: "commerces",
+                    type: "Contrôles d'établissements",
                     logo: "fas fa-store",
                     active: false,
                     terrestre: true,
@@ -38,7 +38,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 pechePied: {
-                    type: "pêcheurs à pied",
+                    type: "Contrôle de pêcheurs à pied",
                     logo: "fas fa-shoe-prints",
                     active: false,
                     terrestre: true,
@@ -47,7 +47,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 loisir: {
-                    type: "loisirs",
+                    type: "Contrôles de loisirs",
                     logo: "fas fa-swimmer",
                     active: false,
                     terrestre: false,
@@ -56,7 +56,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 secours: {
-                    type: "sauvetage et assistance",
+                    type: "Sauvetage et assistance",
                     logo: "fas fa-life-ring",
                     active: false,
                     terrestre: false,
@@ -65,7 +65,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 administratif: {
-                    type: "administratif",
+                    type: "Activités administratives",
                     logo: "far fa-file-alt",
                     active: false,
                     terrestre: true,
@@ -74,7 +74,7 @@ $(document).ready(function() {
                     commentaire: null
                 },
                 formation: {
-                    type: "formation",
+                    type: "Activités de formation",
                     logo: "fas fa-graduation-cap",
                     active: false,
                     terrestre: true,
@@ -103,9 +103,7 @@ $(document).ready(function() {
                 if('error_where' in rapport) {
                     this.errorList.push(rapport.error_where);
                 }
-                console.log(localStorage.getItem('missions'));
                 this.missions = JSON.parse(localStorage.getItem('missions'));
-                console.log(this.missions);
             }
         },
         methods: {
@@ -167,6 +165,9 @@ $(document).ready(function() {
 
 
                 this.missions[type].controles.push(newControle);
+            },
+            getTagName: function(type, index, name) {
+                return "mission_"+type+"_"+type+"s_"+index+"_"+name;
             },
             removeControle: function(type, index) {
                 this.missions[type].controles.splice(index, 1);
@@ -241,6 +242,25 @@ $(document).ready(function() {
             },
             localSave: function() {
                 localStorage.setItem('missions', JSON.stringify(this.missions))
+            },
+            validate: function() {
+                let isValid = document.getElementById("rapport").checkValidity();
+                this.error=isValid;
+                this.errorList=[];
+                if(!isValid) {
+                    let invalidList = $("*:invalid");
+                    for(let index=0 ; index < invalidList.length; index++) {
+                        if("rapport" !== invalidList[index].id) {
+                            for(let type in this.missions) {
+                                let patt=new RegExp(type, "i");
+                                if(null !== patt.exec(invalidList[index].id)) {
+                                    this.error=true;
+                                    this.errorList.push(type);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     });

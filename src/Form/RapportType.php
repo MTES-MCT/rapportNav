@@ -62,7 +62,7 @@ class RapportType extends AbstractType {
             ])
             ->add('repartitionHeures', RapportRepartitionHeuresType::class)
             ->add('commentaire', null, [
-                'label' => "Commentaires et remarques (pour note interne)"]);
+                'label' => "Commentaires et remarques (globales pour ce rapport)"]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

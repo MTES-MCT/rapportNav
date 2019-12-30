@@ -5,3 +5,4 @@ twig:
     globals:
         version: '%app.version%'
         metabase: '%metabase_root%'
+        show_warning: '%app.warning%'
