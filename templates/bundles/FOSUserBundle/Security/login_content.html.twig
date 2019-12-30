@@ -1,5 +1,14 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% if "true" == show_warning %}
+<div class="notification warning full-width"><strong>Attention vous êtes sur un environnement de TEST</strong> :
+    <ul>
+        <li>la conservation des données sur cet environnement n'est pas garantie, </li>
+        <li>les rapports que vous saisissez ne seront pas transmis à AM3.</li>
+    </ul>
+</div>
+{% endif %}
+
 {% if error %}
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
