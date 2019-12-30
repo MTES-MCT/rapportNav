@@ -242,6 +242,25 @@ $(document).ready(function() {
             },
             localSave: function() {
                 localStorage.setItem('missions', JSON.stringify(this.missions))
+            },
+            validate: function() {
+                let isValid = document.getElementById("rapport").checkValidity();
+                this.error=isValid;
+                this.errorList=[];
+                if(!isValid) {
+                    let invalidList = $("*:invalid");
+                    for(let index=0 ; index < invalidList.length; index++) {
+                        if("rapport" !== invalidList[index].id) {
+                            for(let type in this.missions) {
+                                let patt=new RegExp(type, "i");
+                                if(null !== patt.exec(invalidList[index].id)) {
+                                    this.error=true;
+                                    this.errorList.push(type);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     });

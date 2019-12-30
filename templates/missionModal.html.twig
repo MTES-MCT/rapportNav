@@ -50,7 +50,7 @@
 <div class="form__group button__group">
     <a class="button"
        href="#missions"
-       @click="localSave">Valider</a>
+       @click="localSave(); validate()">Valider</a>
     <a class="button warning"
        href="#missions"
        @click="deleteMission('{{ type }}')">
