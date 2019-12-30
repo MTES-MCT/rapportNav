@@ -4,11 +4,34 @@
         {{ form_errors(form) }}
         {% for radio in form %}
             {% if attr is defined %}
-                {{ form_widget(radio, attr) }}
+                <input
+                    {% if attr['v-model'] is defined %}
+                        v-model="{{ attr['v-model'] }}"
+                    {% endif %}
+                    {% if attr['v-bind:id'] is defined %}
+                        v-bind:id="{{ attr['v-bind:id'] }}+'_{{ radio.vars.name }}'"
+                    {% endif %}
+                    {% if attr['v-bind:name'] is defined %}
+                        v-bind:name="{{ attr['v-bind:name'] }}"
+                    {% endif %}
+                    {% if attr['v-bind:class'] is defined %}
+                        v-bind:class="{{ attr['v-bind:class'] }}"
+                    {% elseif attr['class'] is defined %}
+                        class="{{ attr['class'] }}"
+                    {% endif %}
+                    value="{{ radio.vars.value }}"
+                type="radio">
             {% else %}
-                {{ form_widget(radio, attr) }}
+                {{ form_widget(radio) }}
             {% endif %}
-            {{ form_label(radio, null, {'label_attr': {'class': "label-inline" }}) }}
+            {% if attr is defined and attr['v-bind:id'] is defined %}
+                <label v-bind:for="{{ attr['v-bind:id'] }}+'_{{ radio.vars.name }}'"
+                       class="label-inline {{ radio.vars.required ? 'required' }}">
+                {{ radio.vars.label }}
+                </label>
+            {% else %}
+                {{ form_label(radio, null, {'label_attr': {'class': "label-inline"}}) }}
+            {% endif %}
         {% endfor %}
     </div>
 {% endspaceless %}

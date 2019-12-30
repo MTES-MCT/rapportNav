@@ -103,9 +103,7 @@ $(document).ready(function() {
                 if('error_where' in rapport) {
                     this.errorList.push(rapport.error_where);
                 }
-                console.log(localStorage.getItem('missions'));
                 this.missions = JSON.parse(localStorage.getItem('missions'));
-                console.log(this.missions);
             }
         },
         methods: {
@@ -167,6 +165,9 @@ $(document).ready(function() {
 
 
                 this.missions[type].controles.push(newControle);
+            },
+            getTagName: function(type, index, name) {
+                return "mission_"+type+"_"+type+"s_"+index+"_"+name;
             },
             removeControle: function(type, index) {
                 this.missions[type].controles.splice(index, 1);

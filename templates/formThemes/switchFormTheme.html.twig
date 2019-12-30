@@ -1,4 +1,11 @@
-<label class="switch" for="{{ form.vars.id }}">
+{% spaceless %}
+<label class="switch" for="{{ form.vars.id }}"
+        {% if label_attr is defined %}
+            {% for key, val in label_attr %}
+                {{ key }}="{{ val }}"
+            {% endfor %}
+        {% endif %}
+>
     {% if attr is defined %}
     {{ form_widget(form, {'attr': attr}) }}
     {% else %}
@@ -8,3 +15,4 @@
     {{ form.vars.label }}
 </label>
 {{ form_errors(form) }}
+{% endspaceless %}

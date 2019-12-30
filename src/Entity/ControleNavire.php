@@ -201,7 +201,7 @@ class ControleNavire implements JsonSerializable {
         return $this->date;
     }
 
-    public function setDate(\DateTimeImmutable $date): self {
+    public function setDate(?\DateTimeImmutable $date): self {
         $this->date = $date;
 
         return $this;

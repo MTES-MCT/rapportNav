@@ -5,6 +5,13 @@
     {% else %}
         {{ form_widget(box) }}
     {% endif %}
-    {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+    {% if attr is defined and attr['v-bind:id'] is defined %}
+        <label v-bind:for={{ attr['v-bind:id'] }}
+               class="label-inline {{ box.vars.required ? 'required' }}">
+                {{ box.vars.label }}
+        </label>
+    {% else %}
+        {{ form_label(box, null, {'label_attr': {'class': "label-inline"}}) }}
+    {% endif %}
 </span>
 {% endspaceless %}
