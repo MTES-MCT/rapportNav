@@ -1,5 +1,13 @@
 #Changelog v0.x
 
+## Changelog v0.7.0 -> 0.7.1 (30/12/2019)
+* Mise à jours de composants et dépendances
+* Correction de bugs visuels en particulier sur les boutons à bascule (switch)
+* Clarification du vocabulaire avec le bureau AM3
+* Meilleure visibilité des erreurs dans les activités
+* Ajout d'un message d'avertissement en environnement de test
+* Correction de bugs divers
+
 ## Changelog v0.6.2 -> 0.7.0 (23/12/2019)
 * Corrige les boutons de validation de formulaire (ne demandent plus confirmation pour quitter la page)
 * Ajoute les contrôle de loisirs nautiques
