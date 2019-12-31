@@ -7,6 +7,7 @@ import mission from './missioncomponent';
 import params from "./params";
 import vSelect from 'vue-select'
 import inputDateTime from "./inputDateTime";
+import { camelToSnake } from "./stringManipulationHelper";
 
 import 'vue-select/dist/vue-select.css';
 
@@ -252,7 +253,7 @@ $(document).ready(function() {
                     for(let index=0 ; index < invalidList.length; index++) {
                         if("rapport" !== invalidList[index].id) {
                             for(let type in this.missions) {
-                                let patt=new RegExp(type, "i");
+                                let patt=new RegExp(camelToSnake(type), "i");
                                 if(null !== patt.exec(invalidList[index].id)) {
                                     this.error=true;
                                     this.errorList.push(type);
