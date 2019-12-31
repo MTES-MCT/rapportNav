@@ -1,4 +1,38 @@
 <h3>Navires Contrôlés</h3>
+<h4>Navires de plaisance non professionnels contrôlés n'ayant pas donné lieu à des PV</h4>
+<div class="row">
+    <div class="form__group">
+        {{ form_label(form.controleSansPv.nombreControle, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controleSansPv.nombreControle, {'attr': {'v-model': "missions['navire'].controleSansPv.nombreControle"}}) }}
+        {{ form_errors(form.controleSansPv.nombreControle) }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.controleSansPv.nombreControleAireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controleSansPv.nombreControleAireProtegee, {'attr': {'v-model': "missions['navire'].controleSansPv.nombreControleAireProtegee"}}) }}
+        {{ form_errors(form.controleSansPv.nombreControleAireProtegee) }}
+    </div>
+</div>
+<div class="row">
+    <fieldset style="max-width: 100%">
+        {{ form_label(form.controleSansPv.controles, null, {'element': 'legend'} ) }}
+        {{ form_errors(form.controleSansPv.controles) }}
+        {% set half_controls = max(((form.controleSansPv.controles|length)/3)|round,1) %}
+        <div class="row">
+            {% for batch in form.controleSansPv.controles|batch(half_controls) %}
+                <ul class="no-decoration stacked-list">
+                    {% for box in batch %}
+                        <li>
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {'v-model': "missions['navire'].controleSansPv.controles",
+                                'v-bind:name': "'mission_navire[controleSansPv][controles][]'",
+                                'v-bind:id': "'mission_navire_controleSansPv_controles_'+"~box.vars.value}} %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
+    </fieldset>
+</div>
+<h4>Autres contrôles</h4>
 {% include 'controle/controleNavireComponent.html.twig' with {'form': form} %}
 
 

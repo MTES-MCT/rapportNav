@@ -25,6 +25,11 @@ $(document).ready(function() {
                     active: false,
                     terrestre: true,
                     zones: [],
+                    controleSansPv: {
+                        nombreControle: 0,
+                        nombreControleAireProtegee: 0,
+                        controles: []
+                    },
                     typeMissionControle: 0,
                     controles: [],
                     commentaire: null

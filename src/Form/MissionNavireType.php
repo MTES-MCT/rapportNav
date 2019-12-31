@@ -15,6 +15,7 @@ class MissionNavireType extends MissionType {
         parent::buildForm($builder, $options);
 
         $builder
+            ->add('controleSansPv', ControleNavireSansPvType::class)
             ->add('navires', CollectionType::class, [
                 'entry_type' => ControleNavireType::class,
                 'entry_options' => ['label' => false],
