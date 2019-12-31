@@ -23,10 +23,11 @@
                     {{ form_label(form.navires.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.aireProtegee) }}
                 </div>
-                <div style="padding-bottom: 1em;">
+                <div class="form__group" style="padding-bottom: 1em;">
                     {{ form_label(form.navires.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.date) }}
                     <input-date-time v-model="controle.date"
+                                     v-bind:required="true"
                                      v-bind:name="'mission_navire[navires]['+index+'][date]'"
                                      v-bind:id="'mission_navire_navires_'+index+'_date'"></input-date-time>
                     {% do form.navires.vars.prototype.date %}

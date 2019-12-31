@@ -47,6 +47,7 @@
                 {{ form_label(form.etablissements.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
                 {{ form_errors(form.etablissements.vars.prototype.date) }}
                 <input-date-time v-model="controle.date"
+                                 v-bind:required="true"
                                  v-bind:name="'mission_commerce[etablissements]['+index+'][date]'"
                                  v-bind:id="'mission_commerce_etablissements_'+index+'_date'"></input-date-time>
                 {% do form.etablissements.vars.prototype.date %}

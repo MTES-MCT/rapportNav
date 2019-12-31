@@ -6,6 +6,7 @@
                 type="date"
                 v-bind:name="dateName"
                 v-bind:id="dateId"
+                v-bind:required="required"
                 class="input_date_time__date"
                 ref="date"
                 aria-label="date"
@@ -16,6 +17,7 @@
                 type="time"
                 v-bind:name="timeName"
                 v-bind:id="timeId"
+                v-bind:required="required"
                 class="input_date_time__time"
                 ref="time"
                 aria-label="heure"
@@ -33,6 +35,7 @@
             id: String,
             value: String,
             name: String,
+            required: Boolean
         },
         data: function () {
             return {

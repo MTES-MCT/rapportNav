@@ -79,12 +79,12 @@
                         {{ form_widget(form.moyens.vars.prototype.moyen)|e('html_attr') }}
                         {{ form_errors(form.moyens.vars.prototype.moyen)|e('html_attr') }}
                     </span>
-                    <span class="" style="display: none;">
-                        {{ form_label(form.moyens.vars.prototype.distance|e('html_attr')) }}
+                    <span class="form__group" style="display: none;">
+                        {{ form_label(form.moyens.vars.prototype.distance, null, {'label_attr': {'class': "required"}})|e('html_attr') }}
                         {{ form_widget(form.moyens.vars.prototype.distance)|e('html_attr') }}
                     </span>
-                    <span class="" style="display: none;">
-                        {{ form_label(form.moyens.vars.prototype.tempsMoteur|e('html_attr')) }}
+                    <span class="form__group" style="display: none;">
+                        {{ form_label(form.moyens.vars.prototype.tempsMoteur, null, {'label_attr': {'class': "required"}})|e('html_attr') }}
                         {{ form_widget(form.moyens.vars.prototype.tempsMoteur)|e('html_attr') }}
                     </span>
                     <button class="button warning moyen-delete">

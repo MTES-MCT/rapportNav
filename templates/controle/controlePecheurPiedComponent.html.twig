@@ -37,6 +37,7 @@
                     {{ form_label(form.pecheursPied.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.pecheursPied.vars.prototype.date) }}
                     <input-date-time v-model="controle.date"
+                                     v-bind:required="true"
                                      v-bind:name="'mission_peche_pied[pecheursPied]['+index+'][date]'"
                                      v-bind:id="'mission_peche_pied_pecheursPied_'+index+'_date'"></input-date-time>
                     {% do form.pecheursPied.vars.prototype.date %}

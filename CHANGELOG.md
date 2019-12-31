@@ -1,5 +1,9 @@
 #Changelog v0.x
 
+## Changelog v0.7.1 -> 0.7.2 (31/12/2019)
+* Correction : les erreurs dans la partie pêche à pied n'étaient pas affichées 
+* Correction : certains éléments étaient affichés comme obligatoires mais ne l'étaient pas
+
 ## Changelog v0.7.0 -> 0.7.1 (30/12/2019)
 * Mise à jours de composants et dépendances
 * Correction de bugs visuels en particulier sur les boutons à bascule (switch)
