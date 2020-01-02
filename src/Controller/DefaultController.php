@@ -6,6 +6,7 @@ use App\Entity\Rapport;
 use App\Entity\Service;
 use App\Entity\User;
 use App\Form\MissionAdministratifType;
+use App\Form\MissionAutreType;
 use App\Form\MissionCommerceType;
 use App\Form\MissionFormationType;
 use App\Form\MissionLoisirType;
@@ -14,7 +15,6 @@ use App\Form\MissionPechePiedType;
 use App\Form\MissionSecoursType;
 use App\Form\RapportType;
 use App\Helper\TimeConvert;
-use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -79,6 +79,7 @@ class DefaultController extends AbstractController {
         $forms['commerce'] = $this->createForm(MissionCommerceType::class, null, ['service' => $service]);
         $forms['pechePied'] = $this->createForm(MissionPechePiedType::class, null, ['service' => $service]);
         $forms['loisir'] = $this->createForm(MissionLoisirType::class, null, ['service' => $service]);
+        $forms['autre'] = $this->createForm(MissionAutreType::class, null, ['service' => $service]);
         $forms['secours'] = $this->createForm(MissionSecoursType::class, null, ['service' => $service]);
         $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $service]);
         $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
@@ -112,6 +113,7 @@ class DefaultController extends AbstractController {
             'formCommerce' => $forms['commerce']->createView(),
             'formPechePied' => $forms['pechePied']->createView(),
             'formLoisir' => $forms['loisir']->createView(),
+            'formAutre' => $forms['autre']->createView(),
             'formSecours' => $forms['secours']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
@@ -133,22 +135,23 @@ class DefaultController extends AbstractController {
             throw $this->createNotFoundException('Pas de contrôle trouvé avec cet identifiant '.$id_edit);
         }
 
-        /** @var Service $userService */
-        $userService = $this->getUser()->getService();
-        if($rapport->getServiceCreateur() !== $userService) {
+        /** @var Service $service */
+        $service = $this->getUser()->getService();
+        if($rapport->getServiceCreateur() !== $service) {
             throw $this->createNotFoundException("Rapport non trouvé pour ce service");
         }
 
         $currentMissions = [];
         $rapportData = [];
 
-        $forms['navire'] = $this->createForm(MissionNavireType::class, null, ['service' => $userService]);
-        $forms['commerce'] = $this->createForm(MissionCommerceType::class, null, ['service' => $userService]);
-        $forms['pechePied'] = $this->createForm(MissionPechePiedType::class, null, ['service' => $userService]);
-        $forms['loisir'] = $this->createForm(MissionLoisirType::class, null, ['service' => $userService]);
-        $forms['secours'] = $this->createForm(MissionSecoursType::class, null, ['service' => $userService]);
-        $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $userService]);
-        $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $userService]);
+        $forms['navire'] = $this->createForm(MissionNavireType::class, null, ['service' => $service]);
+        $forms['commerce'] = $this->createForm(MissionCommerceType::class, null, ['service' => $service]);
+        $forms['pechePied'] = $this->createForm(MissionPechePiedType::class, null, ['service' => $service]);
+        $forms['loisir'] = $this->createForm(MissionLoisirType::class, null, ['service' => $service]);
+        $forms['autre'] = $this->createForm(MissionAutreType::class, null, ['service' => $service]);
+        $forms['secours'] = $this->createForm(MissionSecoursType::class, null, ['service' => $service]);
+        $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $service]);
+        $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
 
         foreach($rapport->getMissions() as $mission) {
             if($mission) {
@@ -170,7 +173,7 @@ class DefaultController extends AbstractController {
             ];
         }
 
-        $form = $this->createForm(RapportType::class, $rapport, ['service' => $userService]);
+        $form = $this->createForm(RapportType::class, $rapport, ['service' => $service]);
 
         $form->handleRequest($request);
         foreach($forms as $name => $subForm) {
@@ -202,6 +205,7 @@ class DefaultController extends AbstractController {
             'formCommerce' => $forms['commerce']->createView(),
             'formPechePied' => $forms['pechePied']->createView(),
             'formLoisir' => $forms['loisir']->createView(),
+            'formAutre' => $forms['autre']->createView(),
             'formSecours' => $forms['secours']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),

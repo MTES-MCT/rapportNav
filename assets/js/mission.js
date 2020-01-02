@@ -61,6 +61,15 @@ $(document).ready(function() {
                     controles: [],
                     commentaire: null
                 },
+                autre: {
+                    type: "Autres contrôles",
+                    logo: "fas fa-id-card",
+                    active: false,
+                    terrestre: true,
+                    zones: [],
+                    controles: [],
+                    commentaire: null
+                },
                 secours: {
                     type: "Sauvetage et assistance",
                     logo: "fas fa-life-ring",
@@ -154,13 +163,15 @@ $(document).ready(function() {
                         newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null};
                         newControle['bateauxControles'] = null;
                         newControle['date'] = now.format("YYYY-MM-DD HH:mm");
-                        ;
                         break;
                     case 'pechePied':
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
                         newControle['aireProtegee'] = false;
                         newControle['date'] = now.format("YYYY-MM-DD HH:mm");
-                        ;
+                        break;
+                    case 'autre':
+                        newControle['nombreControle'] = 0;
+                        newControle['nombrePv'] = 0;
                         break;
                     case 'loisir':
                         newControle['nombreControle'] = 0;

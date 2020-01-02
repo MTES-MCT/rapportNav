@@ -1,0 +1,77 @@
+<ul class="autres no-decoration" id="autres">
+    <li :class="index % 2 ? 'autre' : 'section-grey autre'" v-for="(controle, index) in missions['autre'].controles"
+        style="padding: 15px 15px 0 15px;">
+        <div class="row">
+            <div class="form__group">
+                {{ form_label(form.controles.vars.prototype.controle) }}
+                {{ form_errors(form.controles.vars.prototype.controle) }}
+                {{ form_widget(form.controles.vars.prototype.controle, {'attr': {
+                    'v-model': "controle.controle",
+                    'v-bind:name': "'mission_autre[controles]['+index+'][controle]'",
+                    'v-bind:id': "'mission_autre_controles_'+index+'_controle'"}}) }}
+            </div>
+            <div>
+                <div class="form__group">
+                    {{ form_label(form.controles.vars.prototype.nombreControle) }}
+                    {{ form_errors(form.controles.vars.prototype.nombreControle) }}
+                    {{ form_widget(form.controles.vars.prototype.nombreControle, {'attr': {
+                        'v-model': "controle.nombreControle",
+                        'v-bind:name': "'mission_autre[controles]['+index+'][nombreControle]'",
+                        'v-bind:id': "'mission_autre_controles_'+index+'_nombreControle'"}}) }}
+                </div>
+            </div>
+            <div class="form__group">
+                {{ form_label(form.controles.vars.prototype.nombrePv) }}
+                {{ form_errors(form.controles.vars.prototype.nombrePv) }}
+                {{ form_widget(form.controles.vars.prototype.nombrePv, {'attr': {
+                    'v-model': "controle.nombrePv",
+                    'v-on:input': "val => {controle.pv = (val > 0);}",
+                    'v-bind:name': "'mission_autre[controles]['+index+'][nombrePv]'",
+                    'v-bind:id': "'mission_autre_controles_'+index+'_nombrePv'"}}) }}
+                <input type="hidden" v-model="controle.pv"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form__group horizontal__form">
+                {{ form_label(form.controles.vars.prototype.natinfs) }}
+                <select multiple
+                        v-bind:name="'mission_autre[controles]['+index+'][natinfs]'"
+                        v-bind:id="'mission_autre_controles_'+index+'_natinfs'"
+                        v-model="controle.natinfs"
+                        style="display:none;">
+                    <option v-for="option in controle.natinfs" :value="option" v-html="option">
+                    </option>
+                </select>
+                <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs"
+                          :options="natinfsOptions">
+                    <template slot="no-options">
+                        Entrez un code Natinf
+                    </template>
+                </v-select>
+                {% do form.controles.vars.prototype.natinfs.setRendered %}
+                {{ form_errors(form.controles.vars.prototype.natinfs) }}
+            </div>
+        </div>
+
+        <div class="form__group horizontal__form">
+            {{ form_label(form.controles.vars.prototype.commentaire) }}
+            {{ form_errors(form.controles.vars.prototype.commentaire) }}
+            {{ form_widget(form.controles.vars.prototype.commentaire, {'attr': {
+                'v-model': "controle.commentaire",
+                'v-bind:name': "'mission_autre[controles]['+index+'][commentaire]'",
+                'v-bind:id': "'mission_autre_controles_'+index+'_commentaire'"}}) }}
+        </div>
+        <div style="display: flex; justify-content: flex-end">
+            <button type="button" class="button warning" @click="removeControle('autre', index)">
+                <i class="fas fa-trash-alt"></i>
+                Supprimer ce contrôle
+            </button>
+        </div>
+    </li>
+    <li>
+        <button type="button" id="add-controle-autre" class="add_autre_link button"
+                @click="addControle('autre')">
+            Ajouter un contrôle
+        </button>
+    </li>
+</ul>
