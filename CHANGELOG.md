@@ -1,6 +1,7 @@
 #Changelog v0.x
-## Changelog v0.7.1 -> 0.7.2 (??)
+## Changelog v0.7.2 -> 0.8.0 (??)
 * Possibilité de lister des navires non professionnels contrôlés sans PV
+* Correction de vocabulaire, titre, ...
 
 ## Changelog v0.7.1 -> 0.7.2 (31/12/2019)
 * Correction : les erreurs dans la partie pêche à pied n'étaient pas affichées 

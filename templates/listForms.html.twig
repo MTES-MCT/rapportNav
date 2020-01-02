@@ -1,5 +1,7 @@
 {% extends "base.html.twig" %}
 
+{% block head_title %}Accueil{{ parent() }}{% endblock %}
+
 {% block head_stylesheets %}
     {{ parent() }}
 {% endblock head_stylesheets %}
@@ -12,7 +14,7 @@
             <h1>Ajout d'un nouveau rapport</h1>
             <div class="">
                 <a href="{{ path('rapport_create') }}" class="button large">
-                    Créer un rapport
+                    Créer un rapport de mission
                 </a>
             </div>
             </div>

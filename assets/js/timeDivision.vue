@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>Répartition des heures de la mission</h3>
+        <h2>Répartition des heures de la mission</h2>
         <table class="table">
             <tr>
                 <th/>
