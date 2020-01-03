@@ -2,7 +2,6 @@ import Vue from "vue";
 import $ from 'jquery';
 import moment from 'moment';
 
-import RapportTopic from "./rapportTopic";
 import mission from './missioncomponent';
 import params from "./params";
 import vSelect from 'vue-select'
@@ -101,7 +100,6 @@ $(document).ready(function() {
             error: false,
             errorList: [],
             natinfsOptions: [],
-            rapportNavire: new RapportTopic("navire")
         },
         components: {mission},
         created: function() {
