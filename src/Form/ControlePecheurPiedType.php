@@ -33,6 +33,9 @@ class ControlePecheurPiedType extends AbstractType {
                 'input' => "datetime_immutable",
                 'label' => "Date du contrôle"
             ])
+            ->add('terrestre', CheckboxType::class, [
+                'required' => false,
+                'label' => "Activité en/à"])
             ->add('aireProtegee', CheckboxType::class, [
                 'required' => false,
                 'label' => "Contrôle en aire marine protégée"

@@ -12,6 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,6 +36,9 @@ class ControleNavireType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Contrôles réalisés"])
+            ->add('terrestre', CheckboxType::class, [
+                'required' => false,
+                'label' => "Activité en/à"])
             ->add('methodeCiblage', EntityType::class, [
                 'class' => MethodeCiblage::class,
                 'required' => false,
@@ -53,6 +57,14 @@ class ControleNavireType extends AbstractType {
             ->add('aireProtegee', CheckboxType::class, [
                 'required' => false,
                 'label' => "Contrôle en aire marine protégée"
+            ])
+            ->add('lat', NumberType::class, [
+                'label' => "Latitude (décimale)",
+                'required' => false
+            ])
+            ->add('long', NumberType::class, [
+                'label' => "Longitude (décimale)",
+                'required' => false
             ])
             ->add('pv', CheckboxType::class, [
                 'required' => false,

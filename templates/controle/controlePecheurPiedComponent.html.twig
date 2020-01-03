@@ -26,13 +26,6 @@
                         'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_pecheurPied_estPro'"} } %}
             </div>
             <div class="form__group horizontal__form">
-                <div style="padding-bottom: 1em;">
-                    {{ form_widget(form.pecheursPied.vars.prototype.aireProtegee, {'attr': {
-                        'v-model': "controle.aireProtegee",
-                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][aireProtegee]'",
-                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_aireProtegee'"} }) }}
-                    {{ form_label(form.pecheursPied.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
-                </div>
                 <div class="form__group" style="padding-bottom: 1em;">
                     {{ form_label(form.pecheursPied.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.pecheursPied.vars.prototype.date) }}
@@ -41,6 +34,29 @@
                                      v-bind:name="'mission_peche_pied[pecheursPied]['+index+'][date]'"
                                      v-bind:id="'mission_peche_pied_pecheursPied_'+index+'_date'"></input-date-time>
                     {% do form.pecheursPied.vars.prototype.date %}
+                </div>
+                <div class="form__group horizontal__form">
+                    <span>{{ form.pecheursPied.vars.prototype.terrestre.vars.label }}</span>
+                    <label class="switch-text">
+                        {{ form_widget(form.pecheursPied.vars.prototype.terrestre, {'attr': {
+                            'v-model': "controle.terrestre",
+                            'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][terrestre]'",
+                            'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_terrestre'"}}) }}
+                        <span class="slider">
+                            <span class="first-option">Mer&nbsp;</span>
+                            <span class="second-option">Terre</span>
+                        </span>
+                        <div class="form__errors">
+                            {{ form_errors(form.pecheursPied.vars.prototype.terrestre) }}
+                        </div>
+                    </label>
+                </div>
+                <div style="padding-bottom: 1em;">
+                    {{ form_widget(form.pecheursPied.vars.prototype.aireProtegee, {'attr': {
+                        'v-model': "controle.aireProtegee",
+                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][aireProtegee]'",
+                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_aireProtegee'"} }) }}
+                    {{ form_label(form.pecheursPied.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
                 </div>
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">

@@ -46,24 +46,9 @@ abstract class Mission implements \JsonSerializable {
     private $rapport;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $terrestre;
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\ZoneGeographique")
      */
     private $zones;
-
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=8, nullable=true)
-     */
-    private $gpsLat;
-
-
-    /**
-     * @ORM\Column(type="decimal", precision=11, scale=8, nullable=true)
-     */
-    private $gpsLng;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -74,14 +59,10 @@ abstract class Mission implements \JsonSerializable {
 
     public function jsonSerialize() {
         $data = [];
-
-        $data['terrestre'] = $this->getTerrestre();
         $data['zones'] = [];
         foreach($this->getZones() as $zone) {
             $data['zones'][] = $zone->getId();
         }
-        $data['gpslat'] = $this->getGpsLat();
-        $data['gpslng'] = $this->getGpsLng();
         $data['commentaire'] = $this->getCommentaire();
 
         return $data;
@@ -105,16 +86,6 @@ abstract class Mission implements \JsonSerializable {
         return $this;
     }
 
-    public function getTerrestre(): ?bool {
-        return $this->terrestre;
-    }
-
-    public function setTerrestre(bool $terrestre): self {
-        $this->terrestre = $terrestre;
-
-        return $this;
-    }
-
     /**
      * @return Collection|ZoneGeographique[]
      */
@@ -134,26 +105,6 @@ abstract class Mission implements \JsonSerializable {
         if($this->zones->contains($zone)) {
             $this->zones->removeElement($zone);
         }
-
-        return $this;
-    }
-
-    public function getGpsLat(): ?string {
-        return $this->gpsLat;
-    }
-
-    public function setGpsLat(?string $gpsLat): self {
-        $this->gpsLat = $gpsLat;
-
-        return $this;
-    }
-
-    public function getGpsLng(): ?string {
-        return $this->gpsLng;
-    }
-
-    public function setGpsLng(?string $gpsLng): self {
-        $this->gpsLng = $gpsLng;
 
         return $this;
     }

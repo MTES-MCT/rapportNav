@@ -4,35 +4,12 @@
 <div style="border: 2px solid var(--grey);padding: 1em;margin-bottom: 1em;">
     {{ form_errors(prototype.zones) }}
     <div class="row" style="flex-wrap: wrap;">
-        <div class="form__group">
-            {{ form_label(prototype.terrestre) }}
-            <label class="switch-text">
-                {{ form_widget(prototype.terrestre, {'attr': {'v-model': "missions['"~type~"'].terrestre"}}) }}
-                <span class="slider">
-                    <span class="first-option">Mer&nbsp;</span>
-                    <span class="second-option">Terre</span>
-                </span>
-                <div class="form__errors">
-                    {{ form_errors(prototype.terrestre) }}
-                </div>
-            </label>
-        </div>
         {% for checkbox in prototype.zones %}
             <span class="form__checkbox" style="margin: 0 5px 0 0">
                 {{ form_widget(checkbox, {'attr': {'class': "button", 'v-model': "missions['"~type~"'].zones"}}) }}
                 {{ form_label(checkbox, null, {'label_attr': {'class': "label-inline button"}}) }}
                                 </span>
         {% endfor %}
-    </div>
-    <div id="gps" class="row" style="justify-content: start">
-        <div class="form__group" style="max-width: 20em;">
-            {{ form_label(prototype.gpsLat, null, {'label_attr': {'class': "label-inline"}}) }}
-            {{ form_widget(prototype.gpsLat) }}
-        </div>
-        <div class="form__group" style="max-width: 20em; margin-top: 0;">
-            {{ form_label(prototype.gpsLng, null, {'label_attr': {'class': "label-inline"}}) }}
-            {{ form_widget(prototype.gpsLng) }}
-        </div>
     </div>
 </div>
 

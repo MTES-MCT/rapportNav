@@ -5,7 +5,8 @@
         <div class="" style="flex-grow: 1;max-width: 50%">
             <h5 style="margin: 0">{{ mission.type }}</h5>
             <div>
-                <span class="label">{{ mission.terrestre ? 'Terre' : 'Mer' }}</span>
+                <!-- TODO : change this for a count of mission.controles terre vs mer -->
+<!--                <span class="label">{{ mission.terrestre ? 'Terre' : 'Mer' }}</span>-->
 <!--                Todo not currently working properly-->
 <!--                <span v-for="zone in mission.zones">-->
 <!--                    <span class="label">{{ zone }}</span>-->

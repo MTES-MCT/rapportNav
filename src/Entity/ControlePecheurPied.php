@@ -32,12 +32,15 @@ class ControlePecheurPied implements JsonSerializable {
      */
     private $pecheurPied;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $terrestre;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : 0})
      */
     private $aireProtegee = false;
-
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -63,6 +66,7 @@ class ControlePecheurPied implements JsonSerializable {
         $data = [
             'id' => $this->getId(),
             'pecheurPied' => $this->getPecheurPied(),
+            'terrestre' => $this->getTerrestre(),
             'aireProtegee' => $this->getAireProtegee(),
             'pv' => $this->getPv(),
             'date' => $this->getDate()->format("Y-m-d H:i"),
@@ -165,6 +169,15 @@ class ControlePecheurPied implements JsonSerializable {
     public function setDate(?\DateTimeImmutable $date): self {
         $this->date = $date;
 
+        return $this;
+    }
+
+    public function getTerrestre() {
+        return $this->terrestre;
+    }
+
+    public function setTerrestre($terrestre): self {
+        $this->terrestre = $terrestre;
         return $this;
     }
 }

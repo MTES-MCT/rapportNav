@@ -16,13 +16,12 @@
                 </fieldset>
             </div>
             <div style="flex-grow: 1">
-                <div style="padding-bottom: 1em;">
-                    {{ form_widget(form.navires.vars.prototype.aireProtegee, {'attr': {'v-model': "controle.aireProtegee",
-                        'v-bind:name': "'mission_navire[navires]['+index+'][aireProtegee]'",
-                        'v-bind:id': "'mission_navire_navires_'+index+'_aireProtegee'"}}) }}
-                    {{ form_label(form.navires.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
-                    {{ form_errors(form.navires.vars.prototype.aireProtegee) }}
-                </div>
+                {% include 'formThemes/stackedRadioFormTheme.html.twig' with
+                    {'form': form.navires.vars.prototype.methodeCiblage, 'attr': {
+                        'v-model': "controle.methodeCiblage",
+                        'v-bind:name': "'mission_navire[navires]['+index+'][methodeCiblage]'",
+                        'v-bind:id': "'mission_navire_navires_'+index+'_methodeCiblage'"} }
+                %}
                 <div class="form__group" style="padding-bottom: 1em;">
                     {{ form_label(form.navires.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.date) }}
@@ -32,12 +31,45 @@
                                      v-bind:id="'mission_navire_navires_'+index+'_date'"></input-date-time>
                     {% do form.navires.vars.prototype.date %}
                 </div>
-                {% include 'formThemes/stackedRadioFormTheme.html.twig' with
-                    {'form': form.navires.vars.prototype.methodeCiblage, 'attr': {
-                        'v-model': "controle.methodeCiblage",
-                        'v-bind:name': "'mission_navire[navires]['+index+'][methodeCiblage]'",
-                        'v-bind:id': "'mission_navire_navires_'+index+'_methodeCiblage'"} }
-                %}
+                <div class="form__group">
+                    {{ form_label(form.navires.vars.prototype.terrestre) }}
+                    <label class="switch-text">
+                        {{ form_widget(form.navires.vars.prototype.terrestre, {'attr': {
+                            'v-model': "controle.terrestre",
+                            'v-bind:name': "'mission_navire[navires]['+index+'][terrestre]'",
+                            'v-bind:id': "'mission_navire_navires_'+index+'_terrestre'"}}) }}
+                        <span class="slider">
+                            <span class="first-option">Mer&nbsp;</span>
+                            <span class="second-option">Terre</span>
+                        </span>
+                        <div class="form__errors">
+                            {{ form_errors(form.navires.vars.prototype.terrestre) }}
+                        </div>
+                    </label>
+                </div>
+                <div style="padding-bottom: 1em;">
+                    {{ form_widget(form.navires.vars.prototype.aireProtegee, {'attr': {'v-model': "controle.aireProtegee",
+                        'v-bind:name': "'mission_navire[navires]['+index+'][aireProtegee]'",
+                        'v-bind:id': "'mission_navire_navires_'+index+'_aireProtegee'"}}) }}
+                    {{ form_label(form.navires.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
+                    {{ form_errors(form.navires.vars.prototype.aireProtegee) }}
+                </div>
+                <div class="" style="">
+                    <div class="form__group horizontal__form" style="max-width: 20em;">
+                        {{ form_label(form.navires.vars.prototype.lat, null, {'label_attr': {'class': "label-inline"}}) }}
+                        {{ form_widget(form.navires.vars.prototype.lat, {'attr': {
+                            'v-model': "controle.lat",
+                            'v-bind:name': "'mission_navire[navires]['+index+'][lat]'",
+                            'v-bind:id': "'mission_navire_navires_'+index+'_lat'"}}) }}
+                    </div>
+                    <div class="form__group horizontal__form" style="max-width: 20em;">
+                        {{ form_label(form.navires.vars.prototype.long, null, {'label_attr': {'class': "label-inline"}}) }}
+                        {{ form_widget(form.navires.vars.prototype.long, {'attr': {
+                            'v-model': "controle.long",
+                            'v-bind:name': "'mission_navire[navires]['+index+'][long]'",
+                            'v-bind:id': "'mission_navire_navires_'+index+'_long'"}}) }}
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row" style="justify-content: flex-start;align-items: center;">

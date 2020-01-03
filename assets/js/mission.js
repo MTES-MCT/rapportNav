@@ -22,14 +22,12 @@ $(document).ready(function() {
                     type: "Contrôles de navires",
                     logo: "fas fa-ship",
                     active: false,
-                    terrestre: true,
                     zones: [],
                     controleSansPv: {
                         nombreControle: 0,
                         nombreControleAireProtegee: 0,
                         controles: []
                     },
-                    typeMissionControle: 0,
                     controles: [],
                     commentaire: null
                 },
@@ -37,7 +35,6 @@ $(document).ready(function() {
                     type: "Contrôles d'établissements",
                     logo: "fas fa-store",
                     active: false,
-                    terrestre: true,
                     zones: [],
                     controles: [],
                     commentaire: null
@@ -46,7 +43,6 @@ $(document).ready(function() {
                     type: "Contrôle de pêcheurs à pied",
                     logo: "fas fa-shoe-prints",
                     active: false,
-                    terrestre: true,
                     zones: [],
                     controles: [],
                     commentaire: null
@@ -55,7 +51,6 @@ $(document).ready(function() {
                     type: "Contrôles de loisirs",
                     logo: "fas fa-swimmer",
                     active: false,
-                    terrestre: false,
                     zones: [],
                     controles: [],
                     commentaire: null
@@ -64,7 +59,6 @@ $(document).ready(function() {
                     type: "Autres contrôles",
                     logo: "fas fa-id-card",
                     active: false,
-                    terrestre: true,
                     zones: [],
                     controles: [],
                     commentaire: null
@@ -73,7 +67,6 @@ $(document).ready(function() {
                     type: "Sauvetage et assistance",
                     logo: "fas fa-life-ring",
                     active: false,
-                    terrestre: false,
                     zones: [],
                     dureeSecours: null,
                     commentaire: null
@@ -82,7 +75,6 @@ $(document).ready(function() {
                     type: "Activités administratives",
                     logo: "far fa-file-alt",
                     active: false,
-                    terrestre: true,
                     zones: [],
                     controles: [],
                     commentaire: null
@@ -91,7 +83,6 @@ $(document).ready(function() {
                     type: "Activités de formation",
                     logo: "fas fa-graduation-cap",
                     active: false,
-                    terrestre: true,
                     zones: [],
                     formation: "",
                     commentaire: null
@@ -122,7 +113,6 @@ $(document).ready(function() {
         methods: {
             deleteMission: function(index) {
                 this.missions[index].active = false;
-                this.missions[index].terrestre = false;
                 this.missions[index].zones = [];
                 if(undefined !== this.missions[index].controles) {
                     this.missions[index].controles = [];
@@ -156,6 +146,10 @@ $(document).ready(function() {
                         newControle['controles'] = [];
                         newControle['aireProtegee'] = false;
                         newControle['date'] = now.format("YYYY-MM-DD HH:mm");
+                        const nbControles = this.missions['navire'].controles.length;
+                        newControle['terrestre'] = nbControles > 0 ? this.missions['navire'].controles[nbControles - 1].terrestre : true;
+                        newControle['lat'] = null;
+                        newControle['long'] = null;
                         break;
                     case 'commerce':
                         newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null};
@@ -166,6 +160,7 @@ $(document).ready(function() {
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
                         newControle['aireProtegee'] = false;
                         newControle['date'] = now.format("YYYY-MM-DD HH:mm");
+                        newControle['terrestre'] = true;
                         break;
                     case 'autre':
                         newControle['nombreControle'] = 0;

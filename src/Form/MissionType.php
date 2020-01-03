@@ -16,9 +16,6 @@ class MissionType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $service = $options['service'];
         $builder
-            ->add('terrestre', CheckboxType::class, [
-                'required' => false,
-                'label' => "Activité en/à"])
             ->add('zones', EntityType::class, [
                 'class' => ZoneGeographique::class,
                 'query_builder' => function(EntityRepository $er) use ($service) {
@@ -33,8 +30,6 @@ class MissionType extends AbstractType {
                 'expanded' => true,
                 'required' => false,
                 'label' => "Zone de l'activité"])
-            ->add('gpsLat')
-            ->add('gpsLng')
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
                 'label' => "Commentaires et remarques (sur l'activité)"]);
