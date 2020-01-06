@@ -1,11 +1,12 @@
 #Changelog v0.x
 
-## Changelog v0.7.2 -> 0.8.0 (date à définir)
+## Changelog v0.7.2 -> 0.8.0 (07/01/2020)
 * Possibilité de lister des navires non professionnels contrôlés sans PV
 * Correction de vocabulaire, titre, ...
 * Ajout de l'activité "autres contrôles"
 * Suppression de rapportTopic.js, cette classe n'était plus utilisé depuis l'ajout de VueJs pour les activités
 * Déplacement des coordonnées géographiques et lieu (terre/mer) de l'activité vers le contrôle (pour navire et pêche à pied seulement, l'information n'est pas pertinante pour les autres types d'activité)
+* Amélioration de la gestion des brouillons
 
 ## Changelog v0.7.1 -> 0.7.2 (31/12/2019)
 * Correction : les erreurs dans la partie pêche à pied n'étaient pas affichées 
