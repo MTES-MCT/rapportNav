@@ -35,6 +35,11 @@ Encore
                                     './assets/js/timeDivision.js'
                 ])
 
+    //Draft and validated reports page
+    .addEntry('listSubmissions', [
+                                    './assets/js/draft.js',
+                ])
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

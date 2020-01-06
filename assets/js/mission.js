@@ -94,6 +94,7 @@ $(document).ready(function() {
         },
         components: {mission},
         created: function() {
+            localStorage.setItem('missions', JSON.stringify({}));
             const missions = $('#missions-data').data('content') || {};
             for(let [index, mission] of Object.entries(missions)) {
                 for(let [property, val] of Object.entries(mission)) {
@@ -108,6 +109,15 @@ $(document).ready(function() {
                     this.errorList.push(rapport.error_where);
                 }
                 this.missions = JSON.parse(localStorage.getItem('missions'));
+            }
+
+            const path = window.location.pathname;
+            const pos =path.search(/draft\/[0-9]*/);
+            if (-1 !== pos) {
+                const drafts = JSON.parse(localStorage.getItem("draft"));
+                let index = path.substring(pos+6);
+                this.missions = drafts[index].missions;
+                localStorage.setItem('missions', JSON.stringify(this.missions));
             }
         },
         methods: {

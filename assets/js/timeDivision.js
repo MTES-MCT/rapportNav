@@ -21,14 +21,28 @@ $(document).ready(function () {
             surveillanceDpmTerre: null,
         },
         mounted: function () {
-            const rapport = $('#rapport-data').data('content') || {};
-            if (!('timeDivision' in rapport)) {
-                return
+            localStorage.setItem('timeDivision', JSON.stringify({}));
+            let dataTD = null;
+            const path = window.location.pathname;
+            const pos =path.search(/draft\/[0-9]*/);
+            if (-1 !== pos) {
+                const drafts = JSON.parse(localStorage.getItem("draft"))
+                let indexDraft = path.substring(pos+6);
+                dataTD = drafts[indexDraft].timeDivision;
+            } else {
+                const rapport = $('#rapport-data').data('content') || {};
+                if (!('timeDivision' in rapport)) {
+                    return;
+                }
+                dataTD = rapport.timeDivision;
             }
+
             // this.data = rapport.timeDivision;
-            for (let [index, time] of Object.entries(rapport.timeDivision)) {
+            for (let [index, time] of Object.entries(dataTD)) {
                     this[index] = time;
             }
+            localStorage.setItem('timeDivision', JSON.stringify(this.$data));
+
         },
     });
 });

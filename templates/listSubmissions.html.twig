@@ -10,22 +10,11 @@
 {% block body_main_container %}
     <h1>Liste des rapports pour {{ app.user.service }}</h1>
     <h2>Rapports en cours d'édition</h2>
-    {% set colLength = max(1, (drafts|length)/3) %}
-    <div class="row">
-        {% for row in drafts|batch(colLength) %}
-            <ul>
-                {% for rapport in row %}
-                    <li>
-                        <a href="{{ path('rapport_draft_edit', {'id': rapport.id, 'type': "controle_a_bord"}) }}">
-                            Brouillon {{ rapport.id }} du {{ rapport.lastEdit | date('d/m/Y H:i') }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </div>
+    <p>Les éléments listés ci-dessous sont des brouillons stockés localement sur ce poste. </p>
+    <div id="drafts"></div>
 
     <h2>Rapports validés</h2>
+    <p>Ces rapports sont validées. Ils peuvent encore être modifiés quelques jours après leur validation avant d'être bloqués. </p>
     <div class="row">
         {% for row in list['Contrôle de navire']|batch(7) %}
 
@@ -47,3 +36,6 @@
 
 {% endblock body_main_container %}
 
+{% block javascripts %}
+    {{ encore_entry_script_tags('listSubmissions') }}
+{% endblock javascripts %}

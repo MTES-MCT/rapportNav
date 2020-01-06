@@ -47,7 +47,7 @@
                 {{ form_errors(form.dateFinMission.time) }}
             </div>
         </fieldset>
-        <div class="form__group horizontal__form">
+        <div class="form__group horizontal__form" id="agents">
             <fieldset>
                 {{ form_label(form.agents, null, {'element': 'legend'} ) }}
                 <div class="form__errors">
@@ -73,7 +73,7 @@
 
     <div class="row">
         <div class="form__group horizontal__form">
-            <fieldset>
+            <fieldset id="moyens">
                 {{ form_label(form.moyens, null, {'element': 'legend', 'attr': {'class': "like-h4"}} ) }}
                 {{ form_errors(form.moyens) }}
                 <ul id="moyen-list" class="no-decoration stacked-list" data-prototype='
