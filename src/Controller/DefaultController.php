@@ -169,7 +169,9 @@ class DefaultController extends AbstractController {
                 'surveillanceManifestationMer' => $rapport->getRepartitionHeures()->getSurveillanceManifestationMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationMer())->format("H:i") : null,
                 'surveillanceManifestationTerre' => $rapport->getRepartitionHeures()->getSurveillanceManifestationTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationTerre())->format("H:i") : null,
                 'surveillanceDpmMer' => $rapport->getRepartitionHeures()->getSurveillanceDpmMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceDpmMer())->format("H:i") : null,
-                'surveillanceDpmTerre' => $rapport->getRepartitionHeures()->getSurveillanceDpmTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceDpmTerre())->format("H:i") : null,
+                'surete' => $rapport->getRepartitionHeures()->getSurete() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurete())->format("H:i") : null,
+                'maintienOrdre' => $rapport->getRepartitionHeures()->getMaintienOrdre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getMaintienOrdre())->format("H:i") : null,
+                'nombreOperationMaintienOrdre' => $rapport->getRepartitionHeures()->getNombreOperationMaintienOrdre(),
             ];
         }
 

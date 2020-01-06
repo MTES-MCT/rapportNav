@@ -23,6 +23,11 @@
                 <td><input type="time" class="" v-model="visiteSecurite" v-on:input="$emit('update:visite-securite', $event.target.value); localSave();"></td>
             </tr>
             <tr>
+                <td>Nombre visite de sécurité (au titre de l'inspection de la sécurité des navires)</td>
+                <td/>
+                <td><input class="" v-model="nombreVisiteSecurite" v-on:input="$emit('update:nombre-visite-securite', $event.target.value); localSave();"></td>
+            </tr>
+            <tr>
                 <td>Surveillance de manifestation nautique / plan d'eau</td>
                 <td><input type="time" class="" v-model="surveillanceManifestationMer" v-on:input="$emit('update:surveillance-manifestation-mer', $event.target.value); localSave();"></td>
                 <td><input type="time" class="" v-model="surveillanceManifestationTerre" v-on:input="$emit('update:surveillance-manifestation-terre', $event.target.value); localSave();"></td>
@@ -30,7 +35,22 @@
             <tr>
                 <td>Surveillance du DPM et AOT DPM</td>
                 <td><input type="time" class="" v-model="surveillanceDpmMer" v-on:input="$emit('update:surveillance-dpm-mer', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="surveillanceDpmTerre" v-on:input="$emit('update:surveillance-dpm-mer', $event.target.value); localSave();"></td>
+                <td><input type="time" class="" v-model="surveillanceDpmTerre" v-on:input="$emit('update:surveillance-dpm-terre', $event.target.value); localSave();"></td>
+            </tr>
+            <tr>
+                <td>Nombre d'heures de mer pou la sûreté maritime (y compris VIGIMER )</td>
+                <td><input type="time" class="" v-model="surete" v-on:input="$emit('update:surete', $event.target.value); localSave();"></td>
+                <td />
+            </tr>
+            <tr>
+                <td>Nombre d'heures de mer de maintien de l'ordre public en mer</td>
+                <td><input type="time" class="" v-model="maintienOrdre" v-on:input="$emit('update:maintien-ordre', $event.target.value); localSave();"></td>
+                <td />
+            </tr>
+            <tr>
+                <td>Nombre d’opérations de maintien de l’ordre public en mer</td>
+                <td><input type="number" class="" v-model="nombreOperationMaintienOrdre" v-on:input="$emit('update:nombre-operation-maintien-ordre', $event.target.value); localSave();"></td>
+                <td />
             </tr>
         </table>
     </div>
@@ -45,10 +65,14 @@
             'controleAireProtegeeMer',
             'controleAireProtegeeTerre',
             'visiteSecurite',
+            'nombreVisiteSecurite',
             'surveillanceManifestationMer',
             'surveillanceManifestationTerre',
             'surveillanceDpmMer',
             'surveillanceDpmTerre',
+            'surete',
+            'maintienOrdre',
+            'nombreOperationMaintienOrdre'
         ],
         methods: {
             update: function (data, value) {

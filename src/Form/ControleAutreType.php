@@ -20,6 +20,7 @@ class ControleAutreType extends AbstractType {
                 'choice_label' => "nom",
                 'multiple' => false,
                 'expanded' => false,
+                'label' => "Contrôle",
                 'placeholder' => "Sélectionnez le type de contrôle",
             ])
             ->add('nombreControle', IntegerType::class, [

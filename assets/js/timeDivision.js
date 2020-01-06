@@ -15,10 +15,14 @@ $(document).ready(function () {
             controleAireProtegeeMer: null,
             controleAireProtegeeTerre: null,
             visiteSecurite: null,
+            nombreVisiteSecurite: null,
             surveillanceManifestationMer: null,
             surveillanceManifestationTerre: null,
             surveillanceDpmMer: null,
             surveillanceDpmTerre: null,
+            surete: null,
+            maintienOrdre: null,
+            nombreOperationMaintienOrdre: null,
         },
         mounted: function () {
             localStorage.setItem('timeDivision', JSON.stringify({}));

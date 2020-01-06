@@ -47,6 +47,12 @@ class RapportRepartitionHeures {
      */
     private $visiteSecurite;
 
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nombreVisiteSecurite;
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -66,6 +72,20 @@ class RapportRepartitionHeures {
      * @ORM\Column(type="integer", nullable=true)
      */
     private $surveillanceDpmTerre;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $surete;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $maintienOrdre;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nombreOperationMaintienOrdre;
 
     public function getId(): ?int {
         return $this->id;
@@ -167,6 +187,46 @@ class RapportRepartitionHeures {
 
     public function setRapport(Rapport $rapport): self {
         $this->rapport = $rapport;
+
+        return $this;
+    }
+
+    public function getSurete(): ?int {
+        return $this->surete;
+    }
+
+    public function setSurete(?int $surete): self {
+        $this->surete = $surete;
+
+        return $this;
+    }
+
+    public function getMaintienOrdre(): ?int {
+        return $this->maintienOrdre;
+    }
+
+    public function setMaintienOrdre(?int $maintienOrdre): self {
+        $this->maintienOrdre = $maintienOrdre;
+
+        return $this;
+    }
+
+    public function getNombreOperationMaintienOrdre(): ?int {
+        return $this->nombreOperationMaintienOrdre;
+    }
+
+    public function setNombreOperationMaintienOrdre(?int $nombreOperationMaintienOrdre): self {
+        $this->nombreOperationMaintienOrdre = $nombreOperationMaintienOrdre;
+
+        return $this;
+    }
+
+    public function getNombreVisiteSecurite(): ?int {
+        return $this->nombreVisiteSecurite;
+    }
+
+    public function setNombreVisiteSecurite(?int $nombreVisiteSecurite): self {
+        $this->nombreVisiteSecurite = $nombreVisiteSecurite;
 
         return $this;
     }

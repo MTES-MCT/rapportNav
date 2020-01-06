@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\RapportRepartitionHeures;
 use App\Form\DataTransformer\TimeToIntegerTransformer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,6 +39,9 @@ class RapportRepartitionHeuresType extends AbstractType {
                 'widget' => "single_text",
                 'required' => false,
             ])
+            ->add('nombreVisiteSecurite', IntegerType::class, [
+                'required' => false,
+            ])
             ->add('surveillanceManifestationMer', TimeType::class, [
                 'widget' => "single_text",
                 'required' => false,
@@ -53,7 +57,19 @@ class RapportRepartitionHeuresType extends AbstractType {
             ->add('surveillanceDpmTerre', TimeType::class, [
                 'widget' => "single_text",
                 'required' => false,
-            ]);
+            ])
+            ->add('surete', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('maintienOrdre', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('nombreOperationMaintienOrdre', IntegerType::class, [
+                'required' => false,
+            ])
+        ;
         $builder->get('controleMer')
             ->addModelTransformer($this->transformer);
         $builder->get('controleTerre')
@@ -71,6 +87,10 @@ class RapportRepartitionHeuresType extends AbstractType {
         $builder->get('surveillanceDpmMer')
             ->addModelTransformer($this->transformer);
         $builder->get('surveillanceDpmTerre')
+            ->addModelTransformer($this->transformer);
+        $builder->get('surete')
+            ->addModelTransformer($this->transformer);
+        $builder->get('maintienOrdre')
             ->addModelTransformer($this->transformer);
     }
 

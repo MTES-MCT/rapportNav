@@ -218,10 +218,14 @@
                            v-bind:controle-aire-protegee-mer.sync="controleAireProtegeeMer"
                            v-bind:controle-aire-protegee-terre.sync="controleAireProtegeeTerre"
                            v-bind:visite-securite.sync="visiteSecurite"
+                           v-bind:nombre-visite-securite.sync="nombreVisiteSecurite"
                            v-bind:surveillance-manifestation-mer.sync="surveillanceManifestationMer"
                            v-bind:surveillance-manifestation-terre.sync="surveillanceManifestationTerre"
                            v-bind:surveillance-dpm-mer.sync="surveillanceDpmMer"
                            v-bind:surveillance-dpm-terre.sync="surveillanceDpmTerre"
+                           v-bind:surete.sync="surete"
+                           v-bind:maintien-ordre.sync="maintienOrdre"
+                           v-bind:nombre-operation-maintien-ordre.sync="nombreOperationMaintienOrdre"
             ></time-division>
             {% include 'timeDivision.html.twig'with {'form': form.repartitionHeures} %}
 
