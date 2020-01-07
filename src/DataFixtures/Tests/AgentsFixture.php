@@ -53,6 +53,6 @@ class AgentsFixture extends Fixture implements DependentFixtureInterface, Fixtur
   }
 
   public static function getGroups(): array {
-    return ['default'];
+    return ['test'];
   }
 }
