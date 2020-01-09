@@ -1,4 +1,6 @@
 {
+    "name": "mtes-mct/rapport-nav",
+    "description": "Éditeur de rapport de mission et d'activité pour le DCS",
     "type": "project",
     "license": "proprietary",
     "require": {
