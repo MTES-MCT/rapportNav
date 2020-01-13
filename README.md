@@ -1,5 +1,7 @@
 # RapportNav
 
+[![SymfonyInsight](https://insight.symfony.com/projects/62fceeb0-e3cc-4217-8b0e-88f55742c626/mini.svg)](https://insight.symfony.com/projects/62fceeb0-e3cc-4217-8b0e-88f55742c626)
+
 Outil pour éditer des rapports de mission de contrôle, à destination des agents de la Direction des Affaires Maritimes (DAM). 
 L'objectif de l'outil est de permettre la centralisation des données d'une mission de contrôle pour produire à l'ensemble des parties prenantes (environnement, sécurité maritime, gens de mers, ...) les informations nécessaires ou exposer la base de données à un outil de visualisation pour le suivi d'indicateurs. 
 
