@@ -44,6 +44,8 @@ $(document).ready(function() {
           'finDate': $('#rapport_dateFinMission_date').val(),
           'finHeure': $('#rapport_dateFinMission_time').val(),
           'agents': [],
+          'conjointe': $('#rapport_conjointe').prop("checked"),
+          'serviceConjoints': $('#service-conjoints select').val(),
           'moyens': [],
           'arme': $('#rapport_arme').prop("checked")
         };
@@ -89,7 +91,10 @@ $(document).ready(function() {
         $('#rapport_dateDebutMission_time').val(draft.rapport.debutHeure);
         $('#rapport_dateFinMission_date').val(draft.rapport.finDate);
         $('#rapport_dateFinMission_time').val(draft.rapport.finHeure);
-        $('#rapport_arme').prop("checked", draft.rapport.arme)
+        $('#rapport_arme').prop("checked", draft.rapport.arme);
+        $('#rapport_conjointe').prop("checked", draft.rapport.conjointe);
+        $('#service-conjoints select').val(draft.rapport.serviceConjoints);
+
         for(let id in draft.rapport.agents) {
           $('#rapport_agents_'+draft.rapport.agents[id]).prop("checked", true);
         }
@@ -99,6 +104,7 @@ $(document).ready(function() {
           $('#rapport_moyens_'+(Number(id)+1)+'_moyen').trigger("change");
           $('#rapport_moyens_'+(Number(id)+1)+'_distance').val(draft.rapport.moyens[id][1]);
           $('#rapport_moyens_'+(Number(id)+1)+'_tempsMoteur').val(draft.rapport.moyens[id][2]);
+          $('#service-conjoints select').trigger("change");
         }
 
       },
