@@ -5,6 +5,7 @@
 {% block head_stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('rapport') }}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock head_stylesheets %}
 
 {% block body_banner %}{% endblock body_banner %}
@@ -67,6 +68,16 @@
                     {% endfor %}
                 </div>
             </fieldset>
+            <div class="row" style="align-items: center;">
+                <div class="form__group horizontal__form ">
+                    {{ form_widget(form.conjointe) }}
+                    {{ form_label(form.conjointe, null, {'label_attr': {'class': "label-inline"}}) }}
+                </div>
+                <div class="form__group horizontal__form" id="service-conjoints">
+                    {{ form_label(form.serviceConjoints) }}
+                    {{ form_widget(form.serviceConjoints, {'attr': {'class': "select2", 'style': "width: 100%;"}}) }}
+                </div>
+            </div>
         </div>
 
     </div>
@@ -274,6 +285,15 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/i18n/fr.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function() {
+            $(".select2").select2({
+                language: "fr"
+            });
+        });
+    </script>
     {{ encore_entry_script_tags('rapport') }}
     {% if data is defined %}
         <span id="draft-data" style="display: none" data-content="{{ data }}"></span>

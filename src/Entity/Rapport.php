@@ -78,6 +78,16 @@ class Rapport {
      */
     private $repartitionHeures;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $conjointe = false;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\ServiceInterministeriel", cascade={"persist"})
+     */
+    private $serviceConjoints;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -86,6 +96,7 @@ class Rapport {
         $this->agents = new ArrayCollection();
         $this->moyens = new ArrayCollection();
         $this->missions = new ArrayCollection();
+        $this->serviceConjoints = new ArrayCollection();
     }
 
     public function getDateDebutMission(): ?DateTimeInterface {
@@ -227,6 +238,44 @@ class Rapport {
         // set the owning side of the relation if necessary
         if($repartitionHeures->getRapport() !== $this) {
             $repartitionHeures->setRapport($this);
+        }
+
+        return $this;
+    }
+
+    public function getConjointe(): ?bool
+    {
+        return $this->conjointe;
+    }
+
+    public function setConjointe(bool $conjointe): self
+    {
+        $this->conjointe = $conjointe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ServiceInterministeriel[]
+     */
+    public function getServiceConjoints(): Collection
+    {
+        return $this->serviceConjoints;
+    }
+
+    public function addServiceConjoint(ServiceInterministeriel $serviceConjoint): self
+    {
+        if (!$this->serviceConjoints->contains($serviceConjoint)) {
+            $this->serviceConjoints[] = $serviceConjoint;
+        }
+
+        return $this;
+    }
+
+    public function removeServiceConjoint(ServiceInterministeriel $serviceConjoint): self
+    {
+        if ($this->serviceConjoints->contains($serviceConjoint)) {
+            $this->serviceConjoints->removeElement($serviceConjoint);
         }
 
         return $this;
