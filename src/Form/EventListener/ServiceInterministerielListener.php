@@ -23,23 +23,16 @@ class ServiceInterministerielListener implements EventSubscriberInterface {
 
     public static function getSubscribedEvents() {
         return [
-            FormEvents::PRE_SET_DATA => "onPreSetData",
             FormEvents::PRE_SUBMIT => "onPreSubmit"
         ];
     }
 
-    public function onPreSetData(FormEvent $event) {
-        $event->getForm()->add('serviceConjoints', EntityType::class, [
-            'required' => false,
-            'class' => ServiceInterministeriel::class,
-            'choice_label' => "nom",
-            'multiple' => true,
-            'expanded' => false,
-            'allow_extra_fields' => true,
-            'label' => "Service(s) conjoint(s)",
-        ]);
-    }
-
+    /**
+     * Creates and flush the missing entities if any is found.
+     * Then re-creates the form element to refresh the choice list
+     *
+     * @param FormEvent $event
+     */
     public function onPreSubmit(FormEvent $event) {
         $formData = $event->getData();
         /** @var array|null $data */
@@ -72,7 +65,7 @@ class ServiceInterministerielListener implements EventSubscriberInterface {
             'multiple' => true,
             'expanded' => false,
             'allow_extra_fields' => true,
-            'label' => "Service(s) conjoint(s)",
+            'label' => "Service(s) associé(s) dans la mission conjointe(s)",
         ]);
     }
 }

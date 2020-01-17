@@ -71,11 +71,11 @@
             <div class="row" style="align-items: center;">
                 <div class="form__group horizontal__form ">
                     {{ form_widget(form.conjointe) }}
-                    {{ form_label(form.conjointe, null, {'attr': {'class': "label-inline"}}) }}
+                    {{ form_label(form.conjointe, null, {'label_attr': {'class': "label-inline"}}) }}
                 </div>
                 <div class="form__group horizontal__form" id="service-conjoints">
                     {{ form_label(form.serviceConjoints) }}
-                    {{ form_widget(form.serviceConjoints, {'attr': {'class': "select2"}}) }}
+                    {{ form_widget(form.serviceConjoints, {'attr': {'class': "select2", 'style': "width: 100%;"}}) }}
                 </div>
             </div>
         </div>
@@ -288,9 +288,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <script type="application/javascript">
         $(document).ready(function() {
-            $(".select2").select2({
-                tags: true
-            });
+            $(".select2").select2({});
         });
     </script>
     {{ encore_entry_script_tags('rapport') }}

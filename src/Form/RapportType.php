@@ -63,7 +63,7 @@ class RapportType extends AbstractType {
             ])
             ->add('conjointe', CheckboxType::class, [
                 'required' => false,
-                'label' => ""
+                'label' => "Mission conjointe (avec un autre service)"
             ])
             ->add('serviceConjoints', EntityType::class, [
                 'required' => false,
@@ -71,8 +71,12 @@ class RapportType extends AbstractType {
                 'multiple' => true,
                 'expanded' => false,
                 'allow_extra_fields' => true,
-                'label' => "Service(s) conjoint(s)",
-                'choice_label' => "nom"
+                'label' => "Service(s) associé(s) dans la mission conjointe(s)",
+                'choice_label' => "nom",
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy("s.nom", "ASC");
+                }
             ])
             ->add('agents', EntityType::class, [
                 'class' => Agent::class,
@@ -97,6 +101,7 @@ class RapportType extends AbstractType {
                 'label' => "Commentaires et remarques (globales pour ce rapport)"]);
 
         $builder->addEventSubscriber($this->addServiceInterministerielListener);
+
     }
 
     public function configureOptions(OptionsResolver $resolver) {
