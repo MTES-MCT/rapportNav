@@ -84,7 +84,7 @@
             <div class="form__group horizontal__form" style="min-width: 150px;">
                 {{ form_label(form.navires.vars.prototype.natinfs) }}
                 <select multiple
-                        v-bind:name="'mission_navire[navires]['+index+'][natinfs]'"
+                        v-bind:name="'mission_navire[navires]['+index+'][natinfs][]'"
                         v-bind:id="'mission_navire_navires_'+index+'_natinfs'"
                         v-model="controle.natinfs"
                 style="display:none;">

@@ -1,5 +1,8 @@
 #Changelog v0.x
 
+## Changelog v0.8.0 -> 
+* Correction d'un bug sur l'enregistrement des codes NatInf (l'enregistrement d'un rapport avec NatInf renvoyait une erreur 500)
+
 ## Changelog v0.7.2 -> 0.8.0 (07/01/2020)
 * Possibilité de lister des navires non professionnels contrôlés sans PV
 * Correction de vocabulaire, titre, ...

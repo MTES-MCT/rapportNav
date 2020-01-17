@@ -35,7 +35,7 @@
             <div class="form__group horizontal__form">
                 {{ form_label(form.controles.vars.prototype.natinfs) }}
                 <select multiple
-                        v-bind:name="'mission_autre[controles]['+index+'][natinfs]'"
+                        v-bind:name="'mission_autre[controles]['+index+'][natinfs][]'"
                         v-bind:id="'mission_autre_controles_'+index+'_natinfs'"
                         v-model="controle.natinfs"
                         style="display:none;">

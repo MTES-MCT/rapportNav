@@ -71,7 +71,7 @@
                 <div  class="form__group">
                     {{ form_label(form.pecheursPied.vars.prototype.natinfs) }}
                     <select multiple
-                            v-bind:name="'mission_peche_pied[pecheursPied]['+index+'][natinfs]'"
+                            v-bind:name="'mission_peche_pied[pecheursPied]['+index+'][natinfs][]'"
                             v-bind:id="'mission_peche_pied_pecheursPied_'+index+'_natinfs'"
                             v-model="controle.natinfs"
                             style="display:none;">
