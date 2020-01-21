@@ -248,7 +248,9 @@ class DefaultController extends AbstractController {
 
     /**
      * @Route("/list_submissions", name="list_submissions", methods={"GET"})
+     *
      * @param EntityManagerInterface $em
+     * @param LoggerInterface        $logger
      *
      * @return Response
      */
@@ -261,11 +263,11 @@ class DefaultController extends AbstractController {
             $prevMonth = new DateTimeImmutable("01-".$prevMonthDate->format("m")."-".$prevMonthDate->format("Y"));
         } catch(\Exception $e) {
             $logger->critical("Fail to initialize date");
-            $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé. ");
+            $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅ sur la page d'accueil. ");
             return $this->redirectToRoute('home');
         }
 
-        $rapports = $em->getRepository('App:Rapport')->findByPeriod(
+        $reports = $em->getRepository('App:Rapport')->findByPeriod(
             $now,
             null,
             $userService,
@@ -277,8 +279,53 @@ class DefaultController extends AbstractController {
             200);
 
         return $this->render('listSubmissions.html.twig', [
-            'currentReports' => $rapports,
+            'currentReports' => $reports,
             'previousMounthReports' => $pastReports,
+            'date' => $prevMonth->format("d-m-Y")
+        ]);
+    }
+
+    /**
+     * @Route("/list_submissions/{date}",
+     *     name="list_submissions_by_date",
+     *     requirements={"date"="\d{2}-\d{2}-\d{4}"},
+     *     methods={"GET"})
+     *
+     * @param EntityManagerInterface $em
+     * @param LoggerInterface        $logger
+     * @param DateTime               $date
+     *
+     * @return Response
+     */
+    public function listSubmissionByDate(EntityManagerInterface $em, LoggerInterface $logger, DateTime $date) {
+        $userService = $this->getUser()->getService();
+
+        try {
+            $nextMonthDate = clone $date;
+            $nextMonthDate->modify('next month');
+            $nextMonth = new DateTimeImmutable("01-".$nextMonthDate->format("m")."-".$nextMonthDate->format("Y"));
+            $prevMonthDate = clone $date;
+            $prevMonthDate->modify('previous month');
+            $prevMonth = new DateTimeImmutable("01-".$prevMonthDate->format("m")."-".$prevMonthDate->format("Y"));
+        } catch(\Exception $e) {
+            $logger->critical("Fail to initialize date");
+            $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅ sur la page d'accueil. ");
+            return $this->redirectToRoute('home');
+        }
+        $reports = $em->getRepository('App:Rapport')->findByPeriod(
+            $date,
+            $nextMonth,
+            $userService,
+            200);
+        dump($reports);
+        dump($date);
+        dump($nextMonth);
+        dump($prevMonth);
+
+        return $this->render('listReports.html.twig', [
+            'reports' => $reports,
+            'date' => $date,
+            'nextDate' => $nextMonth->format("d-m-Y")
         ]);
     }
 
