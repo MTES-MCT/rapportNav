@@ -15,12 +15,14 @@ use App\Form\MissionPechePiedType;
 use App\Form\MissionSecoursType;
 use App\Form\RapportType;
 use App\Helper\TimeConvert;
+use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -250,27 +252,34 @@ class DefaultController extends AbstractController {
      *
      * @return Response
      */
-    public function listSubmission(EntityManagerInterface $em) {
+    public function listSubmission(EntityManagerInterface $em, LoggerInterface $logger) {
         $userService = $this->getUser()->getService();
 
-        $drafts = $em->getRepository("App:Draft")->findBy(
-            ['owner' => $userService],
-            ['lastEdit' => "DESC"],
-            20);
+        try {
+            $now = new DateTimeImmutable("01-".date("m")."-".date("Y"));
+            $prevMonthDate = (new DateTime())->modify('previous month');
+            $prevMonth = new DateTimeImmutable("01-".$prevMonthDate->format("m")."-".$prevMonthDate->format("Y"));
+        } catch(\Exception $e) {
+            $logger->critical("Fail to initialize date");
+            $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé. ");
+            return $this->redirectToRoute('home');
+        }
 
-        $rapports = $em->getRepository('App:Rapport')->findBy(
-            ['serviceCreateur' => $userService],
-            ['dateDebutMission' => "DESC"],
-            20);
+        $rapports = $em->getRepository('App:Rapport')->findByPeriod(
+            $now,
+            null,
+            $userService,
+            200);
+        $pastReports = $em->getRepository('App:Rapport')->findByPeriod(
+            $prevMonth,
+            $now,
+            $userService,
+            200);
 
-        $list = ['Contrôle de navire' => $rapports,
-            'Contrôle de la filière commercialisation' => [],
-            'Contrôle de la pêche à pied' => [],
-            'Actions administratives' => [],
-            'Actions de formation' => [],
-        ];
-
-        return $this->render('listSubmissions.html.twig', ['list' => $list, 'drafts' => $drafts]);
+        return $this->render('listSubmissions.html.twig', [
+            'currentReports' => $rapports,
+            'previousMounthReports' => $pastReports,
+        ]);
     }
 
     /**

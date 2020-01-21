@@ -13,10 +13,10 @@
     <p>Les éléments listés ci-dessous sont des brouillons stockés localement sur ce poste. </p>
     <div id="drafts"></div>
 
-    <h2>Rapports validés</h2>
+    <h2>Rapports validés du mois en cours</h2>
     <p>Ces rapports sont validées. Ils peuvent encore être modifiés quelques jours après leur validation avant d'être bloqués. </p>
     <div class="row">
-        {% for row in list['Contrôle de navire']|batch(7) %}
+        {% for row in currentReports|batch(7) %}
 
             <div style="width: 33%">
                 <ul>
@@ -32,7 +32,24 @@
         {% endfor %}
 
     </div>
+    <div>
+        <p>Rapports du mois dernier</p>
+        {% for row in previousMounthReports|batch(7) %}
+            <div style="width: 33%">
+                <ul>
+                    {% for rapport in row %}
+                        <li>
+                            <a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
+                                Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
 
+    <a href="#" class="button large">Voir les rapports plus anciens</a>
 
 {% endblock body_main_container %}
 
