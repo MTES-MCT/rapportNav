@@ -257,7 +257,7 @@ $(document).ready(function() {
                 if(undefined !== $event.target.options[$event.target.selectedIndex].dataset.complement) {
                     this.missions['commerce'].controles[index].bateauxControles = 0;
                 } else {
-                    this.bateauxControles = null;
+                    this.missions['commerce'].controles[index].bateauxControles = null;
                 }
             },
             localSave: function() {

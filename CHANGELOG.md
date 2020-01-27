@@ -3,6 +3,7 @@
 ## Changelog v0.8.0 -> 0.8.1 
 * Correction d'un bug sur l'enregistrement des codes NatInf (l'enregistrement d'un rapport avec NatInf renvoyait une erreur 500). 
 * Ajout de la possibilité de signaler une mission comme conjointe avec un autre service. 
+* Correction d'un bug sur l'affichage du champ "nombre de bateaux" sur les contrôles d'établissements
 
 ## Changelog v0.7.2 -> 0.8.0 (07/01/2020)
 * Possibilité de lister des navires non professionnels contrôlés sans PV
