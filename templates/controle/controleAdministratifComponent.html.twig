@@ -7,7 +7,15 @@
                 {{ form_errors(form.taches.vars.prototype.tache) }}
                 {{ form_widget(form.taches.vars.prototype.tache, {'attr': {'v-model': "controle.tache",
                     'v-bind:name': "'mission_administratif[taches]['+index+'][tache]'",
-                    'v-bind:id': "'mission_administratif_taches_'+index+'_tache'"}}) }}
+                    'v-bind:id': "'mission_administratif_taches_'+index+'_tache'",
+                    'v-on:change': "updateAdministratif($event,index)"}}) }}
+            </div>
+            <div class="form__group horizontal__form" v-show="null !== controle.nombreDossiers">
+                {{ form_label(form.taches.vars.prototype.nombreDossiers) }}
+                {{ form_errors(form.taches.vars.prototype.nombreDossiers) }}
+                {{ form_widget(form.taches.vars.prototype.nombreDossiers, {'attr': {'v-model': "controle.nombreDossiers",
+                    'v-bind:name': "'mission_administratif[taches]['+index+'][nombreDossiers]'",
+                    'v-bind:id': "'mission_administratif_taches_'+index+'_nombreDossiers'"}}) }}
             </div>
             <div class="form__group horizontal__form">
                     {{ form_label(form.taches.vars.prototype.dureeTache) }}

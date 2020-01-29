@@ -181,8 +181,10 @@ $(document).ready(function() {
                         newControle['nombreControleAireProtegee'] = 0;
                         newControle['nombrePv'] = 0;
                         break;
+                    case 'administratif':
+                        newControle = {'tache': null, 'nombreDossiers': null, 'dureeTache': null };
+                        break;
                 }
-
 
                 this.missions[type].controles.push(newControle);
             },
@@ -258,6 +260,13 @@ $(document).ready(function() {
                     this.missions['commerce'].controles[index].bateauxControles = 0;
                 } else {
                     this.missions['commerce'].controles[index].bateauxControles = null;
+                }
+            },
+            updateAdministratif: function($event, index) {
+                if(undefined !== $event.target.options[$event.target.selectedIndex].dataset.complement) {
+                    this.missions['administratif'].controles[index].nombreDossiers = 0;
+                } else {
+                    this.missions['administratif'].controles[index].nombreDossiers = null;
                 }
             },
             localSave: function() {

@@ -1,8 +1,18 @@
 <div style="display: none;">
     {{ form_widget(form.controleMer, {'attr': {'v-model': "controleMer"}}) }}
     {{ form_widget(form.controleTerre, {'attr': {'v-model': "controleTerre"}}) }}
-    {{ form_widget(form.controleAireProtegeeTerre, {'attr': {'v-model': "controleAireProtegeeTerre"}}) }}
+    {{ form_widget(form.controleAerien, {'attr': {'v-model': "controleAerien"}}) }}
     {{ form_widget(form.controleAireProtegeeMer, {'attr': {'v-model': "controleAireProtegeeMer"}}) }}
+    {{ form_widget(form.controleAireProtegeeTerre, {'attr': {'v-model': "controleAireProtegeeTerre"}}) }}
+    {{ form_widget(form.controleAireProtegeeAerien, {'attr': {'v-model': "controleAireProtegeeAerien"}}) }}
+    {{ form_widget(form.controlePollutionMer, {'attr': {'v-model': "controlePollutionMer"}}) }}
+    {{ form_widget(form.controlePollutionTerre, {'attr': {'v-model': "controlePollutionTerre"}}) }}
+    {{ form_widget(form.controlePollutionAerien, {'attr': {'v-model': "controlePollutionAerien"}}) }}
+    {{ form_widget(form.controleEnvironnementMer, {'attr': {'v-model': "controleEnvironnementMer"}}) }}
+    {{ form_widget(form.controleEnvironnementTerre, {'attr': {'v-model': "controleEnvironnementTerre"}}) }}
+    {{ form_widget(form.controleEnvironnementAerien, {'attr': {'v-model': "controleEnvironnementAerien"}}) }}
+    {{ form_widget(form.controleCroise, {'attr': {'v-model': "controleCroise"}}) }}
+    {{ form_widget(form.immigration, {'attr': {'v-model': "immigration"}}) }}
     {{ form_widget(form.visiteSecurite, {'attr': {'v-model': "visiteSecurite"}}) }}
     {{ form_widget(form.nombreVisiteSecurite, {'attr': {'v-model': "nombreVisiteSecurite"}}) }}
     {{ form_widget(form.surveillanceManifestationMer, {'attr': {'v-model': "surveillanceManifestationMer"}}) }}
@@ -11,5 +21,5 @@
     {{ form_widget(form.surveillanceDpmTerre, {'attr': {'v-model': "surveillanceDpmTerre"}}) }}
     {{ form_widget(form.surete, {'attr': {'v-model': "surete"}}) }}
     {{ form_widget(form.maintienOrdre, {'attr': {'v-model': "maintienOrdre"}}) }}
-    {{ form_widget(form.nombreOperationMaintienOrdre, {'attr': {'v-model': "nombreOperationMaintienOrdre"}}) }}
+    {{ form_widget(form.assistance, {'attr': {'v-model': "assistance"}}) }}
 </div>

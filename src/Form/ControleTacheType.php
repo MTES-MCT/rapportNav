@@ -25,9 +25,21 @@ class ControleTacheType extends AbstractType {
             ->add('tache', EntityType::class, [
                 'class' => Tache::class,
                 'choice_label' => "nom",
+                'label' => "Tâche",
                 'multiple' => false,
                 'expanded' => false,
                 'placeholder' => "Sélectionnez l'activité réalisée",
+                'choice_attr' => function($choice, $key, $value) {
+                    /** @var Tache $choice */
+                    if(null === $choice->getComplementDonnee()) {
+                        return [];
+                    }
+                    return ['data-complement' => $choice->getComplementDonnee()];
+                },
+            ])
+            ->add('nombreDossiers', IntegerType::class, [
+                'required' => false,
+                'label' => "Nombre de dossiers traités",
             ])
             ->add('dureeTache', TimeType::class, [
                 'widget' => "single_text",

@@ -12,8 +12,18 @@ $(document).ready(function () {
         data: {
             controleMer: null,
             controleTerre: null,
+            controleAerien: null,
             controleAireProtegeeMer: null,
             controleAireProtegeeTerre: null,
+            controleAireProtegeeAerien: null,
+            controlePollutionMer: null,
+            controlePollutionTerre: null,
+            controlePollutionAerien: null,
+            controleEnvironnementMer: null,
+            controleEnvironnementTerre: null,
+            controleEnvironnementAerien: null,
+            controleCroise: null,
+            immigration: null,
             visiteSecurite: null,
             nombreVisiteSecurite: null,
             surveillanceManifestationMer: null,
@@ -22,7 +32,7 @@ $(document).ready(function () {
             surveillanceDpmTerre: null,
             surete: null,
             maintienOrdre: null,
-            nombreOperationMaintienOrdre: null,
+            assistance: null,
         },
         mounted: function () {
             localStorage.setItem('timeDivision', JSON.stringify({}));

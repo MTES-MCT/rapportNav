@@ -203,11 +203,6 @@
                     {% include 'missionModal.html.twig' with {'prototype': formAutre, 'type': "autre"} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-secours" style="z-index: 999;" v-if="missions['secours'].active">
-                <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formSecours, 'type': "secours"} %}
-                </div>
-            </div>
             <div class="modal__backdrop" id="modal-administratif" style="z-index: 999;" v-if="missions['administratif'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
                     {% include 'missionModal.html.twig' with {'prototype': formAdministratif, 'type': "administratif"} %}
@@ -226,8 +221,18 @@
         <div id="time-division">
             <time-division v-bind:controle-mer.sync="controleMer"
                            v-bind:controle-terre.sync="controleTerre"
+                           v-bind:controle-aerien.sync="controleAerien"
                            v-bind:controle-aire-protegee-mer.sync="controleAireProtegeeMer"
                            v-bind:controle-aire-protegee-terre.sync="controleAireProtegeeTerre"
+                           v-bind:controle-aire-protegee-aerien.sync="controleAireProtegeeAerien"
+                           v-bind:controle-pollution-mer.sync="controlePollutionMer"
+                           v-bind:controle-pollution-terre.sync="controlePollutionTerre"
+                           v-bind:controle-pollution-aerien.sync="controlePollutionAerien"
+                           v-bind:controle-environnement-mer="controleEnvironnementMer"
+                           v-bind:controle-environnement-terre.sync="controleEnvironnementTerre"
+                           v-bind:controle-environnement-aerien.sync="controleEnvironnementAerien"
+                           v-bind:controle-croise.sync="controleCroise"
+                           v-bind:immigration.sync="immigration"
                            v-bind:visite-securite.sync="visiteSecurite"
                            v-bind:nombre-visite-securite.sync="nombreVisiteSecurite"
                            v-bind:surveillance-manifestation-mer.sync="surveillanceManifestationMer"
@@ -236,7 +241,7 @@
                            v-bind:surveillance-dpm-terre.sync="surveillanceDpmTerre"
                            v-bind:surete.sync="surete"
                            v-bind:maintien-ordre.sync="maintienOrdre"
-                           v-bind:nombre-operation-maintien-ordre.sync="nombreOperationMaintienOrdre"
+                           v-bind:assistance.sync="assistance"
             ></time-division>
             {% include 'timeDivision.html.twig'with {'form': form.repartitionHeures} %}
 

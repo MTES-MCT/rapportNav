@@ -17,6 +17,11 @@ class Tache implements JsonSerializable {
     private $id;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $complementDonnee;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $nom;
@@ -38,6 +43,16 @@ class Tache implements JsonSerializable {
 
     public function setNom(string $nom): self {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getComplementDonnee(): ?string {
+        return $this->complementDonnee;
+    }
+
+    public function setComplementDonnee(string $complementDonnee): self {
+        $this->complementDonnee = $complementDonnee;
 
         return $this;
     }

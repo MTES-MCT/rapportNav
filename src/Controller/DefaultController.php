@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Rapport;
+use App\Entity\RapportRepartitionHeures;
 use App\Entity\Service;
 use App\Entity\User;
 use App\Form\MissionAdministratifType;
@@ -12,7 +13,6 @@ use App\Form\MissionFormationType;
 use App\Form\MissionLoisirType;
 use App\Form\MissionNavireType;
 use App\Form\MissionPechePiedType;
-use App\Form\MissionSecoursType;
 use App\Form\RapportType;
 use App\Helper\TimeConvert;
 use DateTime;
@@ -82,7 +82,6 @@ class DefaultController extends AbstractController {
         $forms['pechePied'] = $this->createForm(MissionPechePiedType::class, null, ['service' => $service]);
         $forms['loisir'] = $this->createForm(MissionLoisirType::class, null, ['service' => $service]);
         $forms['autre'] = $this->createForm(MissionAutreType::class, null, ['service' => $service]);
-        $forms['secours'] = $this->createForm(MissionSecoursType::class, null, ['service' => $service]);
         $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $service]);
         $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
 
@@ -116,7 +115,6 @@ class DefaultController extends AbstractController {
             'formPechePied' => $forms['pechePied']->createView(),
             'formLoisir' => $forms['loisir']->createView(),
             'formAutre' => $forms['autre']->createView(),
-            'formSecours' => $forms['secours']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
             'rapport' => $rapportData,
@@ -151,7 +149,6 @@ class DefaultController extends AbstractController {
         $forms['pechePied'] = $this->createForm(MissionPechePiedType::class, null, ['service' => $service]);
         $forms['loisir'] = $this->createForm(MissionLoisirType::class, null, ['service' => $service]);
         $forms['autre'] = $this->createForm(MissionAutreType::class, null, ['service' => $service]);
-        $forms['secours'] = $this->createForm(MissionSecoursType::class, null, ['service' => $service]);
         $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $service]);
         $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
 
@@ -162,18 +159,32 @@ class DefaultController extends AbstractController {
             }
         }
         if($rapport->getRepartitionHeures()) {
+            /** @var RapportRepartitionHeures $rH */
+            $rH = $rapport->getRepartitionHeures();
             $rapportData['timeDivision'] = [
-                'controleMer' => $rapport->getRepartitionHeures()->getControleMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleMer())->format("H:i") : null,
-                'controleTerre' => $rapport->getRepartitionHeures()->getControleTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleTerre())->format("H:i") : null,
-                'controleAireProtegeeMer' => $rapport->getRepartitionHeures()->getControleAireProtegeeMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleAireProtegeeMer())->format("H:i") : null,
-                'controleAireProtegeeTerre' => $rapport->getRepartitionHeures()->getControleAireProtegeeTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getControleAireProtegeeTerre())->format("H:i") : null,
-                'visiteSecurite' => $rapport->getRepartitionHeures()->getVisiteSecurite() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getVisiteSecurite())->format("H:i") : null,
-                'surveillanceManifestationMer' => $rapport->getRepartitionHeures()->getSurveillanceManifestationMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationMer())->format("H:i") : null,
-                'surveillanceManifestationTerre' => $rapport->getRepartitionHeures()->getSurveillanceManifestationTerre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceManifestationTerre())->format("H:i") : null,
-                'surveillanceDpmMer' => $rapport->getRepartitionHeures()->getSurveillanceDpmMer() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurveillanceDpmMer())->format("H:i") : null,
-                'surete' => $rapport->getRepartitionHeures()->getSurete() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getSurete())->format("H:i") : null,
-                'maintienOrdre' => $rapport->getRepartitionHeures()->getMaintienOrdre() ? TimeConvert::minutesToTime($rapport->getRepartitionHeures()->getMaintienOrdre())->format("H:i") : null,
-                'nombreOperationMaintienOrdre' => $rapport->getRepartitionHeures()->getNombreOperationMaintienOrdre(),
+                'controleMer' => $rH->getControleMer() ? TimeConvert::minutesToTime($rH->getControleMer())->format("H:i") : null,
+                'controleTerre' => $rH->getControleTerre() ? TimeConvert::minutesToTime($rH->getControleTerre())->format("H:i") : null,
+                'controleAerien' => $rH->getControleAerien() ? TimeConvert::minutesToTime($rH->getControleAerien())->format("H:i") : null,
+                'controleAireProtegeeMer' => $rH->getControleAireProtegeeMer() ? TimeConvert::minutesToTime($rH->getControleAireProtegeeMer())->format("H:i") : null,
+                'controleAireProtegeeTerre' => $rH->getControleAireProtegeeTerre() ? TimeConvert::minutesToTime($rH->getControleAireProtegeeTerre())->format("H:i") : null,
+                'controleAireProtegeeAerien' => $rH->getControleAireProtegeeAerien() ? TimeConvert::minutesToTime($rH->getControleAireProtegeeAerien())->format("H:i") : null,
+                'controlePollutionMer' => $rH->getControlePollutionMer() ? TimeConvert::minutesToTime($rH->getControleAireProtegeeMer())->format("H:i") : null,
+                'controlePollutionTerre' => $rH->getControlePollutionTerre() ? TimeConvert::minutesToTime($rH->getControlePollutionTerre())->format("H:i") : null,
+                'controlePollutionAerien' => $rH->getControlePollutionAerien() ? TimeConvert::minutesToTime($rH->getControlePollutionAerien())->format("H:i") : null,
+                'controleEnvironnementMer' => $rH->getControleEnvironnementMer() ? TimeConvert::minutesToTime($rH->getControleEnvironnementMer())->format("H:i") : null,
+                'controleEnvironnementTerre' => $rH->getControleEnvironnementTerre() ? TimeConvert::minutesToTime($rH->getControleEnvironnementTerre())->format("H:i") : null,
+                'controleEnvironnementAerien' => $rH->getControleEnvironnementAerien() ? TimeConvert::minutesToTime($rH->getControleEnvironnementAerien())->format("H:i") : null,
+                'controleCroise' => $rH->getControleCroise() ? TimeConvert::minutesToTime($rH->getControleCroise())->format("H:i") : null,
+                'immigration' => $rH->getImmigration() ? TimeConvert::minutesToTime($rH->getImmigration())->format("H:i") : null,
+                'visiteSecurite' => $rH->getVisiteSecurite() ? TimeConvert::minutesToTime($rH->getVisiteSecurite())->format("H:i") : null,
+                'nombreVisiteSecurite' => $rH->getNombreVisiteSecurite(),
+                'surveillanceManifestationMer' => $rH->getSurveillanceManifestationMer() ? TimeConvert::minutesToTime($rH->getSurveillanceManifestationMer())->format("H:i") : null,
+                'surveillanceManifestationTerre' => $rH->getSurveillanceManifestationTerre() ? TimeConvert::minutesToTime($rH->getSurveillanceManifestationTerre())->format("H:i") : null,
+                'surveillanceDpmMer' => $rH->getSurveillanceDpmMer() ? TimeConvert::minutesToTime($rH->getSurveillanceDpmMer())->format("H:i") : null,
+                'surveillanceDpmTerre' => $rH->getSurveillanceDpmTerre() ? TimeConvert::minutesToTime($rH->getSurveillanceDpmTerre())->format("H:i") : null,
+                'surete' => $rH->getSurete() ? TimeConvert::minutesToTime($rH->getSurete())->format("H:i") : null,
+                'maintienOrdre' => $rH->getMaintienOrdre() ? TimeConvert::minutesToTime($rH->getMaintienOrdre())->format("H:i") : null,
+                'assistance' => $rH->getAssistance() ? TimeConvert::minutesToTime($rH->getAssistance())->format("H:i") : null,
             ];
         }
 
@@ -210,7 +221,6 @@ class DefaultController extends AbstractController {
             'formPechePied' => $forms['pechePied']->createView(),
             'formLoisir' => $forms['loisir']->createView(),
             'formAutre' => $forms['autre']->createView(),
-            'formSecours' => $forms['secours']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
             'missions' => $currentMissions,

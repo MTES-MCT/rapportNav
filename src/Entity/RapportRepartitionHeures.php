@@ -35,6 +35,11 @@ class RapportRepartitionHeures {
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
+    private $controleAerien;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
     private $controleAireProtegeeMer;
 
     /**
@@ -45,8 +50,52 @@ class RapportRepartitionHeures {
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $visiteSecurite;
+    private $controleAireProtegeeAerien;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controlePollutionMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controlePollutionTerre;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controlePollutionAerien;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controleEnvironnementMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controleEnvironnementTerre;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controleEnvironnementAerien;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controleCroise;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $immigration;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $visiteSecurite;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -67,7 +116,6 @@ class RapportRepartitionHeures {
      * @ORM\Column(type="integer", nullable=true)
      */
     private $surveillanceDpmMer;
-
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -82,10 +130,11 @@ class RapportRepartitionHeures {
      * @ORM\Column(type="integer", nullable=true)
      */
     private $maintienOrdre;
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $nombreOperationMaintienOrdre;
+    private $assistance;
 
     public function getId(): ?int {
         return $this->id;
@@ -211,16 +260,6 @@ class RapportRepartitionHeures {
         return $this;
     }
 
-    public function getNombreOperationMaintienOrdre(): ?int {
-        return $this->nombreOperationMaintienOrdre;
-    }
-
-    public function setNombreOperationMaintienOrdre(?int $nombreOperationMaintienOrdre): self {
-        $this->nombreOperationMaintienOrdre = $nombreOperationMaintienOrdre;
-
-        return $this;
-    }
-
     public function getNombreVisiteSecurite(): ?int {
         return $this->nombreVisiteSecurite;
     }
@@ -230,5 +269,109 @@ class RapportRepartitionHeures {
 
         return $this;
     }
+
+    public function getControleCroise(): ?int {
+        return $this->controleCroise;
+    }
+
+    public function setControleCroise(?int $controleCroise): self {
+        $this->controleCroise = $controleCroise;
+
+        return $this;
+    }
+
+    public function getImmigration(): ?int {
+        return $this->immigration;
+    }
+
+    public function setImmigration(?int $immigration): self {
+        $this->immigration = $immigration;
+
+        return $this;
+    }
+
+    public function getAssistance(): ?int {
+        return $this->assistance;
+    }
+
+    public function setAssistance(?int $assistance): self {
+        $this->assistance = $assistance;
+
+        return $this;
+    }
+
+    public function getControleAireProtegeeAerien(): ?int {
+        return $this->controleAireProtegeeAerien;
+    }
+
+    public function setControleAireProtegeeAerien(?int $controleAireProtegeeAerien): self {
+        $this->controleAireProtegeeAerien = $controleAireProtegeeAerien;
+
+        return $this;
+    }
+
+    public function getControlePollutionMer(): ?int {
+        return $this->controlePollutionMer;
+    }
+
+    public function setControlePollutionMer(?int $controlePollutionMer): self {
+        $this->controlePollutionMer = $controlePollutionMer;
+        return $this;
+    }
+
+    public function getControlePollutionTerre(): ?int {
+        return $this->controlePollutionTerre;
+    }
+
+    public function setControlePollutionTerre(?int $controlePollutionTerre): self {
+        $this->controlePollutionTerre = $controlePollutionTerre;
+        return $this;
+    }
+
+    public function getControlePollutionAerien(): ?int {
+        return $this->controlePollutionAerien;
+    }
+
+    public function setControlePollutionAerien(?int $controlePollutionAerien): self {
+        $this->controlePollutionAerien = $controlePollutionAerien;
+        return $this;
+    }
+
+    public function getControleEnvironnementMer(): ?int {
+        return $this->controleEnvironnementMer;
+    }
+
+    public function setControleEnvironnementMer(?int $controleEnvironnementMer): self {
+        $this->controleEnvironnementMer = $controleEnvironnementMer;
+        return $this;
+    }
+
+    public function getControleEnvironnementTerre(): ?int {
+        return $this->controleEnvironnementTerre;
+    }
+
+    public function setControleEnvironnementTerre(?int $controleEnvironnementTerre): self {
+        $this->controleEnvironnementTerre = $controleEnvironnementTerre;
+        return $this;
+    }
+
+    public function getControleEnvironnementAerien(): ?int {
+        return $this->controleEnvironnementAerien;
+    }
+
+    public function setControleEnvironnementAerien(?int $controleEnvironnementAerien): self {
+        $this->controleEnvironnementAerien = $controleEnvironnementAerien;
+        return $this;
+    }
+
+    public function getControleAerien(): ?int {
+        return $this->controleAerien;
+    }
+
+    public function setControleAerien(?int $controleAerien): self {
+        $this->controleAerien = $controleAerien;
+        return $this;
+    }
+
 
 }

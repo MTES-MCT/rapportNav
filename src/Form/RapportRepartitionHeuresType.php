@@ -27,11 +27,51 @@ class RapportRepartitionHeuresType extends AbstractType {
                 'widget' => "single_text",
                 'required' => false,
             ])
+            ->add('controleAerien', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
             ->add('controleAireProtegeeMer', TimeType::class, [
                 'widget' => "single_text",
                 'required' => false,
             ])
             ->add('controleAireProtegeeTerre', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controleAireProtegeeAerien', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controlePollutionMer', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controlePollutionTerre', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controlePollutionAerien', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controleEnvironnementMer', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controleEnvironnementTerre', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controleEnvironnementAerien', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controleCroise', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('immigration', TimeType::class, [
                 'widget' => "single_text",
                 'required' => false,
             ])
@@ -66,7 +106,8 @@ class RapportRepartitionHeuresType extends AbstractType {
                 'widget' => "single_text",
                 'required' => false,
             ])
-            ->add('nombreOperationMaintienOrdre', IntegerType::class, [
+            ->add('assistance', TimeType::class, [
+                'widget' => "single_text",
                 'required' => false,
             ])
         ;
@@ -74,9 +115,29 @@ class RapportRepartitionHeuresType extends AbstractType {
             ->addModelTransformer($this->transformer);
         $builder->get('controleTerre')
             ->addModelTransformer($this->transformer);
+        $builder->get('controleAerien')
+            ->addModelTransformer($this->transformer);
         $builder->get('controleAireProtegeeMer')
             ->addModelTransformer($this->transformer);
         $builder->get('controleAireProtegeeTerre')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controleAireProtegeeAerien')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controlePollutionMer')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controlePollutionTerre')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controlePollutionAerien')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controleEnvironnementMer')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controleEnvironnementTerre')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controleEnvironnementAerien')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controleCroise')
+            ->addModelTransformer($this->transformer);
+        $builder->get('immigration')
             ->addModelTransformer($this->transformer);
         $builder->get('visiteSecurite')
             ->addModelTransformer($this->transformer);
@@ -91,6 +152,8 @@ class RapportRepartitionHeuresType extends AbstractType {
         $builder->get('surete')
             ->addModelTransformer($this->transformer);
         $builder->get('maintienOrdre')
+            ->addModelTransformer($this->transformer);
+        $builder->get('assistance')
             ->addModelTransformer($this->transformer);
     }
 

@@ -24,6 +24,11 @@ class ControleTache implements JsonSerializable {
     private $rapport;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nombreDossiers;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Tache")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -38,7 +43,8 @@ class ControleTache implements JsonSerializable {
         return [
             'id' => $this->getId(),
             'tache' => $this->getTache()->getId(),
-            'dureeTache' => TimeConvert::minutesToTime($this->getDureeTache())->format("H:i")
+            'dureeTache' => TimeConvert::minutesToTime($this->getDureeTache())->format("H:i"),
+            'nombreDossiers' => $this->getNombreDossiers(),
         ];
     }
 
@@ -72,6 +78,16 @@ class ControleTache implements JsonSerializable {
 
     public function setDureeTache(int $dureeTache): self {
         $this->dureeTache = $dureeTache;
+
+        return $this;
+    }
+
+    public function getNombreDossiers(): ?int {
+        return $this->nombreDossiers;
+    }
+
+    public function setNombreDossiers(?int $nombreDossiers): self {
+        $this->nombreDossiers = $nombreDossiers;
 
         return $this;
     }
