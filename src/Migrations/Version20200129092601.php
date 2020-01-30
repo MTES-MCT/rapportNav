@@ -14,7 +14,8 @@ final class Version20200129092601 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Add fields to repartition heures, this is *NOT* reversible 
+        (time in mission is moved to repartition heure, reverse migration does not keep the data)';
     }
 
     public function up(Schema $schema) : void
@@ -51,7 +52,6 @@ final class Version20200129092601 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE mission ADD duree_secours TIME(0) WITHOUT TIME ZONE DEFAULT NULL');
         $this->addSql('ALTER TABLE tache DROP complement_donnee');
         $this->addSql('ALTER TABLE controle_tache DROP nombre_dossiers');
