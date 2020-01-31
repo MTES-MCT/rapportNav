@@ -22,15 +22,15 @@
             </tr>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;dont surveillance et lutte contre les rejets illicite, pollution et protection de l'environnement (AEM 4.1)</td>
-                <td><input type="time" class="" v-model="controlePollutionMer" v-on:input="$emit('update:controle-aire-protegee-mer', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controlePollutionTerre" v-on:input="$emit('update:controle-aire-protegee-terre', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controlePollutionAerien" v-on:input="$emit('update:controle-aire-protegee-aerien', $event.target.value); localSave();"></td>
+                <td><input type="time" class="" v-model="controlePollutionMer" v-on:input="$emit('update:controle-polution-mer', $event.target.value); localSave();"></td>
+                <td><input type="time" class="" v-model="controlePollutionTerre" v-on:input="$emit('update:controle-polution-terre', $event.target.value); localSave();"></td>
+                <td><input type="time" class="" v-model="controlePollutionAerien" v-on:input="$emit('update:controle-polution-aerien', $event.target.value); localSave();"></td>
             </tr>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;dont surveillance et contrôle pour la protection de l'environnement (AEM 4.3)</td>
-                <td><input type="time" class="" v-model="controleEnvironnementMer" v-on:input="$emit('update:controle-aire-protegee-mer', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controleEnvironnementTerre" v-on:input="$emit('update:controle-aire-protegee-terre', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controleEnvironnementAerien" v-on:input="$emit('update:controle-aire-protegee-aerien', $event.target.value); localSave();"></td>
+                <td><input type="time" class="" v-model="controleEnvironnementMer" v-on:input="$emit('update:controle-environnement-mer', $event.target.value); localSave();"></td>
+                <td><input type="time" class="" v-model="controleEnvironnementTerre" v-on:input="$emit('update:controle-environnement-terre', $event.target.value); localSave();"></td>
+                <td><input type="time" class="" v-model="controleEnvironnementAerien" v-on:input="$emit('update:controle-environnement-aerien', $event.target.value); localSave();"></td>
             </tr>
             <tr>
                 <td>Contrôle croisés</td>
