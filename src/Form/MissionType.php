@@ -22,8 +22,8 @@ class MissionType extends AbstractType {
                     return $er->createQueryBuilder('z')
                         ->where('z.direction = :service OR z.alias = :alias OR z.direction = \'tous\' ')
                         ->setParameters([
-                            'service' => "DDTM".mb_strcut($service, 4),
-                            'alias' => mb_strcut($service, 4)]);
+                            'service' => "DDTM".mb_strcut($service, 5),
+                            'alias' => mb_strcut($service, 5)]);
                 },
                 'choice_label' => "nom",
                 'multiple' => true,
