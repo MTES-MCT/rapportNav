@@ -58,6 +58,22 @@
                         'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_aireProtegee'"} }) }}
                     {{ form_label(form.pecheursPied.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
                 </div>
+                <div style="padding-bottom: 1em;">
+                    {{ form_widget(form.pecheursPied.vars.prototype.chloredeconeTotal, {'attr': {
+                        'v-model': "controle.chloredeconeTotal",
+                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][chloredeconeTotal]'",
+                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_chloredeconeTotal'"}}) }}
+                    {{ form_label(form.pecheursPied.vars.prototype.chloredeconeTotal, null, {'label_attr': {'class': "label-inline"}}) }}
+                    {{ form_errors(form.pecheursPied.vars.prototype.chloredeconeTotal) }}
+                </div>
+                <div style="padding-bottom: 1em;">
+                    {{ form_widget(form.pecheursPied.vars.prototype.chloredeconePartiel, {'attr': {
+                        'v-model': "controle.chloredeconePartiel",
+                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][chloredeconePartiel]'",
+                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_chloredeconePartiel'"}}) }}
+                    {{ form_label(form.pecheursPied.vars.prototype.chloredeconePartiel, null, {'label_attr': {'class': "label-inline"}}) }}
+                    {{ form_errors(form.pecheursPied.vars.prototype.chloredeconePartiel) }}
+                </div>
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">
                 <div>

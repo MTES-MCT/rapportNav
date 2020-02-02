@@ -67,6 +67,22 @@ class RapportRepartitionHeuresType extends AbstractType {
                 'widget' => "single_text",
                 'required' => false,
             ])
+            ->add('controleChlordeconePartielMer', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controleChlordeconePartielTerre', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controleChlordeconeTotalMer', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
+            ->add('controleChlordeconeTotalTerre', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
             ->add('controleCroise', TimeType::class, [
                 'widget' => "single_text",
                 'required' => false,
@@ -134,6 +150,14 @@ class RapportRepartitionHeuresType extends AbstractType {
         $builder->get('controleEnvironnementTerre')
             ->addModelTransformer($this->transformer);
         $builder->get('controleEnvironnementAerien')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controleChlordeconeTotalMer')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controleChlordeconeTotalTerre')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controleChlordeconePartielMer')
+            ->addModelTransformer($this->transformer);
+        $builder->get('controleChlordeconePartielTerre')
             ->addModelTransformer($this->transformer);
         $builder->get('controleCroise')
             ->addModelTransformer($this->transformer);

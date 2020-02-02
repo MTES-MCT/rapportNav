@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\CategorieDeroutement;
 use App\Entity\ControleNavire;
 use App\Entity\MethodeCiblage;
 use App\Entity\Natinf;
@@ -58,6 +59,14 @@ class ControleNavireType extends AbstractType {
                 'required' => false,
                 'label' => "Contrôle en aire marine protégée"
             ])
+            ->add('chloredeconeTotal', CheckboxType::class, [
+                'required' => false,
+                'label' => "Zone contamination totale Chlordécone (Antilles)"
+            ])
+            ->add('chloredeconePartiel', CheckboxType::class, [
+                'required' => false,
+                'label' => "Zone contamination partielle Chlordécone (Antilles)"
+            ])
             ->add('lat', NumberType::class, [
                 'label' => "Latitude (décimale)",
                 'required' => false
@@ -82,6 +91,15 @@ class ControleNavireType extends AbstractType {
                 'expanded' => false,
                 'allow_extra_fields' => true,
                 'label' => "Code(s) NATINF",
+            ])
+            ->add('deroutement', EntityType::class, [
+                'class' => CategorieDeroutement::class,
+                'choice_label' => "nom",
+                'placeholder' => "Sélectionnez la réglementation appliquée",
+                'required' => false,
+                'multiple' => false,
+                'expanded' => false,
+                'label' => "Action au titre de la lutte contre"
             ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,

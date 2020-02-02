@@ -40,6 +40,14 @@ class ControlePecheurPiedType extends AbstractType {
                 'required' => false,
                 'label' => "Contrôle en aire marine protégée"
             ])
+            ->add('chloredeconeTotal', CheckboxType::class, [
+                'required' => false,
+                'label' => "Zone contamination totale Chlordécone (Antilles)"
+            ])
+            ->add('chloredeconePartiel', CheckboxType::class, [
+                'required' => false,
+                'label' => "Zone contamination partielle Chlordécone (Antilles)"
+            ])
             ->add('pv', CheckboxType::class, [
                 'required' => false,
                 'label' => "PV émis ?"])

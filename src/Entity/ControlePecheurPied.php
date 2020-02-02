@@ -43,6 +43,16 @@ class ControlePecheurPied implements JsonSerializable {
     private $aireProtegee = false;
 
     /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default": 0})
+     */
+    private $chloredeconeTotal = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default": 0})
+     */
+    private $chloredeconePartiel = false;
+
+    /**
      * @ORM\Column(type="datetime_immutable")
      * @Assert\NotBlank()
      */
@@ -68,6 +78,8 @@ class ControlePecheurPied implements JsonSerializable {
             'pecheurPied' => $this->getPecheurPied(),
             'terrestre' => $this->getTerrestre(),
             'aireProtegee' => $this->getAireProtegee(),
+            'chloredeconeTotal' => $this->getChloredeconeTotal(),
+            'chloredeconePartiel' => $this->getChloredeconePartiel(),
             'pv' => $this->getPv(),
             'date' => $this->getDate()->format("Y-m-d H:i"),
             'commentaire' => $this->getCommentaire(),
@@ -158,6 +170,26 @@ class ControlePecheurPied implements JsonSerializable {
 
     public function setAireProtegee(bool $aireProtegee): self {
         $this->aireProtegee = $aireProtegee;
+
+        return $this;
+    }
+
+    public function getChloredeconeTotal(): ?bool {
+        return $this->chloredeconeTotal;
+    }
+
+    public function setChloredeconeTotal(bool $chloredeconeTotal): self {
+        $this->chloredeconeTotal = $chloredeconeTotal;
+
+        return $this;
+    }
+
+    public function getChloredeconePartiel(): ?bool {
+        return $this->chloredeconePartiel;
+    }
+
+    public function setChloredeconePartiel(bool $chloredeconePartiel): self {
+        $this->chloredeconePartiel = $chloredeconePartiel;
 
         return $this;
     }

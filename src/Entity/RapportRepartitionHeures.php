@@ -85,6 +85,26 @@ class RapportRepartitionHeures {
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
+    private $controleChlordeconeTotalMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controleChlordeconeTotalTerre;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controleChlordeconePartielMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $controleChlordeconePartielTerre;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
     private $controleCroise;
 
     /**
@@ -373,5 +393,40 @@ class RapportRepartitionHeures {
         return $this;
     }
 
+    public function getControleChlordeconeTotalMer(): ?int {
+        return $this->controleChlordeconeTotalMer;
+    }
+
+    public function setControleChlordeconeTotalMer($controleChlordeconeTotalMer): self {
+        $this->controleChlordeconeTotalMer = $controleChlordeconeTotalMer;
+        return $this;
+    }
+
+    public function getControleChlordeconeTotalTerre(): ?int {
+        return $this->controleChlordeconeTotalTerre;
+    }
+
+    public function setControleChlordeconeTotalTerre($controleChlordeconeTotalTerre): self {
+        $this->controleChlordeconeTotalTerre = $controleChlordeconeTotalTerre;
+        return $this;
+    }
+
+    public function getControleChlordeconePartielMer(): ?int {
+        return $this->controleChlordeconePartielMer;
+    }
+
+    public function setControleChlordeconePartielMer($controleChlordeconePartielMer): self {
+        $this->controleChlordeconePartielMer = $controleChlordeconePartielMer;
+        return $this;
+    }
+
+    public function getControleChlordeconePartielTerre(): ?int {
+        return $this->controleChlordeconePartielTerre;
+    }
+
+    public function setControleChlordeconePartielTerre($controleChlordeconePartielTerre): self {
+        $this->controleChlordeconePartielTerre = $controleChlordeconePartielTerre;
+        return $this;
+    }
 
 }

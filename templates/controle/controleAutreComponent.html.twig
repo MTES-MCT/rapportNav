@@ -7,6 +7,7 @@
                 {{ form_errors(form.controles.vars.prototype.controle) }}
                 {{ form_widget(form.controles.vars.prototype.controle, {'attr': {
                     'v-model': "controle.controle",
+                    'v-on:change': "updateAutre($event,index)",
                     'v-bind:name': "'mission_autre[controles]['+index+'][controle]'",
                     'v-bind:id': "'mission_autre_controles_'+index+'_controle'"}}) }}
             </div>
@@ -19,6 +20,14 @@
                         'v-bind:name': "'mission_autre[controles]['+index+'][nombreControle]'",
                         'v-bind:id': "'mission_autre_controles_'+index+'_nombreControle'"}}) }}
                 </div>
+                <div class="form__group" v-show="null !== controle.nombreChlordecone">
+                    {{ form_label(form.controles.vars.prototype.nombreChlordecone) }}
+                    {{ form_errors(form.controles.vars.prototype.nombreChlordecone) }}
+                    {{ form_widget(form.controles.vars.prototype.nombreChlordecone, {'attr': {
+                        'v-model': "controle.nombreChlordecone",
+                        'v-bind:name': "'mission_autre[controles]['+index+'][nombreChlordecone]'",
+                        'v-bind:id': "'mission_autre_controles_'+index+'_nombreChlordecone'"}}) }}
+                </div>
             </div>
             <div class="form__group">
                 {{ form_label(form.controles.vars.prototype.nombrePv) }}
@@ -29,6 +38,14 @@
                     'v-bind:name': "'mission_autre[controles]['+index+'][nombrePv]'",
                     'v-bind:id': "'mission_autre_controles_'+index+'_nombrePv'"}}) }}
                 <input type="hidden" v-model="controle.pv"/>
+            </div>
+            <div class="form__group" v-show="null !== controle.nombreDetruit">
+                {{ form_label(form.controles.vars.prototype.nombreDetruit) }}
+                {{ form_errors(form.controles.vars.prototype.nombreDetruit) }}
+                {{ form_widget(form.controles.vars.prototype.nombreDetruit, {'attr': {
+                    'v-model': "controle.nombreDetruit",
+                    'v-bind:name': "'mission_autre[controles]['+index+'][nombreDetruit]'",
+                    'v-bind:id': "'mission_autre_controles_'+index+'_nombreDetruit'"}}) }}
             </div>
         </div>
         <div class="row">

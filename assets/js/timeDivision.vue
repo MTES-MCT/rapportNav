@@ -10,122 +10,182 @@
             </tr>
             <tr>
                 <td>Contrôle / surveillance</td>
-                <td><input type="time" class="" v-model="controleMer" v-on:input="$emit('update:controle-mer', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controleTerre" v-on:input="$emit('update:controle-terre', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controleAerien" v-on:input="$emit('update:controle-aerien', $event.target.value); localSave();"></td>
+                <td><input type="time" class="" v-model="controleMer"></td>
+                <td><input type="time" class="" v-model="controleTerre"></td>
+                <td><input type="time" class="" v-model="controleAerien"></td>
             </tr>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;dont en aire marine protégée</td>
-                <td><input type="time" class="" v-model="controleAireProtegeeMer" v-on:input="$emit('update:controle-aire-protegee-mer', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controleAireProtegeeTerre" v-on:input="$emit('update:controle-aire-protegee-terre', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controleAireProtegeeAerien" v-on:input="$emit('update:controle-aire-protegee-aerien', $event.target.value); localSave();"></td>
+                <td><input type="time" class="" v-model="controleAireProtegeeMer"></td>
+                <td><input type="time" class="" v-model="controleAireProtegeeTerre"></td>
+                <td><input type="time" class="" v-model="controleAireProtegeeAerien"></td>
             </tr>
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;dont surveillance et lutte contre les rejets illicite, pollution et protection de l'environnement (AEM 4.1)</td>
-                <td><input type="time" class="" v-model="controlePollutionMer" v-on:input="$emit('update:controle-polution-mer', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controlePollutionTerre" v-on:input="$emit('update:controle-polution-terre', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controlePollutionAerien" v-on:input="$emit('update:controle-polution-aerien', $event.target.value); localSave();"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;dont surveillance et lutte contre les rejets illicite, pollution (AEM 4.1)
+                </td>
+                <td><input type="time" class="" v-model="controlePollutionMer"></td>
+                <td><input type="time" class="" v-model="controlePollutionTerre"></td>
+                <td><input type="time" class="" v-model="controlePollutionAerien"></td>
             </tr>
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;dont surveillance et contrôle pour la protection de l'environnement (AEM 4.3)</td>
-                <td><input type="time" class="" v-model="controleEnvironnementMer" v-on:input="$emit('update:controle-environnement-mer', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controleEnvironnementTerre" v-on:input="$emit('update:controle-environnement-terre', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="controleEnvironnementAerien" v-on:input="$emit('update:controle-environnement-aerien', $event.target.value); localSave();"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;dont surveillance et contrôle pour la protection de l'environnement (AEM
+                    4.3)
+                </td>
+                <td><input type="time" class="" v-model="controleEnvironnementMer"></td>
+                <td><input type="time" class="" v-model="controleEnvironnementTerre"></td>
+                <td><input type="time" class="" v-model="controleEnvironnementAerien"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;dont en zone de contamination totale Chlordécone (Antilles)</td>
+                <td><input type="time" class="" v-model="controleChlordeconeTotalMer"></td>
+                <td><input type="time" class="" v-model="controleChlordeconeTotalTerre"></td>
+                <td/>
+            </tr>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;dont en zone de contamination partielle Chlordécone (Antilles)</td>
+                <td><input type="time" class="" v-model="controleChlordeconePartielMer"></td>
+                <td><input type="time" class="" v-model="controleChlordeconePartielTerre"></td>
+                <td/>
             </tr>
             <tr>
                 <td>Contrôle croisés</td>
-                <td />
-                <td><input type="time" class="" v-model="controleCroise" v-on:input="$emit('update:controle-croise', $event.target.value); localSave();"></td>
-                <td />
+                <td/>
+                <td><input type="time" class="" v-model="controleCroise">
+                <td/>
+                <td/>
             </tr>
             <tr>
                 <td>Lutte contre l'immigration illégale en mer</td>
-                <td><input type="time" class="" v-model="immigration" v-on:input="$emit('update:immigration', $event.target.value); localSave();"></td>
-                <td />
-                <td />
+                <td><input type="time" class="" v-model="immigration">
+                <td/>
+                <td/>
+                <td/>
             </tr>
             <tr>
                 <td>Visite de sécurité (au titre de l'inspection de la sécurité des navires)</td>
                 <td/>
-                <td><input type="time" class="" v-model="visiteSecurite" v-on:input="$emit('update:visite-securite', $event.target.value); localSave();"></td>
-                <td />
+                <td><input type="time" class="" v-model="visiteSecurite">
+                <td/>
+                <td/>
             </tr>
             <tr>
                 <td>Nombre visite de sécurité (au titre de l'inspection de la sécurité des navires)</td>
                 <td/>
-                <td><input class="" v-model="nombreVisiteSecurite" v-on:input="$emit('update:nombre-visite-securite', $event.target.value); localSave();"></td>
-                <td />
+                <td><input class="" v-model="nombreVisiteSecurite">
+                <td/>
+                <td/>
             </tr>
             <tr>
                 <td>Surveillance de manifestation nautique / plan d'eau</td>
-                <td><input type="time" class="" v-model="surveillanceManifestationMer" v-on:input="$emit('update:surveillance-manifestation-mer', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="surveillanceManifestationTerre" v-on:input="$emit('update:surveillance-manifestation-terre', $event.target.value); localSave();"></td>
-                <td />
+                <td><input type="time" class="" v-model="surveillanceManifestationMer"></td>
+                <td><input type="time" class="" v-model="surveillanceManifestationTerre"></td>
+                <td/>
             </tr>
             <tr>
                 <td>Surveillance du DPM et AOT DPM</td>
-                <td><input type="time" class="" v-model="surveillanceDpmMer" v-on:input="$emit('update:surveillance-dpm-mer', $event.target.value); localSave();"></td>
-                <td><input type="time" class="" v-model="surveillanceDpmTerre" v-on:input="$emit('update:surveillance-dpm-terre', $event.target.value); localSave();"></td>
-                <td />
+                <td><input type="time" class="" v-model="surveillanceDpmMer"></td>
+                <td><input type="time" class="" v-model="surveillanceDpmTerre"></td>
+                <td/>
             </tr>
             <tr>
                 <td>Nombre d'heures de mer pour la sûreté maritime (y compris VIGIMER )</td>
-                <td><input type="time" class="" v-model="surete" v-on:input="$emit('update:surete', $event.target.value); localSave();"></td>
-                <td />
-                <td />
+                <td><input type="time" class="" v-model="surete"></td>
+                <td/>
+                <td/>
             </tr>
             <tr>
                 <td>Nombre d'heures de mer de maintien de l'ordre public en mer</td>
-                <td><input type="time" class="" v-model="maintienOrdre" v-on:input="$emit('update:maintien-ordre', $event.target.value); localSave();"></td>
-                <td />
-                <td />
+                <td><input type="time" class="" v-model="maintienOrdre"></td>
+                <td/>
+                <td/>
             </tr>
             <tr>
                 <td>Nombre d'heures de mer pour assistance aux navires en difficulté et sécurité maritime (AEM 2.1)</td>
-                <td><input type="time" class="" v-model="assistance" v-on:input="$emit('update:assistance', $event.target.value); localSave();"></td>
-                <td />
-                <td />
+                <td><input type="time" class="" v-model="assistance"></td>
+                <td/>
+                <td/>
             </tr>
         </table>
     </div>
 </template>
 
 <script>
+
     export default {
         name: "timeDivision",
         props: [
-            'controleMer',
-            'controleTerre',
-            'controleAerien',
-            'controleAireProtegeeMer',
-            'controleAireProtegeeTerre',
-            'controleAireProtegeeAerien',
-            'controlePollutionMer',
-            'controlePollutionTerre',
-            'controlePollutionAerien',
-            'controleEnvironnementMer',
-            'controleEnvironnementTerre',
-            'controleEnvironnementAerien',
-            'controleCroise',
-            'immigration',
-            'visiteSecurite',
-            'nombreVisiteSecurite',
-            'surveillanceManifestationMer',
-            'surveillanceManifestationTerre',
-            'surveillanceDpmMer',
-            'surveillanceDpmTerre',
-            'surete',
-            'maintienOrdre',
-            "assistance",
+            'value',
         ],
-        methods: {
-            update: function (data, value) {
-                this.$emit('update', value);
-            },
-            localSave: function() {
-                localStorage.setItem('timeDivision', JSON.stringify(this.$props));
+        data: function() {
+            return {
+                controleMer: this.value.controleMer || null,
+                controleTerre: this.value.controleTerre || null,
+                controleAerien: this.value.controleAerien || null,
+                controleAireProtegeeMer: this.value.controleAireProtegeeMer || null,
+                controleAireProtegeeTerre: this.value.controleAireProtegeeTerre || null,
+                controleAireProtegeeAerien: this.value.controleAireProtegeeAerien || null,
+                controlePollutionMer: this.value.controlePollutionMer || null,
+                controlePollutionTerre: this.value.controlePollutionTerre || null,
+                controlePollutionAerien: this.value.controlePollutionAerien || null,
+                controleEnvironnementMer: this.value.controleEnvironnementMer || null,
+                controleEnvironnementTerre: this.value.controleEnvironnementTerre || null,
+                controleEnvironnementAerien: this.value.controleEnvironnementAerien || null,
+                controleChlordeconeTotalMer: this.value.controleChlordeconeTotalMer || null,
+                controleChlordeconeTotalTerre: this.value.controleChlordeconeTotalTerre || null,
+                controleChlordeconePartielMer: this.value.controleChlordeconePartielMer || null,
+                controleChlordeconePartielTerre: this.value.controleChlordeconePartielTerre || null,
+                controleCroise: this.value.controleCroise || null,
+                immigration: this.value.immigration || null,
+                visiteSecurite: this.value.visiteSecurite || null,
+                nombreVisiteSecurite: this.value.nombreVisiteSecurite || null,
+                surveillanceManifestationMer: this.value.surveillanceManifestationMer || null,
+                surveillanceManifestationTerre: this.value.surveillanceManifestationTerre || null,
+                surveillanceDpmMer: this.value.surveillanceDpmMer || null,
+                surveillanceDpmTerre: this.value.surveillanceDpmTerre || null,
+                surete: this.value.surete || null,
+                maintienOrdre: this.value.maintienOrdre || null,
+                assistance: this.value.assistance || null,
             }
-        }
+        },
+        computed: {
+            timeDivision: function() {
+                return {
+                    controleMer: this.controleMer,
+                    controleTerr: this.controleTerr,
+                    controleAerien: this.controleAerien,
+                    controleAireProtegeeMer: this.controleAireProtegeeMer,
+                    controleAireProtegeeTerre: this.controleAireProtegeeTerre,
+                    controleAireProtegeeAerien: this.controleAireProtegeeAerien,
+                    controlePollutionMer: this.controlePollutionMer,
+                    controlePollutionTerre: this.controlePollutionTerre,
+                    controlePollutionAerien: this.controlePollutionAerien,
+                    controleEnvironnementMer: this.controleEnvironnementMer,
+                    controleEnvironnementTerre: this.controleEnvironnementTerre,
+                    controleEnvironnementAerien: this.controleEnvironnementAerien,
+                    controleChlordeconeTotalMer: this.controleChlordeconeTotalMer,
+                    controleChlordeconeTotalTerre: this.controleChlordeconeTotalTerre,
+                    controleChlordeconePartielMer: this.controleChlordeconePartielMer,
+                    controleChlordeconePartielTerre: this.controleChlordeconePartielTerre,
+                    controleCroise: this.controleCroise,
+                    immigration: this.immigration,
+                    visiteSecurite: this.visiteSecurite,
+                    nombreVisiteSecurite: this.nombreVisiteSecurite,
+                    surveillanceManifestationMer: this.surveillanceManifestationMer,
+                    surveillanceManifestationTerre: this.surveillanceManifestationTerre,
+                    surveillanceDpmMer: this.surveillanceDpmMer,
+                    surveillanceDpmTerre: this.surveillanceDpmTerre,
+                    surete: this.surete,
+                    maintienOrdre: this.maintienOrdre,
+                    assistance: this.assistance,
+                };
+            }
+        },
+        watch: {
+            timeDivision: function(cm) {
+                this.$emit('input', this.timeDivision)
+            }
+        },
+        methods: {}
     }
 </script>
 

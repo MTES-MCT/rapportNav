@@ -4,38 +4,44 @@ import $ from "jquery";
 
 Vue.component('time-division', timeDivision);
 
-$(document).ready(function () {
+$(document).ready(function() {
 
     new Vue({
         el: "#time-division",
         component: {timeDivision},
         data: {
-            controleMer: null,
-            controleTerre: null,
-            controleAerien: null,
-            controleAireProtegeeMer: null,
-            controleAireProtegeeTerre: null,
-            controleAireProtegeeAerien: null,
-            controlePollutionMer: null,
-            controlePollutionTerre: null,
-            controlePollutionAerien: null,
-            controleEnvironnementMer: null,
-            controleEnvironnementTerre: null,
-            controleEnvironnementAerien: null,
-            controleCroise: null,
-            immigration: null,
-            visiteSecurite: null,
-            nombreVisiteSecurite: null,
-            surveillanceManifestationMer: null,
-            surveillanceManifestationTerre: null,
-            surveillanceDpmMer: null,
-            surveillanceDpmTerre: null,
-            surete: null,
-            maintienOrdre: null,
-            assistance: null,
+            timeDivision: {
+                controleMer: null,
+                controleTerre: null,
+                controleAerien: null,
+                controleAireProtegeeMer: null,
+                controleAireProtegeeTerre: null,
+                controleAireProtegeeAerien: null,
+                controlePollutionMer: null,
+                controlePollutionTerre: null,
+                controlePollutionAerien: null,
+                controleEnvironnementMer: null,
+                controleEnvironnementTerre: null,
+                controleEnvironnementAerien: null,
+                controleChlordeconeTotalMer: null,
+                controleChlordeconeTotalTerre: null,
+                controleChlordeconePartielMer: null,
+                controleChlordeconePartielTerre: null,
+                controleCroise: null,
+                immigration: null,
+                visiteSecurite: null,
+                nombreVisiteSecurite: null,
+                surveillanceManifestationMer: null,
+                surveillanceManifestationTerre: null,
+                surveillanceDpmMer: null,
+                surveillanceDpmTerre: null,
+                surete: null,
+                maintienOrdre: null,
+                assistance: null,
+            }
         },
-        mounted: function () {
-            localStorage.setItem('timeDivision', JSON.stringify({}));
+        created: function() {
+            localStorage.setItem('timeDivision', JSON.stringify({timeDivision: {}}));
             let dataTD = null;
             const path = window.location.pathname;
             const pos =path.search(/draft\/[0-9]*/);
@@ -51,12 +57,20 @@ $(document).ready(function () {
                 dataTD = rapport.timeDivision;
             }
 
-            // this.data = rapport.timeDivision;
             for (let [index, time] of Object.entries(dataTD)) {
-                    this[index] = time;
+                    this.timeDivision[index] = time;
             }
             localStorage.setItem('timeDivision', JSON.stringify(this.$data));
-
         },
+        watch: {
+            timeDivision: function() {
+                this.localSave();
+            },
+        },
+        methods: {
+            localSave: function() {
+                localStorage.setItem('timeDivision', JSON.stringify(this.$data));
+            }
+        }
     });
 });

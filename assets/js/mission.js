@@ -152,6 +152,8 @@ $(document).ready(function() {
                             "longueurHorsTout": null,
                             "typeUsage": null,
                             "categorieControleNavire": null,
+                            "isDeroutement": false,
+                            "deroutement": null,
                         };
                         newControle['controles'] = [];
                         newControle['aireProtegee'] = false;
@@ -169,12 +171,16 @@ $(document).ready(function() {
                     case 'pechePied':
                         newControle['pecheurPied'] = {"nom": null, "prenom": null, "estPro": false};
                         newControle['aireProtegee'] = false;
+                        newControle['chloredeconeTotal'] = false;
+                        newControle['chloredeconePartiel'] = false;
                         newControle['date'] = now.format("YYYY-MM-DD HH:mm");
                         newControle['terrestre'] = true;
                         break;
                     case 'autre':
                         newControle['nombreControle'] = 0;
                         newControle['nombrePv'] = 0;
+                        newControle['nombreDetruit'] = null;
+                        newControle['nombreChlordecone'] = null;
                         break;
                     case 'loisir':
                         newControle['nombreControle'] = 0;
@@ -267,6 +273,25 @@ $(document).ready(function() {
                     this.missions['administratif'].controles[index].nombreDossiers = 0;
                 } else {
                     this.missions['administratif'].controles[index].nombreDossiers = null;
+                }
+            },
+            updateAutre: function($event, index) {
+                if(undefined === $event.target.options[$event.target.selectedIndex].dataset.complement) {
+                    this.missions['autre'].controles[index].nombreChlordecone = null;
+                    this.missions['autre'].controles[index].nombreDetruit = null;
+                } else if("chlordecone" === $event.target.options[$event.target.selectedIndex].dataset.complement) {
+                    this.missions['autre'].controles[index].nombreDetruit = null;
+                    this.missions['autre'].controles[index].nombreChlordecone = 0;
+                } else if("detruit" === $event.target.options[$event.target.selectedIndex].dataset.complement) {
+                    this.missions['autre'].controles[index].nombreDetruit = 0;
+                    this.missions['autre'].controles[index].nombreChlordecone = null;
+                }
+            },
+            updateDeroutement: function($event, index) {
+                if(this.missions['navire'].controles[index].isDeroutement) {
+
+                } else {
+                    this.missions['navire'].controles[index].deroutement = null;
                 }
             },
             localSave: function() {

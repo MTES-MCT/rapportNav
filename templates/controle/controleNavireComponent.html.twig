@@ -20,8 +20,7 @@
                     {'form': form.navires.vars.prototype.methodeCiblage, 'attr': {
                         'v-model': "controle.methodeCiblage",
                         'v-bind:name': "'mission_navire[navires]['+index+'][methodeCiblage]'",
-                        'v-bind:id': "'mission_navire_navires_'+index+'_methodeCiblage'"} }
-                %}
+                        'v-bind:id': "'mission_navire_navires_'+index+'_methodeCiblage'"} } %}
                 <div class="form__group" style="padding-bottom: 1em;">
                     {{ form_label(form.navires.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.date) }}
@@ -53,6 +52,20 @@
                         'v-bind:id': "'mission_navire_navires_'+index+'_aireProtegee'"}}) }}
                     {{ form_label(form.navires.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.aireProtegee) }}
+                </div>
+                <div style="padding-bottom: 1em;">
+                    {{ form_widget(form.navires.vars.prototype.chloredeconeTotal, {'attr': {'v-model': "controle.chloredeconeTotal",
+                        'v-bind:name': "'mission_navire[navires]['+index+'][chloredeconeTotal]'",
+                        'v-bind:id': "'mission_navire_navires_'+index+'_chloredeconeTotal'"}}) }}
+                    {{ form_label(form.navires.vars.prototype.chloredeconeTotal, null, {'label_attr': {'class': "label-inline"}}) }}
+                    {{ form_errors(form.navires.vars.prototype.chloredeconeTotal) }}
+                </div>
+                <div style="padding-bottom: 1em;">
+                    {{ form_widget(form.navires.vars.prototype.chloredeconePartiel, {'attr': {'v-model': "controle.chloredeconePartiel",
+                        'v-bind:name': "'mission_navire[navires]['+index+'][chloredeconePartiel]'",
+                        'v-bind:id': "'mission_navire_navires_'+index+'_chloredeconePartiel'"}}) }}
+                    {{ form_label(form.navires.vars.prototype.chloredeconePartiel, null, {'label_attr': {'class': "label-inline"}}) }}
+                    {{ form_errors(form.navires.vars.prototype.chloredeconePartiel) }}
                 </div>
                 <div class="" style="">
                     <div class="form__group horizontal__form" style="max-width: 20em;">
@@ -87,17 +100,32 @@
                         v-bind:name="'mission_navire[navires]['+index+'][natinfs][]'"
                         v-bind:id="'mission_navire_navires_'+index+'_natinfs'"
                         v-model="controle.natinfs"
-                style="display:none;">
+                        style="display:none;">
                     <option v-for="option in controle.natinfs" :value="option" v-html="option">
                     </option>
                 </select>
-                <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs" :options="natinfsOptions">
+                <v-select :multiple="true" :filterable="false" @search="getNatinfData" v-model="controle.natinfs"
+                          :options="natinfsOptions">
                     <template slot="no-options">
                         Entrez un code Natinf
                     </template>
                 </v-select>
                 {% do form.navires.vars.prototype.natinfs.setRendered %}
                 {{ form_errors(form.navires.vars.prototype.natinfs) }}
+            </div>
+            <div style="flex-grow: 2;"></div>
+            <div>
+                <label class="horizontal__form">
+                    <input type="checkbox" @change="updateDeroutement($event, index)" v-model="controle.isDeroutement">
+                    Navire accompagné ou dérouté
+                </label>
+                <div class="horizontal__form form__group" v-if="controle.isDeroutement">
+                    {{ form_label(form.navires.vars.prototype.deroutement, null, {'label_attr': {'class': "required"}}) }}
+                    {{ form_widget(form.navires.vars.prototype.deroutement, {'attr':
+                    {'v-model': "controle.deroutement",
+                        'v-bind:name': "'mission_navire[navires]['+index+'][deroutement]'",
+                        'v-bind:id': "'mission_navire_navires_'+index+'_deroutement'"}}) }}
+                </div>
             </div>
         </div>
         <div class="form__group horizontal__form">

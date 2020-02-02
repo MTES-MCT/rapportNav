@@ -53,6 +53,16 @@ class ControleAutre implements JsonSerializable {
      */
     private $commentaire;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nombreChlordecone;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nombreDetruit;
+
     public function __construct() {
         $this->natinfs = new ArrayCollection();
     }
@@ -66,6 +76,8 @@ class ControleAutre implements JsonSerializable {
             'controle' => $this->getControle()->getId(),
             'nombreControle' => $this->getNombreControle(),
             'nombrePv' => $this->getNombrePv(),
+            'nombreChlordecone' => $this->getNombreChlordecone(),
+            'nombreDetruit' => $this->getNombreDetruit(),
             'natinfs' => $natinfs,
             'commentaire' => $this->getCommentaire()
         ];
@@ -144,6 +156,26 @@ class ControleAutre implements JsonSerializable {
 
     public function setCommentaire(?string $commentaire): self {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getNombreChlordecone(): ?int {
+        return $this->nombreChlordecone;
+    }
+
+    public function setNombreChlordecone(?int $nombreChlordecone): self {
+        $this->nombreChlordecone = $nombreChlordecone;
+
+        return $this;
+    }
+
+    public function getNombreDetruit(): ?int {
+        return $this->nombreDetruit;
+    }
+
+    public function setNombreDetruit(?int $nombreDetruit): self {
+        $this->nombreDetruit = $nombreDetruit;
 
         return $this;
     }

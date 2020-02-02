@@ -70,35 +70,54 @@ class ControleNavire implements JsonSerializable {
     private $aireProtegee = false;
 
     /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default": 0})
+     */
+    private $chloredeconeTotal = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default": 0})
+     */
+    private $chloredeconePartiel = false;
+
+    /**
      * @ORM\Column(type="boolean")
      * @Assert\Type(type="bool")
      */
     private $pv = false;
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Natinf", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $natinfs;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $commentaire;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CategorieDeroutement")
+     */
+    private $deroutement;
 
     public function jsonSerialize() {
         $data = [];
         $data['pv'] = $this->getPv();
         $data['terrestre'] = $this->getTerrestre();
         $data['aireProtegee'] = $this->getAireProtegee();
+        $data['chloredeconeTotal'] = $this->getChloredeconeTotal();
+        $data['chloredeconePartiel'] = $this->getChloredeconePartiel();
+        $data['aireProtegee'] = $this->getAireProtegee();
         $data['date'] = $this->getDate()->format("Y-m-d H:i");
         $data['lat'] = $this->getLat();
         $data['long'] = $this->getLong();
+        $data['isDeroutement'] = null !== $this->getDeroutement();
+        $data['deroutement'] = ($data['isDeroutement']) ? $this->getDeroutement()->getId() : null;
+        $data['commentaire'] = $this->getCommentaire();
 
         $data['natinfs'] = [];
         foreach($this->getNatinfs() as $natinf) {
             $data['natinfs'][] = $natinf->getNumero();
         }
-        $data['commentaire'] = $this->getCommentaire();
 
         $data['navire'] = $this->getNavire();
 
@@ -250,6 +269,36 @@ class ControleNavire implements JsonSerializable {
 
     public function setLong(?string $long): self {
         $this->long = $long;
+
+        return $this;
+    }
+
+    public function getDeroutement(): ?CategorieDeroutement {
+        return $this->deroutement;
+    }
+
+    public function setDeroutement(?CategorieDeroutement $deroutement): self {
+        $this->deroutement = $deroutement;
+
+        return $this;
+    }
+
+    public function getChloredeconeTotal(): ?bool {
+        return $this->chloredeconeTotal;
+    }
+
+    public function setChloredeconeTotal(bool $chloredeconeTotal): self {
+        $this->chloredeconeTotal = $chloredeconeTotal;
+
+        return $this;
+    }
+
+    public function getChloredeconePartiel(): ?bool {
+        return $this->chloredeconePartiel;
+    }
+
+    public function setChloredeconePartiel(bool $chloredeconePartiel): self {
+        $this->chloredeconePartiel = $chloredeconePartiel;
 
         return $this;
     }

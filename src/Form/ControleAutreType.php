@@ -22,6 +22,13 @@ class ControleAutreType extends AbstractType {
                 'expanded' => false,
                 'label' => "Contrôle",
                 'placeholder' => "Sélectionnez le type de contrôle",
+                'choice_attr' => function($choice, $key, $value) {
+                    /** @var CategorieControleAutre $choice */
+                    if(null === $choice->getComplementDonnee()) {
+                        return [];
+                    }
+                    return ['data-complement' => $choice->getComplementDonnee()];
+                },
             ])
             ->add('nombreControle', IntegerType::class, [
                 'required' => true,
@@ -29,6 +36,12 @@ class ControleAutreType extends AbstractType {
             ->add('nombrePv', IntegerType::class, [
                 'required' => false,
                 'label' => "Nombre de PV émis"])
+            ->add('nombreChlordecone', IntegerType::class, [
+                'required' => false,
+                'label' => "dont en zone Chlordecone"])
+            ->add('nombreDetruit', IntegerType::class, [
+                'required' => false,
+                'label' => "Nombre d'équipement détruit(s)"])
             ->add('natinfs', EntityType::class, [
                 'class' => Natinf::class,
                 'choice_label' => "numero",
