@@ -52,7 +52,7 @@ class RapportRepository extends ServiceEntityRepository {
         }
 
         $dql .= ' ORDER BY r.dateDebutMission DESC';
-dump($dql);
+
         $query = $em->createQuery($dql)->setParameters($params);
 
         if(null !== $limit) {

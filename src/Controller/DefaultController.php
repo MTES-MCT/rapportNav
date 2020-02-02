@@ -327,10 +327,6 @@ class DefaultController extends AbstractController {
             $nextMonth,
             $userService,
             200);
-        dump($reports);
-        dump($date);
-        dump($nextMonth);
-        dump($prevMonth);
 
         return $this->render('listReports.html.twig', [
             'reports' => $reports,
