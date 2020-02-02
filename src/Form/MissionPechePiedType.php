@@ -12,6 +12,8 @@ class MissionPechePiedType extends MissionType {
         parent::buildForm($builder, $options);
 
         $builder
+            ->add('controlePlaisanceSansPv', ControlePecheurPiedSansPvType::class)
+            ->add('controleProSansPv', ControlePecheurPiedSansPvType::class)
             ->add('pecheursPied', CollectionType::class, [
                 'entry_type' => ControlePecheurPiedType::class,
                 'entry_options' => ['label' => false],

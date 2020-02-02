@@ -44,6 +44,18 @@ $(document).ready(function() {
                     logo: "fas fa-shoe-prints",
                     active: false,
                     zones: [],
+                    controlePlaisanceSansPv: {
+                        nombreControle: 0,
+                        nombreControleAireProtegee: 0,
+                        nombreControleChlordeconeTotale: 0,
+                        nombreControleChlordeconePartiel: 0,
+                    },
+                    controleProSansPv: {
+                        nombreControle: 0,
+                        nombreControleAireProtegee: 0,
+                        nombreControleChlordeconeTotale: 0,
+                        nombreControleChlordeconePartiel: 0,
+                    },
                     controles: [],
                     commentaire: null
                 },

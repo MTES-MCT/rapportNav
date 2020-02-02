@@ -74,23 +74,6 @@ class ControleNavireSansPv implements JsonSerializable {
         return $this;
     }
 
-    public function getMission(): ?MissionNavire
-    {
-        return $this->mission;
-    }
-
-    public function setMission(MissionNavire $mission): self
-    {
-        $this->mission = $mission;
-
-        // set the owning side of the relation if necessary
-        if ($mission->getControleSansPv() !== $this) {
-            $mission->setControleSansPv($this);
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|RapportNavireControle[]
      */

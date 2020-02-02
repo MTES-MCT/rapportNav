@@ -1,2 +1,48 @@
 <h3>Pêcheurs contrôlés</h3>
+<h4>Pêcheurs à pied plaisance n'ayant pas donné lieu à PV</h4>
+<div class="row">
+    <div class="form__group">
+        {{ form_label(form.controlePlaisanceSansPv.nombreControle, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controlePlaisanceSansPv.nombreControle, {'attr': {'v-model': "missions['pechePied'].controlePlaisanceSansPv.nombreControle"}}) }}
+        {{ form_errors(form.controlePlaisanceSansPv.nombreControle) }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.controlePlaisanceSansPv.nombreControleAireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controlePlaisanceSansPv.nombreControleAireProtegee, {'attr': {'v-model': "missions['pechePied'].controlePlaisanceSansPv.nombreControleAireProtegee"}}) }}
+        {{ form_errors(form.controlePlaisanceSansPv.nombreControleAireProtegee) }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.controlePlaisanceSansPv.nombreControleChlordeconeTotale, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controlePlaisanceSansPv.nombreControleChlordeconeTotale, {'attr': {'v-model': "missions['pechePied'].controlePlaisanceSansPv.nombreControleChlordeconeTotale"}}) }}
+        {{ form_errors(form.controlePlaisanceSansPv.nombreControleChlordeconeTotale) }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.controlePlaisanceSansPv.nombreControleChlordeconePartiel, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controlePlaisanceSansPv.nombreControleChlordeconePartiel, {'attr': {'v-model': "missions['pechePied'].controlePlaisanceSansPv.nombreControleChlordeconePartiel"}}) }}
+        {{ form_errors(form.controlePlaisanceSansPv.nombreControleChlordeconePartiel) }}
+    </div>
+</div>
+<h4>Pêcheurs à pied professionnels n'ayant pas donné lieu à PV</h4>
+<div class="row">
+    <div class="form__group">
+        {{ form_label(form.controleProSansPv.nombreControle, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controleProSansPv.nombreControle, {'attr': {'v-model': "missions['pechePied'].controleProSansPv.nombreControle"}}) }}
+        {{ form_errors(form.controleProSansPv.nombreControle) }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.controleProSansPv.nombreControleAireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controleProSansPv.nombreControleAireProtegee, {'attr': {'v-model': "missions['pechePied'].controleProSansPv.nombreControleAireProtegee"}}) }}
+        {{ form_errors(form.controleProSansPv.nombreControleAireProtegee) }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.controleProSansPv.nombreControleChlordeconeTotale, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controleProSansPv.nombreControleChlordeconeTotale, {'attr': {'v-model': "missions['pechePied'].controleProSansPv.nombreControleChlordeconeTotale"}}) }}
+        {{ form_errors(form.controleProSansPv.nombreControleChlordeconeTotale) }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.controleProSansPv.nombreControleChlordeconePartiel, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controleProSansPv.nombreControleChlordeconePartiel, {'attr': {'v-model': "missions['pechePied'].controleProSansPv.nombreControleChlordeconePartiel"}}) }}
+        {{ form_errors(form.controleProSansPv.nombreControleChlordeconePartiel) }}
+    </div>
+</div>
 {% include 'controle/controlePecheurPiedComponent.html.twig' with {'form': form} %}
