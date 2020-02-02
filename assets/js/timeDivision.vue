@@ -1,6 +1,8 @@
 <template>
     <div>
         <h2>Répartition des heures de la mission</h2>
+        <span class="panel__header-extra">Indiquer ici la répartition des heures de mission (selon les indicateurs du suivi AEM et SMC3).
+            Le temps est à indiquer <strong>pour l'équipe</strong> (si la mission a compté 6h de contrôle noter 6:00 même s'il y avait plus d'un agent dans le groupe de la mission). </span>
         <table class="table">
             <tr>
                 <th/>

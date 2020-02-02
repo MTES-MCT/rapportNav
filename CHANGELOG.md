@@ -5,6 +5,7 @@
 * Ajout de la possibilité de signaler une mission comme conjointe avec un autre service. 
 * Correction d'un bug sur l'affichage du champ "nombre de bateaux" sur les contrôles d'établissements
 * Ajout de champs manquants pour la répartition des heures
+* Ajout du suivi Chlordécone et complément sur la répartition du temps
 
 ## Changelog v0.7.2 -> 0.8.0 (07/01/2020)
 * Possibilité de lister des navires non professionnels contrôlés sans PV
