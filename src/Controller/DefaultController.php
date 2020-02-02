@@ -185,6 +185,7 @@ class DefaultController extends AbstractController {
                 'surete' => $rH->getSurete() ? TimeConvert::minutesToTime($rH->getSurete())->format("H:i") : null,
                 'maintienOrdre' => $rH->getMaintienOrdre() ? TimeConvert::minutesToTime($rH->getMaintienOrdre())->format("H:i") : null,
                 'assistance' => $rH->getAssistance() ? TimeConvert::minutesToTime($rH->getAssistance())->format("H:i") : null,
+                'plongee' => $rH->getPlongee() ? TimeConvert::minutesToTime($rH->getPlongee())->format("H:i") : null,
             ];
         }
 

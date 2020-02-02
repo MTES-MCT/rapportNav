@@ -126,6 +126,10 @@ class RapportRepartitionHeuresType extends AbstractType {
                 'widget' => "single_text",
                 'required' => false,
             ])
+            ->add('plongee', TimeType::class, [
+                'widget' => "single_text",
+                'required' => false,
+            ])
         ;
         $builder->get('controleMer')
             ->addModelTransformer($this->transformer);
@@ -178,6 +182,8 @@ class RapportRepartitionHeuresType extends AbstractType {
         $builder->get('maintienOrdre')
             ->addModelTransformer($this->transformer);
         $builder->get('assistance')
+            ->addModelTransformer($this->transformer);
+        $builder->get('plongee')
             ->addModelTransformer($this->transformer);
     }
 

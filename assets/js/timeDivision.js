@@ -38,6 +38,7 @@ $(document).ready(function() {
                 surete: null,
                 maintienOrdre: null,
                 assistance: null,
+                plongee: null,
             }
         },
         created: function() {

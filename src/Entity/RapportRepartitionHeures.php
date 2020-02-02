@@ -156,6 +156,11 @@ class RapportRepartitionHeures {
      */
     private $assistance;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $plongee;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -429,4 +434,12 @@ class RapportRepartitionHeures {
         return $this;
     }
 
+    public function getPlongee(): ?int {
+        return $this->plongee;
+    }
+
+    public function setPlongee(?int $plongee): self {
+        $this->plongee = $plongee;
+        return $this;
+    }
 }

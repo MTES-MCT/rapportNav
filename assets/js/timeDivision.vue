@@ -107,6 +107,12 @@
                 <td/>
                 <td/>
             </tr>
+            <tr>
+                <td>Nombre d'heures de plongée (lors d'une mission)</td>
+                <td><input type="time" class="" v-model="plongee"></td>
+                <td/>
+                <td/>
+            </tr>
         </table>
     </div>
 </template>
@@ -147,6 +153,7 @@
                 surete: this.value.surete || null,
                 maintienOrdre: this.value.maintienOrdre || null,
                 assistance: this.value.assistance || null,
+                plongee: this.value.plongee || null,
             }
         },
         computed: {
@@ -179,6 +186,7 @@
                     surete: this.surete,
                     maintienOrdre: this.maintienOrdre,
                     assistance: this.assistance,
+                    plongee: this.plongee,
                 };
             }
         },
