@@ -25,6 +25,10 @@ class CategorieEtablissement {
      */
     private $complementDonnee;
 
+    public function __toString() {
+        return $this->getNom();
+    }
+
     public function getId(): ?int {
         return $this->id;
     }

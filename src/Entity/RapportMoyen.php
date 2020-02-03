@@ -35,6 +35,10 @@ class RapportMoyen {
      */
     private $tempsMoteur;
 
+    public function __toString() {
+        return $this->getMoyen()->__toString();
+    }
+
     public function getRapport(): ?Rapport {
         return $this->rapport;
     }

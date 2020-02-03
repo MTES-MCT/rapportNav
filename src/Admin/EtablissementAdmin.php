@@ -16,21 +16,9 @@ class EtablissementAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
             ->add('nom', TextType::class, ['required' => true, 'label' => "Nom (ou N/A pour non applicable)"])
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Marché plaisance : concessionnaire' => 0,
-                    'Culture marine' => 1,
-                    'Site de débarquement' => 2,
-                    'Criée' => 3,
-                    'Commerce à terre' => 4,
-                    'Mareyeur' => 5,
-                    'contrôle routier' => 6,
-                    'Formation à la conduite mer et eaux intérieures' => 7,
-                    'autre' => 8],
-                'multiple' => false,
-                'expanded' => false,
-                'placeholder' => '',
-                'label' => "Type de d'établissement"])
+            ->add('type')
+            ->add('adresse')
+            ->add('commune')
         ;
     }
 
@@ -38,13 +26,17 @@ class EtablissementAdmin extends AbstractAdmin {
         $datagridMapper
             ->add('nom')
             ->add('type')
+            ->add('adresse')
+            ->add('commune')
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
             ->addIdentifier('nom')
-            ->addIdentifier('type')
+            ->add('type')
+            ->add('adresse')
+            ->add('commune')
         ;
     }
 

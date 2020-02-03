@@ -88,3 +88,39 @@ services:
         arguments: [~, App\Entity\Agent, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: services, label: Agent }
+
+    admin.service_interministeriel:
+        class: App\Admin\ServiceInterministerielAdmin
+        arguments: [~, App\Entity\ServiceInterministeriel, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: rapport, label: "Autres services interministériels" }
+
+    admin.categorie_etablissement:
+        class: App\Admin\CategorieEtablissementAdmin
+        arguments: [~, App\Entity\CategorieEtablissement, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories d'établissements" }
+
+    admin.categorie_controle_autre:
+        class: App\Admin\CategorieControleAutreAdmin
+        arguments: [~, App\Entity\CategorieControleAutre, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories d'autres contrôles" }
+
+    admin.categorie_tache:
+        class: App\Admin\CategorieTacheAdmin
+        arguments: [~, App\Entity\Tache, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de tâches administratives" }
+
+    admin.categorie_controle_navire:
+        class: App\Admin\CategorieControleNavireAdmin
+        arguments: [~, App\Entity\CategorieControleNavire, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de navires" }
+
+    admin.categorie_loisir:
+        class: App\Admin\CategorieLoisirAdmin
+        arguments: [~, App\Entity\Loisir, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de loisirs" }
