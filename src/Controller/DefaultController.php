@@ -239,8 +239,6 @@ class DefaultController extends AbstractController {
     public function listForms(LoggerInterface $logger) {
         $month = date("m");
         $year = date("Y");
-        dump($month);
-        dump($year);
 
         try {
             $now = new DateTimeImmutable("01-".date("m")."-".date("Y"));
