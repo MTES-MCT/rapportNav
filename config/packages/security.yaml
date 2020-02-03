@@ -16,9 +16,14 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
+                require_previous_session: false
 
             logout:       true
             anonymous:    true
+            remember_me:
+                secret:      "%kernel.secret%"
+                lifetime: 604800 # 1 week in seconds
+                path:     /
 
             # activate different ways to authenticate
 
