@@ -12,8 +12,12 @@ class SuiviMensuelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('arretTravail')
-            ->add('congeAnnuel')
+            ->add('arretTravail', null, [
+                'label' => "Arrêts de travail"
+            ])
+            ->add('congeAnnuel', null, [
+                'label' => "Congés annuel"
+            ])
         ;
     }
 

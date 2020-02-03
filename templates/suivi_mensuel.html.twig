@@ -10,7 +10,7 @@
 {% block body_main_container %}
 
     <h1>Édition du suivi mensuel de {{ date|localizeddate("long", "none", 'fr', null, "MMMM") }}</h1>
-    <p>Les informations sont à entrer en nombre de jours. </p>
+    <p>Les informations sont à entrer en nombre de jours pour l'ensemble de l'unité. </p>
     {{ form_start(form) }}
     <div class="form__group">
         {{ form_label(form.arretTravail) }}
