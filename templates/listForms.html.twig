@@ -10,17 +10,29 @@
 {% block body_main %}
     <section class="section">
         <div class="container">
-            <div style="width: 50%">
-            <h1>Ajout d'un nouveau rapport</h1>
-            <div class="">
-                <a href="{{ path('rapport_create') }}" class="button large">
-                    Créer un rapport de mission
-                </a>
-            </div>
+            <div>
+                <h1>Ajout d'un nouveau rapport</h1>
+                <div class="row">
+                    <a href="{{ path('rapport_create') }}" class="button large">
+                        Créer un rapport de mission
+                    </a>
+                    <a href="{{ path('suivi_mensuel_edit', {
+                            'month': now|localizeddate("long", "none", 'fr', null, "MM"),
+                            'year':now|localizeddate("long", "none", 'fr', null, "Y")}) }}"
+                       class="button large">
+                        Mettre à jour le suivi mensuel de {{ now|localizeddate("long", "none", 'fr', null, "MMMM Y") }}
+                    </a>
+                    <a href="{{ path('suivi_mensuel_edit', {
+                        'month': previousMonth|localizeddate("long", "none", 'fr', null, "MM"),
+                        'year': previousMonth|localizeddate("long", "none", 'fr', null, "Y")}) }}"
+                       class="button large">
+                        Mettre à jour le suivi mensuel de {{ previousMonth|localizeddate("long", "none", 'fr', null, "MMMM Y") }}
+                    </a>
+                </div>
             </div>
             <div style="width: 90%">
                 <iframe
-                        src="{{iframeUrl}}"
+                        src="{{ iframeUrl }}"
                         frameborder="0"
                         width="100%"
                         height="600"
