@@ -232,9 +232,25 @@ class DefaultController extends AbstractController {
     /**
      * @Route("/list_forms", name="list_forms", methods={"GET"})
      *
+     * @param LoggerInterface $logger
+     *
      * @return Response
      */
-    public function listForms() {
+    public function listForms(LoggerInterface $logger) {
+        $month = date("m");
+        $year = date("Y");
+        dump($month);
+        dump($year);
+
+        try {
+            $now = new DateTimeImmutable("01-".date("m")."-".date("Y"));
+            $prevMonthDate = (new DateTime())->modify('previous month');
+            $previousMonth = new DateTimeImmutable("01-".$prevMonthDate->format("m")."-".$prevMonthDate->format("Y"));
+        } catch(\Exception $e) {
+            $logger->critical("Fail to initialize date");
+            $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅ sur la page d'accueil. ");
+            return $this->redirectToRoute('home');
+        }
 
         $metabaseSecretKey = $this->getParameter("metabase_key");
         $metabaseDbUrl = $this->getParameter("metabase_url");
@@ -253,7 +269,7 @@ class DefaultController extends AbstractController {
 
         $iframeUrl = $metabaseDbUrl."embed/dashboard/".$token."#bordered=true&titled=true";
 
-        return $this->render('listForms.html.twig', ['iframeUrl' => $iframeUrl]);
+        return $this->render('listForms.html.twig', ['iframeUrl' => $iframeUrl, 'now' => $now, 'previousMonth' => $previousMonth]);
 
     }
 

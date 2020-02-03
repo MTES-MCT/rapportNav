@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block head_title %}Accueil{{ parent() }}{% endblock %}
+
+{% block head_stylesheets %}
+    {{ parent() }}
+{% endblock head_stylesheets %}
+
+{% block body_banner %}{% endblock body_banner %}
+{% block body_main_container %}
+
+    <h1>Édition du suivi mensuel de {{ date|localizeddate("long", "none", 'fr', null, "MMMM") }}</h1>
+    <p>Les informations sont à entrer en nombre de jours pour l'ensemble de l'unité. </p>
+    {{ form_start(form) }}
+    <div class="form__group">
+        {{ form_label(form.arretTravail) }}
+        {{ form_widget(form.arretTravail) }}
+    </div>
+    <div class="form__group">
+        {{ form_label(form.congeAnnuel) }}
+        {{ form_widget(form.congeAnnuel) }}
+    </div>
+    <button type="submit" id="form-submit" class="button large">
+        <i class="far fa-check-circle"></i>
+        Enregistrer le suivi mensuel
+    </button>
+    {{ form_end(form) }}
+
+{% endblock body_main_container %}
