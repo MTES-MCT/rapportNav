@@ -18,15 +18,7 @@ class NavireAdmin extends AbstractAdmin {
             ->add('nom', TextType::class)
             ->add('immatriculation_fr', TextType::class)
             ->add('longueurHorsTout', NumberType::class)
-            ->add('typeUsage', ChoiceType::class, [
-                'choices' => [
-                    'Pêche professionnelle' => 0,
-                    'Conchylicole' => 1,
-                    'Navire école' => 2,
-                    'Commerce à passager' => 3,
-                    'Pêche dormant' => 4,
-                    'Plaisance professionnelle' => 5,
-                    'Plaisance non professionnelle' => 6]])
+            ->add('typeUsage')
         ;
     }
 
