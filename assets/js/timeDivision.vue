@@ -160,7 +160,7 @@
             timeDivision: function() {
                 return {
                     controleMer: this.controleMer,
-                    controleTerr: this.controleTerr,
+                    controleTerre: this.controleTerre,
                     controleAerien: this.controleAerien,
                     controleAireProtegeeMer: this.controleAireProtegeeMer,
                     controleAireProtegeeTerre: this.controleAireProtegeeTerre,
