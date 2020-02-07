@@ -1,5 +1,6 @@
 <div>
     {{ form_label(navire.immatriculation_fr) }}
+    <p class="panel__header-extra" style="margin: 0;font-size: 0.8em;">Si le navire est sans immatriculation notez "sans" et cochez "Navire étranger"</p>
     {{ form_errors(navire.immatriculation_fr) }}
     {{ form_widget(navire.immatriculation_fr, {'attr': {
         'ref': "controle_navire_immatriculation",
@@ -43,6 +44,7 @@
                class="{{ navire.pavillon.vars.required ? 'required' }}">
             {{ navire.pavillon.vars.label }}
         </label>
+        <p class="panel__header-extra" style="margin: 0;font-size: 0.8em;">Si le navire est sans pavillon notez "sans"</p>
         {{ form_errors(navire.pavillon) }}
         {{ form_widget(navire.pavillon, {'attr': {'v-model': "controle.navire.pavillon",
             'v-bind:name': "'mission_navire[navires]['+index+'][navire][pavillon]'",
