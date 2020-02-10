@@ -6,7 +6,7 @@ import mission from './missioncomponent';
 import params from "./params";
 import vSelect from 'vue-select'
 import inputDateTime from "./inputDateTime";
-import { camelToSnake } from "./stringManipulationHelper";
+import {camelToSnake} from "./stringManipulationHelper";
 
 import 'vue-select/dist/vue-select.css';
 
@@ -110,7 +110,22 @@ $(document).ready(function() {
             const missions = $('#missions-data').data('content') || {};
             for(let [index, mission] of Object.entries(missions)) {
                 for(let [property, val] of Object.entries(mission)) {
-                    this.missions[index][property] = val;
+                    if("controleProSansPv" === property || "controlePlaisanceSansPv" === property) {
+                        this.missions[index][property] = {
+                            nombreControle: 0,
+                            nombreControleAireProtegee: 0,
+                            nombreControleChlordeconeTotale: 0,
+                            nombreControleChlordeconePartiel: 0,
+                        };
+                    } if ("controleSansPv" === property) {
+                        this.missions[index][property] = {
+                            nombreControle: 0,
+                            nombreControleAireProtegee: 0,
+                            controles: []
+                        };
+                    } else {
+                        this.missions[index][property] = val;
+                    }
                 }
                 this.missions[index].active = true;
             }
@@ -124,10 +139,10 @@ $(document).ready(function() {
             }
 
             const path = window.location.pathname;
-            const pos =path.search(/draft\/[0-9]*/);
-            if (-1 !== pos) {
+            const pos = path.search(/draft\/[0-9]*/);
+            if(-1 !== pos) {
                 const drafts = JSON.parse(localStorage.getItem("draft"));
-                let index = path.substring(pos+6);
+                let index = path.substring(pos + 6);
                 this.missions = drafts[index].missions;
                 localStorage.setItem('missions', JSON.stringify(this.missions));
             }
@@ -200,14 +215,14 @@ $(document).ready(function() {
                         newControle['nombrePv'] = 0;
                         break;
                     case 'administratif':
-                        newControle = {'tache': null, 'nombreDossiers': null, 'dureeTache': null };
+                        newControle = {'tache': null, 'nombreDossiers': null, 'dureeTache': null};
                         break;
                 }
 
                 this.missions[type].controles.push(newControle);
             },
             getTagName: function(type, index, name) {
-                return "mission_"+type+"_"+type+"s_"+index+"_"+name;
+                return "mission_" + type + "_" + type + "s_" + index + "_" + name;
             },
             removeControle: function(type, index) {
                 this.missions[type].controles.splice(index, 1);
@@ -311,16 +326,16 @@ $(document).ready(function() {
             },
             validate: function() {
                 let isValid = document.getElementById("rapport").checkValidity();
-                this.error=isValid;
-                this.errorList=[];
+                this.error = isValid;
+                this.errorList = [];
                 if(!isValid) {
                     let invalidList = $("*:invalid");
-                    for(let index=0 ; index < invalidList.length; index++) {
+                    for(let index = 0; index < invalidList.length; index++) {
                         if("rapport" !== invalidList[index].id) {
                             for(let type in this.missions) {
-                                let patt=new RegExp(camelToSnake(type), "i");
+                                let patt = new RegExp(camelToSnake(type), "i");
                                 if(null !== patt.exec(invalidList[index].id)) {
-                                    this.error=true;
+                                    this.error = true;
                                     this.errorList.push(type);
                                 }
                             }
