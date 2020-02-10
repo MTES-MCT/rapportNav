@@ -58,6 +58,19 @@ $(document).ready(function() {
                 dataTD = rapport.timeDivision;
             }
 
+            //Polyfill for Object.entries for old browsers
+            if (!Object.entries) {
+                Object.entries = function( obj ){
+                    var ownProps = Object.keys( obj ),
+                        i = ownProps.length,
+                        resArray = new Array(i); // preallocate the Array
+                    while (i--)
+                        resArray[i] = [ownProps[i], obj[ownProps[i]]];
+
+                    return resArray;
+                };
+            }
+
             for (let [index, time] of Object.entries(dataTD)) {
                     this.timeDivision[index] = time;
             }

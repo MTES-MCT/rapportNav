@@ -108,6 +108,19 @@ $(document).ready(function() {
         created: function() {
             localStorage.setItem('missions', JSON.stringify({}));
             const missions = $('#missions-data').data('content') || {};
+            //Polyfill for Object.entries for old browsers
+            if(!Object.entries) {
+                Object.entries = function(obj) {
+                    var ownProps = Object.keys(obj),
+                        i = ownProps.length,
+                        resArray = new Array(i); // preallocate the Array
+                    while(i--)
+                        resArray[i] = [ownProps[i], obj[ownProps[i]]];
+
+                    return resArray;
+                };
+            }
+
             for(let [index, mission] of Object.entries(missions)) {
                 for(let [property, val] of Object.entries(mission)) {
                     if("controleProSansPv" === property || "controlePlaisanceSansPv" === property) {
