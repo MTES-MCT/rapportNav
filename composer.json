@@ -12,6 +12,7 @@
         "ext-mbstring": "*",
         "ext-pgsql": "^7.2",
         "friendsofsymfony/user-bundle": "^2.1",
+        "gedmo/doctrine-extensions": "^2.4",
         "guzzlehttp/guzzle": "^6.3",
         "lcobucci/jwt": "^3.3",
         "sensio/framework-extra-bundle": "^5.1",
