@@ -90,6 +90,11 @@ class Rapport {
      */
     private $serviceConjoints;
 
+    /**
+     * @ORM\Column(type="integer", options={"default":1})
+     */
+    private $version;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -245,13 +250,11 @@ class Rapport {
         return $this;
     }
 
-    public function getConjointe(): ?bool
-    {
+    public function getConjointe(): ?bool {
         return $this->conjointe;
     }
 
-    public function setConjointe(bool $conjointe): self
-    {
+    public function setConjointe(bool $conjointe): self {
         $this->conjointe = $conjointe;
 
         return $this;
@@ -260,25 +263,32 @@ class Rapport {
     /**
      * @return Collection|ServiceInterministeriel[]
      */
-    public function getServiceConjoints(): Collection
-    {
+    public function getServiceConjoints(): Collection {
         return $this->serviceConjoints;
     }
 
-    public function addServiceConjoint(ServiceInterministeriel $serviceConjoint): self
-    {
-        if (!$this->serviceConjoints->contains($serviceConjoint)) {
+    public function addServiceConjoint(ServiceInterministeriel $serviceConjoint): self {
+        if(!$this->serviceConjoints->contains($serviceConjoint)) {
             $this->serviceConjoints[] = $serviceConjoint;
         }
 
         return $this;
     }
 
-    public function removeServiceConjoint(ServiceInterministeriel $serviceConjoint): self
-    {
-        if ($this->serviceConjoints->contains($serviceConjoint)) {
+    public function removeServiceConjoint(ServiceInterministeriel $serviceConjoint): self {
+        if($this->serviceConjoints->contains($serviceConjoint)) {
             $this->serviceConjoints->removeElement($serviceConjoint);
         }
+
+        return $this;
+    }
+
+    public function getVersion(): ?int {
+        return $this->version;
+    }
+
+    public function setVersion(int $version): self {
+        $this->version = $version;
 
         return $this;
     }

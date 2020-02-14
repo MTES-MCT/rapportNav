@@ -32,6 +32,7 @@ final class Version20200212153012 extends AbstractMigration
         $this->addSql('ALTER TABLE rapport ADD CONSTRAINT FK_BE34A09C896DBBDE FOREIGN KEY (updated_by_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('CREATE INDEX IDX_BE34A09CB03A8386 ON rapport (created_by_id)');
         $this->addSql('CREATE INDEX IDX_BE34A09C896DBBDE ON rapport (updated_by_id)');
+        $this->addSql('ALTER TABLE rapport ADD version INT DEFAULT 1 NOT NULL;');
     }
 
     public function down(Schema $schema) : void
@@ -47,5 +48,6 @@ final class Version20200212153012 extends AbstractMigration
         $this->addSql('ALTER TABLE rapport DROP updated_by_id');
         $this->addSql('ALTER TABLE rapport DROP created_at');
         $this->addSql('ALTER TABLE rapport DROP updated_at');
+        $this->addSql('ALTER TABLE rapport DROP version');
     }
 }
