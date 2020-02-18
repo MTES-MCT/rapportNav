@@ -123,14 +123,14 @@ $(document).ready(function() {
 
             for(let [index, mission] of Object.entries(missions)) {
                 for(let [property, val] of Object.entries(mission)) {
-                    if("controleProSansPv" === property || "controlePlaisanceSansPv" === property) {
+                    if(("controleProSansPv" === property || "controlePlaisanceSansPv" === property) && null === val) {
                         this.missions[index][property] = {
                             nombreControle: 0,
                             nombreControleAireProtegee: 0,
                             nombreControleChlordeconeTotale: 0,
                             nombreControleChlordeconePartiel: 0,
                         };
-                    } if ("controleSansPv" === property) {
+                    } if (("controleSansPv" === property) && null === val) {
                         this.missions[index][property] = {
                             nombreControle: 0,
                             nombreControleAireProtegee: 0,
