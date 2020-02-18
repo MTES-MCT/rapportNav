@@ -1,5 +1,8 @@
 #Changelog v0.x
 
+## Changelog v0.8.1 -> 0.8.2
+* Correction d'un bug sur l'affichage du nombre de contrôles sans PV
+
 ## Changelog v0.8.0 -> 0.8.1 
 * Correction d'un bug sur l'enregistrement des codes NatInf (l'enregistrement d'un rapport avec NatInf renvoyait une erreur 500). 
 * Ajout de la possibilité de signaler une mission comme conjointe avec un autre service. 
