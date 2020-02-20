@@ -24,6 +24,9 @@
                         <li>
                             <a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
                                 Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
+                                {% if rapport.updatedAt is not null or rapport.updatedBy is not null %}dernière modification{% endif %}
+                                {% if rapport.updatedAt is not null %}le {{ rapport.updatedAt | date('d/m/Y') }}{% endif %}
+                                {% if rapport.updatedBy is not null %}par {{ rapport.updatedBy }}{% endif %}
                             </a>
                         </li>
                     {% endfor %}
