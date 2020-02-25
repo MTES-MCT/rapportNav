@@ -116,7 +116,6 @@ $(document).ready(function() {
                         resArray = new Array(i); // preallocate the Array
                     while(i--)
                         resArray[i] = [ownProps[i], obj[ownProps[i]]];
-
                     return resArray;
                 };
             }
@@ -196,6 +195,8 @@ $(document).ready(function() {
                             "deroutement": null,
                         };
                         newControle['controles'] = [];
+                        newControle['detailControle'] = null;
+                        newControle['showDetail'] = false;
                         newControle['aireProtegee'] = false;
                         newControle['date'] = now.format("YYYY-MM-DD HH:mm");
                         const nbControles = this.missions['navire'].controles.length;
@@ -204,7 +205,7 @@ $(document).ready(function() {
                         newControle['long'] = null;
                         break;
                     case 'commerce':
-                        newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null};
+                        newControle['etablissement'] = {"nom": null, "adresse": null, "commune": null, "type": null, 'detailCategorieEtablissement': null, 'showDetail': false};
                         newControle['bateauxControles'] = null;
                         newControle['date'] = now.format("YYYY-MM-DD HH:mm");
                         break;
@@ -223,12 +224,14 @@ $(document).ready(function() {
                         newControle['nombreChlordecone'] = null;
                         break;
                     case 'loisir':
+                        newControle['detailLoisir'] = null;
+                        newControle['showDetail'] = false;
                         newControle['nombreControle'] = 0;
                         newControle['nombreControleAireProtegee'] = 0;
                         newControle['nombrePv'] = 0;
                         break;
                     case 'administratif':
-                        newControle = {'tache': null, 'nombreDossiers': null, 'dureeTache': null};
+                        newControle = {'tache': null, 'detailTache': null, 'showDetail': false, 'nombreDossiers': null, 'dureeTache': null};
                         break;
                 }
 
@@ -299,7 +302,6 @@ $(document).ready(function() {
                     currentNavire.pavillon = "Français";
                     this.getNavireData(index);
                 }
-
             },
             updateBateaux: function($event, index) {
                 if(undefined !== $event.target.options[$event.target.selectedIndex].dataset.complement) {
@@ -333,6 +335,12 @@ $(document).ready(function() {
                 } else {
                     this.missions['navire'].controles[index].deroutement = null;
                 }
+            },
+            toggleCheckAutre: function($event, index) {
+                this.missions['navire'].controles[index].showDetail = !!$event.target.checked;
+            },
+            toggleSelectAutre: function(subject, $event, index) {
+                this.missions[subject].controles[index].showDetail = "Autre" === $event.target.options[$event.target.selectedIndex].innerText;
             },
             localSave: function() {
                 localStorage.setItem('missions', JSON.stringify(this.missions))

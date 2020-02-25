@@ -39,10 +39,17 @@ class ControleTache implements JsonSerializable {
      */
     private $dureeTache;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $detailTache;
+
     public function jsonSerialize() {
         return [
             'id' => $this->getId(),
             'tache' => $this->getTache()->getId(),
+            'detailTache' => $this->getDetailTache(),
+            'showDetail' => "Autre" === $this->getTache()->getNom(),
             'dureeTache' => TimeConvert::minutesToTime($this->getDureeTache())->format("H:i"),
             'nombreDossiers' => $this->getNombreDossiers(),
         ];
@@ -88,6 +95,16 @@ class ControleTache implements JsonSerializable {
 
     public function setNombreDossiers(?int $nombreDossiers): self {
         $this->nombreDossiers = $nombreDossiers;
+
+        return $this;
+    }
+
+    public function getDetailTache(): ?string {
+        return $this->detailTache;
+    }
+
+    public function setDetailTache(?string $detailTache): self {
+        $this->detailTache = $detailTache;
 
         return $this;
     }

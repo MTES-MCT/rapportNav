@@ -24,6 +24,11 @@ class Etablissement implements JsonSerializable {
     private $type;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $detailCategorieEtablissement;
+
+    /**
      * @ORM\Column(type="string", length=150)
      * @Assert\NotBlank
      */
@@ -42,6 +47,8 @@ class Etablissement implements JsonSerializable {
     public function jsonSerialize() {
         return ['id' => $this->getId(),
             'type' => $this->getType()->getId(),
+            'detailCategorieEtablissement' => $this->getDetailCategorieEtablissement(),
+            'showDetail' => "Autre" === $this->getType()->getNom(),
             'nom' => $this->getNom(),
             'adresse' => $this->getAdresse(),
             'commune' => $this->getCommune()
@@ -88,6 +95,16 @@ class Etablissement implements JsonSerializable {
 
     public function setCommune(?string $commune): self {
         $this->commune = $commune;
+
+        return $this;
+    }
+
+    public function getDetailCategorieEtablissement(): ?string {
+        return $this->detailCategorieEtablissement;
+    }
+
+    public function setDetailCategorieEtablissement(?string $detailCategorieEtablissement): self {
+        $this->detailCategorieEtablissement = $detailCategorieEtablissement;
 
         return $this;
     }

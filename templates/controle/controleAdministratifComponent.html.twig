@@ -5,10 +5,23 @@
             <div class="form__group horizontal__form">
                 {{ form_label(form.taches.vars.prototype.tache) }}
                 {{ form_errors(form.taches.vars.prototype.tache) }}
-                {{ form_widget(form.taches.vars.prototype.tache, {'attr': {'v-model': "controle.tache",
+                {{ form_widget(form.taches.vars.prototype.tache, {'attr': {
+                    'v-model': "controle.tache",
+                    '@change': "updateAdministratif($event,index); toggleSelectAutre('administratif', $event, index)",
                     'v-bind:name': "'mission_administratif[taches]['+index+'][tache]'",
                     'v-bind:id': "'mission_administratif_taches_'+index+'_tache'",
-                    'v-on:change': "updateAdministratif($event,index)"}}) }}
+                    }})
+                }}
+            </div>
+            <div class="form__group horizontal__form" v-if="controle.showDetail">
+                {{ form_label(form.taches.vars.prototype.detailTache) }}
+                {{ form_errors(form.taches.vars.prototype.detailTache) }}
+                {{ form_widget(form.taches.vars.prototype.detailTache, {'attr': {
+                    'v-model': "controle.detailTache",
+                    'v-bind:name': "'mission_administratif[taches]['+index+'][detailTache]'",
+                    'v-bind:id': "'mission_administratif_taches_'+index+'_detailTache'",
+                    }})
+                }}
             </div>
             <div class="form__group horizontal__form" v-show="null !== controle.nombreDossiers">
                 {{ form_label(form.taches.vars.prototype.nombreDossiers) }}

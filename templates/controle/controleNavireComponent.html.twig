@@ -9,9 +9,25 @@
                     {{ form_label(form.navires.vars.prototype.controles, null, {'element': 'legend'} ) }}
                     {{ form_errors(form.navires.vars.prototype.controles) }}
                     {% for box in form.navires.vars.prototype.controles %}
-                        {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {'v-model': "controle.controles",
-                            'v-bind:name': "'mission_navire[navires]['+index+'][controles][]'",
-                            'v-bind:id': "'mission_navire_navires_'+index+'_controles_'+"~box.vars.value}} %}
+                        {% if "Autre" == box.vars.label %}
+                            {% set attr={'v-model': "controle.controles",
+                                '@change': "toggleCheckAutre($event, index)",
+                                'v-bind:name': "'mission_navire[navires]['+index+'][controles][]'",
+                                'v-bind:id': "'mission_navire_navires_'+index+'_controles_'+"~box.vars.value} %}
+                        {% else %}
+                            {% set attr={'v-model': "controle.controles",
+                                'v-bind:name': "'mission_navire[navires]['+index+'][controles][]'",
+                                'v-bind:id': "'mission_navire_navires_'+index+'_controles_'+"~box.vars.value} %}
+                        {% endif %}
+                        {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr } %}
+                        {% if "Autre" == box.vars.label %}
+                            {{ form_widget(form.navires.vars.prototype.detailControle, {'attr': {
+                                'v-model': "controle.detailControle",
+                                'v-if': "controle.showDetail",
+                                'v-bind:name': "'mission_navire[navires]['+index+'][detailControle]'",
+                                'v-bind:id': "'mission_navire_navires_'+index+'_detailControle_'+"~box.vars.value
+                            }} ) }}
+                        {% endif %}
                     {% endfor %}
                 </fieldset>
             </div>

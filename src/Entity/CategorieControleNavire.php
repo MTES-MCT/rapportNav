@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategorieControleNavireRepository")
+ * @todo : à renommer en CategorieUsageNavire => c'est le type de d'usage sélectionné sur le navire
  */
-class CategorieControleNavire
-{
+class CategorieControleNavire {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -21,18 +21,15 @@ class CategorieControleNavire
      */
     private $nom;
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getNom(): ?string
-    {
+    public function getNom(): ?string {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
-    {
+    public function setNom(string $nom): self {
         $this->nom = $nom;
 
         return $this;

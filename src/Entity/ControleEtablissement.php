@@ -66,6 +66,7 @@ class ControleEtablissement implements JsonSerializable {
             'id' => $this->getId(),
             'bateauxControles' => $this->getBateauxControles(),
             'pv' => $this->getPv(),
+            'showDetail' => 'Autre' === $this->getEtablissement()->getType()->getNom(),
             'date' => $this->getDate()->format("Y-m-d H:i"),
             'commentaire' => $this->getCommentaire()];
 

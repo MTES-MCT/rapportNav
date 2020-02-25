@@ -7,9 +7,18 @@
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.type) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.type, {'attr': {
                         'v-model': "controle.etablissement.type",
-                        'v-on:change': "updateBateaux($event,index)",
+                        '@change': "updateBateaux($event,index); toggleSelectAutre('commerce', $event, index)",
                         'v-bind:name': "'mission_commerce[etablissements]['+index+'][etablissement][type]'",
-                        'v-bind:id': "'mission_commerce_etablissements_'+index+'_etablissement_type'"}}) }}
+                        'v-bind:id': "'mission_commerce_etablissements_'+index+'_etablissement_type'"}})
+                    }}
+                </div>
+                <div class="form__group horizontal__form" v-if="controle.showDetail">
+                    {{ form_label(form.etablissements.vars.prototype.etablissement.detailCategorieEtablissement) }}
+                    {{ form_errors(form.etablissements.vars.prototype.etablissement.detailCategorieEtablissement) }}
+                    {{ form_widget(form.etablissements.vars.prototype.etablissement.detailCategorieEtablissement, {'attr': {
+                        'v-model': "controle.etablissement.detailCategorieEtablissement",
+                        'v-bind:name': "'mission_commerce[etablissements]['+index+'][etablissement][detailCategorieEtablissement]'",
+                        'v-bind:id': "'mission_commerce_etablissements_'+index+'_etablissement_detailCategorieEtablissement'"}}) }}
                 </div>
                 <div class="form__group horizontal__form">
                     {{ form_label(form.etablissements.vars.prototype.etablissement.nom) }}

@@ -33,6 +33,10 @@ class ControleLoisirType extends AbstractType {
             'expanded' => false,
             'placeholder' => "Sélectionnez le type de contrôle",
         ])
+        ->add('detailLoisir', TextType::class, [
+            'required' => false,
+            'label' => "Type d'équipement (optionnel)",
+        ])
         ->add('nombreControle', IntegerType::class, [
             'required' => true,
             'label' => "Nombre de contrôles total réalisés"])

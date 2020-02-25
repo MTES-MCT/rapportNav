@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -37,6 +38,9 @@ class ControleNavireType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Contrôles réalisés"])
+            ->add('detailControle', TextType::class, [
+                'required' => false,
+            ])
             ->add('terrestre', CheckboxType::class, [
                 'required' => false,
                 'label' => "Activité en/à"])

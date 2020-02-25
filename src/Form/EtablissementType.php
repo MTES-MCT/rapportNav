@@ -31,6 +31,10 @@ class EtablissementType extends AbstractType {
                 },
                 'placeholder' => 'Sélectionnez la catégorie d\'établissement',
                 'label' => "Type de d'établissement"])
+            ->add('detailCategorieEtablissement', TextType::class, [
+                'required' => false,
+                'label' => "Détail type d'établissement"
+            ])
         ;
     }
 

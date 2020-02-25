@@ -59,6 +59,11 @@ class ControleNavire implements JsonSerializable {
     private $controles;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $detailControle;
+
+    /**
      * @ORM\Column(type="datetime_immutable")
      * @Assert\NotBlank()
      */
@@ -84,35 +89,45 @@ class ControleNavire implements JsonSerializable {
      * @Assert\Type(type="bool")
      */
     private $pv = false;
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Natinf", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $natinfs;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $commentaire;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\CategorieDeroutement")
      */
     private $deroutement;
 
     public function jsonSerialize() {
-        $data = [];
-        $data['pv'] = $this->getPv();
-        $data['terrestre'] = $this->getTerrestre();
-        $data['aireProtegee'] = $this->getAireProtegee();
-        $data['chloredeconeTotal'] = $this->getChloredeconeTotal();
-        $data['chloredeconePartiel'] = $this->getChloredeconePartiel();
-        $data['aireProtegee'] = $this->getAireProtegee();
-        $data['date'] = $this->getDate()->format("Y-m-d H:i");
-        $data['lat'] = $this->getLat();
-        $data['long'] = $this->getLong();
-        $data['isDeroutement'] = null !== $this->getDeroutement();
-        $data['deroutement'] = ($data['isDeroutement']) ? $this->getDeroutement()->getId() : null;
-        $data['commentaire'] = $this->getCommentaire();
+        $data = [
+            'pv' => $this->getPv(),
+            'terrestre' => $this->getTerrestre(),
+            'aireProtegee' => $this->getAireProtegee(),
+            'chloredeconeTotal' => $this->getChloredeconeTotal(),
+            'chloredeconePartiel' => $this->getChloredeconePartiel(),
+            'date' => $this->getDate()->format("Y-m-d H:i"),
+            'lat' => $this->getLat(),
+            'long' => $this->getLong(),
+            'detailControle' => $this->getDetailControle(),
+            'isDeroutement' => null !== $this->getDeroutement(),
+            'deroutement' => ($this->getDeroutement()) ? $this->getDeroutement()->getId() : null,
+            'commentaire' => $this->getCommentaire()
+            ];
+
+        foreach($this->getControles() as $controle) {
+            if("Autre" === $controle->getNom()) {
+                $data['showDetail'] = true;
+            } else {
+                $data['showDetail'] = false;
+            }
+        }
 
         $data['natinfs'] = [];
         foreach($this->getNatinfs() as $natinf) {
@@ -299,6 +314,16 @@ class ControleNavire implements JsonSerializable {
 
     public function setChloredeconePartiel(bool $chloredeconePartiel): self {
         $this->chloredeconePartiel = $chloredeconePartiel;
+
+        return $this;
+    }
+
+    public function getDetailControle(): ?string {
+        return $this->detailControle;
+    }
+
+    public function setDetailControle(?string $detailControle): self {
+        $this->detailControle = $detailControle;
 
         return $this;
     }

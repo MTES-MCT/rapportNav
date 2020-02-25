@@ -37,11 +37,15 @@ class ControleLoisir implements JsonSerializable {
     protected $loisir;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $detailLoisir;
+
+    /**
      * @ORM\Column(type="integer")
      * @Assert\GreaterThanOrEqual(value = 0, message = "Nombre de contrôles invalide")
      */
     protected $nombreControle;
-
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -60,6 +64,7 @@ class ControleLoisir implements JsonSerializable {
      * @ORM\JoinColumn(nullable=true)
      */
     protected $natinfs;
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -77,6 +82,8 @@ class ControleLoisir implements JsonSerializable {
 
         return ['id' => $this->getId(),
             'loisir' => $this->getLoisir()->getId(),
+            'detailLoisir' => $this->getDetailLoisir(),
+            'showDetail' => "Autre" === $this->getLoisir()->getNom(),
             'nombreControle' => $this->getNombreControle(),
             'nombreControleAireProtegee' => $this->getNombreControleAireProtegee(),
             'nombrePv' => $this->getNombrePv(),
@@ -166,6 +173,18 @@ class ControleLoisir implements JsonSerializable {
 
     public function setNombreControleAireProtegee(?int $nombreControleAireProtegee): self {
         $this->nombreControleAireProtegee = $nombreControleAireProtegee;
+
+        return $this;
+    }
+
+    public function getDetailLoisir(): ?string
+    {
+        return $this->detailLoisir;
+    }
+
+    public function setDetailLoisir(?string $detailLoisir): self
+    {
+        $this->detailLoisir = $detailLoisir;
 
         return $this;
     }
