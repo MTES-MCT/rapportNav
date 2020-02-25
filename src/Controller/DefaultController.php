@@ -182,6 +182,7 @@ class DefaultController extends AbstractController {
         }
 
         if($form->isSubmitted() && $form->isValid()) {
+            $rapport->setVersion($rapport->getVersion()+1);
 
             $em->persist($rapport);
             $em->flush();

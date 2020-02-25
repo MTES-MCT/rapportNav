@@ -1,5 +1,9 @@
 #Changelog v0.x
 
+## Changelog v0.8.2 -> 0.9.0
+* Ajout de l'enregistrement de la date et utilisateur ayant créé et modifié un rapport (dernière modification)
+* Ajout d'un champs de texte pour les sélections "Autre" dans les activités
+
 ## Changelog v0.8.1 -> 0.8.2
 * Correction d'un bug sur l'affichage du nombre de contrôles sans PV
 
