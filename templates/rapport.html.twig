@@ -222,6 +222,14 @@
     {% endblock body_main_container_rapport_objects %}
 
     {% block body_main_container_rapport_heures %}
+        {{ form_errors(form.repartitionHeures) }}
+        {% for child in form.repartitionHeures.children %}
+            {% if not child.vars.valid  %}
+                <div class="form__errors">
+                    {{ child.vars.name }} : {{ child.vars.errors|join(', ') }}
+                </div>
+            {% endif %}
+        {% endfor %}
         <div id="time-division">
             <time-division v-model="timeDivision"></time-division>
             {% include 'timeDivision.html.twig'with {'form': form.repartitionHeures} %}
