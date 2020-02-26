@@ -21,7 +21,9 @@
     {{ form_widget(prototype.commentaire, {'attr': {'v-model': "missions['"~type~"'].commentaire"}}) }}
 </div>
 
-{{ form_rest(prototype) }}
+{{ form_widget(prototype._token) }}
+
+{#{{ form_rest(prototype) }}#}
 
 
 <div class="form__group button__group">

@@ -142,12 +142,12 @@ $(document).ready(function() {
                 this.missions[index].active = true;
             }
             const rapport = $('#rapport-data').data('content') || {};
-            if('error' in rapport) {
+            if('error' in rapport && true === rapport['error']) {
                 this.error = rapport.error;
                 if('error_where' in rapport) {
-                    this.errorList.push(rapport.error_where);
+                    rapport.error_where.forEach(el => this.errorList.push(el));
+                    // this.errorList.push(rapport.error_where);
                 }
-                this.missions = JSON.parse(localStorage.getItem('missions'));
             }
 
             const path = window.location.pathname;

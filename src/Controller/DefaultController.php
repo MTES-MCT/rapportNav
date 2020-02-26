@@ -24,6 +24,7 @@ use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -59,7 +60,8 @@ class DefaultController extends AbstractController {
     public function rapportCreate(Request $request, EntityManagerInterface $em) {
         /** @var Rapport $rapport */
         $rapport = new Rapport();
-        $rapportData = [];
+        $rapportData = ['error' => false];
+        $currentMissions = [];
         /** @var User $user */
         $user = $this->getUser();
 
@@ -93,11 +95,19 @@ class DefaultController extends AbstractController {
                 $rapport->addMission($subForm->getData());
             } elseif($subForm->isSubmitted()) {
                 $rapportData['error'] = true;
-                $rapportData['error_where'] = $name;
+                $rapportData['error_where'][] = $name;
             }
         }
 
-        if($form->isSubmitted() && $form->isValid()) {
+        foreach($forms as $type => $mission) {
+            /** @var Form $mission */
+            if($mission->getData()) {
+                $currentMissions[$type] = $mission->getData();
+            }
+        }
+
+        if($form->isSubmitted() && $form->isValid() && false  === $rapportData['error']) {
+            $rapport->setVersion($rapport->getVersion()+1);
             $em->persist($rapport);
             $em->flush();
 
@@ -121,6 +131,7 @@ class DefaultController extends AbstractController {
             'formAutre' => $forms['autre']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
+            'missions' => $currentMissions,
             'rapport' => $rapportData,
         ]);
     }
