@@ -95,7 +95,12 @@ class DefaultController extends AbstractController {
                 $rapport->addMission($subForm->getData());
             } elseif($subForm->isSubmitted()) {
                 $rapportData['error'] = true;
-                $rapportData['error_where'][] = $name;
+                foreach($subForm->getErrors(true) as $error) {
+                    $rapportData['error_where'][$name][] = (is_numeric($error->getOrigin()->getName()) ?
+                        $error->getMessage() :
+                        $error->getOrigin()->getName() . " : " . $error->getMessage())
+                    ;
+                }
             }
         }
 

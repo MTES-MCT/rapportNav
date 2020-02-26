@@ -101,7 +101,7 @@ $(document).ready(function() {
                 }
             },
             error: false,
-            errorList: [],
+            errorList: {},
             natinfsOptions: [],
         },
         components: {mission},
@@ -145,8 +145,7 @@ $(document).ready(function() {
             if('error' in rapport && true === rapport['error']) {
                 this.error = rapport.error;
                 if('error_where' in rapport) {
-                    rapport.error_where.forEach(el => this.errorList.push(el));
-                    // this.errorList.push(rapport.error_where);
+                    this.errorList = rapport.error_where;
                 }
             }
 
@@ -348,16 +347,18 @@ $(document).ready(function() {
             validate: function() {
                 let isValid = document.getElementById("rapport").checkValidity();
                 this.error = isValid;
-                this.errorList = [];
+                this.errorList = {};
                 if(!isValid) {
+                    this.error = true;
                     let invalidList = $("*:invalid");
-                    for(let index = 0; index < invalidList.length; index++) {
-                        if("rapport" !== invalidList[index].id) {
-                            for(let type in this.missions) {
-                                let patt = new RegExp(camelToSnake(type), "i");
+                    for(let type in this.missions) {
+                        let i = 0;
+                        let patt = new RegExp(camelToSnake(type), "i");
+                        for(let index = 0; index < invalidList.length; index++) {
+                            if("rapport" !== invalidList[index].id) {
                                 if(null !== patt.exec(invalidList[index].id)) {
-                                    this.error = true;
-                                    this.errorList.push(type);
+                                    i++;
+                                    this.errorList[type] = [i + " erreur" + (i > 0 ? "s. " : ". ")];
                                 }
                             }
                         }

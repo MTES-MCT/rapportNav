@@ -157,7 +157,11 @@
         <div id="missions">
             <h2>Activité(s) réalisée(s)</h2>
             <ul class="no-decoration form__errors">
-                <li v-for="errorInfo in errorList" v-text="'L\'activité ' + errorInfo + ' contient des erreurs'"></li>
+                <li v-for="(list, errorInfo) in errorList">
+                    {% verbatim %}
+                        {{ 'L\'activité ' + errorInfo + ' contient des erreurs : ' + list.join(', ')}}
+                    {% endverbatim %}
+                </li>
             </ul>
             <ul class="no-decoration" data-prototype=''>
                 <li v-for="(mission, index) in missions">
