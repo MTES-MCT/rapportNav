@@ -91,6 +91,9 @@ class DefaultController extends AbstractController {
         foreach($forms as $name => $subForm) {
             /** @var FormInterface $subForm */
             $subForm->handleRequest($request);
+            if($subForm->getData()) {
+                $currentMissions[$name] = $subForm->getData();
+            }
             if($subForm->isSubmitted() && $subForm->isValid()) {
                 $rapport->addMission($subForm->getData());
             } elseif($subForm->isSubmitted()) {
@@ -101,13 +104,6 @@ class DefaultController extends AbstractController {
                         $error->getOrigin()->getName() . " : " . $error->getMessage())
                     ;
                 }
-            }
-        }
-
-        foreach($forms as $type => $mission) {
-            /** @var Form $mission */
-            if($mission->getData()) {
-                $currentMissions[$type] = $mission->getData();
             }
         }
 
@@ -162,7 +158,7 @@ class DefaultController extends AbstractController {
         }
 
         $currentMissions = [];
-        $rapportData = [];
+        $rapportData = ['error' => false];
 
         $forms['navire'] = $this->createForm(MissionNavireType::class, null, ['service' => $service]);
         $forms['commerce'] = $this->createForm(MissionCommerceType::class, null, ['service' => $service]);
@@ -189,15 +185,23 @@ class DefaultController extends AbstractController {
         foreach($forms as $name => $subForm) {
             /** @var FormInterface $subForm */
             $subForm->handleRequest($request);
+            if($subForm->getData()) {
+                $currentMissions[$name] = $subForm->getData();
+            }
             if($subForm->isSubmitted() && $subForm->isValid()) {
                 $rapport->addMission($subForm->getData());
             } elseif($subForm->isSubmitted()) {
                 $rapportData['error'] = true;
-                $rapportData['error_where'] = $name;
+                foreach($subForm->getErrors(true) as $error) {
+                    $rapportData['error_where'][$name][] = (is_numeric($error->getOrigin()->getName()) ?
+                        $error->getMessage() :
+                        $error->getOrigin()->getName() . " : " . $error->getMessage())
+                    ;
+                }
             }
         }
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted() && $form->isValid() && false  === $rapportData['error']) {
             $rapport->setVersion($rapport->getVersion()+1);
 
             $em->persist($rapport);
