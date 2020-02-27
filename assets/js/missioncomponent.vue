@@ -15,7 +15,7 @@
         </div>
         <div style="flex-grow: 1">
             <ul v-if="undefined !== mission.controles" class="no-decoration" style="flex-grow: 1;">
-                <li v-text="mission.controles.length + ' contrôle(s) ou action(s)'"></li>
+                <li v-text="nombreControles + ' contrôle(s) ou action(s)'"></li>
             </ul>
             <ul v-if="'Sauvetage et assistance' === mission.type" class="no-decoration" style="flex-grow: 1;">
                 <li v-text="mission.dureeSecours + ' temps de sauvetage'"></li>
@@ -33,6 +33,15 @@
         data() {
             return {modalHref: "#modal-" + this.$props.index}
         },
-        props: ['mission', 'index']
+        props: ['mission', 'index'],
+        computed: {
+            nombreControles: function() {
+                return this.mission.controles.length +
+                    Number(undefined === this.mission.controleSansPv ? 0 : this.mission.controleSansPv.nombreControle ) +
+                    Number(undefined === this.mission.controlePlaisanceSansPv ? 0 : this.mission.controlePlaisanceSansPv.nombreControle) +
+                    Number(undefined === this.mission.controleProSansPv ? 0 : this.mission.controleProSansPv.nombreControle)
+                    ;
+            }
+        }
     }
 </script>

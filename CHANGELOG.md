@@ -4,6 +4,7 @@
 * Ajout de l'enregistrement de la date et utilisateur ayant créé et modifié un rapport (dernière modification)
 * Ajout d'un champs de texte pour les sélections "Autre" dans les activités
 * Meilleur gestion des erreurs (résout un bug sur l'enregistrement des Activités compostant des informations invalides)
+* Correction : affichage du nombre de contrôles réalisés sur la synthèse mission
 
 ## Changelog v0.8.1 -> 0.8.2
 * Correction d'un bug sur l'affichage du nombre de contrôles sans PV
