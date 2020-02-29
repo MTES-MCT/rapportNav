@@ -11,6 +11,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pgsql": "^7.2",
+        "ext-zip": "*","ympervej/wp-oop-nonces-csrf": "",
         "friendsofsymfony/user-bundle": "^2.1",
         "gedmo/doctrine-extensions": "^2.4",
         "guzzlehttp/guzzle": "^6.3",
@@ -38,7 +39,7 @@
         "symfony/web-link": "4.4.*",
         "symfony/webpack-encore-bundle": "^1.2",
         "symfony/yaml": "4.4.*",
-        "twig/extensions": "^1.5"
+        "twig/extensions": "^1.5",
     },
     "require-dev": {
         "ext-sqlite3": "*",

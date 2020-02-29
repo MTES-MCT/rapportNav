@@ -21,6 +21,7 @@ class Navire implements JsonSerializable {
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      * @Assert\Length(min = 1)
+     * TODO : rename to immatriculation
      */
     private $immatriculation_fr;
 

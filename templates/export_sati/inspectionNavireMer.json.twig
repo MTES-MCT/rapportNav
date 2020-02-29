@@ -1,0 +1,282 @@
+{# Searching first nautic equipement#}
+{% set moyenNautique = -1 %}
+{% for i in 0..(rapport.moyens|length -1) %}
+{% if rapport.moyens[i].moyen.terrestre %}
+{% set moyenNautique = i %}
+{% endif %}
+{% endfor %}
+{
+    "orionLocalId": {{ numOrion }},
+    "orionLocalState": "",
+    "rapportRfa": "M1_RAPPORTNAV_{{ controle.navire.nom|spaceless }}_{{ rapport.dateDebutMission | localizeddate('long', 'none', 'fr', null, 'Y-MM-D') }}",
+    "etatRapport": {
+        "etatrapRfa": "5"
+    },
+    "typeRapport": {
+        "typeRapportLb": "Inspection",
+        "typerapRfa": "1"
+    },
+    "modeleRapport": {
+        "modelerapRfa": "1"
+    },
+    "administrationSativ2": {
+        "adminCdn": 3,
+        "adminInspLb": "AFFAIRES MARITIMES"
+    },
+    "uniteInspectionSativ2": {
+        "uniteCdn": 272,
+        "uniteLb": "DIRM_MANCHE_EST"
+    },
+    "infractions": [],
+    "navireAutorite": {
+{% if moyenNautique > -1 %}
+{% set immat = rapport.moyens[moyenNautique][0:6] %}
+{% set nom = rapport.moyens[moyenNautique][6:] %}
+        "navAutNomLb": "{{ nom }}",
+        "navAutNumimmatLb": "{{ immat }}",
+        "navAutPavillonLb": "FRA - France",
+        "navAutIrcscodLb": "",
+        "navAutLatitudeDd": "{{ controle.lat }}",
+        "navAutLongitudeDd": "{{ controle.long }}",
+        "zoneGeographique": {},
+{% endif %}
+    },
+    "rapportDebDt": {{ date }},
+    "rapTypeDebDtBl": "UTC",
+    "rapDebHr": {{ date }},
+    "inspecteur": {
+{# TODO#}
+    },
+    "autresInspecteurs": [
+        {% for i in 0..(rapport.agents|length -1) %}
+        {
+            "idInspecteur": {{ i }},
+            "autInspNomLb": "{{ rapport.agents[i].nom }}",
+            "autInspPrenomLb": "{{ rapport.agents[i].prenom }}",
+            "autInspNatioLb": "FRA - France",
+            "administrationSativ2": {
+                "adminCdn": 3,
+                "adminInspLb": "AFFAIRES MARITIMES"
+            },
+            "uniteInspectionSativ2": {
+{#TODO#}
+            }
+        },
+        {% endfor %}
+    ],
+    "operateurs": [
+        {
+            "navireInspecte": {
+                "navinspCnspContacteNb": "",
+                "navinspCfrRfa": "",
+                "navinspIrcscodLb": "",
+                "navinspPavillonLb": "{% if controle.navire.pavillon == "Français" %}FRA - France{% endif %}",
+                "navinspNumimmatLb": "{{ controle.navire.immatriculationFr }}",
+                "navinspNomLb": "{{ controle.navire.nom }}",
+                "navinspSegmentTailleLb": "{% apply spaceless %}
+                    {% if controle.navire.longueurHorsTout is not null %}
+                        {% if controle.navire.longueurHorsTout < 10 %}
+                            <10m
+                        {% elseif controle.navire.longueurHorsTout < 12 %}
+                            10 - <12m
+                        {% elseif controle.navire.longueurHorsTout < 15 %}
+                            12 - <15m
+                        {% elseif controle.navire.longueurHorsTout < 24 %}
+                            15 - <24m
+                        {% else %}
+                            >=24m
+                        {% endif %}
+                    {% endif %},
+                {% endapply %}",
+                "navinsptypFrLb": "",
+                "navinspImoNo": "",
+                "navinspFlotRfn": "",
+                "navinspLatitudeDd": "{{ controle.lat }}",
+                "navinspLongitudeDd": "{{ controle.long }}",
+                "observationDonneeGenerale": "{{ controle.commentaire }}",
+                "zoneGeographique": {},
+                "contacts": [
+                    {
+                        "contactNomLb": "",
+                        "contactPrenomLb": "",
+                        "contactAdresseLb": "",
+                        "contactNationaliteLb": "",
+                        "communeSativ2": {
+                            "communeCodeLb": "",
+                            "communeVilleLb": "",
+                            "communePaysLb": ""
+                        },
+                        "typeDeContact": {
+                            "typeContactRfa": "2"
+                        }
+                    },
+                    {
+                        "contactNomLb": "",
+                        "contactPrenomLb": "",
+                        "contactAdresseLb": "",
+                        "contactNationaliteLb": "",
+                        "communeSativ2": {
+                            "communeCodeLb": "",
+                            "communeVilleLb": "",
+                            "communePaysLb": ""
+                        },
+                        "typeDeContact": {
+                            "typeContactRfa": "5"
+                        }
+                    },
+                    {
+                        "contactNomLb": "",
+                        "contactPrenomLb": "",
+                        "contactAdresseLb": "",
+                        "contactNationaliteLb": "",
+                        "communeSativ2": {
+                            "communeCodeLb": "",
+                            "communeVilleLb": "",
+                            "communePaysLb": ""
+                        },
+                        "typeDeContact": {
+                            "typeContactRfa": "4"
+                        }
+                    },
+                    {
+                        "contactNomLb": "",
+                        "contactPrenomLb": "",
+                        "contactAdresseLb": "",
+                        "contactNationaliteLb": "",
+                        "contactNaissanceCapDt": -3600000,
+                        "contactCourrielLb": "",
+                        "communeSativ2": {
+                            "communeCodeLb": "",
+                            "communeVilleLb": "",
+                            "communePaysLb": ""
+                        },
+                        "typeDeContact": {
+                            "typeContactRfa": "1"
+                        }
+                    }
+                ],
+                "portSativ2": {
+                    "portLibelleLb": "",
+                    "portPaysLb": "FRA - France",
+                    "portCodeErsLb": ""
+                },
+                "navinspDepDernierPortDt": null,
+                "captures": [
+                    {
+                        "captureEspeces": [],
+                        "rejets": [],
+                        "captureEnrSepSTailleNb": "",
+                        "captureArrimageSepNb": "",
+                        "captureControlePeseeBl": "",
+                        "captureComptageCaisseBl": "",
+                        "captureArrSepSTailleNb": "",
+                        "observationCapture": ""
+                    }
+                ],
+                "enginsABord": {
+                    "enginSativ2s": [],
+                    "observationEngin": ""
+                }
+            }
+        }
+    ],
+    "navireRefSativ2Rapport": {
+        "navsatiCfrRfa": "",
+        "contacts": [
+            {
+                "contactNomLb": "",
+                "contactPrenomLb": "",
+                "contactAdresseLb": "",
+                "contactNationaliteLb": "",
+                "communeSativ2": {
+                    "communeCodeLb": "",
+                    "communeVilleLb": "",
+                    "communePaysLb": ""
+                },
+                "typeDeContact": {
+                    "typeContactRfa": "2"
+                }
+            },
+            {
+                "contactNomLb": "",
+                "contactPrenomLb": "",
+                "contactAdresseLb": "",
+                "contactNationaliteLb": "",
+                "communeSativ2": {
+                    "communeCodeLb": "",
+                    "communeVilleLb": "",
+                    "communePaysLb": ""
+                },
+                "typeDeContact": {
+                    "typeContactRfa": "5"
+                }
+            },
+            {
+                "contactNomLb": "",
+                "contactPrenomLb": "",
+                "contactAdresseLb": "",
+                "contactNationaliteLb": "",
+                "communeSativ2": {
+                    "communeCodeLb": "",
+                    "communeVilleLb": "",
+                    "communePaysLb": ""
+                },
+                "typeDeContact": {
+                    "typeContactRfa": "4"
+                }
+            },
+            {
+                "contactNomLb": "",
+                "contactPrenomLb": "",
+                "contactAdresseLb": "",
+                "contactNationaliteLb": "",
+                "contactNaissanceCapDt": -3600000,
+                "contactCourrielLb": "",
+                "communeSativ2": {
+                    "communeCodeLb": "",
+                    "communeVilleLb": "",
+                    "communePaysLb": ""
+                },
+                "typeDeContact": {
+                    "typeContactRfa": "1"
+                }
+            }
+        ]
+    },
+    "rapmer": {
+        "rapmerAppelRadioBl": "",
+        "rapmerJnalPechePrepareBl": "",
+        "rapmerEchelleCoupeeBl": "",
+        "rapmerIdInspecteurBl": "",
+        "rapmerInspDocAutoBl": "",
+        "rapmerCertifImmatValideBl": "",
+        "rapmerCtrlPuissMoteurBl": "",
+        "rapmerLicencePecheValideBl": "",
+        "rapmerAutoPecheValideBl": "",
+        "rapmerVmsCorrectNb": "",
+        "rapmerSystSurvDistOperNb": "",
+        "rapmerPageDebJnalPecheRfn": "",
+        "rapmerPageFinJnalPecheRfn": "",
+        "rapmerNavireSoumisJpeBl": "",
+        "rapmerRefErsNb": "",
+        "rapmerNotifPrealableNb": "",
+        "rapmerObjNotifLb": "",
+        "rapmerCertifCalePoissonsNb": "",
+        "rapmerPlanArrimageNb": "",
+        "rapmerTabJeaugeageNb": "",
+        "rapmerCertifSystPeseeNb": "",
+        "rapmerAdhesAUneOpNb": "",
+        "observationDocVms": "",
+        "rapmerInspCapturesNb": "",
+        "rapmerInspeEnginsNb": ""
+    },
+    "rapCommentaireInspLb": "{{ controle.commentaire }}",
+    "rapCommentaireCapLb": "",
+    "rapActionMiseOeuvreLb": "",
+    "rapSignatureInspBl": "",
+    "rapSignatureInsp2Nb": "",
+    "rapSignatureCapBl": "",
+    "rapportFinDt": {{ date }},
+    "rapTypeFinDtBl": "UTC",
+    "rapFinHr": {{ date }}
+}
