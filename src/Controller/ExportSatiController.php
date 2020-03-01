@@ -35,7 +35,6 @@ class ExportSatiController extends AbstractController {
         }
 
         $categoriesControle = $em->getRepository("App:CategorieControleNavire")->findAll();
-        dump($categoriesControle);
         $idCatPechePro=null;
         for($i=0;$i < count($categoriesControle);$i++) {
             if(preg_match('/Navire de pêche pro/', $categoriesControle[$i]->getNom())) {
@@ -59,20 +58,24 @@ class ExportSatiController extends AbstractController {
         }
 
         if(0 >= count($export)) {
-            return $this->json(["status" => "error", "text" => "Pas de données à exporter dans ce rapport. "]);
+            return $this->render('export_sati/erreur.html.twig');
         }
-
-        $file = $twig->render("export_sati/inspectionNavireMer.json.twig", [
-            'rapport' => $rapport,
-            'controle' => $export[0],
-            'numOrion' => "rn".$rapport->getId()."_".$export[0]->getId(),
-            'date' => $export[0]->getDate()->getTimestamp(),
-        ]);
 
         $zip = new \ZipArchive();
         $zipName = "RapportNav-export-sati-R".$rapport->getId().".zip";
         $zip->open($zipName,  \ZipArchive::CREATE);
-        $zip->addFromString("M1_RAPPORTNAV" . $rapport->getId() . "-" . $export[0]->getId() . ".json",  $file);
+
+        foreach($export as $data) {
+            /** @var ControleNavire $data */
+            $file = $twig->render("export_sati/inspectionNavireMer.json.twig", [
+                'rapport' => $rapport,
+                'controle' => $data,
+                'numOrion' => "rn".$rapport->getId()."_".$data->getId(),
+                'date' => $data->getDate()->getTimestamp(),
+            ]);
+            $zip->addFromString("M1_RAPPORTNAV" . $rapport->getId() . "-" . $data->getId() . ".json",  $file);
+        }
+
         $zip->close();
 
         $response = new Response(file_get_contents($zipName));
