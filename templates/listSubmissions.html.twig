@@ -28,6 +28,8 @@
                                 {% if rapport.updatedAt is not null %}le {{ rapport.updatedAt | date('d/m/Y') }}{% endif %}
                                 {% if rapport.updatedBy is not null %}par {{ rapport.updatedBy }}{% endif %}
                             </a>
+                            -
+                            <a href="{{ path('export_sati_inspection_mer', {'id': rapport.id}) }}">Télécharger les données pour export SATI</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -45,6 +47,8 @@
                             <a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
                                 Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
                             </a>
+                            -
+                            <a href="{{ path('export_sati_inspection_mer', {'id': rapport.id}) }}">Télécharger les données pour export SATI</a>
                         </li>
                     {% endfor %}
                 </ul>

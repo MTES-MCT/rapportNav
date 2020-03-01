@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block head_title %}Pas de rapport à exporter{{ parent() }}{% endblock %}
+
+
+{% block body_banner %}{% endblock body_banner %}
+{% block body_main_container %}
+Le rapport sélectionné ne contient pas d'élément susceptible d'être exporté pour le moment.
+
+    Pour rappel, RapportNav ne permet l'export vers SATI que de contrôles de navires en mer.
+    Pour plus d'inforamtion <a href="/documentation.pdf">se référer à la documentation</a>.
+
+    <div style="text-align: right"><a href="{{ path('list_submissions') }}">Revenir aux rapports. </a></div>
+
+{% endblock body_main_container %}
