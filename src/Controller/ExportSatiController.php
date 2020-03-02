@@ -71,7 +71,7 @@ class ExportSatiController extends AbstractController {
                 'rapport' => $rapport,
                 'controle' => $data,
                 'numOrion' => "rn".$rapport->getId()."_".$data->getId(),
-                'date' => $data->getDate()->getTimestamp(),
+                'date' => ($data->getDate()->getTimestamp())*1000,
             ]);
             $zip->addFromString("M1_RAPPORTNAV" . $rapport->getId() . "-" . $data->getId() . ".json",  $file);
         }

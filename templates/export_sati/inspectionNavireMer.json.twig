@@ -45,7 +45,7 @@
     "rapTypeDebDtBl": "UTC",
     "rapDebHr": {{ date }},
     "inspecteur": {
-{# TODO#}
+{# Kept empty : autofill on import #}
     },
     "autresInspecteurs": [
         {% for i in 0..(rapport.agents|length -1) %}
@@ -61,7 +61,8 @@
             "uniteInspectionSativ2": {
 {#TODO#}
             }
-        },
+        }
+        {% if i != (rapport.agents|length -1) %},{% endif %}
         {% endfor %}
     ],
     "operateurs": [
@@ -86,7 +87,7 @@
                         {% else %}
                             >=24m
                         {% endif %}
-                    {% endif %},
+                    {% endif %}
                 {% endapply %}",
                 "navinsptypFrLb": "",
                 "navinspImoNo": "",
