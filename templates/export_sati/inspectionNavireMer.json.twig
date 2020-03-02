@@ -1,7 +1,7 @@
 {# Searching first nautic equipement#}
 {% set moyenNautique = -1 %}
 {% for i in 0..(rapport.moyens|length -1) %}
-{% if rapport.moyens[i].moyen.terrestre %}
+{% if not rapport.moyens[i].moyen.terrestre %}
 {% set moyenNautique = i %}
 {% endif %}
 {% endfor %}
@@ -36,15 +36,32 @@
         "navAutNumimmatLb": "{{ immat }}",
         "navAutPavillonLb": "FRA - France",
         "navAutIrcscodLb": "",
-        "navAutLatitudeDd": "{{ controle.lat }}",
-        "navAutLongitudeDd": "{{ controle.long }}",
-        "zoneGeographique": {},
+        "navAutLatitudeDd": "{{ controle.lat|u.truncate(7) }}",
+        "navAutLongitudeDd": "{{ controle.long|u.truncate(8) }}",
+        "zoneGeographique": {
+            "zogeoZoneValLb": "",
+            "zogeoSousZoneValLb": "",
+            "zogeoDivisionValLb": "",
+            "zogeoSousDivsionValLb": "",
+            "zogeoUniteFaoLb": "",
+            "zogeoZoneEcoLb": "FRA - France",
+            "zogeoRectStatCiemLb": "",
+            "zogeoEffortPecheLb": "",
+            "zogeoOrgpLb": "",
+            "zogeoUgaLb": "",
+            "zogeoCgpmLb": "",
+            "zogeoRectCgpmLb": "",
+            "zogeoZoneLittoraleLb": "",
+            "zogeoBGranvilleLb": "",
+            "zogeoAmarProtBl": ""
+        }
 {% endif %}
     },
     "rapportDebDt": {{ date }},
     "rapTypeDebDtBl": "UTC",
     "rapDebHr": {{ date }},
     "inspecteur": {
+        "inspecteurNationaliteLb": "FRA - France"
 {# Kept empty : autofill on import #}
     },
     "autresInspecteurs": [
@@ -144,7 +161,7 @@
                         "contactPrenomLb": "",
                         "contactAdresseLb": "",
                         "contactNationaliteLb": "",
-                        "contactNaissanceCapDt": -3600000,
+                        "contactNaissanceCapDt": null,
                         "contactCourrielLb": "",
                         "communeSativ2": {
                             "communeCodeLb": "",
@@ -231,7 +248,7 @@
                 "contactPrenomLb": "",
                 "contactAdresseLb": "",
                 "contactNationaliteLb": "",
-                "contactNaissanceCapDt": -3600000,
+                "contactNaissanceCapDt": null,
                 "contactCourrielLb": "",
                 "communeSativ2": {
                     "communeCodeLb": "",
