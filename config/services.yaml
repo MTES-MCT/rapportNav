@@ -138,3 +138,9 @@ services:
         arguments: [~, App\Entity\Loisir, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de loisirs" }
+
+    admin.categorie_moyen:
+        class: App\Admin\CategorieMoyenAdmin
+        arguments: [~,App\Entity\CategorieMoyen,~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de moyen nautique" }

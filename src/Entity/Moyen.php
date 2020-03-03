@@ -32,7 +32,7 @@ class Moyen {
     private $terrestre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\MoyenTypeNavire")
+     * @ORM\ManyToOne(targetEntity="CategorieMoyen")
      * @ORM\JoinColumn(nullable=true)
      */
     private $typeNavire;
@@ -55,11 +55,11 @@ class Moyen {
         return $this;
     }
 
-    public function getTypeNavire(): ?MoyenTypeNavire {
+    public function getTypeNavire(): ?CategorieMoyen {
         return $this->typeNavire;
     }
 
-    public function setTypeNavire(?MoyenTypeNavire $typeNavire): self {
+    public function setTypeNavire(?CategorieMoyen $typeNavire): self {
         $this->typeNavire = $typeNavire;
 
         return $this;
