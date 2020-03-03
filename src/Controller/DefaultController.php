@@ -328,12 +328,15 @@ class DefaultController extends AbstractController {
             $nextMonthDate = clone $date;
             $nextMonthDate->modify('next month');
             $nextMonth = new DateTimeImmutable("01-".$nextMonthDate->format("m")."-".$nextMonthDate->format("Y"));
+            if($nextMonth > new \DateTimeImmutable()) {
+                $nextMonth = null;
+            }
             $prevMonthDate = clone $date;
             $prevMonthDate->modify('previous month');
             $prevMonth = new DateTimeImmutable("01-".$prevMonthDate->format("m")."-".$prevMonthDate->format("Y"));
         } catch(\Exception $e) {
             $logger->critical("Fail to initialize date");
-            $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅ sur la page d'accueil. ");
+            $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅e sur la page d'accueil. ");
             return $this->redirectToRoute('home');
         }
         $reports = $em->getRepository('App:Rapport')->findByPeriod(
@@ -345,7 +348,8 @@ class DefaultController extends AbstractController {
         return $this->render('listReports.html.twig', [
             'reports' => $reports,
             'date' => $date,
-            'nextDate' => $nextMonth->format("d-m-Y")
+            'nextDate' => $nextMonth ? $nextMonth->format("d-m-Y") : null,
+            'prevDate' => $prevMonth->format("d-m-Y"),
         ]);
     }
 

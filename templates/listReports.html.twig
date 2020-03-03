@@ -29,7 +29,10 @@
 
     </div>
 
-    <a href="{{ path('list_submissions_by_date', {'date': nextDate}) }}" class="button large">Voir les rapports plus anciens</a>
+    <a href="{{ path('list_submissions_by_date', {'date': prevDate}) }}" class="button large">Voir les rapports plus anciens</a>
+    {% if nextDate is not null %}
+    <a href="{{ path('list_submissions_by_date', {'date': nextDate}) }}" class="button large">Voir les rapports plus récents</a>
+    {% endif %}
 
 {% endblock body_main_container %}
 
