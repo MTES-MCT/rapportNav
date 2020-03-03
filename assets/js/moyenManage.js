@@ -3,18 +3,23 @@ $(document).ready(function () {
     function showMetaData(event) {
         let notApplicable, applicable;
         let parent = $(event.target).parents("li.moyen");
-        if ("0" === event.target.selectedOptions[0].getAttribute("data-type")) {
-            notApplicable = parent.find("input[id$=_distance]").parent();
-            applicable = parent.find("input[id$=_tempsMoteur]").parent();
+        if(0 < event.target.selectedOptions.length) {
+            $('#moyen-js-error').text("");
+            if("0" === event.target.selectedOptions[0].getAttribute("data-type")) {
+                notApplicable = parent.find("input[id$=_distance]").parent();
+                applicable = parent.find("input[id$=_tempsMoteur]").parent();
+            } else {
+                applicable = parent.find("input[id$=_distance]").parent();
+                notApplicable = parent.find("input[id$=_tempsMoteur]").parent();
+            }
+            notApplicable.find("input").val(null);
+            notApplicable.find("input").prop("required", false);
+            notApplicable.hide();
+            applicable.show();
+            applicable.find("input").prop("required", true);
         } else {
-            applicable = parent.find("input[id$=_distance]").parent();
-            notApplicable = parent.find("input[id$=_tempsMoteur]").parent();
+            $('#moyen-js-error').append("<span class='form__errors'>La valeur sélectionnée n'est pas valide. </span>");
         }
-        notApplicable.find("input").val(null);
-        notApplicable.find("input").prop("required", false);
-        notApplicable.hide();
-        applicable.show();
-        applicable.find("input").prop("required", true);
     }
 
     function deleteMoyen(event) {

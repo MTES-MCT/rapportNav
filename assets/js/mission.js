@@ -106,8 +106,34 @@ $(document).ready(function() {
         },
         components: {mission},
         created: function() {
-            localStorage.setItem('missions', JSON.stringify({}));
-            const missions = $('#missions-data').data('content') || {};
+            localStorage.setItem('missions', JSON.stringify(this.missions));
+            const path = window.location.pathname;
+            const pos = path.search(/draft\/[0-9]*/);
+            let missions = {};
+
+            if(-1 !== pos) {
+                //we ar editing a draft
+                const drafts = JSON.parse(localStorage.getItem("draft"));
+                let index = path.substring(pos + 6);
+                if(undefined === drafts[index].missions.navire ||
+                    undefined === drafts[index].missions.commerce ||
+                    undefined === drafts[index].missions.pechePied ||
+                    undefined === drafts[index].missions.loisir ||
+                    undefined === drafts[index].missions.autre ||
+                    undefined === drafts[index].missions.secours ||
+                    undefined === drafts[index].missions.administratif ||
+                    undefined === drafts[index].missions.formation) {
+                    this.error = true;
+                    this.errorList["draft"] =
+                        ["Les activités du brouillon semblent contenir des erreurs (ou le brouillon ne contenait pas d'activités), "+
+                            "il est possible que des éléments n'aient pas été restaurés. "];
+                }
+                missions = drafts[index].missions || {};
+            } else {
+                // Getting pre-loaded data from server (if any)
+                missions = $('#missions-data').data('content') || {};
+            }
+
             //Polyfill for Object.entries for old browsers
             if(!Object.entries) {
                 Object.entries = function(obj) {
@@ -139,7 +165,6 @@ $(document).ready(function() {
                         this.missions[index][property] = val;
                     }
                 }
-                this.missions[index].active = true;
             }
             const rapport = $('#rapport-data').data('content') || {};
             if('error' in rapport && true === rapport['error']) {
@@ -147,15 +172,6 @@ $(document).ready(function() {
                 if('error_where' in rapport) {
                     this.errorList = rapport.error_where;
                 }
-            }
-
-            const path = window.location.pathname;
-            const pos = path.search(/draft\/[0-9]*/);
-            if(-1 !== pos) {
-                const drafts = JSON.parse(localStorage.getItem("draft"));
-                let index = path.substring(pos + 6);
-                this.missions = drafts[index].missions;
-                localStorage.setItem('missions', JSON.stringify(this.missions));
             }
         },
         methods: {

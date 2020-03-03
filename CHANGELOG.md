@@ -5,6 +5,9 @@
 * Ajout d'un champs de texte pour les sélections "Autre" dans les activités
 * Meilleur gestion des erreurs (résout un bug sur l'enregistrement des Activités compostant des informations invalides)
 * Correction : affichage du nombre de contrôles réalisés sur la synthèse mission
+* Intégration de l'export SATI (en test sur une partie limitée)
+* Correction du bouton mois précédent sur la liste des rapports (affichait le mois suivant)
+* Correction du chargement de brouillon et amélioration de la résilience aux erreurs
 
 ## Changelog v0.8.1 -> 0.8.2
 * Correction d'un bug sur l'affichage du nombre de contrôles sans PV

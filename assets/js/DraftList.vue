@@ -3,7 +3,7 @@
         <ul>
             <li v-for="(draft, index) in drafts">
                 <a :href="'/rapport/draft/'+index">
-                    Brouillon n°{{ index }}, mission du {{ draft.metadata.debut }} éditée le {{ draft.metadata.edit }}
+                    Brouillon n°{{ index }}, mission du {{ draft.metadata.debut }} édité le {{ draft.metadata.edit }}
                 </a>
             </li>
         </ul>

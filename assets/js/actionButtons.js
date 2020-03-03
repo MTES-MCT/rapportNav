@@ -100,11 +100,10 @@ $(document).ready(function() {
         }
         for(let id in draft.rapport.moyens) {
           $('#add-new-moyen').trigger("click");
-          $('#rapport_moyens_'+(Number(id)+1)+'_moyen').val(draft.rapport.moyens[id][0]);
-          $('#rapport_moyens_'+(Number(id)+1)+'_moyen').trigger("change");
+          $('#rapport_moyens_'+(Number(id)+1)+'_moyen').val(draft.rapport.moyens[id][0])
+                                                        .trigger("change");
           $('#rapport_moyens_'+(Number(id)+1)+'_distance').val(draft.rapport.moyens[id][1]);
           $('#rapport_moyens_'+(Number(id)+1)+'_tempsMoteur').val(draft.rapport.moyens[id][2]);
-          $('#service-conjoints select').trigger("change");
         }
 
       },

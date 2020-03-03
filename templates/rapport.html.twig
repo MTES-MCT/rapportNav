@@ -87,6 +87,7 @@
             <fieldset id="moyens">
                 {{ form_label(form.moyens, null, {'element': 'legend', 'attr': {'class': "like-h4"}} ) }}
                 {{ form_errors(form.moyens) }}
+                <span id="moyen-js-error"></span>
                 <ul id="moyen-list" class="no-decoration stacked-list" data-prototype='
                     <span>
                         {{ form_widget(form.moyens.vars.prototype.moyen)|e('html_attr') }}
@@ -159,7 +160,12 @@
             <ul class="no-decoration form__errors">
                 <li v-for="(list, errorInfo) in errorList">
                     {% verbatim %}
+                    <template v-if="'draft' === errorInfo">
+                        Erreur lors du chargement du brouillon : {{ list.join(', ') }}
+                    </template>
+                    <template v-else>
                         {{ 'L\'activité ' + errorInfo + ' contient des erreurs : ' + list.join(', ')}}
+                    </template>
                     {% endverbatim %}
                 </li>
             </ul>
