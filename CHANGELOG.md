@@ -8,6 +8,7 @@
 * Intégration de l'export SATI (en test sur une partie limitée)
 * Correction du bouton mois précédent sur la liste des rapports (affichait le mois suivant)
 * Correction du chargement de brouillon et amélioration de la résilience aux erreurs
+* Possibilité de supprimer un brouillon
 
 ## Changelog v0.8.1 -> 0.8.2
 * Correction d'un bug sur l'affichage du nombre de contrôles sans PV

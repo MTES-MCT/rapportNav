@@ -15,19 +15,19 @@
 
     <h2>Rapports validés du mois en cours</h2>
     <p>Ces rapports sont validées. Ils peuvent encore être modifiés quelques jours après leur validation avant d'être bloqués. </p>
+    {% set half_creports = max(((currentReports|length)/2)|round,1) %}
     <div class="row">
-        {% for row in currentReports|batch(7) %}
-
+        {% for row in currentReports|batch(half_creports) %}
             <div style="width: 33%">
                 <ul>
                     {% for rapport in row %}
                         <li>
                             <a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
                                 Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
+                            </a>
                                 {% if rapport.updatedAt is not null or rapport.updatedBy is not null %}dernière modification{% endif %}
                                 {% if rapport.updatedAt is not null %}le {{ rapport.updatedAt | date('d/m/Y') }}{% endif %}
                                 {% if rapport.updatedBy is not null %}par {{ rapport.updatedBy }}{% endif %}
-                            </a>
                             -
                             <a href="{{ path('export_sati_inspection_mer', {'id': rapport.id}) }}">Télécharger les données pour export SATI</a>
                         </li>
@@ -35,25 +35,31 @@
                 </ul>
             </div>
         {% endfor %}
-
     </div>
     <div>
         <p>Rapports du mois dernier</p>
-        {% for row in previousMounthReports|batch(7) %}
-            <div style="width: 33%">
+        {% set half_preports = max(((previousMounthReports|length)/2)|round,1) %}
+        <div class="row">
+            {% for row in previousMounthReports|batch(half_preports) %}
+            <div style="width: 50%">
                 <ul>
                     {% for rapport in row %}
                         <li>
                             <a href="{{ path('rapport_edit', {'id_edit': rapport.id}) }}">
                                 Mission n°{{ rapport.id }} du {{ rapport.dateDebutMission | date('d/m/Y') }}
                             </a>
+                            {% if rapport.updatedAt is not null or rapport.updatedBy is not null %}dernière modification{% endif %}
+                            {% if rapport.updatedAt is not null %}le {{ rapport.updatedAt | date('d/m/Y') }}{% endif %}
+                            {% if rapport.updatedBy is not null %}par {{ rapport.updatedBy }}{% endif %}
                             -
-                            <a href="{{ path('export_sati_inspection_mer', {'id': rapport.id}) }}">Télécharger les données pour export SATI</a>
+                            <a href="{{ path('export_sati_inspection_mer', {'id': rapport.id}) }}">Télécharger les
+                                données pour export SATI</a>
                         </li>
                     {% endfor %}
                 </ul>
             </div>
         {% endfor %}
+        </div>
     </div>
 
     <a href="{{ path('list_submissions_by_date', {'date': date}) }}" class="button large">Voir les rapports plus anciens</a>
