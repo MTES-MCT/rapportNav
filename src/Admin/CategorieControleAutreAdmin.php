@@ -8,30 +8,28 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class CategorieControleAutreAdmin extends AbstractAdmin {
+    protected function configureFormFields(FormMapper $formMapper) {
+        $formMapper
+            ->add('nom', TextType::class, ['required' => true])
+            ->add('complementDonnee')
+        ;
+    }
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void {
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
             ->add('nom')
             ->add('complementDonnee')
-            ;
+        ;
     }
 
-    protected function configureListFields(ListMapper $listMapper): void {
+    protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-            ->add('nom')
-            ->add('complementDonnee')
-
+            ->addIdentifier('nom')
+            ->addIdentifier('complementDonnee')
         ;
     }
 
-    protected function configureFormFields(FormMapper $formMapper): void {
-        $formMapper
-            ->add('nom', TextType::class)
-            ->add('complementDonnee')
-        ;
-    }
 }

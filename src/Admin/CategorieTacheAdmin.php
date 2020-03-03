@@ -8,31 +8,22 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class CategorieTacheAdmin extends AbstractAdmin {
-
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void {
-        $datagridMapper
-            ->add('nom')
-            ;
-    }
-
-    protected function configureListFields(ListMapper $listMapper): void {
-        $listMapper
-            ->add('nom')
-            ;
-    }
-
-    protected function configureFormFields(FormMapper $formMapper): void {
+    protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-            ->add('nom')
-            ;
+            ->add('nom', TextType::class, ['required' => true]);
     }
 
-    protected function configureShowFields(ShowMapper $showMapper): void {
-        $showMapper
-            ->add('nom')
-        ;
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+        $datagridMapper
+            ->add('nom');
     }
+
+    protected function configureListFields(ListMapper $listMapper) {
+        $listMapper
+            ->addIdentifier('nom');
+    }
+
 }
