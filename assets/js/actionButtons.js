@@ -54,7 +54,7 @@ $(document).ready(function() {
           if($(object).prop("checked")) {
             rapport.agents.push($(object).val())
           }
-        })
+        });
 
         $('#moyens li.moyen').each(function(index, object) {
             rapport.moyens.push([
@@ -83,7 +83,9 @@ $(document).ready(function() {
         }
 
         localStorage.setItem('draft', JSON.stringify(this.drafts));
-
+        $('#notifications').append('<div class="notification success">Brouillon sauvegardé avec succès</div>')
+        $('.notification').delay(5000)
+                          .fadeOut();
       },
       restaureSave: function() {
         let draft = this.drafts[this.index];

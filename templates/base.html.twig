@@ -53,7 +53,7 @@
 
 <main role="main">
     {% block body_main %}
-        <div class="notifications">
+        <div class="notifications" id="notifications">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     <div class="notification {{ label }}">
