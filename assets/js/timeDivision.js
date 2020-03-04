@@ -83,7 +83,7 @@ $(document).ready(function() {
         },
         methods: {
             localSave: function() {
-                localStorage.setItem('timeDivision', JSON.stringify(this.$data));
+                localStorage.setItem('timeDivision', JSON.stringify(this.timeDivision));
             }
         }
     });
