@@ -144,3 +144,9 @@ services:
         arguments: [~,App\Entity\CategorieMoyen,~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de moyen nautique" }
+
+    admin.categorie_methode_ciblage:
+        class: App\Admin\CategorieMethodeCiblage
+        arguments: [~,App\Entity\CategorieMethodeCiblage,~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de méthodes de ciblage" }

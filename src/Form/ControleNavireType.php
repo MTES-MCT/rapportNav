@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\CategorieDeroutement;
 use App\Entity\ControleNavire;
-use App\Entity\MethodeCiblage;
+use App\Entity\CategorieMethodeCiblage;
 use App\Entity\Natinf;
 use App\Entity\RapportNavireControle;
 use Doctrine\ORM\EntityRepository;
@@ -45,7 +45,7 @@ class ControleNavireType extends AbstractType {
                 'required' => false,
                 'label' => "Activité en/à"])
             ->add('methodeCiblage', EntityType::class, [
-                'class' => MethodeCiblage::class,
+                'class' => CategorieMethodeCiblage::class,
                 'required' => false,
                 'multiple' => false,
                 'expanded' => true,
