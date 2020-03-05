@@ -9,6 +9,8 @@
 * Correction du bouton mois précédent sur la liste des rapports (affichait le mois suivant)
 * Correction du chargement de brouillon et amélioration de la résilience aux erreurs
 * Possibilité de supprimer un brouillon
+* Ajout d'un message de confirmation lors de l'enregistrement d'un brouillon
+* Ajout de la partie admin pour les CategorieMoyen et CategorieMethodeCiblage
 
 ## Changelog v0.8.1 -> 0.8.2
 * Correction d'un bug sur l'affichage du nombre de contrôles sans PV

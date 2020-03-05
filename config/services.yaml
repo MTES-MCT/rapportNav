@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    app.version: '0.8.2'
+    app.version: '0.9.0'
     app.warning: '%env(resolve:APP_SHOW_WARNING)%'
     api_navire: '%env(resolve:API_NAVIRE)%'
     api_natinf: '%env(resolve:API_NATINF)%'
