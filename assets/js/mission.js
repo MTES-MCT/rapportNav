@@ -165,6 +165,9 @@ $(document).ready(function() {
                         this.missions[index][property] = val;
                     }
                 }
+                if(-1 === pos) {
+                    this.missions[index].active = true;
+                }
             }
             const rapport = $('#rapport-data').data('content') || {};
             if('error' in rapport && true === rapport['error']) {
