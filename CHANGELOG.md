@@ -1,5 +1,8 @@
 #Changelog v0.x
 
+## Changelog v0.9.0 -> 0.10.0
+* Uniformisation des champs (front et base de donnée) de commentaires
+
 ## Changelog v0.8.2 -> 0.9.0 (05/03/2020)
 * Ajout de l'enregistrement de la date et utilisateur ayant créé et modifié un rapport (dernière modification)
 * Ajout d'un champs de texte pour les sélections "Autre" dans les activités

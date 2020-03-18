@@ -96,7 +96,7 @@ class ControleNavire implements JsonSerializable {
      */
     private $natinfs;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $commentaire;
 

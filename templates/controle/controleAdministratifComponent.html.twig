@@ -38,6 +38,14 @@
                         'v-bind:id': "'mission_administratif_taches_'+index+'_dureeTache'"}}) }}
             </div>
         </div>
+        <div class="form__group horizontal__form">
+            {{ form_label(form.taches.vars.prototype.commentaire) }}
+            {{ form_errors(form.taches.vars.prototype.commentaire) }}
+            {{ form_widget(form.taches.vars.prototype.commentaire, {'attr': {
+                'v-model': "controle.commentaire",
+                'v-bind:name': "'mission_administratif[taches]['+index+'][commentaire]'",
+                'v-bind:id': "'mission_administratif_taches_'+index+'_commentaire'"}}) }}
+        </div>
 
         <div style="display: flex; justify-content: flex-end">
             <button type="button" class="button warning" @click="removeControle('administratif', index)">

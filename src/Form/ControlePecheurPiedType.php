@@ -9,6 +9,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -59,7 +60,7 @@ class ControlePecheurPiedType extends AbstractType {
                 'expanded' => false,
                 'required' => false,
                 'label' => "Code(s) NATINF "])
-            ->add('commentaire', TextType::class, [
+            ->add('commentaire', TextareaType::class, [
                 'required' => false,
                 'label' => "Commentaire (sur ce contrôle)"
             ]);
