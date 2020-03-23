@@ -19,11 +19,6 @@ class MissionNavire extends Mission {
     private $navires;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypeMissionControle")
-     */
-    private $typeMissionControle;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\ControleNavireSansPv", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
@@ -40,7 +35,6 @@ class MissionNavire extends Mission {
 
     public function jsonSerialize() {
         $data = parent::jsonSerialize();
-        $data['typeMissionControle'] = $this->getTypeMissionControle() ? $this->getTypeMissionControle()->getId() : null;
         $data['controles'] = [];
         foreach($this->getNavires() as $navire) {
             $data['controles'][] = $navire;
@@ -78,23 +72,11 @@ class MissionNavire extends Mission {
         return $this;
     }
 
-    public function getTypeMissionControle(): ?TypeMissionControle {
-        return $this->typeMissionControle;
-    }
-
-    public function setTypeMissionControle(?TypeMissionControle $typeMissionControle): self {
-        $this->typeMissionControle = $typeMissionControle;
-
-        return $this;
-    }
-
-    public function getControleSansPv(): ?ControleNavireSansPv
-    {
+    public function getControleSansPv(): ?ControleNavireSansPv {
         return $this->controleSansPv;
     }
 
-    public function setControleSansPv(ControleNavireSansPv $controleSansPv): self
-    {
+    public function setControleSansPv(ControleNavireSansPv $controleSansPv): self {
         $this->controleSansPv = $controleSansPv;
 
         return $this;

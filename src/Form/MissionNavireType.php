@@ -3,10 +3,7 @@
 namespace App\Form;
 
 use App\Entity\MissionNavire;
-use App\Entity\TypeMissionControle;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,8 +21,7 @@ class MissionNavireType extends MissionType {
                 'by_reference' => false,
                 'label' => false,
                 'prototype' => true
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {
