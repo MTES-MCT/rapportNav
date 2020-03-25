@@ -46,7 +46,8 @@
     "require-dev": {
         "ext-sqlite3": "*",
         "doctrine/doctrine-fixtures-bundle": "^3.1",
-        "liip/functional-test-bundle": "~2.0@alpha",
+        "liip/functional-test-bundle": "^4.0.0",
+        "liip/test-fixtures-bundle": "^1.0.0",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",

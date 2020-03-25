@@ -3,14 +3,20 @@
 namespace App\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 
 class DefaultControllerTest extends WebTestCase {
+    use FixturesTrait;
 
     /**
      * Testing home redirect
      */
     public function testHome() {
-        $client = $this->makeClient(true);
+        $this->loadFixtures(array(
+            'App\DataFixtures\Tests\UsersFixture',
+        ));
+
+        $client = $this->makeAuthenticatedClient();
 
         $client->request('GET', '/');
         $this->assertStatusCode(302, $client);
@@ -20,15 +26,14 @@ class DefaultControllerTest extends WebTestCase {
      * Testing form display and submission
      */
     public function testRapportCreate() {
-        $client = $this->makeClient(true);
+        $this->loadFixtures(array(
+            'App\DataFixtures\Tests\UsersFixture',
+        ));
+
+        $client = $this->makeAuthenticatedClient();
 
         //Testing page display
         $crawler = $client->request('GET', '/rapport');
-        $this->assertStatusCode(200, $client);
-
-        //Testing form submission
-        $form = $crawler->selectButton('Enregistrer')->form();
-        $client->submit($form);
         $this->assertStatusCode(200, $client);
 
     }
@@ -37,7 +42,7 @@ class DefaultControllerTest extends WebTestCase {
      * Testing displaying all forms
      */
     public function testListForms() {
-        $client = $this->makeClient(true);
+        $client = $this->makeAuthenticatedClient();
 
         $client->request('GET', '/list_forms');
         $this->assertStatusCode(200, $client);
@@ -47,7 +52,7 @@ class DefaultControllerTest extends WebTestCase {
      * Testing displaying all submissions
      */
     public function testListSubmissions() {
-        $client = $this->makeClient(true);
+        $client = $this->makeAuthenticatedClient();
 
         $client->request('GET', '/list_submissions');
         $this->assertStatusCode(200, $client);
@@ -57,7 +62,7 @@ class DefaultControllerTest extends WebTestCase {
      * Testing displaying KPI
      */
     public function testShowKpi() {
-        $client = $this->makeClient(true);
+        $client = $this->makeAuthenticatedClient();
 
         $client->request('GET', '/show_kpi');
         $this->assertStatusCode(200, $client);
