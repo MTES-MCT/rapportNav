@@ -368,9 +368,6 @@
             "config/packages/dev/debug.yaml"
         ]
     },
-    "symfony/debug-pack": {
-        "version": "v1.0.7"
-    },
     "symfony/dependency-injection": {
         "version": "v4.2.3"
     },
@@ -476,9 +473,6 @@
     "symfony/options-resolver": {
         "version": "v4.2.3"
     },
-    "symfony/orm-pack": {
-        "version": "v1.0.6"
-    },
     "symfony/phpunit-bridge": {
         "version": "4.1",
         "recipe": {
@@ -573,9 +567,6 @@
     "symfony/serializer": {
         "version": "v4.2.3"
     },
-    "symfony/serializer-pack": {
-        "version": "v1.0.2"
-    },
     "symfony/stopwatch": {
         "version": "v4.2.3"
     },
@@ -598,9 +589,6 @@
     },
     "symfony/templating": {
         "version": "v4.2.7"
-    },
-    "symfony/test-pack": {
-        "version": "v1.0.5"
     },
     "symfony/translation": {
         "version": "3.3",
