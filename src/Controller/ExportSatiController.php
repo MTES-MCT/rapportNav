@@ -21,6 +21,7 @@ class ExportSatiController extends AbstractController {
      *     requirements={"id"="\d+"}
      * )
      * @param EntityManagerInterface $em
+     * @param EngineInterface        $twig
      * @param int                    $id
      *
      * @return Response

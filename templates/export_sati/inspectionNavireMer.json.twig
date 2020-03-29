@@ -1,10 +1,13 @@
 {# Searching first nautic equipement#}
 {% set moyenNautique = -1 %}
-{% for i in 0..(rapport.moyens|length -1) %}
-{% if not rapport.moyens[i].moyen.terrestre %}
-{% set moyenNautique = i %}
-{% endif %}
+{% if rapport.moyens|length > 0 %}
+    {% for i in 0..(rapport.moyens|length -1) %}
+        {% if not rapport.moyens[i].moyen.terrestre %}
+            {% set moyenNautique = i %}
+    {% endif %}
 {% endfor %}
+{% endif %}
+
 {
     "orionLocalId": {{ numOrion }},
     "orionLocalState": "",
