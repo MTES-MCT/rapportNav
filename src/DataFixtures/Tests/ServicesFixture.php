@@ -5,7 +5,7 @@ namespace App\DataFixtures\Tests;
 use App\Entity\Service;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class ServicesFixture extends Fixture implements FixtureGroupInterface {
   public function load(ObjectManager $manager) {

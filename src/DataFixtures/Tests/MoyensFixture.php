@@ -6,8 +6,7 @@ use App\Entity\Moyen;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use FOS\UserBundle\Model\UserManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 
 class MoyensFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
 

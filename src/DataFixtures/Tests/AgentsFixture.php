@@ -6,8 +6,7 @@ use App\Entity\Agent;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use FOS\UserBundle\Model\UserManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 
 class AgentsFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
 
@@ -39,6 +38,7 @@ class AgentsFixture extends Fixture implements DependentFixtureInterface, Fixtur
     ;
 
     $manager->persist($agent1_35);
+    $this->addReference("agent1_35", $agent1_35);
     $manager->persist($agent2_35);
     $manager->persist($agent1_56);
     $manager->persist($agent2_56);

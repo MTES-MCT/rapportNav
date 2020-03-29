@@ -15,7 +15,7 @@ class DefaultControllerTest extends WebTestCase {
         $this->loadFixtures(array(
             'App\DataFixtures\Tests\UsersFixture',
         ));
-
+$functional = 0;
         $client = $this->makeAuthenticatedClient();
 
         $client->request('GET', '/');
@@ -25,15 +25,21 @@ class DefaultControllerTest extends WebTestCase {
     /**
      * Testing form display and submission
      */
-    public function testRapportCreate() {
-        $this->loadFixtures(array(
+    public function testRapport() {
+        $fixtures = $this->loadFixtures(array(
             'App\DataFixtures\Tests\UsersFixture',
+            'App\DataFixtures\Tests\RapportFixture',
         ));
 
         $client = $this->makeAuthenticatedClient();
 
         //Testing page display
-        $crawler = $client->request('GET', '/rapport');
+        $client->request('GET', '/rapport');
+        $this->assertStatusCode(200, $client);
+
+        //Testing edit display
+        $id = $fixtures->getReferenceRepository()->getReference("rapportNavPro")->getId();
+        $client->request('GET', '/rapport/edit/' . $id);
         $this->assertStatusCode(200, $client);
 
     }
@@ -55,6 +61,9 @@ class DefaultControllerTest extends WebTestCase {
         $client = $this->makeAuthenticatedClient();
 
         $client->request('GET', '/list_submissions');
+        $this->assertStatusCode(200, $client);
+
+        $client->request('GET', '/list_submissions/01-01-2020');
         $this->assertStatusCode(200, $client);
     }
 

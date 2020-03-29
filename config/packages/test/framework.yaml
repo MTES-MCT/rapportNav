@@ -6,8 +6,8 @@ framework:
 
 liip_functional_test:
     authentication:
-        username: ulam56
-        password: ulam56
+        username: ulam35
+        password: ulam35
 liip_test_fixtures:
     cache_db:
         sqlite: liip_test_fixtures.services_database_backup.sqlite
