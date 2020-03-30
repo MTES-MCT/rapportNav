@@ -19,25 +19,27 @@ class UsersFixture extends Fixture implements DependentFixtureInterface, Fixture
 
     public function load(ObjectManager $manager) {
 
-        $user35 = $this->userManager->createUser();
         $user56 = $this->userManager->createUser();
+        $admin = $this->userManager->createUser();
 
-        $user35->setUsername('ulam35')
-            ->setEmail('nope@email.com')
+        $user56->setUsername('ulam35')
+            ->setEmail('nope2@email.com')
             ->setPlainPassword('ulam35')
             ->setEnabled(true)
             ->setService($this->getReference("service35"))
             ->setRoles(['ROLE_USER']);
-        $manager->persist($user35);
-
-        $user56->setUsername('ulam56')
-            ->setEmail('nope2@email.com')
-            ->setPlainPassword('ulam56')
-            ->setEnabled(true)
-            ->setService($this->getReference("service56"))
-            ->setRoles(['ROLE_USER']);
         $manager->persist($user56);
+
+        $admin->setUsername('admin')
+            ->setEmail('admin@email.com')
+            ->setPlainPassword('admin')
+            ->setEnabled(true)
+            ->setService(null)
+            ->setRoles(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
+        $manager->persist($admin);
+
         $this->setReference('ulam56', $user56);
+        $this->setReference('admin', $admin);
 
         $manager->flush();
     }
