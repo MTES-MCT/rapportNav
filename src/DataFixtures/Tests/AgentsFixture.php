@@ -11,37 +11,23 @@ use Doctrine\Persistence\ObjectManager;
 class AgentsFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
 
   public function load(ObjectManager $manager) {
-    $agent1_35 = new Agent();
-    $agent2_35 = new Agent();
-    $agent1_56 = new Agent();
-    $agent2_56 = new Agent();
+    $agent1 = new Agent();
+    $agent2 = new Agent();
 
-    $agent1_35->setNom("agent1_35")
+    $agent1->setNom("De Musset")
         ->setPrenom("Alfred")
         ->setMatricule(0)
-        ->setService($this->getReference('service35'))
+        ->setService($this->getReference('service'))
     ;
-    $agent2_35->setNom("agent2_35")
-        ->setPrenom("Alfonse")
+    $agent2->setNom("Desbordes-Valmore")
+        ->setPrenom("Marceline")
         ->setMatricule(0)
-        ->setService($this->getReference('service35'))
-    ;
-    $agent1_56->setNom("agent1_56")
-        ->setPrenom("Anna Laetitia")
-        ->setMatricule(0)
-        ->setService($this->getReference('service56'))
-    ;
-    $agent2_56->setNom("agent2_56")
-        ->setPrenom("George (Amandine)")
-        ->setMatricule(0)
-        ->setService($this->getReference('service56'))
+        ->setService($this->getReference('service'))
     ;
 
-    $manager->persist($agent1_35);
-    $this->addReference("agent1_35", $agent1_35);
-    $manager->persist($agent2_35);
-    $manager->persist($agent1_56);
-    $manager->persist($agent2_56);
+    $manager->persist($agent1);
+    $this->addReference("agent1", $agent1);
+    $manager->persist($agent2);
 
     $manager->flush();
   }

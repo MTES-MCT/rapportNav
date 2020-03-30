@@ -20,8 +20,8 @@ class RapportFixture extends Fixture implements DependentFixtureInterface, Fixtu
         $rapport->setDateDebutMission(new \DateTimeImmutable("2020-01-05T08:30"))
             ->setDateFinMission(new \DateTimeImmutable("2020-01-05T16:30"))
             ->setArme(true)
-            ->setServiceCreateur($this->getReference("service35"))
-            ->addAgent($this->getReference("agent1_35"))
+            ->setServiceCreateur($this->getReference("service"))
+            ->addAgent($this->getReference("agent1"))
             ->setVersion(1)
         ;
         $missionNavire = new MissionNavire();

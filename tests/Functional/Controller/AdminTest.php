@@ -40,47 +40,30 @@ class AdminTest extends WebTestCase {
 
         $client = $this->makeClientWithCredentials('admin', 'admin');
 
-        $client->request('GET', '/admin');
-        $this->assertStatusCode(301, $client);
-
-        $client->request('GET', '/admin/dashboard');
+        $client->request('GET', $url.'/list');
         $this->assertStatusCode(200, $client);
 
-        $client->request('GET', $url);
+        $client->request('GET', $url.'/create');
         $this->assertStatusCode(200, $client);
 
     }
 
     public function provideAdminUrls() {
         return [
-            ['/admin/app/navire/list'],
-            ['/admin/app/navire/create'],
-            ['/admin/app/rapport/list'],
-            ['/admin/app/rapport/create'],
-            ['/admin/app/etablissement/list'],
-            ['/admin/app/etablissement/create'],
-            ['/admin/app/moyen/list'],
-            ['/admin/app/moyen/create'],
-            ['/admin/app/zonegeographique/list'],
-            ['/admin/app/zonegeographique/create'],
-            ['/admin/app/agent/list'],
-            ['/admin/app/agent/create'],
-            ['/admin/app/serviceinterministeriel/list'],
-            ['/admin/app/serviceinterministeriel/create'],
-            ['/admin/app/categorieetablissement/list'],
-            ['/admin/app/categorieetablissement/create'],
-            ['/admin/app/categoriecontroleautre/list'],
-            ['/admin/app/categoriecontroleautre/create'],
-            ['/admin/app/tache/list'],
-            ['/admin/app/tache/create'],
-            ['/admin/app/categoriecontrolenavire/list'],
-            ['/admin/app/categoriecontrolenavire/create'],
-            ['/admin/app/loisir/list'],
-            ['/admin/app/loisir/create'],
-            ['/admin/app/categoriemoyen/list'],
-            ['/admin/app/categoriemoyen/create'],
-            ['/admin/app/categoriemethodeciblage/list'],
-            ['/admin/app/categoriemethodeciblage/create'],
+            ['/admin/app/navire'],
+            ['/admin/app/rapport'],
+            ['/admin/app/etablissement'],
+            ['/admin/app/moyen'],
+            ['/admin/app/zonegeographique'],
+            ['/admin/app/agent'],
+            ['/admin/app/serviceinterministeriel'],
+            ['/admin/app/categorieetablissement'],
+            ['/admin/app/categoriecontroleautre'],
+            ['/admin/app/tache'],
+            ['/admin/app/categoriecontrolenavire'],
+            ['/admin/app/loisir'],
+            ['/admin/app/categoriemoyen'],
+            ['/admin/app/categoriemethodeciblage'],
         ];
     }
 }

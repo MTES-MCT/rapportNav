@@ -10,15 +10,11 @@ use Doctrine\Persistence\ObjectManager;
 class ServicesFixture extends Fixture implements FixtureGroupInterface {
   public function load(ObjectManager $manager) {
 
-    $service35 = new Service();
-    $service35->setNom('ULAM 35');
-    $service56 = new Service();
-    $service56->setNom('ULAM 56');
+    $service = new Service();
+    $service->setNom('Service');
 
-    $manager->persist($service35);
-    $manager->persist($service56);
-    $this->setReference('service35', $service35);
-    $this->setReference('service56', $service56);
+    $manager->persist($service);
+    $this->setReference('service', $service);
 
     $manager->flush();
   }

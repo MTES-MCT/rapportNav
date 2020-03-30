@@ -11,31 +11,20 @@ use Doctrine\Persistence\ObjectManager;
 class MoyensFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
 
   public function load(ObjectManager $manager) {
-    $moyen1_35 = new Moyen();
-    $moyen2_35 = new Moyen();
-    $moyen1_56 = new Moyen();
-    $moyen2_56 = new Moyen();
+    $moyen1 = new Moyen();
+    $moyen2 = new Moyen();
 
-    $moyen1_35->setNom('vehicule1_35')
-        ->setServiceProprietaire($this->getReference('service35'))
+    $moyen1->setNom('Fiacre')
+        ->setServiceProprietaire($this->getReference('service'))
         ->setTerrestre(true)
     ;
-    $moyen2_35->setNom('navire2_35')
-        ->setServiceProprietaire($this->getReference('service35'))
+    $moyen2->setNom('Souverain')
+        ->setServiceProprietaire($this->getReference('service'))
         ->setTerrestre(false)
     ;
-    $moyen1_56->setNom('vehicule1_56')
-        ->setServiceProprietaire($this->getReference('service56'))
-        ->setTerrestre(true)
     ;
-    $moyen2_56->setNom('vavire2_56')
-        ->setServiceProprietaire($this->getReference('service56'))
-        ->setTerrestre(false)
-    ;
-    $manager->persist($moyen1_35);
-    $manager->persist($moyen2_35);
-    $manager->persist($moyen1_56);
-    $manager->persist($moyen2_56);
+    $manager->persist($moyen1);
+    $manager->persist($moyen2);
 
     $manager->flush();
   }
