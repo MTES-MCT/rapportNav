@@ -128,10 +128,10 @@ services:
             - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de tâches administratives" }
 
     admin.categorie_controle_navire:
-        class: App\Admin\CategorieControleNavireAdmin
-        arguments: [~, App\Entity\CategorieControleNavire, ~]
+        class: App\Admin\CategorieUsageNavireAdmin
+        arguments: [~, App\Entity\CategorieUsageNavire, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de navires" }
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories d'usage des navires" }
 
     admin.categorie_loisir:
         class: App\Admin\CategorieLoisirAdmin

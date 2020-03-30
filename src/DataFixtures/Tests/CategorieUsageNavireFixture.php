@@ -2,15 +2,15 @@
 
 namespace App\DataFixtures\Tests;
 
-use App\Entity\CategorieControleNavire;
+use App\Entity\CategorieUsageNavire;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class CategorieControleNavireFixture extends Fixture implements FixtureGroupInterface {
+class CategorieUsageNavireFixture extends Fixture implements FixtureGroupInterface {
     public function load(ObjectManager $manager) {
 
-        $categoriePro = new CategorieControleNavire();
+        $categoriePro = new CategorieUsageNavire();
         $categoriePro->setNom("Navire de pêche professionnelle");
         $manager->persist($categoriePro);
         $this->addReference("catNavPro", $categoriePro);
@@ -26,7 +26,7 @@ class CategorieControleNavireFixture extends Fixture implements FixtureGroupInte
         ];
 
         foreach($categories as $dataCat) {
-            $categorie = new CategorieControleNavire();
+            $categorie = new CategorieUsageNavire();
             $categorie->setNom($dataCat);
 
             $manager->persist($categorie);

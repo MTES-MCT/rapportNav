@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\CategorieControleNavire;
+use App\Entity\CategorieUsageNavire;
 use App\Entity\Navire;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -35,14 +35,14 @@ class NavireType extends AbstractType {
             ->add('typeUsage', TextType::class, [
                 'required' => false,
                 'label' => "Genre de navigation"])
-            ->add('categorieControleNavire', EntityType::class, [
+            ->add('categorieUsageNavire', EntityType::class, [
                 'required' => true,
-                'class' => CategorieControleNavire::class,
+                'class' => CategorieUsageNavire::class,
                 'multiple' => false,
                 'expanded' => false,
                 'placeholder' => "Sélectionnez une catégorie",
                 'choice_label' => "nom",
-                'label' => "Catégorie du navire controlé"]);
+                'label' => "Catégorie du navire contrôlé"]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

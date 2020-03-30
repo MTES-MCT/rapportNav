@@ -60,6 +60,7 @@ class AdminTest extends WebTestCase {
             ['/admin/app/categorieetablissement'],
             ['/admin/app/categoriecontroleautre'],
             ['/admin/app/tache'],
+            ['/admin/app/categorieusagenavire'],
             ['/admin/app/categoriecontrolenavire'],
             ['/admin/app/loisir'],
             ['/admin/app/categoriemoyen'],

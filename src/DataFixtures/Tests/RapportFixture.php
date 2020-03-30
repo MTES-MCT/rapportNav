@@ -29,7 +29,7 @@ class RapportFixture extends Fixture implements DependentFixtureInterface, Fixtu
         $navire = new Navire();
 
         $navire->setNom("Titanic")
-            ->setCategorieControleNavire($this->getReference("catNavPro"))
+            ->setCategorieUsageNavire($this->getReference("catNavPro"))
             ->setEtranger(false)
             ->setImmatriculationFr("123456")
             ->setPavillon("Français")
@@ -54,7 +54,7 @@ class RapportFixture extends Fixture implements DependentFixtureInterface, Fixtu
         return array(
             ServicesFixture::class,
             AgentsFixture::class,
-            CategorieControleNavireFixture::class,
+            CategorieUsageNavireFixture::class,
         );
     }
 

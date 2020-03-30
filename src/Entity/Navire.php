@@ -61,9 +61,9 @@ class Navire implements JsonSerializable {
     private $typeUsage = "Inconnu";
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CategorieControleNavire")
+     * @ORM\ManyToOne(targetEntity="CategorieUsageNavire")
      */
-    private $categorieControleNavire;
+    private $categorieUsageNavire;
 
     public function jsonSerialize() {
         return [
@@ -74,7 +74,7 @@ class Navire implements JsonSerializable {
             'nom' => $this->getNom(),
             'longueurHorsTout' => $this->getLongueurHorsTout(),
             'typeUsage' => $this->getTypeUsage(),
-            'categorieControleNavire' => (null === $this->getCategorieControleNavire()) ? null : $this->getCategorieControleNavire()->getId(),
+            'categorieUsageNavire' => (null === $this->getCategorieUsageNavire()) ? null : $this->getCategorieUsageNavire()->getId(),
         ];
     }
 
@@ -151,12 +151,12 @@ class Navire implements JsonSerializable {
         return $this;
     }
 
-    public function getCategorieControleNavire(): ?CategorieControleNavire {
-        return $this->categorieControleNavire;
+    public function getCategorieUsageNavire(): ?CategorieUsageNavire {
+        return $this->categorieUsageNavire;
     }
 
-    public function setCategorieControleNavire(?CategorieControleNavire $categorieControleNavire): self {
-        $this->categorieControleNavire = $categorieControleNavire;
+    public function setCategorieUsageNavire(?CategorieUsageNavire $categorieUsageNavire): self {
+        $this->categorieUsageNavire = $categorieUsageNavire;
 
         return $this;
     }

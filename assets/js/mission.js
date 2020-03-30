@@ -208,7 +208,7 @@ $(document).ready(function() {
                             "nom": null,
                             "longueurHorsTout": null,
                             "typeUsage": null,
-                            "categorieControleNavire": null,
+                            "CategorieUsageNavire": null,
                             "isDeroutement": false,
                             "deroutement": null,
                         };

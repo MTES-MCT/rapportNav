@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RapportNavireControleRepository")
- * @todo : à renommer CategorieControleNavire ou CategorieNavireControle c'est la liste des type de contrôles réalisés sur un navire
+ * @todo : à renommer CategorieUsageNavire ou CategorieNavireControle c'est la liste des type de contrôles réalisés sur un navire
  */
 class RapportNavireControle {
     /**

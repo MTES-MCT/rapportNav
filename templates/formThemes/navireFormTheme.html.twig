@@ -72,14 +72,14 @@
     </div>
 </div>
 <div>
-    <label v-bind:for="'mission_navire_navires_'+ index +'_navire_categorieControleNavire'"
-           class="{{ navire.categorieControleNavire.vars.required ? 'required' }}">
-        {{ navire.categorieControleNavire.vars.label }}
+    <label v-bind:for="'mission_navire_navires_'+ index +'_navire_categorieUsageNavire'"
+           class="{{ navire.categorieUsageNavire.vars.required ? 'required' }}">
+        {{ navire.categorieUsageNavire.vars.label }}
     </label>
-    {{ form_errors(navire.categorieControleNavire) }}
-    {{ form_widget(navire.categorieControleNavire, {'attr': {'style': "width: 100%;", 'v-model': "controle.navire.categorieControleNavire",
-        'v-bind:name': "'mission_navire[navires]['+index+'][navire][categorieControleNavire]'",
-        'v-bind:id': "'mission_navire_navires_'+index+'_navire_categorieControleNavire'"}}) }}
+    {{ form_errors(navire.categorieUsageNavire) }}
+    {{ form_widget(navire.categorieUsageNavire, {'attr': {'style': "width: 100%;", 'v-model': "controle.navire.categorieUsageNavire",
+        'v-bind:name': "'mission_navire[navires]['+index+'][navire][categorieUsageNavire]'",
+        'v-bind:id': "'mission_navire_navires_'+index+'_navire_categorieUsageNavire'"}}) }}
 </div>
 
 {{ form_rest(navire) }}

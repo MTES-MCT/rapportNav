@@ -5,10 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategorieControleNavireRepository")
- * @todo : à renommer en CategorieUsageNavire => c'est le type de d'usage sélectionné sur le navire
+ * @ORM\Entity(repositoryClass="App\Repository\CategorieUsageNavireRepository")
  */
-class CategorieControleNavire {
+class CategorieUsageNavire {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
