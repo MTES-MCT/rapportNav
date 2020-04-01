@@ -35,7 +35,7 @@ class ExportSatiController extends AbstractController {
             throw $this->createNotFoundException("Le rapport n'existe pas ou n'est pas accessible pour cet utilisateur");
         }
 
-        $categoriesControle = $em->getRepository("CategorieUsageNavire")->findAll();
+        $categoriesControle = $em->getRepository("App:CategorieUsageNavire")->findAll();
         $idCatPechePro=null;
         for($i=0;$i < count($categoriesControle);$i++) {
             if(preg_match('/Navire de pêche pro/', $categoriesControle[$i]->getNom())) {

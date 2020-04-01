@@ -52,11 +52,11 @@ class ControleNavire implements JsonSerializable {
     private $long;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\RapportNavireControle")
+     * @ORM\ManyToMany(targetEntity="App\Entity\CategorieControleNavire")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
-    private $controles;
+    private $controlesRealises;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -119,9 +119,9 @@ class ControleNavire implements JsonSerializable {
             'isDeroutement' => null !== $this->getDeroutement(),
             'deroutement' => ($this->getDeroutement()) ? $this->getDeroutement()->getId() : null,
             'commentaire' => $this->getCommentaire()
-            ];
+        ];
 
-        foreach($this->getControles() as $controle) {
+        foreach($this->getControlesRealises() as $controle) {
             if("Autre" === $controle->getNom()) {
                 $data['showDetail'] = true;
             } else {
@@ -137,7 +137,7 @@ class ControleNavire implements JsonSerializable {
         $data['navire'] = $this->getNavire();
 
         $data['controles'] = [];
-        foreach($this->getControles() as $controle) {
+        foreach($this->getControlesRealises() as $controle) {
             $data['controles'][] = $controle->getId();
         }
 
@@ -145,7 +145,7 @@ class ControleNavire implements JsonSerializable {
     }
 
     public function __construct() {
-        $this->controles = new ArrayCollection();
+        $this->controlesRealises = new ArrayCollection();
         $this->natinfs = new ArrayCollection();
     }
 
@@ -217,23 +217,23 @@ class ControleNavire implements JsonSerializable {
     }
 
     /**
-     * @return Collection|RapportNavireControle[]
+     * @return Collection|CategorieControleNavire[]
      */
-    public function getControles(): Collection {
-        return $this->controles;
+    public function getControlesRealises(): Collection {
+        return $this->controlesRealises;
     }
 
-    public function addControle(RapportNavireControle $controle): self {
-        if(!$this->controles->contains($controle)) {
-            $this->controles[] = $controle;
+    public function addControleRealise(CategorieControleNavire $controle): self {
+        if(!$this->controlesRealises->contains($controle)) {
+            $this->controlesRealises[] = $controle;
         }
 
         return $this;
     }
 
-    public function removeControle(RapportNavireControle $controle): self {
-        if($this->controles->contains($controle)) {
-            $this->controles->removeElement($controle);
+    public function removeControleRealise(CategorieControleNavire $controle): self {
+        if($this->controlesRealises->contains($controle)) {
+            $this->controlesRealises->removeElement($controle);
         }
 
         return $this;

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
 /**
- * @ORM\Entity(repositoryClass="App\REpository\PecheurPiedRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PecheurPiedRepository")
  */
 class PecheurPied implements JsonSerializable {
     /**

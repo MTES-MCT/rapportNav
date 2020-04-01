@@ -2,11 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\CategorieControleNavire;
 use App\Entity\CategorieDeroutement;
-use App\Entity\ControleNavire;
 use App\Entity\CategorieMethodeCiblage;
+use App\Entity\ControleNavire;
 use App\Entity\Natinf;
-use App\Entity\RapportNavireControle;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -33,7 +33,7 @@ class ControleNavireType extends AbstractType {
         $builder
             ->add('navire', NavireType::class, ['label' => false,])
             ->add('controles', EntityType::class, [
-                'class' => RapportNavireControle::class,
+                'class' => CategorieControleNavire::class,
                 'required' => false,
                 'multiple' => true,
                 'expanded' => true,
