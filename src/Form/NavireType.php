@@ -15,8 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class NavireType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('immatriculation_fr', TextType::class, [
-                'attr' => ['class' => "immatriculation_fr"],
+            ->add('immatriculation', TextType::class, [
+                'attr' => ['class' => "immatriculation"],
                 'label' => "Immatriculation du navire"])
             ->add('etranger', CheckboxType::class, [
                 'required' => false,
@@ -32,7 +32,7 @@ class NavireType extends AbstractType {
             ->add('longueurHorsTout', NumberType::class, [
                 'required' => false,
                 'label' => "Longueur"])
-            ->add('typeUsage', TextType::class, [
+            ->add('genreNav', TextType::class, [
                 'required' => false,
                 'label' => "Genre de navigation"])
             ->add('categorieUsageNavire', EntityType::class, [

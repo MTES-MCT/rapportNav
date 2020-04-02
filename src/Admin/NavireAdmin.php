@@ -16,27 +16,27 @@ class NavireAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
             ->add('nom', TextType::class)
-            ->add('immatriculation_fr', TextType::class)
+            ->add('immatriculation', TextType::class)
             ->add('longueurHorsTout', NumberType::class)
-            ->add('typeUsage')
+            ->add('genreNav')
         ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
             ->add('nom')
-            ->add('immatriculation_fr')
+            ->add('immatriculation')
             ->add('longueurHorsTout')
-            ->add('typeUsage')
+            ->add('genreNav')
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
             ->addIdentifier('nom')
-            ->addIdentifier('immatriculation_fr')
+            ->addIdentifier('immatriculation')
             ->addIdentifier('longueurHorsTout')
-            ->addIdentifier('typeUsage')
+            ->addIdentifier('genreNav')
         ;
     }
 

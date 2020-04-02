@@ -7,11 +7,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="ActiviteAdministratifRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ActiviteAdministratifRepository")
  */
 class ActiviteAdministratif extends Activite {
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ControleTache", mappedBy="rapport", orphanRemoval=true,
+     * @ORM\OneToMany(targetEntity="App\Entity\ControleTache", mappedBy="activite", orphanRemoval=true,
      *                                                         cascade={"persist", "remove"})
      */
     private $taches;
@@ -43,7 +43,7 @@ class ActiviteAdministratif extends Activite {
     public function addTache(ControleTache $tache): self {
         if(!$this->taches->contains($tache)) {
             $this->taches[] = $tache;
-            $tache->setRapport($this);
+            $tache->setActivite($this);
         }
 
         return $this;
@@ -53,8 +53,8 @@ class ActiviteAdministratif extends Activite {
         if($this->taches->contains($tache)) {
             $this->taches->removeElement($tache);
             // set the owning side to null (unless already changed)
-            if($tache->getRapport() === $this) {
-                $tache->setRapport(null);
+            if($tache->getActivite() === $this) {
+                $tache->setActivite(null);
             }
         }
 

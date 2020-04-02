@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="ActiviteLoisirRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ActiviteLoisirRepository")
  */
 class ActiviteLoisir extends Activite {
     /**
@@ -19,7 +19,7 @@ class ActiviteLoisir extends Activite {
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ControleLoisir", mappedBy="rapport", orphanRemoval=true,
+     * @ORM\OneToMany(targetEntity="App\Entity\ControleLoisir", mappedBy="activite", orphanRemoval=true,
      *                                                          cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      *
@@ -61,7 +61,7 @@ class ActiviteLoisir extends Activite {
     public function addLoisir(ControleLoisir $loisir): self {
         if(!$this->loisirs->contains($loisir)) {
             $this->loisirs[] = $loisir;
-            $loisir->setRapport($this);
+            $loisir->setActivite($this);
         }
 
         return $this;
@@ -71,8 +71,8 @@ class ActiviteLoisir extends Activite {
         if($this->loisirs->contains($loisir)) {
             $this->loisirs->removeElement($loisir);
             // set the owning side to null (unless already changed)
-            if($loisir->getRapport() === $this) {
-                $loisir->setRapport(null);
+            if($loisir->getActivite() === $this) {
+                $loisir->setActivite(null);
             }
         }
 

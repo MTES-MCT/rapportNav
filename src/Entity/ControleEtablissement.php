@@ -25,7 +25,7 @@ class ControleEtablissement implements JsonSerializable {
      *
      * @Assert\Valid
      */
-    private $rapport;
+    private $activite;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Etablissement", cascade={"persist"})
@@ -108,12 +108,12 @@ class ControleEtablissement implements JsonSerializable {
         return $this;
     }
 
-    public function getRapport(): ?ActiviteCommerce {
-        return $this->rapport;
+    public function getActivite(): ?ActiviteCommerce {
+        return $this->activite;
     }
 
-    public function setRapport(?ActiviteCommerce $rapport): self {
-        $this->rapport = $rapport;
+    public function setActivite(?ActiviteCommerce $activite): self {
+        $this->activite = $activite;
 
         return $this;
     }

@@ -201,14 +201,14 @@ $(document).ready(function() {
                 switch(type) {
                     case 'navire':
                         newControle['navire'] = {
-                            "immatriculationFr": null,
+                            "immatriculation": null,
                             'immatriculationInvalide': false,
                             'erreurApiImmatriculation': false,
                             "etranger": false,
                             "pavillon": "Français",
                             "nom": null,
                             "longueurHorsTout": null,
-                            "typeUsage": null,
+                            "genreNav": null,
                             "CategorieUsageNavire": null,
                             "isDeroutement": false,
                             "deroutement": null,
@@ -285,7 +285,7 @@ $(document).ready(function() {
 
                         currentNavire.nom = "";
                         currentNavire.longueurHorsTout = "";
-                        currentNavire.typeUsage = "";
+                        currentNavire.genreNav = "";
                     })
                     .then(function(data) {
                         currentNavire.nom = data.nomNavire;
@@ -293,9 +293,9 @@ $(document).ready(function() {
                         currentNavire.immatriculationInvalide = false;
                         currentNavire.erreurApiImmatriculation = false;
                         if(!plaisance) {
-                            currentNavire.typeUsage = data.genreNavigation || "Inconnu";
+                            currentNavire.genreNav = data.genreNavigation || "Inconnu";
                         } else {
-                            currentNavire.typeUsage = "Plaisance";
+                            currentNavire.genreNav = "Plaisance";
                         }
                     })
             },

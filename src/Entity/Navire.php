@@ -21,9 +21,8 @@ class Navire implements JsonSerializable {
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      * @Assert\Length(min = 1)
-     * TODO : rename to immatriculation
      */
-    private $immatriculation_fr;
+    private $immatriculation;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -58,7 +57,7 @@ class Navire implements JsonSerializable {
      * @ORM\Column(type="string", length=45, nullable=true)
      * @Assert\Length(min = 1, max = 45)
      */
-    private $typeUsage = "Inconnu";
+    private $genreNav = "Inconnu";
 
     /**
      * @ORM\ManyToOne(targetEntity="CategorieUsageNavire")
@@ -68,12 +67,12 @@ class Navire implements JsonSerializable {
     public function jsonSerialize() {
         return [
             'id' => $this->getId(),
-            'immatriculationFr' => $this->getImmatriculationFr(),
+            'immatriculation' => $this->getImmatriculation(),
             'etranger' => $this->getEtranger(),
             'pavillon' => $this->getPavillon(),
             'nom' => $this->getNom(),
             'longueurHorsTout' => $this->getLongueurHorsTout(),
-            'typeUsage' => $this->getTypeUsage(),
+            'genreNav' => $this->getGenreNav(),
             'categorieUsageNavire' => (null === $this->getCategorieUsageNavire()) ? null : $this->getCategorieUsageNavire()->getId(),
         ];
     }
@@ -82,12 +81,12 @@ class Navire implements JsonSerializable {
         return $this->id;
     }
 
-    public function getImmatriculationFr(): ?string {
-        return $this->immatriculation_fr;
+    public function getImmatriculation(): ?string {
+        return $this->immatriculation;
     }
 
-    public function setImmatriculationFr(string $immatriculation_fr): self {
-        $this->immatriculation_fr = $immatriculation_fr;
+    public function setImmatriculation(string $immatriculation): self {
+        $this->immatriculation = $immatriculation;
 
         return $this;
     }
@@ -122,12 +121,12 @@ class Navire implements JsonSerializable {
         return $this;
     }
 
-    public function getTypeUsage(): ?string {
-        return $this->typeUsage;
+    public function getGenreNav(): ?string {
+        return $this->genreNav;
     }
 
-    public function setTypeUsage(?string $typeUsage): self {
-        $this->typeUsage = $typeUsage;
+    public function setGenreNav(?string $genreNav): self {
+        $this->genreNav = $genreNav;
         return $this;
     }
 

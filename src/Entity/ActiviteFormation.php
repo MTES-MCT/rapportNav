@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="ActiviteFormationRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ActiviteFormationRepository")
  */
 class ActiviteFormation extends Activite {
     /**

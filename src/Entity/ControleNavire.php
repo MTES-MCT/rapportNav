@@ -27,7 +27,7 @@ class ControleNavire implements JsonSerializable {
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
-    private $rapport;
+    private $activite;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Navire", cascade={"persist"})
@@ -173,12 +173,12 @@ class ControleNavire implements JsonSerializable {
         return $this;
     }
 
-    public function getRapport(): ?Activite {
-        return $this->rapport;
+    public function getActivite(): ?Activite {
+        return $this->activite;
     }
 
-    public function setRapport(?Activite $rapport): self {
-        $this->rapport = $rapport;
+    public function setActivite(?Activite $activite): self {
+        $this->activite = $activite;
 
         return $this;
     }

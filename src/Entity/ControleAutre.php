@@ -23,7 +23,7 @@ class ControleAutre implements JsonSerializable {
      * @ORM\ManyToOne(targetEntity="ActiviteAutre", inversedBy="controles")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $rapport;
+    private $activite;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\CategorieControleAutre")
@@ -87,12 +87,12 @@ class ControleAutre implements JsonSerializable {
         return $this->id;
     }
 
-    public function getRapport(): ?ActiviteAutre {
-        return $this->rapport;
+    public function getActivite(): ?ActiviteAutre {
+        return $this->activite;
     }
 
-    public function setRapport(?ActiviteAutre $rapport): self {
-        $this->rapport = $rapport;
+    public function setActivite(?ActiviteAutre $activite): self {
+        $this->activite = $activite;
 
         return $this;
     }

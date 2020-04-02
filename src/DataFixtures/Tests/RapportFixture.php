@@ -31,7 +31,7 @@ class RapportFixture extends Fixture implements DependentFixtureInterface, Fixtu
         $navire->setNom("Titanic")
             ->setCategorieUsageNavire($this->getReference("catNavPro"))
             ->setEtranger(false)
-            ->setImmatriculationFr("123456")
+            ->setImmatriculation("123456")
             ->setPavillon("Français")
         ;
         $controleNavire->setDate(new \DateTimeImmutable("2020-01-05T08:30"))

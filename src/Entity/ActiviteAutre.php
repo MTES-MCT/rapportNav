@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="ActiviteAutreRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ActiviteAutreRepository")
  */
 class ActiviteAutre extends Activite {
     /**
@@ -18,7 +18,7 @@ class ActiviteAutre extends Activite {
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ControleAutre", mappedBy="rapport", orphanRemoval=true,
+     * @ORM\OneToMany(targetEntity="App\Entity\ControleAutre", mappedBy="activite", orphanRemoval=true,
      *                                                         cascade={"persist", "remove"})
      */
     private $controles;
@@ -49,7 +49,7 @@ class ActiviteAutre extends Activite {
     public function addControle(ControleAutre $controle): self {
         if(!$this->controles->contains($controle)) {
             $this->controles[] = $controle;
-            $controle->setRapport($this);
+            $controle->setActivite($this);
         }
 
         return $this;
@@ -59,8 +59,8 @@ class ActiviteAutre extends Activite {
         if($this->controles->contains($controle)) {
             $this->controles->removeElement($controle);
             // set the owning side to null (unless already changed)
-            if($controle->getRapport() === $this) {
-                $controle->setRapport(null);
+            if($controle->getActivite() === $this) {
+                $controle->setActivite(null);
             }
         }
 
