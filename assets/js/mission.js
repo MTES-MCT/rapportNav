@@ -2,7 +2,7 @@ import Vue from "vue";
 import $ from 'jquery';
 import moment from 'moment';
 
-import mission from './missioncomponent';
+import activite from './ActiviteComponent';
 import params from "./params";
 import vSelect from 'vue-select'
 import inputDateTime from "./inputDateTime";
@@ -15,9 +15,9 @@ Vue.component('input-date-time', inputDateTime);
 
 $(document).ready(function() {
     new Vue({
-        el: "#missions",
+        el: "#activites",
         data: {
-            missions: {
+            activites: {
                 navire: {
                     type: "Contrôles de navires",
                     logo: "fas fa-ship",
@@ -104,34 +104,35 @@ $(document).ready(function() {
             errorList: {},
             natinfsOptions: [],
         },
-        components: {mission},
+        components: {activite},
         created: function() {
-            localStorage.setItem('missions', JSON.stringify(this.missions));
+            localStorage.setItem('activites', JSON.stringify(this.activites));
             const path = window.location.pathname;
             const pos = path.search(/draft\/[0-9]*/);
-            let missions = {};
+            let activites = {};
 
             if(-1 !== pos) {
                 //we ar editing a draft
+                //TODO : check old drafts with mission
                 const drafts = JSON.parse(localStorage.getItem("draft"));
                 let index = path.substring(pos + 6);
-                if(undefined === drafts[index].missions.navire ||
-                    undefined === drafts[index].missions.commerce ||
-                    undefined === drafts[index].missions.pechePied ||
-                    undefined === drafts[index].missions.loisir ||
-                    undefined === drafts[index].missions.autre ||
-                    undefined === drafts[index].missions.secours ||
-                    undefined === drafts[index].missions.administratif ||
-                    undefined === drafts[index].missions.formation) {
+                if(undefined === drafts[index].activites.navire ||
+                    undefined === drafts[index].activites.commerce ||
+                    undefined === drafts[index].activites.pechePied ||
+                    undefined === drafts[index].activites.loisir ||
+                    undefined === drafts[index].activites.autre ||
+                    undefined === drafts[index].activites.secours ||
+                    undefined === drafts[index].activites.administratif ||
+                    undefined === drafts[index].activites.formation) {
                     this.error = true;
                     this.errorList["draft"] =
                         ["Les activités du brouillon semblent contenir des erreurs (ou le brouillon ne contenait pas d'activités), "+
                             "il est possible que des éléments n'aient pas été restaurés. "];
                 }
-                missions = drafts[index].missions || {};
+                activites = drafts[index].activites || {};
             } else {
                 // Getting pre-loaded data from server (if any)
-                missions = $('#missions-data').data('content') || {};
+                activites = $('#activites-data').data('content') || {};
             }
 
             //Polyfill for Object.entries for old browsers
@@ -146,27 +147,27 @@ $(document).ready(function() {
                 };
             }
 
-            for(let [index, mission] of Object.entries(missions)) {
-                for(let [property, val] of Object.entries(mission)) {
+            for(let [index, activite] of Object.entries(activites)) {
+                for(let [property, val] of Object.entries(activite)) {
                     if(("controleProSansPv" === property || "controlePlaisanceSansPv" === property) && null === val) {
-                        this.missions[index][property] = {
+                        this.activites[index][property] = {
                             nombreControle: 0,
                             nombreControleAireProtegee: 0,
                             nombreControleChlordeconeTotale: 0,
                             nombreControleChlordeconePartiel: 0,
                         };
                     } if (("controleSansPv" === property) && null === val) {
-                        this.missions[index][property] = {
+                        this.activites[index][property] = {
                             nombreControle: 0,
                             nombreControleAireProtegee: 0,
                             controles: []
                         };
                     } else {
-                        this.missions[index][property] = val;
+                        this.activites[index][property] = val;
                     }
                 }
                 if(-1 === pos) {
-                    this.missions[index].active = true;
+                    this.activites[index].active = true;
                 }
             }
             const rapport = $('#rapport-data').data('content') || {};
@@ -178,15 +179,15 @@ $(document).ready(function() {
             }
         },
         methods: {
-            deleteMission: function(index) {
-                this.missions[index].active = false;
-                this.missions[index].zones = [];
-                if(undefined !== this.missions[index].controles) {
-                    this.missions[index].controles = [];
+            deleteactivite: function(index) {
+                this.activites[index].active = false;
+                this.activites[index].zones = [];
+                if(undefined !== this.activites[index].controles) {
+                    this.activites[index].controles = [];
                 }
             },
-            addMission: function(index) {
-                this.missions[index].active = true;
+            addactivite: function(index) {
+                this.activites[index].active = true;
             },
             addControle: function(type) {
                 let newControle = {
@@ -217,8 +218,8 @@ $(document).ready(function() {
                         newControle['showDetail'] = false;
                         newControle['aireProtegee'] = false;
                         newControle['date'] = now.format("YYYY-MM-DD HH:mm");
-                        const nbControles = this.missions['navire'].controles.length;
-                        newControle['terrestre'] = nbControles > 0 ? this.missions['navire'].controles[nbControles - 1].terrestre : true;
+                        const nbControles = this.activites['navire'].controles.length;
+                        newControle['terrestre'] = nbControles > 0 ? this.activites['navire'].controles[nbControles - 1].terrestre : true;
                         newControle['lat'] = null;
                         newControle['long'] = null;
                         break;
@@ -253,16 +254,16 @@ $(document).ready(function() {
                         break;
                 }
 
-                this.missions[type].controles.push(newControle);
+                this.activites[type].controles.push(newControle);
             },
             getTagName: function(type, index, name) {
-                return "mission_" + type + "_" + type + "s_" + index + "_" + name;
+                return "activite_" + type + "_" + type + "s_" + index + "_" + name;
             },
             removeControle: function(type, index) {
-                this.missions[type].controles.splice(index, 1);
+                this.activites[type].controles.splice(index, 1);
             },
             getNavireData: function(index) {
-                let currentNavire = this.missions['navire'].controles[index].navire, plaisance = false;
+                let currentNavire = this.activites['navire'].controles[index].navire, plaisance = false;
                 const input = this.$refs.controle_navire_immatriculation[index];
                 currentNavire.immatriculationInvalide = false;
                 currentNavire.erreurApiImmatriculation = false;
@@ -313,7 +314,7 @@ $(document).ready(function() {
                 ;
             },
             toggleEtranger: function(index) {
-                let currentNavire = this.missions['navire'].controles[index].navire;
+                let currentNavire = this.activites['navire'].controles[index].navire;
                 if(currentNavire.etranger) {
                     currentNavire.pavillon = "";
                 } else {
@@ -323,45 +324,45 @@ $(document).ready(function() {
             },
             updateBateaux: function($event, index) {
                 if(undefined !== $event.target.options[$event.target.selectedIndex].dataset.complement) {
-                    this.missions['commerce'].controles[index].bateauxControles = 0;
+                    this.activites['commerce'].controles[index].bateauxControles = 0;
                 } else {
-                    this.missions['commerce'].controles[index].bateauxControles = null;
+                    this.activites['commerce'].controles[index].bateauxControles = null;
                 }
             },
             updateAdministratif: function($event, index) {
                 if(undefined !== $event.target.options[$event.target.selectedIndex].dataset.complement) {
-                    this.missions['administratif'].controles[index].nombreDossiers = 0;
+                    this.activites['administratif'].controles[index].nombreDossiers = 0;
                 } else {
-                    this.missions['administratif'].controles[index].nombreDossiers = null;
+                    this.activites['administratif'].controles[index].nombreDossiers = null;
                 }
             },
             updateAutre: function($event, index) {
                 if(undefined === $event.target.options[$event.target.selectedIndex].dataset.complement) {
-                    this.missions['autre'].controles[index].nombreChlordecone = null;
-                    this.missions['autre'].controles[index].nombreDetruit = null;
+                    this.activites['autre'].controles[index].nombreChlordecone = null;
+                    this.activites['autre'].controles[index].nombreDetruit = null;
                 } else if("chlordecone" === $event.target.options[$event.target.selectedIndex].dataset.complement) {
-                    this.missions['autre'].controles[index].nombreDetruit = null;
-                    this.missions['autre'].controles[index].nombreChlordecone = 0;
+                    this.activites['autre'].controles[index].nombreDetruit = null;
+                    this.activites['autre'].controles[index].nombreChlordecone = 0;
                 } else if("detruit" === $event.target.options[$event.target.selectedIndex].dataset.complement) {
-                    this.missions['autre'].controles[index].nombreDetruit = 0;
-                    this.missions['autre'].controles[index].nombreChlordecone = null;
+                    this.activites['autre'].controles[index].nombreDetruit = 0;
+                    this.activites['autre'].controles[index].nombreChlordecone = null;
                 }
             },
             updateDeroutement: function($event, index) {
-                if(this.missions['navire'].controles[index].isDeroutement) {
+                if(this.activites['navire'].controles[index].isDeroutement) {
 
                 } else {
-                    this.missions['navire'].controles[index].deroutement = null;
+                    this.activites['navire'].controles[index].deroutement = null;
                 }
             },
             toggleCheckAutre: function($event, index) {
-                this.missions['navire'].controles[index].showDetail = !!$event.target.checked;
+                this.activites['navire'].controles[index].showDetail = !!$event.target.checked;
             },
             toggleSelectAutre: function(subject, $event, index) {
-                this.missions[subject].controles[index].showDetail = "Autre" === $event.target.options[$event.target.selectedIndex].innerText;
+                this.activites[subject].controles[index].showDetail = "Autre" === $event.target.options[$event.target.selectedIndex].innerText;
             },
             localSave: function() {
-                localStorage.setItem('missions', JSON.stringify(this.missions))
+                localStorage.setItem('activites', JSON.stringify(this.activites))
             },
             validate: function() {
                 let isValid = document.getElementById("rapport").checkValidity();
@@ -370,7 +371,7 @@ $(document).ready(function() {
                 if(!isValid) {
                     this.error = true;
                     let invalidList = $("*:invalid");
-                    for(let type in this.missions) {
+                    for(let type in this.activites) {
                         let i = 0;
                         let patt = new RegExp(camelToSnake(type), "i");
                         for(let index = 0; index < invalidList.length; index++) {

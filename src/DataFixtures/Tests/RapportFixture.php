@@ -5,7 +5,7 @@ namespace App\DataFixtures\Tests;
 
 
 use App\Entity\ControleNavire;
-use App\Entity\MissionNavire;
+use App\Entity\ActiviteNavire;
 use App\Entity\Navire;
 use App\Entity\Rapport;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -24,7 +24,7 @@ class RapportFixture extends Fixture implements DependentFixtureInterface, Fixtu
             ->addAgent($this->getReference("agent1"))
             ->setVersion(1)
         ;
-        $missionNavire = new MissionNavire();
+        $activiteNavire = new ActiviteNavire();
         $controleNavire = new ControleNavire();
         $navire = new Navire();
 
@@ -40,8 +40,8 @@ class RapportFixture extends Fixture implements DependentFixtureInterface, Fixtu
             ->setTerrestre(false)
             ;
 
-        $missionNavire->addNavire($controleNavire);
-        $rapport->addMission($missionNavire);
+        $activiteNavire->addNavire($controleNavire);
+        $rapport->addActivite($activiteNavire);
 
         $manager->persist($rapport);
         $this->addReference("rapportNavPro", $rapport);

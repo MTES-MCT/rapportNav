@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Mission;
+use App\Entity\Activite;
 use App\Entity\ZoneGeographique;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MissionType extends AbstractType {
+class ActiviteType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $service = $options['service'];
         $builder
@@ -37,7 +37,7 @@ class MissionType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => Mission::class,
+            'data_class' => Activite::class,
             'service' => "",
         ]);
     }

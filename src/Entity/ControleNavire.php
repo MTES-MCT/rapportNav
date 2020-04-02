@@ -23,7 +23,7 @@ class ControleNavire implements JsonSerializable {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="MissionNavire", inversedBy="navires")
+     * @ORM\ManyToOne(targetEntity="ActiviteNavire", inversedBy="navires")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
@@ -173,11 +173,11 @@ class ControleNavire implements JsonSerializable {
         return $this;
     }
 
-    public function getRapport(): ?Mission {
+    public function getRapport(): ?Activite {
         return $this->rapport;
     }
 
-    public function setRapport(?Mission $rapport): self {
+    public function setRapport(?Activite $rapport): self {
         $this->rapport = $rapport;
 
         return $this;

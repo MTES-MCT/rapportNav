@@ -18,7 +18,7 @@ class ControleTache implements JsonSerializable {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\MissionAdministratif", inversedBy="taches")
+     * @ORM\ManyToOne(targetEntity="ActiviteAdministratif", inversedBy="taches")
      * @ORM\JoinColumn(nullable=false)
      */
     private $rapport;
@@ -75,11 +75,11 @@ class ControleTache implements JsonSerializable {
         return $this;
     }
 
-    public function getRapport(): ?MissionAdministratif {
+    public function getRapport(): ?ActiviteAdministratif {
         return $this->rapport;
     }
 
-    public function setRapport(?MissionAdministratif $rapport): self {
+    public function setRapport(?ActiviteAdministratif $rapport): self {
         $this->rapport = $rapport;
 
         return $this;

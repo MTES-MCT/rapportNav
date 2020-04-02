@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MissionAutreRepository")
+ * @ORM\Entity(repositoryClass="ActiviteAutreRepository")
  */
-class MissionAutre extends Mission {
+class ActiviteAutre extends Activite {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

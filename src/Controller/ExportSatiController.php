@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ControleNavire;
-use App\Entity\MissionNavire;
+use App\Entity\ActiviteNavire;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,11 +45,11 @@ class ExportSatiController extends AbstractController {
         }
 
         $export = [];
-        foreach($rapport->getMissions() as $mission) {
-            if(!$mission || MissionNavire::class !== get_class($mission)) {
+        foreach($rapport->getActivites() as $activite) {
+            if(!$activite || ActiviteNavire::class !== get_class($activite)) {
                 continue 1;
             }
-            foreach($mission->getControles() as $controleNavire) {
+            foreach($activite->getControles() as $controleNavire) {
                 /** @var ControleNavire $controleNavire */
                 if($idCatPechePro === $controleNavire->getNavire()->getCategorieUsageNavire()->getId() &&
                     false === $controleNavire->getTerrestre()) {

@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MissionAdministratifRepository")
+ * @ORM\Entity(repositoryClass="ActiviteAdministratifRepository")
  */
-class MissionAdministratif extends Mission {
+class ActiviteAdministratif extends Activite {
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ControleTache", mappedBy="rapport", orphanRemoval=true,
      *                                                         cascade={"persist", "remove"})

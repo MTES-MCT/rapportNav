@@ -51,7 +51,7 @@ class RapportType extends AbstractType {
                 'label' => "Fin de mission"])
             ->add('arme', CheckboxType::class, [
                 'required' => false,
-                'label' => "Mission armée"])
+                'label' => "Activite armée"])
             ->add("moyens", CollectionType::class, [
                 'entry_type' => RapportMoyenType::class,
                 'entry_options' => ['service' => $service],
@@ -63,7 +63,7 @@ class RapportType extends AbstractType {
             ])
             ->add('conjointe', CheckboxType::class, [
                 'required' => false,
-                'label' => "Mission conjointe (avec un autre service)"
+                'label' => "Activite conjointe (avec un autre service)"
             ])
             ->add('serviceConjoints', EntityType::class, [
                 'required' => false,
@@ -88,8 +88,8 @@ class RapportType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Agents de la mission"])
-            ->add('missions', CollectionType::class, [
-                'entry_type' => MissionType::class,
+            ->add('activites', CollectionType::class, [
+                'entry_type' => ActiviteType::class,
                 'entry_options' => ['service' => $service],
                 'allow_add' => true,
                 'allow_delete' => true,

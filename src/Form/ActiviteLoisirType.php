@@ -2,12 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\MissionLoisir;
+use App\Entity\ActiviteLoisir;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MissionLoisirType extends MissionType {
+class ActiviteLoisirType extends ActiviteType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     parent::buildForm($builder, $options);
 
@@ -24,7 +24,7 @@ class MissionLoisirType extends MissionType {
 
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults([
-        'data_class' => MissionLoisir::class,
+        'data_class' => ActiviteLoisir::class,
         'service' => "",
     ]);
   }

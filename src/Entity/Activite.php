@@ -7,28 +7,28 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MissionRepository")
+ * @ORM\Entity(repositoryClass="App\REpository\ActiviteRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
- *     "navire" = "MissionNavire",
- *     "commerce" = "MissionCommerce",
- *     "pecheapied" = "MissionPechePied",
- *     "loisir" = "MissionLoisir",
- *     "autre" = "MissionAutre",
- *     "administratif" = "MissionAdministratif",
- *     "formation" = "MissionFormation"
+ *     "navire" = "ActiviteNavire",
+ *     "commerce" = "ActiviteCommerce",
+ *     "pecheapied" = "ActivitePechePied",
+ *     "loisir" = "ActiviteLoisir",
+ *     "autre" = "ActiviteAutre",
+ *     "administratif" = "ActiviteAdministratif",
+ *     "formation" = "ActiviteFormation"
  *     })
  */
-abstract class Mission implements \JsonSerializable {
+abstract class Activite implements \JsonSerializable {
     public const RAPPORTTYPES = [
-        "navire" => "MissionNavire",
-        "commerce" => "MissionCommerce",
-        "pecheapied" => "MissionPechePied",
-        "loisir" => "MissionLoisir",
-        "autre" => "MissionAutre",
-        "administratif" => "MissionAdministratif",
-        "formation" => "MissionFormation"];
+        "navire" => "ActiviteNavire",
+        "commerce" => "ActiviteCommerce",
+        "pecheapied" => "ActivitePechePied",
+        "loisir" => "ActiviteLoisir",
+        "autre" => "ActiviteAutre",
+        "administratif" => "ActiviteAdministratif",
+        "formation" => "ActiviteFormation"];
 
     /**
      * @ORM\Id()
@@ -38,7 +38,7 @@ abstract class Mission implements \JsonSerializable {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Rapport", inversedBy="missions")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Rapport", inversedBy="activites")
      * @ORM\JoinColumn(nullable=false)
      */
     private $rapport;

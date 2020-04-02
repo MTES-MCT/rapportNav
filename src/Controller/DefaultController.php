@@ -6,13 +6,13 @@ use App\Entity\Rapport;
 use App\Entity\RapportRepartitionHeures;
 use App\Entity\Service;
 use App\Entity\User;
-use App\Form\MissionAdministratifType;
-use App\Form\MissionAutreType;
-use App\Form\MissionCommerceType;
-use App\Form\MissionFormationType;
-use App\Form\MissionLoisirType;
-use App\Form\MissionNavireType;
-use App\Form\MissionPechePiedType;
+use App\Form\ActiviteAdministratifType;
+use App\Form\ActiviteAutreType;
+use App\Form\ActiviteCommerceType;
+use App\Form\ActiviteFormationType;
+use App\Form\ActiviteLoisirType;
+use App\Form\ActiviteNavireType;
+use App\Form\ActivitePechePiedType;
 use App\Form\RapportType;
 use App\Helper\TimeConvert;
 use DateTime;
@@ -35,11 +35,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController {
 
-    private $typeRapportToClass = ['controle_a_bord' => "MissionNavire",
-        'filiere_commercialisation' => "MissionCommerce",
-        'administratif' => "MissionAdministratif",
-        "formation" => "MissionFormation",
-        "peche_a_pied" => "MissionPechePied",
+    private $typeRapportToClass = ['controle_a_bord' => "ActiviteNavire",
+        'filiere_commercialisation' => "ActiviteCommerce",
+        'administratif' => "ActiviteAdministratif",
+        "formation" => "ActiviteFormation",
+        "peche_a_pied" => "ActivitePechePied",
     ];
 
     /**
@@ -61,7 +61,7 @@ class DefaultController extends AbstractController {
         /** @var Rapport $rapport */
         $rapport = new Rapport();
         $rapportData = ['error' => false];
-        $currentMissions = [];
+        $currentActivites = [];
         /** @var User $user */
         $user = $this->getUser();
 
@@ -79,23 +79,23 @@ class DefaultController extends AbstractController {
 
         $form = $this->createForm(RapportType::class, $rapport, ['service' => $service]);
 
-        $forms['navire'] = $this->createForm(MissionNavireType::class, null, ['service' => $service]);
-        $forms['commerce'] = $this->createForm(MissionCommerceType::class, null, ['service' => $service]);
-        $forms['pechePied'] = $this->createForm(MissionPechePiedType::class, null, ['service' => $service]);
-        $forms['loisir'] = $this->createForm(MissionLoisirType::class, null, ['service' => $service]);
-        $forms['autre'] = $this->createForm(MissionAutreType::class, null, ['service' => $service]);
-        $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $service]);
-        $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
+        $forms['navire'] = $this->createForm(ActiviteNavireType::class, null, ['service' => $service]);
+        $forms['commerce'] = $this->createForm(ActiviteCommerceType::class, null, ['service' => $service]);
+        $forms['pechePied'] = $this->createForm(ActivitePechePiedType::class, null, ['service' => $service]);
+        $forms['loisir'] = $this->createForm(ActiviteLoisirType::class, null, ['service' => $service]);
+        $forms['autre'] = $this->createForm(ActiviteAutreType::class, null, ['service' => $service]);
+        $forms['administratif'] = $this->createForm(ActiviteAdministratifType::class, null, ['service' => $service]);
+        $forms['formation'] = $this->createForm(ActiviteFormationType::class, null, ['service' => $service]);
 
         $form->handleRequest($request);
         foreach($forms as $name => $subForm) {
             /** @var FormInterface $subForm */
             $subForm->handleRequest($request);
             if($subForm->getData()) {
-                $currentMissions[$name] = $subForm->getData();
+                $currentActivites[$name] = $subForm->getData();
             }
             if($subForm->isSubmitted() && $subForm->isValid()) {
-                $rapport->addMission($subForm->getData());
+                $rapport->addActivite($subForm->getData());
             } elseif($subForm->isSubmitted()) {
                 $rapportData['error'] = true;
                 foreach($subForm->getErrors(true) as $error) {
@@ -132,7 +132,7 @@ class DefaultController extends AbstractController {
             'formAutre' => $forms['autre']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
-            'missions' => $currentMissions,
+            'activites' => $currentActivites,
             'rapport' => $rapportData,
         ]);
     }
@@ -157,21 +157,21 @@ class DefaultController extends AbstractController {
             throw $this->createNotFoundException("Rapport non trouvé pour ce service");
         }
 
-        $currentMissions = [];
+        $currentActivites = [];
         $rapportData = ['error' => false];
 
-        $forms['navire'] = $this->createForm(MissionNavireType::class, null, ['service' => $service]);
-        $forms['commerce'] = $this->createForm(MissionCommerceType::class, null, ['service' => $service]);
-        $forms['pechePied'] = $this->createForm(MissionPechePiedType::class, null, ['service' => $service]);
-        $forms['loisir'] = $this->createForm(MissionLoisirType::class, null, ['service' => $service]);
-        $forms['autre'] = $this->createForm(MissionAutreType::class, null, ['service' => $service]);
-        $forms['administratif'] = $this->createForm(MissionAdministratifType::class, null, ['service' => $service]);
-        $forms['formation'] = $this->createForm(MissionFormationType::class, null, ['service' => $service]);
+        $forms['navire'] = $this->createForm(ActiviteNavireType::class, null, ['service' => $service]);
+        $forms['commerce'] = $this->createForm(ActiviteCommerceType::class, null, ['service' => $service]);
+        $forms['pechePied'] = $this->createForm(ActivitePechePiedType::class, null, ['service' => $service]);
+        $forms['loisir'] = $this->createForm(ActiviteLoisirType::class, null, ['service' => $service]);
+        $forms['autre'] = $this->createForm(ActiviteAutreType::class, null, ['service' => $service]);
+        $forms['administratif'] = $this->createForm(ActiviteAdministratifType::class, null, ['service' => $service]);
+        $forms['formation'] = $this->createForm(ActiviteFormationType::class, null, ['service' => $service]);
 
-        foreach($rapport->getMissions() as $mission) {
-            if($mission) {
-                $nbChar = strlen("App\\Entity\\Mission");
-                $currentMissions[lcfirst(mb_substr(get_class($mission), $nbChar))] = $mission;
+        foreach($rapport->getActivites() as $activite) {
+            if($activite) {
+                $nbChar = strlen("App\\Entity\\Activite");
+                $currentActivites[lcfirst(mb_substr(get_class($activite), $nbChar))] = $activite;
             }
         }
 
@@ -186,10 +186,10 @@ class DefaultController extends AbstractController {
             /** @var FormInterface $subForm */
             $subForm->handleRequest($request);
             if($subForm->getData()) {
-                $currentMissions[$name] = $subForm->getData();
+                $currentActivites[$name] = $subForm->getData();
             }
             if($subForm->isSubmitted() && $subForm->isValid()) {
-                $rapport->addMission($subForm->getData());
+                $rapport->addActivite($subForm->getData());
             } elseif($subForm->isSubmitted()) {
                 $rapportData['error'] = true;
                 foreach($subForm->getErrors(true) as $error) {
@@ -223,7 +223,7 @@ class DefaultController extends AbstractController {
             'formAutre' => $forms['autre']->createView(),
             'formAdministratif' => $forms['administratif']->createView(),
             'formFormation' => $forms['formation']->createView(),
-            'missions' => $currentMissions,
+            'activites' => $currentActivites,
             'rapport' => $rapportData,
         ]);
     }

@@ -155,7 +155,7 @@
     </div>
 
     {% block body_main_container_rapport_objects %}
-        <div id="missions">
+        <div id="activites">
             <h2>Activité(s) réalisée(s)</h2>
             <ul class="no-decoration form__errors">
                 <li v-for="(list, errorInfo) in errorList">
@@ -170,57 +170,57 @@
                 </li>
             </ul>
             <ul class="no-decoration" data-prototype=''>
-                <li v-for="(mission, index) in missions">
-                    <mission v-bind:mission="mission" v-bind:index="index"></mission>
+                <li v-for="(activite, index) in activites">
+                    <activite v-bind:activite="activite" v-bind:index="index"></activite>
                 </li>
                 <li>
-                    <a id="add-mission" class="button" href="#modal">
+                    <a id="add-activite" class="button" href="#modal">
                         <i class="fas fa-plus-circle"></i>
                         Ajouter une activité
                     </a>
                 </li>
             </ul>
-            {% do form.missions.setRendered %}
+            {% do form.activites.setRendered %}
 
 
 
-            {% include 'missionTypeChoiceModal.html.twig' with {
-                'prototype': form.missions.vars.prototype,
+            {% include 'activiteTypeChoiceModal.html.twig' with {
+                'prototype': form.activites.vars.prototype,
                 'navire': formNavire,
             } %}
-            <div class="modal__backdrop" id="modal-navire" style="z-index: 999;" v-if="missions['navire'].active">
+            <div class="modal__backdrop" id="modal-navire" style="z-index: 999;" v-if="activites['navire'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formNavire, 'type': "navire"} %}
+                    {% include 'activiteModal.html.twig' with {'prototype': formNavire, 'type': "navire"} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-commerce" style="z-index: 999;" v-if="missions['commerce'].active">
+            <div class="modal__backdrop" id="modal-commerce" style="z-index: 999;" v-if="activites['commerce'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formCommerce, 'type': "commerce"} %}
+                    {% include 'activiteModal.html.twig' with {'prototype': formCommerce, 'type': "commerce"} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-pechePied" style="z-index: 999;" v-if="missions['pechePied'].active">
+            <div class="modal__backdrop" id="modal-pechePied" style="z-index: 999;" v-if="activites['pechePied'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formPechePied, 'type': "pechePied"} %}
+                    {% include 'activiteModal.html.twig' with {'prototype': formPechePied, 'type': "pechePied"} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-loisir" style="z-index: 999;" v-if="missions['loisir'].active">
+            <div class="modal__backdrop" id="modal-loisir" style="z-index: 999;" v-if="activites['loisir'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formLoisir, 'type': "loisir"} %}
+                    {% include 'activiteModal.html.twig' with {'prototype': formLoisir, 'type': "loisir"} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-autre" style="z-index: 999;" v-if="missions['autre'].active">
+            <div class="modal__backdrop" id="modal-autre" style="z-index: 999;" v-if="activites['autre'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formAutre, 'type': "autre"} %}
+                    {% include 'activiteModal.html.twig' with {'prototype': formAutre, 'type': "autre"} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-administratif" style="z-index: 999;" v-if="missions['administratif'].active">
+            <div class="modal__backdrop" id="modal-administratif" style="z-index: 999;" v-if="activites['administratif'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formAdministratif, 'type': "administratif"} %}
+                    {% include 'activiteModal.html.twig' with {'prototype': formAdministratif, 'type': "administratif"} %}
                 </div>
             </div>
-            <div class="modal__backdrop" id="modal-formation" style="z-index: 999;" v-if="missions['formation'].active">
+            <div class="modal__backdrop" id="modal-formation" style="z-index: 999;" v-if="activites['formation'].active">
                 <div class="modal" style="max-width: 85%;max-height: 90vh; overflow: scroll;">
-                    {% include 'missionModal.html.twig' with {'prototype': formFormation, 'type': "formation"} %}
+                    {% include 'activiteModal.html.twig' with {'prototype': formFormation, 'type': "formation"} %}
                 </div>
             </div>
         </div>
@@ -297,8 +297,8 @@
     {% if data is defined %}
         <span id="draft-data" style="display: none" data-content="{{ data }}"></span>
     {% endif %}
-    {% if missions is defined %}
-        <span id="missions-data" style="display: none" data-content="{{ missions | json_encode }}"></span>
+    {% if activites is defined %}
+        <span id="activites-data" style="display: none" data-content="{{ activites | json_encode }}"></span>
     {% endif %}
     {% if rapport is defined %}
         <span id="rapport-data" style="display: none" data-content="{{ rapport | json_encode }}"></span>

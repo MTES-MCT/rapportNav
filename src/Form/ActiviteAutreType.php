@@ -2,19 +2,17 @@
 
 namespace App\Form;
 
-use App\Entity\MissionCommerce;
-use App\Entity\Rapport;
+use App\Entity\ActiviteAutre;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MissionCommerceType extends MissionType {
+class ActiviteAutreType extends ActiviteType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
-
         $builder
-            ->add('etablissements', CollectionType::class, [
-                'entry_type' => ControleEtablissementType::class,
+            ->add('controles', CollectionType::class, [
+                'entry_type' => ControleAutreType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -25,7 +23,7 @@ class MissionCommerceType extends MissionType {
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => MissionCommerce::class,
+            'data_class' => ActiviteAutre::class,
             'service' => "",
         ]);
     }

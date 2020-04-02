@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Repository;
+
+use App\Entity\ActiviteAdministratif;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
+/**
+ * @method ActiviteAdministratif|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ActiviteAdministratif|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ActiviteAdministratif[]    findAll()
+ * @method ActiviteAdministratif[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class ActiviteAdministratifRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
+        parent::__construct($registry, ActiviteAdministratif::class);
+    }
+}

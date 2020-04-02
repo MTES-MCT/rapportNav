@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MissionLoisirRepository")
+ * @ORM\Entity(repositoryClass="ActiviteLoisirRepository")
  */
-class MissionLoisir extends Mission {
+class ActiviteLoisir extends Activite {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

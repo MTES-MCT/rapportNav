@@ -25,7 +25,7 @@ class ControleLoisir implements JsonSerializable {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\MissionLoisir", inversedBy="loisirs")
+     * @ORM\ManyToOne(targetEntity="ActiviteLoisir", inversedBy="loisirs")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $rapport;
@@ -116,11 +116,11 @@ class ControleLoisir implements JsonSerializable {
         return $this;
     }
 
-    public function getRapport(): ?MissionLoisir {
+    public function getRapport(): ?ActiviteLoisir {
         return $this->rapport;
     }
 
-    public function setRapport(?MissionLoisir $rapport): self {
+    public function setRapport(?ActiviteLoisir $rapport): self {
         $this->rapport = $rapport;
 
         return $this;

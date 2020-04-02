@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MissionNavireRepository")
+ * @ORM\Entity(repositoryClass="ActiviteNavireRepository")
  */
-class MissionNavire extends Mission {
+class ActiviteNavire extends Activite {
     /**
      * @ORM\OneToMany(targetEntity="ControleNavire", mappedBy="rapport", cascade={"persist", "remove"},
      *                                               orphanRemoval=true)

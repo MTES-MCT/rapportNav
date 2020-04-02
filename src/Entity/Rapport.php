@@ -69,10 +69,10 @@ class Rapport {
     private $moyens;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Mission", mappedBy="rapport", orphanRemoval=true,
+     * @ORM\OneToMany(targetEntity="Activite", mappedBy="rapport", orphanRemoval=true,
      *                                                   cascade={"persist", "remove"})
      */
-    private $missions;
+    private $activites;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\RapportRepartitionHeures", mappedBy="rapport", cascade={"persist",
@@ -102,7 +102,7 @@ class Rapport {
     public function __construct() {
         $this->agents = new ArrayCollection();
         $this->moyens = new ArrayCollection();
-        $this->missions = new ArrayCollection();
+        $this->activites = new ArrayCollection();
         $this->serviceConjoints = new ArrayCollection();
     }
 
@@ -208,27 +208,27 @@ class Rapport {
     }
 
     /**
-     * @return Collection|Mission[]
+     * @return Collection|Activite[]
      */
-    public function getMissions(): Collection {
-        return $this->missions;
+    public function getActivites(): Collection {
+        return $this->activites;
     }
 
-    public function addMission(Mission $mission): self {
-        if(!$this->missions->contains($mission)) {
-            $this->missions[] = $mission;
-            $mission->setRapport($this);
+    public function addActivite(Activite $activite): self {
+        if(!$this->activites->contains($activite)) {
+            $this->activites[] = $activite;
+            $activite->setRapport($this);
         }
 
         return $this;
     }
 
-    public function removeMission(Mission $mission): self {
-        if($this->missions->contains($mission)) {
-            $this->missions->removeElement($mission);
+    public function removeActivite(Activite $activite): self {
+        if($this->activites->contains($activite)) {
+            $this->activites->removeElement($activite);
             // set the owning side to null (unless already changed)
-            if($mission->getRapport() === $this) {
-                $mission->setRapport(null);
+            if($activite->getRapport() === $this) {
+                $activite->setRapport(null);
             }
         }
 
