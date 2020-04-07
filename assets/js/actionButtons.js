@@ -72,7 +72,7 @@ $(document).ready(function() {
             data = {
               'metadata': newMetadata,
               'rapport': rapport,
-              'missions': (JSON.parse(localStorage.getItem('missions')) || {}),
+              'activites': (JSON.parse(localStorage.getItem('activites')) || {}),
               'timeDivision': (JSON.parse(localStorage.getItem('timeDivision')) || {}),
             };
 

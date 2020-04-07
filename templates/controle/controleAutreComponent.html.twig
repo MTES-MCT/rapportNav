@@ -1,5 +1,5 @@
 <ul class="autres no-decoration" id="autres">
-    <li :class="index % 2 ? 'autre' : 'section-grey autre'" v-for="(controle, index) in missions['autre'].controles"
+    <li :class="index % 2 ? 'autre' : 'section-grey autre'" v-for="(controle, index) in activites['autre'].controles"
         style="padding: 15px 15px 0 15px;">
         <div class="row">
             <div class="form__group">
@@ -8,8 +8,8 @@
                 {{ form_widget(form.controles.vars.prototype.controle, {'attr': {
                     'v-model': "controle.controle",
                     'v-on:change': "updateAutre($event,index)",
-                    'v-bind:name': "'mission_autre[controles]['+index+'][controle]'",
-                    'v-bind:id': "'mission_autre_controles_'+index+'_controle'"}}) }}
+                    'v-bind:name': "'activite_autre[controles]['+index+'][controle]'",
+                    'v-bind:id': "'activite_autre_controles_'+index+'_controle'"}}) }}
             </div>
             <div>
                 <div class="form__group">
@@ -17,16 +17,16 @@
                     {{ form_errors(form.controles.vars.prototype.nombreControle) }}
                     {{ form_widget(form.controles.vars.prototype.nombreControle, {'attr': {
                         'v-model': "controle.nombreControle",
-                        'v-bind:name': "'mission_autre[controles]['+index+'][nombreControle]'",
-                        'v-bind:id': "'mission_autre_controles_'+index+'_nombreControle'"}}) }}
+                        'v-bind:name': "'activite_autre[controles]['+index+'][nombreControle]'",
+                        'v-bind:id': "'activite_autre_controles_'+index+'_nombreControle'"}}) }}
                 </div>
                 <div class="form__group" v-show="null !== controle.nombreChlordecone">
                     {{ form_label(form.controles.vars.prototype.nombreChlordecone) }}
                     {{ form_errors(form.controles.vars.prototype.nombreChlordecone) }}
                     {{ form_widget(form.controles.vars.prototype.nombreChlordecone, {'attr': {
                         'v-model': "controle.nombreChlordecone",
-                        'v-bind:name': "'mission_autre[controles]['+index+'][nombreChlordecone]'",
-                        'v-bind:id': "'mission_autre_controles_'+index+'_nombreChlordecone'"}}) }}
+                        'v-bind:name': "'activite_autre[controles]['+index+'][nombreChlordecone]'",
+                        'v-bind:id': "'activite_autre_controles_'+index+'_nombreChlordecone'"}}) }}
                 </div>
             </div>
             <div class="form__group">
@@ -35,8 +35,8 @@
                 {{ form_widget(form.controles.vars.prototype.nombrePv, {'attr': {
                     'v-model': "controle.nombrePv",
                     'v-on:input': "val => {controle.pv = (val > 0);}",
-                    'v-bind:name': "'mission_autre[controles]['+index+'][nombrePv]'",
-                    'v-bind:id': "'mission_autre_controles_'+index+'_nombrePv'"}}) }}
+                    'v-bind:name': "'activite_autre[controles]['+index+'][nombrePv]'",
+                    'v-bind:id': "'activite_autre_controles_'+index+'_nombrePv'"}}) }}
                 <input type="hidden" v-model="controle.pv"/>
             </div>
             <div class="form__group" v-show="null !== controle.nombreDetruit">
@@ -44,16 +44,16 @@
                 {{ form_errors(form.controles.vars.prototype.nombreDetruit) }}
                 {{ form_widget(form.controles.vars.prototype.nombreDetruit, {'attr': {
                     'v-model': "controle.nombreDetruit",
-                    'v-bind:name': "'mission_autre[controles]['+index+'][nombreDetruit]'",
-                    'v-bind:id': "'mission_autre_controles_'+index+'_nombreDetruit'"}}) }}
+                    'v-bind:name': "'activite_autre[controles]['+index+'][nombreDetruit]'",
+                    'v-bind:id': "'activite_autre_controles_'+index+'_nombreDetruit'"}}) }}
             </div>
         </div>
         <div class="row">
             <div class="form__group horizontal__form">
                 {{ form_label(form.controles.vars.prototype.natinfs) }}
                 <select multiple
-                        v-bind:name="'mission_autre[controles]['+index+'][natinfs][]'"
-                        v-bind:id="'mission_autre_controles_'+index+'_natinfs'"
+                        v-bind:name="'activite_autre[controles]['+index+'][natinfs][]'"
+                        v-bind:id="'activite_autre_controles_'+index+'_natinfs'"
                         v-model="controle.natinfs"
                         style="display:none;">
                     <option v-for="option in controle.natinfs" :value="option" v-html="option">
@@ -75,8 +75,8 @@
             {{ form_errors(form.controles.vars.prototype.commentaire) }}
             {{ form_widget(form.controles.vars.prototype.commentaire, {'attr': {
                 'v-model': "controle.commentaire",
-                'v-bind:name': "'mission_autre[controles]['+index+'][commentaire]'",
-                'v-bind:id': "'mission_autre_controles_'+index+'_commentaire'"}}) }}
+                'v-bind:name': "'activite_autre[controles]['+index+'][commentaire]'",
+                'v-bind:id': "'activite_autre_controles_'+index+'_commentaire'"}}) }}
         </div>
         <div style="display: flex; justify-content: flex-end">
             <button type="button" class="button warning" @click="removeControle('autre', index)">

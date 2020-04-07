@@ -3,12 +3,12 @@
 <div class="row">
     <div class="form__group">
         {{ form_label(form.controleSansPv.nombreControle, null, {'label_attr': {'class': "label-inline"}}) }}
-        {{ form_widget(form.controleSansPv.nombreControle, {'attr': {'v-model': "missions['navire'].controleSansPv.nombreControle"}}) }}
+        {{ form_widget(form.controleSansPv.nombreControle, {'attr': {'v-model': "activites['navire'].controleSansPv.nombreControle"}}) }}
         {{ form_errors(form.controleSansPv.nombreControle) }}
     </div>
     <div class="form__group horizontal__form">
         {{ form_label(form.controleSansPv.nombreControleAireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
-        {{ form_widget(form.controleSansPv.nombreControleAireProtegee, {'attr': {'v-model': "missions['navire'].controleSansPv.nombreControleAireProtegee"}}) }}
+        {{ form_widget(form.controleSansPv.nombreControleAireProtegee, {'attr': {'v-model': "activites['navire'].controleSansPv.nombreControleAireProtegee"}}) }}
         {{ form_errors(form.controleSansPv.nombreControleAireProtegee) }}
     </div>
 </div>
@@ -22,9 +22,9 @@
                 <ul class="no-decoration stacked-list">
                     {% for box in batch %}
                         <li>
-                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {'v-model': "missions['navire'].controleSansPv.controles",
-                                'v-bind:name': "'mission_navire[controleSansPv][controles][]'",
-                                'v-bind:id': "'mission_navire_controleSansPv_controles_'+"~box.vars.value}} %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {'v-model': "activites['navire'].controleSansPv.controles",
+                                'v-bind:name': "'activite_navire[controleSansPv][controles][]'",
+                                'v-bind:id': "'activite_navire_controleSansPv_controles_'+"~box.vars.value}} %}
                         </li>
                     {% endfor %}
                 </ul>

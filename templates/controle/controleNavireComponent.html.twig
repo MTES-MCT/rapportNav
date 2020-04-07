@@ -1,5 +1,5 @@
 <ul class="navires no-decoration" id="navires">
-    <li :class="index % 2 ? 'navire' : 'section-grey navire'" v-for="(controle, index) in missions['navire'].controles">
+    <li :class="index % 2 ? 'navire' : 'section-grey navire'" v-for="(controle, index) in activites['navire'].controles">
         <div class="row">
             <div class="form__group horizontal__form" style="width: 250px;">
                 {% include 'formThemes/navireFormTheme.html.twig' with {'navire': form.navires.vars.prototype.navire} %}
@@ -12,20 +12,20 @@
                         {% if "Autre" == box.vars.label %}
                             {% set attr={'v-model': "controle.controles",
                                 '@change': "toggleCheckAutre($event, index)",
-                                'v-bind:name': "'mission_navire[navires]['+index+'][controles][]'",
-                                'v-bind:id': "'mission_navire_navires_'+index+'_controles_'+"~box.vars.value} %}
+                                'v-bind:name': "'activite_navire[navires]['+index+'][controles][]'",
+                                'v-bind:id': "'activite_navire_navires_'+index+'_controles_'+"~box.vars.value} %}
                         {% else %}
                             {% set attr={'v-model': "controle.controles",
-                                'v-bind:name': "'mission_navire[navires]['+index+'][controles][]'",
-                                'v-bind:id': "'mission_navire_navires_'+index+'_controles_'+"~box.vars.value} %}
+                                'v-bind:name': "'activite_navire[navires]['+index+'][controles][]'",
+                                'v-bind:id': "'activite_navire_navires_'+index+'_controles_'+"~box.vars.value} %}
                         {% endif %}
                         {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr } %}
                         {% if "Autre" == box.vars.label %}
                             {{ form_widget(form.navires.vars.prototype.detailControle, {'attr': {
                                 'v-model': "controle.detailControle",
                                 'v-if': "controle.showDetail",
-                                'v-bind:name': "'mission_navire[navires]['+index+'][detailControle]'",
-                                'v-bind:id': "'mission_navire_navires_'+index+'_detailControle_'+"~box.vars.value
+                                'v-bind:name': "'activite_navire[navires]['+index+'][detailControle]'",
+                                'v-bind:id': "'activite_navire_navires_'+index+'_detailControle_'+"~box.vars.value
                             }} ) }}
                         {% endif %}
                     {% endfor %}
@@ -35,15 +35,15 @@
                 {% include 'formThemes/stackedRadioFormTheme.html.twig' with
                     {'form': form.navires.vars.prototype.methodeCiblage, 'attr': {
                         'v-model': "controle.methodeCiblage",
-                        'v-bind:name': "'mission_navire[navires]['+index+'][methodeCiblage]'",
-                        'v-bind:id': "'mission_navire_navires_'+index+'_methodeCiblage'"} } %}
+                        'v-bind:name': "'activite_navire[navires]['+index+'][methodeCiblage]'",
+                        'v-bind:id': "'activite_navire_navires_'+index+'_methodeCiblage'"} } %}
                 <div class="form__group" style="padding-bottom: 1em;">
                     {{ form_label(form.navires.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.date) }}
                     <input-date-time v-model="controle.date"
                                      v-bind:required="true"
-                                     v-bind:name="'mission_navire[navires]['+index+'][date]'"
-                                     v-bind:id="'mission_navire_navires_'+index+'_date'"></input-date-time>
+                                     v-bind:name="'activite_navire[navires]['+index+'][date]'"
+                                     v-bind:id="'activite_navire_navires_'+index+'_date'"></input-date-time>
                     {% do form.navires.vars.prototype.date %}
                 </div>
                 <div class="form__group">
@@ -51,8 +51,8 @@
                     <label class="switch-text">
                         {{ form_widget(form.navires.vars.prototype.terrestre, {'attr': {
                             'v-model': "controle.terrestre",
-                            'v-bind:name': "'mission_navire[navires]['+index+'][terrestre]'",
-                            'v-bind:id': "'mission_navire_navires_'+index+'_terrestre'"}}) }}
+                            'v-bind:name': "'activite_navire[navires]['+index+'][terrestre]'",
+                            'v-bind:id': "'activite_navire_navires_'+index+'_terrestre'"}}) }}
                         <span class="slider">
                             <span class="first-option">Mer&nbsp;</span>
                             <span class="second-option">Terre</span>
@@ -64,22 +64,22 @@
                 </div>
                 <div style="padding-bottom: 1em;">
                     {{ form_widget(form.navires.vars.prototype.aireProtegee, {'attr': {'v-model': "controle.aireProtegee",
-                        'v-bind:name': "'mission_navire[navires]['+index+'][aireProtegee]'",
-                        'v-bind:id': "'mission_navire_navires_'+index+'_aireProtegee'"}}) }}
+                        'v-bind:name': "'activite_navire[navires]['+index+'][aireProtegee]'",
+                        'v-bind:id': "'activite_navire_navires_'+index+'_aireProtegee'"}}) }}
                     {{ form_label(form.navires.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.aireProtegee) }}
                 </div>
                 <div style="padding-bottom: 1em;">
                     {{ form_widget(form.navires.vars.prototype.chloredeconeTotal, {'attr': {'v-model': "controle.chloredeconeTotal",
-                        'v-bind:name': "'mission_navire[navires]['+index+'][chloredeconeTotal]'",
-                        'v-bind:id': "'mission_navire_navires_'+index+'_chloredeconeTotal'"}}) }}
+                        'v-bind:name': "'activite_navire[navires]['+index+'][chloredeconeTotal]'",
+                        'v-bind:id': "'activite_navire_navires_'+index+'_chloredeconeTotal'"}}) }}
                     {{ form_label(form.navires.vars.prototype.chloredeconeTotal, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.chloredeconeTotal) }}
                 </div>
                 <div style="padding-bottom: 1em;">
                     {{ form_widget(form.navires.vars.prototype.chloredeconePartiel, {'attr': {'v-model': "controle.chloredeconePartiel",
-                        'v-bind:name': "'mission_navire[navires]['+index+'][chloredeconePartiel]'",
-                        'v-bind:id': "'mission_navire_navires_'+index+'_chloredeconePartiel'"}}) }}
+                        'v-bind:name': "'activite_navire[navires]['+index+'][chloredeconePartiel]'",
+                        'v-bind:id': "'activite_navire_navires_'+index+'_chloredeconePartiel'"}}) }}
                     {{ form_label(form.navires.vars.prototype.chloredeconePartiel, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.navires.vars.prototype.chloredeconePartiel) }}
                 </div>
@@ -88,15 +88,15 @@
                         {{ form_label(form.navires.vars.prototype.lat, null, {'label_attr': {'class': "label-inline"}}) }}
                         {{ form_widget(form.navires.vars.prototype.lat, {'attr': {
                             'v-model': "controle.lat",
-                            'v-bind:name': "'mission_navire[navires]['+index+'][lat]'",
-                            'v-bind:id': "'mission_navire_navires_'+index+'_lat'"}}) }}
+                            'v-bind:name': "'activite_navire[navires]['+index+'][lat]'",
+                            'v-bind:id': "'activite_navire_navires_'+index+'_lat'"}}) }}
                     </div>
                     <div class="form__group horizontal__form" style="max-width: 20em;">
                         {{ form_label(form.navires.vars.prototype.long, null, {'label_attr': {'class': "label-inline"}}) }}
                         {{ form_widget(form.navires.vars.prototype.long, {'attr': {
                             'v-model': "controle.long",
-                            'v-bind:name': "'mission_navire[navires]['+index+'][long]'",
-                            'v-bind:id': "'mission_navire_navires_'+index+'_long'"}}) }}
+                            'v-bind:name': "'activite_navire[navires]['+index+'][long]'",
+                            'v-bind:id': "'activite_navire_navires_'+index+'_long'"}}) }}
                     </div>
                 </div>
             </div>
@@ -105,16 +105,16 @@
             <div class="form__group horizontal__form">
                 {% include 'formThemes/switchFormTheme.html.twig' with {'form': form.navires.vars.prototype.pv, 'attr': {
                         'v-model': "controle.pv",
-                        'v-bind:name': "'mission_navire[navires]['+index+'][pv]'",
-                        'v-bind:id': "'mission_navire_navires_'+index+'_pv'"},
+                        'v-bind:name': "'activite_navire[navires]['+index+'][pv]'",
+                        'v-bind:id': "'activite_navire_navires_'+index+'_pv'"},
                     'label_attr': {
-                        'v-bind:for': "'mission_navire_navires_'+index+'_pv'"}} %}
+                        'v-bind:for': "'activite_navire_navires_'+index+'_pv'"}} %}
             </div>
             <div class="form__group horizontal__form" style="min-width: 150px;">
                 {{ form_label(form.navires.vars.prototype.natinfs) }}
                 <select multiple
-                        v-bind:name="'mission_navire[navires]['+index+'][natinfs][]'"
-                        v-bind:id="'mission_navire_navires_'+index+'_natinfs'"
+                        v-bind:name="'activite_navire[navires]['+index+'][natinfs][]'"
+                        v-bind:id="'activite_navire_navires_'+index+'_natinfs'"
                         v-model="controle.natinfs"
                         style="display:none;">
                     <option v-for="option in controle.natinfs" :value="option" v-html="option">
@@ -139,8 +139,8 @@
                     {{ form_label(form.navires.vars.prototype.deroutement, null, {'label_attr': {'class': "required"}}) }}
                     {{ form_widget(form.navires.vars.prototype.deroutement, {'attr':
                     {'v-model': "controle.deroutement",
-                        'v-bind:name': "'mission_navire[navires]['+index+'][deroutement]'",
-                        'v-bind:id': "'mission_navire_navires_'+index+'_deroutement'"}}) }}
+                        'v-bind:name': "'activite_navire[navires]['+index+'][deroutement]'",
+                        'v-bind:id': "'activite_navire_navires_'+index+'_deroutement'"}}) }}
                 </div>
             </div>
         </div>
@@ -148,8 +148,8 @@
             {{ form_label(form.navires.vars.prototype.commentaire) }}
             {{ form_errors(form.navires.vars.prototype.commentaire) }}
             {{ form_widget(form.navires.vars.prototype.commentaire, {'attr': {'v-model': "controle.commentaire",
-                'v-bind:name': "'mission_navire[navires]['+index+'][commentaire]'",
-                'v-bind:id': "'mission_navire_navires_'+index+'_commentaire'"}}) }}
+                'v-bind:name': "'activite_navire[navires]['+index+'][commentaire]'",
+                'v-bind:id': "'activite_navire_navires_'+index+'_commentaire'"}}) }}
         </div>
         <div style="display: flex; justify-content: flex-end">
             <button type="button" class="button warning" @click="removeControle('navire', index)">

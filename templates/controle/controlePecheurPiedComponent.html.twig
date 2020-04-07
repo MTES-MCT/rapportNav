@@ -1,6 +1,6 @@
 <ul class="pecheurs no-decoration">
     <li :class="index % 2 ? 'pecheur' : 'section-grey pecheur'"
-        v-for="(controle, index) in missions['pechePied'].controles">
+        v-for="(controle, index) in activites['pechePied'].controles">
         <div class="row">
             <div class="form__group horizontal__form">
                 <div>
@@ -8,22 +8,22 @@
                     {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.nom) }}
                     {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.nom, {'attr': {
                         'v-model': "controle.pecheurPied.nom",
-                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][pecheurPied][nom]'",
-                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_pecheurPied_nom'"}}) }}
+                        'v-bind:name': "'activite_peche_pied[pecheursPied]['+index+'][pecheurPied][nom]'",
+                        'v-bind:id': "'activite_peche_pied_pecheursPied_'+index+'_pecheurPied_nom'"}}) }}
                 </div>
                 <div>
                     {{ form_label(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
                     {{ form_errors(form.pecheursPied.vars.prototype.pecheurPied.prenom) }}
                     {{ form_widget(form.pecheursPied.vars.prototype.pecheurPied.prenom, {'attr': {
                         'v-model': "controle.pecheurPied.prenom",
-                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][pecheurPied][prenom]'",
-                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_pecheurPied_prenom'"}}) }}
+                        'v-bind:name': "'activite_peche_pied[pecheursPied]['+index+'][pecheurPied][prenom]'",
+                        'v-bind:id': "'activite_peche_pied_pecheursPied_'+index+'_pecheurPied_prenom'"}}) }}
                 </div>
                 {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with
                     {'box': form.pecheursPied.vars.prototype.pecheurPied.estPro, 'attr': {
                         'v-model': "controle.pecheurPied.estPro",
-                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][pecheurPied][estPro]'",
-                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_pecheurPied_estPro'"} } %}
+                        'v-bind:name': "'activite_peche_pied[pecheursPied]['+index+'][pecheurPied][estPro]'",
+                        'v-bind:id': "'activite_peche_pied_pecheursPied_'+index+'_pecheurPied_estPro'"} } %}
             </div>
             <div class="form__group horizontal__form">
                 <div class="form__group" style="padding-bottom: 1em;">
@@ -31,8 +31,8 @@
                     {{ form_errors(form.pecheursPied.vars.prototype.date) }}
                     <input-date-time v-model="controle.date"
                                      v-bind:required="true"
-                                     v-bind:name="'mission_peche_pied[pecheursPied]['+index+'][date]'"
-                                     v-bind:id="'mission_peche_pied_pecheursPied_'+index+'_date'"></input-date-time>
+                                     v-bind:name="'activite_peche_pied[pecheursPied]['+index+'][date]'"
+                                     v-bind:id="'activite_peche_pied_pecheursPied_'+index+'_date'"></input-date-time>
                     {% do form.pecheursPied.vars.prototype.date %}
                 </div>
                 <div class="form__group horizontal__form">
@@ -40,8 +40,8 @@
                     <label class="switch-text">
                         {{ form_widget(form.pecheursPied.vars.prototype.terrestre, {'attr': {
                             'v-model': "controle.terrestre",
-                            'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][terrestre]'",
-                            'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_terrestre'"}}) }}
+                            'v-bind:name': "'activite_peche_pied[pecheursPied]['+index+'][terrestre]'",
+                            'v-bind:id': "'activite_peche_pied_pecheursPied_'+index+'_terrestre'"}}) }}
                         <span class="slider">
                             <span class="first-option">Mer&nbsp;</span>
                             <span class="second-option">Terre</span>
@@ -54,23 +54,23 @@
                 <div style="padding-bottom: 1em;">
                     {{ form_widget(form.pecheursPied.vars.prototype.aireProtegee, {'attr': {
                         'v-model': "controle.aireProtegee",
-                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][aireProtegee]'",
-                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_aireProtegee'"} }) }}
+                        'v-bind:name': "'activite_peche_pied[pecheursPied]['+index+'][aireProtegee]'",
+                        'v-bind:id': "'activite_peche_pied_pecheursPied_'+index+'_aireProtegee'"} }) }}
                     {{ form_label(form.pecheursPied.vars.prototype.aireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}
                 </div>
                 <div style="padding-bottom: 1em;">
                     {{ form_widget(form.pecheursPied.vars.prototype.chloredeconeTotal, {'attr': {
                         'v-model': "controle.chloredeconeTotal",
-                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][chloredeconeTotal]'",
-                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_chloredeconeTotal'"}}) }}
+                        'v-bind:name': "'activite_peche_pied[pecheursPied]['+index+'][chloredeconeTotal]'",
+                        'v-bind:id': "'activite_peche_pied_pecheursPied_'+index+'_chloredeconeTotal'"}}) }}
                     {{ form_label(form.pecheursPied.vars.prototype.chloredeconeTotal, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.pecheursPied.vars.prototype.chloredeconeTotal) }}
                 </div>
                 <div style="padding-bottom: 1em;">
                     {{ form_widget(form.pecheursPied.vars.prototype.chloredeconePartiel, {'attr': {
                         'v-model': "controle.chloredeconePartiel",
-                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][chloredeconePartiel]'",
-                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_chloredeconePartiel'"}}) }}
+                        'v-bind:name': "'activite_peche_pied[pecheursPied]['+index+'][chloredeconePartiel]'",
+                        'v-bind:id': "'activite_peche_pied_pecheursPied_'+index+'_chloredeconePartiel'"}}) }}
                     {{ form_label(form.pecheursPied.vars.prototype.chloredeconePartiel, null, {'label_attr': {'class': "label-inline"}}) }}
                     {{ form_errors(form.pecheursPied.vars.prototype.chloredeconePartiel) }}
                 </div>
@@ -79,16 +79,16 @@
                 <div>
                     {% include 'formThemes/switchFormTheme.html.twig' with {'form': form.pecheursPied.vars.prototype.pv, 'attr': {
                         'v-model': "controle.pv",
-                        'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][pv]'",
-                        'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_pv'"},
+                        'v-bind:name': "'activite_peche_pied[pecheursPied]['+index+'][pv]'",
+                        'v-bind:id': "'activite_peche_pied_pecheursPied_'+index+'_pv'"},
                         'label_attr': {
-                            'v-bind:for': "'mission_peche_pied_pecheursPied_'+index+'_pv'"}} %}
+                            'v-bind:for': "'activite_peche_pied_pecheursPied_'+index+'_pv'"}} %}
                 </div>
                 <div class="form__group">
                     {{ form_label(form.pecheursPied.vars.prototype.natinfs) }}
                     <select multiple
-                            v-bind:name="'mission_peche_pied[pecheursPied]['+index+'][natinfs][]'"
-                            v-bind:id="'mission_peche_pied_pecheursPied_'+index+'_natinfs'"
+                            v-bind:name="'activite_peche_pied[pecheursPied]['+index+'][natinfs][]'"
+                            v-bind:id="'activite_peche_pied_pecheursPied_'+index+'_natinfs'"
                             v-model="controle.natinfs"
                             style="display:none;">
                         <option v-for="option in controle.natinfs" :value="option" v-html="option">
@@ -110,8 +110,8 @@
             {{ form_errors(form.pecheursPied.vars.prototype.commentaire) }}
             {{ form_widget(form.pecheursPied.vars.prototype.commentaire, {'attr': {
                 'v-model': "controle.commentaire",
-                'v-bind:name': "'mission_peche_pied[pecheursPied]['+index+'][commentaire]'",
-                'v-bind:id': "'mission_peche_pied_pecheursPied_'+index+'_commentaire'"}}) }}
+                'v-bind:name': "'activite_peche_pied[pecheursPied]['+index+'][commentaire]'",
+                'v-bind:id': "'activite_peche_pied_pecheursPied_'+index+'_commentaire'"}}) }}
         </div>
         <div style="display: flex; justify-content: flex-end">
             <button type="button" class="button warning" @click="removeControle('pechePied', index)">

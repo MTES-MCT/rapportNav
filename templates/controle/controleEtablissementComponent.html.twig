@@ -1,5 +1,5 @@
 <ul class="etablissements no-decoration" id="etablissements">
-    <li :class="index % 2 ? 'etablissement' : 'section-grey etablissement'" v-for="(controle, index) in missions['commerce'].controles">
+    <li :class="index % 2 ? 'etablissement' : 'section-grey etablissement'" v-for="(controle, index) in activites['commerce'].controles">
         <div class="row">
             <div>
                 <div class="form__group horizontal__form">
@@ -8,8 +8,8 @@
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.type, {'attr': {
                         'v-model': "controle.etablissement.type",
                         '@change': "updateBateaux($event,index); toggleSelectAutre('commerce', $event, index)",
-                        'v-bind:name': "'mission_commerce[etablissements]['+index+'][etablissement][type]'",
-                        'v-bind:id': "'mission_commerce_etablissements_'+index+'_etablissement_type'"}})
+                        'v-bind:name': "'activite_commerce[etablissements]['+index+'][etablissement][type]'",
+                        'v-bind:id': "'activite_commerce_etablissements_'+index+'_etablissement_type'"}})
                     }}
                 </div>
                 <div class="form__group horizontal__form" v-if="controle.showDetail">
@@ -17,31 +17,31 @@
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.detailCategorieEtablissement) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.detailCategorieEtablissement, {'attr': {
                         'v-model': "controle.etablissement.detailCategorieEtablissement",
-                        'v-bind:name': "'mission_commerce[etablissements]['+index+'][etablissement][detailCategorieEtablissement]'",
-                        'v-bind:id': "'mission_commerce_etablissements_'+index+'_etablissement_detailCategorieEtablissement'"}}) }}
+                        'v-bind:name': "'activite_commerce[etablissements]['+index+'][etablissement][detailCategorieEtablissement]'",
+                        'v-bind:id': "'activite_commerce_etablissements_'+index+'_etablissement_detailCategorieEtablissement'"}}) }}
                 </div>
                 <div class="form__group horizontal__form">
                     {{ form_label(form.etablissements.vars.prototype.etablissement.nom) }}
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.nom) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.nom, {'attr': {'v-model': "controle.etablissement.nom",
-                        'v-bind:name': "'mission_commerce[etablissements]['+index+'][etablissement][nom]'",
-                        'v-bind:id': "'mission_commerce_etablissements_'+index+'_etablissement_nom'"}}) }}
+                        'v-bind:name': "'activite_commerce[etablissements]['+index+'][etablissement][nom]'",
+                        'v-bind:id': "'activite_commerce_etablissements_'+index+'_etablissement_nom'"}}) }}
                 </div>
                 <div class="form__group horizontal__form">
                     {{ form_label(form.etablissements.vars.prototype.etablissement.adresse) }}
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.adresse) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.adresse, {'attr': {
                         'v-model': "controle.etablissement.adresse",
-                        'v-bind:name': "'mission_commerce[etablissements]['+index+'][etablissement][adresse]'",
-                        'v-bind:id': "'mission_commerce_etablissements_'+index+'_etablissement_adresse'"}}) }}
+                        'v-bind:name': "'activite_commerce[etablissements]['+index+'][etablissement][adresse]'",
+                        'v-bind:id': "'activite_commerce_etablissements_'+index+'_etablissement_adresse'"}}) }}
                 </div>
                 <div class="form__group horizontal__form">
                     {{ form_label(form.etablissements.vars.prototype.etablissement.commune) }}
                     {{ form_errors(form.etablissements.vars.prototype.etablissement.commune) }}
                     {{ form_widget(form.etablissements.vars.prototype.etablissement.commune, {'attr': {
                         'v-model': "controle.etablissement.commune",
-                        'v-bind:name': "'mission_commerce[etablissements]['+index+'][etablissement][commune]'",
-                        'v-bind:id': "'mission_commerce_etablissements_'+index+'_etablissement_commune'"}}) }}
+                        'v-bind:name': "'activite_commerce[etablissements]['+index+'][etablissement][commune]'",
+                        'v-bind:id': "'activite_commerce_etablissements_'+index+'_etablissement_commune'"}}) }}
                 </div>
             </div>
             <div class="form__group horizontal__form" v-show="null !== controle.bateauxControles">
@@ -49,16 +49,16 @@
                 {{ form_errors(form.etablissements.vars.prototype.bateauxControles) }}
                 {{ form_widget(form.etablissements.vars.prototype.bateauxControles, {'attr': {
                     'v-model': "controle.bateauxControles",
-                    'v-bind:name': "'mission_commerce[etablissements]['+index+'][bateauxControles]'",
-                    'v-bind:id': "'mission_commerce_etablissements_'+index+'_bateauxControles'"}}) }}
+                    'v-bind:name': "'activite_commerce[etablissements]['+index+'][bateauxControles]'",
+                    'v-bind:id': "'activite_commerce_etablissements_'+index+'_bateauxControles'"}}) }}
             </div>
             <div class="form__group horizontal__form" style="padding-bottom: 1em;">
                 {{ form_label(form.etablissements.vars.prototype.date, null, {'label_attr': {'class': "label-inline"}}) }}
                 {{ form_errors(form.etablissements.vars.prototype.date) }}
                 <input-date-time v-model="controle.date"
                                  v-bind:required="true"
-                                 v-bind:name="'mission_commerce[etablissements]['+index+'][date]'"
-                                 v-bind:id="'mission_commerce_etablissements_'+index+'_date'"></input-date-time>
+                                 v-bind:name="'activite_commerce[etablissements]['+index+'][date]'"
+                                 v-bind:id="'activite_commerce_etablissements_'+index+'_date'"></input-date-time>
                 {% do form.etablissements.vars.prototype.date %}
             </div>
         </div>
@@ -66,17 +66,17 @@
             <div class="form__group horizontal__form">
                 {% include 'formThemes/switchFormTheme.html.twig' with {'form': form.etablissements.vars.prototype.pv, 'attr': {
                     'v-model': "controle.pv",
-                    'v-bind:name': "'mission_commerce[etablissements]['+index+'][pv]'",
-                    'v-bind:id': "'mission_commerce_etablissements_'+index+'_pv'"},
+                    'v-bind:name': "'activite_commerce[etablissements]['+index+'][pv]'",
+                    'v-bind:id': "'activite_commerce_etablissements_'+index+'_pv'"},
                     'label_attr': {
-                        'v-bind:for': "'mission_commerce_etablissements_'+index+'_pv'"}} %}
+                        'v-bind:for': "'activite_commerce_etablissements_'+index+'_pv'"}} %}
             </div>
 
             <div class="form__group horizontal__form">
                 {{ form_label(form.etablissements.vars.prototype.natinfs) }}
                 <select multiple
-                        v-bind:name="'mission_commerce[etablissements]['+index+'][natinfs][]'"
-                        v-bind:id="'mission_commerce_etablissements_'+index+'_natinfs'"
+                        v-bind:name="'activite_commerce[etablissements]['+index+'][natinfs][]'"
+                        v-bind:id="'activite_commerce_etablissements_'+index+'_natinfs'"
                         v-model="controle.natinfs"
                         style="display:none;">
                     <option v-for="option in controle.natinfs" :value="option" v-html="option">
@@ -98,8 +98,8 @@
             {{ form_errors(form.etablissements.vars.prototype.commentaire) }}
             {{ form_widget(form.etablissements.vars.prototype.commentaire, {'attr': {
                 'v-model': "controle.commentaire",
-                'v-bind:name': "'mission_commerce[etablissements]['+index+'][commentaire]'",
-                'v-bind:id': "'mission_commerce_etablissements_'+index+'_commentaire'"}}) }}
+                'v-bind:name': "'activite_commerce[etablissements]['+index+'][commentaire]'",
+                'v-bind:id': "'activite_commerce_etablissements_'+index+'_commentaire'"}}) }}
         </div>
         <div style="display: flex; justify-content: flex-end">
             <button type="button" class="button warning" @click="removeControle('commerce', index)">

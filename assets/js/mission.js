@@ -7,7 +7,7 @@ import params from "./params";
 import vSelect from 'vue-select'
 import inputDateTime from "./inputDateTime";
 import {camelToSnake} from "./stringManipulationHelper";
-
+import * as update from "./helper/update";
 import 'vue-select/dist/vue-select.css';
 
 Vue.component('v-select', vSelect);
@@ -107,15 +107,22 @@ $(document).ready(function() {
         components: {activite},
         created: function() {
             localStorage.setItem('activites', JSON.stringify(this.activites));
+            //If old temporary object is still present, remove it (this is due to update to v0.10.0)
+            if(localStorage.getItem('missions')) {
+                localStorage.removeItem('missions');
+            }
             const path = window.location.pathname;
             const pos = path.search(/draft\/[0-9]*/);
             let activites = {};
 
             if(-1 !== pos) {
-                //we ar editing a draft
-                //TODO : check old drafts with mission
-                const drafts = JSON.parse(localStorage.getItem("draft"));
+                //we are editing a draft
+                let drafts = JSON.parse(localStorage.getItem("draft"));
                 let index = path.substring(pos + 6);
+                // Parsing old version of drafts ?
+                if(undefined === drafts[index].activites && undefined !== drafts[index].missions) {
+                    drafts = update.draftsFrom0_9_0to0_10_0(drafts);
+                }
                 if(undefined === drafts[index].activites.navire ||
                     undefined === drafts[index].activites.commerce ||
                     undefined === drafts[index].activites.pechePied ||
@@ -179,14 +186,14 @@ $(document).ready(function() {
             }
         },
         methods: {
-            deleteactivite: function(index) {
+            deleteActivite: function(index) {
                 this.activites[index].active = false;
                 this.activites[index].zones = [];
                 if(undefined !== this.activites[index].controles) {
                     this.activites[index].controles = [];
                 }
             },
-            addactivite: function(index) {
+            addActivite: function(index) {
                 this.activites[index].active = true;
             },
             addControle: function(type) {

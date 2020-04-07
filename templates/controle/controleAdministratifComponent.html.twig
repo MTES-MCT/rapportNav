@@ -1,5 +1,5 @@
 <ul class="taches no-decoration" id="taches">
-    <li :class="index % 2 ? 'administratif' : 'section-grey administratif'" v-for="(controle, index) in missions['administratif'].controles"
+    <li :class="index % 2 ? 'administratif' : 'section-grey administratif'" v-for="(controle, index) in activites['administratif'].controles"
         style="padding: 15px 15px 0 15px;">
         <div class="row">
             <div class="form__group horizontal__form">
@@ -8,8 +8,8 @@
                 {{ form_widget(form.taches.vars.prototype.tache, {'attr': {
                     'v-model': "controle.tache",
                     '@change': "updateAdministratif($event,index); toggleSelectAutre('administratif', $event, index)",
-                    'v-bind:name': "'mission_administratif[taches]['+index+'][tache]'",
-                    'v-bind:id': "'mission_administratif_taches_'+index+'_tache'",
+                    'v-bind:name': "'activite_administratif[taches]['+index+'][tache]'",
+                    'v-bind:id': "'activite_administratif_taches_'+index+'_tache'",
                     }})
                 }}
             </div>
@@ -18,8 +18,8 @@
                 {{ form_errors(form.taches.vars.prototype.detailTache) }}
                 {{ form_widget(form.taches.vars.prototype.detailTache, {'attr': {
                     'v-model': "controle.detailTache",
-                    'v-bind:name': "'mission_administratif[taches]['+index+'][detailTache]'",
-                    'v-bind:id': "'mission_administratif_taches_'+index+'_detailTache'",
+                    'v-bind:name': "'activite_administratif[taches]['+index+'][detailTache]'",
+                    'v-bind:id': "'activite_administratif_taches_'+index+'_detailTache'",
                     }})
                 }}
             </div>
@@ -27,15 +27,15 @@
                 {{ form_label(form.taches.vars.prototype.nombreDossiers) }}
                 {{ form_errors(form.taches.vars.prototype.nombreDossiers) }}
                 {{ form_widget(form.taches.vars.prototype.nombreDossiers, {'attr': {'v-model': "controle.nombreDossiers",
-                    'v-bind:name': "'mission_administratif[taches]['+index+'][nombreDossiers]'",
-                    'v-bind:id': "'mission_administratif_taches_'+index+'_nombreDossiers'"}}) }}
+                    'v-bind:name': "'activite_administratif[taches]['+index+'][nombreDossiers]'",
+                    'v-bind:id': "'activite_administratif_taches_'+index+'_nombreDossiers'"}}) }}
             </div>
             <div class="form__group horizontal__form">
                     {{ form_label(form.taches.vars.prototype.dureeTache) }}
                     {{ form_errors(form.taches.vars.prototype.dureeTache) }}
                     {{ form_widget(form.taches.vars.prototype.dureeTache, {'attr': {'v-model': "controle.dureeTache",
-                        'v-bind:name': "'mission_administratif[taches]['+index+'][dureeTache]'",
-                        'v-bind:id': "'mission_administratif_taches_'+index+'_dureeTache'"}}) }}
+                        'v-bind:name': "'activite_administratif[taches]['+index+'][dureeTache]'",
+                        'v-bind:id': "'activite_administratif_taches_'+index+'_dureeTache'"}}) }}
             </div>
         </div>
         <div class="form__group horizontal__form">
@@ -43,8 +43,8 @@
             {{ form_errors(form.taches.vars.prototype.commentaire) }}
             {{ form_widget(form.taches.vars.prototype.commentaire, {'attr': {
                 'v-model': "controle.commentaire",
-                'v-bind:name': "'mission_administratif[taches]['+index+'][commentaire]'",
-                'v-bind:id': "'mission_administratif_taches_'+index+'_commentaire'"}}) }}
+                'v-bind:name': "'activite_administratif[taches]['+index+'][commentaire]'",
+                'v-bind:id': "'activite_administratif_taches_'+index+'_commentaire'"}}) }}
         </div>
 
         <div style="display: flex; justify-content: flex-end">

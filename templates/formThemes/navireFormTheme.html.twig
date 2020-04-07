@@ -5,8 +5,8 @@
     {{ form_widget(navire.immatriculation, {'attr': {
         'ref': "controle_navire_immatriculation",
         'v-model': "controle.navire.immatriculation",
-        'v-bind:name': "'mission_navire[navires]['+index+'][navire][immatriculation]'",
-        'v-bind:id': "'mission_navire_navires_'+index+'_navire_immatriculation'",
+        'v-bind:name': "'activite_navire[navires]['+index+'][navire][immatriculation]'",
+        'v-bind:id': "'activite_navire_navires_'+index+'_navire_immatriculation'",
         '@change': "getNavireData(index)"}}) }}
     <p class="immatriculation_invalide" v-if="controle.navire.immatriculationInvalide">Immatriculation invalide</p>
     <p class="erreur_api" v-if="controle.navire.erreurApiImmatriculation">Erreur lors de la récupération des
@@ -16,8 +16,8 @@
     {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with
         {'box': navire.etranger, 'attr': {'v-model': "controle.navire.etranger",
             '@change': "toggleEtranger(index)",
-            'v-bind:name': "'mission_navire[navires]['+index+'][navire][etranger]'",
-            'v-bind:id': "'mission_navire_navires_'+index+'_navire_etranger'"}} %}
+            'v-bind:name': "'activite_navire[navires]['+index+'][navire][etranger]'",
+            'v-bind:id': "'activite_navire_navires_'+index+'_navire_etranger'"}} %}
 </div>
 <div v-show="!controle.navire.etranger">
     <ul class="no-decoration">
@@ -30,56 +30,56 @@
 </div>
 <div v-show="controle.navire.etranger">
     <div>
-        <label v-bind:for="'mission_navire_navires_'+ index +'_navire_nom'"
+        <label v-bind:for="'activite_navire_navires_'+ index +'_navire_nom'"
                class="{{ navire.nom.vars.required ? 'required' }}">
             {{ navire.nom.vars.label }}
         </label>
         {{ form_errors(navire.nom) }}
         {{ form_widget(navire.nom, {'attr': {'v-model': "controle.navire.nom",
-            'v-bind:name': "'mission_navire[navires]['+index+'][navire][nom]'",
-            'v-bind:id': "'mission_navire_navires_'+index+'_navire_nom'"}}) }}
+            'v-bind:name': "'activite_navire[navires]['+index+'][navire][nom]'",
+            'v-bind:id': "'activite_navire_navires_'+index+'_navire_nom'"}}) }}
     </div>
     <div>
-        <label v-bind:for="'mission_navire_navires_'+ index +'_navire_pavillon'"
+        <label v-bind:for="'activite_navire_navires_'+ index +'_navire_pavillon'"
                class="{{ navire.pavillon.vars.required ? 'required' }}">
             {{ navire.pavillon.vars.label }}
         </label>
         <p class="panel__header-extra" style="margin: 0;font-size: 0.8em;">Si le navire est sans pavillon notez "sans"</p>
         {{ form_errors(navire.pavillon) }}
         {{ form_widget(navire.pavillon, {'attr': {'v-model': "controle.navire.pavillon",
-            'v-bind:name': "'mission_navire[navires]['+index+'][navire][pavillon]'",
-            'v-bind:id': "'mission_navire_navires_'+index+'_navire_pavillon'"}}) }}
+            'v-bind:name': "'activite_navire[navires]['+index+'][navire][pavillon]'",
+            'v-bind:id': "'activite_navire_navires_'+index+'_navire_pavillon'"}}) }}
     </div>
     <div>
-        <label v-bind:for="'mission_navire_navires_'+ index +'_navire_longueurHorsTout'"
+        <label v-bind:for="'activite_navire_navires_'+ index +'_navire_longueurHorsTout'"
                class="{{ navire.longueurHorsTout.vars.required ? 'required' }}">
             {{ navire.longueurHorsTout.vars.label }}
         </label>
         {{ form_errors(navire.longueurHorsTout) }}
         {{ form_widget(navire.longueurHorsTout, {'attr': {'v-model': "controle.navire.longueurHorsTout",
-            'v-bind:name': "'mission_navire[navires]['+index+'][navire][longueurHorsTout]'",
-            'v-bind:id': "'mission_navire_navires_'+index+'_navire_longueurHorsTout'"}}) }}
+            'v-bind:name': "'activite_navire[navires]['+index+'][navire][longueurHorsTout]'",
+            'v-bind:id': "'activite_navire_navires_'+index+'_navire_longueurHorsTout'"}}) }}
     </div>
     <div>
-        <label v-bind:for="'mission_navire_navires_'+ index +'_navire_genreNav'"
+        <label v-bind:for="'activite_navire_navires_'+ index +'_navire_genreNav'"
                class="{{ navire.genreNav.vars.required ? 'required' }}">
             {{ navire.genreNav.vars.label }}
         </label>
         {{ form_errors(navire.genreNav) }}
         {{ form_widget(navire.genreNav, {'attr': {'v-model': "controle.navire.genreNav",
-            'v-bind:name': "'mission_navire[navires]['+index+'][navire][genreNav]'",
-            'v-bind:id': "'mission_navire_navires_'+index+'_navire_genreNav'"}}) }}
+            'v-bind:name': "'activite_navire[navires]['+index+'][navire][genreNav]'",
+            'v-bind:id': "'activite_navire_navires_'+index+'_navire_genreNav'"}}) }}
     </div>
 </div>
 <div>
-    <label v-bind:for="'mission_navire_navires_'+ index +'_navire_categorieUsageNavire'"
+    <label v-bind:for="'activite_navire_navires_'+ index +'_navire_categorieUsageNavire'"
            class="{{ navire.categorieUsageNavire.vars.required ? 'required' }}">
         {{ navire.categorieUsageNavire.vars.label }}
     </label>
     {{ form_errors(navire.categorieUsageNavire) }}
     {{ form_widget(navire.categorieUsageNavire, {'attr': {'style': "width: 100%;", 'v-model': "controle.navire.categorieUsageNavire",
-        'v-bind:name': "'mission_navire[navires]['+index+'][navire][categorieUsageNavire]'",
-        'v-bind:id': "'mission_navire_navires_'+index+'_navire_categorieUsageNavire'"}}) }}
+        'v-bind:name': "'activite_navire[navires]['+index+'][navire][categorieUsageNavire]'",
+        'v-bind:id': "'activite_navire_navires_'+index+'_navire_categorieUsageNavire'"}}) }}
 </div>
 
 {{ form_rest(navire) }}
