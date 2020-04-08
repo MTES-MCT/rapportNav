@@ -286,13 +286,6 @@
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/i18n/fr.js"></script>
-    <script type="application/javascript">
-        $(document).ready(function() {
-            $(".select2").select2({
-                language: "fr"
-            });
-        });
-    </script>
     {{ encore_entry_script_tags('rapport') }}
     {% if data is defined %}
         <span id="draft-data" style="display: none" data-content="{{ data }}"></span>

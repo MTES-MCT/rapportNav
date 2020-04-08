@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import select2 from 'select2';
 import Vue from "vue";
 import moment from 'moment';
 import redirectToList from "./redirectToList.js";
@@ -20,6 +21,7 @@ $(document).ready(function() {
       const pos =path.search(/draft\/[0-9]*/);
       if (-1 === pos) {
         this.index = this.drafts.length;
+        $('#service-conjoints select').select2({ language: "fr"});
       } else {
         this.index = path.substring(pos+6);
         this.editDraft = true;
@@ -96,6 +98,7 @@ $(document).ready(function() {
         $('#rapport_arme').prop("checked", draft.rapport.arme);
         $('#rapport_conjointe').prop("checked", draft.rapport.conjointe);
         $('#service-conjoints select').val(draft.rapport.serviceConjoints);
+        $('#service-conjoints select').select2({ language: "fr"});
 
         for(let id in draft.rapport.agents) {
           $('#rapport_agents_'+draft.rapport.agents[id]).prop("checked", true);
