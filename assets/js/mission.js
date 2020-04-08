@@ -106,11 +106,6 @@ $(document).ready(function() {
         },
         components: {activite},
         created: function() {
-            localStorage.setItem('activites', JSON.stringify(this.activites));
-            //If old temporary object is still present, remove it (this is due to update to v0.10.0)
-            if(localStorage.getItem('missions')) {
-                localStorage.removeItem('missions');
-            }
             const path = window.location.pathname;
             const pos = path.search(/draft\/[0-9]*/);
             let activites = {};
@@ -177,6 +172,14 @@ $(document).ready(function() {
                     this.activites[index].active = true;
                 }
             }
+
+            // Loading is finished, writing to storage
+            localStorage.setItem('activites', JSON.stringify(this.activites));
+            //If old temporary object is still present, remove it (this is due to update to v0.10.0)
+            if(localStorage.getItem('missions')) {
+                localStorage.removeItem('missions');
+            }
+
             const rapport = $('#rapport-data').data('content') || {};
             if('error' in rapport && true === rapport['error']) {
                 this.error = rapport.error;
