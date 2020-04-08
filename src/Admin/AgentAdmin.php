@@ -42,12 +42,4 @@ final class AgentAdmin extends AbstractAdmin {
             ->add('matricule')
             ->add('service');
     }
-
-    protected function configureShowFields(ShowMapper $showMapper): void {
-        $showMapper
-            ->add('nom')
-            ->add('prenom')
-            ->add('matricule')
-            ->add('service');
-    }
 }

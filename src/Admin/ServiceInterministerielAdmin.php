@@ -29,10 +29,4 @@ final class ServiceInterministerielAdmin extends AbstractAdmin {
             ->add('nom')
             ;
     }
-
-    protected function configureShowFields(ShowMapper $showMapper): void {
-        $showMapper
-            ->add('nom')
-        ;
-    }
 }
