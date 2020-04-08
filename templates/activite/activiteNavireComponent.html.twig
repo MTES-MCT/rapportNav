@@ -14,17 +14,18 @@
 </div>
 <div class="row">
     <fieldset style="max-width: 100%">
-        {{ form_label(form.controleSansPv.controles, null, {'element': 'legend'} ) }}
-        {{ form_errors(form.controleSansPv.controles) }}
-        {% set half_controls = max(((form.controleSansPv.controles|length)/3)|round,1) %}
+        {{ form_label(form.controleSansPv.controleNavireRealises, null, {'element': 'legend'} ) }}
+        {{ form_errors(form.controleSansPv.controleNavireRealises) }}
+        {% set half_controls = max(((form.controleSansPv.controleNavireRealises|length)/3)|round,1) %}
         <div class="row">
-            {% for batch in form.controleSansPv.controles|batch(half_controls) %}
+            {% for batch in form.controleSansPv.controleNavireRealises|batch(half_controls) %}
                 <ul class="no-decoration stacked-list">
                     {% for box in batch %}
                         <li>
-                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {'v-model': "activites['navire'].controleSansPv.controles",
-                                'v-bind:name': "'activite_navire[controleSansPv][controles][]'",
-                                'v-bind:id': "'activite_navire_controleSansPv_controles_'+"~box.vars.value}} %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {
+                                'v-model': "activites['navire'].controleSansPv.controleNavireRealises",
+                                'v-bind:name': "'activite_navire[controleSansPv][controleNavireRealises][]'",
+                                'v-bind:id': "'activite_navire_controleSansPv_controleNavireRealises_'+"~box.vars.value}} %}
                         </li>
                     {% endfor %}
                 </ul>

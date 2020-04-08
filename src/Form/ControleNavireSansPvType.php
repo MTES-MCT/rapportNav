@@ -21,7 +21,7 @@ class ControleNavireSansPvType extends AbstractType {
                 'required' => false,
                 'label' => "dont en aire marine protégée"
             ])
-            ->add('controles', EntityType::class, [
+            ->add('controleNavireRealises', EntityType::class, [
                 'class' => CategorieControleNavire::class,
                 'required' => false,
                 'multiple' => true,

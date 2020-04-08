@@ -21,7 +21,7 @@ class ControleNavireSansPv implements JsonSerializable {
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\CategorieControleNavire")
      */
-    private $controlesRealises;
+    private $controleNavireRealises;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -38,16 +38,16 @@ class ControleNavireSansPv implements JsonSerializable {
             'nombreControle' => $this->getNombreControle(),
             'nombreControleAireProtegee' => $this->getNombreControleAireProtegee()
         ];
-        $data['controles'] = [];
-        foreach($this->getControlesRealises() as $controle) {
-            $data['controles'][] = $controle->getId();
+        $data['controleNavireRealises'] = [];
+        foreach($this->getControleNavireRealises() as $controle) {
+            $data['controleNavireRealises'][] = $controle->getId();
         }
         return $data;
     }
 
     public function __construct()
     {
-        $this->controlesRealises = new ArrayCollection();
+        $this->controleNavireRealises = new ArrayCollection();
     }
 
     public function getId(): ?int {
@@ -77,24 +77,24 @@ class ControleNavireSansPv implements JsonSerializable {
     /**
      * @return Collection|CategorieControleNavire[]
      */
-    public function getControlesRealises(): Collection
+    public function getControleNavireRealises(): Collection
     {
-        return $this->controlesRealises;
+        return $this->controleNavireRealises;
     }
 
-    public function addControleRealise(CategorieControleNavire $controle): self
+    public function addControleNavireRealise(CategorieControleNavire $controleNavire): self
     {
-        if (!$this->controlesRealises->contains($controle)) {
-            $this->controlesRealises[] = $controle;
+        if (!$this->controleNavireRealises->contains($controleNavire)) {
+            $this->controleNavireRealises[] = $controleNavire;
         }
 
         return $this;
     }
 
-    public function removeControleRealise(CategorieControleNavire $controle): self
+    public function removeControleNavireRealise(CategorieControleNavire $controleNavire): self
     {
-        if ($this->controlesRealises->contains($controle)) {
-            $this->controlesRealises->removeElement($controle);
+        if ($this->controleNavireRealises->contains($controleNavire)) {
+            $this->controleNavireRealises->removeElement($controleNavire);
         }
 
         return $this;

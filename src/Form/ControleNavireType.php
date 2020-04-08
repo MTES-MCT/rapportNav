@@ -32,7 +32,7 @@ class ControleNavireType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('navire', NavireType::class, ['label' => false,])
-            ->add('controles', EntityType::class, [
+            ->add('controleNavireRealises', EntityType::class, [
                 'class' => CategorieControleNavire::class,
                 'required' => false,
                 'multiple' => true,

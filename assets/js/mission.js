@@ -26,7 +26,7 @@ $(document).ready(function() {
                     controleSansPv: {
                         nombreControle: 0,
                         nombreControleAireProtegee: 0,
-                        controles: []
+                        controleNavireRealises: []
                     },
                     controles: [],
                     commentaire: null
@@ -216,11 +216,11 @@ $(document).ready(function() {
                             "nom": null,
                             "longueurHorsTout": null,
                             "genreNav": null,
-                            "CategorieUsageNavire": null,
+                            "categorieUsageNavire": null,
                             "isDeroutement": false,
                             "deroutement": null,
                         };
-                        newControle['controles'] = [];
+                        newControle['controleNavireRealises'] = [];
                         newControle['detailControle'] = null;
                         newControle['showDetail'] = false;
                         newControle['aireProtegee'] = false;
