@@ -1,2 +1,22 @@
 <h2>Formation réalisées</h2>
+
+<div class="form__group">
+    <label class="switch-text">
+        Lors de cette formation vous étiez : 
+        {{ form_widget(form.formateur, {'attr': {
+            'v-model': "activites[\"formation\"].formateur"}}) }}
+        <span class="slider">
+            <span class="first-option">Stagiaire</span>
+           <span class="second-option">Formateur</span>
+        </span>
+        <div class="form__errors">
+            {{ form_errors(form.formateur) }}
+        </div>
+    </label>
+</div>
+
+        <p>Vous pouvez indiquer des informations complémentaires sur cette formation que vous avez 
+            <template v-if='activites["formation"].formateur'>donnée</template><template v-else>suivie</template>
+        </p>
+
 {{ form_widget(form.formation, {'attr': {'v-model': "activites[\"formation\"].formation"}}) }}

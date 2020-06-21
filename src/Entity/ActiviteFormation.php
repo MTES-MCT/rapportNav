@@ -13,13 +13,21 @@ class ActiviteFormation extends Activite {
      */
     private $formation;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $formateur = false;
+
     public function getControles() {
         return null;
     }
 
     public function jsonSerialize() {
         $data = parent::jsonSerialize();
-        $data['formation'] = $this->getFormation();
+        $data = [
+                'formation' => $this->getFormation(),
+                'formateur' => $this->getFormateur()
+                ];
         return $data;
     }
 
@@ -32,4 +40,15 @@ class ActiviteFormation extends Activite {
 
         return $this;
     }
+
+    public function getFormateur(): ?bool {
+        return $this->formateur;
+    }
+
+    public function setFormateur(bool $formateur): self {
+        $this->formateur = $formateur;
+
+        return $this;
+    }
+
 }

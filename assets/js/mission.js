@@ -48,13 +48,13 @@ $(document).ready(function() {
                         nombreControle: 0,
                         nombreControleAireProtegee: 0,
                         nombreControleChlordeconeTotale: 0,
-                        nombreControleChlordeconePartiel: 0,
+                        nombreControleChlordeconePartiel: 0
                     },
                     controleProSansPv: {
                         nombreControle: 0,
                         nombreControleAireProtegee: 0,
                         nombreControleChlordeconeTotale: 0,
-                        nombreControleChlordeconePartiel: 0,
+                        nombreControleChlordeconePartiel: 0
                     },
                     controles: [],
                     commentaire: null
@@ -97,12 +97,13 @@ $(document).ready(function() {
                     active: false,
                     zones: [],
                     formation: "",
+                    formateur: false,
                     commentaire: null
                 }
             },
             error: false,
             errorList: {},
-            natinfsOptions: [],
+            natinfsOptions: []
         },
         components: {activite},
         created: function() {
@@ -156,7 +157,7 @@ $(document).ready(function() {
                             nombreControle: 0,
                             nombreControleAireProtegee: 0,
                             nombreControleChlordeconeTotale: 0,
-                            nombreControleChlordeconePartiel: 0,
+                            nombreControleChlordeconePartiel: 0
                         };
                     } if (("controleSansPv" === property) && null === val) {
                         this.activites[index][property] = {
@@ -221,7 +222,7 @@ $(document).ready(function() {
                             "genreNav": null,
                             "categorieUsageNavire": null,
                             "isDeroutement": false,
-                            "deroutement": null,
+                            "deroutement": null
                         };
                         newControle['controleNavireRealises'] = [];
                         newControle['detailControle'] = null;
@@ -284,7 +285,7 @@ $(document).ready(function() {
                     .catch(function(reason) {
                         console.log("Immatriculation non trouvée dans Navires (err. " + reason.status + ")");
                         plaisance = true;
-                        return $.get(params.apiNavires + "plaisances/" + input.value)
+                        return $.get(params.apiNavires + "plaisances/" + input.value);
                     })
                     .catch(function(data) {
                         if(data.status === 404) {
@@ -307,7 +308,7 @@ $(document).ready(function() {
                         } else {
                             currentNavire.genreNav = "Plaisance";
                         }
-                    })
+                    });
             },
             getNatinfData: function(search, loading) {
                 loading(true);
@@ -315,7 +316,7 @@ $(document).ready(function() {
                 $.ajax({
                     url: params.apiNatinf + 'natinfs/' + search,
                     data: {},
-                    dataType: 'json',
+                    dataType: 'json'
                 })
                     .then(function(data) {
                         vm.natinfsOptions.push(data.natinf);
@@ -372,7 +373,7 @@ $(document).ready(function() {
                 this.activites[subject].controles[index].showDetail = "Autre" === $event.target.options[$event.target.selectedIndex].innerText;
             },
             localSave: function() {
-                localStorage.setItem('activites', JSON.stringify(this.activites))
+                localStorage.setItem('activites', JSON.stringify(this.activites));
             },
             validate: function() {
                 let isValid = document.getElementById("rapport").checkValidity();

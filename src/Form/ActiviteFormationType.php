@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\ActiviteFormation;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,12 @@ class ActiviteFormationType extends ActiviteType {
             ->add('formation', TextareaType::class, [
                 'required' => false,
                 'label' => false,
-            ]);
+            ])
+            ->add('formateur', CheckboxType::class, [
+                'required' => false,
+                'label' => null
+                ])
+        ;
 
     }
 
