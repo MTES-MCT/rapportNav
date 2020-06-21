@@ -1,5 +1,5 @@
 <h3>Navires Contrôlés</h3>
-<h4>Navires de plaisance non professionnels contrôlés n'ayant pas donné lieu à des PV</h4>
+<h4>Navires de plaisance <u>non professionnels</u> contrôlés <u>n'ayant pas donné lieu à des PV</u></h4>
 <div class="row">
     <div class="form__group">
         {{ form_label(form.controleSansPv.nombreControle, null, {'label_attr': {'class': "label-inline"}}) }}
@@ -33,7 +33,7 @@
         </div>
     </fieldset>
 </div>
-<h4>Contrôles détaillés (navires professionnels et plaisance non listé ci-dessus)</h4>
+<h4>Contrôles détaillés : navires professionnels et / ou plaisance <u>non listé ci-dessus</u></h4>
 {% include 'controle/controleNavireComponent.html.twig' with {'form': form} %}
 
 

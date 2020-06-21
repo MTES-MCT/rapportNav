@@ -40,13 +40,13 @@ class RapportType extends AbstractType {
             ->add('dateDebutMission', DateTimeType::class, [
                 'required' => true,
                 'date_widget' => "single_text",
-                'time_label' => "Heure de démarrage",
+                'time_label' => "Heure de démarrage (heure locale)",
                 'time_widget' => "single_text",
                 'label' => "Date de la mission"])
             ->add('dateFinMission', DateTimeType::class, [
                 'required' => true,
                 'date_widget' => "single_text",
-                'time_label' => "Heure de fin",
+                'time_label' => "Heure de fin  (heure locale)",
                 'time_widget' => "single_text",
                 'label' => "Fin de mission"])
             ->add('arme', CheckboxType::class, [
