@@ -4,5 +4,6 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         version: '%app.version%'
+        api_app: '%api_app%'
         metabase: '%metabase_root%'
         show_warning: '%app.warning%'

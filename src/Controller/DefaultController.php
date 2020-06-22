@@ -6,6 +6,7 @@ use App\Entity\Rapport;
 use App\Entity\RapportRepartitionHeures;
 use App\Entity\Service;
 use App\Entity\User;
+use App\Entity\MoisClos;
 use App\Form\ActiviteAdministratifType;
 use App\Form\ActiviteAutreType;
 use App\Form\ActiviteCommerceType;
@@ -235,19 +236,33 @@ class DefaultController extends AbstractController {
      *
      * @return Response
      */
-    public function listForms(LoggerInterface $logger) {
+    public function listForms(LoggerInterface $logger, EntityManagerInterface $em) {
         $month = date("m");
         $year = date("Y");
 
         try {
             $now = new DateTimeImmutable("01-".date("m")."-".date("Y"));
             $prevMonthDate = (new DateTime())->modify('previous month');
+            $beforePrevDate = (clone $prevMonthDate)->modify('previous month');
             $previousMonth = new DateTimeImmutable("01-".$prevMonthDate->format("m")."-".$prevMonthDate->format("Y"));
+            $beforePreviousMonth = new DateTimeImmutable("01-".$beforePrevDate->format("m")."-".$beforePrevDate->format("Y"));
         } catch(\Exception $e) {
-            $logger->critical("Fail to initialize date");
+            $logger->critical("Fail to initialize date : ".$e->getCode());
             $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅ sur la page d'accueil. ");
             return $this->redirectToRoute('home');
         }
+
+//        $openMonths = [$beforePrevDate, $prevMonthDate];
+        $service = $this->getUser()->getService();
+        $openMonths=[];
+        if(!$em->getRepository("App:MoisClos")->isClosed($service, $beforePreviousMonth)) {
+            $openMonths[]=$beforePreviousMonth;
+        }
+        if(!$em->getRepository("App:MoisClos")->isClosed($service, $previousMonth)) {
+            $openMonths[]=$previousMonth;
+        }
+        
+//        $openMonths = $em->getRepository("App:ClosedMonth")->findOpenMonths($this->getUser()->getService(), $previousMonth);
 
         $metabaseSecretKey = $this->getParameter("metabase_key");
         $metabaseDbUrl = $this->getParameter("metabase_url");
@@ -266,7 +281,12 @@ class DefaultController extends AbstractController {
 
         $iframeUrl = $metabaseDbUrl."embed/dashboard/".$token."#bordered=true&titled=true";
 
-        return $this->render('listForms.html.twig', ['iframeUrl' => $iframeUrl, 'now' => $now, 'previousMonth' => $previousMonth]);
+        return $this->render('listForms.html.twig', [
+            'iframeUrl' => $iframeUrl, 
+            'now' => $now, 
+            'previousMonth' => $previousMonth, 
+            'openMonths' => $openMonths
+            ]);
 
     }
 
@@ -381,6 +401,35 @@ class DefaultController extends AbstractController {
 
         return $response;
 
+    }
+    
+    /**
+     * @Route("/api/mois_clos", name="mois_clos", methods={"POST"})
+     */
+    public function newMoisClos(EntityManagerInterface $em, Request $request) {
+        try {
+            $dateString = $request->request->get('date');
+            $service = $this->getUser()->getService();
+        } catch (Exception $ex) {
+            throw new InvalidArgumentException("La date est invalide ou l'utilisateur n'a pas de service");
+        }
+        
+        $moisClos = new MoisClos();
+        
+        try {
+            $date = new \DateTimeImmutable("01-".$dateString);
+            $moisClos->setService($service)
+                ->setDate($date);
+        } catch (Exception $ex) {
+            throw new InvalidArgumentException("La date est invalide ou l'utilisateur n'a pas de service");
+        }
+        
+        $this->addFlash("success", "Le mois de ".$date->format("M")." est clos.");
+        
+        $em->persist($moisClos);
+        $em->flush();
+        
+        return $this->json(['status' => "success"]);
     }
 
     private function makeTimeDivisionArray(RapportRepartitionHeures $rH) :array {

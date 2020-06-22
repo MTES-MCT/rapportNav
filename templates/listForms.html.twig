@@ -14,21 +14,33 @@
                 {% include 'fragments/noteRgpd.html.twig' %}
                 {% include 'fragments/messageNavigateur.html.twig' %}
                 <h1>Ajout d'un nouveau rapport</h1>
-                <div class="row">
+                <div class="row" style="align-items: center;">
                     <a href="{{ path('rapport_create') }}" class="button large">
                         Créer un rapport de mission
                     </a>
+                    {% for month in openMonths %}    
+                        <a href="#" class="button large warning-light js-close-month-action" 
+                           id="close-month-{{month|localizeddate("long", "none", 'fr', null, "MM-Y")}}"
+                           onclick="closeMonth('{{month|localizeddate("long", "none", 'fr', null, "MM-Y")}}')">
+                            Cloturer le mois de {{ month|localizeddate("long", "none", 'fr', null, "MMMM Y") }}
+                        </a>
+                    {% endfor %}
+                    {% if openMonths|length <1 %}
+                        <div style="margin:auto;">Les mois passés sont tous clos, bon travail !</div>
+                    {% endif %}
+                </div>
+                <div class="row">
                     <a href="{{ path('suivi_mensuel_edit', {
                             'month': now|localizeddate("long", "none", 'fr', null, "MM"),
                             'year':now|localizeddate("long", "none", 'fr', null, "Y")}) }}"
                        class="button large">
-                        Mettre à jour le suivi mensuel de {{ now|localizeddate("long", "none", 'fr', null, "MMMM Y") }}
+                        Mettre à jour le suivi mensuel (congés, AT) de {{ now|localizeddate("long", "none", 'fr', null, "MMMM Y") }}
                     </a>
                     <a href="{{ path('suivi_mensuel_edit', {
                         'month': previousMonth|localizeddate("long", "none", 'fr', null, "MM"),
                         'year': previousMonth|localizeddate("long", "none", 'fr', null, "Y")}) }}"
                        class="button large">
-                        Mettre à jour le suivi mensuel de {{ previousMonth|localizeddate("long", "none", 'fr', null, "MMMM Y") }}
+                        Mettre à jour le suivi mensuel (congés, AT) de {{ previousMonth|localizeddate("long", "none", 'fr', null, "MMMM Y") }}
                     </a>
                 </div>
             </div>
@@ -45,3 +57,22 @@
     </section>
 
 {% endblock body_main_container %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function closeMonth(month) {
+            $.post({
+                url: '{{ api_app }}mois_clos', 
+                data: {'date': month}
+            })
+            .done(function() {
+                location.reload(true);
+            });
+        };
+        
+    </script>
+{% endblock javascripts %}
