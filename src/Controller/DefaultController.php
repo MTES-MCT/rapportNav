@@ -243,26 +243,12 @@ class DefaultController extends AbstractController {
         try {
             $now = new DateTimeImmutable("01-".date("m")."-".date("Y"));
             $prevMonthDate = (new DateTime())->modify('previous month');
-            $beforePrevDate = (clone $prevMonthDate)->modify('previous month');
             $previousMonth = new DateTimeImmutable("01-".$prevMonthDate->format("m")."-".$prevMonthDate->format("Y"));
-            $beforePreviousMonth = new DateTimeImmutable("01-".$beforePrevDate->format("m")."-".$beforePrevDate->format("Y"));
         } catch(\Exception $e) {
             $logger->critical("Fail to initialize date : ".$e->getCode());
             $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅ sur la page d'accueil. ");
             return $this->redirectToRoute('home');
         }
-
-//        $openMonths = [$beforePrevDate, $prevMonthDate];
-        $service = $this->getUser()->getService();
-        $openMonths=[];
-        if(!$em->getRepository("App:MoisClos")->isClosed($service, $beforePreviousMonth)) {
-            $openMonths[]=$beforePreviousMonth;
-        }
-        if(!$em->getRepository("App:MoisClos")->isClosed($service, $previousMonth)) {
-            $openMonths[]=$previousMonth;
-        }
-        
-//        $openMonths = $em->getRepository("App:ClosedMonth")->findOpenMonths($this->getUser()->getService(), $previousMonth);
 
         $metabaseSecretKey = $this->getParameter("metabase_key");
         $metabaseDbUrl = $this->getParameter("metabase_url");
@@ -285,7 +271,6 @@ class DefaultController extends AbstractController {
             'iframeUrl' => $iframeUrl, 
             'now' => $now, 
             'previousMonth' => $previousMonth, 
-            'openMonths' => $openMonths
             ]);
 
     }
@@ -304,11 +289,22 @@ class DefaultController extends AbstractController {
         try {
             $now = new DateTimeImmutable("01-".date("m")."-".date("Y"));
             $prevMonthDate = (new DateTime())->modify('previous month');
+            $beforePrevDate = (clone $prevMonthDate)->modify('previous month');
             $prevMonth = new DateTimeImmutable("01-".$prevMonthDate->format("m")."-".$prevMonthDate->format("Y"));
+            $beforePrevMonth = new DateTimeImmutable("01-".$beforePrevDate->format("m")."-".$beforePrevDate->format("Y"));
         } catch(\Exception $e) {
             $logger->critical("Fail to initialize date");
             $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅ sur la page d'accueil. ");
             return $this->redirectToRoute('home');
+        }
+        
+        $service = $this->getUser()->getService();
+        $openMonths=[];
+        if(!$em->getRepository("App:MoisClos")->isClosed($service, $beforePrevMonth)) {
+            $openMonths[]=$beforePrevMonth;
+        }
+        if(!$em->getRepository("App:MoisClos")->isClosed($service, $prevMonth)) {
+            $openMonths[]=$prevMonth;
         }
 
         $reports = $em->getRepository('App:Rapport')->findByPeriod(
@@ -325,7 +321,8 @@ class DefaultController extends AbstractController {
         return $this->render('listSubmissions.html.twig', [
             'currentReports' => $reports,
             'previousMounthReports' => $pastReports,
-            'date' => $prevMonth->format("d-m-Y")
+            'date' => $prevMonth->format("d-m-Y"),
+            'openMonths' => $openMonths
         ]);
     }
 
