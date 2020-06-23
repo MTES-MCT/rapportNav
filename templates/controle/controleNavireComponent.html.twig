@@ -30,6 +30,22 @@
                         {% endif %}
                     {% endfor %}
                 </fieldset>
+                <div>
+                    <p>Dispositif de dissuasion accoustique des cétacés :</p>
+                    {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with
+                        {'box': form.navires.vars.prototype.pingerApplicable, 'attr': {'v-model': "controle.pingerApplicable",
+                            '@change': "togglePinger(index)",
+                            'v-bind:name': "'activite_navire[navires]['+index+'][pingerApplicable]'",
+                            'v-bind:id': "'activite_navire_navires_'+index+'_pinger_applicable'"}}
+                    %}
+                    <div v-if="controle.pingerPresent !== null" style="margin-left: 2em;">
+                        {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with
+                            {'box': form.navires.vars.prototype.pingerPresent, 'attr': {'v-model': "controle.pingerPresent",
+                                'v-bind:name': "'activite_navire[navires]['+index+'][pingerPresent]'",
+                                'v-bind:id': "'activite_navire_navires_'+index+'_pinger_pressent'"}} 
+                        %}
+                    </div>
+                </div>
             </div>
             <div style="flex-grow: 1">
                 {% include 'formThemes/stackedRadioFormTheme.html.twig' with

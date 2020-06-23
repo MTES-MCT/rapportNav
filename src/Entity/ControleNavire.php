@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\ControleNavireRepository")
  */
 class ControleNavire implements JsonSerializable {
+
     use RapportControle;
 
     /**
@@ -95,6 +96,7 @@ class ControleNavire implements JsonSerializable {
      * @ORM\JoinColumn(nullable=true)
      */
     private $natinfs;
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -105,6 +107,16 @@ class ControleNavire implements JsonSerializable {
      */
     private $deroutement;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $pingerApplicable;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $pingerPresent;
+
     public function jsonSerialize() {
         $data = [
             'pv' => $this->getPv(),
@@ -112,6 +124,8 @@ class ControleNavire implements JsonSerializable {
             'aireProtegee' => $this->getAireProtegee(),
             'chloredeconeTotal' => $this->getChloredeconeTotal(),
             'chloredeconePartiel' => $this->getChloredeconePartiel(),
+            'pingerApplicable' => $this->getPingerApplicable(),
+            'pingerPresent' => $this->getPingerPresent(),
             'date' => $this->getDate()->format("Y-m-d H:i"),
             'lat' => $this->getLat(),
             'long' => $this->getLong(),
@@ -123,7 +137,7 @@ class ControleNavire implements JsonSerializable {
 
 
         $data['natinfs'] = [];
-        foreach($this->getNatinfs() as $natinf) {
+        foreach ($this->getNatinfs() as $natinf) {
             $data['natinfs'][] = $natinf->getNumero();
         }
 
@@ -132,9 +146,9 @@ class ControleNavire implements JsonSerializable {
         $data['controleNavireRealises'] = [];
 
         $data['showDetail'] = false;
-        foreach($this->getControleNavireRealises() as $controle) {
+        foreach ($this->getControleNavireRealises() as $controle) {
             $data['controleNavireRealises'][] = $controle->getId();
-            if("Autre" === $controle->getNom()) {
+            if ("Autre" === $controle->getNom()) {
                 $data['showDetail'] = true;
             }
         }
@@ -199,7 +213,7 @@ class ControleNavire implements JsonSerializable {
     }
 
     public function addNatinf(Natinf $natinf): self {
-        if(!$this->natinfs->contains($natinf)) {
+        if (!$this->natinfs->contains($natinf)) {
             $this->natinfs[] = $natinf;
         }
 
@@ -207,7 +221,7 @@ class ControleNavire implements JsonSerializable {
     }
 
     public function removeNatinf(Natinf $natinf): self {
-        if($this->natinfs->contains($natinf)) {
+        if ($this->natinfs->contains($natinf)) {
             $this->natinfs->removeElement($natinf);
         }
 
@@ -222,7 +236,7 @@ class ControleNavire implements JsonSerializable {
     }
 
     public function addControleNavireRealise(CategorieControleNavire $controleNavire): self {
-        if(!$this->controleNavireRealises->contains($controleNavire)) {
+        if (!$this->controleNavireRealises->contains($controleNavire)) {
             $this->controleNavireRealises[] = $controleNavire;
         }
 
@@ -230,7 +244,7 @@ class ControleNavire implements JsonSerializable {
     }
 
     public function removeControleNavireRealise(CategorieControleNavire $controleNavire): self {
-        if($this->controleNavireRealises->contains($controleNavire)) {
+        if ($this->controleNavireRealises->contains($controleNavire)) {
             $this->controleNavireRealises->removeElement($controleNavire);
         }
 
@@ -325,4 +339,25 @@ class ControleNavire implements JsonSerializable {
 
         return $this;
     }
+
+    public function getPingerApplicable(): ?bool {
+        return $this->pingerApplicable;
+    }
+
+    public function setPingerApplicable(?bool $pingerApplicable): self {
+        $this->pingerApplicable = $pingerApplicable;
+
+        return $this;
+    }
+
+    public function getPingerPresent(): ?bool {
+        return $this->pingerPresent;
+    }
+
+    public function setPingerPresent(?bool $pingerPresent): self {
+        $this->pingerPresent = $pingerPresent;
+
+        return $this;
+    }
+
 }

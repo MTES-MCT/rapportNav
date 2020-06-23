@@ -225,6 +225,8 @@ $(document).ready(function() {
                             "deroutement": null
                         };
                         newControle['controleNavireRealises'] = [];
+                        newControle['pingerApplicable'] = false;
+                        newControle['pingerPresent'] = null;
                         newControle['detailControle'] = null;
                         newControle['showDetail'] = false;
                         newControle['aireProtegee'] = false;
@@ -331,6 +333,14 @@ $(document).ready(function() {
                 } else {
                     currentNavire.pavillon = "Français";
                     this.getNavireData(index);
+                }
+            },
+            togglePinger: function(index) {
+                let CurrentControle = this.activites['navire'].controles[index];
+                if(CurrentControle.pingerApplicable) {
+                    CurrentControle.pingerPresent = false;
+                } else {
+                    CurrentControle.pingerPresent = null;
                 }
             },
             updateBateaux: function($event, index) {
