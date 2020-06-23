@@ -38,6 +38,14 @@ class ControleNavireType extends AbstractType {
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Contrôles réalisés"])
+            ->add('pingerApplicable', CheckboxType::class, [
+                'required' => false,
+                'label' => "La règlementation Pinger est applicable à ce navire"
+            ])
+            ->add('pingerPresent', CheckboxType::class, [
+                'required' => false,
+                'label' => "Ce navire possède un pinger"
+            ])
             ->add('detailControle', TextType::class, [
                 'required' => false,
             ])
