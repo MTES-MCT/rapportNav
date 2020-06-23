@@ -64,6 +64,7 @@
         {% endfor %}
         </div>
     </div>
+    {% if app.user.chefUlam %}
     <div>
         <h3>Clôture mensuelle</h3>
         <p>En tant que Chef ULAM vous avez la possibilité de déclarer un mois comme clos. 
@@ -82,6 +83,7 @@
             <div style="margin:auto;">Les mois passés sont tous clos, bon travail !</div>
         {% endif %}
     </div>
+    {% endif %}
 
     <a href="{{ path('list_submissions_by_date', {'date': date}) }}" class="button large">Voir les rapports plus anciens</a>
 

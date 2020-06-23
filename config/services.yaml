@@ -157,3 +157,10 @@ services:
         arguments: [~,App\Entity\CategorieMethodeCiblage,~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de méthodes de ciblage" }
+
+    admin.user:
+        class: App\Admin\UserAdmin
+        arguments: [~, App\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: User }
+        public: true

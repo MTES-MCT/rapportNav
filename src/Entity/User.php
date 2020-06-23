@@ -23,6 +23,11 @@ class User extends BaseUser {
      */
     protected $service;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : 0})
+     */
+    private $chefUlam=false;
+
     public function getId() {
         return $this->id;
     }
@@ -33,6 +38,18 @@ class User extends BaseUser {
 
     public function setService(?Service $service): self {
         $this->service = $service;
+
+        return $this;
+    }
+
+    public function getChefUlam(): ?bool
+    {
+        return $this->chefUlam;
+    }
+
+    public function setChefUlam(bool $chefUlam): self
+    {
+        $this->chefUlam = $chefUlam;
 
         return $this;
     }

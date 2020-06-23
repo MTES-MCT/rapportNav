@@ -33,6 +33,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends AbstractController {
 
@@ -404,6 +405,9 @@ class DefaultController extends AbstractController {
      * @Route("/api/mois_clos", name="mois_clos", methods={"POST"})
      */
     public function newMoisClos(EntityManagerInterface $em, Request $request) {
+        if(!$this->getUser()->getChefUlam()) {
+            throw new AccessDeniedException('Erreur : seul⋅e⋅s les chef⋅fe⋅s d\'unité peuvent faire cela');
+        }
         try {
             $dateString = $request->request->get('date');
             $service = $this->getUser()->getService();
