@@ -49,8 +49,6 @@ class MoisClosRepository extends ServiceEntityRepository {
             ->getQuery()
             ->getResult()
         ;
-dump($result);
-dump($date);
         return (bool)($result);
     }
 
