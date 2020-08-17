@@ -25,7 +25,7 @@ jobs:
       - run: sudo apt install -y libpq-dev
       - run: sudo docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
       - run: sudo docker-php-ext-install pdo pdo_pgsql pgsql
-      - run: composer self-update
+      - run: sudo composer self-update
 
       # Download and cache dependencies
       - restore_cache:
