@@ -287,7 +287,8 @@ $(document).ready(function() {
                     .catch(function(reason) {
                         console.log("Immatriculation non trouvée dans Navires (err. " + reason.status + ")");
                         plaisance = true;
-                        return $.get(params.apiNavires + "plaisances/" + input.value);
+						//Note that for plaisance only immatriculation may conatain an upper case letter
+                        return $.get(params.apiNavires + "plaisances/" + input.value.toUpperCase());
                     })
                     .catch(function(data) {
                         if(data.status === 404) {
