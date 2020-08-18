@@ -102,17 +102,17 @@
                 <div class="" style="">
                     <div class="form__group horizontal__form" style="max-width: 20em;">
                         {{ form_label(form.navires.vars.prototype.lat, null, {'label_attr': {'class': "label-inline"}}) }}
-                        {{ form_widget(form.navires.vars.prototype.lat, {'attr': {
-                            'v-model': "controle.lat",
-                            'v-bind:name': "'activite_navire[navires]['+index+'][lat]'",
-                            'v-bind:id': "'activite_navire_navires_'+index+'_lat'"}}) }}
+                        <input-geo-coordinate coord_type="lat" 
+                        	:name="'activite_navire[navires]['+index+'][lat]'"
+                        	:id="'activite_navire_navires_'+index+'_lat'"
+                        	v-model="controle.lat"></input-geo-coordinates>
                     </div>
                     <div class="form__group horizontal__form" style="max-width: 20em;">
                         {{ form_label(form.navires.vars.prototype.long, null, {'label_attr': {'class': "label-inline"}}) }}
-                        {{ form_widget(form.navires.vars.prototype.long, {'attr': {
-                            'v-model': "controle.long",
-                            'v-bind:name': "'activite_navire[navires]['+index+'][long]'",
-                            'v-bind:id': "'activite_navire_navires_'+index+'_long'"}}) }}
+                        <input-geo-coordinate coord_type="long" 
+                        	:name="'activite_navire[navires]['+index+'][long]'"
+                        	:id="'activite_navire_navires_'+index+'_long'"
+                        	v-model="controle.long"></input-geo-coordinates>
                     </div>
                 </div>
             </div>

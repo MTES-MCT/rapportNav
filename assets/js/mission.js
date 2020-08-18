@@ -9,9 +9,11 @@ import inputDateTime from "./inputDateTime";
 import {camelToSnake} from "./stringManipulationHelper";
 import * as update from "./helper/update";
 import 'vue-select/dist/vue-select.css';
+import InputGeoCoordinate from './components/InputGeoCoordinate';
 
 Vue.component('v-select', vSelect);
 Vue.component('input-date-time', inputDateTime);
+Vue.component('input-geo-coordinate', InputGeoCoordinate);
 
 $(document).ready(function() {
     new Vue({
