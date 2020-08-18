@@ -2,7 +2,7 @@
     <div v-bind:id="id">
         <input
                 type="number"
-                class=""
+                class="degree"
 				:max="maxDegree"
 				:min="-maxDegree"
                 v-model.number="degree"
@@ -10,9 +10,9 @@
         &nbsp;°&nbsp;
         <input
                 type="number"
-                class=""
-				step="0.0001"
-				max="59.9999"
+                class="minute"
+				step="0.00000001"
+				max="59.99999999"
 				min="0"
                 v-model.number="minutes"
         />'
@@ -26,7 +26,7 @@ export default {
 	name: "InputGeoCoordinate",
 	props: {
             id: String,
-			value: Number,
+			value: [Number, String],
             name: String,
 			required: Boolean,
 			coord_type: {
@@ -37,8 +37,8 @@ export default {
         },
 	data: function() {
 		return {
-			degree: Math.floor(this.value),
-			minutes: (this.value - Math.floor(this.value))*60,
+			degree: Math.floor(this.value)||0,
+			minutes: ((this.value - Math.floor(this.value))*60).toFixed(8)||0,//Need to limit precision due to float imprecision
 			maxDegree: this.coord_type=="lat"? 90 : 180,
 			};
 	},
@@ -62,6 +62,12 @@ export default {
  input {
 	 width: auto;
 	 max-width: 7em;
+ }
+ .degree {
+	 max-width: 5em;
+ }
+ .minute {
+	 max-width:9em;
  }
  .note {
 	 font-size: 0.8em;
