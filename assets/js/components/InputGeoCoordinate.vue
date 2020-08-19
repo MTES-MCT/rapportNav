@@ -43,7 +43,7 @@ export default {
 			};
 	},
 	computed: {
-		coordinate: function() {return ((this.degree)||0) + (isNaN(this.minutes)? 0 : this.minutes/60);},
+		coordinate: function() {return ((this.degree)||0) + Math.sign(this.degree) * (isNaN(this.minutes)? 0 : this.minutes/60);},
 		
 	},
 	methods: {
