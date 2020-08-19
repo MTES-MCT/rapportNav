@@ -49,7 +49,8 @@ $(document).ready(function() {
           'conjointe': $('#rapport_conjointe').prop("checked"),
           'serviceConjoints': $('#service-conjoints select').val(),
           'moyens': [],
-          'arme': $('#rapport_arme').prop("checked")
+          'arme': $('#rapport_arme').prop("checked"),
+          'commentaire': $('#rapport_commentaire').val()
         };
 
         $('#agents input').each(function(index, object) {
@@ -95,7 +96,11 @@ $(document).ready(function() {
         $('#rapport_dateDebutMission_time').val(draft.rapport.debutHeure);
         $('#rapport_dateFinMission_date').val(draft.rapport.finDate);
         $('#rapport_dateFinMission_time').val(draft.rapport.finHeure);
+        if(draft.rapport.debutDate !== draft.rapport.finDate) {
+          $('#mission_plusiuers_jours').prop("checked", true);
+        }
         $('#rapport_arme').prop("checked", draft.rapport.arme);
+        $('#rapport_commentaire').val(draft.rapport.commentaire);
         $('#rapport_conjointe').prop("checked", draft.rapport.conjointe);
         $('#service-conjoints select').val(draft.rapport.serviceConjoints);
         $('#service-conjoints select').select2({ language: "fr"});
