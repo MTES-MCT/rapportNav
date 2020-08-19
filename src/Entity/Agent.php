@@ -74,7 +74,7 @@ class Agent {
         return $this;
     }
 
-    public function getService(): ?string {
+    public function getService(): ?Service {
         return $this->service;
     }
 

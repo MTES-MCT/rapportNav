@@ -35,8 +35,8 @@ class NavireAdmin extends AbstractAdmin {
         $listMapper
             ->addIdentifier('nom')
             ->addIdentifier('immatriculation')
-            ->addIdentifier('longueurHorsTout')
-            ->addIdentifier('genreNav')
+            ->add('longueurHorsTout')
+            ->add('genreNav')
         ;
     }
 

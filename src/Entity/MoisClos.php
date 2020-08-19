@@ -6,7 +6,7 @@ use App\Repository\MoisClosRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MoisClosRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\MoisClosRepository")
  * @ORM\Table(name="mois_clos", indexes={@ORM\Index(name="date_index", columns={"date"})})
  */
 class MoisClos {
