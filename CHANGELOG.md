@@ -4,6 +4,7 @@
 * Correction d'un bug sur la gestion des brouillon (information manquante)
 * Champ immatriculation insensible à la case 
 * Ajout d'éléments dans l'interface d'adminnistration (Service, Mois Clos)
+* Ajout du code NatAff et interface admin pour les Natinfs
 
 ## Changelog v0.10.0 -> 0.10.1
 

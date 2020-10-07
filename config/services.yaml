@@ -178,4 +178,10 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: rapport, label: "Mois clôturés" }
         public: true
-        
+
+    admin.natinf:
+        class: App\Admin\NatinfAdmin
+        arguments: [~, App\Entity\Natinf, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: rapport, label: Natinf }
+        public: true
