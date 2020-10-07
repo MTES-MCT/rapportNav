@@ -24,7 +24,8 @@ $(document).ready(function() {
                     active: false,
                     zones: [],
                     controleSansPv: {
-                        nombreControle: 0,
+                        nombreControleMer: 0,
+						nombreControleTerre: 0,
                         nombreControleAireProtegee: 0,
                         controleNavireRealises: []
                     },
@@ -161,7 +162,8 @@ $(document).ready(function() {
                         };
                     } if (("controleSansPv" === property) && null === val) {
                         this.activites[index][property] = {
-                            nombreControle: 0,
+                            nombreControleMer: 0,
+							nombreControleTerre: 0,
                             nombreControleAireProtegee: 0,
                             controles: []
                         };

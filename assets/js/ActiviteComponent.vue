@@ -37,7 +37,7 @@
         computed: {
             nombreControles: function() {
                 return this.activite.controles.length +
-                    Number(undefined === this.activite.controleSansPv ? 0 : this.activite.controleSansPv.nombreControle ) +
+                    Number(undefined === this.activite.controleSansPv ? 0 : Number(this.activite.controleSansPv.nombreControleMer) + Number(this.activite.controleSansPv.nombreControleTerre) ) +
                     Number(undefined === this.activite.controlePlaisanceSansPv ? 0 : this.activite.controlePlaisanceSansPv.nombreControle) +
                     Number(undefined === this.activite.controleProSansPv ? 0 : this.activite.controleProSansPv.nombreControle)
                     ;

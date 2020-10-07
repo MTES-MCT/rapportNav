@@ -26,7 +26,12 @@ class ControleNavireSansPv implements JsonSerializable {
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $nombreControle;
+    private $nombreControleMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nombreControleTerre;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -35,7 +40,8 @@ class ControleNavireSansPv implements JsonSerializable {
 
     public function jsonSerialize() {
         $data = [
-            'nombreControle' => $this->getNombreControle(),
+            'nombreControleMer' => $this->getNombreControleMer(),
+            'nombreControleTerre' => $this->getNombreControleTerre(),
             'nombreControleAireProtegee' => $this->getNombreControleAireProtegee()
         ];
         $data['controleNavireRealises'] = [];
@@ -54,12 +60,12 @@ class ControleNavireSansPv implements JsonSerializable {
         return $this->id;
     }
 
-    public function getNombreControle(): ?int {
-        return $this->nombreControle;
+    public function getNombreControleMer(): ?int {
+        return $this->nombreControleMer;
     }
 
-    public function setNombreControle(int $nombreControle): self {
-        $this->nombreControle = $nombreControle;
+    public function setNombreControleMer(int $nombreControleMer): self {
+        $this->nombreControleMer = $nombreControleMer;
 
         return $this;
     }
@@ -96,6 +102,18 @@ class ControleNavireSansPv implements JsonSerializable {
         if ($this->controleNavireRealises->contains($controleNavire)) {
             $this->controleNavireRealises->removeElement($controleNavire);
         }
+
+        return $this;
+    }
+
+    public function getNombreControleTerre(): ?int
+    {
+        return $this->nombreControleTerre;
+    }
+
+    public function setNombreControleTerre(?int $nombreControleTerre): self
+    {
+        $this->nombreControleTerre = $nombreControleTerre;
 
         return $this;
     }
