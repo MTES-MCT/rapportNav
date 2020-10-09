@@ -37,8 +37,8 @@ export default {
         },
 	data: function() {
 		return {
-			degree: Math.floor(this.value)||0,
-			minutes: ((this.value - Math.floor(this.value))*60).toFixed(8)||0,//Need to limit precision due to float imprecision
+			degree: this.value === null ? null : Math.floor(this.value),
+			minutes: this.value === null ? null : ((this.value - Math.floor(this.value))*60).toFixed(8), //Needed to limit precision due to float imprecision
 			maxDegree: this.coord_type=="lat"? 90 : 180,
 			};
 	},
