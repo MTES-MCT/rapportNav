@@ -13,13 +13,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ControleNavireSansPvType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('nombreControle', IntegerType::class, [
+            ->add('nombreControleMer', IntegerType::class, [
                 'required' => false,
-                'label' => "Nombre de navires non professionnels contrôlés sans PV"
+                'label' => "Nombre de navires non professionnels contrôlés sans PV en mer"
+            ])
+            ->add('nombreControleTerre', IntegerType::class, [
+                'required' => false,
+                'label' => "Nombre de navires non professionnels contrôlés sans PV à quai/terre"
             ])
             ->add('nombreControleAireProtegee', IntegerType::class, [
                 'required' => false,
-                'label' => "dont en aire marine protégée"
+                'label' => "dont contrôles en aire marine protégée (terre et mer)"
             ])
             ->add('controleNavireRealises', EntityType::class, [
                 'class' => CategorieControleNavire::class,

@@ -24,7 +24,12 @@ class Natinf {
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
-
+    
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $codeNatAff;
+    
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -61,6 +66,16 @@ class Natinf {
     public function setLibelle(?string $libelle): self {
         $this->libelle = $libelle;
 
+        return $this;
+    }
+    
+    public function getCodeNatAff(): ?string {
+        return $this->codeNatAff;
+    }
+    
+    public function setCodeNatAff(?string $codeNatAff): self {
+        $this->codeNatAff = $codeNatAff;
+        
         return $this;
     }
 }

@@ -9,9 +9,11 @@ import inputDateTime from "./inputDateTime";
 import {camelToSnake} from "./stringManipulationHelper";
 import * as update from "./helper/update";
 import 'vue-select/dist/vue-select.css';
+import InputGeoCoordinate from './components/InputGeoCoordinate';
 
 Vue.component('v-select', vSelect);
 Vue.component('input-date-time', inputDateTime);
+Vue.component('input-geo-coordinate', InputGeoCoordinate);
 
 $(document).ready(function() {
     new Vue({
@@ -24,7 +26,8 @@ $(document).ready(function() {
                     active: false,
                     zones: [],
                     controleSansPv: {
-                        nombreControle: 0,
+                        nombreControleMer: 0,
+						nombreControleTerre: 0,
                         nombreControleAireProtegee: 0,
                         controleNavireRealises: []
                     },
@@ -161,7 +164,8 @@ $(document).ready(function() {
                         };
                     } if (("controleSansPv" === property) && null === val) {
                         this.activites[index][property] = {
-                            nombreControle: 0,
+                            nombreControleMer: 0,
+							nombreControleTerre: 0,
                             nombreControleAireProtegee: 0,
                             controles: []
                         };
@@ -287,7 +291,8 @@ $(document).ready(function() {
                     .catch(function(reason) {
                         console.log("Immatriculation non trouvée dans Navires (err. " + reason.status + ")");
                         plaisance = true;
-                        return $.get(params.apiNavires + "plaisances/" + input.value);
+						//Note that for plaisance only immatriculation may conatain an upper case letter
+                        return $.get(params.apiNavires + "plaisances/" + input.value.toUpperCase());
                     })
                     .catch(function(data) {
                         if(data.status === 404) {

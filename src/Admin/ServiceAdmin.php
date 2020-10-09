@@ -10,30 +10,21 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
-use App\Entity\Service;
+use App\Entity\ZoneGeographique;
 
-
-final class AgentAdmin extends AbstractAdmin {
-    
-    public function toString($object): ?string {
-        return $object instanceof \App\Entity\Agent ? $object->__toString() : 'Agent';
-    }
+final class ServiceAdmin extends AbstractAdmin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void {
         $datagridMapper
             ->add('nom')
-            ->add('prenom')
-            ->add('matricule')
-            ->add('service')
-        ;
+            ->add('zoneGeographique')
+            ;
     }
 
     protected function configureListFields(ListMapper $listMapper): void {
         $listMapper
-            ->add('nom')
-            ->add('prenom')
-            ->add('matricule')
-            ->add('service.nom')
+            ->addIdentifier('nom')
+            ->add('zoneGeographique')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -46,22 +37,18 @@ final class AgentAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper): void {
         $formMapper
             ->add('nom')
-            ->add('prenom')
-            ->add('matricule')
-            ->add('service', ModelType::class, [
-                'class' => Service::class,
+            ->add('zoneGeographique', ModelType::class, [
+                'class' => ZoneGeographique::class,
                 'property' => 'nom',
+                'required' => false,
             ])
-        ;
+            ;
     }
-    
+
     protected function configureShowFields(ShowMapper $showMapper): void {
         $showMapper
-        ->add('nom')
-        ->add('prenom')
-        ->add('matricule')
-        ->add('service')
-        ;
-        ;
+            ->add('nom')
+            ->add('zoneGeographique')
+            ;
     }
 }

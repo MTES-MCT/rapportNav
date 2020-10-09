@@ -23,6 +23,7 @@ use Exception;
 use InvalidArgumentException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Key;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Form;
@@ -257,14 +258,13 @@ class DefaultController extends AbstractController {
 
         $signer = new Sha256();
         $token = (new Builder())
-            ->set('resource', [
+            ->withClaim('resource', [
                 'dashboard' => (int)$metabaseDashboard
             ])
-            ->set('params', (Object)null)
-            ->set('iat', time())
-            ->set('_embedding_params', (Object)null)
-            ->sign($signer, $metabaseSecretKey)
-            ->getToken();
+            ->withClaim('params', (Object)null)
+            ->issuedAt('iat', time())
+            ->withClaim('_embedding_params', (Object)null)
+            ->getToken($signer, new Key($metabaseSecretKey));
 
         $iframeUrl = $metabaseDbUrl."embed/dashboard/".$token."#bordered=true&titled=true";
 

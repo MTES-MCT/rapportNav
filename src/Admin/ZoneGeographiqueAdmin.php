@@ -32,8 +32,8 @@ class ZoneGeographiqueAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
             ->addIdentifier('nom')
-            ->addIdentifier('alias')
-            ->addIdentifier('direction')
+            ->add('alias')
+            ->add('direction')
         ;
     }
 

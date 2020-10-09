@@ -2,9 +2,14 @@
 <h4>Navires de plaisance <u>non professionnels</u> contrôlés <u>n'ayant pas donné lieu à des PV</u></h4>
 <div class="row">
     <div class="form__group">
-        {{ form_label(form.controleSansPv.nombreControle, null, {'label_attr': {'class': "label-inline"}}) }}
-        {{ form_widget(form.controleSansPv.nombreControle, {'attr': {'v-model': "activites['navire'].controleSansPv.nombreControle"}}) }}
-        {{ form_errors(form.controleSansPv.nombreControle) }}
+        {{ form_label(form.controleSansPv.nombreControleMer, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controleSansPv.nombreControleMer, {'attr': {'v-model': "activites['navire'].controleSansPv.nombreControleMer"}}) }}
+        {{ form_errors(form.controleSansPv.nombreControleMer) }}
+    </div>
+    <div class="form__group horizontal__form">
+        {{ form_label(form.controleSansPv.nombreControleTerre, null, {'label_attr': {'class': "label-inline"}}) }}
+        {{ form_widget(form.controleSansPv.nombreControleTerre, {'attr': {'v-model': "activites['navire'].controleSansPv.nombreControleTerre"}}) }}
+        {{ form_errors(form.controleSansPv.nombreControleTerre) }}
     </div>
     <div class="form__group horizontal__form">
         {{ form_label(form.controleSansPv.nombreControleAireProtegee, null, {'label_attr': {'class': "label-inline"}}) }}

@@ -164,3 +164,24 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: User }
         public: true
+
+    admin.service:
+        class: App\Admin\ServiceAdmin
+        arguments: [~, App\Entity\Service, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: services, label: Services }
+        public: true
+
+    admin.mois_clos:
+        class: App\Admin\MoisClosAdmin
+        arguments: [~, App\Entity\MoisClos, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: rapport, label: "Mois clôturés" }
+        public: true
+
+    admin.natinf:
+        class: App\Admin\NatinfAdmin
+        arguments: [~, App\Entity\Natinf, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: rapport, label: Natinf }
+        public: true

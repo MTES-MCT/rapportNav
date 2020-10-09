@@ -11,12 +11,17 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Entity\Service;
 
 class MoyenAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-            ->add('nom', TextType::class, ['required' => true, 'label' => "Nom (ou N/A pour non applicable)"])
-            ->add('serviceProprietaire')
+            ->add('nom', TextType::class, 
+                ['required' => true, 'label' => "Nom (ou N/A pour non applicable)"])
+            ->add('serviceProprietaire', ModelType::class, [
+                'class' => Service::class,
+                'property' => 'nom',
+            ])
             ->add('terrestre')
             ->add('typeNavire', ModelType::class,
                 ['class' => CategorieMoyen::class,
@@ -37,9 +42,9 @@ class MoyenAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
             ->addIdentifier('nom')
-            ->addIdentifier('serviceProprietaire')
-            ->addIdentifier('terrestre')
-            ->addIdentifier('typeNavire')
+            ->add('serviceProprietaire')
+            ->add('terrestre')
+            ->add('typeNavire')
         ;
     }
 

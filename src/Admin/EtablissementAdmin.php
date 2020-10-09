@@ -37,6 +37,13 @@ class EtablissementAdmin extends AbstractAdmin {
             ->add('type')
             ->add('adresse')
             ->add('commune')
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ],
+            ])
         ;
     }
 

@@ -80,11 +80,11 @@ class ControleNavireType extends AbstractType {
                 'label' => "Zone contamination partielle Chlordécone (Antilles)"
             ])
             ->add('lat', NumberType::class, [
-                'label' => "Latitude (degrés décimaux sans la cardinale)",
+                'label' => "Latitude (degrés positifs/negatifs et minutes décimales)",
                 'required' => false
             ])
             ->add('long', NumberType::class, [
-                'label' => "Longitude (degrés décimaux sans la cardinale)",
+                'label' => "Longitude (degrés positifs/negatifs et minutes décimales)",
                 'required' => false
             ])
             ->add('pv', CheckboxType::class, [

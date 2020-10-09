@@ -28,7 +28,7 @@ final class CategorieEtablissementAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
             ->addIdentifier('nom')
-            ->addIdentifier('complementDonnee')
+            ->add('complementDonnee')
         ;
     }
 

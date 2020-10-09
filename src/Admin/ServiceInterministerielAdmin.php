@@ -21,6 +21,13 @@ final class ServiceInterministerielAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper): void {
         $listMapper
             ->add('nom')
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ],
+            ])
             ;
     }
 

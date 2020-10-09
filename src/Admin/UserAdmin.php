@@ -10,6 +10,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Sonata\AdminBundle\Form\Type\ModelType;
+use App\Entity\Service;
 
 final class UserAdmin extends AbstractAdmin {
 
@@ -17,6 +19,8 @@ final class UserAdmin extends AbstractAdmin {
         $datagridMapper
                 ->add('username')
                 ->add('email')
+                ->add('service')
+                ->add('chefUlam')
                 ->add('enabled')
                 ->add('lastLogin')
                 ->add('roles')
@@ -25,13 +29,13 @@ final class UserAdmin extends AbstractAdmin {
 
     protected function configureListFields(ListMapper $listMapper): void {
         $listMapper
-                ->add('username')
+                ->addIdentifier('username')
                 ->add('email')
+                ->add('service')
+                ->add('chefUlam')
                 ->add('enabled')
                 ->add('lastLogin')
                 ->add('roles')
-                ->add('chefUlam')
-                ->add('service')
                 ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -44,11 +48,14 @@ final class UserAdmin extends AbstractAdmin {
 
     protected function configureFormFields(FormMapper $formMapper): void {
         $formMapper
-                ->with('General')
+                ->with('Informations de base')
                 ->add('username')
                 ->add('email')
                 ->add('plainPassword', TextType::class)
-                ->add('service')
+                ->add('service', ModelType::class, [
+                    'class' => Service::class,
+                    'property' => 'nom',
+                ])
             ->end()
             ->with('Management')
 //                ->add('roles', null)
@@ -60,11 +67,15 @@ final class UserAdmin extends AbstractAdmin {
 
     protected function configureShowFields(ShowMapper $showMapper): void {
         $showMapper
+            ->with('Informations de base')
                 ->add('username')
                 ->add('email')
-                ->add('enabled')
-                ->add('lastLogin')
-                ->add('roles')
+                ->add('service')
+            ->end()
+            ->with('Management')
+                ->add('chefUlam')
+                ->add('enabled', null, ['required' => false])
+            ->end()
         ;
     }
 
