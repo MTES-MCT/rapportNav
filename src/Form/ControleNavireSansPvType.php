@@ -23,7 +23,7 @@ class ControleNavireSansPvType extends AbstractType {
             ])
             ->add('nombreControleAireProtegee', IntegerType::class, [
                 'required' => false,
-                'label' => "dont en aire marine protégée"
+                'label' => "dont contrôles en aire marine protégée (terre et mer)"
             ])
             ->add('controleNavireRealises', EntityType::class, [
                 'class' => CategorieControleNavire::class,
