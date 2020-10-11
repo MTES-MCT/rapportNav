@@ -54,3 +54,12 @@ jobs:
 
       # running tests
       - run: php -d memory_limit=512M vendor/bin/simple-phpunit --configuration .circleci/phpunit.xml tests/Functional
+      
+      - run:
+          name: Creating Zip from builded project
+          command: |
+            zip -r /tmp/rapportNav.zip assets/ bin/ config/ node_modules/ public/ src/ templates/ tests/ translations/ vendor/ .env composer.json composer.lock LICENSE package.json README.md symfony.lock webpack.config.js
+      
+      - store_artifacts:
+          path: /tmp/rapportNav.zip
+          
