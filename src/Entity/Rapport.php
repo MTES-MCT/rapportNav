@@ -46,6 +46,9 @@ class Rapport {
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Agent")
+     * @ORM\JoinTable( 
+     *              joinColumns={@ORM\JoinColumn(name="rapport_id", referencedColumnName="id", onDelete="cascade")}, 
+     *              inverseJoinColumns={@ORM\JoinColumn(name="agent_id", referencedColumnName="id")})
      * @Assert\NotBlank()
      * @Assert\Count(min = 1, minMessage = "Vous devez selectionner au moins un agent")
      */

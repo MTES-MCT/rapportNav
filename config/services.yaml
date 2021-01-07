@@ -100,7 +100,7 @@ services:
             - { name: sonata.admin, manager_type: orm, group: services, label: "Zones Géographiques" }
     admin.agent:
         class: App\Admin\AgentAdmin
-        arguments: [~, App\Entity\Agent, ~]
+        arguments: [~, App\Entity\Agent, App\Controller\Admin\AgentCRUDController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: services, label: Agent }
 
@@ -160,7 +160,7 @@ services:
 
     admin.user:
         class: App\Admin\UserAdmin
-        arguments: [~, App\Entity\User, ~]
+        arguments: [~, App\Entity\User, App\Controller\Admin\UserCRUDController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: User }
         public: true

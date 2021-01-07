@@ -62,4 +62,17 @@ class RapportRepository extends ServiceEntityRepository {
         // returns an array of Product objects
         return $query->getResult();
     }
+    
+    public function findAllWithAgent(int $agentId) {
+        $em = $this->getEntityManager();
+        $dql = 'SELECT r, a
+            FROM App\Entity\Rapport r
+            JOIN r.agents a
+            WHERE a.id = :agentId'
+        ;
+        
+        $query = $em->createQuery($dql)->setParameter("agentId", $agentId);
+        
+        return $query->getResult();
+    }
 }
