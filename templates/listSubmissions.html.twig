@@ -72,11 +72,11 @@
             <br>
             Pour le moment cela ne bloque pas l'ajout ou la modification des rapports mais ce sera le cas dans une version future. 
         </p>
-        {% for month in openMonths %}    
+        {% for month in openMonths %}
             <a href="#" class="button large warning-light js-close-month-action" 
-               id="close-month-{{month|localizeddate("long", "none", 'fr', null, "MM-Y")}}"
-               onclick="closeMonth('{{month|localizeddate("long", "none", 'fr', null, "MM-Y")}}')">
-                Clore le mois de {{ month|localizeddate("long", "none", 'fr', null, "MMMM Y") }}
+               id="close-month-{{month|localizeddate("long", "none", 'fr', null, "MM-yyyy")}}"
+               onclick="closeMonth('{{month|localizeddate("long", "none", 'fr', null, "MM-yyyy")}}')">
+                Clore le mois de {{ month|localizeddate("long", "none", 'fr', null, "MMMM yyyy") }}
             </a>
         {% endfor %}
         {% if openMonths|length <1 %}
