@@ -1,5 +1,7 @@
 import $ from 'jquery';
 import select2 from 'select2';
+import 'select2/dist/css/select2.css'
+import 'select2/dist/js/i18n/fr';
 import Vue from "vue";
 import moment from 'moment';
 import redirectToList from "./redirectToList.js";
