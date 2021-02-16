@@ -23,8 +23,9 @@ final class AgentAdmin extends AbstractAdmin {
         $datagridMapper
             ->add('nom')
             ->add('prenom')
-            ->add('matricule')
             ->add('service')
+            ->add('dateArrivee')
+            ->add('dateDepart')
         ;
     }
 
@@ -32,8 +33,9 @@ final class AgentAdmin extends AbstractAdmin {
         $listMapper
             ->add('nom')
             ->add('prenom')
-            ->add('matricule')
             ->add('service.nom')
+            ->add('dateArrivee')
+            ->add('dateDepart')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -47,11 +49,12 @@ final class AgentAdmin extends AbstractAdmin {
         $formMapper
             ->add('nom')
             ->add('prenom')
-            ->add('matricule')
             ->add('service', ModelType::class, [
                 'class' => Service::class,
                 'property' => 'nom',
             ])
+            ->add('dateArrivee')
+            ->add('dateDepart')
         ;
     }
     
@@ -59,9 +62,9 @@ final class AgentAdmin extends AbstractAdmin {
         $showMapper
         ->add('nom')
         ->add('prenom')
-        ->add('matricule')
         ->add('service')
-        ;
+        ->add('dateArrivee')
+        ->add('dateDepart')
         ;
     }
 }

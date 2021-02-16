@@ -26,15 +26,20 @@ class Agent {
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=12)
-     */
-    private $matricule;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Service")
      * @ORM\JoinColumn(nullable=true)
      */
     private $service;
+
+    /**
+     * @ORM\Column(type="date_immutable")
+     */
+    private $dateArrivee;
+
+    /**
+     * @ORM\Column(type="date_immutable", nullable=true)
+     */
+    private $dateDepart;
 
     public function __toString() {
         return $this->prenom." ".$this->nom;
@@ -64,22 +69,36 @@ class Agent {
         return $this;
     }
 
-    public function getMatricule(): ?string {
-        return $this->matricule;
-    }
-
-    public function setMatricule(string $matricule): self {
-        $this->matricule = $matricule;
-
-        return $this;
-    }
-
     public function getService(): ?Service {
         return $this->service;
     }
 
     public function setService(Service $service): self {
         $this->service = $service;
+
+        return $this;
+    }
+
+    public function getDateArrivee(): ?\DateTimeImmutable
+    {
+        return $this->dateArrivee;
+    }
+
+    public function setDateArrivee(\DateTimeImmutable $dateArrivee): self
+    {
+        $this->dateArrivee = $dateArrivee;
+
+        return $this;
+    }
+
+    public function getDateDepart(): ?\DateTimeImmutable
+    {
+        return $this->dateDepart;
+    }
+
+    public function setDateDepart(?\DateTimeImmutable $dateDepart): self
+    {
+        $this->dateDepart = $dateDepart;
 
         return $this;
     }

@@ -16,13 +16,13 @@ class AgentsFixture extends Fixture implements DependentFixtureInterface, Fixtur
 
     $agent1->setNom("De Musset")
         ->setPrenom("Alfred")
-        ->setMatricule(0)
         ->setService($this->getReference('service'))
+        ->setDateArrivee(new \DateTime('1810-12-11'))
     ;
     $agent2->setNom("Desbordes-Valmore")
         ->setPrenom("Marceline")
-        ->setMatricule(0)
         ->setService($this->getReference('service'))
+        ->setDateArrivee(new \DateTime('1786-06-20'))
     ;
 
     $manager->persist($agent1);
