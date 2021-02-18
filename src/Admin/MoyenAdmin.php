@@ -27,6 +27,8 @@ class MoyenAdmin extends AbstractAdmin {
                 ['class' => CategorieMoyen::class,
                     'property' => 'nom',
                     'required' => false])
+            ->add('dateDebutService')
+            ->add('dateFinService')
         ;
     }
 
@@ -36,6 +38,8 @@ class MoyenAdmin extends AbstractAdmin {
             ->add('serviceProprietaire')
             ->add('terrestre')
             ->add('typeNavire')
+            ->add('dateDebutService')
+            ->add('dateFinService')
         ;
     }
 
@@ -45,6 +49,8 @@ class MoyenAdmin extends AbstractAdmin {
             ->add('serviceProprietaire')
             ->add('terrestre')
             ->add('typeNavire')
+            ->add('dateDebutService')
+            ->add('dateFinService')
         ;
     }
 

@@ -37,6 +37,16 @@ class Moyen {
      */
     private $typeNavire;
 
+    /**
+     * @ORM\Column(type="date_immutable")
+     */
+    private $dateDebutService;
+
+    /**
+     * @ORM\Column(type="date_immutable", nullable=true)
+     */
+    private $dateFinService;
+
     public function __toString() {
         return $this->nom;
     }
@@ -81,6 +91,30 @@ class Moyen {
 
     public function setServiceProprietaire(?Service $serviceProprietaire): self {
         $this->serviceProprietaire = $serviceProprietaire;
+
+        return $this;
+    }
+
+    public function getDateDebutService(): ?\DateTimeImmutable
+    {
+        return $this->dateDebutService;
+    }
+
+    public function setDateDebutService(\DateTimeImmutable $dateDebutService): self
+    {
+        $this->dateDebutService = $dateDebutService;
+
+        return $this;
+    }
+
+    public function getDateFinService(): ?\DateTimeImmutable
+    {
+        return $this->dateFinService;
+    }
+
+    public function setDateFinService(?\DateTimeImmutable $dateFinService): self
+    {
+        $this->dateFinService = $dateFinService;
 
         return $this;
     }

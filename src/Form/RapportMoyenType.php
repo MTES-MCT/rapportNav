@@ -33,7 +33,9 @@ class RapportMoyenType extends AbstractType {
             'query_builder' => function(EntityRepository $er) use ($service) {
                 return $er->createQueryBuilder("m")
                     ->where("m.serviceProprietaire = :service")
-                    ->setParameter("service", $service);
+                    ->andWhere('m.dateDebutService < :date')
+                    ->andWhere('m.dateFinService IS NULL OR m.dateFinService > :date')
+                    ->setParameters(["service" => $service, "date" => date("Y-m-d")]);
             },
             'multiple' => false,
             'expanded' => false,
