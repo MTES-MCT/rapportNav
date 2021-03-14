@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use App\Entity\Service;
+use App\Entity\Rapport;
 
 
 class RapportAdmin extends AbstractAdmin {
@@ -34,6 +35,7 @@ class RapportAdmin extends AbstractAdmin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
+            ->add('id', null, ['label' =>"Numéro de rapport"])
             ->add('serviceCreateur')
             ->add('dateDebutMission')
             ->add('dateFinMission')
@@ -65,6 +67,10 @@ class RapportAdmin extends AbstractAdmin {
                 ],
             ])
         ;
+    }
+    
+    public function toString($rapport) {
+        return $rapport instanceof Rapport ? "Rapport n°".$rapport->getId() : 'Rapport';
     }
 
 }
