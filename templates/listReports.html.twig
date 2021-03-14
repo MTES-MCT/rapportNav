@@ -10,7 +10,7 @@
 {% block body_main_container %}
     <h1>Liste des rapports pour {{ app.user.service }}</h1>
     <h2>Rapports pour le mois de {{ date|localizeddate('long', 'none', "fr", null, "MMMM Y") }}</h2>
-    <p>Ces rapports sont validées. Ils peuvent encore être modifiés quelques jours après leur validation avant d'être bloqués. </p>
+    <p>Ces rapports sont validés. Ils peuvent encore être modifiés quelques jours après leur validation avant d'être bloqués. </p>
     <div class="row">
         {% for row in reports|batch(7) %}
 

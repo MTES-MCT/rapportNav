@@ -51,7 +51,7 @@ class RapportType extends AbstractType {
                 'label' => "Fin de mission"])
             ->add('arme', CheckboxType::class, [
                 'required' => false,
-                'label' => "Activite armée"])
+                'label' => "Mission armée"])
             ->add("moyens", CollectionType::class, [
                 'entry_type' => RapportMoyenType::class,
                 'entry_options' => ['service' => $service],

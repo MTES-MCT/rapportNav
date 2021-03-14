@@ -14,7 +14,7 @@
     <div id="drafts"></div>
 
     <h2>Rapports validés du mois en cours</h2>
-    <p>Ces rapports sont validées. Ils peuvent encore être modifiés quelques jours après leur validation avant d'être bloqués. </p>
+    <p>Ces rapports sont validés. Ils peuvent encore être modifiés quelques jours après leur validation avant d'être bloqués. </p>
     {% set half_creports = max(((currentReports|length)/2)|round,1) %}
     <div class="row">
         {% for row in currentReports|batch(half_creports) %}
@@ -67,10 +67,9 @@
     {% if app.user.chefUlam %}
     <div>
         <h3>Clôture mensuelle</h3>
-        <p>En tant que Chef ULAM vous avez la possibilité de déclarer un mois comme clos. 
-            Cela permet de signaler que les statistiques sont considérées comme complère pour ce mois. 
-            <br>
-            Pour le moment cela ne bloque pas l'ajout ou la modification des rapports mais ce sera le cas dans une version future. 
+        <p>En tant que chef ULAM, il vous est demandé de signaler que la saisie du mois précédent est complète pour votre unité.
+La finalisation des saisies et leur validation doit être effectuée pour <u>le 5 du mois suivant</u>.<br>
+Pour le moment la clôture ne bloque pas l'ajout ou la modification des rapports du mois concerné mais cela sera le cas dans une version future.
         </p>
         {% for month in openMonths %}
             <a href="#" class="button large warning-light js-close-month-action" 
