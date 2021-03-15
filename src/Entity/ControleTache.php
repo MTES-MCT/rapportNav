@@ -29,7 +29,7 @@ class ControleTache implements JsonSerializable {
     private $nombreDossiers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tache")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tache", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $tache;

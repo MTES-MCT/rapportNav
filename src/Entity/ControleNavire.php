@@ -31,7 +31,7 @@ class ControleNavire implements JsonSerializable {
     private $activite;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Navire", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Navire", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      */
