@@ -138,6 +138,9 @@
     "knplabs/knp-menu-bundle": {
         "version": "v2.2.1"
     },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
     "lcobucci/jwt": {
         "version": "3.3.1"
     },
@@ -182,6 +185,9 @@
     },
     "phpspec/prophecy": {
         "version": "v1.10.3"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.4.12"
     },
     "phpunit/php-code-coverage": {
         "version": "7.0.10"
@@ -364,6 +370,9 @@
     },
     "symfony/dependency-injection": {
         "version": "v4.2.3"
+    },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
     },
     "symfony/doctrine-bridge": {
         "version": "v4.2.3"

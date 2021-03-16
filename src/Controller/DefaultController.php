@@ -262,7 +262,7 @@ class DefaultController extends AbstractController {
                 'dashboard' => (int)$metabaseDashboard
             ])
             ->withClaim('params', (Object)null)
-            ->issuedAt('iat', time())
+            ->issuedAt(new \DateTimeImmutable())
             ->withClaim('_embedding_params', (Object)null)
             ->getToken($signer, new Key($metabaseSecretKey));
 
