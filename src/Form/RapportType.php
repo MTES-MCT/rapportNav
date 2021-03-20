@@ -35,6 +35,12 @@ class RapportType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $service = $options['service'];
+        
+        if($builder->getData() &&  Rapport::class === get_class($builder->getData()) ) {
+            $dateCheckAgentsPresents = $builder->getData()->getDateDebutMission() ? $builder->getData()->getDateDebutMission()->format("Y-m-d") : date("Y-m-d");
+        } else {
+            $dateCheckAgentsPresents = date("Y-m-d");
+        }
 
         $builder
             ->add('dateDebutMission', DateTimeType::class, [
@@ -80,12 +86,13 @@ class RapportType extends AbstractType {
             ])
             ->add('agents', EntityType::class, [
                 'class' => Agent::class,
-                'query_builder' => function(EntityRepository $er) use ($service) {
+                'query_builder' => function(EntityRepository $er) use ($service, $dateCheckAgentsPresents) {
                     return $er->createQueryBuilder('a')
                         ->where('a.service = :service')
                         ->andWhere('a.dateArrivee < :date')
                         ->andWhere('a.dateDepart IS NULL OR a.dateDepart > :date')
-                        ->setParameters(["service" => $service, "date" => date("Y-m-d")]);
+                        ->andWhere('a.dateArrivee < :date')
+                        ->setParameters(["service" => $service, "date" => $dateCheckAgentsPresents]);
                 },
                 'multiple' => true,
                 'expanded' => true,
