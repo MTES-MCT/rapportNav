@@ -29,8 +29,13 @@ Simple reporting tool for Direction des Affaires Maritimes (French Maritime Affa
 
 ## Requirements
 
+Backend : 
 * PHP7.2
 * composer
+
+Frontend:
+* node >=12
+* yarn 1
 
 Other requirements are in composer.json and packages.json (for PHP and js) managed by [composer](https://getcomposer.org/) and [yarn](https://yarnpkg.com/)
 To check all requirements on server use `composer check-platform-reqs` (after libraries install you may have additional platform requirements).
