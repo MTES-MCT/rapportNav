@@ -1,0 +1,19 @@
+.mr-2 {
+    margin-right: 25px;
+}
+.divider-vertical {
+    border-left: 1px solid #e7e7e7;
+    height: 30px;
+    opacity: 1;
+}
+.text-grey {
+    color: #9c9c9c;
+    opacity: 1;
+    font-weight: normal;
+}
+.text-bold {
+    font-weight: bold;
+}
+.text-red-error {
+    color: #e10600;
+}
