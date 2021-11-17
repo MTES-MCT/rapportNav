@@ -95,6 +95,29 @@
     flex-direction: row;
 }
 
+.heading-custom-space-between {
+    justify-content: space-between;
+}
+
+.fr-accordion__btn[aria-expanded=true]:before {
+    font-family: 'remixicon' !important;
+    content: "\ea78";
+    font-size: 20px;
+}
+
+.fr-accordion__btn[aria-expanded=false]:before {
+    font-family: 'remixicon' !important;
+    content: "\ea4e";
+    font-size: 20px;
+}
+
+.accordion-helper {
+    font-weight: normal;
+    margin-left: 40px;
+    font-size: 14px;
+    color: #7F7FC8;
+}
+
 .total {
     font-size: 14px;
     padding: 5px 10px 0 15px;

@@ -168,6 +168,7 @@
           </div>
         </div>
 
+        <!-- Activité du navire -->
         <div class="box-shadow-card shipActivity ">
           <!-- Présence à la mer -->
           <div class="presenceAtSea">
@@ -267,6 +268,83 @@
             </div>
           </div>
         </div>
+
+        <!-- Contrôles opérationnel -->
+        <div class="operationalControl">
+          <div class="heading-custom heading-custom-space-between">
+            <h5 class="text-blue-france text-800">Contrôles opérationnel</h5>
+            <button class="fr-btn fr-btn--secondary">
+              <i class="ri-add-circle-fill fr-mt-1v fr-mr-1w"></i> <span class="text-bold">Ajouter un contrôle</span>
+            </button>
+          </div>
+
+          <div class=" box-dropdown">
+            <ul class="fr-accordions-group">
+              <li>
+                <section class="fr-accordion box-shadow-card">
+                  <h3 class="fr-accordion__title ">
+                    <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" aria-controls="accordion-89">
+                      Contrôle en mer des navires de pêche professionnelle
+                    </button>
+                  </h3>
+                  <div class="fr-collapse" id="accordion-89">
+                    <!-- données de test -->
+                  </div>
+                </section>
+              </li>
+
+              <li>
+                <section class="fr-accordion box-shadow-card">
+                  <h3 class="fr-accordion__title ">
+                    <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="false" aria-controls="accordion-90">Intitulé accordéon</button>
+                    <span class="accordion-helper">2 navires controlés</span>
+                  </h3>
+                  <div class="fr-collapse" id="accordion-90">
+                    <!-- données de test -->
+                  </div>
+                </section>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Indicateurs de mission -->
+        <div class="indicMission">
+          <div class="heading-custom heading-custom-space-between">
+            <h5 class="text-blue-france text-800">Indicateurs de mission</h5>
+          </div>
+
+          <div class=" box-dropdown">
+            <ul class="fr-accordions-group">
+              <li>
+                <section class="fr-accordion box-shadow-card">
+                  <h3 class="fr-accordion__title ">
+                    <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" aria-controls="accordion-91">
+                      Contrôle en mer des navires de pêche professionnelle
+                    </button>
+                  </h3>
+                  <div class="fr-collapse" id="accordion-91">
+                    <!-- données de test -->
+                  </div>
+                </section>
+              </li>
+
+              <li>
+                <section class="fr-accordion box-shadow-card">
+                  <h3 class="fr-accordion__title ">
+                    <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" aria-controls="accordion-92">
+                      Lutte contre l’immigration illégale par voie maritime
+                    </button>
+                  </h3>
+                  <div class="fr-collapse" id="accordion-92">
+                    <!-- données de test -->
+                  </div>
+                </section>
+              </li>
+            </ul>
+          </div>
+        </div>
+
       </div>
 
 
