@@ -6,6 +6,13 @@
     height: 30px;
     opacity: 1;
 }
+
+.divider-horizontal {
+    border-bottom: 1px solid #e7e7e7;
+    height: 30px;
+    opacity: 1;
+}
+
 .text-grey {
     color: #9c9c9c;
     opacity: 1;
@@ -13,6 +20,10 @@
 }
 .text-bold {
     font-weight: bold;
+}
+
+.text-sm {
+    font-size: 14px;
 }
 .text-red-error {
     color: #e10600;
@@ -61,8 +72,7 @@
 .box-shadow-card {
     margin: auto;
     box-shadow: 0px 3px 6px #00000026;
-    height: 100%;
-    padding: 20px 35px 20px 35px;
+    padding: 20px 35px 5px 35px;
 }
 
 .form-date {
@@ -121,6 +131,75 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 .form-inline button:hover {
     background-color: royalblue;
+}
+
+[class*=" fr-fi-xs"]:before, [class^=fr-fi-xs]:before {
+    font: normal normal normal 18px dsfr-icons;
+}
+
+.main-task-active {
+    background: #F2F2F9;
+    padding: 10px 30px 10px 10px;
+    opacity: 1;
+}
+.toggle-custom {
+    width: 50%;
+    margin-left: 30px;
+    margin-top: -25px;
+
+}
+.toggle-custom > label {
+    font-size: 12px !important;
+    color: #9C9C9C;
+}
+
+.fr-toggle__input {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 1rem;
+    border: 0;
+    border-radius: 1.5rem;
+    margin-top: 5px !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.fr-toggle__label:after {
+    font: normal normal normal 1rem/1 dsfr-icons;
+    content: "";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    text-indent: -9999px;
+    z-index: 1;
+    margin-top: 5px !important;
+}
+
+.checkbox-group {
+    margin-bottom: 25px;
+}
+
+.with-vertical-divider {
+    border-left: 1px solid #E7E7E7;
+    height: 100%;
+    opacity: 1;
+}
+
+
+
+.text-center {
+    text-align: center;
+}
+
+.icon-grey {
+    color: #cecece;
 }
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
