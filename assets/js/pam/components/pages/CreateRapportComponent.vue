@@ -308,6 +308,38 @@
           </div>
         </div>
 
+        <div class="fr-table ">
+          <table>
+            <thead>
+            <tr>
+              <th scope="col">
+                <div class="col-width">Pavillon</div>
+              </th>
+              <th scope="col"><div class="col-width">Nb de navires contrôlés</div></th>
+              <th scope="col"><div class="col-width">Nb PV pêche sanitaire</div></th>
+              <th scope="col"><div class="col-width">Nb PV titre navig role/déc. eff</div></th>
+              <th scope="col" class="text-icon--left text-blue-france-250"><i class="ri-add-circle-fill"></i> Ajouter un PV, nav déroutés...</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="">
+                <select class="select">
+                  <option>FR</option>
+                  <option>US</option>
+                  <option>ES</option>
+                </select>
+              </td>
+              <td contenteditable="true" style="width: 20%"></td>
+              <td contenteditable="true"></td>
+              <td contenteditable="true"></td>
+              <td class="no-exist"></td>
+            </tr>
+            <div class="add-pavillon"><i class="ri-add-circle-fill"></i>  Ajouter un pavillon</div>
+            </tbody>
+
+          </table>
+        </div>
         <!-- Indicateurs de mission -->
         <div class="indicMission">
           <div class="heading-custom heading-custom-space-between">
@@ -344,6 +376,8 @@
             </ul>
           </div>
         </div>
+
+
 
       </div>
 

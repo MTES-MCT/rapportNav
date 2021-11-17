@@ -256,6 +256,119 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     color: #cecece;
 }
 
+table thead th {
+
+    background: none !important;
+}
+
+.col-width {
+    text-align: center;
+    font-size: 12px;
+    width: 89px;
+}
+
+tbody {
+    text-align: center;
+}
+
+td {
+    background-color: #F9F8F6;
+}
+
+table {
+    text-align: center;
+    overflow: scroll;
+    border-collapse:separate !important;
+    border-spacing: 0 0.5em !important;
+}
+
+th {
+    text-align: center;
+    height: 15px !important;
+}
+
+
+
+td {
+
+    border: 1px solid #E5E5F4 !important;
+}
+
+.add-pavillon {
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+    font-size: 12px;
+    border: 2px solid #F2F2F9;
+    border-left: rgba(0, 0, 145, 0.3) solid 5px;
+}
+.d-none {
+    display: none;
+}
+
+.scroll {
+    overflow: scroll;
+}
+
+.custom-table {
+    flex-wrap: wrap;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.custom-table-body {
+    border-left: 5px solid #000091 !important;
+}
+
+.custom-table-cell {
+    min-height: 32px;
+    width: 121px;
+}
+
+.custom-table-row {
+
+    display: flex;
+    flex-direction: row;
+
+}
+
+.body-cell {
+    border: 2px solid #F2F2F9;
+    background-color: #F9F8F6;
+}
+
+td:first-child {
+    border-left: 5px solid #000091 !important;
+}
+
+.header-cell {
+    display: block;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.custom-table-select {
+    border:0;
+    background:none;
+}
+
+.no-exist {
+    background-color: #E5E5F4;
+    width: 40px;
+}
+
+.icon-circle-left-24 {
+    float: left;
+    font-size: 24px;
+    margin-top: 10px !important;
+}
+
+.text-blue-france-250 {
+    color: #AEADD8 !important;
+}
+
+
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {
     .form-inline input {
