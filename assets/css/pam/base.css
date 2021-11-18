@@ -261,6 +261,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     box-shadow: inset 0 -2px 0 0 #000091;
 }
 
+.fr-input-valid {
+    background: #F2F9F5;
+    box-shadow: inset 0 -2px 0 0 #008941 !important;
+}
+
+.fr-fi-message-2-fill::before {
+    font-family: 'remixicon' !important;
+    content: "\ef43";
+}
+
+.icon-center {
+margin-left: 50% !important;
+}
+
 
 
 /* Style the form - display items horizontally */
@@ -381,6 +395,7 @@ tbody {
 }
 
 td {
+    text-align: center;
     background-color: #F9F8F6;
 }
 
@@ -401,6 +416,37 @@ th {
 td {
 
     border: 1px solid #E5E5F4 !important;
+}
+
+.add-control-link {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.add-control-box {
+    background: #F0F0F0;
+    padding: 10px 10px 10px 10px;
+    height: 125px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.add-control-icon {
+    color: #000091;
+    display: block;
+    text-align: center;
+    font-size: 32px;
+}
+
+.add-control-link {
+    display: block;
+    padding-top: 15px;
+    border-bottom: none;
+}
+
+.row-flex {
+    display: flex;
+    flex-direction: row;
 }
 
 .add-pavillon {

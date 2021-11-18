@@ -356,11 +356,11 @@
                 <div class="fr-grid-row">
                   <div class="fr-col-4 fr-mr-2w">
                     <label class="fr-label" for="dayAtSeaInput">Nombre de jour en mer</label>
-                    <input class="fr-input unit-placeholder" type="text" id="dayAtSeaInput" name="text-input-text" placeholder="j">
+                    <input class="fr-input unit-placeholder fr-input-valid" value="10" type="text" id="dayAtSeaInput" name="text-input-text" placeholder="j">
                   </div>
                   <div class="fr-col-2 fr-mr-2w">
                     <label class="fr-label" for="navEff">Navigation eff.</label>
-                    <input class="fr-input unit-placeholder" type="text" id="navEff" name="text-input-text" placeholder="h">
+                    <input class="fr-input unit-placeholder fr-input-valid" type="text" value="99" id="navEff" name="text-input-text" placeholder="h">
                   </div>
                   <div class="fr-col-2">
                     <label class="fr-label" for="mouillage">Mouillage</label>
@@ -453,9 +453,67 @@
         <div class="operationalControl fr-mt-10w">
           <div class="heading-custom heading-custom-space-between">
             <h5 class="text-blue-france text-800">Contrôles opérationnel</h5>
-            <button class="fr-btn fr-btn--secondary">
+            <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="fr-modal-1">
               <i class="ri-add-circle-fill fr-mt-1v fr-mr-1w"></i> <span class="text-bold">Ajouter un contrôle</span>
             </button>
+            <!-- Modale Simple
+     La balise <dialog> peut être placée n'importe où sur la page, toutefois
+     nous vous conseillons, si vous en avez la possibilité,
+     d'en faire un enfant direct de la balise <body>
+-->
+
+            <dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="fr-modal-1" class="fr-modal">
+              <div class="fr-container fr-container--fluid fr-container-md">
+                <div class="fr-grid-row fr-grid-row--center">
+                  <div class="fr-col-12 fr-col-md-8">
+                    <div class="fr-modal__body">
+                      <div class="fr-modal__header">
+                      </div>
+                      <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-modal-4" class="fr-modal__title">Ajouter un contrôle</h1>
+                        <div class="fr-container fr-grid-row--gutters fr-mt-5w">
+                          <div class="row-flex">
+                            <div class="add-control-box fr-mr-1v">
+                              <span class="add-control-link">
+                                <i class="ri-ship-2-fill add-control-icon"></i>
+                                Contrôle en mer de navires de pêche professionnelle
+                              </span>
+                            </div>
+                            <div class="add-control-box fr-mr-1v">
+                              <span class="add-control-link  ">
+                                <i class="ri-ship-fill add-control-icon"></i>
+                                Contrôle en mer de navires de plaisance professionnelle
+                              </span>
+                            </div>
+                            <div class="add-control-box ">
+                              <span class="add-control-link ">
+                                <i class="ri-sailboat-line add-control-icon"></i>
+                                Contrôle en mer des navires de plaisance de loisir
+                              </span>
+                            </div>
+                          </div>
+                          <div class="fr-grid-row fr-mt-2w">
+                            <div class="fr-col-4 add-control-box">
+                              <span class="add-control-link">
+                                <i class="ri-ship-2-line add-control-icon"></i>
+                                Contrôle à terre de navires de pêche professionnelle
+                              </span>
+                            </div>
+                            <div class="fr-col-4 add-control-box fr-ml-1v">
+                              <span class="add-control-link  ">
+                                <i class="ri-more-fill add-control-icon"></i>
+                                Autre mission
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </dialog>
           </div>
 
           <div class="box-dropdown fr-mt-2w">
@@ -509,7 +567,6 @@
                           </tr>
                           <div class="add-pavillon"><i class="ri-add-circle-fill"></i>  Ajouter un pavillon</div>
                           </tbody>
-
                         </table>
                       </div>
                     </div>
@@ -558,15 +615,40 @@
                     <div class="fr-container--fluid">
                       <div class="fr-grid-row">
                         <div class="fr-col">
-                          <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" aria-controls="accordion-89">
+                          <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" aria-controls="accordion-105">
                             Contrôle en mer des navires de pêche professionnelle
                           </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="fr-collapse" id="accordion-91">
-                    <!-- données de test -->
+                  <div class="fr-collapse" id="accordion-105">
+                    <div class="fr-table ">
+                      <div class="divider-horizontal--accordion"></div>
+                      <table>
+                        <thead>
+                        <tr>
+                          <th scope="col">
+                            <div class="col-width">Missions</div>
+                          </th>
+                          <th scope="col"><div class="col-width">Principale</div></th>
+                          <th scope="col"><div class="col-width">Secondaire</div></th>
+                          <th scope="col"><div class="col-width">Total</div></th>
+                          <th scope="col" class=""> Observations</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td class="">
+                          </td>
+                          <td contenteditable="true" style="width: 20%"></td>
+                          <td contenteditable="true"></td>
+                          <td contenteditable="true"></td>
+                          <td class=" icon-center"><i class="ri-message-2-fill"></i></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </section>
               </li>
