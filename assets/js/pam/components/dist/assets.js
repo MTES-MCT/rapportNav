@@ -3,9 +3,11 @@ function requireAllCss(r) { r.keys().forEach(r); }
 requireAllCss(require.context('../../../../../node_modules/@gouvfr/dsfr/dist/css/', true, /\.css$/));
 
 // Require all js files from @gouvfr/dsfr
-/*function requireAllJs(r) { r.keys().forEach(r); }
-requireAllJs(require.context('../../../../../node_modules/@gouvfr/dsfr/dist/js/', true, /\.js$/));*/
 
 
 import '../../../../css/pam/base.css';
-import 'remixicon/fonts/remixicon.css'
+import 'remixicon/fonts/remixicon.css';
+import '@gouvfr/dsfr/dist/js/dsfr.module.min.js';
+//import '@gouvfr/dsfr/dist/js/dsfr.nomodule.min.js';
+import '@gouvfr/dsfr/dist/js/accordions.module.min.js';
+//import '@gouvfr/dsfr/dist/js/accordions.nomodule.min.js';

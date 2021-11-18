@@ -14,6 +14,18 @@
     margin-bottom: 15px;
 }
 
+.divider-horizontal--accordion {
+    border-bottom: 1px solid #E7E7E7;
+    height: 1px;
+    margin-top: 10px;
+    opacity: 1;
+}
+
+.fr-accordion__btn {
+    font-weight: bold;
+    font-size: 18px;
+}
+
 .text-grey {
     color: #9c9c9c;
     opacity: 1;
@@ -73,9 +85,27 @@
 .box-shadow-card {
     margin: auto;
     box-shadow: 0px 3px 6px #00000026;
-    padding: 20px 35px 35px 35px;
-    margin-bottom: 65px;
+    margin-bottom: 20px;
+}
 
+.box-shadow-card-body {
+    padding: 32px 10px 32px 10px;
+}
+
+
+
+.trash-accordion {
+    cursor: pointer;
+}
+
+.fr-accordion__btn {
+}
+
+.box-shadow-card-footer {
+    background-color: red;
+    width: 100%;
+    padding-left: 0;
+    padding-right: -20px;
 }
 
 .form-date {
