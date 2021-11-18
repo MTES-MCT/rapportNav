@@ -368,6 +368,52 @@ td:first-child {
     color: #AEADD8 !important;
 }
 
+.history-see-more-details {
+    display: block;
+}
+
+.history-see-more-details::after {
+    content: "\ea4e";
+    font-family: 'remixicon' !important;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 98px;
+}
+
+.history-details {
+    font-size: 12px;
+    color: #9C9C9C;
+}
+
+.history-main-content {
+    font-size: 14px;
+    margin-bottom: 1px;
+}
+
+.history-time {
+    font-size: 12px;
+    color: #9C9C9C;
+}
+
+.fr-container--fluid-auto {
+    width: 83%;
+    margin: auto;
+}
+
+.history-body {
+    background-color: #F9F8F6;
+    padding: 8px 2px 8px 5px;
+    margin-bottom: 8px;
+}
+
+.history-date {
+    font-size: 14px;
+}
+
+.history-group {
+    margin-bottom: 25px;
+}
+
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {
