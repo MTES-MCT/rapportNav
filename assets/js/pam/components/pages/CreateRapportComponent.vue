@@ -530,7 +530,7 @@
                             </button>
                           </div>
                           <div class="fr-col-1 fr-mt-2v">
-                            <a href="#" class="fr-fi-delete-fill" aria-hidden="true"></a>
+                            <button class="fr-fi-delete-fill btn-remove" aria-hidden="true"></button>
                           </div>
                       </div>
                       </div>
@@ -586,7 +586,7 @@
                           </button>
                         </div>
                         <div class="fr-col-1 fr-mt-2v">
-                          <a href="#" class="fr-fi-delete-fill" aria-hidden="true"></a>
+                          <button class="fr-fi-delete-fill btn-remove" aria-hidden="true"></button>
                         </div>
                       </div>
                     </div>

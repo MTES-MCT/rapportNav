@@ -431,6 +431,11 @@ td {
     vertical-align: middle;
 }
 
+.btn-remove {
+    background: none;
+    color: #e10600;
+}
+
 .add-control-icon {
     color: #000091;
     display: block;
