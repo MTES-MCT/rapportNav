@@ -68,6 +68,66 @@
     list-style-type: none;
 }
 
+.no-style {
+    list-style-type: none;
+}
+
+.more-option-icon {
+    background: #E5E5F4;
+    padding: 2px;
+    border-radius: 50%;
+    font-size: 11px;
+    margin-left: -35px;
+}
+
+.equipRole {
+    font-size: 12px;
+    color: #9C9C9C;
+}
+
+.equipName {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.equipier {
+    margin-bottom: 8px;
+}
+
+.tooltipBox {
+    visibility: hidden;
+    width: 263px;
+    height: 269px;
+    background-color: #fff;
+    box-shadow: 0px 3px 10px #00000029;
+    text-align: center;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    margin-left: -60px;
+}
+
+.remove-equip-btn {
+    font-size: 14px;
+    border-color: #E10600 !important;
+    color: #E10600;
+}
+
+.custom-btn {
+    background: none;
+    border: 1px red solid;
+    padding: 10px;
+    color: red;
+    font-weight: 600;
+    width: 100%;
+}
+
+.tooltip:hover .tooltipBox{
+    visibility: visible;
+}
+
 .nav-list {
 
     margin-bottom: 22px;
@@ -89,7 +149,7 @@
 }
 
 .box-shadow-card-body {
-    padding: 32px 10px 32px 10px;
+    padding: 32px 10px 32px 20px;
 }
 
 
@@ -117,7 +177,9 @@
 }
 
 .form-time {
-    width: 93px;
+    width: 100px;
+    padding: 10px;
+    margin-top: 13px !important;
 }
 
 .heading-custom {
@@ -182,7 +244,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 input[type="time"]::-webkit-calendar-picker-indicator {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z' fill='rgba(0,137,65,1)'/%3E%3C/svg%3E");
+    background-size: 20px;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z' fill='rgba(0,137,65,1)'/%3E%3C/svg%3E");
+}
+
+
 
 /* Style the form - display items horizontally */
 .form-inline {

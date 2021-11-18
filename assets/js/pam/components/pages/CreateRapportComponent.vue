@@ -34,18 +34,18 @@
               <label class="fr-label" for="start-date">
                 De
               </label>
-              <div class="fr-input-wrap fr-fi-calendar-line">
+              <div class="fr-input-wrap">
                 <input class="form-valid form-custom form-date" type="date" id="start-date" name="text-input-calendar">
               </div>
               <div class="fr-input-wrap">
-                <input class="form-valid form-custom form-time" type="time" id="start-time" name="text-input-calendar">
+                <input class="form-valid form-custom form-time  " type="time" id="start-time" name="text-input-calendar">
               </div>
 
               <label class="fr-label" for="end-date">
                 à
               </label>
-              <div class="fr-input-wrap fr-fi-calendar-line">
-                <input class="form-date" type="date" id="end-date" name="text-input-calendar">
+              <div class="fr-input-wrap">
+                <input class="fr-input" type="date" id="text-input-text" name="text-input-text">
               </div>
               <div class="fr-input-wrap">
                 <input class="form-time" type="time" id="end-time" name="text-input-calendar">
@@ -55,6 +55,182 @@
 
             <div class="equipage fr-mt-3w">
               <h6>Equipage</h6>
+              <div class="fr-container--fluid">
+                <div class="fr-grid-row">
+                  <div class="fr-col-8">
+                    <div class="fr-grid-row">
+                      <div class="fr-col-4">
+                        <ul class="no-style">
+                          <li class="equipier">
+                            <div class="fr-grid-row">
+                              <div class="fr-col-11 equipName ">
+                                David Vincent-Ramassamy
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 tooltip">
+                                <span class="ri-more-fill more-option-icon ">
+                                </span>
+                                <div class="tooltipBox fr-px-2w fr-py-2w">
+                                  <input class="fr-input" type="text" id="text-input-groups1" name="text-input-groups1" value="David Vincent">
+
+                                  <select class="fr-select fr-mt-3v" id="select" name="select">
+                                    <option value="1">Commandant</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                    <option value="4">Option 4</option>
+                                  </select>
+
+                                  <textarea class="fr-input fr-mt-3v" id="textarea" name="textarea" placeholder="Observations"></textarea>
+
+                                  <button class="custom-btn fr-fi-checkbox-circle-line fr-btn--icon-left fr-mt-3v remove-equip-btn">
+                                    Supprimer le membre
+                                  </button>
+                                </div>
+                              </div>
+
+                            </div>
+                          </li>
+                          <li>
+                            <div class="fr-grid-row equipier">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="fr-grid-row equipier">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="fr-grid-row equipier">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="fr-col-4">
+                        <ul class="no-style">
+                          <li class="equipier">
+                            <div class="fr-grid-row">
+                              <div class="fr-col-11 equipName">
+                                David Vincent-Miantchy
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="fr-grid-row equipier">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="fr-grid-row equipier">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="fr-grid-row equipier">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="fr-col-4">
+                        <ul class="no-style">
+                          <li class="equipier">
+                            <div class="fr-grid-row">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="fr-grid-row equipier">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="fr-grid-row equipier">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="fr-grid-row equipier">
+                              <div class="fr-col-11 equipName">
+                                David Vincent
+                                <span class="equipRole">Commandant</span>
+                              </div>
+                              <div class="fr-col-1 ">
+                                <i class="ri-more-fill more-option-icon"></i>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="fr-col-4">
+                    <input class="fr-input" type="text" id="text-input-text" name="text-input-text" placeholder="Ajouter des membres">
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="divider-horizontal"></div>
             <div class="mission fr-mt-3w">
