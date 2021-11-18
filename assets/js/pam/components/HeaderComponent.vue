@@ -25,7 +25,7 @@
             <div class="divider-vertical fr-mr-2v"></div>
             <div class="fr-header__service">
               <a href="/" title="Accueil - RapportNav">
-                <p class="fr-header__service-title fr-text--lg text-grey fr-mr-4v">Marée n°7745</p>
+                <p class="fr-header__service-title fr-text--lg text-grey fr-mr-4v">Rapport n°7745</p>
               </a>
             </div>
           </div>
@@ -38,10 +38,10 @@
                         <div class="fr-collapse fr-menu" id="menu-776">
                             <ul class="fr-menu__list">
                                 <li>
-                                    <a class="fr-nav__link" href="#" target="_self">Lien de navigation</a>
+                                    <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self">Télécharger le rapport de patrouille (.docx)</a>
                                 </li>
                                 <li>
-                                    <a class="fr-nav__link" href="#" target="_self">Lien de navigation</a>
+                                    <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self">Télécharger les indicateurs de mission (.xlsx)</a>
                                 </li>
                             </ul>
                         </div>
