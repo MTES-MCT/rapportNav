@@ -356,15 +356,15 @@
                 <div class="fr-grid-row">
                   <div class="fr-col-4 fr-mr-2w">
                     <label class="fr-label" for="dayAtSeaInput">Nombre de jour en mer</label>
-                    <input class="fr-input" type="text" id="dayAtSeaInput" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="dayAtSeaInput" name="text-input-text" placeholder="j">
                   </div>
                   <div class="fr-col-2 fr-mr-2w">
                     <label class="fr-label" for="navEff">Navigation eff.</label>
-                    <input class="fr-input" type="text" id="navEff" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="navEff" name="text-input-text" placeholder="h">
                   </div>
                   <div class="fr-col-2">
                     <label class="fr-label" for="mouillage">Mouillage</label>
-                    <input class="fr-input" type="text" id="mouillage" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="mouillage" name="text-input-text" placeholder="h">
                   </div>
                 </div>
               </div>
@@ -379,27 +379,27 @@
                 <div class="fr-grid-row">
                   <div class="fr-col input-group-100 fr-mr-1w">
                     <label class="fr-label" for="dayAtSeaInput">Maintenance</label>
-                    <input class="fr-input" type="text" id="maintenance" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="maintenance" name="text-input-text" placeholder="h">
                   </div>
                   <div class="fr-col fr-mr-1w">
                     <label class="fr-label" for="navEff">Météo</label>
-                    <input class="fr-input" type="text" id="meteo" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="meteo" name="text-input-text" placeholder="h">
                   </div>
                   <div class="fr-col fr-mr-1w">
                     <label class="fr-label" for="representation">Répresentation</label>
-                    <input class="fr-input" type="text" id="representation" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="representation" name="text-input-text" placeholder="h">
                   </div>
                   <div class="fr-col fr-mr-1w">
                     <label class="fr-label" for="administration">Administration</label>
-                    <input class="fr-input" type="text" id="administration" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="administration" name="text-input-text" placeholder="h">
                   </div>
                   <div class="fr-col fr-mr-1w">
                     <label class="fr-label" for="autre">Autre</label>
-                    <input class="fr-input" type="text" id="autre" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="autre" name="text-input-text" placeholder="h">
                   </div>
                   <div class="fr-col">
                     <label class="fr-label" for="contrPort">Contr. Port</label>
-                    <input class="fr-input" type="text" id="contrPort" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="contrPort" name="text-input-text" placeholder="h">
                   </div>
                 </div>
               </div>
@@ -414,11 +414,11 @@
                 <div class="fr-grid-row">
                   <div class="fr-col-2 fr-mr-2w">
                     <label class="fr-label" for="technique">Technique</label>
-                    <input class="fr-input" type="text" id="technique" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="technique" name="text-input-text" placeholder="h">
                   </div>
                   <div class="fr-col-2">
                     <label class="fr-label" for="personnel">Personnel</label>
-                    <input class="fr-input" type="text" id="personnel" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="personnel" name="text-input-text" placeholder="h">
                   </div>
                 </div>
               </div>
@@ -433,15 +433,15 @@
                 <div class="fr-grid-row">
                   <div class="fr-col-3 fr-mr-2w">
                     <label class="fr-label" for="traveled">Distance parcourue</label>
-                    <input class="fr-input" type="text" id="traveled" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="traveled" name="text-input-text" placeholder="miles">
                   </div>
                   <div class="fr-col-3 fr-mr-2w">
                     <label class="fr-label" for="goConso">GO marine consommé</label>
-                    <input class="fr-input" type="text" id="goConso" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="goConso" name="text-input-text" placeholder="litres">
                   </div>
                   <div class="fr-col-3">
                     <label class="fr-label" for="essenceConso">Essence consommée</label>
-                    <input class="fr-input" type="text" id="essenceConso" name="text-input-text">
+                    <input class="fr-input unit-placeholder" type="text" id="essenceConso" name="text-input-text" placeholder="litres">
                   </div>
                 </div>
               </div>
