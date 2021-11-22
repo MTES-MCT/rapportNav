@@ -379,10 +379,6 @@ margin-left: 50% !important;
     color: #cecece;
 }
 
-table thead th {
-
-    background: none !important;
-}
 
 .col-width {
     text-align: center;
@@ -394,29 +390,6 @@ tbody {
     text-align: center;
 }
 
-td {
-    text-align: center;
-    background-color: #F9F8F6;
-}
-
-table {
-    text-align: center;
-    overflow: scroll;
-    border-collapse:separate !important;
-    border-spacing: 0 0.5em !important;
-}
-
-th {
-    text-align: center;
-    height: 15px !important;
-}
-
-
-
-td {
-
-    border: 1px solid #E5E5F4 !important;
-}
 
 .add-control-link {
     font-size: 14px;
@@ -443,6 +416,37 @@ td {
     font-size: 32px;
 }
 
+.define-date {
+    font-size: 12px;
+    margin-left: 28px;
+    padding-top: -20px !important;
+    color: #000091;
+}
+
+.define-date-form {
+    visibility: hidden;
+    width: 293px;
+    height: 243px;
+    background-color: #fff;
+    box-shadow: 0px 3px 10px #00000029;
+    text-align: center;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    margin-left: -60px;
+}
+
+.define-date:hover .define-date-form {
+    visibility: visible;
+}
+
+
+.fr-label-left {
+    text-align: left;
+}
+
 .add-control-link {
     display: block;
     padding-top: 15px;
@@ -462,9 +466,11 @@ td {
     border-left: rgba(0, 0, 145, 0.3) solid 5px;
 }
 .d-none {
-    display: none;
+    display: none !important;
 }
-
+.hidden {
+    visibility: hidden;
+}
 .scroll {
     overflow: scroll;
 }
@@ -573,7 +579,40 @@ td:first-child {
 .history-group {
     margin-bottom: 25px;
 }
+.text-12 {
+    font-size: 12px;
+}
+.text-14 {
+    font-size: 14px;
+}
+.text-italic {
+    font-style: italic;
+}
+.text-left {
+    text-align: left;
+}
 
+.add-member-content:not(:last-child) {
+    border-bottom: 1px #ececec solid;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.text-muted {
+    color: #8A8A8A;
+}
+
+.tooltip-add-member {
+    width: 255px;
+    background-color: #fff;
+    box-shadow: 0px 3px 10px #00000029;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {

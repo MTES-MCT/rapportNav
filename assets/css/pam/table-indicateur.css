@@ -1,0 +1,103 @@
+.td-indicateur {
+    height: 48px;
+    background-color: #F2F2F9;
+    min-width: 121px;
+    color: #000091;
+}
+
+.td-nb-hour-sea {
+    border-left: solid  5px #000091;
+    border-right: solid 1px #000091;
+    padding-left: 15px;
+    padding-right: 40px;
+}
+
+.thead-indicateur {
+    height: 50px;
+}
+
+.th-indicateur:first-child {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.td-total {
+    background-color: #E5E5F4;
+    font-weight: 700;
+    text-align: center;
+}
+
+.td-observation {
+    text-align: center;
+    font-size: 22px;
+}
+.td-principale-content {
+    text-align: center;
+}
+.icon {
+    float: right;
+}
+
+.tooltip-automatic-calculate {
+
+    width: 317px;
+    background-color: #fff;
+    box-shadow: 0px 3px 10px #00000029;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    margin-left: -60px;
+}
+
+.d-none {
+    display: none;
+}
+
+.checkbox-automatic-calculate-error {
+    color: #E10600;
+    font-size: 12px;
+    text-align: left;
+}
+
+.automatic-calculate-el-errors {
+    font-weight: 600;
+    width: 80%;
+    margin: auto;
+    background-color: #FCE5E7;
+    padding: 8px 6px 8px 6px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+
+.table-tooltip-heading {
+    font-size: 14px;
+}
+
+.fr-toggle__label {
+    font-size: 14px !important;
+    text-align: left;
+}
+
+.fr-hint-text {
+    font-size: 12px !important;
+    text-align: left;
+}
+
+
+.tooltip-observation {
+    width: 300px;
+    background-color: #fff;
+    box-shadow: 0px 3px 10px #00000029;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    margin-left: -60px;
+}
+

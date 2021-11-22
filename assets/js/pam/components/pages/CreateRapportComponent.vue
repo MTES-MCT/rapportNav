@@ -227,7 +227,42 @@
 
                   </div>
                   <div class="fr-col-4">
-                    <input class="fr-input" type="text" id="text-input-text" name="text-input-text" placeholder="Ajouter des membres">
+                    <input class="fr-input" type="text" id="text-input-text" name="text-input-text" placeholder="Ajouter des membres" v-on:click="hiddenToggle('tooltip-add-member', 'member')">
+                    <div class="tooltip-add-member d-none" data-scope="member">
+                      <div class="add-member-content">
+                        <div class="fr-container--fluid">
+                          <div class="fr-grid-row">
+                            <div class="fr-col-7">
+                              <div class="text-14 text-italic text-left text-muted">Suggestions</div>
+                            </div>
+                            <div class="fr-col-5">
+                              <span class="text-12">  <i class="ri-add-circle-fill"></i> Tout ajouter</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="add-member-content">
+                        <div class="fr-container--fluid">
+                          <div class="fr-grid-row">
+                            <div class="fr-col-7">
+                              <div class="text-14 text-left">
+                                David Vincent
+                                <span class="equipRole">Agent de pont</span>
+                              </div>
+                            </div>
+                            <div class="fr-col-5">
+                              <button
+                                  class="fr-btn--menu fr-btn fr-btn--sm fr-fi-add-circle-fill fr-btn--secondary fr-btn--icon-left"
+                                  title="Enregistrer"
+                              >
+                                <i class="ri-add-circle-fill fr-mr-2v"></i> Ajouter
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -251,6 +286,51 @@
                             <div class="fr-toggle fr-toggle--label-left toggle-custom">
                               <input type="checkbox" class="fr-toggle__input" aria-describedby="toggle-698-hint-text" id="toggle-698">
                               <label class="fr-toggle__label" for="toggle-698">Mission principale</label>
+                            </div>
+                            <div class="define-date">
+                              Définir les dates
+                              <div class="define-date-form">
+                                <div class="fr-input-group">
+                                  <label class="fr-label fr-label-left" for="text-input-calendar">
+                                    Du
+                                  </label>
+                                  <div class="fr-container--fluid">
+                                    <div class="fr-grid-row">
+                                      <div class="fr-col-5">
+                                        <div class="fr-input-wrap fr-fi-calendar-line">
+                                          <input class="fr-input" type="date" id="text-input-calendar" name="text-input-calendar">
+                                        </div>
+                                      </div>
+                                      <div class="fr-col-5">
+                                        <div class="">
+                                          <input class="fr-input" type="time" id="text-input-calendar" name="text-input-calendar">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="fr-input-group">
+                                  <label class="fr-label fr-label-left" for="text-input-calendar">
+                                    au
+                                  </label>
+                                  <div class="fr-container--fluid">
+                                    <div class="fr-grid-row">
+                                      <div class="fr-col-5">
+                                        <div class="fr-input-wrap fr-fi-calendar-line">
+                                          <input class="fr-input" type="date" id="text-input-calendar" name="text-input-calendar">
+                                        </div>
+                                      </div>
+                                      <div class="fr-col-5">
+                                        <div class="">
+                                          <input class="fr-input" type="time" id="text-input-calendar" name="text-input-calendar">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <button class=""></button>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
 
@@ -539,35 +619,66 @@
 
                       <div class="fr-table ">
                         <div class="divider-horizontal--accordion"></div>
-                        <table>
-                          <thead>
-                          <tr>
-                            <th scope="col">
-                              <div class="col-width">Pavillon</div>
-                            </th>
-                            <th scope="col"><div class="col-width">Nb de navires contrôlés</div></th>
-                            <th scope="col"><div class="col-width">Nb PV pêche sanitaire</div></th>
-                            <th scope="col"><div class="col-width">Nb PV titre navig role/déc. eff</div></th>
-                            <th scope="col" class="text-icon--left text-blue-france-250"><i class="ri-add-circle-fill"></i> Ajouter un PV, nav déroutés...</th>
-                          </tr>
+                        <table class="table-controle">
+                          <thead class="thead-controle">
+                          <th class="th-table-controle">Pavillon</th>
+                          <th class="th-table-controle">Nb de navire contrôlés</th>
+                          <th class="th-table-controle">Nb de contrôles pêche sanitaire</th>
+                          <th class="th-table-controle">Nb pv dec eff</th>
+                          <th class="add-column dropbtn th-table-controle" id="add-btn" v-on:click="hiddenToggle('dropdown', 'ajout-pv')">
+                            <i class="ri-add-circle-fill"></i>
+                            Ajouter un PV, nav déroutés...
+                            <div class="dropdown d-none" id="dropdown" data-scope="ajout-pv">
+                              <ul v-on:click="addColumnControle($event)">
+                                <li>
+                                  <span class="dropdown-item">Ajouter des pv</span>
+                                  <ul>
+                                    <li><span class="dropdown-link">PV pêche sanitaire</span></li>
+                                    <li><span class="dropdown-link">PV équipement sécu. permis de nav.</span ></li>
+                                    <li><span class="dropdown-link">PV titre de navig. role/déc. eff</span ></li>
+                                    <li><span class="dropdown-link">PV police navigation</span ></li>
+                                    <li><span class="dropdown-link">PV environnement pollution</span></li>
+                                    <li><span class="dropdown-link">Autres types de PV</span ></li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <span class="dropdown-item">Ajouter des navires déroutés</span>
+                                </li>
+                                <li>
+                                  <span class="dropdown-item">Ajouter des navires Interrogés</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </th>
                           </thead>
-                          <tbody>
-                          <tr>
-                            <td class="">
-                              <select class="select">
-                                <option>FR</option>
-                                <option>US</option>
-                                <option>ES</option>
+
+                          <tbody class="tbody-controle">
+                          <tr class="tr-table">
+                            <td class="td-pavillon td-table-controle">
+                              <select name="pavillon" id="pavillon-select">
+                                <option value="FR">FR</option>
+                                <option value="US">US</option>
                               </select>
                             </td>
-                            <td contenteditable="true" style="width: 20%"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td class="no-exist"></td>
+                            <td class="td-table-controle">25</td>
+                            <td class="td-table-controle">6</td>
+                            <td class="td-table-controle">4</td>
+                            <td class="td-add-column td-table-controle"></td>
                           </tr>
-                          <div class="add-pavillon"><i class="ri-add-circle-fill"></i>  Ajouter un pavillon</div>
+
+                          <tr class="tr-example d-none tr-table">
+                            <td class="td-pavillon td-table-controle"></td>
+                            <td class="td-table-controle"></td>
+                            <td class="td-table-controle"></td>
+                            <td class="td-table-controle"></td>
+                            <td class="td-add-column td-table-controle"></td>
+                          </tr>
                           </tbody>
                         </table>
+                        <div class="add-pavillon" v-on:click="addPav()">
+                          <i class="ri-add-circle-fill"></i>
+                         Ajouter un pavillon
+                        </div>
                       </div>
                     </div>
                   </section>
@@ -625,26 +736,110 @@
                   <div class="fr-collapse" id="accordion-105">
                     <div class="fr-table ">
                       <div class="divider-horizontal--accordion"></div>
-                      <table>
-                        <thead>
-                        <tr>
-                          <th scope="col">
-                            <div class="col-width">Missions</div>
-                          </th>
-                          <th scope="col"><div class="col-width">Principale</div></th>
-                          <th scope="col"><div class="col-width">Secondaire</div></th>
-                          <th scope="col"><div class="col-width">Total</div></th>
-                          <th scope="col" class=""> Observations</th>
-                        </tr>
+                      <table class="table-indicateur">
+                        <thead class="thead-indicateur">
+                        <th class="th-indicateur">Missions</th>
+                        <th class="th-indicateur">Principale</th>
+                        <th class="th-indicateur">Secondaire</th>
+                        <th class="total-column th-indicateur">Total</th>
+                        <th class="th-indicateur">Observations</th>
                         </thead>
+
                         <tbody>
-                        <tr>
-                          <td class="">
+                        <tr class="tr-indicateur">
+                          <td class="td-nb-hour-sea td-indicateur">
+                            Nombre d'heure de mer
                           </td>
-                          <td contenteditable="true" style="width: 20%"></td>
-                          <td contenteditable="true"></td>
-                          <td contenteditable="true"></td>
-                          <td class=" icon-center"><i class="ri-message-2-fill"></i></td>
+                          <td class="td-indicateur"></td>
+                          <td class="td-indicateur"></td>
+                          <td class="td-total td-indicateur" contenteditable="true">99</td>
+                          <td class="td-observation td-indicateur" >
+                            <i class="ri-message-2-fill" v-on:click="hiddenToggle('tooltip-observation','hour-sea')"></i>
+                            <div class="tooltip-observation d-none" data-scope="hour-sea">
+                              <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations"></textarea>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="td-nb-hour-sea td-indicateur">
+                            Nombre de navires / embarcations interceptés
+                          </td>
+                          <td class="td-principale-content td-indicateur">
+                            0
+                            <span class="ri-calculator-fill icon" v-on:click="hiddenToggle('tooltip-automatic-calculate', 'interception')"></span>
+                            <div class="tooltip-automatic-calculate d-none" data-scope="interception">
+                              <div class="fr-toggle fr-toggle--label-left">
+                                <input type="checkbox" checked class="fr-toggle__input switch-table-auto-calculate" aria-describedby="toggle-726-hint-text" id="toggle-726" v-on:change="displayMessage($event, 'interception')">
+                                <label class="fr-toggle__label" for="toggle-726" data-fr-checked-label="Activé">Calculé automatiquement à partir des déclarations opérationnelles</label>
+                                <p class="fr-hint-text hint-text-automatic-calculate" id="toggle-726-hint-text" data-scope="interception">
+                                  <span class="fr-fi-information-fill info-icon-sm" aria-hidden="true"></span> Désactivez pour pouvoir éditer le champ sélectionné
+                                </p>
+                                <p class="fr-hint-text hint-text-automatic-calculate d-none" id="toggle-726-hint-text" data-scope="interception">
+                                  <span class="fr-fi-information-fill info-icon-sm" aria-hidden="true"></span> Activez pour calculer automatiquement le champ sélectionné
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="td-indicateur"></td>
+                          <td class="td-total td-indicateur" contenteditable="true">99</td>
+                          <td class="td-observation td-indicateur" >
+                            <i class="ri-message-2-fill" v-on:click="hiddenToggle('tooltip-observation','interception')"></i>
+                            <div class="tooltip-observation d-none" data-scope="interception">
+                              <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations"></textarea>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="td-nb-hour-sea td-indicateur">
+                            Nombre de mise en demeure
+                          </td>
+                          <td class="td-indicateur"></td>
+                          <td class="td-indicateur"></td>
+                          <td class="td-total td-indicateur" contenteditable="true">99</td>
+                          <td class="td-observation td-indicateur" >
+                            <i class="ri-message-2-fill" v-on:click="hiddenToggle('tooltip-observation','mise-en-demeure')"></i>
+                            <div class="tooltip-observation d-none" data-scope="mise-en-demeure">
+                              <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations"></textarea>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="td-nb-hour-sea td-indicateur">
+                            Nombre de remorquages dans le cadre d’une opération suivie
+                          </td>
+                          <td class="td-principale-content td-indicateur">
+                            0
+                            <span class="ri-calculator-fill icon" v-on:click="hiddenToggle('tooltip-automatic-calculate', 'remorquage')">
+                        </span>
+                            <div class="tooltip-automatic-calculate d-none" data-scope="remorquage">
+                              <div class="fr-toggle fr-toggle--label-left">
+                                <input type="checkbox" checked class="fr-toggle__input switch-table-auto-calculate" aria-describedby="toggle-780-hint-text" id="toggle-780" v-on:change="displayMessage($event, 'remorquage')">
+                                <label class="fr-toggle__label" for="toggle-780" data-fr-checked-label="Activé">Calculé automatiquement à partir des déclarations opérationnelles</label>
+                                <p class="fr-hint-text hint-text-automatic-calculate" id="toggle-780-hint-text" data-scope="remorquage">
+                                  <span class="fr-fi-information-fill info-icon-sm" aria-hidden="true"></span> Désactivez pour pouvoir éditer le champ sélectionné
+                                </p>
+                                <p class="fr-hint-text hint-text-automatic-calculate d-none" id="toggle-780-hint-text" data-scope="remorquage">
+                                  <span class="fr-fi-information-fill info-icon-sm" aria-hidden="true"></span> Activez pour calculer automatiquement le champ sélectionné
+                                </p>
+
+                              </div>
+                              <div class="checkbox-automatic-calculate-error d-none" data-scope="remorquage">
+                                <span class="fr-fi-alert-fill" aria-hidden="true"></span>
+                                Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels :
+                                <div class="automatic-calculate-el-errors">
+                                  5 éléments calculés automatiquement
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="td-indicateur"></td>
+                          <td class="td-total td-indicateur" contenteditable="true">99</td>
+                          <td class="td-observation td-indicateur" >
+                            <i class="ri-message-2-fill" v-on:click="hiddenToggle('tooltip-observation','remorquage')"></i>
+                            <div class="tooltip-observation d-none" data-scope="remorquage">
+                              <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations"></textarea>
+                            </div>
+                          </td>
                         </tr>
                         </tbody>
                       </table>
@@ -772,6 +967,36 @@
 
 <script>
 export default {
-  name: "CreateRapportComponent"
+  name: "CreateRapportComponent",
+  methods: {
+    addPav() {
+      let trE = $('.tr-example').clone();
+      trE.removeClass('d-none')
+      trE.removeClass('tr-example')
+      $('.tbody-controle').append(trE)
+    },
+    addColumnControle(e) {
+      const text = e.target.outerText;
+      $('.add-column').before('<th class="th-table-controle">' + text + '</th>')
+      $('.td-add-column').before('<td class="td-table-controle"></td>')
+    },
+    hiddenToggle(className, scope) {
+      console.log('jhk')
+      let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
+      tooltip.toggleClass('d-none');
+    },
+    displayMessage(e, scope) {
+      let messageBox = $('.hint-text-automatic-calculate[data-scope="' + scope + '"]');
+      messageBox.toggleClass('d-none')
+    }
+  }
 };
+let addbtn = $('#add-btn');
+
+let dropLink = $('.dropdown-link');
+
+
+
+
+
 </script>
