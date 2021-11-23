@@ -81,6 +81,16 @@
         </div>
       </div>
     </div>
+    <div class="fr-header__menu fr-modal" id="modal-833" aria-labelledby="fr-btn-menu-mobile">
+      <div class="fr-container">
+        <button class="fr-link--close fr-link" aria-controls="modal-833">Fermer</button>
+        <div class="fr-header__menu-links"></div>
+        <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
+          <ul class="fr-nav__list">
+          </ul>
+        </nav>
+      </div>
+    </div>
   </header>
 </template>
 
@@ -93,7 +103,7 @@
         default: 'RapportNav'
       },
       numReport: {
-        type: Number,
+        type: String,
         default: null
       }
     }

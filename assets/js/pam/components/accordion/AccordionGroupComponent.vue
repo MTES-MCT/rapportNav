@@ -30,8 +30,7 @@
       </ul>
     </div>
 
-
-
+    <ModalAddControle></ModalAddControle>
   </div>
 </template>
 
