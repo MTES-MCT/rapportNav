@@ -23,11 +23,11 @@ import '@gouvfr/dsfr/dist/css/alerts.min.css';
 import '@gouvfr/dsfr/dist/css/schemes.min.css';
 import '@gouvfr/dsfr/dist/css/navigation.min.css';
 import '@gouvfr/dsfr/dist/css/summary.min.css';
-import '../../../../css/pam/base.css';
+import '../../../css/pam/base.css';
 import 'remixicon/fonts/remixicon.css';
 import '@gouvfr/dsfr/dist/js/dsfr.module.min.js';
 //import '@gouvfr/dsfr/dist/js/dsfr.nomodule.min.js';
 import '@gouvfr/dsfr/dist/js/accordions.module.min.js';
 //import '@gouvfr/dsfr/dist/js/accordions.nomodule.min.js';
-import '../../../../css/pam/table-controle.css'
-import '../../../../css/pam/table-indicateur.css'
+import '../../../css/pam/table-controle.css'
+import '../../../css/pam/table-indicateur.css'

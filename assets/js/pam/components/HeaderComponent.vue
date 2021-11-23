@@ -17,16 +17,14 @@
                 </button>
               </div>
             </div>
-            <div class="fr-header__service">
-              <a href="/" title="Accueil - RapportNav">
-                <p class="fr-header__service-title">RapportNav</p>
+            <div class="fr-header__service" v-if="nameSite !== null">
+              <a href="/" :title="'Accueil - ' +  nameSite ">
+                <p class="fr-header__service-title">{{ nameSite }}</p>
               </a>
             </div>
             <div class="divider-vertical fr-mr-2v"></div>
-            <div class="fr-header__service">
-              <a href="/" title="Accueil - RapportNav">
-                <p class="fr-header__service-title fr-text--lg text-grey fr-mr-4v">Rapport n°7745</p>
-              </a>
+            <div class="fr-header__service" v-if="numReport !== null">
+                <p class="fr-header__service-title fr-text--lg text-grey fr-mr-4v">Rapport n°{{ numReport }}</p>
             </div>
           </div>
 
@@ -88,6 +86,16 @@
 
 <script>
   export default {
-    name: "HeaderComponent"
+    name: "HeaderComponent",
+    props: {
+      nameSite: {
+        type: String,
+        default: 'RapportNav'
+      },
+      numReport: {
+        type: Number,
+        default: null
+      }
+    }
   };
 </script>

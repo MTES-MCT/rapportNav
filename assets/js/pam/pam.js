@@ -1,11 +1,5 @@
 import Vue from "vue";
-import CreateRapportComponent from "./components/pages/CreateRapportComponent";
-import HeaderComponent from "./components/HeaderComponent";
-
-new Vue({
-    components: { HeaderComponent },
-    template: '<HeaderComponent />',
-}).$mount('#headerComponent ')
+import CreateRapportComponent from "./pages/CreateRapportComponent";
 
 new Vue({
     components: { CreateRapportComponent },

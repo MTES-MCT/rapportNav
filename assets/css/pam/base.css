@@ -50,6 +50,11 @@
     width: 792px;
 }
 
+
+[href] {
+     box-shadow: none !important;
+}
+
 .fr-container-custom {
     width: 90%;
     margin: auto;
@@ -133,9 +138,15 @@
     margin-bottom: 22px;
 }
 
-.nav-list.active {
+.active {
     color: #000091;
     font-weight: bold;
+}
+
+.active:before {
+    font-family: 'remixicon' !important;
+    content: "\ea78";
+    margin-right: 25px;
 }
 
 .text-800 {
