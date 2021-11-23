@@ -42,13 +42,6 @@
     color: #e10600;
 }
 
-.listMenuSide {
-    width: 304px !important;
-}
-
-.mainContent {
-    width: 792px;
-}
 
 
 [href] {
@@ -69,8 +62,12 @@
 }
 
 .list-unstyled {
-    width: 223px;
     list-style-type: none;
+}
+
+.mainContent {
+    width: 90%;
+    margin: auto;
 }
 
 .no-style {
@@ -82,10 +79,15 @@
     padding: 2px;
     border-radius: 50%;
     font-size: 11px;
-    margin-left: -35px;
+    margin-left: -5px;
+}
+
+.space-between {
+    padding-right: 8px;
 }
 
 .equipRole {
+    display: block;
     font-size: 12px;
     color: #9C9C9C;
 }
@@ -101,7 +103,6 @@
 
 .tooltipBox {
     visibility: hidden;
-    width: 263px;
     height: 269px;
     background-color: #fff;
     box-shadow: 0px 3px 10px #00000029;
@@ -154,6 +155,7 @@
 }
 
 .box-shadow-card {
+    width: 98%;
     margin: auto;
     box-shadow: 0px 3px 6px #00000026;
     margin-bottom: 20px;
@@ -179,19 +181,11 @@
     padding-right: -20px;
 }
 
-.form-date {
-    width: 162px;
-}
 
 .form-custom {
     border: none !important;
 }
 
-.form-time {
-    width: 100px;
-    padding: 10px;
-    margin-top: 13px !important;
-}
 
 .heading-custom {
     display: flex;
@@ -243,10 +237,6 @@
 .form-valid {
     background-color: #F2F9F5 !important;
     border-bottom: solid 3px #008941 !important;
-}
-
-.input-group-100 {
-    width: 100px;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -391,11 +381,6 @@ margin-left: 50% !important;
 }
 
 
-.col-width {
-    text-align: center;
-    font-size: 12px;
-    width: 89px;
-}
 
 tbody {
     text-align: center;
@@ -427,16 +412,9 @@ tbody {
     font-size: 32px;
 }
 
-.define-date {
-    font-size: 12px;
-    margin-left: 28px;
-    padding-top: -20px !important;
-    color: #000091;
-}
 
 .define-date-form {
     visibility: hidden;
-    width: 293px;
     height: 243px;
     background-color: #fff;
     box-shadow: 0px 3px 10px #00000029;
@@ -498,11 +476,6 @@ tbody {
     border-left: 5px solid #000091 !important;
 }
 
-.custom-table-cell {
-    min-height: 32px;
-    width: 121px;
-}
-
 .custom-table-row {
 
     display: flex;
@@ -530,10 +503,6 @@ td:first-child {
     background:none;
 }
 
-.no-exist {
-    background-color: #E5E5F4;
-    width: 40px;
-}
 
 .icon-circle-left-24 {
     float: left;
@@ -572,10 +541,6 @@ td:first-child {
     color: #9C9C9C;
 }
 
-.fr-container--fluid-auto {
-    width: 83%;
-    margin: auto;
-}
 
 .history-body {
     background-color: #F9F8F6;
@@ -614,7 +579,6 @@ td:first-child {
 }
 
 .tooltip-add-member {
-    width: 255px;
     background-color: #fff;
     box-shadow: 0px 3px 10px #00000029;
     text-align: center;

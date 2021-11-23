@@ -1,7 +1,10 @@
 <template>
-  <div :class="'box-shadow-card ' + className">
-    <ShipActivityCardComponent v-if="type === 'shipActivity'"></ShipActivityCardComponent>
-    <GeneralInformationCardComponent v-if="type === 'informationGeneral'"></GeneralInformationCardComponent>
+  <div>
+    <h5 class="text-blue-france text-800">{{ title }}</h5>
+    <div :class="'box-shadow-card ' + className">
+      <ShipActivityCardComponent v-if="type === 'shipActivity'"></ShipActivityCardComponent>
+      <GeneralInformationCardComponent v-if="type === 'informationGeneral'"></GeneralInformationCardComponent>
+    </div>
   </div>
 </template>
 
@@ -20,6 +23,10 @@ export default {
       default: null
     },
     type: {
+      type: String,
+      default: null
+    },
+    title: {
       type: String,
       default: null
     }

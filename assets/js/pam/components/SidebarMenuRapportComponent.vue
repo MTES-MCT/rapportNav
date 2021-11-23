@@ -1,5 +1,5 @@
 <template>
-  <nav class="fr-ml-14w fr-text--sm fr-mt-n1w">
+  <nav class="fr-text--sm fr-mt-n1w">
     <ul class="list-unstyled">
       <div class="fr-grid-row">
         <div class="fr-col-2"><span class="fr-fi-arrow-right-line fr-fi" aria-hidden="true"></span></div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-table ">
+  <div class="table-custom ">
     <table class="table-indicateur">
       <thead class="thead-indicateur">
       <th class="th-indicateur">Missions</th>

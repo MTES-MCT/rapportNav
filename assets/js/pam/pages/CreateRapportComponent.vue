@@ -1,36 +1,49 @@
 <template>
   <div>
     <HeaderComponent name-site="RapportNav" num-report="1498"></HeaderComponent>
-    <div class="fr-mt-9w">
+    <div class="fr-container--fluid fr-mt-9w">
       <div class="fr-grid-row">
-        <SidebarMenuRapportComponent></SidebarMenuRapportComponent>
-
-        <div class=" mainContent">
-
-          <!-- Informations générales -->
-          <BoxShadowCardComponent type="informationGeneral" class-name="informationGeneral"></BoxShadowCardComponent>
-
-          <!-- Activité du navire -->
-          <BoxShadowCardComponent type="shipActivity" class-name="shipActivity"></BoxShadowCardComponent>
-
-          <!-- Contrôles opérationnel -->
-          <AccordionGroupComponent
-              class-name="operationalControl"
-              type="controle"
-              title="Contrôles opérationnel"
-          ></AccordionGroupComponent>
-
-
-          <!-- Indicateurs de mission -->
-          <AccordionGroupComponent
-              class-name="indicMission"
-              type="indicateur"
-              title="Indicateurs de mission"
-          ></AccordionGroupComponent>
+        <div class="fr-col-lg-2 fr-col-md-3 fr-col-sm-12">
+          <SidebarMenuRapportComponent></SidebarMenuRapportComponent>
         </div>
 
+        <div class="fr-col-lg-8 fr-col-md-9 fr-col-sm-12">
+          <div class="mainContent">
+            <!-- Informations générales -->
+            <BoxShadowCardComponent
+                type="informationGeneral"
+                class-name="informationGeneral"
+                title="Information générales"
+            ></BoxShadowCardComponent>
 
-        <SidebarHistoryRapportComponent></SidebarHistoryRapportComponent>
+            <!-- Activité du navire -->
+            <BoxShadowCardComponent
+                type="shipActivity"
+                class-name="shipActivity"
+                title="Activité du navire"
+            ></BoxShadowCardComponent>
+
+            <!-- Contrôles opérationnel -->
+            <AccordionGroupComponent
+                class-name="operationalControl"
+                type="controle"
+                title="Contrôles opérationnel"
+            ></AccordionGroupComponent>
+
+
+            <!-- Indicateurs de mission -->
+            <AccordionGroupComponent
+                class-name="indicMission"
+                type="indicateur"
+                title="Indicateurs de mission"
+            ></AccordionGroupComponent>
+          </div>
+        </div>
+
+        <div class="fr-col-lg-2 fr-col-md-12 fr-col-sm-12">
+          <SidebarHistoryRapportComponent></SidebarHistoryRapportComponent>
+        </div>
+
       </div>
     </div>
   </div>

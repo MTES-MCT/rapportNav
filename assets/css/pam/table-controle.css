@@ -15,7 +15,6 @@
 }
 
 .add-pavillon {
-    width: 494px;
     border: 2px solid #F2F2F9;
     font-size: 12px;
     padding-left: 10px;
@@ -43,7 +42,6 @@
     position: absolute;
     z-index: 1;
     margin-left: -60px;
-    width: 252px;
 }
 
 .dropdown-list {
@@ -93,7 +91,6 @@
     display:inherit;
 }
 .dropdown ul ul li {
-    width:230px;
     float:none;
     display:list-item;
     position: relative;
@@ -106,3 +103,4 @@
 }
 li > .dropdown-item:after { content:  ' >';  float: right;}
 li > .dropdown-item:only-child:after { content: ''; }
+

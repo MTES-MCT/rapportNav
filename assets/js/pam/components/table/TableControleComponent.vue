@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-table ">
+  <div class="table-custom">
     <table class="table-controle">
       <thead class="thead-controle">
       <th class="th-table-controle">Pavillon</th>

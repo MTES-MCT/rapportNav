@@ -1,7 +1,4 @@
 <template>
-<div>
-  <h5 class="text-blue-france text-800">Informations générales</h5>
-  <div class="box-shadow-card informationGeneral">
     <div class="box-shadow-card-body">
       <h6>Dates de la marée</h6>
       <div class="form-inline">
@@ -100,7 +97,7 @@
                   </ul>
                 </div>
 
-                <div class="fr-col-4">
+                <div class="fr-col-lg-4 fr-col-md-3">
                   <ul class="no-style">
                     <li class="equipier">
                       <div class="fr-grid-row">
@@ -149,7 +146,7 @@
                   </ul>
                 </div>
 
-                <div class="fr-col-4">
+                <div class="fr-col-lg-4 fr-col-md-3">
                   <ul class="no-style">
                     <li class="equipier">
                       <div class="fr-grid-row">
@@ -200,7 +197,7 @@
               </div>
 
             </div>
-            <div class="fr-col-4">
+            <div class="fr-col-lg-4 fr-col-md-6 fr-pl-2w">
               <input class="fr-input" type="text" id="text-input-text" name="text-input-text" placeholder="Ajouter des membres" v-on:click="hiddenToggle('tooltip-add-member', 'member')">
               <div class="tooltip-add-member d-none" data-scope="member">
                 <div class="add-member-content">
@@ -270,14 +267,14 @@
                             </label>
                             <div class="fr-container--fluid">
                               <div class="fr-grid-row">
-                                <div class="fr-col-5">
+                                <div class="fr-col-lg-5 fr-col-sm-6">
                                   <div class="fr-input-wrap fr-fi-calendar-line">
-                                    <input class="fr-input" type="date" id="text-input-calendar" name="text-input-calendar">
+                                    <input class="fr-input" type="date" name="text-input-calendar">
                                   </div>
                                 </div>
-                                <div class="fr-col-5">
+                                <div class="fr-col-lg-5 fr-col-sm-6">
                                   <div class="">
-                                    <input class="fr-input" type="time" id="text-input-calendar" name="text-input-calendar">
+                                    <input class="fr-input" type="time" name="text-input-calendar">
                                   </div>
                                 </div>
                               </div>
@@ -387,8 +384,6 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
 </template>
 
 <script>
