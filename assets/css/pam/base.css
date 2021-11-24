@@ -3,7 +3,7 @@
 }
 .divider-vertical {
     border-left: 1px solid #e7e7e7;
-    height: 30px;
+    height: 80px;
     opacity: 1;
 }
 
@@ -492,11 +492,6 @@ td:first-child {
     border-left: 5px solid #000091 !important;
 }
 
-.header-cell {
-    display: block;
-    font-weight: bold;
-    font-size: 12px;
-}
 
 .custom-table-select {
     border:0;
@@ -589,6 +584,20 @@ td:first-child {
     z-index: 1;
 }
 
+.responsive-btn-header {
+    display: none;
+}
+
+.float-right {
+    float: right !important;
+    margin-left: 50px;
+}
+
+
+.num-report {
+    width: 250px !important;
+}
+
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {
     .form-inline input {
@@ -598,5 +607,22 @@ td:first-child {
     .form-inline {
         flex-direction: column;
         align-items: stretch;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .responsive-btn-header {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin-left: 280px !important;
+        margin-top: -50px;
+    }
+    .responsive-btn {
+        display: none;
+    }
+    .float-right {
+        float: right !important;
+        margin-left: 150px;
     }
 }

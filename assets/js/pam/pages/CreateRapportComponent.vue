@@ -40,7 +40,7 @@
           </div>
         </div>
 
-        <div class="fr-col-lg-2 fr-col-md-12 fr-col-sm-12">
+        <div class="">
           <SidebarHistoryRapportComponent></SidebarHistoryRapportComponent>
         </div>
 

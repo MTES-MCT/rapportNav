@@ -28,6 +28,7 @@ import '@gouvfr/dsfr/dist/component/logo/logo.min.css';
 import '../../../css/pam/base.css';
 import 'remixicon/fonts/remixicon.css';
 import '@gouvfr/dsfr/dist/dsfr/dsfr.module';
+import '../../../css/override/dsfr_grid-tablet.css'
 //import '@gouvfr/dsfr/dist/js/dsfr.nomodule.min.js';
 import '@gouvfr/dsfr/dist/component/accordion/accordion.module.js';
 import '@gouvfr/dsfr/dist/component/modal/modal.module';
