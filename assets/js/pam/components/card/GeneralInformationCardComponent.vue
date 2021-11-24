@@ -28,7 +28,7 @@
         <h6>Equipage</h6>
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
-            <div class="fr-col-8">
+            <div class="fr-col-lg-7 fr-col-md-6">
               <div class="fr-grid-row">
                 <div class="fr-col-4">
                   <ul class="no-style">
@@ -197,7 +197,7 @@
               </div>
 
             </div>
-            <div class="fr-col-lg-4 fr-col-md-6 fr-pl-2w">
+            <div class="fr-col-lg-5 fr-col-md-6 fr-pl-2v">
               <input class="fr-input" type="text" id="text-input-text" name="text-input-text" placeholder="Ajouter des membres" v-on:click="hiddenToggle('tooltip-add-member', 'member')">
               <div class="tooltip-add-member d-none" data-scope="member">
                 <div class="add-member-content">
