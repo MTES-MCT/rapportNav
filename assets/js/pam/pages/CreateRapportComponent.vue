@@ -40,7 +40,11 @@
           </div>
         </div>
 
-        <div class="">
+        <div class="sidebar-right-responsive" v-on:click="displayHistory">
+          <span class="fr-fi-arrow-left-s-line d-block" aria-hidden="true"></span>
+          <span class="ri-history-line d-block"></span>
+        </div>
+        <div class="sidebar-right-history">
           <SidebarHistoryRapportComponent></SidebarHistoryRapportComponent>
         </div>
 
@@ -65,6 +69,10 @@ export default {
     BoxShadowCardComponent,
     AccordionGroupComponent
   },
+  mounted() {
+    this.activeResponsive();
+    $(window).resize(this.activeResponsive)
+  },
   methods: {
     hiddenToggle(className, scope) {
       let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
@@ -73,6 +81,17 @@ export default {
     displayMessage(e, scope) {
       let messageBox = $('.hint-text-automatic-calculate[data-scope="' + scope + '"]');
       messageBox.toggleClass('d-none')
+    },
+    displayHistory() {
+      $('.sidebar-right-history').removeClass('d-none')
+    },
+    activeResponsive() {
+      if($(document).width() <= 1024) {
+        $('.sidebar-right-history').addClass('d-none');
+      } else {
+        console.log('yes')
+        $('.sidebar-right-history').removeClass('d-none')
+      }
     }
   }
 };

@@ -522,12 +522,12 @@ td:first-child {
 }
 
 .history-details {
-    font-size: 12px;
+    font-size: 10px;
     color: #9C9C9C;
 }
 
 .history-main-content {
-    font-size: 14px;
+    font-size: 12px;
     margin-bottom: 1px;
 }
 
@@ -598,6 +598,29 @@ td:first-child {
     width: 250px !important;
 }
 
+.sidebar-right-history {
+    width: 240px;
+    padding-right: 10px;
+    right: 0;
+    position: absolute;
+}
+
+.d-block {
+    display: block;
+}
+
+.icon-float-right {
+    float: right;
+}
+
+.sidebar-right-responsive {
+    display: none;
+}
+
+.history-close-icon {
+    display: none;
+}
+
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {
     .form-inline input {
@@ -608,6 +631,8 @@ td:first-child {
         flex-direction: column;
         align-items: stretch;
     }
+
+
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
@@ -624,5 +649,29 @@ td:first-child {
     .float-right {
         float: right !important;
         margin-left: 150px;
+    }
+
+    .sidebar-right-history {
+        background: #fff;
+        z-index: 1;
+        width: 280px;
+        padding: 15px 15px 15px 15px;
+        box-shadow: 0px 3px 6px #00000026;
+        right: 0;
+        position: absolute;
+    }
+
+
+    .sidebar-right-responsive {
+        display: block;
+        width: 45px;
+        height: 100%;
+        box-shadow: 0px 3px 6px #00000026;
+        right: 0;
+        position: absolute;
+    }
+
+    .history-close-icon {
+        display: block;
     }
 }

@@ -1,7 +1,12 @@
 <template>
 
   <div class="">
+    <div class="history-header">
+      <h6>Historique <span class="fr-fi-close-line icon-float-right history-close-icon" aria-hidden="true" v-on:click="removeHistory"></span> </h6>
+    </div>
     <div class="history-group">
+
+
       <span class="history-date">Aujourd'hui</span>
       <div class="history-body">
         <div class="fr-grid-row">
@@ -95,7 +100,12 @@
 
 <script>
 export default {
-  name: "SidebarHistoryRapportComponent"
+  name: "SidebarHistoryRapportComponent",
+  methods: {
+    removeHistory() {
+      $('.sidebar-right-history').addClass('d-none')
+    }
+  }
 }
 </script>
 
