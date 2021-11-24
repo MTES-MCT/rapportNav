@@ -615,7 +615,7 @@ td:first-child {
         display: flex;
         flex-direction: row;
         width: 100%;
-        margin-left: 280px !important;
+        padding-left: 290px;
         margin-top: -50px;
     }
     .responsive-btn {
