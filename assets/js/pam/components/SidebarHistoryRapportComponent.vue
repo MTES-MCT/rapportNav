@@ -16,7 +16,7 @@
         </div>
         <div class="fr-grid-row">
           <div class="fr-col-2">
-            <img src="http://placebeard.it/155/150?26" class="fr-responsive-img" alt="">
+            <img src="https://via.placeholder.com/150" class="fr-responsive-img img-circle" alt="">
           </div>
           <div class="fr-col-8 fr-ml-2v">
             <p class="history-main-content">
@@ -39,7 +39,7 @@
         </div>
         <div class="fr-grid-row">
           <div class="fr-col-2">
-            <img src="http://placebeard.it/155/150?26" class="fr-responsive-img" alt="">
+            <img src="https://via.placeholder.com/150" class="fr-responsive-img img-circle" alt="">
           </div>
           <div class="fr-col-8 fr-ml-2v">
             <p class="history-main-content">
@@ -61,7 +61,7 @@
         </div>
         <div class="fr-grid-row">
           <div class="fr-col-2">
-            <img src="http://placebeard.it/155/150?26" class="fr-responsive-img" alt="">
+            <img src="https://via.placeholder.com/150" class="fr-responsive-img img-circle" alt="">
           </div>
           <div class="fr-col-8 fr-ml-2v">
             <p class="history-main-content">
@@ -76,24 +76,6 @@
         </div>
       </div>
 
-      <div class="history-body">
-        <div class="fr-grid-row">
-          <div class="fr-col">
-            <span class="history-time">11:12</span>
-          </div>
-        </div>
-        <div class="fr-grid-row">
-          <div class="fr-col-2">
-            <img src="http://placebeard.it/155/150?26" class="fr-responsive-img" alt="">
-          </div>
-          <div class="fr-col-8 fr-ml-2v">
-            <p class="history-main-content">
-              <span class="text-bold">Romain Crampon</span> à réalisé 2 modifications.
-              <span class="history-see-more-details">Voir les details</span>
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
