@@ -55,6 +55,15 @@
         <td class="td-add-column td-table-controle"></td>
       </tr>
       </tbody>
+
+      <tfoot>
+      <tr>
+        <th scope="row" class="th-foot-controle">Total</th>
+        <td class="td-foot-controle">25</td>
+        <td class="td-foot-controle">6</td>
+        <td class="td-foot-controle">4</td>
+      </tr>
+      </tfoot>
     </table>
     <div class="add-pavillon" v-on:click="addPav()">
       <i class="ri-add-circle-fill"></i>

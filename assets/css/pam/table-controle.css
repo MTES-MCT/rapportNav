@@ -104,3 +104,18 @@
 li > .dropdown-item:after { content:  ' >';  float: right;}
 li > .dropdown-item:only-child:after { content: ''; }
 
+tfoot {
+    position: absolute;
+    margin-top: 68px !important;
+    background: #E5E5F4;
+    padding-left: 30px;
+    width: 100%;
+    margin-left: -34px !important;
+}
+.th-foot-controle, .td-foot-controle {
+    width: 122px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    color: #000091;
+}
