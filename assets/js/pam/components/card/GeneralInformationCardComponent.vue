@@ -6,20 +6,20 @@
           De
         </label>
         <div class="fr-input-wrap">
-          <input class="form-valid form-custom form-date" type="date" id="start-date" name="text-input-calendar">
+          <input class="form-custom form-date" type="date" id="start-date" name="text-input-calendar">
         </div>
         <div class="fr-input-wrap">
-          <input class="form-valid form-custom form-time  " type="time" id="start-time" name="text-input-calendar">
+          <input class="form-custom form-time" type="time" id="start-time" name="text-input-calendar">
         </div>
 
         <label class="fr-label" for="end-date">
           à
         </label>
         <div class="fr-input-wrap">
-          <input class="fr-input" type="date" id="text-input-text" name="text-input-text">
+          <input class="form-custom form-date" type="date" id="end-date" name="text-input-text">
         </div>
         <div class="fr-input-wrap">
-          <input class="form-time" type="time" id="end-time" name="text-input-calendar">
+          <input class="form-time form-custom" type="time" id="end-time" name="text-input-calendar">
         </div>
       </div>
       <div class="divider-horizontal"></div>
@@ -28,7 +28,7 @@
         <h6>Equipage</h6>
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
-            <div class="fr-col-lg-7 fr-col-md-6">
+            <div class="fr-col-lg-7 fr-col-md-8">
               <div class="fr-grid-row">
                 <div class="fr-col-4">
                   <ul class="no-style">
@@ -197,7 +197,7 @@
               </div>
 
             </div>
-            <div class="fr-col-lg-5 fr-col-md-6 fr-pl-2v">
+            <div class="fr-col-lg-5 fr-col-md-4 fr-pl-lg-2v">
               <input class="fr-input" type="text" id="text-input-text" name="text-input-text" placeholder="Ajouter des membres" v-on:click="hiddenToggle('tooltip-add-member', 'member')">
               <div class="tooltip-add-member d-none" data-scope="member">
                 <div class="add-member-content">
@@ -388,7 +388,20 @@
 
 <script>
 export default {
-  name: "GeneralInformationCardComponent"
+  name: "GeneralInformationCardComponent",
+  methods: {
+    checkInputFilled() {
+     let $input = $('.form-custom');
+     $.map($input, (el) => {
+       if($(el).val() === '') {
+         $(el).addClass('form-not-filled')
+       }
+     })
+    }
+  },
+  mounted() {
+    this.checkInputFilled()
+  }
 }
 </script>
 
