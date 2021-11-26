@@ -3,11 +3,11 @@
     <HeaderComponent name-site="RapportNav" num-report="1498"></HeaderComponent>
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
-        <div class="fr-col-lg-2 fr-col-md-3 fr-col-sm-12">
+        <div class="fr-col-lg-2 fr-col-md-2 fr-col-sm-12 sidebar-left-menu">
           <SidebarMenuRapportComponent></SidebarMenuRapportComponent>
         </div>
 
-        <div class="fr-col-lg-8 fr-col-md-9 fr-col-sm-12">
+        <div class="fr-col-lg-8 fr-col-md-10 fr-col-sm-12">
           <div class="mainContent">
             <!-- Informations générales -->
             <BoxShadowCardComponent
