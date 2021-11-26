@@ -121,6 +121,10 @@
     color: #E10600;
 }
 
+.content-fixed {
+    position: fixed;
+}
+
 .custom-btn {
     background: none;
     border: 1px red solid;
@@ -142,12 +146,19 @@
 .active {
     color: #000091;
     font-weight: bold;
+
+}
+
+.nav-item {
+    margin-left: 40px;
 }
 
 .active:before {
     font-family: 'remixicon' !important;
-    content: "\ea78";
-    margin-right: 25px;
+    content: "\ea6c" !important;
+    font-size: 20px;
+    margin-left: -40px;
+    margin-right: 20px;
 }
 
 .text-800 {
@@ -617,9 +628,42 @@ td:first-child {
     display: none;
 }
 
+.sidebar-right-history {
+    height: 100%;
+    overflow: scroll;
+}
+
 .history-close-icon {
     display: none;
 }
+
+.page-content {
+    margin-top: 160px !important;
+}
+
+.fr-header {
+    --link-underline: none;
+    --link-blank-font: none;
+    --link-blank-content: none;
+    --ul-type: none;
+    --ol-type: none;
+    --ul-start: 0;
+    --ol-start: 0;
+    --xl-block: 0;
+    --li-bottom: 0;
+    --ol-content: none;
+    --text-spacing: 0;
+    --title-spacing: 0;
+    width: 100%;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1), 0 8px 16px -16px rgba(0, 0, 0, 0.32);
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    --blend: var(--background-elevated-white-blend);
+    background-color: var(--background-elevated-white);
+}
+
+
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {

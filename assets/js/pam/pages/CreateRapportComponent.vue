@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComponent name-site="RapportNav" num-report="1498"></HeaderComponent>
-    <div class="fr-container--fluid fr-mt-9w">
+    <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
         <div class="fr-col-lg-2 fr-col-md-3 fr-col-sm-12">
           <SidebarMenuRapportComponent></SidebarMenuRapportComponent>
@@ -89,7 +89,6 @@ export default {
       if($(document).width() <= 1024) {
         $('.sidebar-right-history').addClass('d-none');
       } else {
-        console.log('yes')
         $('.sidebar-right-history').removeClass('d-none')
       }
     }

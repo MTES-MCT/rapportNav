@@ -1,6 +1,6 @@
 <template>
 
-  <div class="">
+  <div class="content-fixed">
     <div class="history-header">
       <h6>Historique <span class="fr-fi-close-line icon-float-right history-close-icon" aria-hidden="true" v-on:click="removeHistory"></span> </h6>
     </div>

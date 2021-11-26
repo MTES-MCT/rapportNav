@@ -1,5 +1,5 @@
 <template>
-    <div class="box-shadow-card-body">
+    <div class="box-shadow-card-body" id="generalInformation">
       <h6>Dates de la marée</h6>
       <div class="form-inline">
         <label class="fr-label" for="start-date">

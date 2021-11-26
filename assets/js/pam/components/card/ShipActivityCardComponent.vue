@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="shipActivity">
     <div class="heading-custom fr-mt-3w">
       <div class="total">
         <span>Total</span>

@@ -1,5 +1,5 @@
 <template>
-  <div :class="className + ' fr-mt-10w'">
+  <div :class="className + ' fr-mt-10w'" :id="identifier">
     <div class="heading-custom heading-custom-space-between">
       <h5 class="text-blue-france text-800">{{ title }}</h5>
       <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="fr-modal-10" v-if="type === 'controle'">
@@ -14,6 +14,7 @@
               title="Contrôle en mer des navires de pêche professionnelle"
               type="controle"
               remove-btn
+              identifier="controle"
           >
           </RapportAccordionComponent>
         </li>
@@ -24,6 +25,7 @@
           <RapportAccordionComponent
               title="Contrôle en mer des navires de pêche professionnelle"
               type="indicateur"
+              identifier="indicateur"
           >
           </RapportAccordionComponent>
         </li>
@@ -53,6 +55,10 @@ export default {
       default: null
     },
     type: {
+      type: String,
+      default: null
+    },
+    identifier: {
       type: String,
       default: null
     }

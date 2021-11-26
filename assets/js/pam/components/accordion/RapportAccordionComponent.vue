@@ -1,5 +1,5 @@
 <template>
-  <div class="box-shadow-card">
+  <div class="box-shadow-card" :id="identifier">
     <section class="fr-accordion box-shadow-card-body">
       <div class="fr-accordion__title ">
         <div class="fr-container--fluid">
@@ -45,6 +45,10 @@ export default {
     removeBtn: {
       type: Boolean,
       default: false
+    },
+    identifier: {
+      type: String,
+      default: null
     }
   },
   data: function() {

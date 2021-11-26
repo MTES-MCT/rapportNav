@@ -1,23 +1,10 @@
 <template>
-  <nav class="fr-text--sm fr-mt-n1w">
+  <nav class="fr-text--sm content-fixed">
     <ul class="list-unstyled">
-      <div class="fr-grid-row">
-        <div class="fr-col-2"><span class="fr-fi-arrow-right-line fr-fi" aria-hidden="true"></span></div>
-        <div class="fr-col-10"><li class="nav-list text-icon--left"> Informations générales</li></div>
-      </div>
-      <div class="fr-grid-row">
-        <div class="fr-col-2"></div>
-        <div class="fr-col-10"><li class="nav-list"><a href="#shipActivity" v-on:click="setActive($event)">Activités du navire</a></li></div>
-      </div>
-      <div class="fr-grid-row">
-        <div class="fr-col-2"></div>
-        <div class="fr-col-10"><li class="nav-list">Contrôles opérationnels</li></div>
-      </div>
-      <div class="fr-grid-row">
-        <div class="fr-col-2"></div>
-        <div class="fr-col-10"><li class="nav-list">Indicateurs de missions</li></div>
-      </div>
-
+      <li class="nav-list nav-item"><a href="#generalInformation" v-on:click="setActive($event)">Informations générales</a></li>
+      <li class="nav-list nav-item"><a href="#shipActivity" v-on:click="setActive($event)">Activités du navire</a></li>
+      <li class="nav-list nav-item"><a href="#controle" v-on:click="setActive($event)">Contrôles opérationnel</a></li>
+     <li class="nav-list nav-item"><a href="#indicateur" v-on:click="setActive($event)">Indicateurs de missions</a></li>
     </ul>
   </nav>
 </template>
@@ -27,7 +14,7 @@ export default {
   name: "SidebarMenuRapportComponent",
   methods: {
     setActive(e) {
-      console.log(e)
+      $('.nav-item a').removeClass('active')
       $(e.target).addClass('active')
     }
   }
