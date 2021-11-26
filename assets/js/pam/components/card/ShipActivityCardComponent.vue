@@ -73,11 +73,11 @@
         <h6>Indisponibilité</h6>
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
-            <div class="fr-col-lg-3 fr-mr-2w">
+            <div class="fr-col-lg-3 fr-col-md-4 fr-mr-2w">
               <label class="fr-label" for="technique">Technique</label>
               <input class="fr-input unit-placeholder" type="number" id="technique" name="text-input-number" placeholder="h">
             </div>
-            <div class="fr-col-lg-3">
+            <div class="fr-col-lg-3 fr-col-md-4">
               <label class="fr-label" for="personnel">Personnel</label>
               <input class="fr-input unit-placeholder" type="number" id="personnel" name="text-input-number" placeholder="h">
             </div>
@@ -92,15 +92,15 @@
         <h6>Distance et consommation</h6>
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
-            <div class="fr-col-lg-3 space-between">
+            <div class="fr-col-lg-3 fr-col-md-4 space-between">
               <label class="fr-label" for="traveled">Distance parcourue</label>
               <input class="fr-input unit-placeholder" type="number" id="traveled" name="text-input-number" placeholder="miles">
             </div>
-            <div class="fr-col-lg-3 space-between">
+            <div class="fr-col-lg-3 fr-col-md-4 space-between">
               <label class="fr-label" for="goConso">GO marine consommé</label>
               <input class="fr-input unit-placeholder" type="number" id="goConso" name="text-input-number" placeholder="litres">
             </div>
-            <div class="fr-col-lg-3 space-between">
+            <div class="fr-col-lg-3 fr-col-md-4 space-between">
               <label class="fr-label" for="essenceConso">Essence consommée</label>
               <input class="fr-input unit-placeholder" type="number" id="essenceConso" name="text-input-number" placeholder="litres">
             </div>
