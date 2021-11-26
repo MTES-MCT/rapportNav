@@ -1,5 +1,5 @@
 <template>
-  <nav class="fr-text--sm content-fixed">
+  <nav class="fr-text--sm content-fixed sidebar-left-menu">
     <ul class="list-unstyled">
       <li class="nav-list nav-item"><a href="#generalInformation" v-on:click="setActive($event)">Informations générales</a></li>
       <li class="nav-list nav-item"><a href="#shipActivity" v-on:click="setActive($event)">Activités du navire</a></li>
