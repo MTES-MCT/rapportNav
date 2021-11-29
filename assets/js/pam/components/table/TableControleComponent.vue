@@ -6,27 +6,27 @@
       <th class="th-table-controle">Nb de navire contrôlés</th>
       <th class="th-table-controle">Nb de contrôles pêche sanitaire</th>
       <th class="th-table-controle">Nb pv dec eff</th>
-      <th class="add-column dropbtn th-table-controle" id="add-btn" v-on:click="hiddenToggle('dropdown', 'ajout-pv')">
+      <th class="add-column dropbtn" id="add-btn">
         <i class="ri-add-circle-fill"></i>
         Ajouter un PV, nav déroutés...
-        <div class="dropdown d-none" id="dropdown" data-scope="ajout-pv">
-          <ul v-on:click="addColumnControle($event)">
+        <div class="dropdown d-none" id="dropdown">
+          <ul>
             <li>
-              <span class="dropdown-item">Ajouter des pv</span>
+              <a href="#" class="dropdown-item">Ajouter des pv</a>
               <ul>
-                <li><span class="dropdown-link">PV pêche sanitaire</span></li>
-                <li><span class="dropdown-link">PV équipement sécu. permis de nav.</span ></li>
-                <li><span class="dropdown-link">PV titre de navig. role/déc. eff</span ></li>
-                <li><span class="dropdown-link">PV police navigation</span ></li>
-                <li><span class="dropdown-link">PV environnement pollution</span></li>
-                <li><span class="dropdown-link">Autres types de PV</span ></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV pêche sanitaire">PV pêche sanitaire</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV équipement sécu. permis de nav.">PV équipement sécu. permis de nav.</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV titre de navig. role/déc. eff">PV titre de navig. role/déc. eff</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV police navigation">PV police navigation</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV environnement pollution">PV environnement pollution</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="Autres types de PV">Autres types de PV</a></li>
               </ul>
             </li>
             <li>
-              <span class="dropdown-item">Ajouter des navires déroutés</span>
+              <a href="#" class="dropdown-link" data-dropdown-label="Navires déroutés">Ajouter des navires déroutés</a>
             </li>
             <li>
-              <span class="dropdown-item">Ajouter des navires Interrogés</span>
+              <a href="#" class="dropdown-link" data-dropdown-label="Navires interrogés">Ajouter des navires Interrogés</a>
             </li>
           </ul>
         </div>
@@ -41,17 +41,22 @@
             <option value="US">US</option>
           </select>
         </td>
-        <td class="td-table-controle">25</td>
-        <td class="td-table-controle">6</td>
-        <td class="td-table-controle">4</td>
+        <td class="td-table-controle" contenteditable="true">25</td>
+        <td class="td-table-controle" contenteditable="true">6</td>
+        <td class="td-table-controle" contenteditable="true">4</td>
         <td class="td-add-column td-table-controle"></td>
       </tr>
 
       <tr class="tr-example d-none tr-table">
-        <td class="td-pavillon td-table-controle"></td>
-        <td class="td-table-controle"></td>
-        <td class="td-table-controle"></td>
-        <td class="td-table-controle"></td>
+        <td class="td-pavillon td-table-controle">
+          <select name="pavillon" id="pavillon-select">
+            <option value="FR">FR</option>
+            <option value="US">US</option>
+          </select>
+        </td>
+        <td class="td-table-controle" contenteditable="true"></td>
+        <td class="td-table-controle" contenteditable="true"></td>
+        <td class="td-table-controle" contenteditable="true"></td>
         <td class="td-add-column td-table-controle"></td>
       </tr>
       </tbody>
@@ -73,9 +78,42 @@
 </template>
 
 <script>
+import Dropdown from 'bp-vuejs-dropdown';
 export default {
   name: "TableControleComponent",
+  components: {
+    Dropdown
+  },
+  mounted() {
+    // Prevent href event
+    $('.dropdown-item').click((e) => e.preventDefault());
+
+    // Display dropdown menu
+   // $('.dropbtn').click((e) => $('#dropdown').removeClass('d-none'));
+
+    $('.dropbtn').hover(
+        () => {
+          $('#dropdown').removeClass('d-none')
+        },
+        () => {
+          $('#dropdown').addClass('d-none')
+        }
+    );
+
+
+    $('.dropdown-link').click(function(e) {
+      e.preventDefault()
+      alert('jkij')
+      let content = $(e.target).data('dropdown-label')
+      $('.add-column').before('<th class="th-table-controle">' + content + '</th>')
+      $('.td-add-column').before('<td class="td-table-controle"></td>')
+    })
+  },
   methods: {
+    hiddenToggle(className, scope) {
+      let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
+      tooltip.toggleClass('d-none');
+    },
     addPav() {
       let trE = $('.tr-example').clone();
       trE.removeClass('d-none')
@@ -84,8 +122,9 @@ export default {
     },
     addColumnControle(e) {
       const text = e.target.outerText;
-      $('.add-column').before('<th class="th-table-controle">' + text + '</th>')
-      $('.td-add-column').before('<td class="td-table-controle"></td>')
+      console.log(e)
+     /* $('.add-column').before('<th class="th-table-controle">' + text + '</th>')
+      $('.td-add-column').before('<td class="td-table-controle"></td>')*/
     }
   }
 }

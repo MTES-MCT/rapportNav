@@ -32,8 +32,11 @@
     color: #AEADD8;
 }
 
-.dropdown {
+.dropdown .dropbtn:hover {
+    visibility: visible;
+}
 
+.dropdown {
     background-color: #fff;
     box-shadow: 0px 3px 10px #00000029;
     text-align: left;
@@ -46,7 +49,10 @@
 
 .dropdown-list {
     list-style: none;
+}
 
+.dropdown-link {
+    cursor: pointer;
 }
 
 .dropdown-item {
@@ -94,7 +100,7 @@
     float:none;
     display:list-item;
     position: relative;
-    left: 240px;
+    left: 225px;
     top: -40px;
     box-shadow: 0px 3px 10px #00000029;
 }

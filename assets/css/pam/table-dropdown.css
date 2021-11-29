@@ -1,0 +1,40 @@
+.table-dropdown{
+}
+
+.table-dropdown ul{
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+}
+.table-dropdown li:hover > ul{
+    z-index: 3;
+    background: #fff;
+    opacity: 1;
+    visibility: visible;
+    transition: .3s linear;
+    box-shadow: #001f3f 2px 1px 1px;
+}
+.table-dropdown ul li{
+    width: 150px;
+    display: list-item;
+    position: relative;
+    border-top: none;
+}
+.table-dropdown ul li a{
+    line-height: 50px;
+}
+.table-dropdown ul ul{
+    border-top: none;
+}
+.table-dropdown ul ul li{
+    position: relative;
+    top: -70px;
+    left: 150px;
+}
+.table-dropdown ul li a i{
+    margin-left: 45px;
+}
+
+#dropdown .dropbtn:hover  {
+    display: block;
+}
