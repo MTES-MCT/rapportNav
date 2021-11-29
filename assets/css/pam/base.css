@@ -259,11 +259,10 @@
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-    background: none;
 }
 
 input[type="time"]::-webkit-calendar-picker-indicator {
-    background-size: 20px;
+    background-size: 15px;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
