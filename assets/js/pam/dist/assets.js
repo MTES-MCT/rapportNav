@@ -32,6 +32,6 @@ import '@gouvfr/dsfr/dist/dsfr/dsfr.module';
 import '@gouvfr/dsfr/dist/component/accordion/accordion.module.js';
 import '@gouvfr/dsfr/dist/component/modal/modal.module';
 //import '@gouvfr/dsfr/dist/js/accordions.nomodule.min.js';
-import '../../../css/pam/table-controle.css'
-import '../../../css/pam/table-indicateur.css'
-import '../../../css/override/_grid_dsfr.css'
+import '../../../css/pam/table-controle.css';
+import '../../../css/pam/table-indicateur.css';
+import '../../../css/override/_grid_dsfr.css';

@@ -40,8 +40,8 @@
           </div>
         </div>
 
-        <div class="sidebar-right-responsive" v-on:click="displayHistory">
-          <span class="fr-fi-arrow-left-s-line d-block" aria-hidden="true"></span>
+        <div class="sidebar-right-responsive" v-on:click="displayHistory" style="padding-left: 5px !important;">
+          <span class="fr-fi-arrow-left-s-line d-block" aria-hidden="true" ></span>
           <span class="ri-history-line d-block"></span>
         </div>
         <div class="sidebar-right-history">
