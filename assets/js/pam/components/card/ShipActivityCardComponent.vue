@@ -4,7 +4,7 @@
       <div class="total">
         <span>Total</span>
         <div class="total-values">
-          <span class="dayInSea text-blue-france text-bold">10 jours en mer</span>
+          <span class="dayInSea text-blue-france text-bold">{{nbJoursMer}} jours en mer</span>
           <span class="missionTrackTime text-blue-france text-bold">52 heures de mission</span>
         </div>
       </div>
@@ -15,17 +15,14 @@
         <h6>Présence à la mer</h6>
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
-            <div class="fr-col-lg-4 space-between">
-              <label class="fr-label" for="dayAtSeaInput">Nombre de jour en mer</label>
-              <input class="fr-input unit-placeholder fr-input-valid" value="10" type="number" id="dayAtSeaInput" name="text-input-number" placeholder="j">
+            <div class="fr-col-lg-4">
+             <InputComponent type="number" label="Nombre de jours en mer" add-on="j" v-model="nbJoursMer"></InputComponent>
+            </div>
+            <div class="fr-col-lg-3">
+              <InputComponent type="number" label="Navigation eff." add-on="h" v-model="navEff"></InputComponent>
             </div>
             <div class="fr-col-lg-3 space-between">
-              <label class="fr-label" for="navEff">Navigation eff.</label>
-              <input class="fr-input unit-placeholder fr-input-valid" type="number" value="99" id="navEff" name="text-input-number" placeholder="h">
-            </div>
-            <div class="fr-col-lg-3 space-between">
-              <label class="fr-label" for="mouillage">Mouillage</label>
-              <input class="fr-input unit-placeholder" type="number" id="mouillage" name="text-input-number" placeholder="h">
+              <InputComponent type="number" label="Mouillage" add-on="h" v-model="mouillage"></InputComponent>
             </div>
           </div>
         </div>
@@ -38,29 +35,23 @@
         <h6>Présence à quai</h6>
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
-            <div class="fr-col-lg-2 fr-col-md-6 space-between">
-              <label class="fr-label" for="dayAtSeaInput">Maintenance</label>
-              <input class="fr-input unit-placeholder" type="number" id="maintenance" name="text-input-number" placeholder="h">
+            <div class="fr-col-lg-2 fr-col-md-6">
+              <InputComponent label="Maintenance" add-on="h" type="number" v-model="maintenance"></InputComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md6 space-between">
-              <label class="fr-label" for="navEff">Météo</label>
-              <input class="fr-input unit-placeholder" type="number" id="meteo" name="text-input-number" placeholder="h">
+              <InputComponent label="Météo" add-on="h" type="number" v-model="meteo"></InputComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md-6 space-between">
-              <label class="fr-label" for="representation">Répresentation</label>
-              <input class="fr-input unit-placeholder" type="number" id="representation" name="text-input-number" placeholder="h">
+              <InputComponent label="Représentation" add-on="h" type="number" v-model="representation"></InputComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md-6 space-between">
-              <label class="fr-label" for="administration">Administration</label>
-              <input class="fr-input unit-placeholder" type="number" id="administration" name="text-input-number" placeholder="h">
+              <InputComponent label="Administratif" add-on="h" type="number" v-model="administratif"></InputComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md-6 space-between">
-              <label class="fr-label" for="autre">Autre</label>
-              <input class="fr-input unit-placeholder" type="number" id="autre" name="text-input-number" placeholder="h">
+              <InputComponent label="Autre" add-on="h" type="number" v-model="autre"></InputComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md-6">
-              <label class="fr-label" for="contrPort">Contr. Port</label>
-              <input class="fr-input unit-placeholder" type="number" id="contrPort" name="text-input-number" placeholder="h">
+              <InputComponent label="Contr. Port" add-on="h" type="number" v-model="contrPort"></InputComponent>
             </div>
           </div>
         </div>
@@ -74,12 +65,10 @@
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
             <div class="fr-col-lg-3 fr-col-md-4 fr-mr-2w">
-              <label class="fr-label" for="technique">Technique</label>
-              <input class="fr-input unit-placeholder" type="number" id="technique" name="text-input-number" placeholder="h">
+              <InputComponent label="Technique" type="number" add-on="h" v-model="technique"></InputComponent>
             </div>
             <div class="fr-col-lg-3 fr-col-md-4">
-              <label class="fr-label" for="personnel">Personnel</label>
-              <input class="fr-input unit-placeholder" type="number" id="personnel" name="text-input-number" placeholder="h">
+              <InputComponent label="Personnel" type="number" add-on="h" v-model="personnel"></InputComponent>
             </div>
           </div>
         </div>
@@ -92,17 +81,14 @@
         <h6>Distance et consommation</h6>
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
-            <div class="fr-col-lg-3 fr-col-md-4 space-between">
-              <label class="fr-label" for="traveled">Distance parcourue</label>
-              <input class="fr-input unit-placeholder" type="number" id="traveled" name="text-input-number" placeholder="miles">
+            <div class="fr-col-lg-3 fr-col-md-4">
+              <InputComponent add-on="miles" type="number" label="Distance parcourue" v-model="distanceParcourue"></InputComponent>
             </div>
-            <div class="fr-col-lg-3 fr-col-md-4 space-between">
-              <label class="fr-label" for="goConso">GO marine consommé</label>
-              <input class="fr-input unit-placeholder" type="number" id="goConso" name="text-input-number" placeholder="litres">
+            <div class="fr-col-lg-3 fr-col-md-4">
+              <InputComponent label="GO marine consommé" type="number" add-on="litres" v-model="goMarine"></InputComponent>
             </div>
-            <div class="fr-col-lg-3 fr-col-md-4 space-between">
-              <label class="fr-label" for="essenceConso">Essence consommée</label>
-              <input class="fr-input unit-placeholder" type="number" id="essenceConso" name="text-input-number" placeholder="litres">
+            <div class="fr-col-lg-3 fr-col-md-4">
+              <InputComponent add-on="litres" type="number" label="Essence consommée" v-model="essence"></InputComponent>
             </div>
           </div>
         </div>
@@ -112,8 +98,31 @@
 </template>
 
 <script>
+import InputComponent from "../input/InputComponent";
 export default {
-  name: "ShipActivityCardComponent"
+  name: "ShipActivityCardComponent",
+  components: {
+    InputComponent
+  },
+  methods: {},
+  data () {
+    return {
+      nbJoursMer: null,
+      navEff: null,
+      mouillage: null,
+      maintenance: null,
+      meteo: null,
+      representation: null,
+      administratif: null,
+      autre: null,
+      contrPort: null,
+      technique: null,
+      personnel: null,
+      distanceParcourue: null,
+      goMarine: null,
+      essence: null
+    }
+  }
 }
 </script>
 
