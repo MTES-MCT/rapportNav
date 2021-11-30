@@ -1,4 +1,5 @@
 @import "components/equipage.css";
+@import "components/checkboxMission.css";
 
 .mr-2 {
     margin-right: 25px;
@@ -217,14 +218,8 @@
     margin-top: 13px !important;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-}
-
 input[type="time"]::-webkit-calendar-picker-indicator {
     background-size: 15px;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .unit-placeholder::-webkit-input-placeholder { /* WebKit browsers */
@@ -347,7 +342,10 @@ margin-left: 50% !important;
     opacity: 1;
 }
 
-
+.text-small-blue {
+    font-size: 12px;
+    color: #000091;
+}
 
 .text-center {
     text-align: center;
@@ -388,26 +386,6 @@ tbody {
     text-align: center;
     font-size: 32px;
 }
-
-
-.define-date-form {
-    visibility: hidden;
-    height: 243px;
-    background-color: #fff;
-    box-shadow: 0px 3px 10px #00000029;
-    text-align: center;
-    padding: 5px 0;
-
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    margin-left: -60px;
-}
-
-.define-date:hover .define-date-form {
-    visibility: visible;
-}
-
 
 .fr-label-left {
     text-align: left;
