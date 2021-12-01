@@ -4,11 +4,21 @@
     <div class="InputAddOn">
       <input
           class="InputAddOn-field fr-input"
+          v-bind:class="{ 'fr-input-valid': isValid }"
           :type="type"
           @change="valueChanged"
           @keydown="keydown"
+          v-on:keyup="checkInputValid($event)"
+
       >
-      <button class="InputAddOn-item" v-if="addOn !== null" :value="value">{{ addOn }}</button>
+      <button
+          class="InputAddOn-item"
+          v-if="addOn !== null"
+          :value="value"
+          v-bind:class="{ 'fr-input-valid': isValid }"
+      >
+        {{ addOn }}
+      </button>
     </div>
   </div>
 </template>
@@ -26,6 +36,13 @@ export default {
         this.$emit('input', e.target.value);
         this.$emit('change',e.target.value);
         this.$emit('enter');
+      }
+    },
+    checkInputValid(e) {
+      if(e.target.value.length > 0) {
+        this.isValid = true;
+      } else {
+        this.isValid = false;
       }
     }
   },
@@ -49,11 +66,11 @@ export default {
   },
   data () {
     return {
+      isValid: null
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>
