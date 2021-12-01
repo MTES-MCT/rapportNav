@@ -1,10 +1,7 @@
 <template>
-  <div :class="className + ' fr-mt-10w'" :id="identifier">
+  <div :class="' fr-mt-10w'" id="indicMission">
     <div class="heading-custom heading-custom-space-between">
       <h5 class="text-blue-france text-800">Indicateurs de mission</h5>
-      <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="fr-modal-10" v-if="type === 'controle'">
-        <i class="ri-add-circle-fill fr-mt-1v fr-mr-1w"></i> <span class="text-bold">Ajouter un contrôle</span>
-      </button>
     </div>
     <div class="box-dropdown fr-mt-2w">
       <ul class="fr-accordions-group">
@@ -47,7 +44,12 @@ export default {
   components: {
     TableIndicateurComponent
   },
-  methods: {}
+  methods: {},
+  data: function() {
+    return {
+      id: this._uid
+    }
+  }
 }
 </script>
 

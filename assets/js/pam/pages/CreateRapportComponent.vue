@@ -33,7 +33,6 @@
 
             <!-- Indicateurs de mission-->
             <AccordionIndicateurMissionComponent
-                class-name="indicMission"
                 title="Contrôle en mer des navires de pêche professionnelle"
             ></AccordionIndicateurMissionComponent>
           </div>

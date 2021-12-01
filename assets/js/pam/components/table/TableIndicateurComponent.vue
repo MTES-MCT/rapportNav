@@ -113,6 +113,12 @@
 <script>
 export default {
   name: "TableIndicateurComponent",
+  props: {
+    id : {
+      type: Number,
+      default: null
+    }
+  },
   methods: {
     hiddenToggle(className, scope) {
       let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
