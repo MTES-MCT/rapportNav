@@ -31,12 +31,11 @@
             ></AccordionGroupComponent>
 
 
-            <!-- Indicateurs de mission -->
-            <AccordionGroupComponent
+            <!-- Indicateurs de mission-->
+            <AccordionIndicateurMissionComponent
                 class-name="indicMission"
-                type="indicateur"
-                title="Indicateurs de mission"
-            ></AccordionGroupComponent>
+                title="Contrôle en mer des navires de pêche professionnelle"
+            ></AccordionIndicateurMissionComponent>
           </div>
         </div>
 
@@ -60,9 +59,11 @@ import SidebarMenuRapportComponent from "../components/SidebarMenuRapportCompone
 import SidebarHistoryRapportComponent from "../components/SidebarHistoryRapportComponent";
 import BoxShadowCardComponent from "../components/card/BoxShadowCardComponent";
 import AccordionGroupComponent from "../components/accordion/AccordionGroupComponent";
+import AccordionIndicateurMissionComponent from "../components/accordion/AccordionIndicateurMissionComponent";
 export default {
   name: "CreateRapportComponent",
   components: {
+    AccordionIndicateurMissionComponent,
     HeaderComponent,
     SidebarMenuRapportComponent,
     SidebarHistoryRapportComponent,

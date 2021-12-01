@@ -2,10 +2,10 @@
   <div class="table-custom">
     <table class="table-controle">
       <thead class="thead-controle">
-      <th class="th-table-controle">Pavillon</th>
-      <th class="th-table-controle">Nb de navire contrôlés</th>
-      <th class="th-table-controle">Nb de contrôles pêche sanitaire</th>
-      <th class="th-table-controle">Nb pv dec eff</th>
+      <th :class="'th-table-controle-' + id">Pavillon</th>
+      <th :class="'th-table-controle-' + id">Nb de navire contrôlés</th>
+      <th :class="'th-table-controle-' + id">Nb de contrôles pêche sanitaire</th>
+      <th :class="'th-table-controle-' + id">Nb pv dec eff</th>
       <th class="add-column dropbtn" id="add-btn">
         <i class="ri-add-circle-fill"></i>
         Ajouter un PV, nav déroutés...
@@ -33,7 +33,7 @@
       </th>
       </thead>
 
-      <tbody class="tbody-controle">
+      <tbody :class="'tbody-controle-' + id">
       <tr class="tr-table">
         <td class="td-pavillon td-table-controle">
           <select name="pavillon" id="pavillon-select">
@@ -70,7 +70,7 @@
       </tr>
       </tfoot>
     </table>
-    <div class="add-pavillon" v-on:click="addPav()">
+    <div class="add-pavillon" v-on:click="addPav($event)">
       <i class="ri-add-circle-fill"></i>
       Ajouter un pavillon
     </div>
@@ -83,6 +83,12 @@ export default {
   name: "TableControleComponent",
   components: {
     Dropdown
+  },
+  props: {
+    id: {
+      type: Number,
+      default: null
+    }
   },
   mounted() {
     // Prevent href event
@@ -103,10 +109,9 @@ export default {
 
     $('.dropdown-link').click(function(e) {
       e.preventDefault()
-      alert('jkij')
       let content = $(e.target).data('dropdown-label')
-      $('.add-column').before('<th class="th-table-controle">' + content + '</th>')
-      $('.td-add-column').before('<td class="td-table-controle"></td>')
+      $('.add-column').before('<th class="th-table-controle-"' + this.id + '>' + content + '</th>')
+      $('.td-add-column').before('<td class="td-table-controle" contenteditable="true"></td>')
     })
   },
   methods: {
@@ -114,17 +119,13 @@ export default {
       let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
       tooltip.toggleClass('d-none');
     },
-    addPav() {
-      let trE = $('.tr-example').clone();
+    addPav(event) {
+      let $sample = $('.tr-example');
+      $sample = $($sample[0]);
+      let trE = $sample.clone();
       trE.removeClass('d-none')
       trE.removeClass('tr-example')
-      $('.tbody-controle').append(trE)
-    },
-    addColumnControle(e) {
-      const text = e.target.outerText;
-      console.log(e)
-     /* $('.add-column').before('<th class="th-table-controle">' + text + '</th>')
-      $('.td-add-column').before('<td class="td-table-controle"></td>')*/
+      $('.tbody-controle-' + this.id ).append(trE)
     }
   }
 }

@@ -33,12 +33,12 @@
           <span class="ri-calculator-fill icon" v-on:click="hiddenToggle('tooltip-automatic-calculate', 'interception')"></span>
           <div class="tooltip-automatic-calculate d-none" data-scope="interception">
             <div class="fr-toggle fr-toggle--label-left">
-              <input type="checkbox" checked class="fr-toggle__input switch-table-auto-calculate" aria-describedby="toggle-726-hint-text" id="toggle-726" v-on:change="displayMessage($event, 'interception')">
-              <label class="fr-toggle__label" for="toggle-726" data-fr-checked-label="Activé">Calculé automatiquement à partir des déclarations opérationnelles</label>
-              <p class="fr-hint-text hint-text-automatic-calculate" id="toggle-726-hint-text" data-scope="interception">
+              <input type="checkbox" checked class="fr-toggle__input switch-table-auto-calculate" :aria-describedby="'toggle-' + id +'-hint-text'" :id="'toggle-' + id" v-on:change="displayMessage($event, 'interception')">
+              <label class="fr-toggle__label" :for="'toggle-' + id" data-fr-checked-label="Activé">Calculé automatiquement à partir des déclarations opérationnelles</label>
+              <p class="fr-hint-text hint-text-automatic-calculate" :id="'toggle-' + id + '-hint-text'" data-scope="interception">
                 <span class="fr-fi-information-fill info-icon-sm" aria-hidden="true"></span> Désactivez pour pouvoir éditer le champ sélectionné
               </p>
-              <p class="fr-hint-text hint-text-automatic-calculate d-none" id="toggle-726-hint-text" data-scope="interception">
+              <p class="fr-hint-text hint-text-automatic-calculate d-none" :id="'toggle-' + id + '-hint-text'" data-scope="interception">
                 <span class="fr-fi-information-fill info-icon-sm" aria-hidden="true"></span> Activez pour calculer automatiquement le champ sélectionné
               </p>
             </div>
@@ -77,12 +77,12 @@
                         </span>
           <div class="tooltip-automatic-calculate d-none" data-scope="remorquage">
             <div class="fr-toggle fr-toggle--label-left">
-              <input type="checkbox" checked class="fr-toggle__input switch-table-auto-calculate" aria-describedby="toggle-780-hint-text" id="toggle-780" v-on:change="displayMessage($event, 'remorquage')">
-              <label class="fr-toggle__label" for="toggle-780" data-fr-checked-label="Activé">Calculé automatiquement à partir des déclarations opérationnelles</label>
-              <p class="fr-hint-text hint-text-automatic-calculate" id="toggle-780-hint-text" data-scope="remorquage">
+              <input type="checkbox" checked class="fr-toggle__input switch-table-auto-calculate" :aria-describedby="'toggle-' + id +'-hint-text'" :id="'toggle-' + id+1" v-on:change="displayMessage($event, 'remorquage')">
+              <label class="fr-toggle__label" :for="'toggle-' + id+1" data-fr-checked-label="Activé">Calculé automatiquement à partir des déclarations opérationnelles</label>
+              <p class="fr-hint-text hint-text-automatic-calculate" :id="'toggle-' + id+1 + '-hint-text'" data-scope="remorquage">
                 <span class="fr-fi-information-fill info-icon-sm" aria-hidden="true"></span> Désactivez pour pouvoir éditer le champ sélectionné
               </p>
-              <p class="fr-hint-text hint-text-automatic-calculate d-none" id="toggle-780-hint-text" data-scope="remorquage">
+              <p class="fr-hint-text hint-text-automatic-calculate d-none" :id="'toggle-' + id+1 + '-hint-text'" data-scope="remorquage">
                 <span class="fr-fi-information-fill info-icon-sm" aria-hidden="true"></span> Activez pour calculer automatiquement le champ sélectionné
               </p>
 
@@ -112,7 +112,13 @@
 
 <script>
 export default {
-  name: "TableIndicateurComponent"
+  name: "TableIndicateurComponent",
+  methods: {
+    hiddenToggle(className, scope) {
+      let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
+      tooltip.toggleClass('d-none');
+    }
+  }
 }
 </script>
 

@@ -7,32 +7,14 @@
       </button>
     </div>
 
-    <div class="box-dropdown fr-mt-2w">
-      <ul class="fr-accordions-group" v-if="type === 'controle'">
-        <li>
-          <RapportAccordionComponent
-              title="Contrôle en mer des navires de pêche professionnelle"
-              type="controle"
-              remove-btn
-              identifier="controle"
-          >
-          </RapportAccordionComponent>
-        </li>
-      </ul>
+    <RapportAccordionComponent
+        title="Contrôle en mer des navires de pêche professionnelle"
+        type="controle"
+        identifier="controle"
+        remove-btn
+    >
+    </RapportAccordionComponent>
 
-      <ul class="fr-accordions-group" v-if="type === 'indicateur'">
-        <li>
-          <RapportAccordionComponent
-              title="Contrôle en mer des navires de pêche professionnelle"
-              type="indicateur"
-              identifier="indicateur"
-          >
-          </RapportAccordionComponent>
-        </li>
-      </ul>
-    </div>
-
-    <ModalAddControle></ModalAddControle>
   </div>
 </template>
 
@@ -63,9 +45,13 @@ export default {
       default: null
     }
   },
+  methods: {
+
+  },
   data: function() {
     return {
-      id: this._uid
+      id: this._uid,
+      controles: []
     }
   }
 }
