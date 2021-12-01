@@ -1,5 +1,5 @@
 <template>
-  <div :class="' fr-mt-10w'" id="indicMission">
+  <div :class="'full-width fr-mt-10w'" id="indicMission">
     <div class="heading-custom heading-custom-space-between">
       <h5 class="text-blue-france text-800">Indicateurs de mission</h5>
     </div>

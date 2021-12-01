@@ -3,9 +3,12 @@
     <table class="table-controle">
       <thead class="thead-controle">
       <th :class="'th-table-controle-' + id">Pavillon</th>
-      <th :class="'th-table-controle-' + id">Nb de navire contrôlés</th>
-      <th :class="'th-table-controle-' + id">Nb de contrôles pêche sanitaire</th>
-      <th :class="'th-table-controle-' + id">Nb pv dec eff</th>
+      <th
+          :class="'th-table-controle-' + id"
+          v-for="(col, counter) in cols"
+      >
+        {{col.title}}
+      </th>
       <th class="add-column dropbtn" id="add-btn">
         <i class="ri-add-circle-fill"></i>
         Ajouter un PV, nav déroutés...
@@ -14,19 +17,19 @@
             <li>
               <a href="#" class="dropdown-item">Ajouter des pv</a>
               <ul>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV pêche sanitaire">PV pêche sanitaire</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV équipement sécu. permis de nav.">PV équipement sécu. permis de nav.</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV titre de navig. role/déc. eff">PV titre de navig. role/déc. eff</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV police navigation">PV police navigation</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV environnement pollution">PV environnement pollution</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="Autres types de PV">Autres types de PV</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV pêche sanitaire" @click="addCols($event)">PV pêche sanitaire</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV équipement sécu. permis de nav." @click="addCols($event)">PV équipement sécu. permis de nav.</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV titre de navig. role/déc. eff" @click="addCols($event)">PV titre de navig. role/déc. eff</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV police navigation" @click="addCols($event)">PV police navigation</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="PV environnement pollution" @click="addCols($event)">PV environnement pollution</a></li>
+                <li><a href="#" class="dropdown-link" data-dropdown-label="Autres types de PV" @click="addCols($event)">Autres types de PV</a></li>
               </ul>
             </li>
             <li>
-              <a href="#" class="dropdown-link" data-dropdown-label="Navires déroutés">Ajouter des navires déroutés</a>
+              <span class="dropdown-link" data-dropdown-label="Navires déroutés" @click="addCols($event)">Ajouter des navires déroutés</span>
             </li>
             <li>
-              <a href="#" class="dropdown-link" data-dropdown-label="Navires interrogés">Ajouter des navires Interrogés</a>
+              <a href="#" class="dropdown-link" data-dropdown-label="Navires interrogés" @click="addCols($event)">Ajouter des navires Interrogés</a>
             </li>
           </ul>
         </div>
@@ -34,29 +37,20 @@
       </thead>
 
       <tbody :class="'tbody-controle-' + id">
-      <tr class="tr-table">
+      <tr class="tr-table" v-for="(pavillon, index) in pavillons">
         <td class="td-pavillon td-table-controle">
           <select name="pavillon" id="pavillon-select">
             <option value="FR">FR</option>
             <option value="US">US</option>
           </select>
         </td>
-        <td class="td-table-controle" contenteditable="true">25</td>
-        <td class="td-table-controle" contenteditable="true">6</td>
-        <td class="td-table-controle" contenteditable="true">4</td>
-        <td class="td-add-column td-table-controle"></td>
-      </tr>
-
-      <tr class="tr-example d-none tr-table">
-        <td class="td-pavillon td-table-controle">
-          <select name="pavillon" id="pavillon-select">
-            <option value="FR">FR</option>
-            <option value="US">US</option>
-          </select>
+        <td
+            class="td-table-controle"
+            contenteditable="true"
+            v-for="(col, counter) in cols"
+        >
+          {{pavillon.value}}
         </td>
-        <td class="td-table-controle" contenteditable="true"></td>
-        <td class="td-table-controle" contenteditable="true"></td>
-        <td class="td-table-controle" contenteditable="true"></td>
         <td class="td-add-column td-table-controle"></td>
       </tr>
       </tbody>
@@ -93,7 +87,7 @@ export default {
   mounted() {
     // Prevent href event
     $('.dropdown-item').click((e) => e.preventDefault());
-
+    $('.dropdown-link').click((e) =>  e.preventDefault())
     // Display dropdown menu
    // $('.dropbtn').click((e) => $('#dropdown').removeClass('d-none'));
 
@@ -105,14 +99,6 @@ export default {
           $('#dropdown').addClass('d-none')
         }
     );
-
-
-    $('.dropdown-link').click(function(e) {
-      e.preventDefault()
-      let content = $(e.target).data('dropdown-label')
-      $('.add-column').before('<th class="th-table-controle-"' + this.id + '>' + content + '</th>')
-      $('.td-add-column').before('<td class="td-table-controle" contenteditable="true"></td>')
-    })
   },
   methods: {
     hiddenToggle(className, scope) {
@@ -120,12 +106,30 @@ export default {
       tooltip.toggleClass('d-none');
     },
     addPav(event) {
-      let $sample = $('.tr-example');
-      $sample = $($sample[0]);
-      let trE = $sample.clone();
-      trE.removeClass('d-none')
-      trE.removeClass('tr-example')
-      $('.tbody-controle-' + this.id ).append(trE)
+      const newPav = {
+        value: 0
+      };
+      this.pavillons.push(newPav);
+    },
+    addCols(e) {
+      const col = {
+        title: e.target.innerText
+      };
+      this.cols.push(col)
+    }
+  },
+  data: function() {
+    return {
+      pavillons: [
+        {
+          value: 0
+        }
+      ],
+      cols: [
+        {
+          title: 'Nb de navires controlé'
+        },
+      ]
     }
   }
 }
