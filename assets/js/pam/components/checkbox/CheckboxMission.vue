@@ -1,14 +1,14 @@
 <template>
   <div :class="'checkbox-mission checkbox-group-' + id " >
     <div class="fr-checkbox-group fr-checkbox-group--sm ">
-      <input type="checkbox" :id="'checkboxes-' + id" :name="'checkboxes-' + id" @change="isMissionChecked()">
+      <input type="checkbox" :id="'checkboxes-' + id" :name="'checkboxes-' + id" @change="isMissionChecked($event.target.checked)">
       <label class="fr-label text-sm" :for="'checkboxes-' + id">{{ label }}</label>
     </div>
     <div :class="'fr-toggle fr-toggle--label-left  d-none toggle-custom-' + id">
-      <input type="checkbox" class="fr-toggle__input is-main-mission " :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" @change="isMainMissionChecked($event.target.checked)">
+      <input type="checkbox" class="fr-toggle__input is-main-mission " :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" @change="isMainMissionChecked($event.target.checked)" v-model="isMainMission">
       <label class="fr-toggle__label" :for="'toggle-' + id">Mission principale</label>
     </div>
-    <div class="define-date" v-if="isMainMission === true">
+    <div class="define-date" v-if="isMainMission === true && missionChecked === true">
       <span class="text-small-blue" v-if="startDate == null">Définir les dates</span>
       <p class="text-small-blue" v-else>
         Du {{startDate|date}} à {{startTime}} au
@@ -74,9 +74,13 @@ export default {
     }
   },
   methods: {
-    isMissionChecked() {
+    isMissionChecked(checked) {
       $('.toggle-custom-' + this.id).toggleClass('d-none');
       $('.checkbox-group-' + this.id).toggleClass('main-task-active');
+      this.missionChecked = checked;
+      if(!checked) {
+        this.isMainMission = false;
+      }
     },
     isMainMissionChecked(checked) {
       return this.isMainMission = checked;
@@ -95,7 +99,8 @@ export default {
       endDate: null,
       endTime: null,
       id: this._uid,
-      isMainMission: false
+      isMainMission: false,
+      missionChecked: false
     }
   },
   filters: {
