@@ -8,7 +8,8 @@
           :type="type"
           @change="valueChanged"
           @keydown="keydown"
-          v-on:keyup="checkInputValid($event)"
+          v-on:change="checkInputValid($event)"
+          min="0"
 
       >
       <button
@@ -25,7 +26,7 @@
 
 <script>
 export default {
-  name: "InputComponent",
+  name: "InputNumberComponent",
   methods: {
     valueChanged(e){
       this.$emit('input', e.target.value);
