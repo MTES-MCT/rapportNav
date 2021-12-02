@@ -16,13 +16,13 @@
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
             <div class="fr-col-lg-4">
-             <InputComponent type="number" label="Nombre de jours en mer" add-on="j" v-model="nbJoursMer"></InputComponent>
+             <InputNumberComponent type="number" label="Nombre de jours en mer" add-on="j" v-model="nbJoursMer"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-3">
-              <InputComponent type="number" label="Navigation eff." add-on="h" v-model="navEff"></InputComponent>
+              <InputNumberComponent type="number" label="Navigation eff." add-on="h" v-model="navEff"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-3 space-between">
-              <InputComponent type="number" label="Mouillage" add-on="h" v-model="mouillage"></InputComponent>
+              <InputNumberComponent type="number" label="Mouillage" add-on="h" v-model="mouillage"></InputNumberComponent>
             </div>
           </div>
         </div>
@@ -36,22 +36,22 @@
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
             <div class="fr-col-lg-2 fr-col-md-6">
-              <InputComponent label="Maintenance" add-on="h" type="number" v-model="maintenance"></InputComponent>
+              <InputNumberComponent label="Maintenance" add-on="h" type="number" v-model="maintenance"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md6 space-between">
-              <InputComponent label="Météo" add-on="h" type="number" v-model="meteo"></InputComponent>
+              <InputNumberComponent label="Météo" add-on="h" type="number" v-model="meteo"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md-6 space-between">
-              <InputComponent label="Représentation" add-on="h" type="number" v-model="representation"></InputComponent>
+              <InputNumberComponent label="Représentation" add-on="h" type="number" v-model="representation"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md-6 space-between">
-              <InputComponent label="Administratif" add-on="h" type="number" v-model="administratif"></InputComponent>
+              <InputNumberComponent label="Administratif" add-on="h" type="number" v-model="administratif"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md-6 space-between">
-              <InputComponent label="Autre" add-on="h" type="number" v-model="autre"></InputComponent>
+              <InputNumberComponent label="Autre" add-on="h" type="number" v-model="autre"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-2 fr-col-md-6">
-              <InputComponent label="Contr. Port" add-on="h" type="number" v-model="contrPort"></InputComponent>
+              <InputNumberComponent label="Contr. Port" add-on="h" type="number" v-model="contrPort"></InputNumberComponent>
             </div>
           </div>
         </div>
@@ -65,10 +65,10 @@
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
             <div class="fr-col-lg-3 fr-col-md-4 fr-mr-2w">
-              <InputComponent label="Technique" type="number" add-on="h" v-model="technique"></InputComponent>
+              <InputNumberComponent label="Technique" type="number" add-on="h" v-model="technique"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-3 fr-col-md-4">
-              <InputComponent label="Personnel" type="number" add-on="h" v-model="personnel"></InputComponent>
+              <InputNumberComponent label="Personnel" type="number" add-on="h" v-model="personnel"></InputNumberComponent>
             </div>
           </div>
         </div>
@@ -82,13 +82,13 @@
         <div class="fr-container--fluid">
           <div class="fr-grid-row">
             <div class="fr-col-lg-3 fr-col-md-4">
-              <InputComponent add-on="miles" type="number" label="Distance parcourue" v-model="distanceParcourue"></InputComponent>
+              <InputNumberComponent add-on="miles" type="number" label="Distance parcourue" v-model="distanceParcourue"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-3 fr-col-md-4">
-              <InputComponent label="GO marine consommé" type="number" add-on="litres" v-model="goMarine"></InputComponent>
+              <InputNumberComponent label="GO marine consommé" type="number" add-on="litres" v-model="goMarine"></InputNumberComponent>
             </div>
             <div class="fr-col-lg-3 fr-col-md-4">
-              <InputComponent add-on="litres" type="number" label="Essence consommée" v-model="essence"></InputComponent>
+              <InputNumberComponent add-on="litres" type="number" label="Essence consommée" v-model="essence"></InputNumberComponent>
             </div>
           </div>
         </div>
@@ -98,11 +98,11 @@
 </template>
 
 <script>
-import InputComponent from "../input/InputComponent";
+import InputNumberComponent from "../input/InputNumberComponent";
 export default {
   name: "ShipActivityCardComponent",
   components: {
-    InputComponent
+    InputNumberComponent
   },
   methods: {},
   data () {
