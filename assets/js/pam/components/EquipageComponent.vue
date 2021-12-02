@@ -31,6 +31,7 @@
     <div class="fr-col-lg-5 fr-col-md-4 fr-pl-4v">
       <input class="fr-input" type="text" placeholder="Ajouter des membres" v-model="newMember.name"
              @keyup="createNewMember($event.target.value)"
+             @click.stop="showSugestionList"
       >
       <div class="tooltip-add-member d-none" data-scope="member">
         <div class="add-member-content">
@@ -96,6 +97,11 @@
 <script>
 export default {
   name: "EquipageComponent",
+  mounted() {
+    $(document).on('click',function(e){
+      $(".tooltip-add-member").addClass('d-none');
+    });
+  },
   methods: {
     removeMember(index) {
         this.membersList.splice(index, 1)
@@ -112,7 +118,7 @@ export default {
     },
     createNewMember(value) {
       let noExist = true;
-      if(value.length > 3) {
+      if(value.length > 2) {
         this.suggestionsList.filter(element => {
           if(element.name.indexOf(value) === 0) {
             noExist = false;
@@ -122,11 +128,15 @@ export default {
           $('.tooltip-new-member').removeClass('d-none')
           $('.tooltip-add-member').addClass('d-none')
         } else {
-          $('.tooltip-new-member').addClass('d-none')
-          $('.tooltip-add-member').removeClass('d-none')
+          this.showSugestionList();
         }
+      } else if (value.length === 0) {
+        this.showSugestionList();
       }
-
+    },
+    showSugestionList() {
+      $('.tooltip-new-member').addClass('d-none')
+      $('.tooltip-add-member').removeClass('d-none')
     }
   },
   data() {
