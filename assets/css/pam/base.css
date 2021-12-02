@@ -2,12 +2,6 @@
 @import "components/checkboxMission.css";
 @import "components/input.css";
 
-.full-width {
-    width: 100% !important;
-    overflow-x: scroll !important;
-    position: absolute !important;
-}
-
 .mr-2 {
     margin-right: 25px;
 }
