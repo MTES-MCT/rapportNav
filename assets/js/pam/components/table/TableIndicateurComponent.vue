@@ -123,7 +123,11 @@ export default {
     hiddenToggle(className, scope) {
       let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
       tooltip.toggleClass('d-none');
-    }
+    },
+    displayMessage(e, scope) {
+      let messageBox = $('.hint-text-automatic-calculate[data-scope="' + scope + '"]');
+      messageBox.toggleClass('d-none')
+    },
   }
 }
 </script>
