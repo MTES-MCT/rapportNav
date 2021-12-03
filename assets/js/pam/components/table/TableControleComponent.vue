@@ -37,18 +37,54 @@
             <option value="US">US</option>
           </select>
         </td>
-        <td
-            class="td-table-controle"
-            contenteditable="true"
-            v-for="(col, counter) in cols"
-            v-if="col.enabled"
-            v-model="controle.nbNavireControle"
+        <TdEditable
+            v-if="cols[0].enabled"
+            v-model="controle.nb_navire_controle"
         >
-        </td>
+        </TdEditable>
+        <TdEditable
+            v-if="cols[1].enabled"
+            v-model="controle.pv_peche_sanitaire"
+        >
+        </TdEditable>
+        <TdEditable
+            v-if="cols[2].enabled"
+            v-model="controle.pv_equipement_securite"
+        >
+        </TdEditable>
+        <TdEditable
+            v-if="cols[3].enabled"
+            v-model="controle.pv_titre_nav"
+        >
+        </TdEditable>
+        <TdEditable
+            v-if="cols[4].enabled"
+            v-model="controle.pv_police_nav"
+        >
+        </TdEditable>
+        <TdEditable
+            v-if="cols[5].enabled"
+            v-model="controle.pv_env_pollution"
+        >
+        </TdEditable>
+        <TdEditable
+            v-if="cols[6].enabled"
+            v-model="controle.autre_pv"
+        >
+        </TdEditable>
+        <TdEditable
+            v-if="cols[7].enabled"
+            v-model="controle.nb_nav_deroute"
+        >
+        </TdEditable>
+        <TdEditable
+            v-if="cols[8].enabled"
+            v-model="controle.nb_nav_interroge"
+        >
+        </TdEditable>
         <td class="td-add-column td-table-controle"></td>
       </tr>
       </tbody>
-
       <tfoot>
       <tr>
         <th scope="row" class="th-foot-controle">Total</th>
@@ -65,9 +101,11 @@
 
 <script>
 import Dropdown from 'bp-vuejs-dropdown';
+import TdEditable from "./TdEditable";
 export default {
   name: "TableControleComponent",
   components: {
+    TdEditable,
     Dropdown
   },
   props: {
@@ -80,16 +118,23 @@ export default {
 
   },
   methods: {
-    hiddenToggle(className, scope) {
-      let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
-      tooltip.toggleClass('d-none');
-    },
     addPav(event) {
       const newPav = {
         pavillon: 'FR',
-        nbNavireControle: 0
+        nb_navire_controle: null,
+        pv_peche_sanitaire: null,
+        pv_equipement_securite: null,
+        pv_titre_nav: null,
+        pv_police_nav: null,
+        pv_env_pollution: null,
+        autre_pv: null,
+        nb_nav_deroute: null,
+        nb_nav_interroge: null
       };
       this.controles.push(newPav);
+    },
+    checkValue(e) {
+      console.log(e.target.innerText)
     }
   },
   data: function() {
@@ -97,8 +142,15 @@ export default {
       controles: [
         {
           pavillon: 'FR',
-          nbNavireControle: null,
-          pv_peche_sanitaire: null
+          nb_navire_controle: null,
+          pv_peche_sanitaire: null,
+          pv_equipement_securite: null,
+          pv_titre_nav: null,
+          pv_police_nav: null,
+          pv_env_pollution: null,
+          autre_pv: null,
+          nb_nav_deroute: null,
+          nb_nav_interroge: null
         }
       ],
       cols: [
