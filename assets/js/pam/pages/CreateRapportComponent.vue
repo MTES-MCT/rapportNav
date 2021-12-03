@@ -6,11 +6,11 @@
         <div class="fr-col-lg-2 fr-col-md-2 fr-col-sm-12 sidebar-left-menu">
           <SidebarMenuRapportComponent></SidebarMenuRapportComponent>
         </div>
-
         <div class="fr-col-lg-8 fr-col-md-10 fr-col-sm-12">
           <div class="mainContent">
             <!-- Informations générales -->
             <BoxShadowCardComponent
+                v-model="rapport"
                 type="informationGeneral"
                 class-name="informationGeneral"
                 title="Information générales"
@@ -18,6 +18,7 @@
 
             <!-- Activité du navire -->
             <BoxShadowCardComponent
+                v-model="activite"
                 type="shipActivity"
                 class-name="shipActivity"
                 title="Activité du navire"
@@ -32,8 +33,17 @@
 
 
             <!-- Indicateurs de mission-->
+            <div class="heading-custom heading-custom-space-between">
+              <h5 class="text-blue-france text-800">Indicateurs de mission</h5>
+            </div>
             <AccordionIndicateurMissionComponent
                 title="Contrôle en mer des navires de pêche professionnelle"
+                v-bind:cols="['Aleck', 'Nb heure']"
+            ></AccordionIndicateurMissionComponent>
+
+            <AccordionIndicateurMissionComponent
+                title="Contrôle en mer des navires de pêche plaisance"
+                v-bind:cols="['Toto', 'Nb heure']"
             ></AccordionIndicateurMissionComponent>
           </div>
         </div>
@@ -87,6 +97,15 @@ export default {
       } else {
         $('.sidebar-right-history').removeClass('d-none')
       }
+    },
+    getData() {
+      console.log(this.$data)
+    }
+  },
+  data() {
+    return {
+      rapport: null,
+      activite: null
     }
   }
 };

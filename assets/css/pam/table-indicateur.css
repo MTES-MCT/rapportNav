@@ -1,8 +1,16 @@
+.table-indicateur {
+    width: 100%;
+}
+
 .td-indicateur {
     height: 48px;
     background-color: #F2F2F9;
     min-width: 121px;
     color: #000091;
+}
+
+.th-tr-indicateur {
+    width: 200px;
 }
 
 .td-nb-hour-sea {
@@ -19,6 +27,10 @@
 .th-indicateur:first-child {
     text-align: left;
     padding-left: 15px;
+}
+
+.th-indicateur {
+    text-align: center;
 }
 
 .td-total {
