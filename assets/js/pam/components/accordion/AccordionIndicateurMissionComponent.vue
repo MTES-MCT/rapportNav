@@ -1,8 +1,5 @@
 <template>
-  <div :class="'full-width fr-mt-10w'" id="indicMission">
-    <div class="heading-custom heading-custom-space-between">
-      <h5 class="text-blue-france text-800">Indicateurs de mission</h5>
-    </div>
+  <div class="fr-mt-10w" id="indicMission">
     <div class="box-dropdown fr-mt-2w">
       <ul class="fr-accordions-group">
         <li>
@@ -21,7 +18,11 @@
               </div>
               <div class="fr-collapse" :id="'accordion-' + id ">
                 <div class="divider-horizontal--accordion"></div>
-                <TableIndicateurComponent :id="id"></TableIndicateurComponent>
+                <TableIndicateurComponent
+                    :id="id"
+                    :type="type"
+                    v-bind:cols="cols"
+                ></TableIndicateurComponent>
               </div>
             </section>
           </div>
@@ -38,6 +39,14 @@ export default {
   props: {
     title: {
       type: String,
+      default: null
+    },
+    type: {
+      type: Number,
+      default: null
+    },
+    cols: {
+      type: Array,
       default: null
     }
   },

@@ -1,5 +1,5 @@
 <template>
-  <div id="shipActivity">
+  <div id="shipActivity" @change="getData">
     <div class="heading-custom fr-mt-3w">
       <div class="total">
         <span>Total</span>
@@ -104,7 +104,11 @@ export default {
   components: {
     InputNumberComponent
   },
-  methods: {},
+  methods: {
+    getData() {
+      this.$emit('input', this.$data);
+    }
+  },
   data () {
     return {
       nbJoursMer: null,

@@ -120,6 +120,7 @@ export default {
   methods: {
     addPav(event) {
       const newPav = {
+        type: this.id,
         pavillon: 'FR',
         nb_navire_controle: null,
         pv_peche_sanitaire: null,
@@ -132,6 +133,7 @@ export default {
         nb_nav_interroge: null
       };
       this.controles.push(newPav);
+      console.log(this.controles)
     },
     checkValue(e) {
       console.log(e.target.innerText)
@@ -141,6 +143,7 @@ export default {
     return {
       controles: [
         {
+          type: this.id,
           pavillon: 'FR',
           nb_navire_controle: null,
           pv_peche_sanitaire: null,

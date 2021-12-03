@@ -2,7 +2,7 @@
   <div class="fr-grid-row">
     <div class="fr-col-lg-7 fr-col-md-8">
       <div class="members-list">
-        <div class="member-group" v-for="(member, index) in membersList">
+        <div class="member-group" v-for="(member, index) in membersList" @change="getData()">
           <div class="equipName">
             {{ member.name }}
             <span class="equipRole">{{ member.role }}</span>
@@ -10,7 +10,7 @@
           <div class=" tooltip">
             <span class="ri-more-fill more-option-icon "></span>
             <div class="tooltipMember fr-px-2w fr-py-2w">
-              <input class="fr-input" type="text" id="memberName"  v-model="member.name">
+              <input class="fr-input" type="text" id="memberName"  v-bind:value="member.name" disabled>
 
               <select class="fr-select fr-mt-3v" id="select"  v-model="member.role">
                 <option value="Agent de pont">Agent de pont</option>
@@ -111,6 +111,9 @@ export default {
     },
     addAll() {
       this.suggestionsList.forEach(element => this.membersList.push(element));
+    },
+    getData() {
+      this.$emit('input', this.membersList);
     },
     hiddenToggle(className, scope) {
       let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
