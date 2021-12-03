@@ -134,9 +134,6 @@ export default {
       };
       this.controles.push(newPav);
       console.log(this.controles)
-    },
-    checkValue(e) {
-      console.log(e.target.innerText)
     }
   },
   data: function() {
