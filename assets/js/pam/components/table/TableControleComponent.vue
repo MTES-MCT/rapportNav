@@ -6,30 +6,23 @@
       <th
           :class="'th-table-controle-' + id"
           v-for="(col, counter) in cols"
+          v-if="col.enabled === true"
       >
         {{col.title}}
       </th>
       <th class="add-column dropbtn" id="add-btn">
         <i class="ri-add-circle-fill"></i>
         Ajouter un PV, nav déroutés...
-        <div class="dropdown d-none" id="dropdown">
+        <div class="dropdown" id="dropdown">
           <ul>
             <li>
-              <a href="#" class="dropdown-item">Ajouter des pv</a>
+              <a href="#" class="dropdown-item" @click.prevent>Ajouter des pv</a>
               <ul>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV pêche sanitaire" @click="addCols($event)">PV pêche sanitaire</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV équipement sécu. permis de nav." @click="addCols($event)">PV équipement sécu. permis de nav.</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV titre de navig. role/déc. eff" @click="addCols($event)">PV titre de navig. role/déc. eff</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV police navigation" @click="addCols($event)">PV police navigation</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="PV environnement pollution" @click="addCols($event)">PV environnement pollution</a></li>
-                <li><a href="#" class="dropdown-link" data-dropdown-label="Autres types de PV" @click="addCols($event)">Autres types de PV</a></li>
+                <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 6"><a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title" @click.prevent="col.enabled = true">{{col.title}}</a></li>
               </ul>
             </li>
-            <li>
-              <span class="dropdown-link" data-dropdown-label="Navires déroutés" @click="addCols($event)">Ajouter des navires déroutés</span>
-            </li>
-            <li>
-              <a href="#" class="dropdown-link" data-dropdown-label="Navires interrogés" @click="addCols($event)">Ajouter des navires Interrogés</a>
+            <li v-for="(col, index) in cols" v-if="!col.enabled && index > 6">
+              <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title" @click.prevent="col.enabled = true">{{ col.title }}</a>
             </li>
           </ul>
         </div>
@@ -37,9 +30,9 @@
       </thead>
 
       <tbody :class="'tbody-controle-' + id">
-      <tr class="tr-table" v-for="(pavillon, index) in pavillons">
+      <tr class="tr-table" v-for="(controle, index) in controles">
         <td class="td-pavillon td-table-controle">
-          <select name="pavillon" id="pavillon-select">
+          <select name="pavillon" id="pavillon-select" v-model="controle.pavillon">
             <option value="FR">FR</option>
             <option value="US">US</option>
           </select>
@@ -48,8 +41,9 @@
             class="td-table-controle"
             contenteditable="true"
             v-for="(col, counter) in cols"
+            v-if="col.enabled"
+            v-model="controle.nbNavireControle"
         >
-          {{pavillon.value}}
         </td>
         <td class="td-add-column td-table-controle"></td>
       </tr>
@@ -58,9 +52,7 @@
       <tfoot>
       <tr>
         <th scope="row" class="th-foot-controle">Total</th>
-        <td class="td-foot-controle">25</td>
-        <td class="td-foot-controle">6</td>
-        <td class="td-foot-controle">4</td>
+        <td class="td-foot-controle">0</td>
       </tr>
       </tfoot>
     </table>
@@ -85,20 +77,7 @@ export default {
     }
   },
   mounted() {
-    // Prevent href event
-    $('.dropdown-item').click((e) => e.preventDefault());
-    $('.dropdown-link').click((e) =>  e.preventDefault())
-    // Display dropdown menu
-   // $('.dropbtn').click((e) => $('#dropdown').removeClass('d-none'));
 
-    $('.dropbtn').hover(
-        () => {
-          $('#dropdown').removeClass('d-none')
-        },
-        () => {
-          $('#dropdown').addClass('d-none')
-        }
-    );
   },
   methods: {
     hiddenToggle(className, scope) {
@@ -107,27 +86,57 @@ export default {
     },
     addPav(event) {
       const newPav = {
-        value: 0
+        pavillon: 'FR',
+        nbNavireControle: 0
       };
-      this.pavillons.push(newPav);
-    },
-    addCols(e) {
-      const col = {
-        title: e.target.innerText
-      };
-      this.cols.push(col)
+      this.controles.push(newPav);
     }
   },
   data: function() {
     return {
-      pavillons: [
+      controles: [
         {
-          value: 0
+          pavillon: 'FR',
+          nbNavireControle: null,
+          pv_peche_sanitaire: null
         }
       ],
       cols: [
         {
-          title: 'Nb de navires controlé'
+          title: 'Nb de navires controlé',
+          enabled: true
+        },
+        {
+          title: 'Pêches sanitaire',
+          enabled: false
+        },
+        {
+          title: 'PV équipement sécu. permis de nav.',
+          enabled: false
+        },
+        {
+          title: 'PV titre de navig. role/déc. eff',
+          enabled: false
+        },
+        {
+          title: 'PV police navigation',
+          enabled: false
+        },
+        {
+          title: 'PV environnement pollution',
+          enabled: false
+        },
+        {
+          title: 'Autres types de PV',
+          enabled: false
+        },
+        {
+          title: 'Navires dérouté',
+          enabled: false
+        },
+        {
+          title: 'Navire interrogé',
+          enabled: false
         },
       ]
     }

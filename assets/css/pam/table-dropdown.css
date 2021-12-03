@@ -1,40 +1,85 @@
-.table-dropdown{
-}
-
-.table-dropdown ul{
-    position: absolute;
-    opacity: 0;
-    visibility: hidden;
-}
-.table-dropdown li:hover > ul{
-    z-index: 3;
-    background: #fff;
-    opacity: 1;
+.dropbtn:hover .dropdown  {
     visibility: visible;
-    transition: .3s linear;
-    box-shadow: #001f3f 2px 1px 1px;
-}
-.table-dropdown ul li{
-    width: 150px;
-    display: list-item;
-    position: relative;
-    border-top: none;
-}
-.table-dropdown ul li a{
-    line-height: 50px;
-}
-.table-dropdown ul ul{
-    border-top: none;
-}
-.table-dropdown ul ul li{
-    position: relative;
-    top: -70px;
-    left: 150px;
-}
-.table-dropdown ul li a i{
-    margin-left: 45px;
 }
 
-#dropdown .dropbtn:hover  {
-    display: block;
+.dropdown {
+ visibility: hidden;
 }
+
+.dropdown {
+    background-color: #fff;
+    box-shadow: 0px 3px 10px #00000029;
+    text-align: left;
+    /* Position the tooltip */
+     position: absolute;
+     z-index: 1;
+     margin-left: -60px;
+     width: 242px;
+}
+
+.dropdown-list {
+ list-style: none;
+}
+
+.dropdown-link {
+ cursor: pointer;
+}
+
+.dropdown-item {
+ font-size: 14px;
+ color: #000;
+ font-weight: normal;
+ vertical-align: text-bottom;
+}
+
+.dropdown ul li:not(:last-child) {
+ border-bottom: 1px #cecece solid;
+}
+
+.dropdown ul {
+ padding: 0;
+ margin: 0;
+ list-style: none;
+ position: relative;
+}
+
+.dropdown ul li {
+ display:list-item;
+ background-color: #fff;
+ font-weight:normal ;
+}
+.dropdown a {
+ display:block;
+ padding:0 10px;
+ color:#000;
+ font-size:14px;
+ line-height: 40px;
+ text-decoration:none !important;
+}
+.dropdown a:hover {
+ background-color: #F0F0F0;
+}
+.dropdown ul ul {
+ display: none;
+ position: absolute;
+}
+.dropdown ul li:hover > ul {
+ display:inherit;
+}
+.dropdown ul ul li {
+ float:none;
+ display:list-item;
+ position: relative;
+ left: 243px;
+ top: -40px;
+ box-shadow: 0px 3px 10px #00000029;
+}
+.dropdown ul ul li {
+ border: 1px solid white;
+}
+li > .dropdown-item:after {
+    font-family: 'remixicon';
+    content:  '\ea6e';
+    float: right;
+}
+li > .dropdown-item:only-child:after { content: ''; }
