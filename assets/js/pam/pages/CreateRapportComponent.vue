@@ -120,7 +120,7 @@ export default {
       this.start_date = date.startDate;
       this.end_date = date.endDate;
       this.end_time = date.endTime;
-      this.start_time = date.time;
+      this.start_time = date.startTime;
     },
     setActivite(info) {
       this.nb_jours_mer = info.nb_jours_mer;
