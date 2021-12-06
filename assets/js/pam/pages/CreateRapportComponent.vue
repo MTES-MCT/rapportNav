@@ -28,18 +28,11 @@
 
 
             <!-- Indicateurs de mission-->
-            <div class="heading-custom heading-custom-space-between">
-              <h5 class="text-blue-france text-800">Indicateurs de mission</h5>
-            </div>
-            <AccordionIndicateurMissionComponent
-                title="Contrôle en mer des navires de pêche professionnelle"
-                v-bind:cols="['Aleck', 'Nb heure']"
-            ></AccordionIndicateurMissionComponent>
+            <IndicateurMissionComponent
+              :missions="missions"
+            >
 
-            <AccordionIndicateurMissionComponent
-                title="Contrôle en mer des navires de pêche plaisance"
-                v-bind:cols="['Toto', 'Nb heure']"
-            ></AccordionIndicateurMissionComponent>
+            </IndicateurMissionComponent>
           </div>
         </div>
 
@@ -65,9 +58,11 @@ import BoxShadowCardComponent from "../components/card/BoxShadowCardComponent";
 import AccordionIndicateurMissionComponent from "../components/accordion/AccordionIndicateurMissionComponent";
 import GeneralInformationCardComponent from "../components/card/GeneralInformationCardComponent";
 import RapportAccordionComponent from "../components/accordion/RapportAccordionComponent";
+import IndicateurMissionComponent from "../components/IndicateurMissionComponent";
 export default {
   name: "CreateRapportComponent",
   components: {
+    IndicateurMissionComponent,
     RapportAccordionComponent,
     GeneralInformationCardComponent,
     AccordionIndicateurMissionComponent,
@@ -104,28 +99,33 @@ export default {
       rapport: null,
       activite: null,
       controles: {
-          types: [
-            {
-              title: 'Contrôle en mer de navires de pêche professionnelle',
-              id: 4000,
-              pavillons: [
-                {
-                  pavillon: 'FR',
-                  nb_navire_controle: null,
-                  pv_peche_sanitaire: null,
-                  pv_equipement_securite: null,
-                  pv_titre_nav: null,
-                  pv_police_nav: null,
-                  pv_env_pollution: null,
-                  autre_pv: null,
-                  nb_nav_deroute: null,
-                  nb_nav_interroge: null
-                }
-              ]
-            }
-          ]
+        types: [{
+          title: 'Contrôle en mer de navires de pêche professionnelle',
+          id: 4000,
+          pavillons: [{
+            pavillon: 'FR',
+            nb_navire_controle: null,
+            pv_peche_sanitaire: null,
+            pv_equipement_securite: null,
+            pv_titre_nav: null,
+            pv_police_nav: null,
+            pv_env_pollution: null,
+            autre_pv: null,
+            nb_nav_deroute: null,
+            nb_nav_interroge: null
+            }]
+        }]
       },
-      missions: []
+      missions: {
+        types: [
+          {
+            indicateurs: []
+          },
+          {
+            indicateurs: []
+          }
+        ]
+      }
     }
   }
 };
