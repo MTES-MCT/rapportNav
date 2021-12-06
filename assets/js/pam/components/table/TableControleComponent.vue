@@ -30,7 +30,7 @@
       </thead>
 
       <tbody :class="'tbody-controle-' + id">
-      <tr class="tr-table" v-for="(controle, index) in controles">
+      <tr class="tr-table" v-for="(controle, index) in type.pavillons">
         <td class="td-pavillon td-table-controle">
           <select name="pavillon" id="pavillon-select" v-model="controle.pavillon">
             <option value="FR">FR</option>
@@ -113,8 +113,8 @@ export default {
       type: Number,
       default: null
     },
-    controles: {
-      type: Array,
+    type: {
+      type: Object,
       default: null
     }
   },
@@ -136,8 +136,7 @@ export default {
         nb_nav_deroute: null,
         nb_nav_interroge: null
       };
-      this.controles.push(newPav);
-      console.log(this.controles)
+      this.type.pavillons.push(newPav);
     }
   },
   data: function() {

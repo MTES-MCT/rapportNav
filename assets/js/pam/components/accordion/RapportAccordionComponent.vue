@@ -29,7 +29,7 @@
                   <div class="divider-horizontal--accordion"></div>
                   <TableControleComponent
                       :id="type.id"
-                      :controles="controles"
+                      :type="type"
                   >
                   </TableControleComponent>
                 </div>
@@ -50,7 +50,7 @@ export default {
   name: "RapportAccordionComponent",
   components: { TableControleComponent, TableIndicateurComponent, ModalAddControle },
   props: {
-    controles: {
+    types: {
       type: Array,
       default: null
     }
@@ -58,19 +58,27 @@ export default {
   data: function() {
     return {
       id: this._uid,
-      types: [
-        {
-          title: 'Contrôle en mer de navires de pêche professionnelle',
-          id: this._uid
-        }
-      ],
     }
   },
   methods: {
     onClickModal(value, id) {
       let newType = {
         title: value,
-        id: id
+        id: id,
+        pavillons: [
+          {
+            pavillon: 'FR',
+            nb_navire_controle: null,
+            pv_peche_sanitaire: null,
+            pv_equipement_securite: null,
+            pv_titre_nav: null,
+            pv_police_nav: null,
+            pv_env_pollution: null,
+            autre_pv: null,
+            nb_nav_deroute: null,
+            nb_nav_interroge: null
+          }
+        ]
       };
       this.types.push(newType);
     },
