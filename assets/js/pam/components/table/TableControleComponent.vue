@@ -100,13 +100,11 @@
 </template>
 
 <script>
-import Dropdown from 'bp-vuejs-dropdown';
 import TdEditable from "./TdEditable";
 export default {
   name: "TableControleComponent",
   components: {
-    TdEditable,
-    Dropdown
+    TdEditable
   },
   props: {
     id: {
