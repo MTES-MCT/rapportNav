@@ -10,12 +10,12 @@
           @keydown="keydown"
           v-on:change="checkInputValid($event)"
           min="0"
+          :value="value"
 
       >
       <button
           class="InputAddOn-item"
           v-if="addOn !== null"
-          :value="value"
           v-bind:class="{ 'fr-input-valid': isValid }"
       >
         {{ addOn }}
@@ -61,7 +61,7 @@ export default {
       default: 'text'
     },
     value: {
-      type: String,
+      type: Number,
       default: null
     }
   },

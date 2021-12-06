@@ -9,16 +9,35 @@
         <div class="fr-col-lg-8 fr-col-md-10 fr-col-sm-12">
           <div class="mainContent">
             <!-- Informations générales -->
-            <GeneralInformationCardComponent v-model="rapport">
+            <GeneralInformationCardComponent
+               :start_date="start_date"
+               :end_date="end_date"
+               :end_time="end_time"
+               :start_time="start_time"
+               :equipage="equipage"
+               @get-date="setDates"
+
+            >
             </GeneralInformationCardComponent>
 
             <!-- Activité du navire -->
-            <BoxShadowCardComponent
-                v-model="activite"
-                type="shipActivity"
-                class-name="shipActivity"
-                title="Activité du navire"
-            ></BoxShadowCardComponent>
+            <ShipActivityCardComponent
+                @get-activite="setActivite"
+                :nb_jours_mer="nb_jours_mer"
+                :administratif="administratif"
+                :autre="autre"
+                :contr_port="contr_port"
+                :distance="distance"
+                :essence="essence"
+                :go_marine="go_marine"
+                :maintenance="maintenance"
+                :meteo="meteo"
+                :mouillage="mouillage"
+                :nav_eff="nav_eff"
+                :personnel="personnel"
+                :representation="representation"
+                :technique="technique"
+            ></ShipActivityCardComponent>
 
             <!-- Contrôles opérationnel -->
             <RapportAccordionComponent
@@ -59,9 +78,11 @@ import AccordionIndicateurMissionComponent from "../components/accordion/Accordi
 import GeneralInformationCardComponent from "../components/card/GeneralInformationCardComponent";
 import RapportAccordionComponent from "../components/accordion/RapportAccordionComponent";
 import IndicateurMissionComponent from "../components/IndicateurMissionComponent";
+import ShipActivityCardComponent from "../components/card/ShipActivityCardComponent";
 export default {
   name: "CreateRapportComponent",
   components: {
+    ShipActivityCardComponent,
     IndicateurMissionComponent,
     RapportAccordionComponent,
     GeneralInformationCardComponent,
@@ -70,6 +91,9 @@ export default {
     SidebarMenuRapportComponent,
     SidebarHistoryRapportComponent,
     BoxShadowCardComponent
+  },
+  props: {
+    date: Object
   },
   mounted() {
     this.activeResponsive();
@@ -92,12 +116,61 @@ export default {
     },
     postForm() {
       console.log(JSON.parse(JSON.stringify(this.$data)))
+    },
+    setDates(date) {
+      this.start_date = date.startDate;
+      this.end_date = date.endDate;
+      this.end_time = date.endTime;
+      this.start_time = date.time;
+    },
+    setActivite(info) {
+      this.nb_jours_mer = info.nb_jours_mer;
+      this.essence = info.essence;
+      this.technique = info.technique;
+      this.administratif = info.administratif;
+      this.go_marine = info.go_marine;
+      this.personnel = info.personnel;
+      this.meteo = info.meteo;
+      this.nav_eff = info.nav_eff;
+      this.distance = info.distance;
+      this.autre = info.autre;
+      this.maintenance = info.maintenance;
+      this.contr_port = info.contr_port;
+      this.mouillage = info.mouillage
     }
   },
   data() {
     return {
-      rapport: null,
-      activite: null,
+      start_date: null,
+      start_time: null,
+      end_date: null,
+      end_time: null,
+      nb_jours_mer: null,
+      nav_eff: null,
+      mouillage: null,
+      maintenance: null,
+      meteo: null,
+      representation: null,
+      administratif: null,
+      autre: null,
+      contr_port: null,
+      technique: null,
+      personnel: null,
+      distance: null,
+      go_marine: null,
+      essence: null,
+      equipage: {
+        membres: [{
+          name: 'Pierre Crepon',
+          role: 'Commandant',
+          observations: ''
+        },
+        {
+          name: 'David Vincent',
+          role: 'Agent de pont',
+          observations: 'Test'
+          }]
+      },
       controles: {
         types: [{
           title: 'Contrôle en mer de navires de pêche professionnelle',

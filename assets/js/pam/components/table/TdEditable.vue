@@ -5,7 +5,7 @@
         class="tooltip-observation"
         v-bind:class="{'d-none': !displayObservationInput}"
     >
-      <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations"  @keyup="getValue($event.target)"></textarea>
+      <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations"  @keyup="getValue($event.target, true)"></textarea>
     </div>
   </td>
   <td
@@ -32,9 +32,15 @@ export default {
 
   },
   methods: {
-    getValue(target) {
-      this.$emit('input', parseInt(target.innerText))
-      this.$emit('change', parseInt(target.innerText))
+    getValue(target, isTextarea = false) {
+      if(!isTextarea) {
+        this.$emit('input', parseInt(target.innerText))
+        this.$emit('change', parseInt(target.innerText))
+      } else {
+        this.$emit('input', target.value)
+        this.$emit('change', target.value)
+      }
+
     }
   },
   data() {

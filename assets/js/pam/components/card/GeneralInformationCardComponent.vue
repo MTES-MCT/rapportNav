@@ -9,20 +9,20 @@
             De
           </label>
           <div class="fr-input-wrap">
-            <input class="form-custom form-date" type="date" id="start-date" v-model="start_date">
+            <input class="form-custom form-date" type="date" id="start-date" v-model="startDate">
           </div>
           <div class="fr-input-wrap">
-            <input class="form-custom form-time" type="time" id="start-time" name="text-input-calendar">
+            <input class="form-custom form-time" type="time" id="start-time" v-model="startTime">
           </div>
 
           <label class="fr-label" for="end-date">
             à
           </label>
           <div class="fr-input-wrap">
-            <input class="form-custom form-date" type="date" id="end-date"v-model="end_date">
+            <input class="form-custom form-date" type="date" id="end-date" v-model="endDate">
           </div>
           <div class="fr-input-wrap">
-            <input class="form-time form-custom" type="time" id="end-time" name="text-input-calendar">
+            <input class="form-time form-custom" type="time" id="end-time" v-model="endTime">
           </div>
         </div>
         <div class="divider-horizontal"></div>
@@ -31,15 +31,13 @@
           <h6>Equipage</h6>
           <div class="fr-container--fluid">
             <EquipageComponent
-                v-model="equipage"
-                :members-list="equipage"
+                :membres="equipage.membres"
             >
-
             </EquipageComponent>
           </div>
         </div>
         <div class="divider-horizontal"></div>
-        <MissionToAchieveComponent v-model="missions"></MissionToAchieveComponent>
+
   </div>
     </div>
   </div>
@@ -52,31 +50,27 @@ import MissionToAchieveComponent from "../MissionToAchieveComponent";
 export default {
   name: "GeneralInformationCardComponent",
   components: { EquipageComponent, MissionToAchieveComponent },
+  props: {
+    start_date: String,
+    start_time: String,
+    end_date: String,
+    end_time: String,
+    equipage: Object
+  },
   methods: {
     getData() {
-      this.$emit('input', this.$data);
-    }
-  },
-  data() {
-    return {
-      equipage: [
-        {
-          name: 'Pierre Crepon',
-          role: 'Commandant',
-          observations: ''
-        },
-        {
-          name: 'David Vincent',
-          role: 'Agent de pont',
-          observations: 'Test'
-        }
-      ],
-      start_date: null,
-      end_date: null,
-      missions: null
+      this.$emit('get-date', this.$data);
     }
   },
   mounted() {
+  },
+  data() {
+    return {
+      startDate: this.start_date,
+      endDate: this.start_date,
+      startTime: this.start_time,
+      endTime: this.end_time
+    }
   }
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div class="fr-grid-row">
     <div class="fr-col-lg-7 fr-col-md-8">
-      <div class="members-list" @change="getData()">
-        <div class="member-group" v-for="(member, index) in membersList" >
+      <div class="members-list">
+        <div class="member-group" v-for="(member, index) in membres" >
           <div class="equipName">
             {{ member.name }}
             <span class="equipRole">{{ member.role }}</span>
@@ -103,27 +103,20 @@ export default {
     });
   },
   props: {
-    membersList: {
+    membres: {
       type: Array,
       default: null
     }
   },
   methods: {
     removeMember(index) {
-        this.membersList.splice(index, 1)
+        this.membres.splice(index, 1)
     },
     addMember(member) {
-      this.membersList.push(member);
+      this.membres.push(member);
     },
     addAll() {
-      this.suggestionsList.forEach(element => this.membersList.push(element));
-    },
-    getData() {
-      this.$emit('input', this.membersList);
-    },
-    hiddenToggle(className, scope) {
-      let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
-      tooltip.toggleClass('d-none');
+      this.suggestionsList.forEach(element => this.membres.push(element));
     },
     createNewMember(value) {
       let noExist = true;
