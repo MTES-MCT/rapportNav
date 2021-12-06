@@ -11,6 +11,8 @@
 <script>
 import ShipActivityCardComponent from "./ShipActivityCardComponent";
 import GeneralInformationCardComponent from "./GeneralInformationCardComponent";
+import EquipageComponent from "../EquipageComponent";
+import MissionToAchieveComponent from "../MissionToAchieveComponent";
 export default {
   name: "BoxShadowCardComponent",
   components: {

@@ -67,6 +67,7 @@
                         aria-controls="modal-870"
                         aria-haspopup="validate"
                         title="Valider le rapport"
+                        @click="submitted"
                     >
                       Valider le rapport
                     </button>
@@ -103,6 +104,7 @@
                         aria-controls="modal-870"
                         aria-haspopup="validate"
                         title="Valider le rapport"
+                        @click="submitted"
                     >
                       Valider le rapport
                     </button>
@@ -153,6 +155,11 @@
       numReport: {
         type: String,
         default: null
+      }
+    },
+    methods: {
+      submitted() {
+        this.$emit('submitted');
       }
     }
   };

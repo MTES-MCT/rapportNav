@@ -112,6 +112,10 @@ export default {
     id: {
       type: Number,
       default: null
+    },
+    controles: {
+      type: Array,
+      default: null
     }
   },
   mounted() {
@@ -138,21 +142,6 @@ export default {
   },
   data: function() {
     return {
-      controles: [
-        {
-          type: this.id,
-          pavillon: 'FR',
-          nb_navire_controle: null,
-          pv_peche_sanitaire: null,
-          pv_equipement_securite: null,
-          pv_titre_nav: null,
-          pv_police_nav: null,
-          pv_env_pollution: null,
-          autre_pv: null,
-          nb_nav_deroute: null,
-          nb_nav_interroge: null
-        }
-      ],
       cols: [
         {
           title: 'Nb de navires controlé',

@@ -1,8 +1,8 @@
 <template>
   <div class="fr-grid-row">
     <div class="fr-col-lg-7 fr-col-md-8">
-      <div class="members-list">
-        <div class="member-group" v-for="(member, index) in membersList" @change="getData()">
+      <div class="members-list" @change="getData()">
+        <div class="member-group" v-for="(member, index) in membersList" >
           <div class="equipName">
             {{ member.name }}
             <span class="equipRole">{{ member.role }}</span>
@@ -102,6 +102,12 @@ export default {
       $(".tooltip-add-member").addClass('d-none');
     });
   },
+  props: {
+    membersList: {
+      type: Array,
+      default: null
+    }
+  },
   methods: {
     removeMember(index) {
         this.membersList.splice(index, 1)
@@ -144,18 +150,6 @@ export default {
   },
   data() {
     return {
-      membersList : [
-        {
-          name: 'Pierre Crepon',
-          role: 'Commandant',
-          observations: ''
-        },
-        {
-          name: 'David Vincent',
-          role: 'Agent de pont',
-          observations: 'Test'
-        }
-      ],
       suggestionsList: [
         {
           name: 'Alain Colas',

@@ -1,32 +1,44 @@
 <template>
-  <div class="box-dropdown fr-mt-2w">
-    <ul class="fr-accordions-group" v-if="type === 'controle'">
-      <li v-for="(c, index) in controles">
-        <div class="box-shadow-card" :id="c.id">
-          <section class="fr-accordion box-shadow-card-body">
-            <div class="fr-accordion__title ">
-              <div class="fr-container--fluid">
-                <div class="fr-grid-row">
-                  <div class="fr-col-11">
-                    <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + c.id">
-                     {{c.title}}
-                    </button>
-                  </div>
-                  <div class="fr-col-1 fr-mt-2v" v-if="removeBtn === true">
-                    <button class="fr-fi-delete-fill btn-remove" aria-hidden="true" @click="removeControle(index)"></button>
+  <div class="operationalControl fr-mt-10w">
+      <div class="heading-custom heading-custom-space-between">
+        <h5 class="text-blue-france text-800">Contrôles opérationnel</h5>
+        <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="fr-modal-10">
+          <i class="ri-add-circle-fill fr-mt-1v fr-mr-1w"></i> <span class="text-bold">Ajouter un contrôle</span>
+        </button>
+      </div>
+      <div class="box-dropdown fr-mt-2w">
+        <ul class="fr-accordions-group" >
+          <li v-for="(type, index) in types">
+            <div class="box-shadow-card" :id="type.id">
+              <section class="fr-accordion box-shadow-card-body">
+                <div class="fr-accordion__title ">
+                  <div class="fr-container--fluid">
+                    <div class="fr-grid-row">
+                      <div class="fr-col-11">
+                        <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + type.id">
+                         {{type.title}}
+                        </button>
+                      </div>
+                      <div class="fr-col-1 fr-mt-2v">
+                        <button class="fr-fi-delete-fill btn-remove" aria-hidden="true" @click="removeType(index)"></button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+                <div class="fr-collapse" :id="'accordion-' + type.id ">
+                  <div class="divider-horizontal--accordion"></div>
+                  <TableControleComponent
+                      :id="type.id"
+                      :controles="controles"
+                  >
+                  </TableControleComponent>
+                </div>
+              </section>
             </div>
-            <div class="fr-collapse" :id="'accordion-' + c.id ">
-              <div class="divider-horizontal--accordion"></div>
-              <TableControleComponent v-if="type === 'controle'" :id="c.id"></TableControleComponent>
-            </div>
-          </section>
-        </div>
-      </li>
-    </ul>
-    <ModalAddControle @clicked="onClickModal"></ModalAddControle>
+          </li>
+        </ul>
+        <ModalAddControle @clicked="onClickModal"></ModalAddControle>
+      </div>
   </div>
 </template>
 
@@ -38,44 +50,35 @@ export default {
   name: "RapportAccordionComponent",
   components: { TableControleComponent, TableIndicateurComponent, ModalAddControle },
   props: {
-    title: {
-      type: String,
-      default: null
-    },
-    type: {
-      type: String,
-      default: null
-    },
-    removeBtn: {
-      type: Boolean,
-      default: false
-    },
-    identifier: {
-      type: String,
+    controles: {
+      type: Array,
       default: null
     }
   },
   data: function() {
     return {
       id: this._uid,
-      controles: [
+      types: [
         {
           title: 'Contrôle en mer de navires de pêche professionnelle',
           id: this._uid
         }
-      ]
+      ],
     }
   },
   methods: {
     onClickModal(value, id) {
-      let newControle = {
+      let newType = {
         title: value,
         id: id
       };
-      this.controles.push(newControle);
+      this.types.push(newType);
     },
-    removeControle(index) {
-      this.controles.splice(index, 1);
+    removeType(index) {
+      this.types.splice(index, 1);
+    },
+    getData() {
+
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderComponent name-site="RapportNav" num-report="1498"></HeaderComponent>
+    <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm"></HeaderComponent>
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
         <div class="fr-col-lg-2 fr-col-md-2 fr-col-sm-12 sidebar-left-menu">
@@ -9,12 +9,8 @@
         <div class="fr-col-lg-8 fr-col-md-10 fr-col-sm-12">
           <div class="mainContent">
             <!-- Informations générales -->
-            <BoxShadowCardComponent
-                v-model="rapport"
-                type="informationGeneral"
-                class-name="informationGeneral"
-                title="Information générales"
-            ></BoxShadowCardComponent>
+            <GeneralInformationCardComponent v-model="rapport">
+            </GeneralInformationCardComponent>
 
             <!-- Activité du navire -->
             <BoxShadowCardComponent
@@ -25,11 +21,10 @@
             ></BoxShadowCardComponent>
 
             <!-- Contrôles opérationnel -->
-            <AccordionGroupComponent
-                class-name="operationalControl"
-                type="controle"
-                title="Contrôles opérationnel"
-            ></AccordionGroupComponent>
+            <RapportAccordionComponent
+                :controles="controles"
+            >
+            </RapportAccordionComponent>
 
 
             <!-- Indicateurs de mission-->
@@ -67,17 +62,19 @@ import HeaderComponent from "../components/HeaderComponent";
 import SidebarMenuRapportComponent from "../components/SidebarMenuRapportComponent";
 import SidebarHistoryRapportComponent from "../components/SidebarHistoryRapportComponent";
 import BoxShadowCardComponent from "../components/card/BoxShadowCardComponent";
-import AccordionGroupComponent from "../components/accordion/AccordionGroupComponent";
 import AccordionIndicateurMissionComponent from "../components/accordion/AccordionIndicateurMissionComponent";
+import GeneralInformationCardComponent from "../components/card/GeneralInformationCardComponent";
+import RapportAccordionComponent from "../components/accordion/RapportAccordionComponent";
 export default {
   name: "CreateRapportComponent",
   components: {
+    RapportAccordionComponent,
+    GeneralInformationCardComponent,
     AccordionIndicateurMissionComponent,
     HeaderComponent,
     SidebarMenuRapportComponent,
     SidebarHistoryRapportComponent,
-    BoxShadowCardComponent,
-    AccordionGroupComponent
+    BoxShadowCardComponent
   },
   mounted() {
     this.activeResponsive();
@@ -98,14 +95,29 @@ export default {
         $('.sidebar-right-history').removeClass('d-none')
       }
     },
-    getData() {
-      console.log(this.$data)
+    postForm() {
+      console.log(JSON.parse(JSON.stringify(this.$data)))
     }
   },
   data() {
     return {
       rapport: null,
-      activite: null
+      activite: null,
+      controles: [
+        {
+          type: 1000,
+          pavillon: 'FR',
+          nb_navire_controle: null,
+          pv_peche_sanitaire: null,
+          pv_equipement_securite: null,
+          pv_titre_nav: null,
+          pv_police_nav: null,
+          pv_env_pollution: null,
+          autre_pv: null,
+          nb_nav_deroute: null,
+          nb_nav_interroge: null
+        }
+      ]
     }
   }
 };
