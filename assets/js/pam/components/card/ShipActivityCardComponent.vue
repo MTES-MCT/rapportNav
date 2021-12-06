@@ -1,8 +1,8 @@
 <template>
-  <div @change="getData" class="fr-mt-6w">
+  <div @change="getData" class="fr-mt-6w section" id="shipActivity">
     <h5 class="text-blue-france text-800">Activités du navire</h5>
     <div class="box-shadow-card">
-      <div id="shipActivity">
+      <div>
         <div class="heading-custom fr-mt-3w">
         <div class="total">
           <span>Total</span>

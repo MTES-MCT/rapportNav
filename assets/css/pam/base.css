@@ -25,6 +25,10 @@
     opacity: 1;
 }
 
+.section {
+    scroll-margin-top: 140px;
+}
+
 .fr-accordion__btn {
     font-weight: bold;
     font-size: 18px;

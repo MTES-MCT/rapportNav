@@ -1,5 +1,5 @@
 <template>
-  <div class="operationalControl fr-mt-10w">
+  <div class="operationalControl fr-mt-10w section" id="controle">
       <div class="heading-custom heading-custom-space-between">
         <h5 class="text-blue-france text-800">Contrôles opérationnel</h5>
         <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="fr-modal-10">
