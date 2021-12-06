@@ -8,17 +8,17 @@
           <label class="fr-label" for="start-date">
             De
           </label>
-          <div class="fr-input-wrap">
+          <div class="fr-input-wrap fr-mr-4v">
             <input class="form-custom form-date" type="date" id="start-date" v-model="startDate">
           </div>
-          <div class="fr-input-wrap">
+          <div class="fr-input-wrap fr-mr-4v">
             <input class="form-custom form-time" type="time" id="start-time" v-model="startTime">
           </div>
 
-          <label class="fr-label" for="end-date">
+          <label class="fr-label fr-mr-6v" for="end-date">
             à
           </label>
-          <div class="fr-input-wrap">
+          <div class="fr-input-wrap fr-mr-4v">
             <input class="form-custom form-date" type="date" id="end-date" v-model="endDate">
           </div>
           <div class="fr-input-wrap">

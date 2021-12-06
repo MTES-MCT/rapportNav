@@ -227,6 +227,11 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     background-size: 15px;
 }
 
+input[type="time"], input[type="date"] {
+    background-color: #EEEEEE !important;
+    box-shadow: inset 0 -2px 0 0 #000091;
+}
+
 .unit-placeholder::-webkit-input-placeholder { /* WebKit browsers */
     color:    #9C9C9C;
     font-size: 16px;
