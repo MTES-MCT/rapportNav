@@ -10,7 +10,7 @@
       </thead>
 
       <tbody>
-      <tr class="tr-indicateur" v-for="(mission, index) in missions">
+      <tr class="tr-indicateur" v-for="(mission, index) in types">
         <th class="td-nb-hour-sea td-indicateur th-tr-indicateur" scope="row" >
           {{ mission.type }}
         </th>
@@ -41,6 +41,10 @@ export default {
     cols: {
       type: Array,
       default: null
+    },
+    types: {
+      type: Array,
+      default: null
     }
   },
   methods: {
@@ -55,7 +59,6 @@ export default {
   },
   data() {
     return {
-      missions: []
     }
   },
   beforeMount() {
@@ -68,7 +71,7 @@ export default {
        total: null,
        observations: null
      };
-     this.missions.push(mission)
+     this.types.push(mission)
    })
   }
 }
