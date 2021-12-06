@@ -1,5 +1,5 @@
 <template>
-  <div @change="getData">
+  <div @change="getData" class="fr-mt-6w">
     <h5 class="text-blue-france text-800">Activités du navire</h5>
     <div class="box-shadow-card">
       <div id="shipActivity">

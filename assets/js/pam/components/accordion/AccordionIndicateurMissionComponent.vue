@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-mt-10w" id="indicMission">
+  <div class="fr-mt-2w" id="indicMission">
     <div class="box-dropdown fr-mt-2w">
       <ul class="fr-accordions-group">
         <li>

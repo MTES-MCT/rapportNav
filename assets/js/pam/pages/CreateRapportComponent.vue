@@ -50,7 +50,6 @@
             <IndicateurMissionComponent
               :missions="missions"
             >
-
             </IndicateurMissionComponent>
           </div>
         </div>
