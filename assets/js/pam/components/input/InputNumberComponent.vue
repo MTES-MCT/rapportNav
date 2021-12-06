@@ -13,13 +13,13 @@
           :value="value"
 
       >
-      <button
+      <span
           class="InputAddOn-item"
           v-if="addOn !== null"
           v-bind:class="{ 'fr-input-valid': isValid }"
       >
         {{ addOn }}
-      </button>
+      </span>
     </div>
   </div>
 </template>
