@@ -99,10 +99,6 @@ export default {
     $(window).resize(this.activeResponsive)
   },
   methods: {
-    hiddenToggle(className, scope) {
-      let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
-      tooltip.toggleClass('d-none');
-    },
     displayHistory() {
       $('.sidebar-right-history').removeClass('d-none')
     },
