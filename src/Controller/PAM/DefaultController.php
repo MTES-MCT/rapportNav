@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController {
 
     /**
-     * @Route("/rapport", name="pam_rapport_create")
+     * @Route("/rapport", name="pam_rapport_create", methods={"GET"})
      */
     public function createRapport()
     {
