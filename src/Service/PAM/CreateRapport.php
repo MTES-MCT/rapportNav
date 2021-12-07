@@ -23,6 +23,11 @@ class CreateRapport {
         $this->em = $em;
     }
 
+    /**
+     * @param PamRapport $rapport
+     *
+     * @return PamRapport
+     */
     public function persistAndFlush(PamRapport $rapport) : PamRapport
     {
         $this->setType($rapport->getControles());
@@ -33,6 +38,12 @@ class CreateRapport {
         return $rapport;
     }
 
+    /**
+     * Add type to controles
+     * @param Collection $controles
+     *
+     * @return void
+     */
     private function setType(Collection $controles): void
     {
         $typeRepo = $this->em->getRepository(PamControleType::class);
@@ -46,6 +57,12 @@ class CreateRapport {
         }
     }
 
+    /**
+     * Check if membres exist and set it 
+     * @param PamEquipage $equipage
+     *
+     * @return void
+     */
     private function setMembres(PamEquipage $equipage)
     {
         $repository = $this->em->getRepository(PamMembre::class);
