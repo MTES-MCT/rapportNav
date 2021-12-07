@@ -4,9 +4,10 @@ namespace App\Service\PAM;
 
 use App\Entity\PAM\PamControleType;
 use App\Entity\PAM\PamEquipage;
+use App\Entity\PAM\PamIndicateurType;
 use App\Entity\PAM\PamMembre;
+use App\Entity\PAM\PamMissionType;
 use App\Entity\PAM\PamRapport;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -30,7 +31,11 @@ class CreateRapport {
      */
     public function persistAndFlush(PamRapport $rapport) : PamRapport
     {
-        $this->setType($rapport->getControles());
+        $this->setType($rapport->getControles(), PamControleType::class);
+        $this->setType($rapport->getMissions(), PamMissionType::class);
+        foreach($rapport->getMissions() as $mission) {
+            $this->setType($mission->getIndicateurs(), PamIndicateurType::class);
+        }
         $this->setMembres($rapport->getEquipage());
 
         $this->em->persist($rapport);
@@ -40,19 +45,21 @@ class CreateRapport {
 
     /**
      * Add type to controles
-     * @param Collection $controles
+     *
+     * @param Collection $collections
+     * @param string     $entityClass
      *
      * @return void
      */
-    private function setType(Collection $controles): void
+    private function setType(Collection $collections, string $entityClass): void
     {
-        $typeRepo = $this->em->getRepository(PamControleType::class);
-        foreach($controles as $controle) {
-            $type = $typeRepo->find($controle->getType()->getId());
+        $typeRepo = $this->em->getRepository($entityClass);
+        foreach($collections as $collection) {
+            $type = $typeRepo->find($collection->getType()->getId());
             if($type) {
-                $controle->setType($type);
+                $collection->setType($type);
             } else {
-                throw new NotFoundHttpException('Controle type not foud');
+                throw new NotFoundHttpException('Type not foud for ' . $entityClass);
             }
         }
     }

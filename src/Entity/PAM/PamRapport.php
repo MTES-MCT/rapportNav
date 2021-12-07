@@ -120,13 +120,52 @@ class PamRapport
     private $equipage;
 
     /**
+     * @Groups({"view"})
      * @ORM\OneToMany(targetEntity=PamControle::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $controles;
 
+    /**
+     * @Groups({"view"})
+     * @ORM\OneToMany(targetEntity=PamMission::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist"})
+     */
+    private $missions;
+
+    /**
+     * @Groups({"view"})
+     * @ORM\Column(type="date")
+     */
+    private $start_date;
+
+    /**
+     * @Groups({"view"})
+     * @ORM\Column(type="date")
+     */
+    private $end_date;
+
+    /**
+     * @Groups({"view"})
+     * @ORM\Column(type="time")
+     */
+    private $start_time;
+
+    /**
+     * @Groups({"view"})
+     * @ORM\Column(type="time")
+     */
+    private $end_time;
+
+    /**
+     * @Groups({"view"})
+     * @ORM\OneToMany(targetEntity=PamCheckMission::class, mappedBy="rapport", orphanRemoval=true)
+     */
+    private $checkMissions;
+
     public function __construct()
     {
         $this->controles = new ArrayCollection();
+        $this->missions = new ArrayCollection();
+        $this->checkMissions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -358,6 +397,114 @@ class PamRapport
             // set the owning side to null (unless already changed)
             if ($controle->getRapport() === $this) {
                 $controle->setRapport(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PamMission[]
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(PamMission $mission): self
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions[] = $mission;
+            $mission->setRapport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(PamMission $mission): self
+    {
+        if ($this->missions->removeElement($mission)) {
+            // set the owning side to null (unless already changed)
+            if ($mission->getRapport() === $this) {
+                $mission->setRapport(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->start_date;
+    }
+
+    public function setStartDate(\DateTimeInterface $start_date): self
+    {
+        $this->start_date = $start_date;
+
+        return $this;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->end_date;
+    }
+
+    public function setEndDate(\DateTimeInterface $end_date): self
+    {
+        $this->end_date = $end_date;
+
+        return $this;
+    }
+
+    public function getStartTime(): ?\DateTimeInterface
+    {
+        return $this->start_time;
+    }
+
+    public function setStartTime(\DateTimeInterface $start_time): self
+    {
+        $this->start_time = $start_time;
+
+        return $this;
+    }
+
+    public function getEndTime(): ?\DateTimeInterface
+    {
+        return $this->end_time;
+    }
+
+    public function setEndTime(\DateTimeInterface $end_time): self
+    {
+        $this->end_time = $end_time;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PamCheckMission[]
+     */
+    public function getCheckMissions(): Collection
+    {
+        return $this->checkMissions;
+    }
+
+    public function addCheckMission(PamCheckMission $checkMission): self
+    {
+        if (!$this->checkMissions->contains($checkMission)) {
+            $this->checkMissions[] = $checkMission;
+            $checkMission->setRapport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCheckMission(PamCheckMission $checkMission): self
+    {
+        if ($this->checkMissions->removeElement($checkMission)) {
+            // set the owning side to null (unless already changed)
+            if ($checkMission->getRapport() === $this) {
+                $checkMission->setRapport(null);
             }
         }
 

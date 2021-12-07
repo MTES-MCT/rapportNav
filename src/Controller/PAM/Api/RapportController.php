@@ -18,6 +18,7 @@ class RapportController {
     /**
      * @Rest\Post()
      * @ParamConverter("rapport", converter="fos_rest.request_body")
+     * @Rest\View(serializerGroups={"view"})
      * @param PamRapport    $rapport
      * @param CreateRapport $service
      *
@@ -26,8 +27,10 @@ class RapportController {
     public function save(PamRapport $rapport, CreateRapport $service) : View
     {
         try {
-            return View::create('Success', Response::HTTP_CREATED);
-        } catch (NotFoundHttpException $exception) {
+            $rapport = $service->persistAndFlush($rapport);
+            return View::create($rapport, Response::HTTP_CREATED);
+        }
+        catch (NotFoundHttpException $exception) {
             return View::create($exception->getMessage(), Response::HTTP_NOT_FOUND);
         }
     }
