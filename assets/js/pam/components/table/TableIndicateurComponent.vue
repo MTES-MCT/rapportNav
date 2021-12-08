@@ -12,7 +12,7 @@
       <tbody>
       <tr class="tr-indicateur" v-for="(mission, index) in types">
         <th class="td-nb-hour-sea td-indicateur th-tr-indicateur" scope="row" >
-          {{ mission.type }}
+          {{ mission.type.label }}
         </th>
         <TdEditable class-list="td-indicateur" v-model="mission.principale"></TdEditable>
         <TdEditable class-list="td-indicateur" v-model="mission.secondaire"></TdEditable>
@@ -38,10 +38,6 @@ export default {
       type: Number,
       default: null
     },
-    cols: {
-      type: Array,
-      default: null
-    },
     types: {
       type: Array,
       default: null
@@ -60,18 +56,6 @@ export default {
   data() {
     return {
     }
-  },
-  beforeMount() {
-  /* this.cols.forEach((col) => {
-     const mission = {
-       type: col,
-       principale: null,
-       secondaire: null,
-       total: null,
-       observations: null
-     };
-     this.types.push(mission)
-   })*/
   }
 }
 </script>

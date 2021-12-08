@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="rapport">
     <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft"></HeaderComponent>
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
@@ -15,6 +15,7 @@
                :end_time="rapport.end_time"
                :start_time="rapport.start_time"
                :equipage="rapport.equipage"
+               :missions="rapport.missions"
                @get-date="setDates"
 
             >
@@ -41,7 +42,6 @@
 
             <!-- Contrôles opérationnel -->
             <RapportAccordionComponent
-                v-if="rapport.controles.types"
                 :types="rapport.controles.types"
             >
             </RapportAccordionComponent>
@@ -49,7 +49,6 @@
 
             <!-- Indicateurs de mission-->
             <IndicateurMissionComponent
-                v-if="rapport.missions.types"
               :missions="rapport.missions"
             >
             </IndicateurMissionComponent>
@@ -157,7 +156,7 @@ export default {
       this.distance = info.distance;
       this.autre = info.autre;
       this.maintenance = info.maintenance;
-      this.contr_port = info.contr_port;
+      this.rapport.contr_port = info.contr_port;
       this.mouillage = info.mouillage
     }
   },

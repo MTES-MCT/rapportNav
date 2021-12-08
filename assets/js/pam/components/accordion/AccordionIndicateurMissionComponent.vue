@@ -20,8 +20,7 @@
                 <div class="divider-horizontal--accordion"></div>
                 <TableIndicateurComponent
                     :id="id"
-                    v-bind:cols="cols"
-                    :types="types.indicateurs"
+                    :types="indicateurs"
                 ></TableIndicateurComponent>
               </div>
             </section>
@@ -45,12 +44,8 @@ export default {
       type: Number,
       default: null
     },
-    cols: {
+    indicateurs: {
       type: Array,
-      default: null
-    },
-    types: {
-      type: Object,
       default: null
     }
   },

@@ -4,14 +4,13 @@
     <h5 class="text-blue-france text-800">Indicateurs de mission</h5>
   </div>
   <AccordionIndicateurMissionComponent
-      title="Contrôle en mer des navires de pêche professionnelle"
-      v-bind:cols="['Test_column', 'Nb heure']"
-      :types="missions.types[0]"
+      v-if="controleNavirePro !== null"
+      :title="controleNavirePro.type.label"
+      :indicateurs="controleNavirePro.indicateurs"
   ></AccordionIndicateurMissionComponent>
 
   <!--<AccordionIndicateurMissionComponent
       title="Contrôle en mer des navires de pêche plaisance"
-      v-bind:cols="['Test_column', 'Nb heure']"
       :types="missions.types[1]"
   ></AccordionIndicateurMissionComponent>-->
 </div>
@@ -24,8 +23,21 @@ export default {
   components: {AccordionIndicateurMissionComponent},
   props: {
     missions: {
-      type: Object,
+      type: Array,
       default: null
+    }
+  },
+  mounted() {
+
+    this.missions.forEach((mission, index) => {
+      if(mission.type.id === 1 ) {
+        this.controleNavirePro = mission;
+      }
+    })
+  },
+  data() {
+    return {
+      controleNavirePro: null
     }
   }
 }

@@ -22,6 +22,11 @@ class PamMissionIndicateurRequest {
     private $observations;
 
     /**
+     * @var PamMissionIndicateurType
+     */
+    private $type;
+
+    /**
      * @return int|null
      */
     public function getPrincipale(): ?int {
@@ -77,9 +82,18 @@ class PamMissionIndicateurRequest {
         $this->observations = $observations;
     }
 
+    /**
+     * @return PamMissionIndicateurType
+     */
+    public function getType(): PamMissionIndicateurType {
+        return $this->type;
+    }
 
-
-
-
+    /**
+     * @param PamMissionIndicateurRequest $type
+     */
+    public function setType(PamMissionIndicateurType $type): void {
+        $this->type = $type;
+    }
 
 }

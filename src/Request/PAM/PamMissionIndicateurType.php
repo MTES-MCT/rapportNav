@@ -2,10 +2,10 @@
 
 namespace App\Request\PAM;
 
-class PamMissionTypeRequest {
+class PamMissionIndicateurType {
 
     /**
-     * @var ?int
+     * @var int
      */
     private $id;
 
@@ -15,16 +15,16 @@ class PamMissionTypeRequest {
     private $label;
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getId(): ?int {
+    public function getId(): int {
         return $this->id;
     }
 
     /**
-     * @param int|null $id
+     * @param int $id
      */
-    public function setId(?int $id): void {
+    public function setId(int $id): void {
         $this->id = $id;
     }
 
@@ -41,6 +41,7 @@ class PamMissionTypeRequest {
     public function setLabel(string $label): void {
         $this->label = $label;
     }
+
 
 
 }

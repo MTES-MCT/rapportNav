@@ -12,6 +12,26 @@ class CreateRapportRequest {
     private $id;
 
     /**
+     * @var ?string
+     */
+    private $start_date;
+
+    /**
+     * @var ?string
+     */
+    private $start_time;
+
+    /**
+     * @var ?string
+     */
+    private $end_date;
+
+    /**
+     * @var ?string
+     */
+    private $end_time;
+
+    /**
      * @var ?int
      */
     private $nb_jours_mer;
@@ -87,7 +107,7 @@ class CreateRapportRequest {
     private $controles;
 
     /**
-     * @var PamMissionRequest
+     * @var PamMissionRequest[]
      */
     private $missions;
 
@@ -316,17 +336,74 @@ class CreateRapportRequest {
     }
 
     /**
-     * @return PamMissionRequest
+     * @return PamMissionRequest[]
      */
-    public function getMissions(): PamMissionRequest {
+    public function getMissions(): array {
         return $this->missions;
     }
 
     /**
-     * @param PamMissionRequest $missions
+     * @param PamMissionRequest[] $missions
      */
-    public function setMissions(PamMissionRequest $missions): void {
+    public function setMissions(array $missions): void {
         $this->missions = $missions;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getStartDate(): ?string {
+        return $this->start_date;
+    }
+
+    /**
+     * @param string|null $start_date
+     */
+    public function setStartDate(?string $start_date): void {
+        $this->start_date = $start_date;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStartTime(): ?string {
+        return $this->start_time;
+    }
+
+    /**
+     * @param string|null $start_time
+     */
+    public function setStartTime(?string $start_time): void {
+        $this->start_time = $start_time;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEndDate(): ?string {
+        return $this->end_date;
+    }
+
+    /**
+     * @param string|null $end_date
+     */
+    public function setEndDate(?string $end_date): void {
+        $this->end_date = $end_date;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEndTime(): ?string {
+        return $this->end_time;
+    }
+
+    /**
+     * @param string|null $end_time
+     */
+    public function setEndTime(?string $end_time): void {
+        $this->end_time = $end_time;
     }
 
 

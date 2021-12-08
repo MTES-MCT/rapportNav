@@ -37,7 +37,10 @@
           </div>
         </div>
         <div class="divider-horizontal"></div>
-        <MissionToAchieveComponent @get-check-mission="getCheckMissionData"></MissionToAchieveComponent>
+        <MissionToAchieveComponent
+            :missions="missions"
+        >
+        </MissionToAchieveComponent>
   </div>
     </div>
   </div>
@@ -55,14 +58,12 @@ export default {
     start_time: String,
     end_date: String,
     end_time: String,
-    equipage: Object
+    equipage: Object,
+    missions: Array
   },
   methods: {
     getData() {
       this.$emit('get-date', this.$data);
-    },
-    getCheckMissionData(data) {
-      this.checkMission = data;
     }
   },
   mounted() {
@@ -70,10 +71,9 @@ export default {
   data() {
     return {
       startDate: this.start_date,
-      endDate: this.start_date,
+      endDate: this.end_date,
       startTime: this.start_time,
-      endTime: this.end_time,
-      checkMissions: []
+      endTime: this.end_time
     }
   }
 }
