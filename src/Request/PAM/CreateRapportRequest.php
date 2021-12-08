@@ -7,347 +7,327 @@ use App\Entity\PAM\PamEquipage;
 
 class CreateRapportRequest {
     /**
-     * @var int
+     * @var ?int
      */
     private $id;
 
     /**
-     * @var \DateTimeImmutable
-     */
-    private $created_at;
-
-    /**
-     * @var \DateTimeImmutable
-     */
-    private $updated_at;
-
-    /**
-     * @var int
+     * @var ?int
      */
     private $nb_jours_mer;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $nav_eff;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $mouillage;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $maintenance;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $meteo;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $representation;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $administratif;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $autre;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $contr_port;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $technique;
 
     /**
-     * @var float
+     * @var ?float
      */
     private $distance;
 
     /**
-     * @var float
+     * @var ?float
      */
     private $go_marine;
 
     /**
-     * @var float
+     * @var ?float
      */
     private $essence;
 
     /**
-     * @var PamEquipage
+     * @var ?PamEquipageRequest
      */
     private $equipage;
 
     /**
-     * @var PamControle
+     * @var ?ControleRequest
      */
     private $controles;
 
     /**
-     * @return int
+     * @var PamMissionRequest
      */
-    public function getId(): int {
+    private $missions;
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      */
-    public function setId(int $id): void {
+    public function setId(?int $id): void {
         $this->id = $id;
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return int|null
      */
-    public function getCreatedAt(): \DateTimeImmutable {
-        return $this->created_at;
-    }
-
-    /**
-     * @param \DateTimeImmutable $created_at
-     */
-    public function setCreatedAt(\DateTimeImmutable $created_at): void {
-        $this->created_at = $created_at;
-    }
-
-    /**
-     * @return \DateTimeImmutable
-     */
-    public function getUpdatedAt(): \DateTimeImmutable {
-        return $this->updated_at;
-    }
-
-    /**
-     * @param \DateTimeImmutable $updated_at
-     */
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): void {
-        $this->updated_at = $updated_at;
-    }
-
-    /**
-     * @return int
-     */
-    public function getNbJoursMer(): int {
+    public function getNbJoursMer(): ?int {
         return $this->nb_jours_mer;
     }
 
     /**
-     * @param int $nb_jours_mer
+     * @param int|null $nb_jours_mer
      */
-    public function setNbJoursMer(int $nb_jours_mer): void {
+    public function setNbJoursMer(?int $nb_jours_mer): void {
         $this->nb_jours_mer = $nb_jours_mer;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getNavEff(): int {
+    public function getNavEff(): ?int {
         return $this->nav_eff;
     }
 
     /**
-     * @param int $nav_eff
+     * @param int|null $nav_eff
      */
-    public function setNavEff(int $nav_eff): void {
+    public function setNavEff(?int $nav_eff): void {
         $this->nav_eff = $nav_eff;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMouillage(): int {
+    public function getMouillage(): ?int {
         return $this->mouillage;
     }
 
     /**
-     * @param int $mouillage
+     * @param int|null $mouillage
      */
-    public function setMouillage(int $mouillage): void {
+    public function setMouillage(?int $mouillage): void {
         $this->mouillage = $mouillage;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaintenance(): int {
+    public function getMaintenance(): ?int {
         return $this->maintenance;
     }
 
     /**
-     * @param int $maintenance
+     * @param int|null $maintenance
      */
-    public function setMaintenance(int $maintenance): void {
+    public function setMaintenance(?int $maintenance): void {
         $this->maintenance = $maintenance;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMeteo(): int {
+    public function getMeteo(): ?int {
         return $this->meteo;
     }
 
     /**
-     * @param int $meteo
+     * @param int|null $meteo
      */
-    public function setMeteo(int $meteo): void {
+    public function setMeteo(?int $meteo): void {
         $this->meteo = $meteo;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getRepresentation(): int {
+    public function getRepresentation(): ?int {
         return $this->representation;
     }
 
     /**
-     * @param int $representation
+     * @param int|null $representation
      */
-    public function setRepresentation(int $representation): void {
+    public function setRepresentation(?int $representation): void {
         $this->representation = $representation;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAdministratif(): int {
+    public function getAdministratif(): ?int {
         return $this->administratif;
     }
 
     /**
-     * @param int $administratif
+     * @param int|null $administratif
      */
-    public function setAdministratif(int $administratif): void {
+    public function setAdministratif(?int $administratif): void {
         $this->administratif = $administratif;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAutre(): int {
+    public function getAutre(): ?int {
         return $this->autre;
     }
 
     /**
-     * @param int $autre
+     * @param int|null $autre
      */
-    public function setAutre(int $autre): void {
+    public function setAutre(?int $autre): void {
         $this->autre = $autre;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getContrPort(): int {
+    public function getContrPort(): ?int {
         return $this->contr_port;
     }
 
     /**
-     * @param int $contr_port
+     * @param int|null $contr_port
      */
-    public function setContrPort(int $contr_port): void {
+    public function setContrPort(?int $contr_port): void {
         $this->contr_port = $contr_port;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getTechnique(): int {
+    public function getTechnique(): ?int {
         return $this->technique;
     }
 
     /**
-     * @param int $technique
+     * @param int|null $technique
      */
-    public function setTechnique(int $technique): void {
+    public function setTechnique(?int $technique): void {
         $this->technique = $technique;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getDistance(): float {
+    public function getDistance(): ?float {
         return $this->distance;
     }
 
     /**
-     * @param float $distance
+     * @param float|null $distance
      */
-    public function setDistance(float $distance): void {
+    public function setDistance(?float $distance): void {
         $this->distance = $distance;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getGoMarine(): float {
+    public function getGoMarine(): ?float {
         return $this->go_marine;
     }
 
     /**
-     * @param float $go_marine
+     * @param float|null $go_marine
      */
-    public function setGoMarine(float $go_marine): void {
+    public function setGoMarine(?float $go_marine): void {
         $this->go_marine = $go_marine;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getEssence(): float {
+    public function getEssence(): ?float {
         return $this->essence;
     }
 
     /**
-     * @param float $essence
+     * @param float|null $essence
      */
-    public function setEssence(float $essence): void {
+    public function setEssence(?float $essence): void {
         $this->essence = $essence;
     }
 
     /**
-     * @return PamEquipage
+     * @return PamEquipageRequest|null
      */
-    public function getEquipage(): PamEquipage {
+    public function getEquipage(): ?PamEquipageRequest {
         return $this->equipage;
     }
 
     /**
-     * @param PamEquipage $equipage
+     * @param PamEquipageRequest|null $equipage
      */
-    public function setEquipage(PamEquipage $equipage): void {
+    public function setEquipage(?PamEquipageRequest $equipage): void {
         $this->equipage = $equipage;
     }
 
     /**
-     * @return PamControle
+     * @return ControleRequest|null
      */
-    public function getControles(): PamControle {
+    public function getControles(): ?ControleRequest {
         return $this->controles;
     }
 
     /**
-     * @param PamControle $controles
+     * @param ControleRequest|null $controles
      */
-    public function setControles(PamControle $controles): void {
+    public function setControles(?ControleRequest $controles): void {
         $this->controles = $controles;
     }
 
+    /**
+     * @return PamMissionRequest
+     */
+    public function getMissions(): PamMissionRequest {
+        return $this->missions;
+    }
+
+    /**
+     * @param PamMissionRequest $missions
+     */
+    public function setMissions(PamMissionRequest $missions): void {
+        $this->missions = $missions;
+    }
 
 
 
