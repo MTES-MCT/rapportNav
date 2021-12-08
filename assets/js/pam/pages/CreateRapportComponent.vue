@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm"></HeaderComponent>
+    <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft"></HeaderComponent>
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
         <div class="fr-col-lg-2 fr-col-md-2 fr-col-sm-12 sidebar-left-menu">
@@ -10,11 +10,11 @@
           <div class="mainContent">
             <!-- Informations générales -->
             <GeneralInformationCardComponent
-               :start_date="start_date"
-               :end_date="end_date"
-               :end_time="end_time"
-               :start_time="start_time"
-               :equipage="equipage"
+               :start_date="rapport.start_date"
+               :end_date="rapport.end_date"
+               :end_time="rapport.end_time"
+               :start_time="rapport.start_time"
+               :equipage="rapport.equipage"
                @get-date="setDates"
 
             >
@@ -23,32 +23,34 @@
             <!-- Activité du navire -->
             <ShipActivityCardComponent
                 @get-activite="setActivite"
-                :nb_jours_mer="nb_jours_mer"
-                :administratif="administratif"
-                :autre="autre"
-                :contr_port="contr_port"
-                :distance="distance"
-                :essence="essence"
-                :go_marine="go_marine"
-                :maintenance="maintenance"
-                :meteo="meteo"
-                :mouillage="mouillage"
-                :nav_eff="nav_eff"
-                :personnel="personnel"
-                :representation="representation"
-                :technique="technique"
+                :nb_jours_mer="rapport.nb_jours_mer"
+                :administratif="rapport.administratif"
+                :autre="rapport.autre"
+                :contr_port="rapport.contr_port"
+                :distance="rapport.distance"
+                :essence="rapport.essence"
+                :go_marine="rapport.go_marine"
+                :maintenance="rapport.maintenance"
+                :meteo="rapport.meteo"
+                :mouillage="rapport.mouillage"
+                :nav_eff="rapport.nav_eff"
+                :personnel="rapport.personnel"
+                :representation="rapport.representation"
+                :technique="rapport.technique"
             ></ShipActivityCardComponent>
 
             <!-- Contrôles opérationnel -->
             <RapportAccordionComponent
-                :types="controles.types"
+                v-if="rapport.controles.types"
+                :types="rapport.controles.types"
             >
             </RapportAccordionComponent>
 
 
             <!-- Indicateurs de mission-->
             <IndicateurMissionComponent
-              :missions="missions"
+                v-if="rapport.missions.types"
+              :missions="rapport.missions"
             >
             </IndicateurMissionComponent>
           </div>
@@ -78,6 +80,8 @@ import GeneralInformationCardComponent from "../components/card/GeneralInformati
 import RapportAccordionComponent from "../components/accordion/RapportAccordionComponent";
 import IndicateurMissionComponent from "../components/IndicateurMissionComponent";
 import ShipActivityCardComponent from "../components/card/ShipActivityCardComponent";
+import axios from 'axios';
+
 export default {
   name: "CreateRapportComponent",
   components: {
@@ -95,8 +99,16 @@ export default {
     date: Object
   },
   mounted() {
-    this.activeResponsive();
-    $(window).resize(this.activeResponsive)
+   // this.activeResponsive();
+    //$(window).resize(this.activeResponsive);
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id')
+    axios.get('/api/pam/rapport/draft/' + id)
+    .then((response) => {
+      this.$data.rapport = JSON.parse(response.data.body);
+      console.log(JSON.parse(response.data.body))
+    })
   },
   methods: {
     displayHistory() {
@@ -112,11 +124,26 @@ export default {
     postForm() {
       console.log(JSON.parse(JSON.stringify(this.$data)))
     },
+    postFormDraft() {
+      axios.post(
+          '/api/pam/rapport/draft',
+          JSON.stringify(this.rapport),
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+      ).then(
+          (response) => console.log(response),
+          (error) => console.log(error)
+      )
+    },
     setDates(date) {
       this.start_date = date.startDate;
       this.end_date = date.endDate;
       this.end_time = date.endTime;
       this.start_time = date.startTime;
+      this.checkMissions = date.checkMissions;
     },
     setActivite(info) {
       this.nb_jours_mer = info.nb_jours_mer;
@@ -136,64 +163,7 @@ export default {
   },
   data() {
     return {
-      start_date: null,
-      start_time: null,
-      end_date: null,
-      end_time: null,
-      nb_jours_mer: null,
-      nav_eff: null,
-      mouillage: null,
-      maintenance: null,
-      meteo: null,
-      representation: null,
-      administratif: null,
-      autre: null,
-      contr_port: null,
-      technique: null,
-      personnel: null,
-      distance: null,
-      go_marine: null,
-      essence: null,
-      equipage: {
-        membres: [{
-          name: 'Pierre Crepon',
-          role: 'Commandant',
-          observations: ''
-        },
-        {
-          name: 'David Vincent',
-          role: 'Agent de pont',
-          observations: 'Test'
-          }]
-      },
-      controles: {
-        types: [{
-          title: 'Contrôle en mer de navires de pêche professionnelle',
-          id: 4000,
-          pavillons: [{
-            pavillon: 'FR',
-            nb_navire_controle: null,
-            pv_peche_sanitaire: null,
-            pv_equipement_securite: null,
-            pv_titre_nav: null,
-            pv_police_nav: null,
-            pv_env_pollution: null,
-            autre_pv: null,
-            nb_nav_deroute: null,
-            nb_nav_interroge: null
-            }]
-        }]
-      },
-      missions: {
-        types: [
-          {
-            indicateurs: []
-          },
-          {
-            indicateurs: []
-          }
-        ]
-      }
+      rapport: null
     }
   }
 };

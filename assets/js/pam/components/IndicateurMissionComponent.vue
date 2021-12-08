@@ -9,11 +9,11 @@
       :types="missions.types[0]"
   ></AccordionIndicateurMissionComponent>
 
-  <AccordionIndicateurMissionComponent
+  <!--<AccordionIndicateurMissionComponent
       title="Contrôle en mer des navires de pêche plaisance"
       v-bind:cols="['Test_column', 'Nb heure']"
       :types="missions.types[1]"
-  ></AccordionIndicateurMissionComponent>
+  ></AccordionIndicateurMissionComponent>-->
 </div>
 </template>
 

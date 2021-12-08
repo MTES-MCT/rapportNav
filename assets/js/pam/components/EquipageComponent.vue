@@ -4,13 +4,13 @@
       <div class="members-list">
         <div class="member-group" v-for="(member, index) in membres" >
           <div class="equipName">
-            {{ member.name }}
+            {{ member.nom }}
             <span class="equipRole">{{ member.role }}</span>
           </div>
           <div class=" tooltip">
             <span class="ri-more-fill more-option-icon "></span>
             <div class="tooltipMember fr-px-2w fr-py-2w">
-              <input class="fr-input" type="text" id="memberName"  v-bind:value="member.name" disabled>
+              <input class="fr-input" type="text" id="memberName"  v-bind:value="member.nom" disabled>
 
               <select class="fr-select fr-mt-3v" id="select"  v-model="member.role">
                 <option value="Agent de pont">Agent de pont</option>
@@ -122,7 +122,7 @@ export default {
       let noExist = true;
       if(value.length > 2) {
         this.suggestionsList.filter(element => {
-          if(element.name.indexOf(value) === 0) {
+          if(element.nom.indexOf(value) === 0) {
             noExist = false;
           }
         });
@@ -145,23 +145,23 @@ export default {
     return {
       suggestionsList: [
         {
-          name: 'Alain Colas',
+          nom: 'Alain Colas',
           role: 'Agent de pont',
           observations: ''
         },
         {
-          name: 'Francis Joyon',
+          nom: 'Francis Joyon',
           role: 'Agent de pont',
           observations: ''
         },
         {
-          name: 'Christophe Augin',
+          nom: 'Christophe Augin',
           role: 'Agent de pont',
           observations: ''
         }
       ],
       newMember: {
-        name: '',
+        nom: '',
         role: '',
         observations: ''
       }

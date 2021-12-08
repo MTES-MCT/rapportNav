@@ -110,7 +110,10 @@ export default {
     InputNumberComponent
   },
   props: {
-    nb_jours_mer: Number,
+    nb_jours_mer: {
+      type: Number,
+      default: () => {return 10}
+    },
     nav_eff: Number,
     mouillage: Number,
     maintenance: Number,
@@ -120,7 +123,10 @@ export default {
     autre: Number,
     contr_port: Number,
     technique: Number,
-    personnel: Number,
+    personnel: {
+      type: Number,
+      default: () => { return 0 }
+    },
     distance: Number,
     go_marine: Number,
     essence: Number

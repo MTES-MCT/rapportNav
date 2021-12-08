@@ -40,46 +40,55 @@
         <TdEditable
             v-if="cols[0].enabled"
             v-model="controle.nb_navire_controle"
+            :value="controle.nb_navire_controle"
         >
         </TdEditable>
         <TdEditable
-            v-if="cols[1].enabled"
-            v-model="controle.pv_peche_sanitaire"
+            v-if="cols[1].enabled || controle.nb_pv_peche_sanitaire > 0"
+            v-model="controle.nb_pv_peche_sanitaire"
+            :value="controle.nb_pv_peche_sanitaire"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[2].enabled"
-            v-model="controle.pv_equipement_securite"
+            v-model="controle.nb_pv_equipement_securite"
+            :value="controle.nb_pv_equipement_securite"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[3].enabled"
-            v-model="controle.pv_titre_nav"
+            v-model="controle.nb_pv_titre_nav"
+            :value="controle.nb_pv_titre_nav"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[4].enabled"
-            v-model="controle.pv_police_nav"
+            v-model="controle.nb_pv_police_nav"
+            :value="controle.nb_pv_police_nav"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[5].enabled"
-            v-model="controle.pv_env_pollution"
+            v-model="controle.nb_pv_env_pollution"
+            :value="controle.nb_pv_env_pollution"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[6].enabled"
-            v-model="controle.autre_pv"
+            v-model="controle.nb_autre_pv"
+            :value="controle.nb_autre_pv"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[7].enabled"
             v-model="controle.nb_nav_deroute"
+            :value="controle.nb_nav_deroute"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[8].enabled"
             v-model="controle.nb_nav_interroge"
+            :value="controle.nb_nav_interroge"
         >
         </TdEditable>
         <td class="td-add-column td-table-controle"></td>
@@ -101,6 +110,7 @@
 
 <script>
 import TdEditable from "./TdEditable";
+import {forEach} from "../../../../../public/build/vendors-node_modules_axios_index_js";
 export default {
   name: "TableControleComponent",
   components: {
@@ -117,7 +127,35 @@ export default {
     }
   },
   mounted() {
-
+    this.type.pavillons.forEach((pavillon, index) => {
+      if(pavillon.nb_navire_controle) {
+        this.cols[0].enabled = true
+      }
+      if(pavillon.nb_pv_peche_sanitaire) {
+        this.cols[1].enabled = true;
+      }
+      if(pavillon.nb_pv_equipement_securite) {
+        this.cols[2].enabled = true
+      }
+      if(pavillon.nb_pv_titre_nav) {
+        this.cols[3].enabled = true
+      }
+      if(pavillon.nb_pv_police_nav) {
+        this.cols[4].enabled = true
+      }
+      if(pavillon.nb_pv_env_pollution) {
+        this.cols[5].enabled = true
+      }
+      if(pavillon.nb_autre_pv) {
+        this.cols[6].enabled = true
+      }
+      if(pavillon.nb_nav_deroute) {
+        this.cols[7].enabled = true
+      }
+      if(pavillon.nb_nav_interroge) {
+        this.cols[8].enabled = true
+      }
+    })
   },
   methods: {
     addPav(event) {
@@ -125,12 +163,12 @@ export default {
         type: this.id,
         pavillon: 'FR',
         nb_navire_controle: null,
-        pv_peche_sanitaire: null,
-        pv_equipement_securite: null,
-        pv_titre_nav: null,
-        pv_police_nav: null,
-        pv_env_pollution: null,
-        autre_pv: null,
+        nb_pv_peche_sanitaire: null,
+        nb_pv_equipement_securite: null,
+        nb_pv_titre_nav: null,
+        nb_pv_police_nav: null,
+        nb_pv_env_pollution: null,
+        nb_autre_pv: null,
         nb_nav_deroute: null,
         nb_nav_interroge: null
       };
@@ -142,7 +180,7 @@ export default {
       cols: [
         {
           title: 'Nb de navires controlé',
-          enabled: true
+          enabled: false
         },
         {
           title: 'Pêches sanitaire',

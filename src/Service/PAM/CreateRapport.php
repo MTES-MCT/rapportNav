@@ -3,6 +3,7 @@
 namespace App\Service\PAM;
 
 use App\Entity\PAM\PamControleType;
+use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamEquipage;
 use App\Entity\PAM\PamIndicateurType;
 use App\Entity\PAM\PamMembre;
@@ -41,6 +42,29 @@ class CreateRapport {
         $this->em->persist($rapport);
         $this->em->flush();
         return $rapport;
+    }
+
+    /**
+     * @param string $json
+     *
+     * @return void
+     */
+    public function saveDraft(string $json)
+    {
+        $draft = new PamDraft();
+        $draft->setBody($json);
+        $this->em->persist($draft);
+        $this->em->flush();
+
+    }
+
+    public function showDraftById(int $id)
+    {
+        $draft = $this->em->getRepository(PamDraft::class)->find($id);
+        if(!$draft) {
+            throw new NotFoundHttpException('Brouillon non trouvé');
+        }
+        return $draft;
     }
 
     /**

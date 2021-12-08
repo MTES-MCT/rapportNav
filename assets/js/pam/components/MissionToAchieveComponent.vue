@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     getData() {
-      this.$emit('input', this.missions)
+      this.$emit('get-check-mission', this.missions)
     }
   }
 }

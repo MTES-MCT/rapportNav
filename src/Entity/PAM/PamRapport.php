@@ -161,6 +161,11 @@ class PamRapport
      */
     private $checkMissions;
 
+    /**
+     * @ORM\OneToOne(targetEntity=PamDraft::class, mappedBy="rapport", cascade={"persist", "remove"})
+     */
+    private $draft;
+
     public function __construct()
     {
         $this->controles = new ArrayCollection();
@@ -507,6 +512,28 @@ class PamRapport
                 $checkMission->setRapport(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDraft(): ?PamDraft
+    {
+        return $this->draft;
+    }
+
+    public function setDraft(?PamDraft $draft): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($draft === null && $this->draft !== null) {
+            $this->draft->setRapport(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($draft !== null && $draft->getRapport() !== $this) {
+            $draft->setRapport($this);
+        }
+
+        $this->draft = $draft;
 
         return $this;
     }

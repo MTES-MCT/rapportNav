@@ -79,6 +79,7 @@
                         aria-controls="modal-870"
                         aria-haspopup="draft"
                         title="Enregistrer"
+                        @click="drafted"
                     >
                       Enregistrer
                     </button>
@@ -160,6 +161,9 @@
     methods: {
       submitted() {
         this.$emit('submitted');
+      },
+      drafted() {
+        this.$emit('drafted')
       }
     }
   };

@@ -62,8 +62,7 @@ export default {
     }
   },
   beforeMount() {
-
-   this.cols.forEach((col) => {
+  /* this.cols.forEach((col) => {
      const mission = {
        type: col,
        principale: null,
@@ -72,7 +71,7 @@ export default {
        observations: null
      };
      this.types.push(mission)
-   })
+   })*/
   }
 }
 </script>

@@ -16,7 +16,7 @@
                     <div class="fr-grid-row">
                       <div class="fr-col-11">
                         <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + type.id">
-                         {{type.title}}
+                         {{type.label}}
                         </button>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
@@ -49,11 +49,30 @@ import ModalAddControle from "../ModalAddControle";
 export default {
   name: "RapportAccordionComponent",
   components: { TableControleComponent, TableIndicateurComponent, ModalAddControle },
+  mounted() {
+  },
   props: {
     types: {
       type: Array,
-      default: null
-    }
+      default: () => {
+        return  [{
+            title: 'Contrôle en mer de navires de pêche professionnelle',
+            id: 4000,
+            pavillons: [{
+              pavillon: 'FR',
+              nb_navire_controle: null,
+              pv_peche_sanitaire: null,
+              pv_equipement_securite: null,
+              pv_titre_nav: null,
+              pv_police_nav: null,
+              pv_env_pollution: null,
+              autre_pv: null,
+              nb_nav_deroute: null,
+              nb_nav_interroge: null
+            }]
+          }]
+        },
+      }
   },
   data: function() {
     return {
