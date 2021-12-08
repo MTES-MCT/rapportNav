@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="fr-col-lg-5 fr-col-md-4 fr-pl-4v">
-      <input class="fr-input" type="text" placeholder="Ajouter des membres" v-model="newMember.name"
+      <input class="fr-input" type="text" placeholder="Ajouter des membres" v-model="newMember.nom"
              @keyup="createNewMember($event.target.value)"
              @click.stop="showSugestionList"
       >
@@ -51,7 +51,7 @@
             <div class="fr-grid-row suggestionsList" v-for="(suggestion, index) in suggestionsList">
               <div class="fr-col-7">
                 <div class="text-14 text-left">
-                  {{ suggestion.name }}
+                  {{ suggestion.nom }}
                   <span class="equipRole">{{suggestion.role}}</span>
                 </div>
               </div>
