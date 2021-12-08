@@ -1,5 +1,5 @@
 <template>
-  <div class="table-custom">
+  <div class="table-custom" @keyup="getData">
     <table class="table-controle">
       <thead class="thead-controle">
       <th :class="'th-table-controle-' + id">Pavillon</th>
@@ -30,47 +30,47 @@
       </thead>
 
       <tbody :class="'tbody-controle-' + id">
-      <tr class="tr-table" v-for="(controle, index) in type.pavillons">
+      <tr class="tr-table" v-for="(pavillon, index) in pavillons">
         <td class="td-pavillon td-table-controle">
-          <select name="pavillon" id="pavillon-select" v-model="controle.pavillon">
+          <select name="pavillon" id="pavillon-select" v-model="pavillon.pavillon">
             <option value="FR">FR</option>
             <option value="US">US</option>
           </select>
         </td>
         <TdEditable
             v-if="cols[0].enabled"
-            v-model="controle.nb_navire_controle"
-            :value="controle.nb_navire_controle"
+            v-model="pavillon.nb_navire_controle"
+            :value="pavillon.nb_navire_controle"
         >
         </TdEditable>
         <TdEditable
-            v-if="cols[1].enabled || controle.nb_pv_peche_sanitaire > 0"
-            v-model="controle.nb_pv_peche_sanitaire"
-            :value="controle.nb_pv_peche_sanitaire"
+            v-if="cols[1].enabled || pavillon.nb_pv_peche_sanitaire > 0"
+            v-model="pavillon.nb_pv_peche_sanitaire"
+            :value="pavillon.nb_pv_peche_sanitaire"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[2].enabled"
-            v-model="controle.nb_pv_equipement_securite"
-            :value="controle.nb_pv_equipement_securite"
+            v-model="pavillon.nb_pv_equipement_securite"
+            :value="pavillon.nb_pv_equipement_securite"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[3].enabled"
-            v-model="controle.nb_pv_titre_nav"
-            :value="controle.nb_pv_titre_nav"
+            v-model="pavillon.nb_pv_titre_nav"
+            :value="pavillon.nb_pv_titre_nav"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[4].enabled"
-            v-model="controle.nb_pv_police_nav"
-            :value="controle.nb_pv_police_nav"
+            v-model="pavillon.nb_pv_police_nav"
+            :value="pavillon.nb_pv_police_nav"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[5].enabled"
-            v-model="controle.nb_pv_env_pollution"
-            :value="controle.nb_pv_env_pollution"
+            v-model="pavillon.nb_pv_env_pollution"
+            :value="pavillon.nb_pv_env_pollution"
         >
         </TdEditable>
         <TdEditable
@@ -121,13 +121,13 @@ export default {
       type: Number,
       default: null
     },
-    type: {
-      type: Object,
+    pavillons: {
+      type: Array,
       default: null
     }
   },
   mounted() {
-    this.type.pavillons.forEach((pavillon, index) => {
+    this.pavillons.forEach((pavillon, index) => {
       if(pavillon.nb_navire_controle) {
         this.cols[0].enabled = true
       }
@@ -160,7 +160,10 @@ export default {
   methods: {
     addPav(event) {
       const newPav = {
-        type: this.id,
+        type: {
+          id: this.pavillons[0].type.id,
+          label: this.pavillons[0].type.label
+        },
         pavillon: 'FR',
         nb_navire_controle: null,
         nb_pv_peche_sanitaire: null,
@@ -172,7 +175,10 @@ export default {
         nb_nav_deroute: null,
         nb_nav_interroge: null
       };
-      this.type.pavillons.push(newPav);
+      this.pavillons.push(newPav);
+    },
+    getData() {
+      this.$emit('get-controles', this.pavillons)
     }
   },
   data: function() {
@@ -180,11 +186,11 @@ export default {
       cols: [
         {
           title: 'Nb de navires controlé',
-          enabled: false
+          enabled: true
         },
         {
           title: 'Pêches sanitaire',
-          enabled: false
+          enabled: true
         },
         {
           title: 'PV équipement sécu. permis de nav.',

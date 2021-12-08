@@ -42,7 +42,8 @@
 
             <!-- Contrôles opérationnel -->
             <RapportAccordionComponent
-                :types="rapport.controles.types"
+                :controles="rapport.controles"
+                @get-controles="getControles"
             >
             </RapportAccordionComponent>
 
@@ -98,7 +99,7 @@ export default {
     date: Object
   },
   mounted() {
-   // this.activeResponsive();
+  //  this.activeResponsive();
     //$(window).resize(this.activeResponsive);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -158,6 +159,9 @@ export default {
       this.maintenance = info.maintenance;
       this.rapport.contr_port = info.contr_port;
       this.mouillage = info.mouillage
+    },
+    getControles(controles) {
+      this.rapport.controles = controles;
     }
   },
   data() {

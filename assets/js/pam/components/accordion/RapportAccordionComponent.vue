@@ -8,15 +8,15 @@
       </div>
       <div class="box-dropdown fr-mt-2w">
         <ul class="fr-accordions-group" >
-          <li v-for="(type, index) in types">
-            <div class="box-shadow-card" :id="type.id">
+          <li v-for="(controle, index) in controlesByType">
+            <div class="box-shadow-card" :id="controle.id">
               <section class="fr-accordion box-shadow-card-body">
                 <div class="fr-accordion__title ">
                   <div class="fr-container--fluid">
                     <div class="fr-grid-row">
                       <div class="fr-col-11">
-                        <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + type.id">
-                         {{type.label}}
+                        <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + controle.id">
+                         {{controle.label}}
                         </button>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
@@ -25,11 +25,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="fr-collapse" :id="'accordion-' + type.id ">
+                <div class="fr-collapse" :id="'accordion-' + controle.id ">
                   <div class="divider-horizontal--accordion"></div>
                   <TableControleComponent
-                      :id="type.id"
-                      :type="type"
+                      :id="controle.id"
+                      :pavillons="controle.pavillons"
+                      @get-controles="getPav"
                   >
                   </TableControleComponent>
                 </div>
@@ -49,64 +50,93 @@ import ModalAddControle from "../ModalAddControle";
 export default {
   name: "RapportAccordionComponent",
   components: { TableControleComponent, TableIndicateurComponent, ModalAddControle },
-  mounted() {
-  },
   props: {
-    types: {
+    controles: {
       type: Array,
       default: () => {
-        return  [{
-            title: 'Contrôle en mer de navires de pêche professionnelle',
-            id: 4000,
-            pavillons: [{
-              pavillon: 'FR',
-              nb_navire_controle: null,
-              pv_peche_sanitaire: null,
-              pv_equipement_securite: null,
-              pv_titre_nav: null,
-              pv_police_nav: null,
-              pv_env_pollution: null,
-              autre_pv: null,
-              nb_nav_deroute: null,
-              nb_nav_interroge: null
-            }]
-          }]
+        return  []
         },
       }
+  },
+  mounted() {
+    this.controles.forEach((controle, index) => {
+      if(controle.type.id === 1) {
+        this.controlesNavirePro.label = controle.type.label;
+        this.controlesNavirePro.pavillons.push(controle);
+      }
+      if(controle.type.id === 2) {
+        this.controlesNavirePlaisance.label = controle.type.label;
+        this.controlesNavirePlaisance.pavillons.push(controle)
+      }
+      if(controle.type.id === 3) {
+        this.controlesNavirePlaisanceLoisir.label = controle.type.label;
+        this.controlesNavirePlaisanceLoisir.pavillons.push(controle);
+      }
+    })
+    this.controlesByType.push(this.controlesNavirePro);
+    this.controlesByType.push(this.controlesNavirePlaisance);
+    this.controlesByType.push(this.controlesNavirePlaisanceLoisir)
   },
   data: function() {
     return {
       id: this._uid,
+      controlesNavirePro: {
+        id: 1,
+        pavillons: []
+      },
+      controlesNavirePlaisance: {
+        id: 2,
+        pavillons: []
+      },
+      controlesNavirePlaisanceLoisir: {
+        id: 3,
+        pavillons: []
+      },
+      controlesByType: [],
+      result: []
     }
   },
   methods: {
-    onClickModal(value, id) {
+    onClickModal(label, id) {
+      let controle = {
+        type: {
+          id: id,
+          label: label
+        },
+        pavillon: 'FR',
+        nb_navire_controle: null,
+        nb_pv_peche_sanitaire: null,
+        nb_pv_equipement_securite: null,
+        nb_pv_titre_nav: null,
+        nb_pv_police_nav: null,
+        nb_pv_env_pollution: null,
+        nb_autre_pv: null,
+        nb_nav_deroute: null,
+        nb_nav_interroge: null
+      }
       let newType = {
-        title: value,
         id: id,
-        pavillons: [
-          {
-            pavillon: 'FR',
-            nb_navire_controle: null,
-            pv_peche_sanitaire: null,
-            pv_equipement_securite: null,
-            pv_titre_nav: null,
-            pv_police_nav: null,
-            pv_env_pollution: null,
-            autre_pv: null,
-            nb_nav_deroute: null,
-            nb_nav_interroge: null
-          }
-        ]
-      };
-      this.types.push(newType);
+        label: label,
+        pavillons: []
+      }
+      newType.pavillons.push(controle);
+      this.controlesByType.push(newType);
     },
+    getPav(datas) {
+      this.result = this.controles
+      datas.forEach((data, index) => {
+        this.result.push(data);
+      })
+      this.result = this.result.filter(this.onlyUnique);
+      this.$emit('get-result', this.result)
+    },
+    onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+    },
+
     removeType(index) {
       this.types.splice(index, 1);
     },
-    getData() {
-
-    }
   }
 }
 </script>

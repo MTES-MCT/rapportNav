@@ -102,7 +102,7 @@ class CreateRapportRequest {
     private $equipage;
 
     /**
-     * @var ?ControleRequest
+     * @var ?ControleRequest[]
      */
     private $controles;
 
@@ -322,16 +322,16 @@ class CreateRapportRequest {
     }
 
     /**
-     * @return ControleRequest|null
+     * @return ControleRequest[]|null
      */
-    public function getControles(): ?ControleRequest {
+    public function getControles(): ?array {
         return $this->controles;
     }
 
     /**
-     * @param ControleRequest|null $controles
+     * @param ControleRequest[]|null $controles
      */
-    public function setControles(?ControleRequest $controles): void {
+    public function setControles(?array $controles): void {
         $this->controles = $controles;
     }
 

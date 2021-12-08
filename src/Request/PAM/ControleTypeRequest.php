@@ -10,9 +10,9 @@ class ControleTypeRequest {
     private $id;
 
     /**
-     * @var ?PavillonRequest[]
+     * @var string
      */
-    private $pavillons;
+    private $label;
 
     /**
      * @return int
@@ -28,20 +28,22 @@ class ControleTypeRequest {
         $this->id = $id;
     }
 
-
     /**
-     * @return PavillonRequest[]|null
+     * @return string
      */
-    public function getPavillons(): ?array {
-        return $this->pavillons;
+    public function getLabel(): string {
+        return $this->label;
     }
 
     /**
-     * @param PavillonRequest[]|null $pavillons
+     * @param string $label
      */
-    public function setPavillons(?array $pavillons): void {
-        $this->pavillons = $pavillons;
+    public function setLabel(string $label): void {
+        $this->label = $label;
     }
+
+
+
 
 
 
