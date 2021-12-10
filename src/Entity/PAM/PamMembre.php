@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PamMembre
 {
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -19,19 +19,19 @@ class PamMembre
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="string", length=124)
      */
     private $role;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observations;
@@ -42,7 +42,7 @@ class PamMembre
         return $this->id;
     }
 
-    public function setId(int $id)
+    public function setId(?int $id)
     {
         $this->id = $id;
     }

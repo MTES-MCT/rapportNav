@@ -20,25 +20,25 @@ class PamIndicateur
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $principale;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $secondaire;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $total;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observations;
@@ -50,7 +50,7 @@ class PamIndicateur
     private $mission;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\ManyToOne(targetEntity=PamIndicateurType::class)
      * @ORM\JoinColumn(nullable=false)
      */

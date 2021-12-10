@@ -32,6 +32,10 @@ class CreateRapport {
      */
     public function persistAndFlush(PamRapport $rapport) : PamRapport
     {
+      /*  $rapport->setStartDate(new \DateTimeImmutable());
+        $rapport->setEndDate(new \DateTimeImmutable());
+        $rapport->setEndTime(new \DateTimeImmutable());
+        $rapport->setStartTime(new \DateTimeImmutable());*/
         $this->setType($rapport->getControles(), PamControleType::class);
         $this->setType($rapport->getMissions(), PamMissionType::class);
         foreach($rapport->getMissions() as $mission) {
@@ -49,22 +53,46 @@ class CreateRapport {
      *
      * @return void
      */
-    public function saveDraft(string $json)
+    public function saveDraft(string $json, int $id = null)
     {
+
         $draft = new PamDraft();
+        if($id) {
+            $draft = $this->showDraftById($id);
+        }
         $draft->setBody($json);
         $this->em->persist($draft);
         $this->em->flush();
 
     }
 
-    public function showDraftById(int $id)
+    /**
+     * @param int $id
+     *
+     * @return PamDraft
+     */
+    public function showDraftById(int $id) : PamDraft
     {
         $draft = $this->em->getRepository(PamDraft::class)->find($id);
         if(!$draft) {
             throw new NotFoundHttpException('Brouillon non trouvé');
         }
         return $draft;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return PamRapport
+     */
+    public function showRapportById(int $id) : PamRapport
+    {
+
+        $rapport = $this->em->getRepository(PamRapport::class)->find($id);
+        if(!$rapport) {
+            throw new NotFoundHttpException('Rapport non trouvé');
+        }
+        return $rapport;
     }
 
     /**

@@ -1,6 +1,11 @@
 <template>
   <div v-if="rapport">
-    <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft"></HeaderComponent>
+    <HeaderComponent draft name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="drafted">
+    </HeaderComponent>
+    <HeaderComponent saved name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="saved">
+    </HeaderComponent>
+    <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
+    </HeaderComponent>
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
         <div class="fr-col-lg-2 fr-col-md-2 fr-col-sm-12 sidebar-left-menu">
@@ -23,6 +28,7 @@
 
             <!-- Activité du navire -->
             <ShipActivityCardComponent
+                :rapport="rapport"
                 @get-activite="setActivite"
                 :nb_jours_mer="rapport.nb_jours_mer"
                 :administratif="rapport.administratif"
@@ -99,16 +105,35 @@ export default {
     date: Object
   },
   mounted() {
-  //  this.activeResponsive();
-    //$(window).resize(this.activeResponsive);
+    this.activeResponsive();
+    $(window).resize(this.activeResponsive);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id')
-    axios.get('/api/pam/rapport/draft/' + id)
-    .then((response) => {
-      this.$data.rapport = JSON.parse(response.data.body);
-      console.log(JSON.parse(response.data.body))
-    })
+    const draft = urlParams.get('draft')
+    if(id && draft) {
+      axios.get('/api/pam/rapport/draft/' + id)
+          .then((response) => {
+            this.$data.rapport = JSON.parse(response.data.body);
+            this.drafted = true;
+            this.idDraft = id;
+            console.log(JSON.parse(response.data.body))
+          })
+    }
+    else if (id) {
+      axios.get('/api/pam/rapport/show/' + id)
+          .then((response) => {
+            this.rapport = response.data;
+            this.rapport.start_date = this.formatDate(this.rapport.start_date);
+            this.rapport.end_date = this.formatDate(this.rapport.end_date);
+            this.rapport.start_time = this.formatTime(this.rapport.start_time);
+            this.rapport.end_time = this.formatTime(this.rapport.end_time);
+            this.saved = true;
+          })
+    } else {
+      this.rapport = require('../dist/create-rapport.json')
+    }
+
   },
   methods: {
     displayHistory() {
@@ -122,11 +147,8 @@ export default {
       }
     },
     postForm() {
-      console.log(JSON.parse(JSON.stringify(this.$data)))
-    },
-    postFormDraft() {
       axios.post(
-          '/api/pam/rapport/draft',
+          '/api/pam/rapport',
           JSON.stringify(this.rapport),
           {
             headers: {
@@ -138,35 +160,67 @@ export default {
           (error) => console.log(error)
       )
     },
+    postFormDraft() {
+      let url = '/api/pam/rapport/draft';
+      if(this.drafted) {
+        url = url + '?id=' + this.idDraft;
+      }
+      axios.post(
+          url,
+          JSON.stringify(this.rapport),
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+      ).then(
+          (response) => console.log(response),
+          (error) => console.log(error)
+      )
+
+    },
     setDates(date) {
-      this.start_date = date.startDate;
-      this.end_date = date.endDate;
-      this.end_time = date.endTime;
-      this.start_time = date.startTime;
-      this.checkMissions = date.checkMissions;
+      this.rapport.start_date = date.startDate;
+      this.rapport.end_date = date.endDate;
+      this.rapport.end_time = date.endTime;
+      this.rapport.start_time = date.startTime;
+      this.rapport.checkMissions = date.checkMissions;
     },
     setActivite(info) {
-      this.nb_jours_mer = info.nb_jours_mer;
-      this.essence = info.essence;
-      this.technique = info.technique;
-      this.administratif = info.administratif;
-      this.go_marine = info.go_marine;
-      this.personnel = info.personnel;
-      this.meteo = info.meteo;
-      this.nav_eff = info.nav_eff;
-      this.distance = info.distance;
-      this.autre = info.autre;
-      this.maintenance = info.maintenance;
+      this.rapport.nb_jours_mer = info.nb_jours_mer;
+      this.rapport.essence = info.essence;
+      this.rapport.technique = info.technique;
+      this.rapport.administratif = info.administratif;
+      this.rapport.go_marine = info.go_marine;
+      this.rapport.personnel = info.personnel;
+      this.rapport.meteo = info.meteo;
+      this.rapport.nav_eff = info.nav_eff;
+      this.rapport.distance = info.distance;
+      this.rapport.autre = info.autre;
+      this.rapport.maintenance = info.maintenance;
       this.rapport.contr_port = info.contr_port;
-      this.mouillage = info.mouillage
+      this.rapport.mouillage = info.mouillage
     },
     getControles(controles) {
       this.rapport.controles = controles;
+    },
+    formatDate(date) {
+      let formatDate = new Date(date);
+      formatDate = new Date(formatDate.getTime() - (formatDate.getTimezoneOffset()*60*1000))
+      formatDate = formatDate.toISOString().split('T')[0];
+      return formatDate;
+    },
+    formatTime(date) {
+      let formatDate = new Date(date);
+      return formatDate.getHours() + ':' + formatDate.getMinutes();
     }
   },
   data() {
     return {
-      rapport: null
+      rapport: null,
+      drafted: null,
+      saved: null,
+      idDraft: null
     }
   }
 };

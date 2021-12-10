@@ -22,7 +22,7 @@ class PamMission
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\OneToMany(targetEntity=PamIndicateur::class, mappedBy="mission", orphanRemoval=true, cascade={"persist"})
      */
     private $indicateurs;
@@ -34,11 +34,24 @@ class PamMission
     private $rapport;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\ManyToOne(targetEntity=PamMissionType::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
+
+
+    /**
+     * @Groups({"view", "draft"})
+     * @ORM\Column(type="boolean")
+     */
+    private $checked = false;
+
+    /**
+     * @Groups({"view", "draft"})
+     * @ORM\Column(type="boolean")
+     */
+    private $is_main = false;
 
     public function __construct()
     {
@@ -102,5 +115,33 @@ class PamMission
         $this->type = $type;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isChecked(): bool {
+        return $this->checked;
+    }
+
+    /**
+     * @param bool $checked
+     */
+    public function setChecked(bool $checked): void {
+        $this->checked = $checked;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIsMain(): bool {
+        return $this->is_main;
+    }
+
+    /**
+     * @param bool $is_main
+     */
+    public function setIsMain(bool $is_main): void {
+        $this->is_main = $is_main;
     }
 }

@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PamMissionType
 {
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -22,7 +22,7 @@ class PamMissionType
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="string", length=255)
      */
     private $label;

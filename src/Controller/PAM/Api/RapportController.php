@@ -3,11 +3,11 @@
 namespace App\Controller\PAM\Api;
 
 use App\Entity\PAM\PamRapport;
-use App\Request\PAM\CreateRapportRequest;
 use App\Service\PAM\CreateRapport;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -48,17 +48,23 @@ class RapportController {
 
     /**
      * @Rest\Post("/draft")
-     * @ParamConverter("request", converter="fos_rest.request_body")
-     * @param CreateRapportRequest $request
-     * @param SerializerInterface  $serializer
+     * @Rest\View(serializerGroups={"view"})
+     * @ParamConverter("rapport", converter="fos_rest.request_body")
+     * @param PamRapport          $rapport
+     * @param Request             $request
+     * @param SerializerInterface $serializer
      *
      * @return View
      */
-    public function draft(CreateRapportRequest $request, SerializerInterface $serializer) : View
+    public function draft(PamRapport $rapport, Request $request, SerializerInterface $serializer) : View
     {
         try {
-            $body = $serializer->serialize($request, 'json');
-            $this->createRapportService->saveDraft($body);
+            $body = $serializer->serialize($rapport, 'json', ['groups' => 'draft']);
+            $id = null;
+            if($request->query->get('id')) {
+                $id = $request->query->get('id');
+            }
+            $this->createRapportService->saveDraft($body, $id);
             return View::create('Success', Response::HTTP_OK);
         } catch(BadRequestHttpException $exception) {
             return View::create($exception->getStatusCode(), Response::HTTP_BAD_REQUEST);
@@ -77,6 +83,24 @@ class RapportController {
         try {
             $draft = $this->createRapportService->showDraftById($id);
             return View::create($draft, Response::HTTP_OK);
+        }
+        catch(NotFoundHttpException $exception) {
+            return View::create($exception->getMessage(), Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    /**
+     * @Rest\Get("/show/{id}")
+     * @Rest\View(serializerGroups={"view"})
+     * @param int $id
+     *
+     * @return View
+     */
+    public function show(int $id) : View
+    {
+        try {
+            $rapport = $this->createRapportService->showRapportById($id);
+            return View::create($rapport, Response::HTTP_OK);
         }
         catch(NotFoundHttpException $exception) {
             return View::create($exception->getMessage(), Response::HTTP_NOT_FOUND);

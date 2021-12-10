@@ -145,16 +145,19 @@ export default {
     return {
       suggestionsList: [
         {
+          id: 45,
           nom: 'Alain Colas',
           role: 'Agent de pont',
           observations: ''
         },
         {
+          id: 46,
           nom: 'Francis Joyon',
           role: 'Agent de pont',
           observations: ''
         },
         {
+          id: 47,
           nom: 'Christophe Augin',
           role: 'Agent de pont',
           observations: ''

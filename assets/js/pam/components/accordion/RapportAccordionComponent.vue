@@ -16,7 +16,7 @@
                     <div class="fr-grid-row">
                       <div class="fr-col-11">
                         <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + controle.id">
-                         {{controle.label}}
+                         {{ controle.label }}
                         </button>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
@@ -73,9 +73,21 @@ export default {
         this.controlesNavirePlaisanceLoisir.pavillons.push(controle);
       }
     })
-    this.controlesByType.push(this.controlesNavirePro);
-    this.controlesByType.push(this.controlesNavirePlaisance);
-    this.controlesByType.push(this.controlesNavirePlaisanceLoisir)
+    if(this.controlesNavirePro.pavillons.length > 0) {
+      this.controlesByType.push(this.controlesNavirePro);
+    }
+
+    if(this.controlesNavirePlaisance.pavillons.length > 0) {
+      this.controlesByType.push(this.controlesNavirePlaisance);
+    }
+
+    if(this.controlesNavirePlaisanceLoisir.pavillons.length > 0) {
+      this.controlesByType.push(this.controlesNavirePlaisanceLoisir)
+    }
+
+    //this.controlesByType.push(this.controlesNavirePlaisance);
+   //
+    console.log(this.controlesByType)
   },
   data: function() {
     return {
@@ -128,7 +140,7 @@ export default {
         this.result.push(data);
       })
       this.result = this.result.filter(this.onlyUnique);
-      this.$emit('get-result', this.result)
+      this.$emit('get-controles', this.result)
     },
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;

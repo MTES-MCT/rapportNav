@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PamControleType
 {
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -22,7 +22,7 @@ class PamControleType
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="string", length=124)
      */
     private $label;

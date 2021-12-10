@@ -1,0 +1,63 @@
+{
+  "start_date": null,
+  "start_time": null,
+  "end_date": null,
+  "end_time": null,
+  "nb_jours_mer": null,
+  "nav_eff": null,
+  "mouillage": null,
+  "maintenance": null,
+  "meteo": null,
+  "representation": null,
+  "autre": null,
+  "contr_port": null,
+  "technique": null,
+  "distance": null,
+  "go_marine": null,
+  "essence": null,
+  "equipage": {
+    "membres": []
+  },
+  "controles": [
+    {
+      "type": {
+        "label": "Controle navire de peche pro",
+        "id": 1
+      },
+      "nb_navire_controle": null,
+      "nb_pv_peche_sanitaire": null,
+      "pavillon": "FR"
+    },
+    {
+      "type": {
+        "label": "Controle navire plaisance",
+        "id": 2
+      },
+      "nb_navire_controle": null,
+      "nb_pv_peche_sanitaire": null,
+      "pavillon": "FR"
+    }
+  ],
+  "missions": [
+    {
+      "checked": true,
+      "is_main": false,
+      "type": {
+        "id": 1,
+        "label": "Test de mon label mission index 0"
+      },
+      "indicateurs": [
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "type": {
+            "id": 1,
+            "label": "Nombre d'heure de mission"
+          }
+        }
+      ]
+    }
+  ]
+}

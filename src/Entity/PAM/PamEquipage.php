@@ -39,7 +39,8 @@ class PamEquipage
     private $rapport;
 
     /**
-     * @ORM\ManyToMany(targetEntity=PamMembre::class)
+     * @Groups({"view", "draft"})
+     * @ORM\ManyToMany(targetEntity=PamMembre::class, cascade={"persist"})
      */
     private $membres;
 

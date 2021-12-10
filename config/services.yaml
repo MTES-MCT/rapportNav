@@ -185,8 +185,3 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: rapport, label: Natinf }
         public: true
-
-    Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer:
-        public: true
-        arguments: ['@serializer.mapping.class_metadata_factory', '@serializer.name_converter.camel_case_to_snake_case']
-        tags: [serializer.normalizer]

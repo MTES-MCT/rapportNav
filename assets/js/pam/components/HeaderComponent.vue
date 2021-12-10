@@ -80,6 +80,7 @@
                         aria-haspopup="draft"
                         title="Enregistrer"
                         @click="drafted"
+                        :disabled="saved"
                     >
                       Enregistrer
                     </button>
@@ -156,6 +157,14 @@
       numReport: {
         type: String,
         default: null
+      },
+      draft: {
+        type: Boolean,
+        default: () => { return false }
+      },
+      saved: {
+        type: Boolean,
+        default: () => { return false }
       }
     },
     methods: {

@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PamIndicateurType
 {
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -20,7 +20,7 @@ class PamIndicateurType
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="string", length=124)
      */
     private $label;

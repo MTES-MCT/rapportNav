@@ -35,122 +35,122 @@ class PamRapport
     private $updated_at;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer")
      */
     private $nb_jours_mer;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nav_eff;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $mouillage;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $maintenance;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $meteo;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $representation;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $administratif;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $autre;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $contr_port;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer")
      */
     private $technique;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $distance;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $go_marine;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $essence;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\OneToOne(targetEntity=PamEquipage::class, inversedBy="rapport", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipage;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\OneToMany(targetEntity=PamControle::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $controles;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\OneToMany(targetEntity=PamMission::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist"})
      */
     private $missions;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="date")
      */
     private $start_date;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="date")
      */
     private $end_date;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="time")
      */
     private $start_time;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="time")
      */
     private $end_time;
@@ -161,10 +161,6 @@ class PamRapport
      */
     private $checkMissions;
 
-    /**
-     * @ORM\OneToOne(targetEntity=PamDraft::class, mappedBy="rapport", cascade={"persist", "remove"})
-     */
-    private $draft;
 
     public function __construct()
     {
@@ -207,7 +203,7 @@ class PamRapport
         return $this->nb_jours_mer;
     }
 
-    public function setNbJoursMer(int $nb_jours_mer): self
+    public function setNbJoursMer(?int $nb_jours_mer): self
     {
         $this->nb_jours_mer = $nb_jours_mer;
 
@@ -315,7 +311,7 @@ class PamRapport
         return $this->technique;
     }
 
-    public function setTechnique(int $technique): self
+    public function setTechnique(?int $technique): self
     {
         $this->technique = $technique;
 
@@ -438,24 +434,24 @@ class PamRapport
         return $this;
     }
 
-    public function getStartDate(): ?\DateTimeInterface
+    public function getStartDate()
     {
         return $this->start_date;
     }
 
-    public function setStartDate(\DateTimeInterface $start_date): self
+    public function setStartDate($start_date): self
     {
         $this->start_date = $start_date;
 
         return $this;
     }
 
-    public function getEndDate(): ?\DateTimeInterface
+    public function getEndDate()
     {
         return $this->end_date;
     }
 
-    public function setEndDate(\DateTimeInterface $end_date): self
+    public function setEndDate( $end_date): self
     {
         $this->end_date = $end_date;
 
@@ -467,7 +463,7 @@ class PamRapport
         return $this->start_time;
     }
 
-    public function setStartTime(\DateTimeInterface $start_time): self
+    public function setStartTime(?\DateTimeInterface $start_time): self
     {
         $this->start_time = $start_time;
 
@@ -479,7 +475,7 @@ class PamRapport
         return $this->end_time;
     }
 
-    public function setEndTime(\DateTimeInterface $end_time): self
+    public function setEndTime(?\DateTimeInterface $end_time): self
     {
         $this->end_time = $end_time;
 
@@ -512,28 +508,6 @@ class PamRapport
                 $checkMission->setRapport(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getDraft(): ?PamDraft
-    {
-        return $this->draft;
-    }
-
-    public function setDraft(?PamDraft $draft): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($draft === null && $this->draft !== null) {
-            $this->draft->setRapport(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($draft !== null && $draft->getRapport() !== $this) {
-            $draft->setRapport($this);
-        }
-
-        $this->draft = $draft;
 
         return $this;
     }

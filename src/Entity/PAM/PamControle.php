@@ -20,61 +20,61 @@ class PamControle
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="string", length=8)
      */
     private $pavillon;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer")
      */
     private $nb_navire_controle;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer")
      */
     private $nb_pv_peche_sanitaire;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_equipement_securite;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_pv_titre_nav;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_pv_police;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_pv_env_pollution;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_autre_pv;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_nav_deroute;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_nav_interroge;
@@ -87,7 +87,7 @@ class PamControle
     private $rapport;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft"})
      * @ORM\ManyToOne(targetEntity=PamControleType::class, inversedBy="controles")
      * @ORM\JoinColumn(nullable=false)
      */
