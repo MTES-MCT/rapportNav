@@ -17,12 +17,12 @@ class MoyensFixture extends Fixture implements DependentFixtureInterface, Fixtur
     $moyen1->setNom('Fiacre')
         ->setServiceProprietaire($this->getReference('service'))
         ->setTerrestre(true)
-        ->setDateDebutService(new \DateTime('1830-01-01'))
+        ->setDateDebutService(new \DateTimeImmutable('1830-01-01'))
     ;
     $moyen2->setNom('Souverain')
         ->setServiceProprietaire($this->getReference('service'))
         ->setTerrestre(false)
-        ->setDateDebutService(new \DateTime('1819-01-01'))
+        ->setDateDebutService(new \DateTimeImmutable('1819-01-01'))
     ;
     ;
     $manager->persist($moyen1);
