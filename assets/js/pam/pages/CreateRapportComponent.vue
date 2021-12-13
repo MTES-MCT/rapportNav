@@ -87,6 +87,7 @@ import RapportAccordionComponent from "../components/accordion/RapportAccordionC
 import IndicateurMissionComponent from "../components/IndicateurMissionComponent";
 import ShipActivityCardComponent from "../components/card/ShipActivityCardComponent";
 import axios from 'axios';
+import { TYPE } from "vue-toastification";
 
 export default {
   name: "CreateRapportComponent",
@@ -118,16 +119,14 @@ export default {
             this.drafted = true;
             this.idDraft = id;
             console.log(JSON.parse(response.data.body))
+            this.formatAllDatesTimes();
           })
     }
     else if (id) {
       axios.get('/api/pam/rapport/show/' + id)
           .then((response) => {
             this.rapport = response.data;
-            this.rapport.start_date = this.formatDate(this.rapport.start_date);
-            this.rapport.end_date = this.formatDate(this.rapport.end_date);
-            this.rapport.start_time = this.formatTime(this.rapport.start_time);
-            this.rapport.end_time = this.formatTime(this.rapport.end_time);
+            this.formatAllDatesTimes();
             this.saved = true;
             this.idSave = id;
           })
@@ -161,8 +160,12 @@ export default {
             }
           }
       ).then(
-          (response) => console.log(response),
-          (error) => console.log(error)
+          (success) => {
+            this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+          },
+          (error) => {
+            this.showToast("Erreur", TYPE.ERROR, 'bottom-center')
+          }
       )
     },
     postFormDraft() {
@@ -179,7 +182,9 @@ export default {
             }
           }
       ).then(
-          (response) => console.log(response),
+          (success) => {
+            this.showToast("Le brouillon a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+          },
           (error) => console.log(error)
       )
 
@@ -218,6 +223,18 @@ export default {
     formatTime(date) {
       let formatDate = new Date(date);
       return formatDate.getHours() + ':' + formatDate.getMinutes();
+    },
+    formatAllDatesTimes() {
+      this.rapport.start_date = this.formatDate(this.rapport.start_date);
+      this.rapport.end_date = this.formatDate(this.rapport.end_date);
+      this.rapport.start_time = this.formatTime(this.rapport.start_time);
+      this.rapport.end_time = this.formatTime(this.rapport.end_time);
+    },
+    showToast(message, type, position) {
+      this.$toast(message, {
+        type: type,
+        position: position
+      })
     }
   },
   data() {

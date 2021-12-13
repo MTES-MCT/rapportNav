@@ -35,3 +35,4 @@ import '@gouvfr/dsfr/dist/component/modal/modal.module';
 import '../../../css/pam/table-controle.css';
 import '../../../css/pam/table-indicateur.css';
 import '../../../css/override/_grid_dsfr.css';
+import "vue-toastification/dist/index.css";

@@ -12,7 +12,7 @@ fos_rest:
 #            App\Exception\MyException: Forbidden area.
     format_listener:
         rules:
-            - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json, html ] }
+            - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json ] }
             -
     body_converter:
         enabled: true
