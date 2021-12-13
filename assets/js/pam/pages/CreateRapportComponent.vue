@@ -66,7 +66,7 @@
           <span class="fr-fi-arrow-left-s-line d-block" aria-hidden="true" ></span>
           <span class="ri-history-line d-block"></span>
         </div>
-        <div class="sidebar-right-history">
+        <div class="sidebar-right-history d-none">
           <SidebarHistoryRapportComponent></SidebarHistoryRapportComponent>
         </div>
 
