@@ -154,6 +154,11 @@ class PamRapport
      */
     private $end_time;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $number;
+
 
     public function __construct()
     {
@@ -470,6 +475,18 @@ class PamRapport
     public function setEndTime(?\DateTimeInterface $end_time): self
     {
         $this->end_time = $end_time;
+
+        return $this;
+    }
+
+    public function getNumber(): ?string
+    {
+        return $this->number;
+    }
+
+    public function setNumber(string $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

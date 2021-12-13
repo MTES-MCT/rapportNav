@@ -34,6 +34,11 @@ class PamDraft
      */
     private $updated_at;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $number;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,5 +90,17 @@ class PamDraft
     public function setCreatedAtValue()
     {
         $this->created_at = new \DateTimeImmutable();
+    }
+
+    public function getNumber(): ?string
+    {
+        return $this->number;
+    }
+
+    public function setNumber(string $number): self
+    {
+        $this->number = $number;
+
+        return $this;
     }
 }

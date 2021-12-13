@@ -65,10 +65,11 @@ class RapportController {
         try {
             $body = $serializer->serialize($rapport, 'json', ['groups' => 'draft']);
             $id = null;
+           $number = $rapport->getNumber();
             if($request->query->get('id')) {
                 $id = $request->query->get('id');
             }
-            $draft = $this->createRapportService->saveDraft($body, $id);
+            $draft = $this->createRapportService->saveDraft($body, $number, $id);
             $msg = 'Success id ' . $draft->getId();
             return View::create($msg, Response::HTTP_OK);
         } catch(BadRequestHttpException $exception) {
