@@ -40,3 +40,7 @@ yarn-error.log
 ### front ###
 assets/js/params.json
 /nbproject/private/
+
+### docker
+.docker
+docker-compose.yml
