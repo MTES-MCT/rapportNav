@@ -110,7 +110,6 @@
 
 <script>
 import TdEditable from "./TdEditable";
-import {forEach} from "../../../../../public/build/vendors-node_modules_axios_index_js";
 export default {
   name: "TableControleComponent",
   components: {
