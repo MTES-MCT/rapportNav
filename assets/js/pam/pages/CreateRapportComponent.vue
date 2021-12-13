@@ -129,6 +129,7 @@ export default {
             this.rapport.start_time = this.formatTime(this.rapport.start_time);
             this.rapport.end_time = this.formatTime(this.rapport.end_time);
             this.saved = true;
+            this.idSave = id;
           })
     } else {
       this.rapport = require('../dist/create-rapport.json')
@@ -147,8 +148,12 @@ export default {
       }
     },
     postForm() {
+      let url = '/api/pam/rapport';
+      if(this.saved) {
+        url = url + '?id=' + this.idSave;
+      }
       axios.post(
-          '/api/pam/rapport',
+          url,
           JSON.stringify(this.rapport),
           {
             headers: {
@@ -220,7 +225,8 @@ export default {
       rapport: null,
       drafted: null,
       saved: null,
-      idDraft: null
+      idDraft: null,
+      idSave: null
     }
   }
 };

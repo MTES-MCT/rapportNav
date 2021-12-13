@@ -30,7 +30,7 @@ class CreateRapport {
      *
      * @return PamRapport
      */
-    public function persistAndFlush(PamRapport $rapport) : PamRapport
+    public function persistAndFlush(PamRapport $rapport, $id = null) : PamRapport
     {
       /*  $rapport->setStartDate(new \DateTimeImmutable());
         $rapport->setEndDate(new \DateTimeImmutable());
@@ -53,7 +53,7 @@ class CreateRapport {
      *
      * @return void
      */
-    public function saveDraft(string $json, int $id = null)
+    public function saveDraft(string $json, int $id = null): PamDraft
     {
 
         $draft = new PamDraft();
@@ -63,6 +63,7 @@ class CreateRapport {
         $draft->setBody($json);
         $this->em->persist($draft);
         $this->em->flush();
+        return $draft;
 
     }
 

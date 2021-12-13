@@ -35,10 +35,14 @@ class RapportController {
      *
      * @return View
      */
-    public function save(PamRapport $rapport) : View
+    public function save(PamRapport $rapport, Request $request) : View
     {
         try {
-            $rapport = $this->createRapportService->persistAndFlush($rapport);
+            $id = null;
+            if($request->query->get('id')) {
+                $id = $request->query->get('id');
+            }
+            $rapport = $this->createRapportService->persistAndFlush($rapport, $id);
             return View::create($rapport, Response::HTTP_CREATED);
         }
         catch (NotFoundHttpException $exception) {
@@ -64,8 +68,9 @@ class RapportController {
             if($request->query->get('id')) {
                 $id = $request->query->get('id');
             }
-            $this->createRapportService->saveDraft($body, $id);
-            return View::create('Success', Response::HTTP_OK);
+            $draft = $this->createRapportService->saveDraft($body, $id);
+            $msg = 'Success id ' . $draft->getId();
+            return View::create($msg, Response::HTTP_OK);
         } catch(BadRequestHttpException $exception) {
             return View::create($exception->getStatusCode(), Response::HTTP_BAD_REQUEST);
         }
