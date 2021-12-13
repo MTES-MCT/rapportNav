@@ -61,8 +61,9 @@
         "symfony/debug-bundle": "^4.4",
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^5.0",
-        "symfony/profiler-pack": "^1.0.4",
+        "symfony/stopwatch": "^4.4",
         "symfony/var-dumper": "^4.4",
+        "symfony/web-profiler-bundle": "^4.4",
         "symfony/web-server-bundle": "4.4.*"
     },
     "config": {
