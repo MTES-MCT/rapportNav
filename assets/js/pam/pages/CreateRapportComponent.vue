@@ -118,6 +118,7 @@ export default {
             this.$data.rapport = JSON.parse(response.data.body);
             this.drafted = true;
             this.idDraft = id;
+            this.rapport.number = 'TEST'; // TODO define a way to generate number
             console.log(JSON.parse(response.data.body))
             this.formatAllDatesTimes();
           })
@@ -129,9 +130,11 @@ export default {
             this.formatAllDatesTimes();
             this.saved = true;
             this.idSave = id;
+            this.rapport.number = 'TEST'; // TODO define a way to generate number
           })
     } else {
-      this.rapport = require('../dist/create-rapport.json')
+      this.rapport = require('../dist/create-rapport.json');
+      this.rapport.number = 'TEST'; // TODO define a way to generate number
     }
 
   },

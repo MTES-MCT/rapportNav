@@ -112,6 +112,11 @@ class CreateRapportRequest {
     private $missions;
 
     /**
+     * @var string
+     */
+    private $number;
+
+    /**
      * @return int|null
      */
     public function getId(): ?int {
@@ -406,9 +411,18 @@ class CreateRapportRequest {
         $this->end_time = $end_time;
     }
 
+    /**
+     * @return string
+     */
+    public function getNumber(): string {
+        return $this->number;
+    }
 
-
-
-
+    /**
+     * @param string $number
+     */
+    public function setNumber(string $number): void {
+        $this->number = $number;
+    }
 
 }
