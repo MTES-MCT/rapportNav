@@ -129,6 +129,9 @@
             "config/packages/fos_rest.yaml"
         ]
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.3"
+    },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
     },
