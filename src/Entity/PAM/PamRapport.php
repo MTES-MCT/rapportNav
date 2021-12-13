@@ -4,7 +4,6 @@ namespace App\Entity\PAM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\DateImmutableType;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -155,18 +154,11 @@ class PamRapport
      */
     private $end_time;
 
-    /**
-     * @Groups({"view"})
-     * @ORM\OneToMany(targetEntity=PamCheckMission::class, mappedBy="rapport", orphanRemoval=true)
-     */
-    private $checkMissions;
-
 
     public function __construct()
     {
         $this->controles = new ArrayCollection();
         $this->missions = new ArrayCollection();
-        $this->checkMissions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -482,33 +474,4 @@ class PamRapport
         return $this;
     }
 
-    /**
-     * @return Collection|PamCheckMission[]
-     */
-    public function getCheckMissions(): Collection
-    {
-        return $this->checkMissions;
-    }
-
-    public function addCheckMission(PamCheckMission $checkMission): self
-    {
-        if (!$this->checkMissions->contains($checkMission)) {
-            $this->checkMissions[] = $checkMission;
-            $checkMission->setRapport($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCheckMission(PamCheckMission $checkMission): self
-    {
-        if ($this->checkMissions->removeElement($checkMission)) {
-            // set the owning side to null (unless already changed)
-            if ($checkMission->getRapport() === $this) {
-                $checkMission->setRapport(null);
-            }
-        }
-
-        return $this;
-    }
 }
