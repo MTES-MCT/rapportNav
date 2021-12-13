@@ -12,6 +12,7 @@ use App\Entity\PAM\PamRapport;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class CreateRapport {
 
@@ -45,11 +46,15 @@ class CreateRapport {
     }
 
     /**
-     * @param string $json
+     * @param string        $json
+     * @param string        $number
+     * @param UserInterface $user
+     *
+     * @param int|null      $id
      *
      * @return void
      */
-    public function saveDraft(string $json, string $number, int $id = null): PamDraft
+    public function saveDraft(string $json, string $number, UserInterface $user, int $id = null): PamDraft
     {
 
         $draft = new PamDraft();
@@ -58,6 +63,7 @@ class CreateRapport {
         }
         $draft->setBody($json);
         $draft->setNumber($number);
+        $draft->setCreatedBy($user);
         $this->em->persist($draft);
         $this->em->flush();
         return $draft;
@@ -91,6 +97,11 @@ class CreateRapport {
             throw new NotFoundHttpException('Rapport non trouvé');
         }
         return $rapport;
+    }
+
+    public function getLastDraft($user) : ?PamDraft
+    {
+        return $this->em->getRepository(PamDraft::class)->findOneBy(['created_by' => $user], ['created_at' => 'DESC']);
     }
 
     /**

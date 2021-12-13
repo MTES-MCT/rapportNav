@@ -132,25 +132,25 @@ class PamRapport
 
     /**
      * @Groups({"view", "draft"})
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $start_date;
 
     /**
      * @Groups({"view", "draft"})
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $end_date;
 
     /**
      * @Groups({"view", "draft"})
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $start_time;
 
     /**
      * @Groups({"view", "draft"})
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $end_time;
 
@@ -448,31 +448,31 @@ class PamRapport
         return $this->end_date;
     }
 
-    public function setEndDate( $end_date): self
+    public function setEndDate(?string $end_date): self
     {
         $this->end_date = $end_date;
 
         return $this;
     }
 
-    public function getStartTime(): ?\DateTimeInterface
+    public function getStartTime()
     {
         return $this->start_time;
     }
 
-    public function setStartTime(?\DateTimeInterface $start_time): self
+    public function setStartTime( $start_time): self
     {
         $this->start_time = $start_time;
 
         return $this;
     }
 
-    public function getEndTime(): ?\DateTimeInterface
+    public function getEndTime()
     {
         return $this->end_time;
     }
 
-    public function setEndTime(?\DateTimeInterface $end_time): self
+    public function setEndTime( $end_time): self
     {
         $this->end_time = $end_time;
 

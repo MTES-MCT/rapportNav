@@ -2,8 +2,10 @@
 
 namespace App\Entity\PAM;
 
+use App\Entity\User;
 use App\Repository\PAM\PamDraftRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PamDraftRepository::class)
@@ -12,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class PamDraft
 {
     /**
+     * @Groups({"draft"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -19,25 +22,36 @@ class PamDraft
     private $id;
 
     /**
+     * @Groups({"draft"})
      * @var string
      * @ORM\Column(type="text")
      */
     private $body;
 
     /**
+     * @Groups({"draft"})
      * @ORM\Column(type="datetime_immutable")
      */
     private $created_at;
 
     /**
+     * @Groups({"draft"})
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updated_at;
 
     /**
+     * @Groups({"draft"})
      * @ORM\Column(type="string", length=20)
      */
     private $number;
+
+    /**
+     * @Groups({"draft"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="pamDrafts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $created_by;
 
     public function getId(): ?int
     {
@@ -100,6 +114,18 @@ class PamDraft
     public function setNumber(string $number): self
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(?User $created_by): self
+    {
+        $this->created_by = $created_by;
 
         return $this;
     }

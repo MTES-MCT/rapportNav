@@ -4,6 +4,7 @@ namespace App\Controller\PAM\Api;
 
 use App\Entity\PAM\PamRapport;
 use App\Service\PAM\CreateRapport;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -16,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * @Rest\Route("/api/pam/rapport")
  */
-class RapportController {
+class RapportController extends AbstractFOSRestController {
 
     /**
      * @var CreateRapport
@@ -69,7 +70,7 @@ class RapportController {
             if($request->query->get('id')) {
                 $id = $request->query->get('id');
             }
-            $draft = $this->createRapportService->saveDraft($body, $number, $id);
+            $draft = $this->createRapportService->saveDraft($body, $number, $this->getUser(), $id);
             $msg = 'Success id ' . $draft->getId();
             return View::create($msg, Response::HTTP_OK);
         } catch(BadRequestHttpException $exception) {
@@ -111,6 +112,17 @@ class RapportController {
         catch(NotFoundHttpException $exception) {
             return View::create($exception->getMessage(), Response::HTTP_NOT_FOUND);
         }
+    }
+
+    /**
+     * @Rest\Get("/last/draft")
+     * @Rest\View(serializerGroups={"draft"})
+     * @return View
+     */
+    public function lastRapport() : View
+    {
+        $rapport = $this->createRapportService->getLastDraft($this->getUser());
+        return View::create($rapport, Response::HTTP_OK);
     }
 
 }
