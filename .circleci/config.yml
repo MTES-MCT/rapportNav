@@ -53,7 +53,7 @@ jobs:
       - run: cp assets/js/template.params.json assets/js/params.json && yarn dev
 
       # running tests
-      - run: php -d memory_limit=512M vendor/bin/simple-phpunit --configuration .circleci/phpunit.xml tests/Functional
+      - run: php -d memory_limit=512M vendor/bin/phpunit --configuration .circleci/phpunit.xml tests/Functional
       
       - run:
           name: Creating Zip from builded project
