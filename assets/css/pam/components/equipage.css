@@ -1,0 +1,79 @@
+.members-list {
+    display: flex;
+    flex-direction: column;
+    max-height: 250px;
+    flex-wrap: wrap;
+}
+
+.member-group {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.more-option-icon {
+    background: #E5E5F4;
+    padding: 2px;
+    border-radius: 50%;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+.equipRole {
+    display: block;
+    font-size: 12px;
+    color: #9C9C9C;
+}
+
+.equipName {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.equipier {
+    margin-bottom: 8px;
+}
+
+.tooltipMember {
+    visibility: hidden;
+    height: 269px;
+    background-color: #fff;
+    box-shadow: 0px 3px 10px #00000029;
+    text-align: center;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 3;
+    margin-left: -60px;
+}
+
+.remove-equip-btn {
+    font-size: 14px;
+    border-color: #E10600 !important;
+    color: #E10600;
+}
+
+.member-group:hover .tooltipMember{
+    visibility: visible;
+}
+
+.tooltip-add-member {
+    background-color: #fff;
+    box-shadow: 0px 3px 10px #00000029;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+    width: 340px;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip-new-member {
+    background-color: #fff;
+    box-shadow: 0px 3px 10px #00000029;
+    padding: 5px 10px 5px 10px;
+    width: 340px;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}

@@ -39,7 +39,8 @@ Encore
     .addEntry('listSubmissions', [
                                     './assets/js/draft.js',
                 ])
-
+    .addEntry('pamRapport', './assets/js/pam/pam.js')
+    .addEntry('assets-gouv', './assets/js/pam/dist/assets.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

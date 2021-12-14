@@ -1,0 +1,51 @@
+@import url("table-dropdown.css");
+
+.td-table-controle {
+    width: 121px;
+    font-size: 16px;
+    text-align: center;
+    height: 22px;
+    background-color: #F9F8F6;
+}
+
+.td-pavillon  {
+    border-left: #000091 solid 5px;
+}
+
+th {
+    font-size: 12px;
+}
+
+.add-pavillon {
+    border: 2px solid #F2F2F9;
+    font-size: 12px;
+    padding-left: 10px;
+    color: #AEADD8;
+    border-left: #AEADD8 5px solid;
+    font-weight: normal !important;
+
+}
+
+.td-add-column {
+    background-color: #E5E5F4;
+}
+
+.add-column {
+    color: #AEADD8;
+}
+
+tfoot {
+    position: absolute;
+    margin-top: 68px !important;
+    background: #E5E5F4;
+    padding-left: 30px;
+    width: 100%;
+    margin-left: -34px !important;
+}
+.th-foot-controle, .td-foot-controle {
+    width: 122px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    color: #000091;
+}
