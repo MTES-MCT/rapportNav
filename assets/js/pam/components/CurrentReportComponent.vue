@@ -8,7 +8,7 @@
         <div class="fr-col-lg-1">
           <span class="fr-fi-file-fill fr-fi--lg icon-current-report" aria-hidden="true"></span>
         </div>
-        <div class="fr-col-lg-4">
+        <div class="fr-col-lg-3">
           <h6> Rapport n° {{ numRapport }}</h6>
         </div>
         <div class="fr-col-lg-2">
@@ -24,7 +24,7 @@
           <span>Aleck Vincent </span>
         </div>
         <div class="fr-col-lg-2 edit-btn">
-          <a href=""></a>
+          <button class="fr-btn" @click="editRapport">Editer</button>
         </div>
       </div>
     </div>
@@ -42,17 +42,26 @@ export default {
       const body = JSON.parse(success.data.body)
       this.startDate = body.start_date;
       this.endDate = body.end_date;
-      this.numRapport = success.data.number
+      this.numRapport = success.data.number;
+      this.id = success.data.id;
       console.log(success.data)
     })
     .then(error => console.log(error))
   },
-  methods: {},
+  methods: {
+    editRapport() {
+      this.$router.push({
+        name: 'rapport',
+        query: { id: this.id, draft: true }
+      })
+    }
+  },
   data() {
     return {
       startDate: null,
       endDate: "--/--/----",
-      numRapport: null
+      numRapport: null,
+      id: null
     }
   }
 }

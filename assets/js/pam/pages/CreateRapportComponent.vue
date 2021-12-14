@@ -48,6 +48,7 @@
 
             <!-- Contrôles opérationnel -->
             <RapportAccordionComponent
+                v-if="rapport.controles"
                 :controles="rapport.controles"
                 @get-controles="getControles"
             >
@@ -56,6 +57,7 @@
 
             <!-- Indicateurs de mission-->
             <IndicateurMissionComponent
+                v-if="rapport.missions"
               :missions="rapport.missions"
             >
             </IndicateurMissionComponent>

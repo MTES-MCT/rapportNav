@@ -35,6 +35,7 @@
                         data-fr-opened="false"
                         aria-controls="modal-870"
                         title="Créer un rapport"
+                        @click="createRapport"
                     >
                       Créer un rapport
                     </button>
@@ -69,6 +70,13 @@ export default {
   name: "HeaderHomeComponent",
   props: {
     nameSite: String
+  },
+  methods: {
+    createRapport() {
+      this.$router.push({
+        name: 'rapport'
+      })
+    }
   }
 }
 </script>

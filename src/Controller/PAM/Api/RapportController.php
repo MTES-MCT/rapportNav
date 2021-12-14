@@ -81,6 +81,7 @@ class RapportController extends AbstractFOSRestController {
 
     /**
      * @Rest\Get("/draft/{id}")
+     * @Rest\View(serializerGroups={"draft"})
      * @param int $id
      *
      * @return View
