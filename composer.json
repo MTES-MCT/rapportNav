@@ -7,7 +7,7 @@
         "php": "^7.2.24",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-intl": "^1.1",
+        "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pgsql": "^7.2",
