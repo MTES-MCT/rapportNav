@@ -18,10 +18,7 @@ export default {
   name: "IndicateurMissionComponent",
   components: {AccordionIndicateurMissionComponent},
   props: {
-    missions: {
-      type: Array,
-      default: null
-    }
+    missions: Array
   },
   data() {
     return {

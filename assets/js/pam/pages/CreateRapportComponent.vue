@@ -117,7 +117,7 @@ export default {
     if(id && draft) {
       axios.get('/api/pam/rapport/draft/' + id)
           .then((response) => {
-            this.$data.rapport = JSON.parse(response.data.body);
+            this.rapport = JSON.parse(response.data.body);
             this.drafted = true;
             this.idDraft = id;
             this.rapport.number = 'TEST'; // TODO define a way to generate number
