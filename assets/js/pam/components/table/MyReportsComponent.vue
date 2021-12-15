@@ -1,16 +1,15 @@
 <template>
   <div class="myReports">
     <h5>Mes Rapports</h5>
-    <div role="alert" class="fr-alert fr-alert--info">
-      <p class="fr-alert__title">Aucun rapport</p>
-      <p>Vous n'avez pas encore rempli de rapport.</p>
-    </div>
+    <AlertComponent title="Aucun rapport" message="Vous n'avez pas encore rempli de rapport."></AlertComponent>
   </div>
 </template>
 
 <script>
+import AlertComponent from "../alert/AlertComponent";
 export default {
   name: "MyReportsComponent",
+  components: {AlertComponent},
   data() {
     return {
       rapports: []
