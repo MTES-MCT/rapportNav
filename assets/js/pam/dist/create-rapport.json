@@ -21,17 +21,8 @@
   "controles": [
     {
       "type": {
-        "label": "Controle navire de peche pro",
+        "label": "Contrôle en mer de navires  de pêche professionnelle",
         "id": 1
-      },
-      "nb_navire_controle": null,
-      "nb_pv_peche_sanitaire": null,
-      "pavillon": "FR"
-    },
-    {
-      "type": {
-        "label": "Controle navire plaisance",
-        "id": 2
       },
       "nb_navire_controle": null,
       "nb_pv_peche_sanitaire": null,
@@ -40,7 +31,7 @@
   ],
   "missions": [
     {
-      "checked": true,
+      "checked": false,
       "is_main": false,
       "type": {
         "id": 1,
