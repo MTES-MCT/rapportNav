@@ -60,12 +60,11 @@ export default {
   },
   mounted() {
     this.formatPavillons();
-    this.displayControleMounted(this.controlesTerrePechePro)
-    this.displayControleMounted(this.controlesNavirePechePro)
-    this.displayControleMounted(this.controlesTerrePlaisanceLoisir)
+    this.displayControleMounted(this.controlesNavirePechePro);
     this.displayControleMounted(this.controlesNavirePlaisancePro);
-    this.displayControleMounted(this.autresMission);
     this.displayControleMounted(this.controlesNavirePlaisanceLoisir)
+    this.displayControleMounted(this.controlesTerrePechePro);
+    this.displayControleMounted(this.autresMission);
   },
   data: function() {
     return {
