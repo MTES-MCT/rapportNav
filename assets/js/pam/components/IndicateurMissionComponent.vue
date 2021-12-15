@@ -7,7 +7,7 @@
     <AccordionIndicateurMissionComponent
         :title="mission.type.label"
         :indicateurs="mission.indicateurs"
-        :expanded="mission.checked"
+        :expanded="mission.checked ? 'true' : 'false'"
     ></AccordionIndicateurMissionComponent>
   </div>
 </div>

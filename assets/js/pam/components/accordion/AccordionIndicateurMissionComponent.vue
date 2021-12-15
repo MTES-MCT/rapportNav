@@ -49,8 +49,8 @@ export default {
       default: null
     },
     expanded: {
-      type: Boolean,
-      default: false
+      type: String,
+      default: () => { return "false" }
     }
   },
   components: {
