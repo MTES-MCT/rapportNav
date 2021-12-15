@@ -4,7 +4,7 @@
 
   <div class="body">
     <div class="fr-container">
-      <div class="fr-grid-row">
+      <div class="fr-grid-row" v-if="numRapport">
         <div class="fr-col-lg-1">
           <span class="fr-fi-file-fill fr-fi--lg icon-current-report" aria-hidden="true"></span>
         </div>
@@ -27,6 +27,7 @@
           <button class="fr-btn" @click="editRapport">Editer</button>
         </div>
       </div>
+      <AlertComponent message="Vous n'avez pas encore rempli de rapport." title="Aucun rapport" type="info" v-else></AlertComponent>
     </div>
   </div>
 </div>
@@ -34,8 +35,10 @@
 
 <script>
 import axios from "axios";
+import AlertComponent from "./alert/AlertComponent";
 export default {
   name: "CurrentReportComponent",
+  components: {AlertComponent},
   mounted() {
     axios.get('/api/pam/rapport/last/draft')
     .then((success) => {
