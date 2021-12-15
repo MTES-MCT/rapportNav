@@ -9,7 +9,7 @@
                 <div class="fr-container--fluid">
                   <div class="fr-grid-row">
                     <div class="fr-col-11">
-                      <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + id">
+                      <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" :aria-expanded="expanded" :aria-controls="'accordion-' + id">
                         {{ title }}
                       </button>
                     </div>
@@ -47,6 +47,10 @@ export default {
     indicateurs: {
       type: Array,
       default: null
+    },
+    expanded: {
+      type: Boolean,
+      default: false
     }
   },
   components: {

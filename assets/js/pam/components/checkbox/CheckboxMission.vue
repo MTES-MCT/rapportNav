@@ -1,10 +1,18 @@
 <template>
-  <div :class="'checkbox-mission checkbox-group-' + id " @change="getData()">
+  <div
+      class="checkbox-mission"
+      v-bind:class="[ checkboxGroupId, mission.checked ? active : '' ]"
+      @change="getData()">
     <div class="fr-checkbox-group fr-checkbox-group--sm ">
-      <input type="checkbox" :id="'checkboxes-' + id" :name="'checkboxes-' + id" @change="isMissionChecked($event.target.checked)" v-model="mission.checked">
+      <input
+          type="checkbox"
+          :id="'checkboxes-' + id"
+          :name="'checkboxes-' + id"
+          v-model="mission.checked">
       <label class="fr-label text-sm" :for="'checkboxes-' + id">{{ label }}</label>
     </div>
-    <div :class="'fr-toggle fr-toggle--label-left  d-none toggle-custom-' + id">
+    <div
+        class="fr-toggle fr-toggle--label-left" v-if="mission.checked">
       <input type="checkbox" class="fr-toggle__input is-main-mission " :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="mission.is_main">
       <label class="fr-toggle__label" :for="'toggle-' + id">Mission principale</label>
     </div>
@@ -76,10 +84,6 @@ export default {
     mission: Object
   },
   methods: {
-    isMissionChecked(checked) {
-      $('.toggle-custom-' + this.id).toggleClass('d-none');
-      $('.checkbox-group-' + this.id).toggleClass('main-task-active');
-    },
     clearDate() {
       this.mission.start_date = null;
       this.mission.end_date = null;
@@ -92,16 +96,15 @@ export default {
   },
   data() {
     return {
-      id: this._uid
+      id: this._uid,
+      checkboxGroupId: 'checkbox-group-' + this._uid,
+      active: 'main-task-active'
     }
   },
   filters: {
     date: function(date) {
       return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY')
     }
-  },
-  mounted() {
-    this.isMissionChecked(this.mission.checked)
   }
 }
 </script>
