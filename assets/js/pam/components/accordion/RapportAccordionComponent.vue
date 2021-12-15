@@ -20,7 +20,7 @@
                         </button>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
-                        <button class="fr-fi-delete-fill btn-remove" aria-hidden="true" @click="removeType(index)"></button>
+                        <button class="fr-fi-delete-fill btn-remove" aria-hidden="true" @click="removeType(index, controle)"></button>
                       </div>
                     </div>
                   </div>
@@ -59,49 +59,35 @@ export default {
       }
   },
   mounted() {
-    this.controles.forEach((controle, index) => {
-      if(controle.type.id === 1) {
-        this.controlesNavirePro.label = controle.type.label;
-        this.controlesNavirePro.pavillons.push(controle);
-      }
-      if(controle.type.id === 2) {
-        this.controlesNavirePlaisance.label = controle.type.label;
-        this.controlesNavirePlaisance.pavillons.push(controle)
-      }
-      if(controle.type.id === 3) {
-        this.controlesNavirePlaisanceLoisir.label = controle.type.label;
-        this.controlesNavirePlaisanceLoisir.pavillons.push(controle);
-      }
-    })
-    if(this.controlesNavirePro.pavillons.length > 0) {
-      this.controlesByType.push(this.controlesNavirePro);
-    }
-
-    if(this.controlesNavirePlaisance.pavillons.length > 0) {
-      this.controlesByType.push(this.controlesNavirePlaisance);
-    }
-
-    if(this.controlesNavirePlaisanceLoisir.pavillons.length > 0) {
-      this.controlesByType.push(this.controlesNavirePlaisanceLoisir)
-    }
-
-    //this.controlesByType.push(this.controlesNavirePlaisance);
-   //
-    console.log(this.controlesByType)
+    this.formatPavillons();
+    this.displayControleMounted(this.controlesTerrePechePro)
+    this.displayControleMounted(this.controlesNavirePechePro)
+    this.displayControleMounted(this.controlesTerrePlaisanceLoisir)
+    this.displayControleMounted(this.controlesNavirePlaisancePro);
+    this.displayControleMounted(this.autresMission);
+    this.displayControleMounted(this.controlesNavirePlaisanceLoisir)
   },
   data: function() {
     return {
       id: this._uid,
-      controlesNavirePro: {
+      controlesNavirePechePro: {
         id: 1,
         pavillons: []
       },
-      controlesNavirePlaisance: {
+      controlesNavirePlaisancePro: {
         id: 2,
         pavillons: []
       },
       controlesNavirePlaisanceLoisir: {
         id: 3,
+        pavillons: []
+      },
+      controlesTerrePechePro: {
+        id: 4,
+        pavillons: []
+      },
+      autresMission: {
+        id: 5,
         pavillons: []
       },
       controlesByType: [],
@@ -145,10 +131,50 @@ export default {
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     },
+    removeType(index, type) {
+      this.controlesByType.splice(index, 1);
+      this.controles.forEach((controle, index) => {
+        if(controle.type.id === type.id) {
+          this.controles.splice(index, 1)
+        }
+      })
 
-    removeType(index) {
-      this.types.splice(index, 1);
     },
+    formatPavillons() {
+      this.controles.forEach((controle, index) => {
+        switch(controle.type.id) {
+          case 1:
+            this.controlesNavirePechePro.label = controle.type.label;
+            this.controlesNavirePechePro.pavillons.push(controle);
+            break;
+
+          case 2:
+            this.controlesNavirePlaisancePro.label = controle.type.label;
+            this.controlesNavirePlaisancePro.pavillons.push(controle);
+            break;
+
+          case 3:
+            this.controlesNavirePlaisanceLoisir.label = controle.type.label;
+            this.controlesNavirePlaisanceLoisir.pavillons.push(controle);
+            break;
+
+          case 4:
+            this.controlesTerrePechePro.label = controle.type.label;
+            this.controlesTerrePechePro.pavillons.push(controle);
+            break;
+
+          case 5:
+            this.autresMission.label = controle.type.label;
+            this.autresMission.pavillons.push(controle);
+            break;
+        }
+      })
+    },
+    displayControleMounted(obj) {
+      if(obj.pavillons.length > 0) {
+        this.controlesByType.push(obj);
+      }
+    }
   }
 }
 </script>

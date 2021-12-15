@@ -19,8 +19,6 @@ class ControleTypeFixture extends Fixture implements FixtureGroupInterface {
             'Contrôle en mer de navires de plaisance professionnelle',
             'Contrôle en mer des navires de plaisance de loisir',
             'Contrôles à terre navires de pêche professionnels',
-            'Contrôles à terre navires de plaisance professionnelle',
-            'Contrôles à terre navires de plaisance de loisir',
             'Autres missions'
         ];
 

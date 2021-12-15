@@ -36,7 +36,7 @@
                       Contrôle à terre de navires de pêche professionnelle
                     </span>
                   </div>
-                  <div class="fr-col-4 add-control-box fr-ml-1v">
+                  <div class="fr-col-4 add-control-box fr-ml-1v" @click="addComponent(' Contrôle à terre de navires de pêche professionnelle', 5)">
                     <span class="add-control-link  ">
                       <i class="ri-more-fill add-control-icon"></i>
                       Autre mission
