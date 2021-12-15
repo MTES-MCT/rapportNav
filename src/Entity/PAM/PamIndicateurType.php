@@ -14,7 +14,6 @@ class PamIndicateurType
     /**
      * @Groups({"view", "draft"})
      * @ORM\Id
-     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;

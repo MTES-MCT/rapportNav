@@ -14,14 +14,23 @@ class MissionTypeFixture extends Fixture implements FixtureGroupInterface {
     }
 
     public function load(ObjectManager $manager) {
-       $mission1 = new PamMissionType();
-       $mission1->setLabel("Assistance aux navires en difficulté et sécurité maritime");
 
-       $mission2 = new PamMissionType();
-       $mission2->setLabel("Lutte contre les trafics illicites par voie maritime");
+        $labels = [
+            'Assistance aux navires en difficulté et sécurité maritime',
+            'Lutte contre l’immigration illégale par voie maritime',
+            "Répression contre les rejets illicites, lutte contre les pollutions et protection de l'environnement",
+            "Lutte contre les activités de pêche illégale, gestion du patrimoine marin et des ressources publiques marines",
+            "Surveillance et contrôles pour la protection de l’environnement",
+            "Sûreté maritime",
+            "Souveraineté et protection des intérêts nationaux "
+        ];
 
-       $manager->persist($mission1);
-       $manager->persist($mission2);
+        foreach($labels as $key => $label) {
+          $type = new PamMissionType();
+          $type->setLabel($label);
+          $type->setId($key+1);
+          $manager->persist($type);
+       }
 
        $manager->flush();
 
