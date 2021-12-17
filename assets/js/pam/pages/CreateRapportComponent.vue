@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm"></HeaderComponent>
+  <div v-if="rapport">
+    <HeaderComponent draft name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="drafted">
+    </HeaderComponent>
+    <HeaderComponent saved name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="saved">
+    </HeaderComponent>
+    <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
+    </HeaderComponent>
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
         <div class="fr-col-lg-2 fr-col-md-2 fr-col-sm-12 sidebar-left-menu">
@@ -10,11 +15,12 @@
           <div class="mainContent">
             <!-- Informations générales -->
             <GeneralInformationCardComponent
-               :start_date="start_date"
-               :end_date="end_date"
-               :end_time="end_time"
-               :start_time="start_time"
-               :equipage="equipage"
+               :start_date="rapport.start_date"
+               :end_date="rapport.end_date"
+               :end_time="rapport.end_time"
+               :start_time="rapport.start_time"
+               :equipage="rapport.equipage"
+               :missions="rapport.missions"
                @get-date="setDates"
 
             >
@@ -22,33 +28,37 @@
 
             <!-- Activité du navire -->
             <ShipActivityCardComponent
+                :rapport="rapport"
                 @get-activite="setActivite"
-                :nb_jours_mer="nb_jours_mer"
-                :administratif="administratif"
-                :autre="autre"
-                :contr_port="contr_port"
-                :distance="distance"
-                :essence="essence"
-                :go_marine="go_marine"
-                :maintenance="maintenance"
-                :meteo="meteo"
-                :mouillage="mouillage"
-                :nav_eff="nav_eff"
-                :personnel="personnel"
-                :representation="representation"
-                :technique="technique"
+                :nb_jours_mer="rapport.nb_jours_mer"
+                :administratif="rapport.administratif"
+                :autre="rapport.autre"
+                :contr_port="rapport.contr_port"
+                :distance="rapport.distance"
+                :essence="rapport.essence"
+                :go_marine="rapport.go_marine"
+                :maintenance="rapport.maintenance"
+                :meteo="rapport.meteo"
+                :mouillage="rapport.mouillage"
+                :nav_eff="rapport.nav_eff"
+                :personnel="rapport.personnel"
+                :representation="rapport.representation"
+                :technique="rapport.technique"
             ></ShipActivityCardComponent>
 
             <!-- Contrôles opérationnel -->
             <RapportAccordionComponent
-                :types="controles.types"
+                v-if="rapport.controles"
+                :controles="rapport.controles"
+                @get-controles="getControles"
             >
             </RapportAccordionComponent>
 
 
             <!-- Indicateurs de mission-->
             <IndicateurMissionComponent
-              :missions="missions"
+                v-if="rapport.missions"
+              :missions="rapport.missions"
             >
             </IndicateurMissionComponent>
           </div>
@@ -58,7 +68,7 @@
           <span class="fr-fi-arrow-left-s-line d-block" aria-hidden="true" ></span>
           <span class="ri-history-line d-block"></span>
         </div>
-        <div class="sidebar-right-history">
+        <div class="sidebar-right-history d-none">
           <SidebarHistoryRapportComponent></SidebarHistoryRapportComponent>
         </div>
 
@@ -78,6 +88,9 @@ import GeneralInformationCardComponent from "../components/card/GeneralInformati
 import RapportAccordionComponent from "../components/accordion/RapportAccordionComponent";
 import IndicateurMissionComponent from "../components/IndicateurMissionComponent";
 import ShipActivityCardComponent from "../components/card/ShipActivityCardComponent";
+import axios from 'axios';
+import { TYPE } from "vue-toastification";
+
 export default {
   name: "CreateRapportComponent",
   components: {
@@ -96,13 +109,38 @@ export default {
   },
   mounted() {
     this.activeResponsive();
-    $(window).resize(this.activeResponsive)
+    $(window).resize(this.activeResponsive);
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id')
+    const draft = urlParams.get('draft')
+    if(id && draft) {
+      axios.get('/api/pam/rapport/draft/' + id)
+          .then((response) => {
+            this.rapport = JSON.parse(response.data.body);
+            this.drafted = true;
+            this.idDraft = id;
+            this.rapport.number = 'TEST'; // TODO define a way to generate number
+            console.log(JSON.parse(response.data.body))
+            this.formatAllDatesTimes();
+          })
+    }
+    else if (id) {
+      axios.get('/api/pam/rapport/show/' + id)
+          .then((response) => {
+            this.rapport = response.data;
+            this.formatAllDatesTimes();
+            this.saved = true;
+            this.idSave = id;
+            this.rapport.number = 'TEST'; // TODO define a way to generate number
+          })
+    } else {
+      this.rapport = require('../dist/create-rapport.json');
+      this.rapport.number = 'TEST'; // TODO define a way to generate number
+    }
+
   },
   methods: {
-    hiddenToggle(className, scope) {
-      let tooltip = $('.' + className + '[data-scope="' + scope + '"]');
-      tooltip.toggleClass('d-none');
-    },
     displayHistory() {
       $('.sidebar-right-history').removeClass('d-none')
     },
@@ -114,90 +152,103 @@ export default {
       }
     },
     postForm() {
-      console.log(JSON.parse(JSON.stringify(this.$data)))
+      let url = '/api/pam/rapport';
+      if(this.saved) {
+        url = url + '?id=' + this.idSave;
+      }
+      axios.post(
+          url,
+          JSON.stringify(this.rapport),
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+      ).then(
+          (success) => {
+            this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+          },
+          (error) => {
+            this.showToast("Erreur", TYPE.ERROR, 'bottom-center')
+          }
+      )
+    },
+    postFormDraft() {
+      let url = '/api/pam/rapport/draft';
+      if(this.drafted) {
+        url = url + '?id=' + this.idDraft;
+      }
+      axios.post(
+          url,
+          JSON.stringify(this.rapport),
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+      ).then(
+          (success) => {
+            this.showToast("Le brouillon a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+          },
+          (error) => console.log(error)
+      )
+
     },
     setDates(date) {
-      this.start_date = date.startDate;
-      this.end_date = date.endDate;
-      this.end_time = date.endTime;
-      this.start_time = date.startTime;
+      this.rapport.start_date = date.startDate;
+      this.rapport.end_date = date.endDate;
+      this.rapport.end_time = date.endTime;
+      this.rapport.start_time = date.startTime;
+      this.rapport.checkMissions = date.checkMissions;
     },
     setActivite(info) {
-      this.nb_jours_mer = info.nb_jours_mer;
-      this.essence = info.essence;
-      this.technique = info.technique;
-      this.administratif = info.administratif;
-      this.go_marine = info.go_marine;
-      this.personnel = info.personnel;
-      this.meteo = info.meteo;
-      this.nav_eff = info.nav_eff;
-      this.distance = info.distance;
-      this.autre = info.autre;
-      this.maintenance = info.maintenance;
-      this.contr_port = info.contr_port;
-      this.mouillage = info.mouillage
+      this.rapport.nb_jours_mer = info.nb_jours_mer;
+      this.rapport.essence = info.essence;
+      this.rapport.technique = info.technique;
+      this.rapport.administratif = info.administratif;
+      this.rapport.go_marine = info.go_marine;
+      this.rapport.personnel = info.personnel;
+      this.rapport.meteo = info.meteo;
+      this.rapport.nav_eff = info.nav_eff;
+      this.rapport.distance = info.distance;
+      this.rapport.autre = info.autre;
+      this.rapport.maintenance = info.maintenance;
+      this.rapport.contr_port = info.contr_port;
+      this.rapport.mouillage = info.mouillage
+    },
+    getControles(controles) {
+      this.rapport.controles = controles;
+    },
+    formatDate(date) {
+      let formatDate = new Date(date);
+      formatDate = new Date(formatDate.getTime() - (formatDate.getTimezoneOffset()*60*1000))
+      formatDate = formatDate.toISOString().split('T')[0];
+      return formatDate;
+    },
+    formatTime(date) {
+      let formatDate = new Date(date);
+      return formatDate.getHours() + ':' + formatDate.getMinutes();
+    },
+    formatAllDatesTimes() {
+      this.rapport.start_date = this.formatDate(this.rapport.start_date);
+      this.rapport.end_date = this.formatDate(this.rapport.end_date);
+      this.rapport.start_time = this.formatTime(this.rapport.start_time);
+      this.rapport.end_time = this.formatTime(this.rapport.end_time);
+    },
+    showToast(message, type, position) {
+      this.$toast(message, {
+        type: type,
+        position: position
+      })
     }
   },
   data() {
     return {
-      start_date: null,
-      start_time: null,
-      end_date: null,
-      end_time: null,
-      nb_jours_mer: null,
-      nav_eff: null,
-      mouillage: null,
-      maintenance: null,
-      meteo: null,
-      representation: null,
-      administratif: null,
-      autre: null,
-      contr_port: null,
-      technique: null,
-      personnel: null,
-      distance: null,
-      go_marine: null,
-      essence: null,
-      equipage: {
-        membres: [{
-          name: 'Pierre Crepon',
-          role: 'Commandant',
-          observations: ''
-        },
-        {
-          name: 'David Vincent',
-          role: 'Agent de pont',
-          observations: 'Test'
-          }]
-      },
-      controles: {
-        types: [{
-          title: 'Contrôle en mer de navires de pêche professionnelle',
-          id: 4000,
-          pavillons: [{
-            pavillon: 'FR',
-            nb_navire_controle: null,
-            pv_peche_sanitaire: null,
-            pv_equipement_securite: null,
-            pv_titre_nav: null,
-            pv_police_nav: null,
-            pv_env_pollution: null,
-            autre_pv: null,
-            nb_nav_deroute: null,
-            nb_nav_interroge: null
-            }]
-        }]
-      },
-      missions: {
-        types: [
-          {
-            indicateurs: []
-          },
-          {
-            indicateurs: []
-          }
-        ]
-      }
+      rapport: null,
+      drafted: null,
+      saved: null,
+      idDraft: null,
+      idSave: null
     }
   }
 };

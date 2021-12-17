@@ -37,7 +37,10 @@
           </div>
         </div>
         <div class="divider-horizontal"></div>
-
+        <MissionToAchieveComponent
+            :missions="missions"
+        >
+        </MissionToAchieveComponent>
   </div>
     </div>
   </div>
@@ -55,7 +58,8 @@ export default {
     start_time: String,
     end_date: String,
     end_time: String,
-    equipage: Object
+    equipage: Object,
+    missions: Array
   },
   methods: {
     getData() {
@@ -67,7 +71,7 @@ export default {
   data() {
     return {
       startDate: this.start_date,
-      endDate: this.start_date,
+      endDate: this.end_date,
       startTime: this.start_time,
       endTime: this.end_time
     }

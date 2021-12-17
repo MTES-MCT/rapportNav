@@ -9,7 +9,7 @@
                 <div class="fr-container--fluid">
                   <div class="fr-grid-row">
                     <div class="fr-col-11">
-                      <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + id">
+                      <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" :aria-expanded="expanded" :aria-controls="'accordion-' + id">
                         {{ title }}
                       </button>
                     </div>
@@ -20,8 +20,7 @@
                 <div class="divider-horizontal--accordion"></div>
                 <TableIndicateurComponent
                     :id="id"
-                    v-bind:cols="cols"
-                    :types="types.indicateurs"
+                    :types="indicateurs"
                 ></TableIndicateurComponent>
               </div>
             </section>
@@ -45,13 +44,13 @@ export default {
       type: Number,
       default: null
     },
-    cols: {
+    indicateurs: {
       type: Array,
       default: null
     },
-    types: {
-      type: Object,
-      default: null
+    expanded: {
+      type: String,
+      default: () => { return "false" }
     }
   },
   components: {

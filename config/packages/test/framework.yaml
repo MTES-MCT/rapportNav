@@ -6,8 +6,8 @@ framework:
 
 liip_functional_test:
     authentication:
-        username: "alfred.de-musset"
-        password: "1234"
+        username: "admin"
+        password: "admin"
 liip_test_fixtures:
     cache_db:
         sqlite: liip_test_fixtures.services_database_backup.sqlite

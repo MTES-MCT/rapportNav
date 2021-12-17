@@ -23,6 +23,7 @@
 .idea/usage.statistics.xml
 .idea/tasks.xml
 .idea/dataSources*
+.idea
 
 ### node modules 
 /node_modules
@@ -40,3 +41,7 @@ yarn-error.log
 ### front ###
 assets/js/params.json
 /nbproject/private/
+
+### docker
+.docker
+docker-compose.yml

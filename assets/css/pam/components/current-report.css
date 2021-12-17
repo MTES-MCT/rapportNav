@@ -1,0 +1,16 @@
+.currentReport .body {
+    background: #7F7FC8;
+    height: 97px;
+    padding-top: 25px;
+    color: #fff;
+}
+
+.currentReport .body h6 {
+    color: #fff;
+}
+.icon-current-report {
+    height: 35px !important;
+}
+ .edit-btn {
+    right: 0 !important;
+}
