@@ -1,26 +1,31 @@
 <template>
-  <div class="space-between">
-    <label class="fr-label">{{ label }}</label>
-    <div class="InputAddOn">
-      <input
-          class="InputAddOn-field fr-input"
-          v-bind:class="{ 'fr-input-valid': isValid }"
-          :type="type"
-          @change="valueChanged"
-          @keydown="keydown"
-          v-on:change="checkInputValid($event)"
-          min="0"
-          :value="value"
+  <div>
+    <div class="space-between">
+      <label class="fr-label">{{ label }}</label>
+      <div class="InputAddOn">
+        <input
+            class="InputAddOn-field fr-input"
+            v-bind:class="{ 'fr-input-valid': isValid }"
+            :type="type"
+            @change="valueChanged"
+            @keydown="keydown"
+            v-on:change="checkInputValid($event)"
+            min="0"
+            :value="value"
 
-      >
-      <span
-          class="InputAddOn-item"
-          v-if="addOn !== null"
-          v-bind:class="{ 'fr-input-valid': isValid }"
-      >
+        >
+        <span
+            class="InputAddOn-item"
+            v-if="addOn !== null"
+            v-bind:class="{ 'fr-input-valid': isValid }"
+        >
         {{ addOn }}
       </span>
+      </div>
     </div>
+    <p class="fr-error-text" v-if="error">
+      Merci de remplir ce champs.
+    </p>
   </div>
 </template>
 
@@ -28,6 +33,7 @@
 export default {
   name: "InputNumberComponent",
   mounted() {
+    console.log(this.error)
     let input = this.$el.querySelector('.fr-input');
     let addOn = this.$el.querySelector('.InputAddOn-item');
     if(input.value > 0) {
@@ -72,6 +78,10 @@ export default {
     value: {
       type: Number,
       default: null
+    },
+    error: {
+      type: Boolean,
+      default: false
     }
   },
   data () {

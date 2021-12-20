@@ -10,6 +10,9 @@
           </label>
           <div class="fr-input-wrap fr-mr-4v">
             <input class="form-custom form-date" type="date" id="start-date" v-model="startDate">
+            <p id="text-input-error-desc-error" class="fr-error-text" v-if="errors['startDate'] || errors['startTime']">
+              Veuillez renseigner un date et heure de début
+            </p>
           </div>
           <div class="fr-input-wrap fr-mr-4v">
             <input class="form-custom form-time" type="time" id="start-time" v-model="startTime">
@@ -64,6 +67,22 @@ export default {
   methods: {
     getData() {
       this.$emit('get-date', this.$data);
+    },
+    getErrors() {
+      this.$emit('get-errors', this.error)
+    },
+    checkForm() {
+      this.addError(this.startDate, 'startDate');
+      this.addError(this.endDate, 'endDate');
+      this.addError(this.startTime, 'startTime');
+      this.addError(this.endTime, 'endTime');
+      return this.errors;
+
+    },
+    addError(element, scope) {
+      if(!element) {
+        this.errors.push(scope)
+      }
     }
   },
   mounted() {
@@ -73,7 +92,8 @@ export default {
       startDate: this.start_date,
       endDate: this.end_date,
       startTime: this.start_time,
-      endTime: this.end_time
+      endTime: this.end_time,
+      errors: []
     }
   }
 }
