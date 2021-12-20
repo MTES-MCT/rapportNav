@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="pam_rapport")
@@ -34,60 +35,70 @@ class PamRapport
     private $updated_at;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer")
      */
     private $nb_jours_mer;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nav_eff;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $mouillage;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $maintenance;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $meteo;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $representation;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $administratif;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $autre;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $contr_port;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer")
      */
@@ -100,12 +111,14 @@ class PamRapport
     private $distance;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $go_marine;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
@@ -131,24 +144,28 @@ class PamRapport
     private $missions;
 
     /**
+     * @Assert\NotBlank()
      * @Groups({"view", "draft"})
      * @ORM\Column(type="string", nullable=true)
      */
     private $start_date;
 
     /**
+     * @Assert\NotBlank()
      * @Groups({"view", "draft"})
      * @ORM\Column(type="string", nullable=true)
      */
     private $end_date;
 
     /**
+     * @Assert\NotBlank()
      * @Groups({"view", "draft"})
      * @ORM\Column(type="string", nullable=true)
      */
     private $start_time;
 
     /**
+     * @Assert\NotBlank()
      * @Groups({"view", "draft"})
      * @ORM\Column(type="string", nullable=true)
      */
