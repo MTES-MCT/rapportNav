@@ -22,6 +22,7 @@
                :equipage="rapport.equipage"
                :missions="rapport.missions"
                @get-date="setDates"
+               ref="informationGeneral"
 
             >
             </GeneralInformationCardComponent>
@@ -44,6 +45,7 @@
                 :personnel="rapport.personnel"
                 :representation="rapport.representation"
                 :technique="rapport.technique"
+                ref="shipActivity"
             ></ShipActivityCardComponent>
 
             <!-- Contrôles opérationnel -->
@@ -152,26 +154,31 @@ export default {
       }
     },
     postForm() {
+      const errorsInformationGeneral = this.$refs.informationGeneral.checkForm();
+      const errorsShipActivity = this.$refs.shipActivity.checkForm();
       let url = '/api/pam/rapport';
       if(this.saved) {
         url = url + '?id=' + this.idSave;
       }
-      axios.post(
-          url,
-          JSON.stringify(this.rapport),
-          {
-            headers: {
-              'Content-Type': 'application/json'
+      if(!errorsInformationGeneral || !errorsShipActivity) {
+        axios.post(
+            url,
+            JSON.stringify(this.rapport),
+            {
+              headers: {
+                'Content-Type': 'application/json'
+              }
             }
-          }
-      ).then(
-          (success) => {
-            this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
-          },
-          (error) => {
-            this.showToast("Erreur", TYPE.ERROR, 'bottom-center')
-          }
-      )
+        ).then(
+            (success) => {
+              this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+            }
+        ).catch((error) => {
+          this.showToast("Erreur", TYPE.ERROR, 'bottom-center');
+        })
+      } else {
+        this.showToast("Erreur", TYPE.ERROR, 'bottom-center');
+      }
     },
     postFormDraft() {
       let url = '/api/pam/rapport/draft';
