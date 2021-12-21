@@ -1,8 +1,6 @@
 {
-  "start_date": null,
-  "start_time": null,
-  "end_date": null,
-  "end_time": null,
+  "start_datetime": null,
+  "end_datetime": null,
   "nb_jours_mer": null,
   "nav_eff": null,
   "mouillage": null,

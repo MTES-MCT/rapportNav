@@ -1,0 +1,5 @@
+input[type="time"], input[type="date"] {
+    padding: 10px 8px 10px 8px;
+    background-color: #EEEEEE !important;
+    box-shadow: inset 0 -2px 0 0 #000091;
+}

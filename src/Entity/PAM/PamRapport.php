@@ -144,37 +144,23 @@ class PamRapport
     private $missions;
 
     /**
-     * @Assert\NotBlank()
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $start_date;
-
-    /**
-     * @Assert\NotBlank()
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $end_date;
-
-    /**
-     * @Assert\NotBlank()
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $start_time;
-
-    /**
-     * @Assert\NotBlank()
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $end_time;
-
-    /**
      * @ORM\Column(type="string", length=20)
      */
     private $number;
+
+    /**
+     * @Groups({"view", "draft"})
+     * @Assert\NotBlank()
+     * @ORM\Column(type="datetime")
+     */
+    private $start_datetime;
+
+    /**
+     * @Groups({"view", "draft"})
+     * @Assert\NotBlank()
+     * @ORM\Column(type="datetime")
+     */
+    private $end_datetime;
 
 
     public function __construct()
@@ -448,53 +434,7 @@ class PamRapport
         return $this;
     }
 
-    public function getStartDate()
-    {
-        return $this->start_date;
-    }
 
-    public function setStartDate($start_date): self
-    {
-        $this->start_date = $start_date;
-
-        return $this;
-    }
-
-    public function getEndDate()
-    {
-        return $this->end_date;
-    }
-
-    public function setEndDate(?string $end_date): self
-    {
-        $this->end_date = $end_date;
-
-        return $this;
-    }
-
-    public function getStartTime()
-    {
-        return $this->start_time;
-    }
-
-    public function setStartTime( $start_time): self
-    {
-        $this->start_time = $start_time;
-
-        return $this;
-    }
-
-    public function getEndTime()
-    {
-        return $this->end_time;
-    }
-
-    public function setEndTime( $end_time): self
-    {
-        $this->end_time = $end_time;
-
-        return $this;
-    }
 
     public function getNumber(): ?string
     {
@@ -504,6 +444,30 @@ class PamRapport
     public function setNumber(string $number): self
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function getStartDatetime(): ?\DateTimeInterface
+    {
+        return $this->start_datetime;
+    }
+
+    public function setStartDatetime(\DateTimeInterface $start_datetime): self
+    {
+        $this->start_datetime = $start_datetime;
+
+        return $this;
+    }
+
+    public function getEndDatetime(): ?\DateTimeInterface
+    {
+        return $this->end_datetime;
+    }
+
+    public function setEndDatetime(\DateTimeInterface $end_datetime): self
+    {
+        $this->end_datetime = $end_datetime;
 
         return $this;
     }

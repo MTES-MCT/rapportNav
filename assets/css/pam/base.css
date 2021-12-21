@@ -2,6 +2,7 @@
 @import "components/checkboxMission.css";
 @import "components/input.css";
 @import "components/current-report.css";
+@import "components/datetime.css";
 
 .fr-error-text{
     color:#ce0500;
@@ -233,19 +234,6 @@
 .form-not-filled {
     background-color: #f8f8f8 !important;
     border-bottom: solid 3px #0d3479 !important;
-}
-
-.form-time {
-    margin-top: 13px !important;
-}
-
-input[type="time"]::-webkit-calendar-picker-indicator {
-    background-size: 15px;
-}
-
-input[type="time"], input[type="date"] {
-    background-color: #EEEEEE !important;
-    box-shadow: inset 0 -2px 0 0 #000091;
 }
 
 .input-error {

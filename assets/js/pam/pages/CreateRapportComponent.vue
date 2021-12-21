@@ -15,8 +15,8 @@
           <div class="mainContent">
             <!-- Informations générales -->
             <GeneralInformationCardComponent
-               :start_date="rapport.start_date"
-               :end_date="rapport.end_date"
+               :start_datetime="rapport.start_datetime"
+               :end_datetime="rapport.end_datetime"
                :end_time="rapport.end_time"
                :start_time="rapport.start_time"
                :equipage="rapport.equipage"
@@ -202,11 +202,10 @@ export default {
 
     },
     setDates(date) {
-      this.rapport.start_date = date.startDate;
-      this.rapport.end_date = date.endDate;
+      this.rapport.start_datetime = date.startDateTime;
+      this.rapport.end_datetime = date.endDateTime;
       this.rapport.end_time = date.endTime;
       this.rapport.start_time = date.startTime;
-      this.rapport.checkMissions = date.checkMissions;
     },
     setActivite(info) {
       this.rapport.nb_jours_mer = info.nb_jours_mer;
@@ -237,10 +236,10 @@ export default {
       return formatDate.getHours() + ':' + formatDate.getMinutes();
     },
     formatAllDatesTimes() {
-      this.rapport.start_date = this.formatDate(this.rapport.start_date);
-      this.rapport.end_date = this.formatDate(this.rapport.end_date);
+  /*    this.rapport.start_date = this.formatDate(this.rapport.start_date);
+      this.rapport.end_datetime = this.formatDate(this.rapport.end_datetime);
       this.rapport.start_time = this.formatTime(this.rapport.start_time);
-      this.rapport.end_time = this.formatTime(this.rapport.end_time);
+      this.rapport.end_time = this.formatTime(this.rapport.end_time);*/
     },
     showToast(message, type, position) {
       this.$toast(message, {
