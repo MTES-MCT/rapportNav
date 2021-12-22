@@ -30,8 +30,9 @@ Simple reporting tool for Direction des Affaires Maritimes (French Maritime Affa
 ## Requirements
 
 Backend : 
-* PHP7.2
+* PHP7.3
 * composer
+* PostGreSQL (may work with MariaDB but not tested) >= 9.6
 
 Frontend:
 * node >=12
@@ -72,11 +73,14 @@ $ sudo -u www-data bin/console doctrine:migration:migrate
 
 If you aim to contribute to the code you may prefer to use the `yarn dev` or `yarn watch` commands for js compilation. 
 Some basic fixtures to get a development environment are available using `bin/console doctrine:fixtures:load --group=default`
+This command should be executed in dev environment, you may add the `--env=dev` depending on the environment defined in your `.env.local`
+TODO: some fixtures are missing on the repository. 
 
 ### Test environment configuration (for developers)
 
 For tests only it is required to create a `var/data` folder where a SQLite database for tests will be instantiated, the module `php-sqlite3` is also required for running tests. 
 You can check dev requirements with the command `$ sudo -u www-data composer check-platform-reqs`
+
 
 ## Contribution 
 
