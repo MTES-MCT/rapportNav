@@ -27,6 +27,15 @@
 <script>
 export default {
   name: "InputNumberComponent",
+  mounted() {
+    let input = this.$el.querySelector('.fr-input');
+    let addOn = this.$el.querySelector('.InputAddOn-item');
+    if(input.value > 0) {
+      input.classList.add('fr-input-valid');
+      addOn.classList.add('fr-input-valid');
+    }
+
+  },
   methods: {
     valueChanged(e){
       this.$emit('input', e.target.value);
@@ -67,7 +76,8 @@ export default {
   },
   data () {
     return {
-      isValid: null
+      isValid: null,
+      id: this._uid
     }
   }
 }

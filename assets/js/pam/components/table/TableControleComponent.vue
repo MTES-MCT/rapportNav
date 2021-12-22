@@ -1,5 +1,5 @@
 <template>
-  <div class="table-custom">
+  <div class="table-custom" @keyup="getData">
     <table class="table-controle">
       <thead class="thead-controle">
       <th :class="'th-table-controle-' + id">Pavillon</th>
@@ -30,56 +30,65 @@
       </thead>
 
       <tbody :class="'tbody-controle-' + id">
-      <tr class="tr-table" v-for="(controle, index) in type.pavillons">
+      <tr class="tr-table" v-for="(pavillon, index) in pavillons">
         <td class="td-pavillon td-table-controle">
-          <select name="pavillon" id="pavillon-select" v-model="controle.pavillon">
+          <select name="pavillon" id="pavillon-select" v-model="pavillon.pavillon">
             <option value="FR">FR</option>
             <option value="US">US</option>
           </select>
         </td>
         <TdEditable
             v-if="cols[0].enabled"
-            v-model="controle.nb_navire_controle"
+            v-model="pavillon.nb_navire_controle"
+            :value="pavillon.nb_navire_controle"
         >
         </TdEditable>
         <TdEditable
-            v-if="cols[1].enabled"
-            v-model="controle.pv_peche_sanitaire"
+            v-if="cols[1].enabled || pavillon.nb_pv_peche_sanitaire > 0"
+            v-model="pavillon.nb_pv_peche_sanitaire"
+            :value="pavillon.nb_pv_peche_sanitaire"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[2].enabled"
-            v-model="controle.pv_equipement_securite"
+            v-model="pavillon.nb_pv_equipement_securite"
+            :value="pavillon.nb_pv_equipement_securite"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[3].enabled"
-            v-model="controle.pv_titre_nav"
+            v-model="pavillon.nb_pv_titre_nav"
+            :value="pavillon.nb_pv_titre_nav"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[4].enabled"
-            v-model="controle.pv_police_nav"
+            v-model="pavillon.nb_pv_police_nav"
+            :value="pavillon.nb_pv_police_nav"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[5].enabled"
-            v-model="controle.pv_env_pollution"
+            v-model="pavillon.nb_pv_env_pollution"
+            :value="pavillon.nb_pv_env_pollution"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[6].enabled"
-            v-model="controle.autre_pv"
+            v-model="controle.nb_autre_pv"
+            :value="controle.nb_autre_pv"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[7].enabled"
             v-model="controle.nb_nav_deroute"
+            :value="controle.nb_nav_deroute"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[8].enabled"
             v-model="controle.nb_nav_interroge"
+            :value="controle.nb_nav_interroge"
         >
         </TdEditable>
         <td class="td-add-column td-table-controle"></td>
@@ -111,30 +120,64 @@ export default {
       type: Number,
       default: null
     },
-    type: {
-      type: Object,
+    pavillons: {
+      type: Array,
       default: null
     }
   },
   mounted() {
-
+    this.pavillons.forEach((pavillon, index) => {
+      if(pavillon.nb_navire_controle) {
+        this.cols[0].enabled = true
+      }
+      if(pavillon.nb_pv_peche_sanitaire) {
+        this.cols[1].enabled = true;
+      }
+      if(pavillon.nb_pv_equipement_securite) {
+        this.cols[2].enabled = true
+      }
+      if(pavillon.nb_pv_titre_nav) {
+        this.cols[3].enabled = true
+      }
+      if(pavillon.nb_pv_police_nav) {
+        this.cols[4].enabled = true
+      }
+      if(pavillon.nb_pv_env_pollution) {
+        this.cols[5].enabled = true
+      }
+      if(pavillon.nb_autre_pv) {
+        this.cols[6].enabled = true
+      }
+      if(pavillon.nb_nav_deroute) {
+        this.cols[7].enabled = true
+      }
+      if(pavillon.nb_nav_interroge) {
+        this.cols[8].enabled = true
+      }
+    })
   },
   methods: {
     addPav(event) {
       const newPav = {
-        type: this.id,
+        type: {
+          id: this.pavillons[0].type.id,
+          label: this.pavillons[0].type.label
+        },
         pavillon: 'FR',
         nb_navire_controle: null,
-        pv_peche_sanitaire: null,
-        pv_equipement_securite: null,
-        pv_titre_nav: null,
-        pv_police_nav: null,
-        pv_env_pollution: null,
-        autre_pv: null,
+        nb_pv_peche_sanitaire: null,
+        nb_pv_equipement_securite: null,
+        nb_pv_titre_nav: null,
+        nb_pv_police_nav: null,
+        nb_pv_env_pollution: null,
+        nb_autre_pv: null,
         nb_nav_deroute: null,
         nb_nav_interroge: null
       };
-      this.type.pavillons.push(newPav);
+      this.pavillons.push(newPav);
+    },
+    getData() {
+      this.$emit('get-controles', this.pavillons)
     }
   },
   data: function() {
@@ -146,7 +189,7 @@ export default {
         },
         {
           title: 'Pêches sanitaire',
-          enabled: false
+          enabled: true
         },
         {
           title: 'PV équipement sécu. permis de nav.',

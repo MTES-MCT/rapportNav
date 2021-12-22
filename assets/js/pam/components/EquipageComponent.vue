@@ -4,13 +4,13 @@
       <div class="members-list">
         <div class="member-group" v-for="(member, index) in membres" >
           <div class="equipName">
-            {{ member.name }}
+            {{ member.nom }}
             <span class="equipRole">{{ member.role }}</span>
           </div>
           <div class=" tooltip">
             <span class="ri-more-fill more-option-icon "></span>
             <div class="tooltipMember fr-px-2w fr-py-2w">
-              <input class="fr-input" type="text" id="memberName"  v-bind:value="member.name" disabled>
+              <input class="fr-input" type="text" id="memberName"  v-bind:value="member.nom" disabled>
 
               <select class="fr-select fr-mt-3v" id="select"  v-model="member.role">
                 <option value="Agent de pont">Agent de pont</option>
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="fr-col-lg-5 fr-col-md-4 fr-pl-4v">
-      <input class="fr-input" type="text" placeholder="Ajouter des membres" v-model="newMember.name"
+      <input class="fr-input" type="text" placeholder="Ajouter des membres" v-model="newMember.nom"
              @keyup="createNewMember($event.target.value)"
              @click.stop="showSugestionList"
       >
@@ -51,7 +51,7 @@
             <div class="fr-grid-row suggestionsList" v-for="(suggestion, index) in suggestionsList">
               <div class="fr-col-7">
                 <div class="text-14 text-left">
-                  {{ suggestion.name }}
+                  {{ suggestion.nom }}
                   <span class="equipRole">{{suggestion.role}}</span>
                 </div>
               </div>
@@ -122,7 +122,7 @@ export default {
       let noExist = true;
       if(value.length > 2) {
         this.suggestionsList.filter(element => {
-          if(element.name.indexOf(value) === 0) {
+          if(element.nom.indexOf(value) === 0) {
             noExist = false;
           }
         });
@@ -145,23 +145,26 @@ export default {
     return {
       suggestionsList: [
         {
-          name: 'Alain Colas',
+          id: 45,
+          nom: 'Alain Colas',
           role: 'Agent de pont',
           observations: ''
         },
         {
-          name: 'Francis Joyon',
+          id: 46,
+          nom: 'Francis Joyon',
           role: 'Agent de pont',
           observations: ''
         },
         {
-          name: 'Christophe Augin',
+          id: 47,
+          nom: 'Christophe Augin',
           role: 'Agent de pont',
           observations: ''
         }
       ],
       newMember: {
-        name: '',
+        nom: '',
         role: '',
         observations: ''
       }

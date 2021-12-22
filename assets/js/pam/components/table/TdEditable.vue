@@ -5,7 +5,7 @@
         class="tooltip-observation"
         v-bind:class="{'d-none': !displayObservationInput}"
     >
-      <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations"  @keyup="getValue($event.target, true)"></textarea>
+      <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations" :value="value"  @keyup="getValue($event.target, true)"></textarea>
     </div>
   </td>
   <td
@@ -13,6 +13,7 @@
       contenteditable="true"
       @keyup="getValue($event.target)"
       v-else
+      v-text="value"
   >
   </td>
 </template>
@@ -28,8 +29,15 @@ export default {
   observation: {
     type: Boolean,
     default: false
+  },
+  value: {
+     type: Number | String,
+    default: null
+  },
+  textObservation: {
+     type: String,
+    default: null
   }
-
   },
   methods: {
     getValue(target, isTextarea = false) {

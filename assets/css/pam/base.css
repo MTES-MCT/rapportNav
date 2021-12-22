@@ -1,6 +1,17 @@
 @import "components/equipage.css";
 @import "components/checkboxMission.css";
 @import "components/input.css";
+@import "components/current-report.css";
+
+.home-heading-1 {
+    padding-top: 70px;
+    margin-bottom: 50px;
+    color: #000091;
+}
+
+.myReports {
+    margin-top: 30px;
+}
 
 .mr-2 {
     margin-right: 25px;
