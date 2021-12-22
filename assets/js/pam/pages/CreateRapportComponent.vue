@@ -156,11 +156,12 @@ export default {
     postForm() {
       const errorsInformationGeneral = this.$refs.informationGeneral.checkForm();
       const errorsShipActivity = this.$refs.shipActivity.checkForm();
+      console.log(errorsInformationGeneral, errorsShipActivity);
       let url = '/api/pam/rapport';
       if(this.saved) {
         url = url + '?id=' + this.idSave;
       }
-      if(!errorsInformationGeneral || !errorsShipActivity) {
+      if(errorsInformationGeneral.length === 0 && errorsShipActivity.length === 0) {
         axios.post(
             url,
             JSON.stringify(this.rapport),
@@ -174,10 +175,10 @@ export default {
               this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
             }
         ).catch((error) => {
-          this.showToast("Erreur", TYPE.ERROR, 'bottom-center');
+          this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center');
         })
       } else {
-        this.showToast("Erreur", TYPE.ERROR, 'bottom-center');
+        this.showToast("Erreur, merci de remplir les champs obligatoires", TYPE.ERROR, 'bottom-center');
       }
     },
     postFormDraft() {

@@ -8,12 +8,18 @@
           <label class="fr-label">
             De
           </label>
-          <DateTimeComponent v-model:value="startDateTime"></DateTimeComponent>
+          <DateTimeComponent
+              v-model:value="startDateTime"
+              :error="hasError('startDateTime')"
+          ></DateTimeComponent>
 
           <label class="fr-label fr-mr-6v">
             à
           </label>
-          <DateTimeComponent v-model:value="endDateTime"></DateTimeComponent>
+          <DateTimeComponent
+              v-model:value="endDateTime"
+              :error="hasError('endDateTime')"
+          ></DateTimeComponent>
         </div>
         <div class="divider-horizontal"></div>
 
@@ -40,6 +46,7 @@
 import EquipageComponent from "../EquipageComponent";
 import MissionToAchieveComponent from "../MissionToAchieveComponent";
 import DateTimeComponent from "../input/DateTimeComponent";
+import moment from "moment";
 
 export default {
   name: "GeneralInformationCardComponent",
@@ -52,7 +59,6 @@ export default {
   },
   methods: {
     getDate(value) {
-      console.log(value)
       this.startDateTime = value
     },
     getData() {
@@ -62,15 +68,19 @@ export default {
       this.$emit('get-errors', this.error)
     },
     checkForm() {
+      this.errors = []; // begin with empty array
       this.addError(this.startDateTime, 'startDateTime');
       this.addError(this.endDateTime, 'endDateTime');
       return this.errors;
-
     },
-    addError(element, scope) {
-      if(!element) {
-        this.errors.push(scope)
+    addError(date, name) {
+      const time = moment(date).format('HH:mm');
+      if(!date || (!time || time === '00:00')) {
+        this.errors.push(name)
       }
+    },
+    hasError(value) {
+      return this.errors.includes(value)
     }
   },
   mounted() {
