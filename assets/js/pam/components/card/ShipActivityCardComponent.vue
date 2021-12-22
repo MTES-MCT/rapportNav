@@ -107,7 +107,6 @@
 
 <script>
 import InputNumberComponent from "../input/InputNumberComponent";
-import { required, minLength, between } from 'vuelidate/lib/validators'
 
 export default {
   name: "ShipActivityCardComponent",
