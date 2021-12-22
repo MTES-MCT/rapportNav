@@ -27,7 +27,7 @@
       </div>
     </div>
     <p class="fr-error-text" v-if="error">
-      Merci de remplir ce champs.
+      Merci de remplir ce champ.
     </p>
   </div>
 </template>

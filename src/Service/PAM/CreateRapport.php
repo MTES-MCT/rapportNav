@@ -49,7 +49,7 @@ class CreateRapport {
         $this->setMembres($rapport->getEquipage());
         $errors = $this->validator->validate($rapport);
 
-        if($errors) {
+        if($errors->count() > 0) {
             throw new BadRequestHttpException((string) $errors);
         }
 

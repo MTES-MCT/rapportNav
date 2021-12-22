@@ -49,6 +49,9 @@ class RapportController extends AbstractFOSRestController {
         catch (NotFoundHttpException $exception) {
             return View::create($exception->getMessage(), Response::HTTP_NOT_FOUND);
         }
+        catch(BadRequestHttpException $exception) {
+            return View::create($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
