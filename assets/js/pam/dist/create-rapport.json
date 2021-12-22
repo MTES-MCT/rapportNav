@@ -12,6 +12,8 @@
   "technique": null,
   "distance": null,
   "go_marine": null,
+  "personnel": null,
+  "administratif": null,
   "essence": null,
   "equipage": {
     "membres": []

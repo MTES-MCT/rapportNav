@@ -5,19 +5,22 @@
       <div class="InputAddOn">
         <input
             class="InputAddOn-field fr-input"
-            v-bind:class="{ 'fr-input-valid': isValid }"
-            :type="type"
-            @change="valueChanged"
-            @keydown="keydown"
-            v-on:change="checkInputValid($event)"
+            v-bind:class="[
+                error && !value ? 'fr-input-invalid' : null,
+                value ? 'fr-input-valid' : null
+            ]"
+            @keyup="valueChanged"
             min="0"
             :value="value"
-
+            type="number"
         >
         <span
             class="InputAddOn-item"
             v-if="addOn !== null"
-            v-bind:class="{ 'fr-input-valid': isValid }"
+            v-bind:class="[
+                error && !value ? 'fr-input-invalid' : null,
+                value ? 'fr-input-valid' : null
+            ]"
         >
         {{ addOn }}
       </span>
@@ -33,33 +36,12 @@
 export default {
   name: "InputNumberComponent",
   mounted() {
-    console.log(this.error)
-    let input = this.$el.querySelector('.fr-input');
-    let addOn = this.$el.querySelector('.InputAddOn-item');
-    if(input.value > 0) {
-      input.classList.add('fr-input-valid');
-      addOn.classList.add('fr-input-valid');
-    }
-
   },
   methods: {
     valueChanged(e){
-      this.$emit('input', e.target.value);
-      this.$emit('change',e.target.value);
-    },
-    keydown(e){
-      if(e.keyCode === 13){
-        this.$emit('input', e.target.value);
-        this.$emit('change',e.target.value);
-        this.$emit('enter');
-      }
-    },
-    checkInputValid(e) {
-      if(e.target.value.length > 0) {
-        this.isValid = true;
-      } else {
-        this.isValid = false;
-      }
+      const value = e.target.value !== "" ? e.target.value : null;
+      this.$emit('input', value);
+      this.$emit('change',value);
     }
   },
   props: {
@@ -71,10 +53,6 @@ export default {
       type: String,
       default: null
     },
-    type: {
-      type: String,
-      default: 'text'
-    },
     value: {
       type: Number,
       default: null
@@ -82,12 +60,6 @@ export default {
     error: {
       type: Boolean,
       default: false
-    }
-  },
-  data () {
-    return {
-      isValid: null,
-      id: this._uid
     }
   }
 }
