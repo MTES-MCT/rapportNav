@@ -154,13 +154,18 @@ class CreateRapport {
         $repository = $this->em->getRepository(PamMembre::class);
         /** @var PamMembre $membre */
         foreach($equipage->getMembres() as $membre) {
-            $result = $repository->find($membre->getId());
-            if($result) {
-                $result->setNom($membre->getNom());
-                $result->setRole($membre->getRole());
-                $result->setObservations($membre->getObservations());
-                $equipage->addMembre($result);
-                $equipage->removeMembre($membre); // avoid cascade persist if member already exist
+            if($membre->getId()) {
+                $result = $repository->find($membre->getId());
+                if($result) {
+                    $result->setNom($membre->getNom());
+                    $result->setPrenom($membre->getPrenom());
+                    $result->setRole($membre->getRole());
+                    $result->setObservations($membre->getObservations());
+                    $equipage->addMembre($result);
+                    $equipage->removeMembre($membre); // avoid cascade persist if member already exist
+                }
+            } else {
+                $equipage->addMembre($membre);
             }
         }
     }

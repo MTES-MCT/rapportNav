@@ -20,7 +20,7 @@ class PamMembre
 
     /**
      * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=64)
      */
     private $nom;
 
@@ -35,6 +35,18 @@ class PamMembre
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observations;
+
+    /**
+     * @Groups({"view", "draft"})
+     * @ORM\Column(type="string", length=64)
+     */
+    private $prenom;
+
+    /**
+     * @Groups({"view", "draft"})
+     * @ORM\Column(type="boolean")
+     */
+    private $is_absent = false;
 
 
     public function getId(): ?int
@@ -79,6 +91,30 @@ class PamMembre
     public function setObservations(?string $observations): self
     {
         $this->observations = $observations;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getIsAbsent(): ?bool
+    {
+        return $this->is_absent;
+    }
+
+    public function setIsAbsent(bool $is_absent): self
+    {
+        $this->is_absent = $is_absent;
 
         return $this;
     }

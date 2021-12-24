@@ -205,8 +205,6 @@ export default {
     setDates(date) {
       this.rapport.start_datetime = date.startDateTime;
       this.rapport.end_datetime = date.endDateTime;
-      this.rapport.end_time = date.endTime;
-      this.rapport.start_time = date.startTime;
     },
     setActivite(info) {
       this.rapport.nb_jours_mer = info.nb_jours_mer;
