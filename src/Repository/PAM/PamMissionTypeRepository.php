@@ -18,33 +18,4 @@ class PamMissionTypeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PamMissionType::class);
     }
-
-    // /**
-    //  * @return PamMissionTypeRequest[] Returns an array of PamMissionTypeRequest objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?PamMissionTypeRequest
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
