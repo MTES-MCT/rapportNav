@@ -4,6 +4,7 @@ namespace App\Controller\PAM\Api;
 
 use App\Entity\PAM\PamRapport;
 use App\Service\PAM\CreateRapport;
+use App\Service\PAM\PamEquipageService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -127,6 +128,18 @@ class RapportController extends AbstractFOSRestController {
     {
         $rapport = $this->createRapportService->getLastDraft($this->getUser());
         return View::create($rapport, Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Get("/last/equipage")
+     * @Rest\View(serializerGroups={"view"})
+     * @param PamEquipageService $service
+     *
+     * @return View
+     */
+    public function lastEquipage(PamEquipageService $service) : View
+    {
+        return View::create($service->getLastEquipage(), Response::HTTP_OK);
     }
 
 }

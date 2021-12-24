@@ -124,14 +124,12 @@ export default {
             this.idDraft = id;
             this.rapport.number = 'TEST'; // TODO define a way to generate number
             console.log(JSON.parse(response.data.body))
-            this.formatAllDatesTimes();
           })
     }
     else if (id) {
       axios.get('/api/pam/rapport/show/' + id)
           .then((response) => {
             this.rapport = response.data;
-            this.formatAllDatesTimes();
             this.saved = true;
             this.idSave = id;
             this.rapport.number = 'TEST'; // TODO define a way to generate number
@@ -139,6 +137,7 @@ export default {
     } else {
       this.rapport = require('../dist/create-rapport.json');
       this.rapport.number = 'TEST'; // TODO define a way to generate number
+      this.fetchLastEquipage();
     }
 
   },
@@ -230,20 +229,19 @@ export default {
       formatDate = formatDate.toISOString().split('T')[0];
       return formatDate;
     },
-    formatTime(date) {
-      let formatDate = new Date(date);
-      return formatDate.getHours() + ':' + formatDate.getMinutes();
-    },
-    formatAllDatesTimes() {
-  /*    this.rapport.start_date = this.formatDate(this.rapport.start_date);
-      this.rapport.end_datetime = this.formatDate(this.rapport.end_datetime);
-      this.rapport.start_time = this.formatTime(this.rapport.start_time);
-      this.rapport.end_time = this.formatTime(this.rapport.end_time);*/
-    },
     showToast(message, type, position) {
       this.$toast(message, {
         type: type,
         position: position
+      })
+    },
+    fetchLastEquipage() {
+      axios.get('/api/pam/rapport/last/equipage')
+      .then((response) => {
+        this.rapport.equipage = response.data;
+      })
+      .catch((error) => {
+        console.log(error)
       })
     }
   },

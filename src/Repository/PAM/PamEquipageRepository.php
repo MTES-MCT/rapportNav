@@ -4,6 +4,7 @@ namespace App\Repository\PAM;
 
 use App\Entity\PAM\PamEquipage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,5 +18,19 @@ class PamEquipageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PamEquipage::class);
+    }
+
+    /**
+     * @return PamEquipage|null
+     * @throws NonUniqueResultException
+     */
+    public function findLastEquipage() : ?PamEquipage
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 }
