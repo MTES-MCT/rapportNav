@@ -22,7 +22,7 @@ class PamMission
     private $id;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\OneToMany(targetEntity=PamIndicateur::class, mappedBy="mission", orphanRemoval=true, cascade={"persist"})
      */
     private $indicateurs;
@@ -34,7 +34,7 @@ class PamMission
     private $rapport;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\ManyToOne(targetEntity=PamMissionType::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -42,25 +42,25 @@ class PamMission
 
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="boolean")
      */
     private $checked = false;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="boolean")
      */
     private $is_main = false;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $start_datetime;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $end_datetime;

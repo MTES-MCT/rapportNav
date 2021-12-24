@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PamIndicateur
 {
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "save_rapport"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -20,25 +20,25 @@ class PamIndicateur
     private $id;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $principale;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $secondaire;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $total;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observations;
@@ -50,7 +50,7 @@ class PamIndicateur
     private $mission;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\ManyToOne(targetEntity=PamIndicateurType::class)
      * @ORM\JoinColumn(nullable=false)
      */

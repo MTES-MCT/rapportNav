@@ -39,7 +39,7 @@ class PamEquipage
     private $rapport;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\OneToMany(targetEntity=PamEquipageAgent::class, mappedBy="equipage", cascade={"persist"})
      */
     private $membres;

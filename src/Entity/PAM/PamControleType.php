@@ -14,14 +14,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PamControleType
 {
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Id
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=124)
      */
     private $label;

@@ -26,26 +26,26 @@ class PamEquipageAgent
     private $equipage;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\ManyToOne(targetEntity=PamAgent::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $agent;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=64)
      */
     private $role;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observations;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="boolean")
      */
     private $is_absent = false;

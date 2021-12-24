@@ -36,109 +36,109 @@ class PamRapport
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer")
      */
     private $nb_jours_mer;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nav_eff;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $mouillage;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $maintenance;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $meteo;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $representation;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $administratif;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $autre;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $contr_port;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer")
      */
     private $technique;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $distance;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $go_marine;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $essence;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\OneToOne(targetEntity=PamEquipage::class, inversedBy="rapport", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipage;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\OneToMany(targetEntity=PamControle::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $controles;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\OneToMany(targetEntity=PamMission::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist"})
      */
     private $missions;
@@ -149,14 +149,14 @@ class PamRapport
     private $number;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @Assert\NotBlank()
      * @ORM\Column(type="datetime")
      */
     private $start_datetime;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @Assert\NotBlank()
      * @ORM\Column(type="datetime")
      */

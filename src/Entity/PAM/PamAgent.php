@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PamAgent
 {
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -20,13 +20,13 @@ class PamAgent
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=64)
      */
     private $prenom;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=64)
      */
     private $nom;

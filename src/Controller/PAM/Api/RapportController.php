@@ -32,7 +32,7 @@ class RapportController extends AbstractFOSRestController {
     /**
      * @Rest\Post()
      * @ParamConverter("rapport", converter="fos_rest.request_body")
-     * @Rest\View(serializerGroups={"view"})
+     * @Rest\View(serializerGroups={"save_rapport"})
      * @param PamRapport $rapport
      *
      * @return View
@@ -57,7 +57,7 @@ class RapportController extends AbstractFOSRestController {
 
     /**
      * @Rest\Post("/draft")
-     * @Rest\View(serializerGroups={"view"})
+     * @Rest\View(serializerGroups={"draft"})
      * @ParamConverter("rapport", converter="fos_rest.request_body")
      * @param PamRapport          $rapport
      * @param Request             $request

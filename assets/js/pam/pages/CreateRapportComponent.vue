@@ -155,7 +155,6 @@ export default {
     postForm() {
       const errorsInformationGeneral = this.$refs.informationGeneral.checkForm();
       const errorsShipActivity = this.$refs.shipActivity.checkForm();
-      console.log(errorsInformationGeneral, errorsShipActivity);
       let url = '/api/pam/rapport';
       if(this.saved) {
         url = url + '?id=' + this.idSave;
