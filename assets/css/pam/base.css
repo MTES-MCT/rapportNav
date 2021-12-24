@@ -2,6 +2,12 @@
 @import "components/checkboxMission.css";
 @import "components/input.css";
 @import "components/current-report.css";
+@import "components/datetime.css";
+
+.fr-error-text{
+    color:#ce0500;
+    margin-top: 0;
+}
 
 .home-heading-1 {
     padding-top: 70px;
@@ -230,19 +236,6 @@
     border-bottom: solid 3px #0d3479 !important;
 }
 
-.form-time {
-    margin-top: 13px !important;
-}
-
-input[type="time"]::-webkit-calendar-picker-indicator {
-    background-size: 15px;
-}
-
-input[type="time"], input[type="date"] {
-    background-color: #EEEEEE !important;
-    box-shadow: inset 0 -2px 0 0 #000091;
-}
-
 .unit-placeholder::-webkit-input-placeholder { /* WebKit browsers */
     color:    #9C9C9C;
     font-size: 16px;
@@ -256,8 +249,12 @@ input[type="time"], input[type="date"] {
 }
 
 .fr-input-valid {
-    background: #F2F9F5;
+    background: #F2F9F5 !important;
     box-shadow: inset 0 -2px 0 0 #008941 !important;
+}
+.fr-input-invalid {
+    background: #F7E3E3 !important;
+    box-shadow: inset 0 -2px 0 0 #E10600 !important;
 }
 
 .fr-fi-message-2-fill::before {
@@ -288,7 +285,6 @@ margin-left: 50% !important;
     vertical-align: middle;
     margin: 5px 10px 5px 0;
     padding: 10px;
-    background-color: #fff;
     border: 1px solid #ddd;
 }
 

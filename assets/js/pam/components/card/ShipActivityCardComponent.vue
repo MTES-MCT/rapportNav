@@ -19,13 +19,16 @@
           <div class="fr-container--fluid">
             <div class="fr-grid-row">
               <div class="fr-col-lg-4">
-               <InputNumberComponent type="number" label="Nombre de jours en mer" add-on="j" v-model.number="activite.nb_jours_mer"></InputNumberComponent>
+               <InputNumberComponent label="Nombre de jours en mer" add-on="j" v-model.number="activite.nb_jours_mer" :error="hasError('nb_jours_mer')"></InputNumberComponent>
+
               </div>
               <div class="fr-col-lg-3">
-                <InputNumberComponent type="number" label="Navigation eff." add-on="h" v-model.number="activite.nav_eff"></InputNumberComponent>
+                <InputNumberComponent  label="Navigation eff." add-on="h" v-model.number="activite.nav_eff" :error="hasError('nav_eff')"></InputNumberComponent>
+
               </div>
               <div class="fr-col-lg-3 space-between">
-                <InputNumberComponent type="number" label="Mouillage" add-on="h" v-model.number="activite.mouillage"></InputNumberComponent>
+                <InputNumberComponent  label="Mouillage" add-on="h" v-model.number="activite.mouillage" :error="hasError('mouillage')"></InputNumberComponent>
+
               </div>
             </div>
           </div>
@@ -39,22 +42,22 @@
           <div class="fr-container--fluid">
             <div class="fr-grid-row">
               <div class="fr-col-lg-2 fr-col-md-6">
-                <InputNumberComponent label="Maintenance" add-on="h" type="number" v-model.number="activite.maintenance"></InputNumberComponent>
+                <InputNumberComponent label="Maintenance" add-on="h"  v-model.number="activite.maintenance" :error="hasError('maintenance')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-2 fr-col-md6 space-between">
-                <InputNumberComponent label="Météo" add-on="h" type="number" v-model.number="activite.meteo"></InputNumberComponent>
+                <InputNumberComponent label="Météo" add-on="h"  v-model.number="activite.meteo" :error="hasError('meteo')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-2 fr-col-md-6 space-between">
-                <InputNumberComponent label="Représentation" add-on="h" type="number" v-model.number="activite.representation"></InputNumberComponent>
+                <InputNumberComponent label="Représentation" add-on="h"  v-model.number="activite.representation" :error="hasError('representation')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-2 fr-col-md-6 space-between">
-                <InputNumberComponent label="Administratif" add-on="h" type="number" v-model.number="activite.administratif"></InputNumberComponent>
+                <InputNumberComponent label="Administratif" add-on="h"  v-model.number="activite.administratif" :error="hasError('administratif')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-2 fr-col-md-6 space-between">
-                <InputNumberComponent label="Autre" add-on="h" type="number" v-model.number="activite.autre"></InputNumberComponent>
+                <InputNumberComponent label="Autre" add-on="h"  v-model.number="activite.autre" :error="hasError('autre')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-2 fr-col-md-6">
-                <InputNumberComponent label="Contr. Port" add-on="h" type="number" v-model.number="activite.contr_port"></InputNumberComponent>
+                <InputNumberComponent label="Contr. Port" add-on="h"  v-model.number="activite.contr_port" :error="hasError('contr_port')"></InputNumberComponent>
               </div>
             </div>
           </div>
@@ -68,10 +71,10 @@
           <div class="fr-container--fluid">
             <div class="fr-grid-row">
               <div class="fr-col-lg-3 fr-col-md-4 fr-mr-2w">
-                <InputNumberComponent label="Technique" type="number" add-on="h" v-model.number="activite.technique"></InputNumberComponent>
+                <InputNumberComponent label="Technique"  add-on="h" v-model.number="activite.technique" :error="hasError('technique')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-3 fr-col-md-4">
-                <InputNumberComponent label="Personnel" type="number" add-on="h" v-model.number="activite.personnel"></InputNumberComponent>
+                <InputNumberComponent label="Personnel"  add-on="h" v-model.number="activite.personnel" :error="hasError('personnel')"></InputNumberComponent>
               </div>
             </div>
           </div>
@@ -85,13 +88,13 @@
           <div class="fr-container--fluid">
             <div class="fr-grid-row">
               <div class="fr-col-lg-3 fr-col-md-4">
-                <InputNumberComponent add-on="miles" type="number" label="Distance parcourue" v-model.number="activite.distance"></InputNumberComponent>
+                <InputNumberComponent add-on="miles"  label="Distance parcourue" v-model.number="activite.distance" :error="hasError('distance')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-3 fr-col-md-4">
-                <InputNumberComponent label="GO marine consommé" type="number" add-on="litres" v-model.number="activite.go_marine"></InputNumberComponent>
+                <InputNumberComponent label="GO marine consommé"  add-on="litres" v-model.number="activite.go_marine" :error="hasError('go_marine')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-3 fr-col-md-4">
-                <InputNumberComponent add-on="litres" type="number" label="Essence consommée" v-model.number="activite.essence"></InputNumberComponent>
+                <InputNumberComponent add-on="litres"  label="Essence consommée" v-model.number="activite.essence" :error="hasError('essence')"></InputNumberComponent>
               </div>
             </div>
           </div>
@@ -104,16 +107,14 @@
 
 <script>
 import InputNumberComponent from "../input/InputNumberComponent";
+
 export default {
   name: "ShipActivityCardComponent",
   components: {
     InputNumberComponent
   },
   props: {
-    nb_jours_mer: {
-      type: Number,
-      default: () => {return 10}
-    },
+    nb_jours_mer: Number,
     nav_eff: Number,
     mouillage: Number,
     maintenance: Number,
@@ -123,17 +124,43 @@ export default {
     autre: Number,
     contr_port: Number,
     technique: Number,
-    personnel: {
-      type: Number,
-      default: () => { return 0 }
-    },
+    personnel: Number,
     distance: Number,
     go_marine: Number,
     essence: Number
   },
+  mounted() {
+  },
   methods: {
     getData() {
       this.$emit('get-activite', this.activite);
+    },
+    checkForm() {
+      this.errors = [];
+      this.addError(this.activite.nb_jours_mer, 'nb_jours_mer');
+      this.addError(this.activite.nav_eff, 'nav_eff');
+      this.addError(this.activite.mouillage, 'mouillage');
+      this.addError(this.activite.maintenance, 'maintenance');
+      this.addError(this.activite.meteo, 'meteo');
+      this.addError(this.activite.representation, 'representation');
+      this.addError(this.activite.administratif, 'administratif');
+      this.addError(this.activite.autre, 'autre');
+      this.addError(this.activite.technique, 'technique');
+      this.addError(this.activite.personnel, 'personnel');
+      this.addError(this.activite.distance, 'distance');
+      this.addError(this.activite.go_marine, 'go_marine');
+      this.addError(this.activite.essence, 'essence');
+      this.addError(this.activite.contr_port, 'contr_port');
+      console.log(this.errors)
+      return this.errors;
+    },
+    addError(element, offset) {
+      if(element === null) {
+        this.errors.push(offset)
+      }
+    },
+    hasError(value) {
+      return this.errors.includes(value)
     }
   },
   data () {
@@ -153,7 +180,8 @@ export default {
           distance: this.distance,
           go_marine: this.go_marine,
           essence: this.essence,
-        }
+        },
+      errors: []
     }
   }
 }

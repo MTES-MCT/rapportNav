@@ -27,13 +27,13 @@ class PamControle
 
     /**
      * @Groups({"view", "draft"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_navire_controle;
 
     /**
      * @Groups({"view", "draft"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_pv_peche_sanitaire;
 
@@ -115,7 +115,7 @@ class PamControle
         return $this->nb_navire_controle;
     }
 
-    public function setNbNavireControle(int $nb_navire_controle): self
+    public function setNbNavireControle(?int $nb_navire_controle): self
     {
         $this->nb_navire_controle = $nb_navire_controle;
 
@@ -127,7 +127,7 @@ class PamControle
         return $this->nb_pv_peche_sanitaire;
     }
 
-    public function setNbPvPecheSanitaire(int $nb_pv_peche_sanitaire): self
+    public function setNbPvPecheSanitaire(?int $nb_pv_peche_sanitaire): self
     {
         $this->nb_pv_peche_sanitaire = $nb_pv_peche_sanitaire;
 

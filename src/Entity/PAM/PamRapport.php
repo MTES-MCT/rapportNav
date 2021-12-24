@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="pam_rapport")
@@ -34,60 +35,70 @@ class PamRapport
     private $updated_at;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer")
      */
     private $nb_jours_mer;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nav_eff;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $mouillage;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $maintenance;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $meteo;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $representation;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $administratif;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $autre;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $contr_port;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="integer")
      */
@@ -100,12 +111,14 @@ class PamRapport
     private $distance;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $go_marine;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="0")
      * @Groups({"view", "draft"})
      * @ORM\Column(type="float", nullable=true)
      */
@@ -131,33 +144,23 @@ class PamRapport
     private $missions;
 
     /**
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $start_date;
-
-    /**
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $end_date;
-
-    /**
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $start_time;
-
-    /**
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $end_time;
-
-    /**
      * @ORM\Column(type="string", length=20)
      */
     private $number;
+
+    /**
+     * @Groups({"view", "draft"})
+     * @Assert\NotBlank()
+     * @ORM\Column(type="datetime")
+     */
+    private $start_datetime;
+
+    /**
+     * @Groups({"view", "draft"})
+     * @Assert\NotBlank()
+     * @ORM\Column(type="datetime")
+     */
+    private $end_datetime;
 
 
     public function __construct()
@@ -431,53 +434,7 @@ class PamRapport
         return $this;
     }
 
-    public function getStartDate()
-    {
-        return $this->start_date;
-    }
 
-    public function setStartDate($start_date): self
-    {
-        $this->start_date = $start_date;
-
-        return $this;
-    }
-
-    public function getEndDate()
-    {
-        return $this->end_date;
-    }
-
-    public function setEndDate(?string $end_date): self
-    {
-        $this->end_date = $end_date;
-
-        return $this;
-    }
-
-    public function getStartTime()
-    {
-        return $this->start_time;
-    }
-
-    public function setStartTime( $start_time): self
-    {
-        $this->start_time = $start_time;
-
-        return $this;
-    }
-
-    public function getEndTime()
-    {
-        return $this->end_time;
-    }
-
-    public function setEndTime( $end_time): self
-    {
-        $this->end_time = $end_time;
-
-        return $this;
-    }
 
     public function getNumber(): ?string
     {
@@ -487,6 +444,30 @@ class PamRapport
     public function setNumber(string $number): self
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function getStartDatetime(): ?\DateTimeInterface
+    {
+        return $this->start_datetime;
+    }
+
+    public function setStartDatetime(\DateTimeInterface $start_datetime): self
+    {
+        $this->start_datetime = $start_datetime;
+
+        return $this;
+    }
+
+    public function getEndDatetime(): ?\DateTimeInterface
+    {
+        return $this->end_datetime;
+    }
+
+    public function setEndDatetime(\DateTimeInterface $end_datetime): self
+    {
+        $this->end_datetime = $end_datetime;
 
         return $this;
     }
