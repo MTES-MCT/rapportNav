@@ -2,16 +2,17 @@
 
 namespace App\Entity\PAM;
 
+use App\Repository\PAM\PamEquipageAgentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PAM\PamMembreRepository")
+ * @ORM\Entity(repositoryClass=PamEquipageAgentRepository::class)
  */
-class PamMembre
+class PamEquipageAgent
 {
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -19,54 +20,61 @@ class PamMembre
     private $id;
 
     /**
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", length=64)
+     * @ORM\ManyToOne(targetEntity=PamEquipage::class, inversedBy="membre")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $nom;
+    private $equipage;
 
     /**
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", length=124)
+     * @Groups({"view"})
+     * @ORM\ManyToOne(targetEntity=PamAgent::class, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $agent;
+
+    /**
+     * @Groups({"view"})
+     * @ORM\Column(type="string", length=64)
      */
     private $role;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observations;
 
     /**
-     * @Groups({"view", "draft"})
-     * @ORM\Column(type="string", length=64)
-     */
-    private $prenom;
-
-    /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view"})
      * @ORM\Column(type="boolean")
      */
     private $is_absent = false;
-
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(?int $id)
+    public function getEquipage(): ?PamEquipage
     {
-        $this->id = $id;
+        return $this->equipage;
     }
 
-    public function getNom(): ?string
+    public function setEquipage(?PamEquipage $equipage): self
     {
-        return $this->nom;
+        $this->equipage = $equipage;
+
+        return $this;
     }
 
-    public function setNom(string $nom): self
+    public function getAgent(): ?PamAgent
     {
-        $this->nom = $nom;
+        return $this->agent;
+    }
+
+    public function setAgent(?PamAgent $agent): self
+    {
+        $this->agent = $agent;
 
         return $this;
     }
@@ -91,18 +99,6 @@ class PamMembre
     public function setObservations(?string $observations): self
     {
         $this->observations = $observations;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
 
         return $this;
     }

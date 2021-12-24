@@ -238,7 +238,7 @@ export default {
     fetchLastEquipage() {
       axios.get('/api/pam/rapport/last/equipage')
       .then((response) => {
-        this.rapport.equipage = response.data;
+        this.rapport.equipage = response.data.membres ? response.data : this.rapport.equipage;
       })
       .catch((error) => {
         console.log(error)

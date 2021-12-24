@@ -3,7 +3,7 @@
     <div class="fr-col-lg-7 fr-col-md-8">
       <div class="members-list">
         <AgentComponent v-for="agent in membres"
-                        :agent="agent"
+                        :membre="agent"
                         :agent-list="membres">
         </AgentComponent>
       </div>
@@ -31,7 +31,7 @@
             <div class="fr-grid-row suggestionsList" v-for="(suggestion, index) in suggestionsList">
               <div class="fr-col-7">
                 <div class="text-14 text-left">
-                  {{ suggestion.prenom }} {{ suggestion.nom }}
+                  {{ suggestion.agent.prenom }} {{ suggestion.agent.nom }}
                   <span class="equipRole">{{suggestion.role}}</span>
                 </div>
               </div>
@@ -95,15 +95,16 @@ export default {
         this.membres.splice(index, 1)
     },
     addAgent(suggestion = null) {
-      const agent = suggestion ? suggestion : {};
+      const membre = suggestion ? suggestion : {};
       if(!suggestion) {
-        agent.nom = this.tmpAgent.fullName.split(' ')[1]
-        agent.prenom = this.tmpAgent.fullName.split(' ')[0];
-        agent.observations = this.tmpAgent.observations;
-        agent.role = this.tmpAgent.role;
+        membre.agent = {};
+        membre.agent.nom = this.tmpAgent.fullName.split(' ')[1]
+        membre.agent.prenom = this.tmpAgent.fullName.split(' ')[0];
+        membre.observations = this.tmpAgent.observations;
+        membre.role = this.tmpAgent.role;
         this.tmpAgent = {};
       }
-      this.membres.push(agent);
+      this.membres.push(membre);
 
     },
     addAll() {
@@ -113,7 +114,7 @@ export default {
       let noExist = true;
       if(value.length > 2) {
         this.suggestionsList.filter(element => {
-          if(element.nom.indexOf(value) === 0) {
+          if(element.agent.nom.indexOf(value) === 0) {
             noExist = false;
           }
         });
@@ -121,7 +122,7 @@ export default {
           $('.tooltip-new-member').removeClass('d-none')
           $('.tooltip-add-member').addClass('d-none')
         } else {
-          this.showSugestionList();
+         this.showSugestionList();
         }
       } else if (value.length === 0) {
         this.showSugestionList();
@@ -136,25 +137,28 @@ export default {
     return {
       suggestionsList: [
         {
-          id: 45,
-          prenom: 'Alain',
-          nom: 'Colas',
+          agent: {
+            prenom: 'Alain',
+            nom: 'Colas',
+          },
           role: 'Agent de pont',
           observations: '',
           is_absent: false
         },
         {
-          id: 46,
-          prenom: 'Francis',
-          nom: 'Joyon',
+          agent: {
+            prenom: 'Francis',
+            nom: 'Joyon'
+          },
           role: 'Agent de pont',
           observations: '',
           is_absent: false
         },
         {
-          id: 47,
-          prenom: 'Christophe',
-          nom: 'Augin',
+          agent: {
+            prenom: 'Christophe',
+            nom: 'Augin'
+          },
           role: 'Agent de pont',
           observations: '',
           is_absent: false

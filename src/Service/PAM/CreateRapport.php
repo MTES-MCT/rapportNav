@@ -2,9 +2,11 @@
 
 namespace App\Service\PAM;
 
+use App\Entity\PAM\PamAgent;
 use App\Entity\PAM\PamControleType;
 use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamEquipage;
+use App\Entity\PAM\PamEquipageAgent;
 use App\Entity\PAM\PamIndicateurType;
 use App\Entity\PAM\PamMembre;
 use App\Entity\PAM\PamMissionType;
@@ -151,14 +153,14 @@ class CreateRapport {
      */
     private function setMembres(PamEquipage $equipage)
     {
-        $repository = $this->em->getRepository(PamMembre::class);
-        /** @var PamMembre $membre */
+        $repository = $this->em->getRepository(PamEquipageAgent::class);
+        /** @var PamEquipageAgent $membre */
         foreach($equipage->getMembres() as $membre) {
             if($membre->getId()) {
                 $result = $repository->find($membre->getId());
                 if($result) {
-                    $result->setNom($membre->getNom());
-                    $result->setPrenom($membre->getPrenom());
+                    $result->getAgent()->setNom($membre->getAgent()->getNom());
+                    $result->getAgent()->setPrenom($membre->getAgent()->getPrenom());
                     $result->setRole($membre->getRole());
                     $result->setObservations($membre->getObservations());
                     $equipage->addMembre($result);

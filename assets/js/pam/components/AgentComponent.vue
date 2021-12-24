@@ -1,25 +1,25 @@
 <template>
   <div class="member-group">
     <div class="equipName">
-      {{ agent.prenom }} {{ agent.nom }}
-      <span class="equipRole">{{ agent.role }}</span>
+      {{ fullName }}
+      <span class="equipRole">{{ membre.role }}</span>
     </div>
     <div class="tooltip">
       <span class="ri-more-fill more-option-icon "></span>
       <div class="tooltipMember fr-px-2w fr-py-2w">
         <input class="fr-input" type="text" id="memberName" :value="fullName" disabled>
 
-        <select class="fr-select fr-mt-3v" id="select"  v-model="agent.role">
+        <select class="fr-select fr-mt-3v" id="select"  v-model="membre.role">
           <option value="Agent de pont">Agent de pont</option>
           <option value="Commandant">Commandant</option>
           <option value="4">Option 4</option>
         </select>
 
-        <textarea class="fr-input fr-mt-3v" id="textarea" placeholder="Observations" v-model="agent.observations"></textarea>
+        <textarea class="fr-input fr-mt-3v" id="textarea" placeholder="Observations" v-model="membre.observations"></textarea>
 
         <div class="fr-checkbox-group">
-          <input type="checkbox" v-model="agent.is_absent" id="absent">
-          <label class="fr-label" for="absent">Absent</label>
+          <input type="checkbox" v-model="membre.is_absent" :id="'membre-' + id">
+          <label class="fr-label" :for="'membre-' + id">Absent</label>
         </div>
 
         <button class="custom-btn fr-fi-checkbox-circle-line fr-btn--icon-left fr-mt-3v remove-equip-btn" @click="removeAgent(index)">
@@ -34,7 +34,7 @@
 export default {
   name: "AgentComponent",
   props: {
-    agent: Object,
+    membre: Object,
     agentList: Array
   },
   methods: {
@@ -44,7 +44,8 @@ export default {
   },
   data() {
     return {
-      fullName: this.agent.prenom + ' ' + this.agent.nom
+      fullName: this.membre.agent.prenom + ' ' + this.membre.agent.nom,
+      id: this._uid
     }
   }
 }
