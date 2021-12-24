@@ -48,7 +48,7 @@ class CreateRapport {
         foreach($rapport->getMissions() as $mission) {
             $this->setType($mission->getIndicateurs(), PamIndicateurType::class);
         }
-        $this->setMembres($rapport->getEquipage());
+        $this->setAgent($rapport->getEquipage());
         $errors = $this->validator->validate($rapport);
 
         if($errors->count() > 0) {
@@ -151,24 +151,15 @@ class CreateRapport {
      *
      * @return void
      */
-    private function setMembres(PamEquipage $equipage)
+    private function setAgent(PamEquipage $equipage)
     {
-        $repository = $this->em->getRepository(PamEquipageAgent::class);
         /** @var PamEquipageAgent $membre */
-        foreach($equipage->getMembres() as $membre) {
-            if($membre->getId()) {
-                $result = $repository->find($membre->getId());
-                if($result) {
-                    $result->getAgent()->setNom($membre->getAgent()->getNom());
-                    $result->getAgent()->setPrenom($membre->getAgent()->getPrenom());
-                    $result->setRole($membre->getRole());
-                    $result->setObservations($membre->getObservations());
-                    $equipage->addMembre($result);
-                    $equipage->removeMembre($membre); // avoid cascade persist if member already exist
-                }
-            } else {
-                $equipage->addMembre($membre);
-            }
+       foreach($equipage->getMembres() as $membre) {
+           $idAgent = $membre->getAgent()->getId();
+           $agent = $idAgent ? $this->em->getRepository(PamAgent::class)->find($idAgent) : null;
+           if($agent) {
+                $membre->setAgent($agent);
+           }
         }
     }
 
