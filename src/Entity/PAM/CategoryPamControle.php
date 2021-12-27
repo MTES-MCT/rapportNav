@@ -24,7 +24,7 @@ class CategoryPamControle
      * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=124)
      */
-    private $label;
+    private $nom;
 
     /**
      * @ORM\OneToMany(targetEntity=PamControle::class, mappedBy="type", cascade={"persist", "remove"})
@@ -45,14 +45,14 @@ class CategoryPamControle
         return $this->id;
     }
 
-    public function getLabel(): ?string
+    public function getNom(): ?string
     {
-        return $this->label;
+        return $this->nom;
     }
 
-    public function setLabel(string $label): self
+    public function setNom(string $nom): self
     {
-        $this->label = $label;
+        $this->nom = $nom;
 
         return $this;
     }

@@ -161,7 +161,7 @@ export default {
       const newPav = {
         category: {
           id: this.pavillons[0].category.id,
-          label: this.pavillons[0].category.label
+          nom: this.pavillons[0].category.nom
         },
         pavillon: 'FR',
         nb_navire_controle: null,

@@ -24,7 +24,7 @@ class CategoryPamMission
      * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=255)
      */
-    private $label;
+    private $nom;
 
     /**
      * @ORM\OneToMany(targetEntity=PamMission::class, mappedBy="type")
@@ -46,14 +46,14 @@ class CategoryPamMission
         $this->id = $id;
     }
 
-    public function getLabel(): ?string
+    public function getNom(): ?string
     {
-        return $this->label;
+        return $this->nom;
     }
 
-    public function setLabel(string $label): self
+    public function setNom(string $nom): self
     {
-        $this->label = $label;
+        $this->nom = $nom;
 
         return $this;
     }

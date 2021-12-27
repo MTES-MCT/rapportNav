@@ -14,7 +14,7 @@ class ControleTypeFixture extends Fixture implements FixtureGroupInterface {
     }
 
     public function load(ObjectManager $manager) {
-        $labels = [
+        $noms = [
             'Contrôle en mer de navires  de pêche professionnelle',
             'Contrôle en mer de navires de plaisance professionnelle',
             'Contrôle en mer des navires de plaisance de loisir',
@@ -22,9 +22,9 @@ class ControleTypeFixture extends Fixture implements FixtureGroupInterface {
             'Autres missions'
         ];
 
-        foreach($labels as $key => $label) {
+        foreach($noms as $key => $nom) {
             $type = new CategoryPamControle();
-            $type->setLabel($label);
+            $type->setNom($nom);
             $type->setId($key+1);
             $manager->persist($type);
         }

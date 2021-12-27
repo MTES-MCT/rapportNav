@@ -12,7 +12,7 @@
       <tbody>
       <tr class="tr-indicateur" v-for="(mission, index) in types">
         <th class="td-nb-hour-sea td-indicateur th-tr-indicateur" scope="row" >
-          {{ mission.category.label }}
+          {{ mission.category.nom }}
         </th>
         <TdEditable class-list="td-indicateur" v-model="mission.principale"></TdEditable>
         <TdEditable class-list="td-indicateur" v-model="mission.secondaire"></TdEditable>

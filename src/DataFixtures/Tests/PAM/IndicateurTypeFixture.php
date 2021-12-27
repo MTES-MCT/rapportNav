@@ -15,7 +15,7 @@ class IndicateurTypeFixture extends Fixture implements FixtureGroupInterface {
 
     public function load(ObjectManager $manager) {
 
-        $labels = [
+        $noms = [
             "Nombre d'heures de mer",
             "Nombre d'opérations suivies (ayant fait l'objet d'un DEFREP)",
             "Nombre de mise en demeure",
@@ -43,10 +43,10 @@ class IndicateurTypeFixture extends Fixture implements FixtureGroupInterface {
             "Nombre total de navires reconnus dans les approches maritimes"
         ];
 
-        foreach($labels as $key => $label) {
+        foreach($noms as $key => $nom) {
             $type = new CategoryPamIndicateur();
             $type->setId($key+1);
-            $type->setLabel($label);
+            $type->setNom($nom);
             $manager->persist($type);
         }
 

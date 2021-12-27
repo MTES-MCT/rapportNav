@@ -15,7 +15,7 @@ class MissionTypeFixture extends Fixture implements FixtureGroupInterface {
 
     public function load(ObjectManager $manager) {
 
-        $labels = [
+        $noms = [
             'Assistance aux navires en difficulté et sécurité maritime',
             'Lutte contre l’immigration illégale par voie maritime',
             "Répression contre les rejets illicites, lutte contre les pollutions et protection de l'environnement",
@@ -25,9 +25,9 @@ class MissionTypeFixture extends Fixture implements FixtureGroupInterface {
             "Souveraineté et protection des intérêts nationaux "
         ];
 
-        foreach($labels as $key => $label) {
+        foreach($noms as $key => $nom) {
           $type = new CategoryPamMission();
-          $type->setLabel($label);
+          $type->setNom($nom);
           $type->setId($key+1);
           $manager->persist($type);
        }
