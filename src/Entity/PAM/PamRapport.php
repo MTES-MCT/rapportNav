@@ -162,6 +162,13 @@ class PamRapport
      */
     private $end_datetime;
 
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @Assert\GreaterThanOrEqual(value="0")
+     * @ORM\Column(type="float")
+     */
+    private $personnel;
+
 
     public function __construct()
     {
@@ -468,6 +475,18 @@ class PamRapport
     public function setEndDatetime(\DateTimeInterface $end_datetime): self
     {
         $this->end_datetime = $end_datetime;
+
+        return $this;
+    }
+
+    public function getPersonnel(): ?float
+    {
+        return $this->personnel;
+    }
+
+    public function setPersonnel(float $personnel): self
+    {
+        $this->personnel = $personnel;
 
         return $this;
     }

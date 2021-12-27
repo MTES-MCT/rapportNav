@@ -217,7 +217,8 @@ export default {
       this.rapport.autre = info.autre;
       this.rapport.maintenance = info.maintenance;
       this.rapport.contr_port = info.contr_port;
-      this.rapport.mouillage = info.mouillage
+      this.rapport.mouillage = info.mouillage;
+      this.rapport.representation = info.representation;
     },
     getControles(controles) {
       this.rapport.controles = controles;
