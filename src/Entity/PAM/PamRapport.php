@@ -18,8 +18,7 @@ class PamRapport
     /**
      * @Groups({"view"})
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $id;
 
@@ -144,11 +143,6 @@ class PamRapport
     private $missions;
 
     /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $number;
-
-    /**
      * @Groups({"view", "draft", "save_rapport"})
      * @Assert\NotBlank()
      * @ORM\Column(type="datetime")
@@ -176,9 +170,15 @@ class PamRapport
         $this->missions = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -437,20 +437,6 @@ class PamRapport
                 $mission->setRapport(null);
             }
         }
-
-        return $this;
-    }
-
-
-
-    public function getNumber(): ?string
-    {
-        return $this->number;
-    }
-
-    public function setNumber(string $number): self
-    {
-        $this->number = $number;
 
         return $this;
     }

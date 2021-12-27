@@ -70,11 +70,10 @@ class RapportController extends AbstractFOSRestController {
         try {
             $body = $serializer->serialize($rapport, 'json', ['groups' => 'draft']);
             $id = null;
-           $number = $rapport->getNumber();
             if($request->query->get('id')) {
                 $id = $request->query->get('id');
             }
-            $draft = $this->createRapportService->saveDraft($body, $number, $this->getUser(), $id);
+            $draft = $this->createRapportService->saveDraft($body, $this->getUser(), $id);
             $msg = 'Success id ' . $draft->getId();
             return View::create($msg, Response::HTTP_OK);
         } catch(BadRequestHttpException $exception) {
@@ -90,7 +89,7 @@ class RapportController extends AbstractFOSRestController {
      *
      * @return View
      */
-    public function showDraft(int $id) : View
+    public function showDraft(string $id) : View
     {
         try {
             $draft = $this->createRapportService->showDraftById($id);
@@ -104,11 +103,11 @@ class RapportController extends AbstractFOSRestController {
     /**
      * @Rest\Get("/show/{id}")
      * @Rest\View(serializerGroups={"view"})
-     * @param int $id
+     * @param string $id
      *
      * @return View
      */
-    public function show(int $id) : View
+    public function show(string $id) : View
     {
         try {
             $rapport = $this->createRapportService->showRapportById($id);

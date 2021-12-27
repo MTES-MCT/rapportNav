@@ -21,7 +21,7 @@
   "controles": [
     {
       "category": {
-        "label": "Contrôle en mer de navires  de pêche professionnelle",
+        "nom": "Contrôle en mer de navires  de pêche professionnelle",
         "id": 1
       },
       "nb_navire_controle": null,
@@ -35,7 +35,7 @@
       "is_main": false,
       "category": {
         "id": 1,
-        "label": "Assistance aux navires en difficulté et sécurité maritime"
+        "nom": "Assistance aux navires en difficulté et sécurité maritime"
       },
       "indicateurs": [
         {
@@ -45,7 +45,7 @@
           "observations": null,
           "category": {
             "id": 1,
-            "label": "Nombre d'heures de mer"
+            "nom": "Nombre d'heures de mer"
           }
         },
         {
@@ -55,7 +55,7 @@
           "observations": null,
           "category": {
             "id": 2,
-            "label": "Nombre d'opérations suivies (ayant fait l'objet d'un DEFREP)"
+            "nom": "Nombre d'opérations suivies (ayant fait l'objet d'un DEFREP)"
           }
         },
         {
@@ -65,7 +65,7 @@
           "observations": null,
           "category": {
             "id": 3,
-            "label": "Nombre de mise en demeure"
+            "nom": "Nombre de mise en demeure"
           }
         },
         {
@@ -75,7 +75,7 @@
           "observations": null,
           "category": {
             "id": 4,
-            "label": "Nombre de remorquages dans le cadre d'une opération suivie (ayant fait l'objet d'un DEFREP)"
+            "nom": "Nombre de remorquages dans le cadre d'une opération suivie (ayant fait l'objet d'un DEFREP)"
           }
         }
       ]
@@ -85,7 +85,7 @@
       "is_main": false,
       "category": {
         "id": 2,
-        "label": "Lutte contre l’immigration illégale par voie maritime"
+        "nom": "Lutte contre l’immigration illégale par voie maritime"
       },
       "indicateurs": [
         {
@@ -95,7 +95,7 @@
           "observations": null,
           "category": {
             "id": 1,
-            "label": "Nombre d'heures de mer"
+            "nom": "Nombre d'heures de mer"
           }
         },
         {
@@ -105,7 +105,7 @@
           "observations": null,
           "category": {
             "id": 5,
-            "label": "Nombre de navires/embarcations interceptés (zone géographique de l’interception en colonne observations)"
+            "nom": "Nombre de navires/embarcations interceptés (zone géographique de l’interception en colonne observations)"
           }
         },
         {
@@ -115,7 +115,7 @@
           "observations": null,
           "category": {
             "id": 6,
-            "label": "Nombre de migrants interceptés"
+            "nom": "Nombre de migrants interceptés"
           }
         },
         {
@@ -125,7 +125,7 @@
           "observations": null,
           "category": {
             "id": 7,
-            "label": "Nombre de passeurs présumés"
+            "nom": "Nombre de passeurs présumés"
           }
         }
         ]
@@ -135,7 +135,7 @@
       "is_main": false,
       "category": {
         "id": 3,
-        "label": "Répression contre les rejets illicites, lutte contre les pollutions et protection de l'environnement"
+        "nom": "Répression contre les rejets illicites, lutte contre les pollutions et protection de l'environnement"
       },
       "indicateurs": [
         {
@@ -145,7 +145,7 @@
           "observation": null,
           "category": {
             "id": 9,
-            "label": "Nombre de pollutions détectées et/ou constatées par un agent habilité"
+            "nom": "Nombre de pollutions détectées et/ou constatées par un agent habilité"
           }
         },
         {
@@ -155,7 +155,7 @@
           "observation": null,
           "category": {
             "id": 10,
-            "label": "Nombre de procès-verbaux d'infraction dressés"
+            "nom": "Nombre de procès-verbaux d'infraction dressés"
           }
         },
         {
@@ -165,7 +165,7 @@
           "observation": null,
           "category": {
             "id": 11,
-            "label": "Nombre de déroutements effectués (accompagnement)"
+            "nom": "Nombre de déroutements effectués (accompagnement)"
           }
         },
         {
@@ -175,7 +175,7 @@
           "observation": null,
           "category": {
             "id": 12,
-            "label": "Nombre d'opérations de lutte anti-pollution en mer"
+            "nom": "Nombre d'opérations de lutte anti-pollution en mer"
           }
         }
       ]
@@ -185,7 +185,7 @@
       "is_main": false,
       "category": {
         "id": 4,
-        "label": "Lutte contre les activités de pêche illégale, gestion du patrimoine marin et des ressources publiques marines"
+        "nom": "Lutte contre les activités de pêche illégale, gestion du patrimoine marin et des ressources publiques marines"
       },
       "indicateurs": [
         {
@@ -195,7 +195,7 @@
           "observation": null,
           "category": {
             "id": 13,
-            "label": "Nombre d’heures de mer (surveillance/police des pêches)"
+            "nom": "Nombre d’heures de mer (surveillance/police des pêches)"
           }
         },
         {
@@ -205,7 +205,7 @@
           "observation": null,
           "category": {
             "id": 14,
-            "label": "dont nombre d'heures en ZEE française"
+            "nom": "dont nombre d'heures en ZEE française"
           }
         },
         {
@@ -215,7 +215,7 @@
           "observation": null,
           "category": {
             "id": 15,
-            "label": "dont nombre d'heures hors ZEE française"
+            "nom": "dont nombre d'heures hors ZEE française"
           }
         },
         {
@@ -225,7 +225,7 @@
           "observation": null,
           "category": {
             "id": 16,
-            "label": "Nombre de navires contrôlés en mer (législation pêche)"
+            "nom": "Nombre de navires contrôlés en mer (législation pêche)"
           }
         },
         {
@@ -235,7 +235,7 @@
           "observation": null,
           "category": {
             "id": 17,
-            "label": "Nombre de procès-verbaux dressés (législation pêche)"
+            "nom": "Nombre de procès-verbaux dressés (législation pêche)"
           }
         },
         {
@@ -245,7 +245,7 @@
           "observation": null,
           "category": {
             "id": 18,
-            "label": "Nombre de navires accompagnés ou déroutés"
+            "nom": "Nombre de navires accompagnés ou déroutés"
           }
         }
       ]
@@ -255,7 +255,7 @@
       "is_main": false,
       "category": {
         "id": 5,
-        "label": "Surveillance et contrôles pour la protection de l’environnement"
+        "nom": "Surveillance et contrôles pour la protection de l’environnement"
       },
       "indicateurs": [
         {
@@ -265,7 +265,7 @@
           "observation": null,
           "category": {
             "id": 1,
-            "label": "Nombre d'heures de mer"
+            "nom": "Nombre d'heures de mer"
           }
         },
         {
@@ -275,7 +275,7 @@
           "observation": null,
           "category": {
             "id": 19,
-            "label": "Nombre d’heures de vol"
+            "nom": "Nombre d’heures de vol"
           }
         },
         {
@@ -285,7 +285,7 @@
           "observation": null,
           "category": {
             "id": 20,
-            "label": "Nombre d’infractions à la réglementation relative à la protection de l’environnement"
+            "nom": "Nombre d’infractions à la réglementation relative à la protection de l’environnement"
           }
         }
       ]
@@ -295,7 +295,7 @@
       "is_main": false,
       "category": {
         "id": 6,
-        "label": "Sûreté maritime"
+        "nom": "Sûreté maritime"
       },
       "indicateurs": [
         {
@@ -305,7 +305,7 @@
           "observation": null,
           "category": {
             "id": 21,
-            "label": "Nombre d'heures de mer (y compris VIGIMER )"
+            "nom": "Nombre d'heures de mer (y compris VIGIMER )"
           }
         },
         {
@@ -315,7 +315,7 @@
           "observation": null,
           "category": {
             "id": 22,
-            "label": "Nombre d'heures de mer de maintien de l'ordre public en mer"
+            "nom": "Nombre d'heures de mer de maintien de l'ordre public en mer"
           }
         },
         {
@@ -325,7 +325,7 @@
           "observation": null,
           "category": {
             "id": 23,
-            "label": "Nombre d’opérations de maintien de l’ordre public en mer"
+            "nom": "Nombre d’opérations de maintien de l’ordre public en mer"
           }
         }
       ]
@@ -335,7 +335,7 @@
       "is_main": false,
       "category": {
         "id": 7,
-        "label": "Souveraineté et protection des intérêts nationaux "
+        "nom": "Souveraineté et protection des intérêts nationaux "
       },
       "indicateurs": [
         {
@@ -345,7 +345,7 @@
           "observation": null,
           "category": {
             "id": 1,
-            "label": "Nombre d'heures de mer"
+            "nom": "Nombre d'heures de mer"
           }
         },
         {
@@ -355,7 +355,7 @@
           "observation": null,
           "category": {
             "id": 24,
-            "label": "Nombre de contrôles en mer de navires"
+            "nom": "Nombre de contrôles en mer de navires"
           }
         },
         {
@@ -365,7 +365,7 @@
           "observation": null,
           "category": {
             "id": 25,
-            "label": "Nombre total de navires reconnus dans les approches maritimes"
+            "nom": "Nombre total de navires reconnus dans les approches maritimes"
           }
         }
       ]

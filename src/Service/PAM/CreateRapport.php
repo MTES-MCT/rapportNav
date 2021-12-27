@@ -8,7 +8,6 @@ use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamEquipage;
 use App\Entity\PAM\PamEquipageAgent;
 use App\Entity\PAM\CategoryPamIndicateur;
-use App\Entity\PAM\PamMembre;
 use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamRapport;
 use Doctrine\Common\Collections\Collection;
@@ -54,7 +53,7 @@ class CreateRapport {
         if($errors->count() > 0) {
             throw new BadRequestHttpException((string) $errors);
         }
-
+        $rapport->setId($this->generateRapportId());
         $this->em->persist($rapport);
         $this->em->flush();
         return $rapport;
@@ -62,14 +61,13 @@ class CreateRapport {
 
     /**
      * @param string        $json
-     * @param string        $number
      * @param UserInterface $user
      *
      * @param int|null      $id
      *
      * @return void
      */
-    public function saveDraft(string $json, string $number, UserInterface $user, int $id = null): PamDraft
+    public function saveDraft(string $json, UserInterface $user, int $id = null): PamDraft
     {
 
         $draft = new PamDraft();
@@ -77,7 +75,7 @@ class CreateRapport {
             $draft = $this->showDraftById($id);
         }
         $draft->setBody($json);
-        $draft->setNumber($number);
+        $draft->setNumber($this->generateRapportId());
         $draft->setCreatedBy($user);
         $this->em->persist($draft);
         $this->em->flush();
@@ -86,13 +84,13 @@ class CreateRapport {
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @return PamDraft
      */
-    public function showDraftById(int $id) : PamDraft
+    public function showDraftById(string $id) : PamDraft
     {
-        $draft = $this->em->getRepository(PamDraft::class)->find($id);
+        $draft = $this->em->getRepository(PamDraft::class)->findOneBy(['number' => $id]);
         if(!$draft) {
             throw new NotFoundHttpException('Brouillon non trouvé');
         }
@@ -100,11 +98,11 @@ class CreateRapport {
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @return PamRapport
      */
-    public function showRapportById(int $id) : PamRapport
+    public function showRapportById(string $id) : PamRapport
     {
 
         $rapport = $this->em->getRepository(PamRapport::class)->find($id);
@@ -161,6 +159,17 @@ class CreateRapport {
                 $membre->setAgent($agent);
            }
         }
+    }
+
+    /**
+     * @return string
+     */
+    private function generateRapportId(): string
+    {
+        $currentDate = new \DateTime();
+        $count = $this->em->getRepository(PamRapport::class)->countAll();
+        $number = $count > 0 ? $count+1 : 1;
+        return'MED-' . $currentDate->format('Y') . '-' . $number;
     }
 
 }

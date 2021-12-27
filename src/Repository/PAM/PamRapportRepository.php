@@ -18,4 +18,22 @@ class PamRapportRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PamRapport::class);
     }
+
+    public function findLastRapportID()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r.id')
+            ->orderBy('r.created_at', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function countAll()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('count(r.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

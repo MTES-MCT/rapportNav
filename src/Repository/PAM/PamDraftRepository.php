@@ -18,4 +18,14 @@ class PamDraftRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PamDraft::class);
     }
+
+    public function findLastRapportID()
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d.number')
+            ->orderBy('d.created_at', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

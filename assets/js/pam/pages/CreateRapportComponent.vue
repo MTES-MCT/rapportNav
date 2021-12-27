@@ -1,10 +1,10 @@
 <template>
   <div v-if="rapport">
-    <HeaderComponent draft name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="drafted">
+    <HeaderComponent draft name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="drafted">
     </HeaderComponent>
-    <HeaderComponent saved name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="saved">
+    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="saved">
     </HeaderComponent>
-    <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
+    <HeaderComponent name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
     </HeaderComponent>
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
@@ -119,10 +119,12 @@ export default {
     if(id && draft) {
       axios.get('/api/pam/rapport/draft/' + id)
           .then((response) => {
+            const idRapport = response.data.number;
             this.rapport = JSON.parse(response.data.body);
             this.drafted = true;
             this.idDraft = id;
-            this.rapport.number = 'TEST'; // TODO define a way to generate number
+            this.numReport = idRapport;
+            this.rapport.id = idRapport;
             console.log(JSON.parse(response.data.body))
           })
     }
@@ -132,11 +134,11 @@ export default {
             this.rapport = response.data;
             this.saved = true;
             this.idSave = id;
-            this.rapport.number = 'TEST'; // TODO define a way to generate number
+            this.numReport = this.rapport.id;
+
           })
     } else {
       this.rapport = require('../dist/create-rapport.json');
-      this.rapport.number = 'TEST'; // TODO define a way to generate number
       this.fetchLastEquipage();
     }
 
@@ -251,7 +253,8 @@ export default {
       drafted: null,
       saved: null,
       idDraft: null,
-      idSave: null
+      idSave: null,
+      numReport: null
     }
   }
 };
