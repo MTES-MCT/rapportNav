@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
-use App\Entity\PAM\PamControleType;
+use App\Entity\PAM\CategoryPamControle;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -23,7 +23,7 @@ class ControleTypeFixture extends Fixture implements FixtureGroupInterface {
         ];
 
         foreach($labels as $key => $label) {
-            $type = new PamControleType();
+            $type = new CategoryPamControle();
             $type->setLabel($label);
             $type->setId($key+1);
             $manager->persist($type);

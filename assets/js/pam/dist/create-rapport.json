@@ -20,7 +20,7 @@
   },
   "controles": [
     {
-      "type": {
+      "category": {
         "label": "Contrôle en mer de navires  de pêche professionnelle",
         "id": 1
       },
@@ -33,7 +33,7 @@
     {
       "checked": false,
       "is_main": false,
-      "type": {
+      "category": {
         "id": 1,
         "label": "Assistance aux navires en difficulté et sécurité maritime"
       },
@@ -43,7 +43,7 @@
           "secondaire": null,
           "total": null,
           "observations": null,
-          "type": {
+          "category": {
             "id": 1,
             "label": "Nombre d'heures de mer"
           }
@@ -53,7 +53,7 @@
           "secondaire": null,
           "total": null,
           "observations": null,
-          "type": {
+          "category": {
             "id": 2,
             "label": "Nombre d'opérations suivies (ayant fait l'objet d'un DEFREP)"
           }
@@ -63,7 +63,7 @@
           "secondaire": null,
           "total": null,
           "observations": null,
-          "type": {
+          "category": {
             "id": 3,
             "label": "Nombre de mise en demeure"
           }
@@ -73,7 +73,7 @@
           "secondaire": null,
           "total": null,
           "observations": null,
-          "type": {
+          "category": {
             "id": 4,
             "label": "Nombre de remorquages dans le cadre d'une opération suivie (ayant fait l'objet d'un DEFREP)"
           }
@@ -83,7 +83,7 @@
     {
       "checked": false,
       "is_main": false,
-      "type": {
+      "category": {
         "id": 2,
         "label": "Lutte contre l’immigration illégale par voie maritime"
       },
@@ -93,7 +93,7 @@
           "secondaire": null,
           "total": null,
           "observations": null,
-          "type": {
+          "category": {
             "id": 1,
             "label": "Nombre d'heures de mer"
           }
@@ -103,7 +103,7 @@
           "secondaire": null,
           "total": null,
           "observations": null,
-          "type": {
+          "category": {
             "id": 5,
             "label": "Nombre de navires/embarcations interceptés (zone géographique de l’interception en colonne observations)"
           }
@@ -113,7 +113,7 @@
           "secondaire": null,
           "total": null,
           "observations": null,
-          "type": {
+          "category": {
             "id": 6,
             "label": "Nombre de migrants interceptés"
           }
@@ -123,7 +123,7 @@
           "secondaire": null,
           "total": null,
           "observations": null,
-          "type": {
+          "category": {
             "id": 7,
             "label": "Nombre de passeurs présumés"
           }
@@ -133,7 +133,7 @@
     {
       "checked": false,
       "is_main": false,
-      "type": {
+      "category": {
         "id": 3,
         "label": "Répression contre les rejets illicites, lutte contre les pollutions et protection de l'environnement"
       },
@@ -143,7 +143,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 9,
             "label": "Nombre de pollutions détectées et/ou constatées par un agent habilité"
           }
@@ -153,7 +153,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 10,
             "label": "Nombre de procès-verbaux d'infraction dressés"
           }
@@ -163,7 +163,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 11,
             "label": "Nombre de déroutements effectués (accompagnement)"
           }
@@ -173,7 +173,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 12,
             "label": "Nombre d'opérations de lutte anti-pollution en mer"
           }
@@ -183,7 +183,7 @@
     {
       "checked": false,
       "is_main": false,
-      "type": {
+      "category": {
         "id": 4,
         "label": "Lutte contre les activités de pêche illégale, gestion du patrimoine marin et des ressources publiques marines"
       },
@@ -193,7 +193,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 13,
             "label": "Nombre d’heures de mer (surveillance/police des pêches)"
           }
@@ -203,7 +203,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 14,
             "label": "dont nombre d'heures en ZEE française"
           }
@@ -213,7 +213,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 15,
             "label": "dont nombre d'heures hors ZEE française"
           }
@@ -223,7 +223,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 16,
             "label": "Nombre de navires contrôlés en mer (législation pêche)"
           }
@@ -233,7 +233,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 17,
             "label": "Nombre de procès-verbaux dressés (législation pêche)"
           }
@@ -243,7 +243,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 18,
             "label": "Nombre de navires accompagnés ou déroutés"
           }
@@ -253,7 +253,7 @@
     {
       "checked": false,
       "is_main": false,
-      "type": {
+      "category": {
         "id": 5,
         "label": "Surveillance et contrôles pour la protection de l’environnement"
       },
@@ -263,7 +263,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 1,
             "label": "Nombre d'heures de mer"
           }
@@ -273,7 +273,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 19,
             "label": "Nombre d’heures de vol"
           }
@@ -283,7 +283,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 20,
             "label": "Nombre d’infractions à la réglementation relative à la protection de l’environnement"
           }
@@ -293,7 +293,7 @@
     {
       "checked": false,
       "is_main": false,
-      "type": {
+      "category": {
         "id": 6,
         "label": "Sûreté maritime"
       },
@@ -303,7 +303,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 21,
             "label": "Nombre d'heures de mer (y compris VIGIMER )"
           }
@@ -313,7 +313,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 22,
             "label": "Nombre d'heures de mer de maintien de l'ordre public en mer"
           }
@@ -323,7 +323,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 23,
             "label": "Nombre d’opérations de maintien de l’ordre public en mer"
           }
@@ -333,7 +333,7 @@
     {
       "checked": false,
       "is_main": false,
-      "type": {
+      "category": {
         "id": 7,
         "label": "Souveraineté et protection des intérêts nationaux "
       },
@@ -343,7 +343,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 1,
             "label": "Nombre d'heures de mer"
           }
@@ -353,7 +353,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 24,
             "label": "Nombre de contrôles en mer de navires"
           }
@@ -363,7 +363,7 @@
           "secondaire": null,
           "total": null,
           "observation": null,
-          "type": {
+          "category": {
             "id": 25,
             "label": "Nombre total de navires reconnus dans les approches maritimes"
           }

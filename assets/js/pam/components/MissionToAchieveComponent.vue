@@ -6,7 +6,7 @@
         <div class="fr-col-lg-6">
           <div v-for="(mission, index) in missions" v-if="index < 4">
             <CheckboxMission
-                :label="mission.type.label"
+                :label="mission.category.label"
                 :mission="mission" >
             </CheckboxMission>
           </div>
@@ -14,7 +14,7 @@
         <div class="fr-col-lg-6 fr-pl-2v">
           <div v-for="(mission, index) in missions" v-if="index >= 4">
             <CheckboxMission
-                :label="mission.type.label"
+                :label="mission.category.label"
                 :mission="mission" >
             </CheckboxMission>
           </div>

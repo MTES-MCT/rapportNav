@@ -35,10 +35,10 @@ class PamMission
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\ManyToOne(targetEntity=PamMissionType::class, inversedBy="missions")
+     * @ORM\ManyToOne(targetEntity=CategoryPamMission::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $type;
+    private $category;
 
 
     /**
@@ -117,14 +117,14 @@ class PamMission
         return $this;
     }
 
-    public function getType(): ?PamMissionType
+    public function getCategory(): ?CategoryPamMission
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(?PamMissionType $type): self
+    public function setCategory(?CategoryPamMission $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }

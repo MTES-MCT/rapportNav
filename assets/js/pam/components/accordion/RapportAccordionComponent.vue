@@ -133,7 +133,7 @@ export default {
     removeType(index, type) {
       this.controlesByType.splice(index, 1);
       this.controles.forEach((controle, index) => {
-        if(controle.type.id === type.id) {
+        if(controle.category.id === type.id) {
           this.controles.splice(index, 1)
         }
       })
@@ -141,29 +141,29 @@ export default {
     },
     formatPavillons() {
       this.controles.forEach((controle, index) => {
-        switch(controle.type.id) {
+        switch(controle.category.id) {
           case 1:
-            this.controlesNavirePechePro.label = controle.type.label;
+            this.controlesNavirePechePro.label = controle.category.label;
             this.controlesNavirePechePro.pavillons.push(controle);
             break;
 
           case 2:
-            this.controlesNavirePlaisancePro.label = controle.type.label;
+            this.controlesNavirePlaisancePro.label = controle.category.label;
             this.controlesNavirePlaisancePro.pavillons.push(controle);
             break;
 
           case 3:
-            this.controlesNavirePlaisanceLoisir.label = controle.type.label;
+            this.controlesNavirePlaisanceLoisir.label = controle.category.label;
             this.controlesNavirePlaisanceLoisir.pavillons.push(controle);
             break;
 
           case 4:
-            this.controlesTerrePechePro.label = controle.type.label;
+            this.controlesTerrePechePro.label = controle.category.label;
             this.controlesTerrePechePro.pavillons.push(controle);
             break;
 
           case 5:
-            this.autresMission.label = controle.type.label;
+            this.autresMission.label = controle.category.label;
             this.autresMission.pavillons.push(controle);
             break;
         }

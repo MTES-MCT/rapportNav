@@ -2,16 +2,16 @@
 
 namespace App\Entity\PAM;
 
-use App\Repository\PAM\PamControleTypeRepository;
+use App\Repository\PAM\CategoryPamControleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass=PamControleTypeRepository::class)
+ * @ORM\Entity(repositoryClass=CategoryPamControleRepository::class)
  */
-class PamControleType
+class CategoryPamControle
 {
     /**
      * @Groups({"view", "draft", "save_rapport"})

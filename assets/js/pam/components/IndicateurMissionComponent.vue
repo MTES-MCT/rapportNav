@@ -5,7 +5,7 @@
   </div>
   <div v-for="mission in missions">
     <AccordionIndicateurMissionComponent
-        :title="mission.type.label"
+        :title="mission.category.label"
         :indicateurs="mission.indicateurs"
         :expanded="mission.checked ? 'true' : 'false'"
     ></AccordionIndicateurMissionComponent>

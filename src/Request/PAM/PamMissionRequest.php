@@ -2,7 +2,7 @@
 
 namespace App\Request\PAM;
 
-use App\Entity\PAM\PamMissionType;
+use App\Entity\PAM\CategoryPamMission;
 
 class PamMissionRequest {
 

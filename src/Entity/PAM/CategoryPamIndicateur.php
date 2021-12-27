@@ -2,14 +2,14 @@
 
 namespace App\Entity\PAM;
 
-use App\Repository\PAM\PamIndicateurTypeRepository;
+use App\Repository\PAM\CategoryPamIndicateurRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass=PamIndicateurTypeRepository::class)
+ * @ORM\Entity(repositoryClass=CategoryPamIndicateurRepository::class)
  */
-class PamIndicateurType
+class CategoryPamIndicateur
 {
     /**
      * @Groups({"view", "draft", "save_rapport"})

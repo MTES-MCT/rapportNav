@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
-use App\Entity\PAM\PamMissionType;
+use App\Entity\PAM\CategoryPamMission;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -26,7 +26,7 @@ class MissionTypeFixture extends Fixture implements FixtureGroupInterface {
         ];
 
         foreach($labels as $key => $label) {
-          $type = new PamMissionType();
+          $type = new CategoryPamMission();
           $type->setLabel($label);
           $type->setId($key+1);
           $manager->persist($type);

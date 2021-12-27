@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
-use App\Entity\PAM\PamIndicateurType;
+use App\Entity\PAM\CategoryPamIndicateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -44,7 +44,7 @@ class IndicateurTypeFixture extends Fixture implements FixtureGroupInterface {
         ];
 
         foreach($labels as $key => $label) {
-            $type = new PamIndicateurType();
+            $type = new CategoryPamIndicateur();
             $type->setId($key+1);
             $type->setLabel($label);
             $manager->persist($type);

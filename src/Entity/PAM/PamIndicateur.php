@@ -51,10 +51,10 @@ class PamIndicateur
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\ManyToOne(targetEntity=PamIndicateurType::class)
+     * @ORM\ManyToOne(targetEntity=CategoryPamIndicateur::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $type;
+    private $category;
 
     public function getId(): ?int
     {
@@ -121,14 +121,14 @@ class PamIndicateur
         return $this;
     }
 
-    public function getType(): ?PamIndicateurType
+    public function getCategory(): ?CategoryPamIndicateur
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(?PamIndicateurType $type): self
+    public function setCategory(?CategoryPamIndicateur $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }

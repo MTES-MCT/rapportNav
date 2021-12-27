@@ -3,13 +3,13 @@
 namespace App\Service\PAM;
 
 use App\Entity\PAM\PamAgent;
-use App\Entity\PAM\PamControleType;
+use App\Entity\PAM\CategoryPamControle;
 use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamEquipage;
 use App\Entity\PAM\PamEquipageAgent;
-use App\Entity\PAM\PamIndicateurType;
+use App\Entity\PAM\CategoryPamIndicateur;
 use App\Entity\PAM\PamMembre;
-use App\Entity\PAM\PamMissionType;
+use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamRapport;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,10 +43,10 @@ class CreateRapport {
      */
     public function persistAndFlush(PamRapport $rapport, $id = null) : PamRapport
     {
-        $this->setType($rapport->getControles(), PamControleType::class);
-        $this->setType($rapport->getMissions(), PamMissionType::class);
+        $this->setCategory($rapport->getControles(), CategoryPamControle::class);
+        $this->setCategory($rapport->getMissions(), CategoryPamMission::class);
         foreach($rapport->getMissions() as $mission) {
-            $this->setType($mission->getIndicateurs(), PamIndicateurType::class);
+            $this->setCategory($mission->getIndicateurs(), CategoryPamIndicateur::class);
         }
         $this->setAgent($rapport->getEquipage());
         $errors = $this->validator->validate($rapport);
@@ -132,15 +132,15 @@ class CreateRapport {
      *
      * @return void
      */
-    private function setType(Collection $collections, string $entityClass): void
+    private function setCategory(Collection $collections, string $entityClass): void
     {
         $typeRepo = $this->em->getRepository($entityClass);
         foreach($collections as $collection) {
-            $type = $typeRepo->find($collection->getType()->getId());
+            $type = $typeRepo->find($collection->getCategory()->getId());
             if($type) {
-                $collection->setType($type);
+                $collection->setCategory($type);
             } else {
-                throw new NotFoundHttpException('Type not foud for ' . $entityClass);
+                throw new NotFoundHttpException('Category not foud for ' . $entityClass);
             }
         }
     }

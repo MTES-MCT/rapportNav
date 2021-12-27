@@ -88,10 +88,10 @@ class PamControle
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\ManyToOne(targetEntity=PamControleType::class, inversedBy="controles")
+     * @ORM\ManyToOne(targetEntity=CategoryPamControle::class, inversedBy="controles")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $type;
+    private $category;
 
     public function getId(): ?int
     {
@@ -230,14 +230,14 @@ class PamControle
         return $this;
     }
 
-    public function getType(): ?PamControleType
+    public function getCategory(): ?CategoryPamControle
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(?PamControleType $type): self
+    public function setCategory(?CategoryPamControle $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }
