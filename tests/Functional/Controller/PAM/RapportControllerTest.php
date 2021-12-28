@@ -26,21 +26,16 @@ class RapportControllerTest extends WebTestCase {
         ]);
 
         $this->client = static::createClient([], [
-            'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW'   => 'admin',
+            'PHP_AUTH_USER' => 'alfred.de-musset',
+            'PHP_AUTH_PW'   => '1234',
         ]);
     }
 
-    public function testDraftRapport()
+    public function testDraftRapportSuccess()
     {
-
-       $rapport = new PamRapport();
-       $rapport->setNumber('TEST' . uniqid());
-        $container = self::$container;
-
-        /** @var SerializerInterface $serializer */
-        $serializer = $container->get(SerializerInterface::class);
-        $json = $serializer->serialize($rapport, 'json');
+        $file = fopen(__DIR__ . '/dist/body-test-draft-success.json', "r") or die("Unable to open file!");
+        $json = (fread($file, filesize(__DIR__ . '/dist/body-test-draft-success.json')));
+        fclose($file);
 
         $this->client->request(
             'POST',
@@ -51,8 +46,10 @@ class RapportControllerTest extends WebTestCase {
             $json
         );
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $res_array = (array)json_decode($this->client->getResponse()->getContent());
 
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertNotNull($res_array['id']);
     }
 
 }
