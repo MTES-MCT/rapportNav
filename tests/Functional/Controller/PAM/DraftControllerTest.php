@@ -9,8 +9,7 @@ use App\DataFixtures\Tests\UsersFixture;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class RapportControllerTest extends WebTestCase {
-
+class DraftControllerTest extends WebTestCase {
     use FixturesTrait;
 
     private $client;
@@ -29,16 +28,24 @@ class RapportControllerTest extends WebTestCase {
         ]);
     }
 
-    public function testRapportSaveSuccess()
+    public function testDraftRapportSuccess()
     {
-        $json = $this->jsonReader('body-test-rapport-success.json');
-        $this->sendPostRequest('/rapport', $json);
-        $res_array = (array)json_decode($this->client->getResponse()->getContent());
+        $json =$this->jsonReader('body-test-draft-success.json');
+        $this->sendPostRequest('/rapport/draft', $json);
 
-        $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
-        $this->assertStringContainsString('MED' ,$res_array['id']);
+        $res_array = (array)json_decode($this->client->getResponse()->getContent());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertNotNull($res_array['id']);
+
     }
 
+    public function testDraftMissingStartDateTimeError400()
+    {
+        $json = $this->jsonReader('body-test-draft-missing-startdatetime.json');
+        $this->sendPostRequest('/rapport/draft', $json);
+
+        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
+    }
 
     private function sendPostRequest(string $url, string $body)
     {
