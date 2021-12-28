@@ -33,23 +33,44 @@ class RapportControllerTest extends WebTestCase {
 
     public function testDraftRapportSuccess()
     {
-        $file = fopen(__DIR__ . '/dist/body-test-draft-success.json', "r") or die("Unable to open file!");
-        $json = (fread($file, filesize(__DIR__ . '/dist/body-test-draft-success.json')));
-        fclose($file);
+        $json =$this->jsonReader('body-test-draft-success.json');
+        $this->sendPostRequest('/rapport/draft', $json);
 
+        $res_array = (array)json_decode($this->client->getResponse()->getContent());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertNotNull($res_array['id']);
+
+    }
+
+    public function testDraftMissingStartDateTimeError400()
+    {
+        $json = $this->jsonReader('body-test-draft-missing-startdatetime.json');
+        $this->sendPostRequest('/rapport/draft', $json);
+
+        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
+    }
+
+    private function sendPostRequest(string $url, string $body)
+    {
         $this->client->request(
             'POST',
-            '/api/pam/rapport/draft',
+            '/api/pam' . $url,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            $json
+            $body
         );
+    }
 
-        $res_array = (array)json_decode($this->client->getResponse()->getContent());
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertNotNull($res_array['id']);
+    private function jsonReader(string $fileName): string
+    {
+        $path = __DIR__ . '/dist/' . $fileName;
+        $file = fopen($path, "r") or die("Unable to open file!");
+        $json = (fread($file, filesize($path)));
+        fclose($file);
+
+        return$json;
     }
 
 }
