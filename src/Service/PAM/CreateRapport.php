@@ -10,6 +10,8 @@ use App\Entity\PAM\PamEquipageAgent;
 use App\Entity\PAM\CategoryPamIndicateur;
 use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamRapport;
+use App\Entity\Service;
+use App\Entity\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -36,11 +38,11 @@ class CreateRapport {
 
     /**
      * @param PamRapport $rapport
-     * @param null       $id
+     * @param Service    $service
      *
      * @return PamRapport
      */
-    public function persistAndFlush(PamRapport $rapport, $id = null) : PamRapport
+    public function persistAndFlush(PamRapport $rapport, Service $service) : PamRapport
     {
         $this->setCategory($rapport->getControles(), CategoryPamControle::class);
         $this->setCategory($rapport->getMissions(), CategoryPamMission::class);
@@ -53,6 +55,7 @@ class CreateRapport {
         if($errors->count() > 0) {
             throw new BadRequestHttpException((string) $errors);
         }
+        $rapport->setCreatedBy($service);
         $rapport->setId($this->generateRapportId());
         $this->em->persist($rapport);
         $this->em->flush();
@@ -60,14 +63,13 @@ class CreateRapport {
     }
 
     /**
-     * @param string        $json
-     * @param UserInterface $user
-     *
-     * @param int|null      $id
+     * @param string   $json
+     * @param Service  $service
+     * @param int|null $id
      *
      * @return void
      */
-    public function saveDraft(string $json, UserInterface $user, int $id = null): PamDraft
+    public function saveDraft(string $json, Service $service, int $id = null): PamDraft
     {
 
         $draft = new PamDraft();
@@ -76,7 +78,7 @@ class CreateRapport {
         }
         $draft->setBody($json);
         $draft->setNumber($this->generateRapportId());
-        $draft->setCreatedBy($user);
+        $draft->setCreatedBy($service);
         $this->em->persist($draft);
         $this->em->flush();
         return $draft;

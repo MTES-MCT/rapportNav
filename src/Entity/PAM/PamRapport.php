@@ -2,6 +2,7 @@
 
 namespace App\Entity\PAM;
 
+use App\Entity\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -162,6 +163,12 @@ class PamRapport
      * @ORM\Column(type="float")
      */
     private $personnel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Service::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $created_by;
 
 
     public function __construct()
@@ -473,6 +480,18 @@ class PamRapport
     public function setPersonnel(float $personnel): self
     {
         $this->personnel = $personnel;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?Service
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(?Service $created_by): self
+    {
+        $this->created_by = $created_by;
 
         return $this;
     }

@@ -40,11 +40,7 @@ class RapportController extends AbstractFOSRestController {
     public function save(PamRapport $rapport, Request $request) : View
     {
         try {
-            $id = null;
-            if($request->query->get('id')) {
-                $id = $request->query->get('id');
-            }
-            $rapport = $this->createRapportService->persistAndFlush($rapport, $id);
+            $rapport = $this->createRapportService->persistAndFlush($rapport, $this->getUser()->getService());
             return View::create($rapport, Response::HTTP_CREATED);
         }
         catch (NotFoundHttpException $exception) {
@@ -73,7 +69,7 @@ class RapportController extends AbstractFOSRestController {
             if($request->query->get('id')) {
                 $id = $request->query->get('id');
             }
-            $draft = $this->createRapportService->saveDraft($body, $this->getUser(), $id);
+            $draft = $this->createRapportService->saveDraft($body, $this->getUser()->getService(), $id);
             $msg = 'Success id ' . $draft->getId();
             return View::create($msg, Response::HTTP_OK);
         } catch(BadRequestHttpException $exception) {

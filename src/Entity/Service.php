@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\PAM\PamDraft;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,6 +27,16 @@ class Service {
      * @ORM\ManyToOne(targetEntity="App\Entity\ZoneGeographique")
      */
     private $zoneGeographique;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PamDraft::class, mappedBy="created_by", orphanRemoval=true)
+     */
+    private $pamDrafts;
+
+    public function __construct()
+    {
+        $this->pamDrafts = new ArrayCollection();
+    }
 
     public function __toString() {
         return $this->getNom();
@@ -49,6 +62,36 @@ class Service {
 
     public function setZoneGeographique(?ZoneGeographique $zoneGeographique): self {
         $this->zoneGeographique = $zoneGeographique;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PamDraft[]
+     */
+    public function getPamDrafts(): Collection
+    {
+        return $this->pamDrafts;
+    }
+
+    public function addPamDraft(PamDraft $pamDraft): self
+    {
+        if (!$this->pamDrafts->contains($pamDraft)) {
+            $this->pamDrafts[] = $pamDraft;
+            $pamDraft->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removePamDraft(PamDraft $pamDraft): self
+    {
+        if ($this->pamDrafts->removeElement($pamDraft)) {
+            // set the owning side to null (unless already changed)
+            if ($pamDraft->getCreatedBy() === $this) {
+                $pamDraft->setCreatedBy(null);
+            }
+        }
 
         return $this;
     }

@@ -2,7 +2,7 @@
 
 namespace App\Entity\PAM;
 
-use App\Entity\User;
+use App\Entity\Service;
 use App\Repository\PAM\PamDraftRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -48,7 +48,7 @@ class PamDraft
 
     /**
      * @Groups({"draft"})
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="pamDrafts")
+     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="pamDrafts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $created_by;
@@ -118,12 +118,12 @@ class PamDraft
         return $this;
     }
 
-    public function getCreatedBy(): ?User
+    public function getCreatedBy(): ?Service
     {
         return $this->created_by;
     }
 
-    public function setCreatedBy(?User $created_by): self
+    public function setCreatedBy(?Service $created_by): self
     {
         $this->created_by = $created_by;
 
