@@ -6,9 +6,12 @@ use App\DataFixtures\Tests\PAM\ControleTypeFixture;
 use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
 use App\DataFixtures\Tests\UsersFixture;
+use App\Entity\PAM\PamDraft;
 use App\Repository\PAM\PamDraftRepository;
+use JMS\Serializer\SerializerInterface;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Serializer\Serializer;
 
 class DraftControllerTest extends WebTestCase {
     use FixturesTrait;
@@ -36,9 +39,11 @@ class DraftControllerTest extends WebTestCase {
     {
         $json =$this->jsonReader('body-test-draft-success.json');
         $this->sendPostRequest('/rapport/draft', $json);
-        $res_array = (array)json_decode($this->client->getResponse()->getContent());
         $container = self::$container;
-        $draft = $container->get(PamDraftRepository::class)->find($res_array['id']);
+        $serializer = $container->get('serializer');
+        /** @var PamDraft $draft */
+        $draft = $serializer->deserialize($this->client->getResponse()->getContent(), PamDraft::class, 'json');
+        $draft = $container->get(PamDraftRepository::class)->find($draft->getId());
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertNotNull($draft);

@@ -17,19 +17,20 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PamRapport
 {
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "save_rapport"})
      * @ORM\Id
      * @ORM\Column(type="string")
      */
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "save_rapport"})
      * @ORM\Column(type="datetime_immutable")
      */
     private $created_at;
 
     /**
+     * @Groups({"view", "save_rapport"})
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updated_at;
@@ -448,24 +449,24 @@ class PamRapport
         return $this;
     }
 
-    public function getStartDatetime(): ?\DateTimeInterface
+    public function getStartDatetime()
     {
         return $this->start_datetime;
     }
 
-    public function setStartDatetime(\DateTimeInterface $start_datetime): self
+    public function setStartDatetime($start_datetime): self
     {
         $this->start_datetime = $start_datetime;
 
         return $this;
     }
 
-    public function getEndDatetime(): ?\DateTimeInterface
+    public function getEndDatetime()
     {
         return $this->end_datetime;
     }
 
-    public function setEndDatetime(\DateTimeInterface $end_datetime): self
+    public function setEndDatetime($end_datetime): self
     {
         $this->end_datetime = $end_datetime;
 
@@ -477,7 +478,7 @@ class PamRapport
         return $this->personnel;
     }
 
-    public function setPersonnel(float $personnel): self
+    public function setPersonnel(?float $personnel): self
     {
         $this->personnel = $personnel;
 

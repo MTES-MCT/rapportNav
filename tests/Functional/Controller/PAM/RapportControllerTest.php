@@ -6,6 +6,7 @@ use App\DataFixtures\Tests\PAM\ControleTypeFixture;
 use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
 use App\DataFixtures\Tests\UsersFixture;
+use App\Entity\PAM\PamRapport;
 use App\Repository\PAM\PamRapportRepository;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -36,12 +37,13 @@ class RapportControllerTest extends WebTestCase {
     {
         $json = $this->jsonReader('body-test-rapport-success.json');
         $this->sendPostRequest('/rapport', $json);
-        $res_array = (array)json_decode($this->client->getResponse()->getContent());
         $container = self::$container;
-        $rapport = $container->get(PamRapportRepository::class)->find($res_array['id']);
+        $serializer = $container->get('serializer');
+        $rapportResponse = $serializer->deserialize($this->client->getResponse()->getContent(), PamRapport::class, 'json');
+        $rapport = $container->get(PamRapportRepository::class)->find($rapportResponse->getId());
 
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
-        $this->assertStringContainsString('MED' ,$res_array['id']);
+        $this->assertStringContainsString('MED' , $rapportResponse->getId());
         $this->assertNotNull($rapport);
     }
 

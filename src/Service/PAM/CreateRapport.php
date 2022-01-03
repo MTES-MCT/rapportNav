@@ -11,12 +11,11 @@ use App\Entity\PAM\CategoryPamIndicateur;
 use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamRapport;
 use App\Entity\Service;
-use App\Entity\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreateRapport {
@@ -30,10 +29,16 @@ class CreateRapport {
      */
     private $validator;
 
-    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator)
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, SerializerInterface $serializer)
     {
         $this->em = $em;
         $this->validator = $validator;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -63,14 +68,21 @@ class CreateRapport {
     }
 
     /**
-     * @param string   $json
-     * @param Service  $service
-     * @param int|null $id
+     * @param PamRapport $rapport
+     * @param Service    $service
+     * @param int|null   $id
      *
      * @return void
      */
-    public function saveDraft(string $json, Service $service, int $id = null): PamDraft
+    public function saveDraft(PamRapport $rapport, Service $service, int $id = null): PamDraft
     {
+        $error = $this->validator->validateProperty($rapport, 'start_datetime');
+
+        if($error->count() > 0) {
+            throw new BadRequestHttpException((string) $error);
+        }
+
+        $json = $this->serializer->serialize($rapport, 'json', ['groups' => 'draft']);
 
         $draft = new PamDraft();
         if($id) {

@@ -3,6 +3,7 @@
 namespace App\Controller\PAM\Api;
 
 use App\Entity\PAM\PamRapport;
+use App\Request\PAM\DraftRequest;
 use App\Service\PAM\CreateRapport;
 use App\Service\PAM\PamEquipageService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -37,7 +38,7 @@ class RapportController extends AbstractFOSRestController {
      *
      * @return View
      */
-    public function save(PamRapport $rapport, Request $request) : View
+    public function save(PamRapport $rapport) : View
     {
         try {
             $rapport = $this->createRapportService->persistAndFlush($rapport, $this->getUser()->getService());
@@ -54,26 +55,23 @@ class RapportController extends AbstractFOSRestController {
     /**
      * @Rest\Post("/draft")
      * @Rest\View(serializerGroups={"draft"})
-     * @ParamConverter("rapport", converter="fos_rest.request_body")
-     * @param PamRapport          $rapport
-     * @param Request             $request
-     * @param SerializerInterface $serializer
+     * @ParamConverter("draftRequest", converter="fos_rest.request_body")
+     * @param DraftRequest $draftRequest
+     * @param Request      $request
      *
      * @return View
      */
-    public function draft(PamRapport $rapport, Request $request, SerializerInterface $serializer) : View
+    public function draft(DraftRequest $draftRequest, Request $request) : View
     {
         try {
-            $body = $serializer->serialize($rapport, 'json', ['groups' => 'draft']);
             $id = null;
             if($request->query->get('id')) {
                 $id = $request->query->get('id');
             }
-            $draft = $this->createRapportService->saveDraft($body, $this->getUser()->getService(), $id);
-            $msg = 'Success id ' . $draft->getId();
-            return View::create($msg, Response::HTTP_OK);
+            $draft = $this->createRapportService->saveDraft($draftRequest, $this->getUser()->getService(), $id);
+            return View::create($draft, Response::HTTP_OK);
         } catch(BadRequestHttpException $exception) {
-            return View::create($exception->getStatusCode(), Response::HTTP_BAD_REQUEST);
+            return View::create($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
 
     }
@@ -81,7 +79,7 @@ class RapportController extends AbstractFOSRestController {
     /**
      * @Rest\Get("/draft/{id}")
      * @Rest\View(serializerGroups={"draft"})
-     * @param int $id
+     * @param string $id
      *
      * @return View
      */
