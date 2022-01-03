@@ -6,6 +6,7 @@ use App\DataFixtures\Tests\PAM\ControleTypeFixture;
 use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
 use App\DataFixtures\Tests\UsersFixture;
+use App\Repository\PAM\PamDraftRepository;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -26,16 +27,21 @@ class DraftControllerTest extends WebTestCase {
             'PHP_AUTH_USER' => 'alfred.de-musset',
             'PHP_AUTH_PW'   => '1234',
         ]);
+
+        self::bootKernel();
+
     }
 
     public function testDraftRapportSuccess()
     {
         $json =$this->jsonReader('body-test-draft-success.json');
         $this->sendPostRequest('/rapport/draft', $json);
-
         $res_array = (array)json_decode($this->client->getResponse()->getContent());
+        $container = self::$container;
+        $draft = $container->get(PamDraftRepository::class)->find($res_array['id']);
+
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertNotNull($res_array['id']);
+        $this->assertNotNull($draft);
 
     }
 
