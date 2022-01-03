@@ -91,6 +91,7 @@ class CreateRapport {
         $draft->setBody($json);
         $draft->setNumber($this->generateRapportId());
         $draft->setCreatedBy($service);
+        $draft->setStartDatetime($rapport->getStartDatetime());
         $this->em->persist($draft);
         $this->em->flush();
         return $draft;

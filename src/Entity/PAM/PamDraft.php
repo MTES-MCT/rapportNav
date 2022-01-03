@@ -53,6 +53,11 @@ class PamDraft
      */
     private $created_by;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $start_datetime;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -132,6 +137,21 @@ class PamDraft
     public function setCreatedBy(?Service $created_by): self
     {
         $this->created_by = $created_by;
+
+        return $this;
+    }
+
+    public function getStartDatetime()
+    {
+        return $this->start_datetime;
+    }
+
+    public function setStartDatetime($start_datetime): self
+    {
+        if(is_string($start_datetime)) {
+            $start_datetime = new \DateTime($start_datetime);
+        }
+        $this->start_datetime = $start_datetime;
 
         return $this;
     }
