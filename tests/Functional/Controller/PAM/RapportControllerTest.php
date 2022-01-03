@@ -6,6 +6,7 @@ use App\DataFixtures\Tests\PAM\ControleTypeFixture;
 use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
 use App\DataFixtures\Tests\UsersFixture;
+use App\Repository\PAM\PamRapportRepository;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -27,6 +28,8 @@ class RapportControllerTest extends WebTestCase {
             'PHP_AUTH_USER' => 'alfred.de-musset',
             'PHP_AUTH_PW'   => '1234',
         ]);
+
+        self::bootKernel();
     }
 
     public function testRapportSaveSuccess()
@@ -34,9 +37,20 @@ class RapportControllerTest extends WebTestCase {
         $json = $this->jsonReader('body-test-rapport-success.json');
         $this->sendPostRequest('/rapport', $json);
         $res_array = (array)json_decode($this->client->getResponse()->getContent());
+        $container = self::$container;
+        $rapport = $container->get(PamRapportRepository::class)->find($res_array['id']);
 
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
         $this->assertStringContainsString('MED' ,$res_array['id']);
+        $this->assertNotNull($rapport);
+    }
+
+    public function testRapportMissingMandatoryInfo400Error()
+    {
+        $json = $this->jsonReader('body-test-rapport-missing-mandatory-info.json');
+        $this->sendPostRequest('/rapport', $json);
+
+        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
     }
 
 
