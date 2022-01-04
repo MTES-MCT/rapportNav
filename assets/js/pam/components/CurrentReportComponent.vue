@@ -13,15 +13,15 @@
         </div>
         <div class="fr-col-lg-2">
           <span class="text-14">Date de début</span> <br>
-          <span>{{ startDateTime }}</span>
+          <span>{{ startDateTime|date }}</span>
         </div>
         <div class="fr-col-lg-2">
           <span class="text-14">Date de fin</span> <br>
-          <span>{{ endDateTime }}</span>
+          <span>{{ endDateTime|date }}</span>
         </div>
         <div class="fr-col-lg-2">
           <span class="text-14">Commandant</span> <br>
-          <span>Aleck Vincent </span>
+          <span>{{ created_by.nom }} </span>
         </div>
         <div class="fr-col-lg-2 edit-btn">
           <button class="fr-btn" @click="editRapport">Editer</button>
@@ -36,6 +36,7 @@
 <script>
 import axios from "axios";
 import AlertComponent from "./alert/AlertComponent";
+import moment from "moment";
 export default {
   name: "CurrentReportComponent",
   components: {AlertComponent},
@@ -46,6 +47,7 @@ export default {
       this.startDateTime = body.start_datetime;
       this.endDateTime = body.end_datetime;
       this.numRapport = success.data.number;
+      this.created_by = success.data.created_by
       this.id = success.data.id;
       console.log(success.data)
     })
@@ -55,16 +57,26 @@ export default {
     editRapport() {
       this.$router.push({
         name: 'rapport',
-        query: { id: this.id, draft: true }
+        query: { id: this.numRapport, draft: true }
       })
     }
   },
   data() {
     return {
       startDateTime: null,
-      endDateTime: "--/--/----",
+      endDateTime: null,
       numRapport: null,
-      id: null
+      id: null,
+      created_by: null
+    }
+  },
+  filters: {
+    date(date) {
+      if(date) {
+        return moment(date).format('D/MM/Y');
+      }
+      return "--/--/----";
+
     }
   }
 }

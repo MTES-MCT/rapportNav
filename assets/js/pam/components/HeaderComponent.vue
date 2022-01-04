@@ -20,7 +20,7 @@
                 </div>
               </div>
               <div class="fr-header__service" v-if="nameSite !== null">
-                <a href="/" :title="'Accueil - ' +  nameSite ">
+                <a href="/pam" :title="'Accueil - ' +  nameSite ">
                   <p class="fr-header__service-title">{{ nameSite }}</p>
                 </a>
               </div>
