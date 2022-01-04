@@ -125,7 +125,6 @@ export default {
             this.idDraft = id;
             this.numReport = idRapport;
             this.rapport.id = idRapport;
-            console.log(JSON.parse(response.data.body))
           })
     }
     else if (id) {

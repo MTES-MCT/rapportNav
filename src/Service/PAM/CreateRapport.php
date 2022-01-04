@@ -71,8 +71,11 @@ class CreateRapport {
         if($errors->count() > 0) {
             throw new BadRequestHttpException((string) $errors);
         }
+        if(!$rapport->getId()) {
+            $rapport->setId($this->generateID->generate());
+        }
         $rapport->setCreatedBy($service);
-        $rapport->setId($this->generateID->generate());
+
         $this->em->persist($rapport);
         $this->em->flush();
         return $rapport;
@@ -98,9 +101,10 @@ class CreateRapport {
         $draft = new PamDraft();
         if($id) {
             $draft = $this->showDraftById($id);
+        } else {
+            $draft->setNumber($this->generateID->generate());
         }
         $draft->setBody($json);
-        $draft->setNumber($this->generateID->generate());
         $draft->setCreatedBy($service);
         $draft->setStartDatetime($rapport->getStartDatetime());
         $this->em->persist($draft);
