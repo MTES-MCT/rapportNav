@@ -34,7 +34,7 @@
             </div>
 
 
-            <div class="informations">
+         <!--   <div class="informations">
               <nav class="fr-nav" id="navigation-773" role="navigation" aria-label="Menu principal">
                 <ul class="fr-nav__list">
                   <li class="fr-nav__item">
@@ -57,6 +57,7 @@
                 </ul>
               </nav>
             </div>
+            -->
             <div class="fr-header__tools responsive-btn fr-ml-8w">
               <div class="fr-header__tools-links">
                 <ul class="fr-links-group">
