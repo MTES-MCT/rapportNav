@@ -11,6 +11,7 @@ use App\Entity\PAM\CategoryPamIndicateur;
 use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamRapport;
 use App\Entity\Service;
+use App\Service\PAM\Utils\GenerateID;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -34,11 +35,21 @@ class CreateRapport {
      */
     private $serializer;
 
-    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, SerializerInterface $serializer)
+    /**
+     * @var GenerateID
+     */
+    private $generateID;
+
+    public function __construct(EntityManagerInterface $em,
+                                ValidatorInterface $validator,
+                                SerializerInterface $serializer,
+                                GenerateID $generateID
+    )
     {
         $this->em = $em;
         $this->validator = $validator;
         $this->serializer = $serializer;
+        $this->generateID = $generateID;
     }
 
     /**
@@ -61,7 +72,7 @@ class CreateRapport {
             throw new BadRequestHttpException((string) $errors);
         }
         $rapport->setCreatedBy($service);
-        $rapport->setId($this->generateRapportId());
+        $rapport->setId($this->generateID->generate());
         $this->em->persist($rapport);
         $this->em->flush();
         return $rapport;
@@ -89,7 +100,7 @@ class CreateRapport {
             $draft = $this->showDraftById($id);
         }
         $draft->setBody($json);
-        $draft->setNumber($this->generateRapportId());
+        $draft->setNumber($this->generateID->generate());
         $draft->setCreatedBy($service);
         $draft->setStartDatetime($rapport->getStartDatetime());
         $this->em->persist($draft);
@@ -175,16 +186,4 @@ class CreateRapport {
            }
         }
     }
-
-    /**
-     * @return string
-     */
-    private function generateRapportId(): string
-    {
-        $currentDate = new \DateTime();
-        $count = $this->em->getRepository(PamRapport::class)->countAll();
-        $number = $count > 0 ? $count+1 : 1;
-        return'MED-' . $currentDate->format('Y') . '-' . $number;
-    }
-
 }

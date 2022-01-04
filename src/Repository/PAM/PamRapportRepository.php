@@ -28,12 +28,4 @@ class PamRapportRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-
-    public function countAll()
-    {
-        return $this->createQueryBuilder('r')
-            ->select('count(r.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
 }
