@@ -69,6 +69,19 @@
                         aria-haspopup="validate"
                         title="Valider le rapport"
                         @click="submitted"
+                        v-if="!saved"
+                    >
+                      Valider le rapport
+                    </button>
+
+                    <button
+                        class="fr-btn--menu fr-btn fr-fi-check-line fr-btn--icon-left mr-2"
+                        data-fr-opened="false"
+                        aria-controls="modal-870"
+                        aria-haspopup="validate"
+                        title="Valider le rapport"
+                        @click="update"
+                        v-if="saved"
                     >
                       Valider le rapport
                     </button>
@@ -174,6 +187,9 @@
       },
       drafted() {
         this.$emit('drafted')
+      },
+      update() {
+        this.$emit('update');
       }
     }
   };

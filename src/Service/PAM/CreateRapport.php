@@ -14,6 +14,8 @@ use App\Entity\Service;
 use App\Service\PAM\Utils\GenerateID;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -150,6 +152,54 @@ class CreateRapport {
     public function getLastDraft($user) : ?PamDraft
     {
         return $this->em->getRepository(PamDraft::class)->findOneBy(['created_by' => $user], ['created_at' => 'DESC']);
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param Request       $request
+     * @param PamRapport    $existingRapport
+     *
+     * @return PamRapport
+     */
+    public function updateRapport(FormInterface $form, Request $request, PamRapport $existingRapport) : PamRapport
+    {
+        /** @var PamRapport $rapport */
+        $rapport = $this->serializer->deserialize($request->getContent(), PamRapport::class, 'json'); // Mapping de la request en entity PamRapport
+
+        if($rapport->getEquipage()) {
+            $existingRapport->setEquipage($rapport->getEquipage()); // Ajout des membres d'équipage
+        }
+
+        if($rapport->getControles()) {
+            $this->setCategory($rapport->getControles(), CategoryPamControle::class);
+            $existingRapport->getControles()->clear(); // clear controles
+            foreach($rapport->getControles() as $controle) {
+                $existingRapport->addControle($controle); // ajout controle present dans la request (existant + nouveau)
+            }
+        }
+
+        if($rapport->getMissions()) {
+            $this->setCategory($rapport->getMissions(), CategoryPamMission::class);
+            $existingRapport->getMissions()->clear(); // clear missions
+            foreach($rapport->getMissions() as $mission) {
+                $this->setCategory($mission->getIndicateurs(), CategoryPamIndicateur::class); // verification des indicateurs
+                $existingRapport->addMission($mission); // ajout missions present dans la request (existant + nouveau)
+            }
+        }
+
+        $formData = json_decode($request->getContent(), true); // conversion json request en array
+
+        $form->submit($formData, false); // submit du formulaire avec les nouveaux elements
+
+        $errors = $this->validator->validate($existingRapport);
+
+        if($errors->count() > 0) {
+            throw new BadRequestHttpException((string) $errors);
+        }
+
+        $this->em->flush();
+
+        return $existingRapport;
     }
 
     /**

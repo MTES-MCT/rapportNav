@@ -3,6 +3,7 @@
 namespace App\Controller\PAM\Api;
 
 use App\Entity\PAM\PamRapport;
+use App\Form\PAM\PamRapportType;
 use App\Request\PAM\DraftRequest;
 use App\Service\PAM\CreateRapport;
 use App\Service\PAM\PamEquipageService;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Rest\Route("/api/pam/rapport")
@@ -133,6 +135,31 @@ class RapportController extends AbstractFOSRestController {
     public function lastEquipage(PamEquipageService $service) : View
     {
         return View::create($service->getLastEquipage(), Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Put("/{id}")
+     * @Rest\View(serializerGroups={"view"})
+     * @param Request            $request
+     * @param string             $id
+     * @param ValidatorInterface $validator
+     *
+     * @return View
+     */
+    public function updateRapport(Request $request, string $id, ValidatorInterface $validator, SerializerInterface $serializer) : View
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $existingRapport = $em->getRepository(PamRapport::class)->find($id);
+        $form = $this->createForm(PamRapportType::class, $existingRapport);
+
+        try {
+            $response = $this->createRapportService->updateRapport($form, $request, $existingRapport);
+            return View::create($response, Response::HTTP_OK);
+        }
+        catch(BadRequestHttpException $e) {
+            return View::create($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
     }
 
 }

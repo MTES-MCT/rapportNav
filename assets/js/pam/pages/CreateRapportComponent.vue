@@ -2,7 +2,7 @@
   <div v-if="rapport">
     <HeaderComponent draft name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="drafted">
     </HeaderComponent>
-    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="saved">
+    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" @update="putFormUpdate" v-if="saved">
     </HeaderComponent>
     <HeaderComponent name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
     </HeaderComponent>
@@ -187,19 +187,26 @@ export default {
       }
       axios.post(
           url,
-          JSON.stringify(this.rapport),
-          {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
+          this.rapport
       ).then(
           (success) => {
             this.showToast("Le brouillon a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
           },
-          (error) => console.log(error)
+          (error) => this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center')
       )
 
+    },
+    putFormUpdate() {
+      axios.put(
+          '/api/pam/rapport/' + this.rapport.id,
+          this.rapport
+      )
+      .then((success) => {
+        this.showToast("Le rapport n°" + this.rapport.id + " a été modifié avec succès", TYPE.SUCCESS, 'bottom-center')
+      })
+      .catch((error) => {
+        this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center');
+      })
     },
     setDates(date) {
       this.rapport.start_datetime = date.startDateTime;
@@ -223,12 +230,6 @@ export default {
     },
     getControles(controles) {
       this.rapport.controles = controles;
-    },
-    formatDate(date) {
-      let formatDate = new Date(date);
-      formatDate = new Date(formatDate.getTime() - (formatDate.getTimezoneOffset()*60*1000))
-      formatDate = formatDate.toISOString().split('T')[0];
-      return formatDate;
     },
     showToast(message, type, position) {
       this.$toast(message, {
