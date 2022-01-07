@@ -1,10 +1,10 @@
 <template>
-<div class="currentReport">
+<div class="currentReport" v-if="numRapport">
   <h5>Mon rapport en cours</h5>
 
   <div class="body">
     <div class="fr-container">
-      <div class="fr-grid-row" v-if="numRapport">
+      <div class="fr-grid-row" >
         <div class="fr-col-lg-1">
           <span class="fr-fi-file-fill fr-fi--lg icon-current-report" aria-hidden="true"></span>
         </div>
@@ -27,10 +27,10 @@
           <button class="fr-btn" @click="editRapport">Editer</button>
         </div>
       </div>
-      <AlertComponent message="Vous n'avez pas encore rempli de rapport." title="Aucun rapport" type="info" v-else></AlertComponent>
     </div>
   </div>
 </div>
+  <AlertComponent message="Vous n'avez aucun rapport en cours d'édition" title="Aucun rapport" type="info" v-else></AlertComponent>
 </template>
 
 <script>

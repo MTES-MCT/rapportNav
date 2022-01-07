@@ -11,19 +11,18 @@
     <div class="fr-col-lg-5 fr-col-md-4 fr-pl-4v">
       <input class="fr-input" type="text" placeholder="Ajouter des membres" v-model="tmpAgent.fullName"
              @keyup="createNewMember($event.target.value)"
-             @click.stop="showSugestionList"
       >
       <div class="tooltip-add-member d-none" data-scope="member">
         <div class="add-member-content">
           <div class="fr-container--fluid">
-            <div class="fr-grid-row">
+            <!--<div class="fr-grid-row">
               <div class="fr-col-7">
                 <div class="text-14 text-italic text-left text-muted">Suggestions</div>
               </div>
               <div class="fr-col-5">
                 <span class="text-12" @click="addAll">  <i class="ri-add-circle-fill"></i> Tout ajouter</span>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
         <div class="add-member-content">
@@ -50,7 +49,7 @@
       <div class="tooltip-new-member d-none" data-scope="member">
         <div class="add-member-content">
           <div class="fr-container--fluid">
-            <span class="text-left text-muted text-14 text-italic fr-mt-2v">Ajouter {{tmpAgent.prenom}} {{tmpAgent.nom}}</span>
+            <span class="text-left text-muted text-14 text-italic fr-mt-2v">Ajouter {{tmpAgent.fullName}}</span>
             <div class="fr-input-group">
               <select class="fr-select" v-model="tmpAgent.role">
                 <option value="Agent de pont">Agent de pont</option>
@@ -135,35 +134,7 @@ export default {
   },
   data() {
     return {
-      suggestionsList: [
-        {
-          agent: {
-            prenom: 'Alain',
-            nom: 'Colas',
-          },
-          role: 'Agent de pont',
-          observations: '',
-          is_absent: false
-        },
-        {
-          agent: {
-            prenom: 'Francis',
-            nom: 'Joyon'
-          },
-          role: 'Agent de pont',
-          observations: '',
-          is_absent: false
-        },
-        {
-          agent: {
-            prenom: 'Christophe',
-            nom: 'Augin'
-          },
-          role: 'Agent de pont',
-          observations: '',
-          is_absent: false
-        }
-      ],
+      suggestionsList: [],
       tmpAgent: {}
     }
   }
