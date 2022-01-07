@@ -5,9 +5,10 @@ namespace App\DataFixtures\Tests\PAM;
 use App\Entity\PAM\CategoryPamMission;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class MissionTypeFixture extends Fixture implements FixtureGroupInterface {
+class MissionTypeFixture extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface {
 
     public static function getGroups(): array {
         return ['test'];
@@ -34,5 +35,9 @@ class MissionTypeFixture extends Fixture implements FixtureGroupInterface {
 
        $manager->flush();
 
+    }
+
+    public function getOrder() {
+        return 2;
     }
 }

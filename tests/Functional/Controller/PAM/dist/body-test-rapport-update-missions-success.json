@@ -1,0 +1,55 @@
+{
+  "missions": [
+    {
+      "checked": false,
+      "is_main": false,
+      "category": {
+        "id": 1,
+        "nom": "Assistance aux navires en difficulté et sécurité maritime"
+      },
+      "indicateurs": [
+        {
+          "principale": 8,
+          "secondaire": 4,
+          "total": 12,
+          "observations": null,
+          "category": {
+            "id": 1,
+            "nom": "Nombre d'heures de mer"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 2,
+            "nom": "Nombre d'opérations suivies (ayant fait l'objet d'un DEFREP)"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 3,
+            "nom": "Nombre de mise en demeure"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 4,
+            "nom": "Nombre de remorquages dans le cadre d'une opération suivie (ayant fait l'objet d'un DEFREP)"
+          }
+        }
+      ]
+    }
+
+  ]
+}

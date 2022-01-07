@@ -140,13 +140,12 @@ class RapportController extends AbstractFOSRestController {
     /**
      * @Rest\Put("/{id}")
      * @Rest\View(serializerGroups={"view"})
-     * @param Request            $request
-     * @param string             $id
-     * @param ValidatorInterface $validator
+     * @param Request $request
+     * @param string  $id
      *
      * @return View
      */
-    public function updateRapport(Request $request, string $id, ValidatorInterface $validator, SerializerInterface $serializer) : View
+    public function updateRapport(Request $request, string $id) : View
     {
 
         $em = $this->getDoctrine()->getManager();

@@ -5,9 +5,10 @@ namespace App\DataFixtures\Tests\PAM;
 use App\Entity\PAM\CategoryPamControle;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ControleTypeFixture extends Fixture implements FixtureGroupInterface {
+class ControleTypeFixture extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface {
 
     public static function getGroups(): array {
         return ['test', 'pam'];
@@ -29,5 +30,9 @@ class ControleTypeFixture extends Fixture implements FixtureGroupInterface {
             $manager->persist($type);
         }
         $manager->flush();
+    }
+
+    public function getOrder() {
+        return 1;
     }
 }
