@@ -121,7 +121,7 @@ class RapportController extends AbstractFOSRestController {
      */
     public function lastRapport() : View
     {
-        $rapport = $this->createRapportService->getLastDraft($this->getUser());
+        $rapport = $this->createRapportService->getLastDraft($this->getUser()->getService());
         return View::create($rapport, Response::HTTP_OK);
     }
 

@@ -145,13 +145,18 @@ class CreateRapport {
     }
 
     /**
-     * @param $user
+     * @param Service $service
      *
      * @return PamDraft|null
      */
-    public function getLastDraft($user) : ?PamDraft
+    public function getLastDraft(Service $service) : ?PamDraft
     {
-        return $this->em->getRepository(PamDraft::class)->findOneBy(['created_by' => $user], ['created_at' => 'DESC']);
+        $draft = $this->em->getRepository(PamDraft::class)->findOneBy(['created_by' => $service], ['created_at' => 'DESC']);
+        $rapport = $this->em->getRepository(PamRapport::class)->find($draft->getNumber());
+        if(!$rapport) {
+            return $draft;
+        }
+        return null; // Null because rapport already validated
     }
 
     /**
