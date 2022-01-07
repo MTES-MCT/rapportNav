@@ -96,7 +96,7 @@ export default {
   methods: {
     onClickModal(nom, id) {
       let controle = {
-        type: {
+        category: {
           id: id,
           nom: nom
         },
@@ -130,10 +130,10 @@ export default {
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     },
-    removeType(index, type) {
+    removeType(index, category) {
       this.controlesByType.splice(index, 1);
       this.controles.forEach((controle, index) => {
-        if(controle.category.id === type.id) {
+        if(controle.category.id === category.id) {
           this.controles.splice(index, 1)
         }
       })
