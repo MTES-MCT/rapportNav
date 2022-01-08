@@ -1,10 +1,10 @@
 <template>
   <div v-if="rapport">
-    <HeaderComponent draft name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="drafted">
+    <HeaderComponent draft name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="drafted">
     </HeaderComponent>
-    <HeaderComponent saved name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="saved">
+    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" @update="putFormUpdate" v-if="saved">
     </HeaderComponent>
-    <HeaderComponent name-site="RapportNav" num-report="1498" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
+    <HeaderComponent name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
     </HeaderComponent>
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
@@ -119,26 +119,26 @@ export default {
     if(id && draft) {
       axios.get('/api/pam/rapport/draft/' + id)
           .then((response) => {
+            const idRapport = response.data.number;
             this.rapport = JSON.parse(response.data.body);
             this.drafted = true;
             this.idDraft = id;
-            this.rapport.number = 'TEST'; // TODO define a way to generate number
-            console.log(JSON.parse(response.data.body))
-            this.formatAllDatesTimes();
+            this.numReport = idRapport;
+            this.rapport.id = idRapport;
           })
     }
     else if (id) {
       axios.get('/api/pam/rapport/show/' + id)
           .then((response) => {
             this.rapport = response.data;
-            this.formatAllDatesTimes();
             this.saved = true;
             this.idSave = id;
-            this.rapport.number = 'TEST'; // TODO define a way to generate number
+            this.numReport = this.rapport.id;
+
           })
     } else {
       this.rapport = require('../dist/create-rapport.json');
-      this.rapport.number = 'TEST'; // TODO define a way to generate number
+      this.fetchLastEquipage();
     }
 
   },
@@ -156,7 +156,6 @@ export default {
     postForm() {
       const errorsInformationGeneral = this.$refs.informationGeneral.checkForm();
       const errorsShipActivity = this.$refs.shipActivity.checkForm();
-      console.log(errorsInformationGeneral, errorsShipActivity);
       let url = '/api/pam/rapport';
       if(this.saved) {
         url = url + '?id=' + this.idSave;
@@ -188,25 +187,30 @@ export default {
       }
       axios.post(
           url,
-          JSON.stringify(this.rapport),
-          {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
+          this.rapport
       ).then(
           (success) => {
             this.showToast("Le brouillon a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
           },
-          (error) => console.log(error)
+          (error) => this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center')
       )
 
+    },
+    putFormUpdate() {
+      axios.put(
+          '/api/pam/rapport/' + this.rapport.id,
+          this.rapport
+      )
+      .then((success) => {
+        this.showToast("Le rapport n°" + this.rapport.id + " a été modifié avec succès", TYPE.SUCCESS, 'bottom-center')
+      })
+      .catch((error) => {
+        this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center');
+      })
     },
     setDates(date) {
       this.rapport.start_datetime = date.startDateTime;
       this.rapport.end_datetime = date.endDateTime;
-      this.rapport.end_time = date.endTime;
-      this.rapport.start_time = date.startTime;
     },
     setActivite(info) {
       this.rapport.nb_jours_mer = info.nb_jours_mer;
@@ -221,31 +225,25 @@ export default {
       this.rapport.autre = info.autre;
       this.rapport.maintenance = info.maintenance;
       this.rapport.contr_port = info.contr_port;
-      this.rapport.mouillage = info.mouillage
+      this.rapport.mouillage = info.mouillage;
+      this.rapport.representation = info.representation;
     },
     getControles(controles) {
       this.rapport.controles = controles;
-    },
-    formatDate(date) {
-      let formatDate = new Date(date);
-      formatDate = new Date(formatDate.getTime() - (formatDate.getTimezoneOffset()*60*1000))
-      formatDate = formatDate.toISOString().split('T')[0];
-      return formatDate;
-    },
-    formatTime(date) {
-      let formatDate = new Date(date);
-      return formatDate.getHours() + ':' + formatDate.getMinutes();
-    },
-    formatAllDatesTimes() {
-  /*    this.rapport.start_date = this.formatDate(this.rapport.start_date);
-      this.rapport.end_datetime = this.formatDate(this.rapport.end_datetime);
-      this.rapport.start_time = this.formatTime(this.rapport.start_time);
-      this.rapport.end_time = this.formatTime(this.rapport.end_time);*/
     },
     showToast(message, type, position) {
       this.$toast(message, {
         type: type,
         position: position
+      })
+    },
+    fetchLastEquipage() {
+      axios.get('/api/pam/rapport/last/equipage')
+      .then((response) => {
+        this.rapport.equipage = response.data.membres ? response.data : this.rapport.equipage;
+      })
+      .catch((error) => {
+        console.log(error)
       })
     }
   },
@@ -255,7 +253,8 @@ export default {
       drafted: null,
       saved: null,
       idDraft: null,
-      idSave: null
+      idSave: null,
+      numReport: null
     }
   }
 };

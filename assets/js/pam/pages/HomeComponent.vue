@@ -2,9 +2,9 @@
   <div>
     <HeaderHomeComponent name-site="RapportNav"></HeaderHomeComponent>
     <div class="fr-container fr-mt-31v">
-      <h3 class="home-heading-1">Bonjour Christophe,</h3>
+      <h3 class="home-heading-1">Bonjour</h3>
       <CurrentReportComponent></CurrentReportComponent>
-      <MyReportsComponent></MyReportsComponent>
+    <!--  <MyReportsComponent></MyReportsComponent>-->
     </div>
   </div>
 </template>

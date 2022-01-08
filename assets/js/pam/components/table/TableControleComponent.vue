@@ -159,9 +159,9 @@ export default {
   methods: {
     addPav(event) {
       const newPav = {
-        type: {
-          id: this.pavillons[0].type.id,
-          label: this.pavillons[0].type.label
+        category: {
+          id: this.pavillons[0].category.id,
+          nom: this.pavillons[0].category.nom
         },
         pavillon: 'FR',
         nb_navire_controle: null,

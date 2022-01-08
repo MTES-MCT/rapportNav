@@ -33,15 +33,9 @@ class User extends BaseUser {
      */
     private $chefUlam=false;
 
-    /**
-     * @ORM\OneToMany(targetEntity=PamDraft::class, mappedBy="created_by", orphanRemoval=true)
-     */
-    private $pamDrafts;
-
     public function __construct()
     {
         parent::__construct();
-        $this->pamDrafts = new ArrayCollection();
     }
 
     public function getId() {
@@ -66,36 +60,6 @@ class User extends BaseUser {
     public function setChefUlam(bool $chefUlam): self
     {
         $this->chefUlam = $chefUlam;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|PamDraft[]
-     */
-    public function getPamDrafts(): Collection
-    {
-        return $this->pamDrafts;
-    }
-
-    public function addPamDraft(PamDraft $pamDraft): self
-    {
-        if (!$this->pamDrafts->contains($pamDraft)) {
-            $this->pamDrafts[] = $pamDraft;
-            $pamDraft->setCreatedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removePamDraft(PamDraft $pamDraft): self
-    {
-        if ($this->pamDrafts->removeElement($pamDraft)) {
-            // set the owning side to null (unless already changed)
-            if ($pamDraft->getCreatedBy() === $this) {
-                $pamDraft->setCreatedBy(null);
-            }
-        }
 
         return $this;
     }

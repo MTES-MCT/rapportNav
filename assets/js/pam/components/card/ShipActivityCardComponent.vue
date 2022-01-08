@@ -151,7 +151,6 @@ export default {
       this.addError(this.activite.go_marine, 'go_marine');
       this.addError(this.activite.essence, 'essence');
       this.addError(this.activite.contr_port, 'contr_port');
-      console.log(this.errors)
       return this.errors;
     },
     addError(element, offset) {
