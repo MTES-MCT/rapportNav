@@ -13,11 +13,11 @@
         </div>
         <div class="fr-col-lg-2">
           <span class="text-14">Date de début</span> <br>
-          <span>{{ startDate }}</span>
+          <span>{{ startDateTime }}</span>
         </div>
         <div class="fr-col-lg-2">
           <span class="text-14">Date de fin</span> <br>
-          <span>{{ endDate }}</span>
+          <span>{{ endDateTime }}</span>
         </div>
         <div class="fr-col-lg-2">
           <span class="text-14">Commandant</span> <br>
@@ -43,8 +43,8 @@ export default {
     axios.get('/api/pam/rapport/last/draft')
     .then((success) => {
       const body = JSON.parse(success.data.body)
-      this.startDate = body.start_date;
-      this.endDate = body.end_date;
+      this.startDateTime = body.start_datetime;
+      this.endDateTime = body.end_datetime;
       this.numRapport = success.data.number;
       this.id = success.data.id;
       console.log(success.data)
@@ -61,8 +61,8 @@ export default {
   },
   data() {
     return {
-      startDate: null,
-      endDate: "--/--/----",
+      startDateTime: null,
+      endDateTime: "--/--/----",
       numRapport: null,
       id: null
     }

@@ -15,13 +15,14 @@
           <div class="mainContent">
             <!-- Informations générales -->
             <GeneralInformationCardComponent
-               :start_date="rapport.start_date"
-               :end_date="rapport.end_date"
+               :start_datetime="rapport.start_datetime"
+               :end_datetime="rapport.end_datetime"
                :end_time="rapport.end_time"
                :start_time="rapport.start_time"
                :equipage="rapport.equipage"
                :missions="rapport.missions"
                @get-date="setDates"
+               ref="informationGeneral"
 
             >
             </GeneralInformationCardComponent>
@@ -44,6 +45,7 @@
                 :personnel="rapport.personnel"
                 :representation="rapport.representation"
                 :technique="rapport.technique"
+                ref="shipActivity"
             ></ShipActivityCardComponent>
 
             <!-- Contrôles opérationnel -->
@@ -152,26 +154,32 @@ export default {
       }
     },
     postForm() {
+      const errorsInformationGeneral = this.$refs.informationGeneral.checkForm();
+      const errorsShipActivity = this.$refs.shipActivity.checkForm();
+      console.log(errorsInformationGeneral, errorsShipActivity);
       let url = '/api/pam/rapport';
       if(this.saved) {
         url = url + '?id=' + this.idSave;
       }
-      axios.post(
-          url,
-          JSON.stringify(this.rapport),
-          {
-            headers: {
-              'Content-Type': 'application/json'
+      if(errorsInformationGeneral.length === 0 && errorsShipActivity.length === 0) {
+        axios.post(
+            url,
+            JSON.stringify(this.rapport),
+            {
+              headers: {
+                'Content-Type': 'application/json'
+              }
             }
-          }
-      ).then(
-          (success) => {
-            this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
-          },
-          (error) => {
-            this.showToast("Erreur", TYPE.ERROR, 'bottom-center')
-          }
-      )
+        ).then(
+            (success) => {
+              this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+            }
+        ).catch((error) => {
+          this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center');
+        })
+      } else {
+        this.showToast("Erreur, merci de remplir les champs obligatoires", TYPE.ERROR, 'bottom-center');
+      }
     },
     postFormDraft() {
       let url = '/api/pam/rapport/draft';
@@ -195,11 +203,10 @@ export default {
 
     },
     setDates(date) {
-      this.rapport.start_date = date.startDate;
-      this.rapport.end_date = date.endDate;
+      this.rapport.start_datetime = date.startDateTime;
+      this.rapport.end_datetime = date.endDateTime;
       this.rapport.end_time = date.endTime;
       this.rapport.start_time = date.startTime;
-      this.rapport.checkMissions = date.checkMissions;
     },
     setActivite(info) {
       this.rapport.nb_jours_mer = info.nb_jours_mer;
@@ -230,10 +237,10 @@ export default {
       return formatDate.getHours() + ':' + formatDate.getMinutes();
     },
     formatAllDatesTimes() {
-      this.rapport.start_date = this.formatDate(this.rapport.start_date);
-      this.rapport.end_date = this.formatDate(this.rapport.end_date);
+  /*    this.rapport.start_date = this.formatDate(this.rapport.start_date);
+      this.rapport.end_datetime = this.formatDate(this.rapport.end_datetime);
       this.rapport.start_time = this.formatTime(this.rapport.start_time);
-      this.rapport.end_time = this.formatTime(this.rapport.end_time);
+      this.rapport.end_time = this.formatTime(this.rapport.end_time);*/
     },
     showToast(message, type, position) {
       this.$toast(message, {

@@ -5,25 +5,21 @@
       <div class="box-shadow-card-body">
         <h6>Dates de la marée</h6>
         <div class="form-inline">
-          <label class="fr-label" for="start-date">
+          <label class="fr-label">
             De
           </label>
-          <div class="fr-input-wrap fr-mr-4v">
-            <input class="form-custom form-date" type="date" id="start-date" v-model="startDate">
-          </div>
-          <div class="fr-input-wrap fr-mr-4v">
-            <input class="form-custom form-time" type="time" id="start-time" v-model="startTime">
-          </div>
+          <DateTimeComponent
+              v-model:value="startDateTime"
+              :error="hasError('startDateTime')"
+          ></DateTimeComponent>
 
-          <label class="fr-label fr-mr-6v" for="end-date">
+          <label class="fr-label fr-mr-6v">
             à
           </label>
-          <div class="fr-input-wrap fr-mr-4v">
-            <input class="form-custom form-date" type="date" id="end-date" v-model="endDate">
-          </div>
-          <div class="fr-input-wrap">
-            <input class="form-time form-custom" type="time" id="end-time" v-model="endTime">
-          </div>
+          <DateTimeComponent
+              v-model:value="endDateTime"
+              :error="hasError('endDateTime')"
+          ></DateTimeComponent>
         </div>
         <div class="divider-horizontal"></div>
 
@@ -49,31 +45,51 @@
 <script>
 import EquipageComponent from "../EquipageComponent";
 import MissionToAchieveComponent from "../MissionToAchieveComponent";
+import DateTimeComponent from "../input/DateTimeComponent";
+import moment from "moment";
 
 export default {
   name: "GeneralInformationCardComponent",
-  components: { EquipageComponent, MissionToAchieveComponent },
+  components: {DateTimeComponent, EquipageComponent, MissionToAchieveComponent },
   props: {
-    start_date: String,
-    start_time: String,
-    end_date: String,
-    end_time: String,
+    start_datetime: String,
+    end_datetime: String,
     equipage: Object,
     missions: Array
   },
   methods: {
+    getDate(value) {
+      this.startDateTime = value
+    },
     getData() {
       this.$emit('get-date', this.$data);
+    },
+    getErrors() {
+      this.$emit('get-errors', this.error)
+    },
+    checkForm() {
+      this.errors = []; // begin with empty array
+      this.addError(this.startDateTime, 'startDateTime');
+      this.addError(this.endDateTime, 'endDateTime');
+      return this.errors;
+    },
+    addError(date, name) {
+      const time = moment(date).format('HH:mm');
+      if(!date || (!time || time === '00:00')) {
+        this.errors.push(name)
+      }
+    },
+    hasError(value) {
+      return this.errors.includes(value)
     }
   },
   mounted() {
   },
   data() {
     return {
-      startDate: this.start_date,
-      endDate: this.end_date,
-      startTime: this.start_time,
-      endTime: this.end_time
+      startDateTime: this.start_datetime,
+      endDateTime: this.end_datetime,
+      errors: []
     }
   }
 }

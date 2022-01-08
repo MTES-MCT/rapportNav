@@ -1,21 +1,14 @@
 .define-date-form {
-    visibility: hidden;
     background-color: #fff;
     box-shadow: 0px 3px 10px #00000029;
     text-align: center;
-    padding: 5px 0;
+    height: 250px;
+    width: 280px;
+    padding: 5px;
 
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
-}
-
-.define-date:hover .define-date-form {
-    visibility: visible;
-}
-
-.define-date-form {
-    padding: 10px;
 }
 
 .checkbox-mission {

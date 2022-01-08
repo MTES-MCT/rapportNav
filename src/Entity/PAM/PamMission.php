@@ -53,6 +53,18 @@ class PamMission
      */
     private $is_main = false;
 
+    /**
+     * @Groups({"view", "draft"})
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $start_datetime;
+
+    /**
+     * @Groups({"view", "draft"})
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $end_datetime;
+
     public function __construct()
     {
         $this->indicateurs = new ArrayCollection();
@@ -143,5 +155,29 @@ class PamMission
      */
     public function setIsMain(bool $is_main): void {
         $this->is_main = $is_main;
+    }
+
+    public function getStartDatetime(): ?\DateTimeInterface
+    {
+        return $this->start_datetime;
+    }
+
+    public function setStartDatetime(?\DateTimeInterface $start_datetime): self
+    {
+        $this->start_datetime = $start_datetime;
+
+        return $this;
+    }
+
+    public function getEndDatetime(): ?\DateTimeInterface
+    {
+        return $this->end_datetime;
+    }
+
+    public function setEndDatetime(?\DateTimeInterface $end_datetime): self
+    {
+        $this->end_datetime = $end_datetime;
+
+        return $this;
     }
 }

@@ -11,8 +11,10 @@ use App\Entity\PAM\PamMissionType;
 use App\Entity\PAM\PamRapport;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreateRapport {
 
@@ -20,14 +22,20 @@ class CreateRapport {
      * @var EntityManagerInterface
      */
     private $em;
+    /**
+     * @var ValidatorInterface
+     */
+    private $validator;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator)
     {
         $this->em = $em;
+        $this->validator = $validator;
     }
 
     /**
      * @param PamRapport $rapport
+     * @param null       $id
      *
      * @return PamRapport
      */
@@ -39,6 +47,11 @@ class CreateRapport {
             $this->setType($mission->getIndicateurs(), PamIndicateurType::class);
         }
         $this->setMembres($rapport->getEquipage());
+        $errors = $this->validator->validate($rapport);
+
+        if($errors->count() > 0) {
+            throw new BadRequestHttpException((string) $errors);
+        }
 
         $this->em->persist($rapport);
         $this->em->flush();
@@ -99,6 +112,11 @@ class CreateRapport {
         return $rapport;
     }
 
+    /**
+     * @param $user
+     *
+     * @return PamDraft|null
+     */
     public function getLastDraft($user) : ?PamDraft
     {
         return $this->em->getRepository(PamDraft::class)->findOneBy(['created_by' => $user], ['created_at' => 'DESC']);
