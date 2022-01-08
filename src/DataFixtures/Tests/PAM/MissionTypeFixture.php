@@ -2,12 +2,13 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
-use App\Entity\PAM\PamMissionType;
+use App\Entity\PAM\CategoryPamMission;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class MissionTypeFixture extends Fixture implements FixtureGroupInterface {
+class MissionTypeFixture extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface {
 
     public static function getGroups(): array {
         return ['test'];
@@ -15,7 +16,7 @@ class MissionTypeFixture extends Fixture implements FixtureGroupInterface {
 
     public function load(ObjectManager $manager) {
 
-        $labels = [
+        $noms = [
             'Assistance aux navires en difficulté et sécurité maritime',
             'Lutte contre l’immigration illégale par voie maritime',
             "Répression contre les rejets illicites, lutte contre les pollutions et protection de l'environnement",
@@ -25,14 +26,18 @@ class MissionTypeFixture extends Fixture implements FixtureGroupInterface {
             "Souveraineté et protection des intérêts nationaux "
         ];
 
-        foreach($labels as $key => $label) {
-          $type = new PamMissionType();
-          $type->setLabel($label);
+        foreach($noms as $key => $nom) {
+          $type = new CategoryPamMission();
+          $type->setNom($nom);
           $type->setId($key+1);
           $manager->persist($type);
        }
 
        $manager->flush();
 
+    }
+
+    public function getOrder() {
+        return 2;
     }
 }

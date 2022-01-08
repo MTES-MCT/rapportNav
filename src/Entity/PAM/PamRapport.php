@@ -2,6 +2,7 @@
 
 namespace App\Entity\PAM;
 
+use App\Entity\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,151 +17,159 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PamRapport
 {
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "save_rapport"})
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $id;
 
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "save_rapport"})
      * @ORM\Column(type="datetime_immutable")
      */
     private $created_at;
 
     /**
+     * @Groups({"view", "save_rapport"})
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updated_at;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer")
      */
     private $nb_jours_mer;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nav_eff;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $mouillage;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $maintenance;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $meteo;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $representation;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $administratif;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $autre;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $contr_port;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer")
      */
     private $technique;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $distance;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $go_marine;
 
     /**
      * @Assert\GreaterThanOrEqual(value="0")
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $essence;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\OneToOne(targetEntity=PamEquipage::class, inversedBy="rapport", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipage;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\OneToMany(targetEntity=PamControle::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $controles;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\OneToMany(targetEntity=PamMission::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist"})
      */
     private $missions;
 
     /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $number;
-
-    /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @Assert\NotBlank()
      * @ORM\Column(type="datetime")
      */
     private $start_datetime;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @Assert\NotBlank()
      * @ORM\Column(type="datetime")
      */
     private $end_datetime;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @Assert\GreaterThanOrEqual(value="0")
+     * @ORM\Column(type="float")
+     */
+    private $personnel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Service::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $created_by;
 
 
     public function __construct()
@@ -169,9 +178,15 @@ class PamRapport
         $this->missions = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -434,40 +449,50 @@ class PamRapport
         return $this;
     }
 
-
-
-    public function getNumber(): ?string
-    {
-        return $this->number;
-    }
-
-    public function setNumber(string $number): self
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    public function getStartDatetime(): ?\DateTimeInterface
+    public function getStartDatetime()
     {
         return $this->start_datetime;
     }
 
-    public function setStartDatetime(\DateTimeInterface $start_datetime): self
+    public function setStartDatetime($start_datetime): self
     {
         $this->start_datetime = $start_datetime;
 
         return $this;
     }
 
-    public function getEndDatetime(): ?\DateTimeInterface
+    public function getEndDatetime()
     {
         return $this->end_datetime;
     }
 
-    public function setEndDatetime(\DateTimeInterface $end_datetime): self
+    public function setEndDatetime($end_datetime): self
     {
         $this->end_datetime = $end_datetime;
+
+        return $this;
+    }
+
+    public function getPersonnel(): ?float
+    {
+        return $this->personnel;
+    }
+
+    public function setPersonnel(?float $personnel): self
+    {
+        $this->personnel = $personnel;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?Service
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(?Service $created_by): self
+    {
+        $this->created_by = $created_by;
 
         return $this;
     }

@@ -39,10 +39,11 @@ class PamEquipage
     private $rapport;
 
     /**
-     * @Groups({"view", "draft"})
-     * @ORM\ManyToMany(targetEntity=PamMembre::class, cascade={"persist"})
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\OneToMany(targetEntity=PamEquipageAgent::class, mappedBy="equipage", cascade={"persist"})
      */
     private $membres;
+
 
     public function __construct()
     {
@@ -106,26 +107,33 @@ class PamEquipage
     }
 
     /**
-     * @return Collection|PamMembre[]
+     * @return Collection|PamEquipageAgent[]
      */
     public function getMembres(): Collection
     {
         return $this->membres;
     }
 
-    public function addMembre(PamMembre $membre): self
+    public function addMembre(PamEquipageAgent $membre): self
     {
         if (!$this->membres->contains($membre)) {
             $this->membres[] = $membre;
+            $membre->setEquipage($this);
         }
 
         return $this;
     }
 
-    public function removeMembre(PamMembre $membre): self
+    public function removeMembre(PamEquipageAgent $membre): self
     {
-        $this->membres->removeElement($membre);
+        if ($this->membres->removeElement($membre)) {
+            // set the owning side to null (unless already changed)
+            if ($membre->getEquipage() === $this) {
+                $membre->setEquipage(null);
+            }
+        }
 
         return $this;
     }
+    
 }

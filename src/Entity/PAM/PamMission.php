@@ -22,7 +22,7 @@ class PamMission
     private $id;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\OneToMany(targetEntity=PamIndicateur::class, mappedBy="mission", orphanRemoval=true, cascade={"persist"})
      */
     private $indicateurs;
@@ -34,33 +34,33 @@ class PamMission
     private $rapport;
 
     /**
-     * @Groups({"view", "draft"})
-     * @ORM\ManyToOne(targetEntity=PamMissionType::class, inversedBy="missions")
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\ManyToOne(targetEntity=CategoryPamMission::class, inversedBy="missions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $type;
+    private $category;
 
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="boolean")
      */
     private $checked = false;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="boolean")
      */
     private $is_main = false;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $start_datetime;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $end_datetime;
@@ -117,14 +117,14 @@ class PamMission
         return $this;
     }
 
-    public function getType(): ?PamMissionType
+    public function getCategory(): ?CategoryPamMission
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(?PamMissionType $type): self
+    public function setCategory(?CategoryPamMission $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }

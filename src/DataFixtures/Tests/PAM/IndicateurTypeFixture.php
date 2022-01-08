@@ -2,12 +2,13 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
-use App\Entity\PAM\PamIndicateurType;
+use App\Entity\PAM\CategoryPamIndicateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class IndicateurTypeFixture extends Fixture implements FixtureGroupInterface {
+class IndicateurTypeFixture extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface {
 
     public static function getGroups(): array {
         return ['test'];
@@ -15,7 +16,7 @@ class IndicateurTypeFixture extends Fixture implements FixtureGroupInterface {
 
     public function load(ObjectManager $manager) {
 
-        $labels = [
+        $noms = [
             "Nombre d'heures de mer",
             "Nombre d'opérations suivies (ayant fait l'objet d'un DEFREP)",
             "Nombre de mise en demeure",
@@ -43,14 +44,18 @@ class IndicateurTypeFixture extends Fixture implements FixtureGroupInterface {
             "Nombre total de navires reconnus dans les approches maritimes"
         ];
 
-        foreach($labels as $key => $label) {
-            $type = new PamIndicateurType();
+        foreach($noms as $key => $nom) {
+            $type = new CategoryPamIndicateur();
             $type->setId($key+1);
-            $type->setLabel($label);
+            $type->setNom($nom);
             $manager->persist($type);
         }
 
         $manager->flush();
 
+    }
+
+    public function getOrder() {
+        return 3;
     }
 }

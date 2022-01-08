@@ -19,32 +19,13 @@ class PamRapportRepository extends ServiceEntityRepository
         parent::__construct($registry, PamRapport::class);
     }
 
-    // /**
-    //  * @return PamRapport[] Returns an array of PamRapport objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findLastRapportID()
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('r')
+            ->select('r.id')
+            ->orderBy('r.created_at', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?PamRapport
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

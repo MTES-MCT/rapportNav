@@ -20,7 +20,7 @@
                 </div>
               </div>
               <div class="fr-header__service" v-if="nameSite !== null">
-                <a href="/" :title="'Accueil - ' +  nameSite ">
+                <a href="/pam" :title="'Accueil - ' +  nameSite ">
                   <p class="fr-header__service-title">{{ nameSite }}</p>
                 </a>
               </div>
@@ -34,7 +34,7 @@
             </div>
 
 
-            <div class="informations">
+         <!--   <div class="informations">
               <nav class="fr-nav" id="navigation-773" role="navigation" aria-label="Menu principal">
                 <ul class="fr-nav__list">
                   <li class="fr-nav__item">
@@ -57,6 +57,7 @@
                 </ul>
               </nav>
             </div>
+            -->
             <div class="fr-header__tools responsive-btn fr-ml-8w">
               <div class="fr-header__tools-links">
                 <ul class="fr-links-group">
@@ -68,6 +69,19 @@
                         aria-haspopup="validate"
                         title="Valider le rapport"
                         @click="submitted"
+                        v-if="!saved"
+                    >
+                      Valider le rapport
+                    </button>
+
+                    <button
+                        class="fr-btn--menu fr-btn fr-fi-check-line fr-btn--icon-left mr-2"
+                        data-fr-opened="false"
+                        aria-controls="modal-870"
+                        aria-haspopup="validate"
+                        title="Valider le rapport"
+                        @click="update"
+                        v-if="saved"
                     >
                       Valider le rapport
                     </button>
@@ -173,6 +187,9 @@
       },
       drafted() {
         this.$emit('drafted')
+      },
+      update() {
+        this.$emit('update');
       }
     }
   };

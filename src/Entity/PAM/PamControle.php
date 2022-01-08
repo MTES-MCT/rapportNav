@@ -20,61 +20,61 @@ class PamControle
     private $id;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=8)
      */
     private $pavillon;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_navire_controle;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_pv_peche_sanitaire;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_equipement_securite;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_pv_titre_nav;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_pv_police;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_pv_env_pollution;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_autre_pv;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_nav_deroute;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_nav_interroge;
@@ -87,11 +87,11 @@ class PamControle
     private $rapport;
 
     /**
-     * @Groups({"view", "draft"})
-     * @ORM\ManyToOne(targetEntity=PamControleType::class, inversedBy="controles")
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\ManyToOne(targetEntity=CategoryPamControle::class, inversedBy="controles")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $type;
+    private $category;
 
     public function getId(): ?int
     {
@@ -230,14 +230,14 @@ class PamControle
         return $this;
     }
 
-    public function getType(): ?PamControleType
+    public function getCategory(): ?CategoryPamControle
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(?PamControleType $type): self
+    public function setCategory(?CategoryPamControle $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }

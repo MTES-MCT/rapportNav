@@ -63,8 +63,8 @@ export default {
     }
   },
   methods: {
-    addComponent(label, id) {
-      this.$emit('clicked', label, id)
+    addComponent(nom, id) {
+      this.$emit('clicked', nom, id)
     }
   }
 }

@@ -16,7 +16,7 @@
                     <div class="fr-grid-row">
                       <div class="fr-col-11">
                         <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + controle.id">
-                         {{ controle.label }}
+                         {{ controle.nom }}
                         </button>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
@@ -94,11 +94,11 @@ export default {
     }
   },
   methods: {
-    onClickModal(label, id) {
+    onClickModal(nom, id) {
       let controle = {
-        type: {
+        category: {
           id: id,
-          label: label
+          nom: nom
         },
         pavillon: 'FR',
         nb_navire_controle: null,
@@ -113,7 +113,7 @@ export default {
       }
       let newType = {
         id: id,
-        label: label,
+        nom: nom,
         pavillons: []
       }
       newType.pavillons.push(controle);
@@ -130,10 +130,10 @@ export default {
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     },
-    removeType(index, type) {
+    removeType(index, category) {
       this.controlesByType.splice(index, 1);
       this.controles.forEach((controle, index) => {
-        if(controle.type.id === type.id) {
+        if(controle.category.id === category.id) {
           this.controles.splice(index, 1)
         }
       })
@@ -141,29 +141,29 @@ export default {
     },
     formatPavillons() {
       this.controles.forEach((controle, index) => {
-        switch(controle.type.id) {
+        switch(controle.category.id) {
           case 1:
-            this.controlesNavirePechePro.label = controle.type.label;
+            this.controlesNavirePechePro.nom = controle.category.nom;
             this.controlesNavirePechePro.pavillons.push(controle);
             break;
 
           case 2:
-            this.controlesNavirePlaisancePro.label = controle.type.label;
+            this.controlesNavirePlaisancePro.nom = controle.category.nom;
             this.controlesNavirePlaisancePro.pavillons.push(controle);
             break;
 
           case 3:
-            this.controlesNavirePlaisanceLoisir.label = controle.type.label;
+            this.controlesNavirePlaisanceLoisir.nom = controle.category.nom;
             this.controlesNavirePlaisanceLoisir.pavillons.push(controle);
             break;
 
           case 4:
-            this.controlesTerrePechePro.label = controle.type.label;
+            this.controlesTerrePechePro.nom = controle.category.nom;
             this.controlesTerrePechePro.pavillons.push(controle);
             break;
 
           case 5:
-            this.autresMission.label = controle.type.label;
+            this.autresMission.nom = controle.category.nom;
             this.autresMission.pavillons.push(controle);
             break;
         }

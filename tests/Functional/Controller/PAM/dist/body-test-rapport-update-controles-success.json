@@ -1,0 +1,14 @@
+{
+  "controles": [
+    {
+      "category": {
+        "nom": "Contrôle en mer de navires  de pêche professionnelle",
+        "id": 1
+      },
+      "id": 1,
+      "nb_navire_controle": 7,
+      "nb_pv_peche_sanitaire": 3,
+      "pavillon": "ES"
+    }
+  ]
+}

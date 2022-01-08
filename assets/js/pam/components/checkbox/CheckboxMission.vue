@@ -9,7 +9,7 @@
           :id="'checkboxes-' + id"
           :name="'checkboxes-' + id"
           v-model="mission.checked">
-      <label class="fr-label text-sm" :for="'checkboxes-' + id">{{ label }}</label>
+      <label class="fr-label text-sm" :for="'checkboxes-' + id">{{ nom }}</label>
     </div>
     <div
         class="fr-toggle fr-toggle--label-left" v-if="mission.checked">
@@ -58,7 +58,7 @@ export default {
   name: "CheckboxMission",
   components: {DateTimeComponent},
   props: {
-    label: {
+    nom: {
       type: String,
       default: null
     },

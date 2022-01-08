@@ -40,7 +40,7 @@
                       Créer un rapport
                     </button>
                   </li>
-                  <li>
+              <!--    <li>
                     <button
                         class="fr-btn--menu fr-btn mr-2 fr-fi-user-line fr-btn--secondary fr-btn--icon-left"
                         data-fr-opened="false"
@@ -52,7 +52,7 @@
                   </li>
                   <li>
 
-                  </li>
+                  </li>-->
                 </ul>
               </div>
             </div>

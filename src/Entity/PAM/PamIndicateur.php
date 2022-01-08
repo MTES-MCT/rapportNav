@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PamIndicateur
 {
     /**
-     * @Groups({"view"})
+     * @Groups({"view", "save_rapport"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -20,25 +20,25 @@ class PamIndicateur
     private $id;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $principale;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $secondaire;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $total;
 
     /**
-     * @Groups({"view", "draft"})
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observations;
@@ -50,11 +50,11 @@ class PamIndicateur
     private $mission;
 
     /**
-     * @Groups({"view", "draft"})
-     * @ORM\ManyToOne(targetEntity=PamIndicateurType::class)
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\ManyToOne(targetEntity=CategoryPamIndicateur::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $type;
+    private $category;
 
     public function getId(): ?int
     {
@@ -121,14 +121,14 @@ class PamIndicateur
         return $this;
     }
 
-    public function getType(): ?PamIndicateurType
+    public function getCategory(): ?CategoryPamIndicateur
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(?PamIndicateurType $type): self
+    public function setCategory(?CategoryPamIndicateur $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }

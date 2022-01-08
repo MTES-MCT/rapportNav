@@ -40,7 +40,7 @@ export default {
       type: String,
       default: null
     },
-    type: {
+    category: {
       type: Number,
       default: null
     },
