@@ -5,6 +5,7 @@ namespace App\Entity\PAM;
 use App\Repository\PAM\PamEquipageAgentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\Agent;
 
 /**
  * @ORM\Entity(repositoryClass=PamEquipageAgentRepository::class)
@@ -27,7 +28,7 @@ class PamEquipageAgent
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\ManyToOne(targetEntity=PamAgent::class, cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Agent::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $agent;
@@ -67,12 +68,12 @@ class PamEquipageAgent
         return $this;
     }
 
-    public function getAgent(): ?PamAgent
+    public function getAgent(): ?Agent
     {
         return $this->agent;
     }
 
-    public function setAgent(?PamAgent $agent): self
+    public function setAgent(?Agent $agent): self
     {
         $this->agent = $agent;
 

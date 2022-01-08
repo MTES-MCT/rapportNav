@@ -2,7 +2,6 @@
 
 namespace App\Service\PAM;
 
-use App\Entity\PAM\PamAgent;
 use App\Entity\PAM\CategoryPamControle;
 use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamEquipage;
@@ -10,6 +9,7 @@ use App\Entity\PAM\PamEquipageAgent;
 use App\Entity\PAM\CategoryPamIndicateur;
 use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamRapport;
+use App\Entity\Agent;
 use App\Entity\Service;
 use App\Service\PAM\Utils\GenerateID;
 use Doctrine\Common\Collections\Collection;
@@ -239,7 +239,7 @@ class CreateRapport {
         /** @var PamEquipageAgent $membre */
        foreach($equipage->getMembres() as $membre) {
            $idAgent = $membre->getAgent()->getId();
-           $agent = $idAgent ? $this->em->getRepository(PamAgent::class)->find($idAgent) : null;
+           $agent = $idAgent ? $this->em->getRepository(Agent::class)->find($idAgent) : null;
            if($agent) {
                 $membre->setAgent($agent);
            }
