@@ -164,12 +164,18 @@ export default {
       return this.errors.includes(value)
     },
     calculTotal() {
-      const values = Object.values(this.activite);
-      let total = 0;
-      values.forEach((value) => {
-        total += value;
-      })
-      this.total = total;
+      this.total =
+          this.activite.representation +
+          this.activite.maintenance +
+          this.activite.meteo +
+          this.activite.personnel +
+          this.activite.contr_port +
+          this.activite.administratif +
+          this.activite.technique +
+          this.activite.autre +
+          this.activite.mouillage +
+          this.activite.mouillage
+      ;
     }
   },
   data () {
