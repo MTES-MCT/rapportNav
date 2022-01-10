@@ -34,7 +34,12 @@
         <td class="td-pavillon td-table-controle">
           <select name="pavillon" id="pavillon-select" v-model="pavillon.pavillon">
             <option value="FR">FR</option>
-            <option value="US">US</option>
+            <option value="FR-SP">FR-SP</option>
+            <option value="BL">BL</option>
+            <option value="NL">NL</option>
+            <option value="GB">GB</option>
+            <option value="Autres UE">Autres UE</option>
+            <option value="Non UE">Non UE</option>
           </select>
         </td>
         <TdEditable
