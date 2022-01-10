@@ -4,6 +4,7 @@ namespace App\Repository\PAM;
 
 use App\Entity\PAM\PamRapportId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,7 +22,13 @@ class PamRapportIdRepository extends ServiceEntityRepository
 
     public function findIDAvailable(): ?int
     {
-        $result = $this->findOneBy([], ['id' => 'DESC']);
-        return $result ? (int)explode('-', $result->getId())[2] : 0;
+        $ids = $this->createQueryBuilder('pri')
+            ->getQuery()
+            ->getResult()
+        ;
+        $result = count($ids) > 0 ? $ids[count($ids)-1] : 0;
+
+
+        return (int)explode('-', $result->getId())[2];
     }
 }
