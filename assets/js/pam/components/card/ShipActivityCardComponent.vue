@@ -8,7 +8,7 @@
           <span>Total</span>
           <div class="total-values">
             <span class="dayInSea text-blue-france text-bold">{{ activite.nb_jours_mer }} jours en mer</span>
-            <span class="missionTrackTime text-blue-france text-bold">52 heures de mission</span>
+            <span class="missionTrackTime text-blue-france text-bold">{{ total }} heures de mission</span>
           </div>
         </div>
       </div>
@@ -130,9 +130,11 @@ export default {
     essence: Number
   },
   mounted() {
+    this.calculTotal();
   },
   methods: {
     getData() {
+      this.calculTotal();
       this.$emit('get-activite', this.activite);
     },
     checkForm() {
@@ -160,6 +162,14 @@ export default {
     },
     hasError(value) {
       return this.errors.includes(value)
+    },
+    calculTotal() {
+      const values = Object.values(this.activite);
+      let total = 0;
+      values.forEach((value) => {
+        total += value;
+      })
+      this.total = total;
     }
   },
   data () {
@@ -180,6 +190,7 @@ export default {
           go_marine: this.go_marine,
           essence: this.essence,
         },
+      total: 0,
       errors: []
     }
   }
