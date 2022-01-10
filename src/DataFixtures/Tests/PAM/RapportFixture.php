@@ -2,16 +2,15 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
-use App\Entity\Agent;
 use App\Entity\PAM\CategoryPamControle;
 use App\Entity\PAM\CategoryPamMission;
-use App\Entity\PAM\PamAgent;
 use App\Entity\PAM\PamControle;
 use App\Entity\PAM\PamEquipage;
 use App\Entity\PAM\PamEquipageAgent;
 use App\Entity\PAM\PamMission;
 use App\Entity\PAM\PamRapport;
 use App\Entity\PAM\PamRapportId;
+use App\Entity\Agent;
 use App\Entity\Service;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -66,9 +65,10 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
 
         $equipage = new PamEquipage();
 
-        $agent = new PamAgent();
-        $agent->setNom('Colas');
-        $agent->setPrenom('Robert');
+        $agent = new Agent();
+        $agent->setNom('Colas')
+            ->setPrenom('Robert')
+            ->setDateArrivee(new \DateTimeImmutable('2020-01-01'));
 
         $membre = new PamEquipageAgent();
 
