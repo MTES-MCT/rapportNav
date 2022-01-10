@@ -25,7 +25,7 @@ final class Version20220110092444 extends AbstractMigration
         $this->addSql('ALTER TABLE pam_equipage_agent DROP CONSTRAINT fk_ebc63e183414710b');
         $this->addSql('DROP SEQUENCE pam_agent_id_seq CASCADE');
         $this->addSql('DROP TABLE pam_agent');
-        $this->addSql('ALTER TABLE pam_equipage_agent DROP CONSTRAINT FK_EBC63E183414710B');
+        $this->addSql('ALTER TABLE pam_equipage_agent DROP CONSTRAINT IF EXISTS FK_EBC63E183414710B');
         $this->addSql('ALTER TABLE pam_equipage_agent ADD CONSTRAINT FK_EBC63E183414710B FOREIGN KEY (agent_id) REFERENCES agent (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
