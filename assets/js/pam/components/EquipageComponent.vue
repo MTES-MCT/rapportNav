@@ -101,6 +101,7 @@ export default {
         membre.agent.prenom = this.tmpAgent.fullName.split(' ')[0];
         membre.observations = this.tmpAgent.observations;
         membre.role = this.tmpAgent.role;
+        membre.agent.dateArrivee = new Date();
         this.tmpAgent = {};
       }
       this.membres.push(membre);
