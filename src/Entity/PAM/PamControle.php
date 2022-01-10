@@ -88,7 +88,7 @@ class PamControle
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\ManyToOne(targetEntity=CategoryPamControle::class, inversedBy="controles")
+     * @ORM\ManyToOne(targetEntity=CategoryPamControle::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

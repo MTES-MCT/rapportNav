@@ -26,11 +26,6 @@ class CategoryPamMission
      */
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=PamMission::class, mappedBy="type")
-     */
-    private $missions;
-
     public function __construct()
     {
         $this->missions = new ArrayCollection();

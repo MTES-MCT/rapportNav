@@ -26,11 +26,6 @@ class CategoryPamControle
      */
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=PamControle::class, mappedBy="type", cascade={"persist", "remove"})
-     */
-    private $controles;
-
     public function __construct()
     {
         $this->controles = new ArrayCollection();
