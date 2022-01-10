@@ -26,9 +26,9 @@ class PamRapportIdRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
-        $result = count($ids) > 0 ? $ids[count($ids)-1] : 0;
+        $result = count($ids) > 0 ? $ids[count($ids)-1]->getId() : null;
 
 
-        return (int)explode('-', $result->getId())[2];
+        return $result ? (int)explode('-', $result)[2] : 0;
     }
 }
