@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AgentRepository")
@@ -16,11 +17,13 @@ class Agent {
     private $id;
 
     /**
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=45)
      */
     private $nom;
 
     /**
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=45)
      */
     private $prenom;
@@ -32,6 +35,7 @@ class Agent {
     private $service;
 
     /**
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="date_immutable")
      */
     private $dateArrivee;
