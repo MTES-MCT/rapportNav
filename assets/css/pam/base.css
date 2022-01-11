@@ -666,6 +666,10 @@ td:first-child {
 
 }
 
+.btn-add-controle {
+    height: 40px;
+}
+
 @media (min-width: 1024px) and (max-width: 1439px) {
     .nav-item {
         margin-left: 10px;
