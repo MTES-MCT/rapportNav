@@ -25,6 +25,12 @@
 .idea/dataSources*
 .idea
 
+### Other IDE
+.buildpath
+.project
+.settings
+nbproject
+
 ### node modules 
 /node_modules
 

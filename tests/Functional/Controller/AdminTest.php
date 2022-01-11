@@ -65,6 +65,10 @@ class AdminTest extends WebTestCase {
             ['/admin/app/loisir'],
             ['/admin/app/categoriemoyen'],
             ['/admin/app/categoriemethodeciblage'],
+            ['/admin/app/pam-categorypamcontrole'],
+            ['/admin/app/pam-categorypamindicateur'],
+            ['/admin/app/pam-categorypammission'],
+            ['/admin/app/pam-pamrapport'],
         ];
     }
 }

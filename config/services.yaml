@@ -185,3 +185,31 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: rapport, label: Natinf }
         public: true
+
+    admin.category_pam_controle:
+        class: App\Admin\CategoryPamControleAdmin
+        arguments: [~, App\Entity\PAM\CategoryPamControle, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de contrôles PAM" }
+        public: true
+
+    admin.category_pam_indicateur:
+        class: App\Admin\CategoryPamIndicateurAdmin
+        arguments: [~, App\Entity\PAM\CategoryPamIndicateur, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories d'indicateurs PAM" }
+        public: true
+
+    admin.category_pam_mission:
+        class: App\Admin\CategoryPamMissionAdmin
+        arguments: [~, App\Entity\PAM\CategoryPamMission, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de missions PAM" }
+        public: true
+
+    admin.pam_rapport:
+        class: App\Admin\PamRapportAdmin
+        arguments: [~, App\Entity\PAM\PamRapport, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: rapport, label: "Rapports PAM" }
+        public: true
