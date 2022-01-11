@@ -180,7 +180,7 @@ export default {
         this.showToast("Erreur, merci de remplir les champs obligatoires", TYPE.ERROR, 'bottom-center');
       }
     },
-    postFormDraft() {
+    postFormDraft(exit) {
       let url = '/api/pam/rapport/draft';
       if(this.drafted) {
         url = url + '?id=' + this.idDraft;
@@ -191,18 +191,28 @@ export default {
       ).then(
           (success) => {
             this.showToast("Le brouillon a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+            if(exit) {
+              this.$router.push({
+                name: 'home'
+              });
+            }
           },
           (error) => this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center')
       )
 
     },
-    putFormUpdate() {
+    putFormUpdate(exit) {
       axios.put(
           '/api/pam/rapport/' + this.rapport.id,
           this.rapport
       )
       .then((success) => {
-        this.showToast("Le rapport n°" + this.rapport.id + " a été modifié avec succès", TYPE.SUCCESS, 'bottom-center')
+        this.showToast("Le rapport n°" + this.rapport.id + " a été modifié avec succès", TYPE.SUCCESS, 'bottom-center');
+        if(exit) {
+          this.$router.push({
+            name: 'home'
+          });
+        }
       })
       .catch((error) => {
         this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center');

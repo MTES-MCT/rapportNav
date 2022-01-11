@@ -132,6 +132,7 @@
                         aria-controls="modal-870"
                         aria-haspopup="draft"
                         title="Enregistrer"
+                        @click="drafted"
                     >
                       Enregistrer
                     </button>
@@ -154,7 +155,7 @@
       </div>
     </header>
 
-    <ModalConfirmationComponent></ModalConfirmationComponent>
+    <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" />
   </div>
 </template>
 
@@ -185,11 +186,11 @@
       submitted() {
         this.$emit('submitted');
       },
-      drafted() {
-        this.$emit('drafted')
+      drafted(exit = false) {
+        this.$emit('drafted', exit)
       },
-      update() {
-        this.$emit('update');
+      update(exit = false) {
+        this.$emit('update', exit);
       }
     }
   };

@@ -385,6 +385,7 @@ tbody {
 }
 
 .add-control-box {
+    cursor: pointer;
     background: #F0F0F0;
     padding: 10px 10px 10px 10px;
     height: 125px;

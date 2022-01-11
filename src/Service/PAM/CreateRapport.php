@@ -84,13 +84,13 @@ class CreateRapport {
     }
 
     /**
-     * @param PamRapport $rapport
-     * @param Service    $service
-     * @param int|null   $id
+     * @param PamRapport  $rapport
+     * @param Service     $service
+     * @param string|null $id
      *
      * @return void
      */
-    public function saveDraft(PamRapport $rapport, Service $service, int $id = null): PamDraft
+    public function saveDraft(PamRapport $rapport, Service $service, string $id = null): PamDraft
     {
         $error = $this->validator->validateProperty($rapport, 'start_datetime');
 

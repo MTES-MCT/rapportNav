@@ -14,9 +14,9 @@
         <th class="td-nb-hour-sea td-indicateur th-tr-indicateur" scope="row" >
           {{ mission.category.nom }}
         </th>
-        <TdEditable class-list="td-indicateur" v-model="mission.principale"></TdEditable>
-        <TdEditable class-list="td-indicateur" v-model="mission.secondaire"></TdEditable>
-        <TdEditable class-list="td-indicateur td-total" v-model="mission.total"></TdEditable>
+        <TdEditable class-list="td-indicateur" :value="mission.principale" @change="setValue(mission, $event, 'principale', index)"></TdEditable>
+        <TdEditable class-list="td-indicateur" :value="mission.secondaire" @change="setValue(mission, $event, 'secondaire', index)"></TdEditable>
+        <TdEditable class-list="td-indicateur td-total" :value="mission.total" total></TdEditable>
         <TdEditable v-model="mission.observations" observation></TdEditable>
       </tr>
       </tbody>
@@ -51,6 +51,16 @@ export default {
     displayMessage(e, scope) {
       let messageBox = $('.hint-text-automatic-calculate[data-scope="' + scope + '"]');
       messageBox.toggleClass('d-none')
+    },
+    setValue(mission, value, scope, index) {
+      if(scope === 'principale') {
+        mission.principale = value;
+      } else {
+        mission.secondaire = value;
+      }
+      this.types[index].total = mission.principale + mission.secondaire;
+      console.log(mission.total);
+
     }
   },
   data() {

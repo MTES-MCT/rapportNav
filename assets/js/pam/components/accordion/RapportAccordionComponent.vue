@@ -117,7 +117,11 @@ export default {
         pavillons: []
       }
       newType.pavillons.push(controle);
-      this.controlesByType.push(newType);
+      let alreadyExist = false;
+      this.controlesByType.filter((type) => {
+        alreadyExist = type.id === id;
+      })
+      !alreadyExist ? this.controlesByType.push(newType) : null;
     },
     getPav(datas) {
       this.result = this.controles

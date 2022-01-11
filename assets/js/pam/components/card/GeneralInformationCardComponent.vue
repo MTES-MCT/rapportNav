@@ -3,7 +3,7 @@
     <h5 class="text-blue-france text-800">Informations générale</h5>
     <div class="box-shadow-card ">
       <div class="box-shadow-card-body">
-        <h6>Dates de la marée</h6>
+        <h6>Dates du rapport</h6>
         <div class="form-inline">
           <label class="fr-label">
             De

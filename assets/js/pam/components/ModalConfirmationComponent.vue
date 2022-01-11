@@ -14,10 +14,10 @@
                 <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
                   <li>
                     <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error leave-without-save-btn"
-                        href="#" >Quitter sans enregistrer</a>
+                        href="/pam" >Quitter sans enregistrer</a>
                   </li>
                   <li>
-                    <button class="fr-btn fr-btn--secondary fr-fi-save-fill space-between">
+                    <button class="fr-btn fr-btn--secondary fr-fi-save-fill space-between" @click="onSaveExit">
                       Enregistrer et quitter
                     </button>
                   </li>
@@ -33,7 +33,20 @@
 
 <script>
 export default {
-  name: "ModalConfirmationComponent"
+  name: "ModalConfirmationComponent",
+  props: {
+    saved: Boolean
+  },
+  methods: {
+    onSaveExit() {
+      if(!this.saved) {
+        this.$emit('draft-exit');
+      } else {
+        this.$emit('save-exit');
+      }
+
+    }
+  }
 }
 </script>
 
