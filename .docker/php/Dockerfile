@@ -1,4 +1,4 @@
-FROM php:7.2.24-fpm
+FROM php:7.3-fpm
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
@@ -20,8 +20,8 @@ RUN apt-get install -y libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql
 
 RUN docker-php-ext-install pdo pdo_mysql
-COPY php.ini /etc/php/7.2.3/php.ini
-COPY php-fpm-pool.conf /etc/php/7.2.3/pool.d/www.conf
+COPY php.ini /etc/php/7.3/php.ini
+COPY php-fpm-pool.conf /etc/php/7.3/pool.d/www.conf
 
 # Install Xdebug
 RUN yes | pecl install xdebug \
