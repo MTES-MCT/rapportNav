@@ -49,9 +49,10 @@
       <div class="tooltip-new-member d-none" data-scope="member">
         <div class="add-member-content">
           <div class="fr-container--fluid">
-            <span class="text-left text-muted text-14 text-italic fr-mt-2v">Ajouter {{tmpAgent.fullName}}</span>
-            <div class="fr-input-group">
+            <span class="text-left text-muted text-14 text-italic fr-mt-2v ">Ajouter "{{tmpAgent.fullName}}"</span>
+            <div class="fr-input-group fr-mt-5v">
               <select class="fr-select" v-model="tmpAgent.role">
+                <option value="" selected disabled hidden>Poste : - sélectionner - </option>
                 <option value="Agent de pont">Agent de pont</option>
               </select>
             </div>
@@ -102,7 +103,9 @@ export default {
         membre.observations = this.tmpAgent.observations;
         membre.role = this.tmpAgent.role;
         membre.agent.dateArrivee = new Date();
-        this.tmpAgent = {};
+        this.tmpAgent = {
+          role: ''
+        };
       }
       this.membres.push(membre);
 
@@ -136,7 +139,9 @@ export default {
   data() {
     return {
       suggestionsList: [],
-      tmpAgent: {}
+      tmpAgent: {
+        role: ''
+      }
     }
   }
 }

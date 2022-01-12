@@ -1,14 +1,14 @@
 <template>
   <div class="operationalControl fr-mt-10w section" id="controle">
       <div class="heading-custom heading-custom-space-between">
-        <h5 class="text-blue-france text-800">Contrôles opérationnel</h5>
-        <button class="fr-btn fr-btn--secondary btn-add-controle" data-fr-opened="false" aria-controls="fr-modal-10">
+        <h5 class="text-blue-france text-800">Contrôles opérationnels</h5>
+        <button class="fr-btn fr-btn--secondary btn-add-controle" data-fr-opened="false" aria-controls="fr-modal-controle">
           <i class="ri-add-circle-fill fr-mt-1v fr-mr-1w"></i> <span class="text-bold">Ajouter un contrôle</span>
         </button>
       </div>
       <div class="box-dropdown fr-mt-2w">
         <ul class="fr-accordions-group" >
-          <li v-for="(controle, index) in controlesByType">
+          <li v-for="(controle, index) in controlesByType" :key="controle.id">
             <div class="box-shadow-card" :id="controle.id">
               <section class="fr-accordion box-shadow-card-body">
                 <div class="fr-accordion__title ">
@@ -20,7 +20,7 @@
                         </button>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
-                        <button class="fr-fi-delete-fill btn-remove" aria-hidden="true" @click="removeType(index, controle)"></button>
+                        <button data-fr-opened="false" :aria-controls="'fr-modal-' + index" class="fr-fi-delete-fill btn-remove" aria-hidden="true"></button>
                       </div>
                     </div>
                   </div>
@@ -30,12 +30,12 @@
                   <TableControleComponent
                       :id="controle.id"
                       :pavillons="controle.pavillons"
-                      @get-controles="getPav"
-                  >
+                      @get-controles="getPav">
                   </TableControleComponent>
                 </div>
               </section>
             </div>
+            <ModalRemoveControle :index="index" @remove="removeType(index, controle)" />
           </li>
         </ul>
         <ModalAddControle @clicked="onClickModal"></ModalAddControle>
@@ -46,10 +46,11 @@
 <script>
 import TableControleComponent from "../table/TableControleComponent";
 import TableIndicateurComponent from "../table/TableIndicateurComponent";
-import ModalAddControle from "../ModalAddControle";
+import ModalAddControle from "../modal/ModalAddControle";
+import ModalRemoveControle from "../modal/ModalRemoveControle";
 export default {
   name: "RapportAccordionComponent",
-  components: { TableControleComponent, TableIndicateurComponent, ModalAddControle },
+  components: {ModalRemoveControle, TableControleComponent, TableIndicateurComponent, ModalAddControle },
   props: {
     controles: {
       type: Array,
@@ -141,7 +142,6 @@ export default {
           this.controles.splice(index, 1)
         }
       })
-
     },
     formatPavillons() {
       this.controles.forEach((controle, index) => {

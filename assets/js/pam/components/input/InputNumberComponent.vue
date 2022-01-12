@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="input-number">
     <div class="space-between">
-      <label class="fr-label">{{ label }}</label>
-      <div class="InputAddOn">
+      <label class="fr-label input-label">{{ label }}</label>
+      <div class="InputAddOn input-field">
         <input
             class="InputAddOn-field fr-input"
             v-bind:class="[
