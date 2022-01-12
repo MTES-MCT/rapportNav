@@ -1,7 +1,7 @@
 <template>
 <div class="fr-mt-8w section" id="indicateur">
   <div class="heading-custom heading-custom-space-between">
-    <h5 class="text-blue-france text-800">Indicateurs de mission</h5>
+    <h5 class="text-blue-france text-800">Indicateurs de missions</h5>
   </div>
   <div v-for="mission in missions">
     <AccordionIndicateurMissionComponent
