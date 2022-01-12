@@ -1,6 +1,6 @@
 <template>
   <div @change="getData" id="generalInformation" class="section">
-    <h5 class="text-blue-france text-800">Informations générales</h5>
+    <h5 class="text-blue-france text-800">Informations générale</h5>
     <div class="box-shadow-card ">
       <div class="box-shadow-card-body">
         <h6>Dates du rapport</h6>

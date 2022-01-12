@@ -24,7 +24,7 @@
 }
 .divider-vertical {
     border-left: 1px solid #e7e7e7;
-    height: 40px;
+    height: 80px;
     opacity: 1;
 }
 
@@ -43,7 +43,6 @@
 }
 
 .section {
-    padding: 24px 36px 24px 36px;
     scroll-margin-top: 140px;
 }
 
@@ -156,7 +155,7 @@
 }
 
 .box-shadow-card-body {
-    padding: 24px 36px 24px 36px;
+    padding: 32px 10px 32px 20px;
 }
 
 
@@ -559,7 +558,7 @@ td:first-child {
 
 
 .num-report {
-    margin-right: 18px;
+    width: 250px !important;
 }
 
 .sidebar-right-history {
@@ -664,10 +663,6 @@ td:first-child {
         right: 140px;
     }
 
-}
-
-.btn-add-controle {
-    height: 40px;
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {

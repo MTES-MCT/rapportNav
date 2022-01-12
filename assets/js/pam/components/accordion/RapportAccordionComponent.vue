@@ -2,7 +2,7 @@
   <div class="operationalControl fr-mt-10w section" id="controle">
       <div class="heading-custom heading-custom-space-between">
         <h5 class="text-blue-france text-800">Contrôles opérationnel</h5>
-        <button class="fr-btn fr-btn--secondary btn-add-controle" data-fr-opened="false" aria-controls="fr-modal-10">
+        <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="fr-modal-10">
           <i class="ri-add-circle-fill fr-mt-1v fr-mr-1w"></i> <span class="text-bold">Ajouter un contrôle</span>
         </button>
       </div>

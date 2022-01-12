@@ -24,12 +24,12 @@
                   <p class="fr-header__service-title">{{ nameSite }}</p>
                 </a>
               </div>
-              <div class="divider-vertical"></div>
+              <div class="divider-vertical fr-mr-2v"></div>
             </div>
 
             <div>
               <div class=" num-report" v-if="numReport !== null">
-                <p class=" fr-text--md text-grey">Rapport n°{{ numReport }}</p>
+                <p class=" fr-text--lg text-grey">Rapport n°{{ numReport }}</p>
               </div>
             </div>
 
@@ -195,7 +195,3 @@
     }
   };
 </script>
-
-<style scoped lang="css">
-
-</style>
