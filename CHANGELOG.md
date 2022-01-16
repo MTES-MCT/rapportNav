@@ -1,5 +1,15 @@
 #Changelog v0.x
 
+
+## Changelog v0.12 -> 0.12.1
+
+* Add a button on home screen to switch to PAM interface
+* packages update
+
+## Changelog v0.11.2 -> 0.12
+
+* Add PAM report pages
+
 ## Changelog v0.10.1 -> 0.11.0
 * Correction d'un bug sur la gestion des brouillon (information manquante)
 * Champ immatriculation insensible à la case 
