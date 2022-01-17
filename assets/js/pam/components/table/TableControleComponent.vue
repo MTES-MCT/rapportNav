@@ -12,7 +12,7 @@
       </th>
       <th class="add-column dropbtn" id="add-btn">
         <div class="add-column-label">
-          <i class="ri-add-circle-fill add-icon"></i>
+          <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
           <span class="icon-text">Ajouter un PV, nav déroutés...</span>
         </div>
 
@@ -110,7 +110,7 @@
       </tfoot>
     </table>
     <div class="add-pavillon" v-on:click="addPav($event)">
-      <i class="ri-add-circle-fill add-icon"></i>
+      <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
       <span class="icon-text">Ajouter un pavillon</span>
     </div>
   </div>
