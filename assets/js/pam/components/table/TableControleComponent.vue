@@ -32,7 +32,7 @@
       </th>
       </thead>
 
-      <tbody :class="'tbody-controle-' + id">
+      <tbody :class="'tbody-controle tbody-controle-' + id">
       <tr class="tr-table" v-for="(pavillon, index) in pavillons">
         <td class="td-pavillon td-table-controle">
           <select name="pavillon" id="pavillon-select" class="fr-select fr-select-custom" v-model="pavillon.pavillon">
@@ -101,11 +101,16 @@
         </TdEditable>
         <td class="td-add-column td-table-controle"></td>
       </tr>
+      <tr class="total-control">
+        <th scope="row" class="th-foot-controle">Total</th>
+        <td class="td-foot-controle" v-for="(col, index) in cols" :key="index" v-if="col.enabled">
+          {{ total(index) }}
+        </td>
+      </tr>
       </tbody>
       <tfoot>
       <tr>
-        <th scope="row" class="th-foot-controle">Total</th>
-        <td class="td-foot-controle">0</td>
+
       </tr>
       </tfoot>
     </table>
@@ -172,20 +177,63 @@ export default {
           nom: this.pavillons[0].category.nom
         },
         pavillon: 'FR',
-        nb_navire_controle: null,
-        nb_pv_peche_sanitaire: null,
-        nb_pv_equipement_securite: null,
-        nb_pv_titre_nav: null,
-        nb_pv_police_nav: null,
-        nb_pv_env_pollution: null,
-        nb_autre_pv: null,
-        nb_nav_deroute: null,
-        nb_nav_interroge: null
+        nb_navire_controle: 0,
+        nb_pv_peche_sanitaire: 0,
+        nb_pv_equipement_securite: 0,
+        nb_pv_titre_nav: 0,
+        nb_pv_police_nav: 0,
+        nb_pv_env_pollution: 0,
+        nb_autre_pv: 0,
+        nb_nav_deroute: 0,
+        nb_nav_interroge: 0
       };
       this.pavillons.push(newPav);
     },
     getData() {
       this.$emit('get-controles', this.pavillons)
+    },
+    total: function(index) {
+      let result = 0;
+      this.pavillons.forEach((el) => {
+        switch(index) {
+          case 0:
+            result += el.nb_navire_controle;
+            break;
+
+          case 1:
+            result += el.nb_pv_peche_sanitaire;
+            break;
+
+          case 2:
+            result += el.nb_pv_equipement_securite;
+            break;
+
+          case 3:
+            result += el.nb_pv_titre_nav;
+            break;
+
+          case 4:
+            result += el.nb_pv_police_nav;
+            break;
+
+          case 5:
+            result += el.nb_pv_env_pollution;
+            break;
+
+          case 6:
+            result += el.nb_autre_pv;
+            break;
+
+          case 7:
+            result += el.nb_nav_deroute;
+            break;
+
+          case 8:
+            result += el.nb_nav_interroge;
+            break;
+        }
+      })
+      return result;
     }
   },
   data: function() {
