@@ -5,7 +5,7 @@ namespace App\Controller\PAM\Api;
 use App\Entity\PAM\PamRapport;
 use App\Form\PAM\PamRapportType;
 use App\Request\PAM\DraftRequest;
-use App\Service\PAM\CreateRapport;
+use App\Service\PAM\RapportService;
 use App\Service\PAM\PamEquipageService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -24,11 +24,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class RapportController extends AbstractFOSRestController {
 
     /**
-     * @var CreateRapport
+     * @var RapportService
      */
     private $createRapportService;
 
-    public function __construct(CreateRapport $createRapportService) {
+    public function __construct(RapportService $createRapportService) {
         $this->createRapportService = $createRapportService;
     }
 
@@ -159,6 +159,16 @@ class RapportController extends AbstractFOSRestController {
         catch(BadRequestHttpException $e) {
             return View::create($e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    /**
+     * @Rest\Get
+     * @Rest\View(serializerGroups={"view"})
+     * @return View
+     */
+    public function list() : View
+    {
+        return View::create($this->createRapportService->listAll(), Response::HTTP_OK);
     }
 
 }
