@@ -3,6 +3,7 @@
 @import "components/input.css";
 @import "components/current-report.css";
 @import "components/datetime.css";
+@import "components/my-reports.css";
 
 .fr-error-text{
     color:#ce0500;

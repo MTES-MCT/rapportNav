@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from "vue-router";
 import Toast from 'vue-toastification';
+import './filters';
 
 Vue.use(Toast);
 Vue.use(VueRouter);
