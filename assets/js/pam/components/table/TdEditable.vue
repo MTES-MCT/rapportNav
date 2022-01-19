@@ -56,6 +56,7 @@ export default {
       const target = e.target;
       if(!isTextarea) {
         this.$emit('change', parseInt(target.innerText))
+        this.$emit('input', parseInt(target.innerText))
       }
       else {
         this.$emit('input', target.value)

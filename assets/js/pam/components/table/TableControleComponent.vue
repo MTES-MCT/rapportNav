@@ -11,8 +11,11 @@
         {{col.title}}
       </th>
       <th class="add-column dropbtn" id="add-btn">
-        <i class="ri-add-circle-fill"></i>
-        Ajouter un PV, nav déroutés...
+        <div class="add-column-label">
+          <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
+          <span class="icon-text">Ajouter un PV, nav déroutés...</span>
+        </div>
+
         <div class="dropdown" id="dropdown">
           <ul>
             <li>
@@ -32,7 +35,7 @@
       <tbody :class="'tbody-controle-' + id">
       <tr class="tr-table" v-for="(pavillon, index) in pavillons">
         <td class="td-pavillon td-table-controle">
-          <select name="pavillon" id="pavillon-select" v-model="pavillon.pavillon">
+          <select name="pavillon" id="pavillon-select" class="fr-select fr-select-custom" v-model="pavillon.pavillon">
             <option value="FR">FR</option>
             <option value="FR-SP">FR-SP</option>
             <option value="BL">BL</option>
@@ -80,20 +83,20 @@
         </TdEditable>
         <TdEditable
             v-if="cols[6].enabled"
-            v-model="controle.nb_autre_pv"
-            :value="controle.nb_autre_pv"
+            v-model="pavillon.nb_autre_pv"
+            :value="pavillon.nb_autre_pv"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[7].enabled"
-            v-model="controle.nb_nav_deroute"
-            :value="controle.nb_nav_deroute"
+            v-model="pavillon.nb_nav_deroute"
+            :value="pavillon.nb_nav_deroute"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[8].enabled"
-            v-model="controle.nb_nav_interroge"
-            :value="controle.nb_nav_interroge"
+            v-model="pavillon.nb_nav_interroge"
+            :value="pavillon.nb_nav_interroge"
         >
         </TdEditable>
         <td class="td-add-column td-table-controle"></td>
@@ -107,8 +110,8 @@
       </tfoot>
     </table>
     <div class="add-pavillon" v-on:click="addPav($event)">
-      <i class="ri-add-circle-fill"></i>
-      Ajouter un pavillon
+      <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
+      <span class="icon-text">Ajouter un pavillon</span>
     </div>
   </div>
 </template>

@@ -59,7 +59,6 @@ export default {
         mission.secondaire = value;
       }
       this.types[index].total = mission.principale + mission.secondaire;
-      console.log(mission.total);
 
     }
   },

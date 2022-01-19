@@ -3,7 +3,7 @@
     <ul class="list-unstyled">
       <li class="nav-list nav-item"><a href="#generalInformation" v-on:click="setActive($event)">Informations générales</a></li>
       <li class="nav-list nav-item"><a href="#shipActivity" v-on:click="setActive($event)">Activités du navire</a></li>
-      <li class="nav-list nav-item"><a href="#controle" v-on:click="setActive($event)">Contrôles opérationnel</a></li>
+      <li class="nav-list nav-item"><a href="#controle" v-on:click="setActive($event)">Contrôles opérationnels</a></li>
      <li class="nav-list nav-item"><a href="#indicateur" v-on:click="setActive($event)">Indicateurs de missions</a></li>
     </ul>
   </nav>
