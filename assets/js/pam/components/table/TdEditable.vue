@@ -1,9 +1,10 @@
 <template>
-  <td class="td-observation td-indicateur" v-if="observation">
-    <i class="ri-message-2-fill" v-on:click="displayObservationInput = !displayObservationInput"></i>
+  <td class="td-observation td-indicateur" v-if="observation" @click="hidden = !hidden" ref="observation">
+    <i class="ri-message-2-fill"></i>
     <div
         class="tooltip-observation"
-        v-bind:class="{'d-none': !displayObservationInput}"
+        v-if="!hidden"
+        v-click-outside="hideTooltip"
     >
       <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations" :value="value"  @keyup="getValue($event, true)"></textarea>
     </div>
@@ -67,11 +68,16 @@ export default {
       if(isNaN(e.key)) {
         e.preventDefault();
       }
+    },
+    hideTooltip(event) {
+      if(!this.$refs.observation.contains(event.target)) {
+        this.hidden = true;
+      }
     }
   },
   data() {
     return {
-      displayObservationInput: false,
+      hidden: true,
       val: null
     }
   }
