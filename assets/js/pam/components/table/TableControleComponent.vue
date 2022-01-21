@@ -192,7 +192,7 @@ export default {
     getData() {
       this.$emit('get-controles', this.pavillons)
     },
-    total: function(index) {
+    total(index) {
       let result = 0;
       this.pavillons.forEach((el) => {
         switch(index) {
@@ -233,7 +233,7 @@ export default {
             break;
         }
       })
-      return result;
+      return parseInt(result);
     }
   },
   data: function() {
