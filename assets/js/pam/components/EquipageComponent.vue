@@ -2,9 +2,11 @@
   <div class="fr-grid-row">
     <div class="fr-col-lg-7 fr-col-md-8">
       <div class="members-list">
-        <AgentComponent v-for="agent in membres"
+        <AgentComponent v-for="(agent, index) in membres"
+                        :key="index"
                         :membre="agent"
-                        :agent-list="membres">
+                        :agent-list="membres"
+                        :index="index">
         </AgentComponent>
       </div>
     </div>
@@ -91,9 +93,6 @@ export default {
     }
   },
   methods: {
-    removeMember(index) {
-        this.membres.splice(index, 1)
-    },
     addAgent(suggestion = null) {
       const membre = suggestion ? suggestion : {};
       if(!suggestion) {
