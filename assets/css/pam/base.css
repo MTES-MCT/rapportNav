@@ -665,6 +665,10 @@ td:first-child {
     margin-bottom: 7px;
 }
 
+.sidebar-left-menu {
+  margin-left: 40px;
+}
+
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {
