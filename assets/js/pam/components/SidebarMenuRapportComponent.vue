@@ -14,8 +14,8 @@ export default {
   name: "SidebarMenuRapportComponent",
   mounted() {
     const hash = window.location.hash.substr(1);
-    const className = this.$el.querySelector('.' + hash);
-    if(className) {
+    if(hash) {
+      const className = this.$el.querySelector('.' + hash);
       this.setActive(className);
     }
 
