@@ -10,7 +10,6 @@
           </label>
           <DateTimeComponent
               v-model:value="startDateTime"
-              :error="hasError('startDateTime')"
           ></DateTimeComponent>
 
           <label class="fr-label fr-mr-6v">
@@ -18,7 +17,6 @@
           </label>
           <DateTimeComponent
               v-model:value="endDateTime"
-              :error="hasError('endDateTime')"
           ></DateTimeComponent>
         </div>
         <div class="divider-horizontal"></div>
