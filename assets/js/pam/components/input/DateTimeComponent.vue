@@ -34,20 +34,26 @@
         </div>
         <hr>
         <div class="timepicker">
-          <div class="timepicker__group__hour">
-            <input type="number" min="0" max="23" @change="onChangeHour($event)">
+          <span class="timepicker__label">
+            <i class="ri-time-fill"></i>
+            Heure :
+          </span>
+          <div class="timepicker__input-group">
+            <div class="timepicker__group__hour">
+              <input type="number" min="0" max="23" @change="onChangeHour($event)" v-model="hour">
+            </div>
+            <div class="timepicker__group__minute">
+              <input type="number" min="0" max="59" @change="onChangeMinute($event)" v-model="minute">
+            </div>
           </div>
-          :
-          <div class="timepicker__group__minute">
-            <input type="number" min="0" max="59" @change="onChangeMinute($event)">
-          </div>
+
         </div>
       </div>
     </div>
 
-    <div class="time-preview">
+    <div class="time-preview" @click="hidden = !hidden">
       <div class="selected-time">
-        {{time}}
+        {{ time }}
       </div>
     </div>
   </div>
@@ -187,8 +193,8 @@ export default {
       date: this.value ? moment(this.value).format('YYYY-MM-DD') : null,
       time: this.value ? moment(this.value).format('HH:mm') : null,
       hidden: true,
-      hour: '00',
-      minute: '00'
+      hour: this.value ? moment(this.value).format('HH') : '00',
+      minute: this.value ? moment(this.value).format('mm') : '00'
     }
   }
 }

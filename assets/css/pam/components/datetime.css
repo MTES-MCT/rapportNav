@@ -19,12 +19,23 @@
     box-shadow: inset 0 -2px 0 0 #000091;
 }
 .timepicker {
+    position: inherit;
+    width: 100%;
+    bottom: 0;
+    padding: 10px;
+}
+.timepicker__input-group {
     width: 100%;
     bottom: 0;
     display: flex;
 }
 .timepicker div input{
     width: 60px;
+}
+.timepicker__label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 .date-picker {
     margin-right: 5px;
@@ -42,14 +53,12 @@
     background-color: #F3F3F3;
 }
 
-.date-picker .selected-date, .time-picker .selected-time {
+.date-picker .selected-date, .time-preview .selected-time {
     width: 100%;
     height: 40px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     color: #1E1E1E;
     font-size: 16px;
 }
@@ -63,12 +72,14 @@
     display: block;
     box-shadow: 0 3px 10px #00000029;
     padding: 20px 5px;
-    z-index: 5;
+    z-index: 1000;
     background-color: #FFF;
+    height: 500px;
 }
 
-.date-picker .dates.active {
-
+.timepicker__group__hour:after {
+    content: ":";
+    margin-right: 10px;
 }
 
 .date-picker .dates .month {
