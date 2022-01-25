@@ -1,31 +1,57 @@
 <template>
-  <div class="date-picker" @click="toggleDatePicker($event)">
-    <div class="selected-date" :data-value="selectedDateValue">{{ selectedDate }}</div>
-    <div class="dates" ref="dates">
-      <div class="month">
-        <div class="arrows prev-mth" @click="goToPrevMonth">&lt;</div>
-        <div class="mth">{{ currentMonth }}</div>
-        <div class="arrows next-mth" @click="goToNextMonth">&gt;</div>
+  <div class="date-time-picker">
+    <div class="date-picker"  >
+      <div class="selected-date" @click="hidden = !hidden">
+        {{ date|date('DD/MM/YYYY') }}
+        <i class="ri-calendar-fill icon-calendar" aria-hidden="true"></i>
       </div>
-
-      <div class="datepicker__week">
-        <div v-for="weekDay in weekDays" :key="weekDay" class="datepicker__weekday">
-          {{ weekDay }}
+      <div class="dates" ref="dates" v-if="!hidden">
+        <div class="month">
+          <div class="arrows prev-mth" @click="goToPrevMonth">
+            <i class="ri-arrow-left-s-line"></i>
+          </div>
+          <div class="mth">{{ currentMonth }}</div>
+          <div class="arrows next-mth" @click="goToNextMonth">
+            <i class="ri-arrow-right-s-line"></i>
+          </div>
         </div>
-      </div>
 
-      <div class="datepicker__days">
-        <div class="datepicker__day" :style="{width: getWeekStart() * 41 + 'px'}"></div>
-        <div
-            v-for="day in amountDays" :key="day"
-            class="datepicker__day"
-            v-bind:class="selectedDay === (day+1) && selectedYear === year && selectedMonth === month ? 'selected' : ''"
-            @click="onSelectDate(day)">
-          {{ day }}
+        <div class="datepicker__week">
+          <div v-for="weekDay in weekDays" :key="weekDay" class="datepicker__weekday">
+            {{ weekDay }}
+          </div>
+        </div>
+
+        <div class="datepicker__days">
+          <div class="datepicker__day" :style="{width: getWeekStart() * 41 + 'px'}"></div>
+          <div
+              v-for="day in amountDays" :key="day"
+              class="datepicker__day"
+              v-bind:class="selectedDay === (day+1) && selectedYear === year && selectedMonth === month ? 'selected' : ''"
+              @click="onSelectDate(day)">
+            {{ day }}
+          </div>
+        </div>
+        <hr>
+        <div class="timepicker">
+          <div class="timepicker__group__hour">
+            <input type="number" min="0" max="23" @change="onChangeHour($event)">
+          </div>
+          :
+          <div class="timepicker__group__minute">
+            <input type="number" min="0" max="59" @change="onChangeMinute($event)">
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="time-preview">
+      <div class="selected-time">
+        {{time}}
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -33,10 +59,13 @@ import moment from 'moment';
 export default {
   name: 'DateTimeComponent',
   props: {
-    msg: String
+    value: String
   },
   mounted() {
     let date = new Date();
+    if(this.date) {
+      date = new Date(this.value);
+    }
     let day = date.getDate();
     this.month = date.getMonth();
     this.year = date.getFullYear();
@@ -76,6 +105,26 @@ export default {
 
       this.selectedDate = this.formatDate(date);
       this.selectedDateValue = date;
+      this.date = moment(date).format('YYYY-MM-DD');
+      this.getDateTime(date);
+      this.getDateTime();
+      this.hidden = true;
+    },
+    onChangeHour(e) {
+      let time = this.date + ' ' + e.target.value + ':' + this.minute;
+      this.time = moment(time).format('HH:mm');
+      this.hour = e.target.value;
+      this.getDateTime()
+    },
+    onChangeMinute(e) {
+      let value = e.target.value;
+      if(value < 10) {
+        value = 0 + value;
+      }
+      let time = this.date + ' ' + this.hour + ':' + value;
+      this.time = moment(time).format('HH:mm');
+      this.minute = value;
+      this.getDateTime()
     },
     goToNextMonth () {
       this.month++;
@@ -109,8 +158,17 @@ export default {
       return false;
     },
     getWeekStart() {
-      moment.locale('fr');
       return moment([this.year, this.month]).weekday();
+    },
+    getDateTime(date) {
+      let dateTime = date;
+      let format = 'YYYY-MM-DD';
+      if(this.time) {
+        format = null;
+        dateTime = this.date + ' ' + this.time;
+      }
+
+      this.$emit('input',  moment(dateTime).format(format));
     }
   },
   data() {
@@ -125,7 +183,12 @@ export default {
       month: null,
       months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
       amountDays: null,
-      weekDays: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di']
+      weekDays: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
+      date: this.value ? moment(this.value).format('YYYY-MM-DD') : null,
+      time: this.value ? moment(this.value).format('HH:mm') : null,
+      hidden: true,
+      hour: '00',
+      minute: '00'
     }
   }
 }
