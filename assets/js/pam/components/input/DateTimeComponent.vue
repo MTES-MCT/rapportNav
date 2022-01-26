@@ -1,7 +1,13 @@
 <template>
   <div class="date-time-picker">
-    <div class="date-picker"  >
-      <div class="selected-date" @click="hidden = !hidden">
+    <div class="date-picker">
+      <div
+          class="selected-date"
+          v-bind:class="[
+              error ? 'invalid' : null,
+              date && !error ? 'valid' : null
+          ]"
+          @click="hidden = !hidden">
         <span v-if="date">
           {{ date|date('DD/MM/YYYY') }}
         </span>
@@ -58,15 +64,16 @@
     </div>
 
     <div class="time-preview" @click="hidden = !hidden">
-      <div class="selected-time" v-if="time">
-        {{ time }}
+      <div
+          v-bind:class="[
+              error ? 'invalid' : null,
+              time && !error ? 'valid' : null
+          ]"
+          class="selected-time">
+        <span v-if="time">{{ time }}</span>
+        <span v-else>--:--</span>
         <i class="ri-time-fill datetimepicker__icon" aria-hidden="true"></i>
       </div>
-      <div class="selected-time" v-else>
-        --:--
-        <i class="ri-time-fill datetimepicker__icon" aria-hidden="true"></i>
-      </div>
-
     </div>
   </div>
 
@@ -77,7 +84,8 @@ import moment from 'moment';
 export default {
   name: 'DateTimeComponent',
   props: {
-    value: String
+    value: String,
+    error: Boolean
   },
   mounted() {
     let date = new Date();

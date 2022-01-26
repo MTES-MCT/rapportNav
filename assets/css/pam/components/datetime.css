@@ -120,3 +120,13 @@
     margin-top: 10px;
     padding-top: 6px;
 }
+
+ .valid {
+    background-color: #F2F9F5;
+     box-shadow: inset 0 -2px 0 0 #008941;
+}
+
+ .invalid {
+     background-color: #F7E3E3;
+     box-shadow: inset 0 -2px 0 0 #E10600;
+ }
