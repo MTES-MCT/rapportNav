@@ -2,8 +2,14 @@
   <div class="date-time-picker">
     <div class="date-picker"  >
       <div class="selected-date" @click="hidden = !hidden">
-        {{ date|date('DD/MM/YYYY') }}
-        <i class="ri-calendar-fill icon-calendar" aria-hidden="true"></i>
+        <span v-if="date">
+          {{ date|date('DD/MM/YYYY') }}
+        </span>
+        <span v-else>
+          --/--/----
+        </span>
+
+        <i class="ri-calendar-fill datetimepicker__icon" aria-hidden="true"></i>
       </div>
       <div class="dates" ref="dates" v-if="!hidden">
         <div class="month">
@@ -52,9 +58,15 @@
     </div>
 
     <div class="time-preview" @click="hidden = !hidden">
-      <div class="selected-time">
+      <div class="selected-time" v-if="time">
         {{ time }}
+        <i class="ri-time-fill datetimepicker__icon" aria-hidden="true"></i>
       </div>
+      <div class="selected-time" v-else>
+        --:--
+        <i class="ri-time-fill datetimepicker__icon" aria-hidden="true"></i>
+      </div>
+
     </div>
   </div>
 
