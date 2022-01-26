@@ -1,4 +1,4 @@
-.date-time-picker {
+.datetimepicker {
     display: flex;
     justify-content: space-between;
 }
@@ -129,4 +129,10 @@
  .invalid {
      background-color: #F7E3E3;
      box-shadow: inset 0 -2px 0 0 #E10600;
+ }
+
+ .error-text {
+     position: absolute;
+     font-size: 12px;
+     color: #E10600;
  }

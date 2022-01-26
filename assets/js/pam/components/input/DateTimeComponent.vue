@@ -1,80 +1,84 @@
 <template>
-  <div class="date-time-picker">
-    <div class="date-picker">
-      <div
-          class="selected-date"
-          v-bind:class="[
+  <div class="datetimepicker__group">
+    <div class="datetimepicker">
+      <div class="date-picker">
+        <div
+            class="selected-date"
+            v-bind:class="[
               error ? 'invalid' : null,
               date && !error ? 'valid' : null
           ]"
-          @click="hidden = !hidden">
+            @click="hidden = !hidden">
         <span v-if="date">
           {{ date|date('DD/MM/YYYY') }}
         </span>
-        <span v-else>
+          <span v-else>
           --/--/----
         </span>
 
-        <i class="ri-calendar-fill datetimepicker__icon" aria-hidden="true"></i>
-      </div>
-      <div class="dates" ref="dates" v-if="!hidden">
-        <div class="month">
-          <div class="arrows prev-mth" @click="goToPrevMonth">
-            <i class="ri-arrow-left-s-line"></i>
-          </div>
-          <div class="mth">{{ currentMonth }}</div>
-          <div class="arrows next-mth" @click="goToNextMonth">
-            <i class="ri-arrow-right-s-line"></i>
-          </div>
+          <i class="ri-calendar-fill datetimepicker__icon" aria-hidden="true"></i>
         </div>
+        <div class="dates" ref="dates" v-if="!hidden">
+          <div class="month">
+            <div class="arrows prev-mth" @click="goToPrevMonth">
+              <i class="ri-arrow-left-s-line"></i>
+            </div>
+            <div class="mth">{{ currentMonth }}</div>
+            <div class="arrows next-mth" @click="goToNextMonth">
+              <i class="ri-arrow-right-s-line"></i>
+            </div>
+          </div>
 
-        <div class="datepicker__week">
-          <div v-for="weekDay in weekDays" :key="weekDay" class="datepicker__weekday">
-            {{ weekDay }}
+          <div class="datepicker__week">
+            <div v-for="weekDay in weekDays" :key="weekDay" class="datepicker__weekday">
+              {{ weekDay }}
+            </div>
           </div>
-        </div>
 
-        <div class="datepicker__days">
-          <div class="datepicker__day" :style="{width: getWeekStart() * 41 + 'px'}"></div>
-          <div
-              v-for="day in amountDays" :key="day"
-              class="datepicker__day"
-              v-bind:class="selectedDay === (day+1) && selectedYear === year && selectedMonth === month ? 'selected' : ''"
-              @click="onSelectDate(day)">
-            {{ day }}
+          <div class="datepicker__days">
+            <div class="datepicker__day" :style="{width: getWeekStart() * 41 + 'px'}"></div>
+            <div
+                v-for="day in amountDays" :key="day"
+                class="datepicker__day"
+                v-bind:class="selectedDay === (day+1) && selectedYear === year && selectedMonth === month ? 'selected' : ''"
+                @click="onSelectDate(day)">
+              {{ day }}
+            </div>
           </div>
-        </div>
-        <hr>
-        <div class="timepicker">
+          <hr>
+          <div class="timepicker">
           <span class="timepicker__label">
             <i class="ri-time-fill"></i>
             Heure :
           </span>
-          <div class="timepicker__input-group">
-            <div class="timepicker__group__hour">
-              <input type="number" min="0" max="23" @change="onChangeHour($event)" v-model="hour">
+            <div class="timepicker__input-group">
+              <div class="timepicker__group__hour">
+                <input type="number" min="0" max="23" @change="onChangeHour($event)" v-model="hour">
+              </div>
+              <div class="timepicker__group__minute">
+                <input type="number" min="0" max="59" @change="onChangeMinute($event)" v-model="minute">
+              </div>
             </div>
-            <div class="timepicker__group__minute">
-              <input type="number" min="0" max="59" @change="onChangeMinute($event)" v-model="minute">
-            </div>
-          </div>
 
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="time-preview" @click="hidden = !hidden">
-      <div
-          v-bind:class="[
+      <div class="time-preview" @click="hidden = !hidden">
+        <div
+            v-bind:class="[
               error ? 'invalid' : null,
               time && !error ? 'valid' : null
           ]"
-          class="selected-time">
-        <span v-if="time">{{ time }}</span>
-        <span v-else>--:--</span>
-        <i class="ri-time-fill datetimepicker__icon" aria-hidden="true"></i>
+            class="selected-time">
+          <span v-if="time">{{ time }}</span>
+          <span v-else>--:--</span>
+          <i class="ri-time-fill datetimepicker__icon" aria-hidden="true"></i>
+        </div>
       </div>
     </div>
+    <p class="error-text" v-if="error">
+      Merci de saisir une date et une heure
+    </p>
   </div>
 
 </template>
