@@ -1,10 +1,10 @@
 <template>
   <nav class="fr-text--sm content-fixed sidebar-left-menu">
     <ul class="list-unstyled">
-      <li class="nav-list nav-item generalInformation active"><a href="#generalInformation" v-on:click="setActive($event.target)">Informations générales</a></li>
-      <li class="nav-list nav-item shipActivity"><a href="#shipActivity" v-on:click="setActive($event.target)">Activités du navire</a></li>
-      <li class="nav-list nav-item controle"><a href="#controle" v-on:click="setActive($event.target)">Contrôles opérationnels</a></li>
-     <li class="nav-list nav-item indicateur"><a href="#indicateur" v-on:click="setActive($event.target)">Indicateurs de missions</a></li>
+      <li class="nav-list nav-item"><a class="generalInformation active" href="#generalInformation" v-on:click="setActive($event.target)">Informations générales</a></li>
+      <li class="nav-list nav-item"><a class="shipActivity" href="#shipActivity" v-on:click="setActive($event.target)">Activités du navire</a></li>
+      <li class="nav-list nav-item"><a class="controle" href="#controle" v-on:click="setActive($event.target)">Contrôles opérationnels</a></li>
+     <li class="nav-list nav-item"><a class="indicateur" href="#indicateur" v-on:click="setActive($event.target)">Indicateurs de missions</a></li>
     </ul>
   </nav>
 </template>
@@ -24,7 +24,7 @@ export default {
     setActive(target) {
       const currentActiveClass = this.$el.querySelector('.active');
       currentActiveClass.classList.remove('active');
-      target.classList.add('active')
+      target.classList.add('active');
     }
   }
 }
