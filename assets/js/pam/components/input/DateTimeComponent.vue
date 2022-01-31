@@ -21,11 +21,11 @@
         <div class="dates" ref="dates" v-if="!hidden">
           <div class="month">
             <div class="arrows prev-mth" @click="goToPrevMonth">
-              <i class="ri-arrow-left-s-line"></i>
+              <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
             </div>
             <div class="mth">{{ currentMonth }}</div>
             <div class="arrows next-mth" @click="goToNextMonth">
-              <i class="ri-arrow-right-s-line"></i>
+              <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
             </div>
           </div>
 
@@ -48,7 +48,7 @@
           <hr>
           <div class="timepicker">
           <span class="timepicker__label">
-            <i class="ri-time-fill"></i>
+            <i class="ri-time-fill" aria-hidden="true"></i>
             Heure :
           </span>
             <div class="timepicker__input-group">
