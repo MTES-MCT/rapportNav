@@ -34,7 +34,7 @@
             </div>
 
 
-         <!--   <div class="informations">
+            <div class="informations">
               <nav class="fr-nav" id="navigation-773" role="navigation" aria-label="Menu principal">
                 <ul class="fr-nav__list">
                   <li class="fr-nav__item">
@@ -48,7 +48,7 @@
                             le rapport de patrouille (.docx)</a>
                         </li>
                         <li>
-                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self">Télécharger
+                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" :href="urlExportIndicateurs" target="_self">Télécharger
                             les indicateurs de mission (.xlsx)</a>
                         </li>
                       </ul>
@@ -57,7 +57,6 @@
                 </ul>
               </nav>
             </div>
-            -->
             <div class="fr-header__tools responsive-btn fr-ml-8w">
               <div class="fr-header__tools-links">
                 <ul class="fr-links-group">
@@ -161,6 +160,7 @@
 
 <script>
   import ModalConfirmationComponent from "./ModalConfirmationComponent";
+  import axios from "axios";
   export default {
     name: "HeaderComponent",
     components: {ModalConfirmationComponent},
@@ -182,6 +182,11 @@
         default: () => { return false }
       }
     },
+    mounted() {
+      if(this.draft) {
+        this.urlExportIndicateurs = this.urlExportIndicateurs + '?draft';
+      }
+    },
     methods: {
       submitted() {
         this.$emit('submitted');
@@ -191,6 +196,11 @@
       },
       update(exit = false) {
         this.$emit('update', exit);
+      }
+    },
+    data() {
+      return {
+        urlExportIndicateurs: '/api/pam/export/indicateurs/' + this.numReport
       }
     }
   };

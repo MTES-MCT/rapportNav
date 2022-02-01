@@ -2,7 +2,11 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
+use App\Entity\PAM\CategoryPamIndicateur;
+use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamDraft;
+use App\Entity\PAM\PamIndicateur;
+use App\Entity\PAM\PamMission;
 use App\Entity\Service;
 use App\Request\PAM\DraftRequest;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -33,6 +37,24 @@ class DraftFixture extends Fixture implements FixtureGroupInterface {
         $body->setStartDatetime($current);
         $body->setNbJoursMer(14);
         $body->setMouillage(1);
+
+        $catMissions = $manager->getRepository(CategoryPamMission::class)->findAll();
+        $catIndicateurs = $manager->getRepository(CategoryPamIndicateur::class)->findAll();
+        $mission = new PamMission();
+        $mission->setCategory($catMissions[0]);
+        $mission->setChecked(true);
+
+        for($i = 1; $i <= 10; $i++) {
+            $indicateur = new PamIndicateur();
+            $indicateur->setPrincipale(44);
+            $indicateur->setSecondaire(8);
+            $indicateur->setTotal(52);
+            $indicateur->setObservations('Test observation');
+            $indicateur->setCategory($catIndicateurs[$i]);
+            $mission->addIndicateur($indicateur);
+        }
+
+        $body->addMission($mission);
 
         $json = $this->serializer->serialize($body, 'json', ['groups' => 'draft']);
 

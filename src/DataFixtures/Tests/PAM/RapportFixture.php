@@ -3,10 +3,12 @@
 namespace App\DataFixtures\Tests\PAM;
 
 use App\Entity\PAM\CategoryPamControle;
+use App\Entity\PAM\CategoryPamIndicateur;
 use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamControle;
 use App\Entity\PAM\PamEquipage;
 use App\Entity\PAM\PamEquipageAgent;
+use App\Entity\PAM\PamIndicateur;
 use App\Entity\PAM\PamMission;
 use App\Entity\PAM\PamRapport;
 use App\Entity\PAM\PamRapportId;
@@ -51,17 +53,27 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
             ->setEndDatetime(new \DateTimeImmutable("+25 days"));
 
         $catControles = $manager->getRepository(CategoryPamControle::class)->findAll();
+        $catIndicateurs = $manager->getRepository(CategoryPamIndicateur::class)->findAll();
 
         $controle = new PamControle();
         $controle->setPavillon('FR');
         $controle->setNbNavDeroute(2);
         $controle->setCategory($catControles[0]);
 
-
         $catMissions = $manager->getRepository(CategoryPamMission::class)->findAll();
         $mission = new PamMission();
         $mission->setCategory($catMissions[0]);
         $mission->setChecked(true);
+
+        for($i = 1; $i <= 10; $i++) {
+            $indicateur = new PamIndicateur();
+            $indicateur->setPrincipale(10);
+            $indicateur->setSecondaire(22);
+            $indicateur->setTotal(32);
+            $indicateur->setObservations('Test observation');
+            $indicateur->setCategory($catIndicateurs[$i]);
+            $mission->addIndicateur($indicateur);
+        }
 
         $equipage = new PamEquipage();
 

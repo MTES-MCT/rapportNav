@@ -3,8 +3,12 @@
 namespace App\Repository\PAM;
 
 use App\Entity\PAM\PamDraft;
+use App\Entity\PAM\PamIndicateur;
+use App\Entity\PAM\PamRapport;
+use App\Request\PAM\DraftRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @method PamDraft|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,8 +18,37 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PamDraftRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    protected $serializer;
+
+    public function __construct(ManagerRegistry $registry, SerializerInterface $serializer)
     {
+        $this->serializer = $serializer;
         parent::__construct($registry, PamDraft::class);
+    }
+
+    /**
+     * @param string $rapportID
+     *
+     * @return PamIndicateur[]
+     */
+    public function findAllIndicateursByRapport(string $rapportID): array
+    {
+        $result = $this->createQueryBuilder('pam_d')
+            ->where('pam_d.number = :rapportID')
+            ->setParameter('rapportID', $rapportID)
+            ->getQuery()
+            ->getSingleResult();
+
+        /** @var PamRapport $rapport */
+        $rapport = $this->serializer->deserialize($result->getBody(), DraftRequest::class, 'json');
+
+        $indicateurs = [];
+
+        foreach($rapport->getMissions() as $mission) {
+            foreach($mission->getIndicateurs() as $indicateur) {
+                $indicateurs[] = $indicateur;
+            }
+        }
+        return  $indicateurs;
     }
 }
