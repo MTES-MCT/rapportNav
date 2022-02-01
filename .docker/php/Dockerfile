@@ -2,7 +2,7 @@ FROM php:7.3-fpm
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
-    build-essential locales acl mailutils wget zip unzip \
+    build-essential locales acl mailutils wget zip unzip libpng-dev \
     gnupg gnupg1 gnupg2
 RUN apt-get install -y \
         libzip-dev \
@@ -12,7 +12,8 @@ RUN apt-get install -y \
 
 RUN apt-get install -y zlib1g-dev libicu-dev g++ \
 && docker-php-ext-configure intl \
-&& docker-php-ext-install intl
+&& docker-php-ext-install intl \
+&& docker-php-ext-install gd
 
 # Install Postgre & PG PDO
 RUN apt-get install -y libpq-dev \
