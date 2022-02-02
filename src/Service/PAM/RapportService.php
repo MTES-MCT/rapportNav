@@ -2,6 +2,7 @@
 
 namespace App\Service\PAM;
 
+use App\DTO\RapportResponse;
 use App\Entity\PAM\CategoryPamControle;
 use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamEquipage;
@@ -21,7 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CreateRapport {
+class RapportService {
 
     /**
      * @var EntityManagerInterface
@@ -205,6 +206,36 @@ class CreateRapport {
         $this->em->flush();
 
         return $existingRapport;
+    }
+
+    public function listAll()
+    {
+        $drafts = $this->em->getRepository(PamDraft::class)->findAll();
+        $rapports = $this->em->getRepository(PamRapport::class)->findAll();
+        $idsRapport = [];
+        $results = [];
+
+        foreach($rapports as $rapport) {
+            $jsonRapport = $this->serializer->serialize($rapport, 'json', ['groups' => 'view']);
+            /** @var RapportResponse $dto */
+            $dto = $this->serializer->deserialize($jsonRapport, RapportResponse::class, 'json');
+            $dto->setType(RapportResponse::TYPE_VALIDE);
+            $results[] = $dto;
+            $idsRapport[] = $rapport->getId();
+        }
+
+        foreach($drafts as $draft) {
+            if(!in_array($draft->getNumber(), $idsRapport)) {
+                /** @var RapportResponse $dto */
+                $dto = $this->serializer->deserialize($draft->getBody(), RapportResponse::class, 'json');
+                $dto->setId($draft->getNumber());
+                $dto->setType(RapportResponse::TYPE_BROUILLON);
+
+                $results[] = $dto;
+            }
+        }
+
+        return $results;
     }
 
     /**

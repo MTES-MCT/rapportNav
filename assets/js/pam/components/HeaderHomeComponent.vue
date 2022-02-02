@@ -32,8 +32,6 @@
                   <li>
                     <button
                         class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left mr-2"
-                        data-fr-opened="false"
-                        aria-controls="modal-870"
                         title="Créer un rapport"
                         @click="createRapport"
                     >

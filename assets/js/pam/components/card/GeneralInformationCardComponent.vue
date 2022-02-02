@@ -1,5 +1,5 @@
 <template>
-  <div @change="getData" id="generalInformation" class="section">
+  <div @click="getData" id="generalInformation" class="section">
     <h5 class="text-blue-france text-800">Informations générales</h5>
     <div class="box-shadow-card ">
       <div class="box-shadow-card-body">
@@ -13,7 +13,7 @@
               :error="hasError('startDateTime')"
           ></DateTimeComponent>
 
-          <label class="fr-label fr-mr-6v">
+          <label class="fr-label fr-mr-6v fr-ml-6v">
             à
           </label>
           <DateTimeComponent
@@ -62,6 +62,7 @@ export default {
       this.startDateTime = value
     },
     getData() {
+      console.log(this.startDateTime)
       this.$emit('get-date', this.$data);
     },
     getErrors() {

@@ -24,8 +24,8 @@
         "nom": "Contrôle en mer de navires  de pêche professionnelle",
         "id": 1
       },
-      "nb_navire_controle": null,
-      "nb_pv_peche_sanitaire": null,
+      "nb_navire_controle": 0,
+      "nb_pv_peche_sanitaire": 0,
       "pavillon": "FR"
     }
   ],

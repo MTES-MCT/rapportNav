@@ -1,7 +1,14 @@
 @import url("table-dropdown.css");
 
+.table-controle {
+    display: block;
+    overflow-x: auto;
+    width: 700px;
+}
+
 .td-table-controle {
-    width: 121px;
+    max-width: 122px;
+    min-width: 122px;
     font-size: 16px;
     text-align: center;
     height: 32px;
@@ -86,13 +93,6 @@ tfoot {
     margin-top: 4px;
     margin-left: 3px;
 }
-.add-column-label {
-    margin-top: -20px;
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    width: 120px;
-}
 
 .add-column-label .add-icon {
     margin-top: 10px;
@@ -101,4 +101,8 @@ tfoot {
 
 .add-column-label .icon-text {
     text-align: left;
+}
+
+.total-control {
+    background-color: #E5E5F4;
 }
