@@ -15,7 +15,15 @@
       <select class="fr-select fr-mt-3v" id="select"  v-model="membre.role">
         <option value="Agent de pont">Agent de pont</option>
         <option value="Commandant">Commandant</option>
-        <option value="4">Option 4</option>
+        <option value="Second capitaine">Second capitaine</option>
+        <option value="Chef de quart / Second capitaine PI">Chef de quart / Second capitaine PI</option>
+        <option value="Chef de quart">Chef de quart</option>
+        <option value="Chef mécanicien">Chef mécanicien</option>
+        <option value="Second mécanicien">Second mécanicien</option>
+        <option value="Électricien">Électricien</option>
+        <option value="Maître d’équipage">Maître d’équipage</option>
+        <option value="Cuisinier">Cuisinier</option>
+        <option value="Agent machine">Agent machine</option>
       </select>
 
       <textarea class="fr-input fr-mt-3v" id="textarea" placeholder="Observations" v-model="membre.observations"></textarea>
