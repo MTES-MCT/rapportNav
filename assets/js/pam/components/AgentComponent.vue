@@ -1,6 +1,6 @@
 <template>
-  <div class="agent">
-    <div class="agent-item" @click="hidden = !hidden" ref="agentItem">
+  <div class="agent" ref="agentItem">
+    <div class="agent-item" @click="hidden = !hidden">
       <div class="equipName">
         {{ fullName }}
         <span class="equipRole">{{ membre.role }}</span>

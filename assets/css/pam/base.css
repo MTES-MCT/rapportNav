@@ -5,6 +5,10 @@
 @import "components/datetime.css";
 @import "components/my-reports.css";
 
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
 .fr-error-text{
     color:#ce0500;
     margin-top: 0;
@@ -124,11 +128,15 @@
 
 .custom-btn {
     background: none;
-    border: 1px red solid;
-    padding: 10px;
-    color: red;
+    padding: 8px;
     font-weight: 600;
-    width: 100%;
+    font-size: 12px;
+    border: 1px #0f0f0f solid;
+}
+
+.custom-btn-danger {
+    border: 1px red solid;
+    color: red;
 }
 
 .nav-list {
