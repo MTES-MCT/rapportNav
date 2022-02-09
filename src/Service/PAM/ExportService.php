@@ -2,9 +2,14 @@
 
 namespace App\Service\PAM;
 
+use App\Entity\PAM\CategoryPamControle;
+use App\Entity\PAM\PamControle;
+use App\Entity\PAM\PamEquipage;
 use App\Entity\PAM\PamIndicateur;
+use App\Entity\PAM\PamRapport;
 use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamIndicateurRepository;
+use App\Repository\PAM\PamRapportRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -20,6 +25,11 @@ class ExportService {
      * @var PamDraftRepository
      */
     private $draftRepository;
+
+    /**
+     * @var PamRapportRepository
+     */
+    private $rapportRepository;
 
     const INDICATEUR_CATEGORY_TITLE_COL = 'A';
     const INDICATEUR_PRINCIPALE_COL = 'F';
@@ -37,9 +47,10 @@ class ExportService {
      * @param PamIndicateurRepository $indicateurRepository
      * @param PamDraftRepository      $draftRepository
      */
-    public function __construct(PamIndicateurRepository $indicateurRepository, PamDraftRepository $draftRepository) {
+    public function __construct(PamIndicateurRepository $indicateurRepository, PamDraftRepository $draftRepository, PamRapportRepository $rapportRepository) {
         $this->indicateurRepository = $indicateurRepository;
         $this->draftRepository = $draftRepository;
+        $this->rapportRepository = $rapportRepository;
     }
 
     /**
@@ -100,6 +111,86 @@ class ExportService {
     }
 
     /**
+     * @param string $rapportID
+     * @param bool   $draft
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function exportRapportDocx(string $rapportID, bool $draft = false)
+    {
+        $rapport = $draft ? $this->draftRepository->findRapport($rapportID) : $this->rapportRepository->find($rapportID);
+
+        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/PAM/SAMPLE_Rapport_mission.docx');
+        $templateProcessor->setValues([
+            'numRapport' => $rapportID,
+            'navEff' => $rapport->getNavEff(),
+            'mouillage' => $rapport->getMouillage(),
+            'maintenance' => $rapport->getMaintenance(),
+            'meteo' => $rapport->getMeteo(),
+            'representation' => $rapport->getRepresentation(),
+            'admin' => $rapport->getAdministratif(),
+            'autre' => $rapport->getAutre(),
+            'technique' => $rapport->getTechnique(),
+            'personnel' => $rapport->getPersonnel(),
+            'nbJoursMer' => $rapport->getNbJoursMer(),
+            'dureeMission' => 12,
+            'distance' => $rapport->getDistance(),
+            'essence' => $rapport->getEssence(),
+            'goMarine' => $rapport->getGoMarine()
+        ]);
+        $tableEquipage = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
+        $tableMerPlaisancePro = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
+        $tableAutreMission = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
+        $tableMerNavirePlaisanceLoisir = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
+        $tableTerrePechePro = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
+        $tableMerPechePro = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
+
+        $controleMerPechePro = [];
+        $controleMerPlaisancePro = [];
+        $controleMerNavirePlaisanceLoisir = [];
+        $controleTerrePechePro = [];
+        $autreMission = [];
+
+        foreach($rapport->getControles() as $controle)
+        {
+            switch($controle->getCategory()) {
+                case 1:
+                    $controleMerPechePro[] = $controle;
+                    break;
+                case 2:
+                    $controleMerPlaisancePro[] = $controle;
+                    break;
+                case 3:
+                    $controleMerNavirePlaisanceLoisir[] = $controle;
+                    break;
+                case 4:
+                    $controleTerrePechePro[] = $controle;
+                    break;
+                case 5:
+                    $autreMission[] = $controle;
+                    break;
+            }
+        }
+
+        $this->fillTabsControle($controleTerrePechePro, $tableTerrePechePro);
+        $this->fillTabsControle($controleMerNavirePlaisanceLoisir, $tableMerNavirePlaisanceLoisir);
+        $this->fillTabsControle($controleMerPlaisancePro, $tableMerPlaisancePro);
+        $this->fillTabsControle($autreMission, $tableAutreMission);
+        $this->fillTabsControle($controleMerPechePro, $tableMerPechePro);
+
+        $this->fillTabsEquipage($rapport->getEquipage(), $tableEquipage);
+
+        $templateProcessor->setComplexBlock('table_controleMerPechePro', $tableMerPechePro);
+        $templateProcessor->setComplexBlock('table_controleMerNavirePlaisanceLoisir', $tableMerNavirePlaisanceLoisir);
+        $templateProcessor->setComplexBlock('table_controleMerPlaisanceProPro', $tableMerPlaisancePro);
+        $templateProcessor->setComplexBlock('table_controleAutreMission', $tableAutreMission);
+        $templateProcessor->setComplexBlock('table_controleTerrePechePro', $tableTerrePechePro);
+        $pathToSave = './rapport_' . $rapportID . '.docx';
+        $templateProcessor->saveAs($pathToSave);
+    }
+
+    /**
      * Rempli les cellules d'un tableur
      * @param Worksheet $sheet
      * @param int       $startRow
@@ -117,6 +208,59 @@ class ExportService {
             $sheet->setCellValue($cellPrincipale, $value->getPrincipale());
             $sheet->setCellValue($cellSecondaire, $value->getSecondaire());
             $sheet->setCellValue($cellObservation, $value->getObservations());
+        }
+    }
+
+    /**
+     * @param PamControle[] $controles
+     * @param       $table
+     */
+    private function fillTabsControle(array $controles, $table): void
+    {
+        $table->addRow();
+        $table->addCell(150)->addText('Contrôles en mer navires de pêche professionnelle');
+        $table->addCell(50)->addText('Nbre Navires contrôlés');
+        $table->addCell(50)->addText('Nbre PV pêche sanitaire');
+        $table->addCell(50)->addText('Nbre PV équipmt sécu. permis nav.');
+        $table->addCell(50)->addText('Nbre PV titre navig. rôle/déc. eff');
+        $table->addCell(50)->addText('Nbre PV police navig.');
+        $table->addCell(50)->addText('Nbre PV envir. pollut.');
+        $table->addCell(50)->addText('Nbre PV autres');
+        $table->addCell(50)->addText('Nbre navires déroutés');
+        $table->addCell(50)->addText('Nbre navires Interrogés');
+
+        foreach($controles as $controle) {
+            $table->addRow();
+            $table->addCell(150)->addText($controle->getPavillon());
+            $table->addCell(50)->addText($controle->getNbNavireControle());
+            $table->addCell(50)->addText($controle->getNbPvPecheSanitaire());
+            $table->addCell(50)->addText($controle->getNbPvEquipementSecurite());
+            $table->addCell(50)->addText($controle->getNbPvTitreNav());
+            $table->addCell(50)->addText($controle->getNbPvPolice());
+            $table->addCell(50)->addText($controle->getNbPvEnvPollution());
+            $table->addCell(50)->addText($controle->getNbAutrePv());
+            $table->addCell(50)->addText($controle->getNbNavDeroute());
+            $table->addCell(50)->addText($controle->getNbNavInterroge());
+        }
+    }
+
+    /**
+     * @param PamEquipage $equipage
+     * @param             $table
+     */
+    private function fillTabsEquipage(PamEquipage $equipage, $table): void
+    {
+        $table->addRow();
+        $table->addCell(150)->addText('Fonction');
+        $table->addCell(150)->addText('Nom');
+        $table->addCell(150)->addText('Observation');
+
+        foreach($equipage->getMembres() as $membre)
+        {
+            $table->addRow();
+            $table->addCell(150)->addText($membre->getRole());
+            $table->addCell(150)->addText($membre->getAgent());
+            $table->addCell(150)->addText($membre->getObservations());
         }
     }
 }
