@@ -2,17 +2,18 @@
 
 namespace App\Service\PAM;
 
-use App\Entity\PAM\CategoryPamControle;
 use App\Entity\PAM\PamControle;
 use App\Entity\PAM\PamEquipage;
 use App\Entity\PAM\PamIndicateur;
-use App\Entity\PAM\PamRapport;
 use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamIndicateurRepository;
 use App\Repository\PAM\PamRapportRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpWord\Element\Table;
+use PhpOffice\PhpWord\SimpleType\TblWidth;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class ExportService {
 
@@ -213,9 +214,9 @@ class ExportService {
 
     /**
      * @param PamControle[] $controles
-     * @param       $table
+     * @param Table         $table
      */
-    private function fillTabsControle(array $controles, $table): void
+    private function fillTabsControle(array $controles,Table $table): void
     {
         $table->addRow();
         $table->addCell(150)->addText('Contrôles en mer navires de pêche professionnelle');
@@ -246,9 +247,9 @@ class ExportService {
 
     /**
      * @param PamEquipage $equipage
-     * @param             $table
+     * @param Table       $table
      */
-    private function fillTabsEquipage(PamEquipage $equipage, $table): void
+    private function fillTabsEquipage(PamEquipage $equipage,Table $table): void
     {
         $table->addRow();
         $table->addCell(150)->addText('Fonction');
