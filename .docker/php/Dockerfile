@@ -1,5 +1,5 @@
-FROM php:7.3-fpm
-
+FROM php:7.4-fpm
+RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
     build-essential locales acl mailutils wget zip unzip libpng-dev \
@@ -7,7 +7,7 @@ RUN apt-get update \
 RUN apt-get install -y \
         libzip-dev \
         zip \
-  && docker-php-ext-configure zip --with-libzip \
+  && docker-php-ext-configure zip \
   && docker-php-ext-install zip
 
 RUN apt-get install -y zlib1g-dev libicu-dev g++ \
@@ -21,8 +21,8 @@ RUN apt-get install -y libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql
 
 RUN docker-php-ext-install pdo pdo_mysql
-COPY php.ini /etc/php/7.3/php.ini
-COPY php-fpm-pool.conf /etc/php/7.3/pool.d/www.conf
+COPY php.ini /etc/php/7.4/php.ini
+COPY php-fpm-pool.conf /etc/php/7.4/pool.d/www.conf
 
 # Install Xdebug
 RUN yes | pecl install xdebug \
