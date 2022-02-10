@@ -24,7 +24,7 @@ jobs:
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo apt install -y libpq-dev
       - run: sudo docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
-      - run: sudo docker-php-ext-install pdo pdo_pgsql pgsql
+      - run: sudo docker-php-ext-install pdo pdo_pgsql pgsql php-gd
       - run: sudo composer self-update
 
       # Download and cache dependencies
