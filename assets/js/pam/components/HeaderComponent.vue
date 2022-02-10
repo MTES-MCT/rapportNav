@@ -49,7 +49,7 @@
                         </li>
                         <li>
                           <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" 
-                            :href="'/api/pam/export/indicateurs/' + numReport + draft ? '?draft' : ''" target="_self">
+                            :href="urlExportIndicateurs" target="_self">
                             Télécharger les indicateurs de mission (.xlsx)
                           </a>
                         </li>
@@ -199,6 +199,16 @@
     },
     data() {
       return {
+      }
+    },
+    computed: {
+      urlExportIndicateurs: function() {
+        const re = new RegExp('^[A-Z]{3}-[0-9]{4}-[0-9]+$');
+        if(re.test(this.numReport)) {
+          return '/api/pam/export/indicateurs/' + this.numReport + (this.draft ? '?draft' : '');
+        } else {
+          return '#'
+        }
       }
     }
   };
