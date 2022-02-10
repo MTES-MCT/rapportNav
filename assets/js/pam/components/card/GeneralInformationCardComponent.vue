@@ -62,7 +62,6 @@ export default {
       this.startDateTime = value
     },
     getData() {
-      console.log(this.startDateTime)
       this.$emit('get-date', this.$data);
     },
     getErrors() {

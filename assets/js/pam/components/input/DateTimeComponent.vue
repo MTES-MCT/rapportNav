@@ -1,5 +1,5 @@
 <template>
-  <div class="datetimepicker__group">
+  <div class="datetimepicker__group" ref="datetimepicker">
     <div class="datetimepicker">
       <div class="date-picker">
         <div
@@ -18,7 +18,7 @@
 
           <i class="ri-calendar-fill datetimepicker__icon" aria-hidden="true"></i>
         </div>
-        <div class="dates" ref="dates" v-if="!hidden">
+        <div class="dates" ref="dates" v-if="!hidden" v-click-outside="hideTooltip">
           <div class="month">
             <div class="arrows prev-mth" @click="goToPrevMonth">
               <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
@@ -199,6 +199,11 @@ export default {
       }
 
       this.$emit('input',  moment(dateTime).format(format));
+    },
+    hideTooltip(event) {
+      if(!this.$refs.datetimepicker.contains(event.target)) {
+        this.hidden = true;
+      }
     }
   },
   data() {
