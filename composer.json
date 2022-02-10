@@ -12,6 +12,7 @@
         "ext-mbstring": "*",
         "ext-pgsql": "^7.2",
         "ext-zip": "*",
+	"ext-gd": "*",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^2.1.2",
