@@ -44,12 +44,14 @@
                     <div class="fr-collapse fr-menu" id="menu-776">
                       <ul class="fr-menu__list">
                         <li>
-                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self">Télécharger
-                            le rapport de patrouille (.docx)</a>
+                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self">
+                            Télécharger le rapport de patrouille (.docx)</a>
                         </li>
                         <li>
-                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" :href="urlExportIndicateurs" target="_self">Télécharger
-                            les indicateurs de mission (.xlsx)</a>
+                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" 
+                            :href="'/api/pam/export/indicateurs/' + numReport + draft ? '?draft' : ''" target="_self">
+                            Télécharger les indicateurs de mission (.xlsx)
+                          </a>
                         </li>
                       </ul>
                     </div>
@@ -183,9 +185,6 @@
       }
     },
     mounted() {
-      if(this.draft) {
-        this.urlExportIndicateurs = this.urlExportIndicateurs + '?draft';
-      }
     },
     methods: {
       submitted() {
@@ -200,7 +199,6 @@
     },
     data() {
       return {
-        urlExportIndicateurs: '/api/pam/export/indicateurs/' + this.numReport
       }
     }
   };
