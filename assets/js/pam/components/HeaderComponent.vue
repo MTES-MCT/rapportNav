@@ -29,7 +29,7 @@
 
             <div>
               <div class=" num-report" v-if="numReport !== null">
-                <p class=" fr-text--md text-grey">Rapport n°{{ numReport }}</p>
+                <p class=" fr-text--md text-grey fr-ml-2v">Rapport n°{{ numReport }}</p>
               </div>
             </div>
 
