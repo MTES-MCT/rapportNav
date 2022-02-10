@@ -1,11 +1,28 @@
 @import url("table-dropdown.css");
 
+.table-controle {
+    display: block;
+    overflow-x: auto;
+    width: 700px;
+}
+
 .td-table-controle {
-    width: 121px;
+    max-width: 122px;
+    min-width: 122px;
     font-size: 16px;
     text-align: center;
-    height: 22px;
+    height: 32px;
     background-color: #F9F8F6;
+}
+
+.thead-controle {
+    text-align: center;
+    line-height: 1rem;
+}
+
+.thead-controle th {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .td-pavillon  {
@@ -16,7 +33,13 @@ th {
     font-size: 12px;
 }
 
+.fr-select-custom {
+    background-color: #F9F8F6;
+    box-shadow: none;
+}
+
 .add-pavillon {
+    cursor: pointer;
     border: 2px solid #F2F2F9;
     font-size: 12px;
     padding-left: 10px;
@@ -28,10 +51,17 @@ th {
 
 .td-add-column {
     background-color: #E5E5F4;
+    width: 40px;
 }
 
 .add-column {
+    cursor: pointer;
     color: #AEADD8;
+}
+
+.add-icon {
+    font-size: 24px;
+    margin-top: 5px;
 }
 
 tfoot {
@@ -48,4 +78,31 @@ tfoot {
     font-weight: bold;
     font-size: 12px;
     color: #000091;
+}
+
+
+.add-pavillon {
+    display: flex;
+    width: 250px;
+    padding: 5px 5px 5px 5px;
+    font-size: 12px;
+    border: 2px solid #F2F2F9;
+    border-left: rgba(0, 0, 145, 0.3) solid 5px;
+}
+.add-pavillon span {
+    margin-top: 4px;
+    margin-left: 3px;
+}
+
+.add-column-label .add-icon {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.add-column-label .icon-text {
+    text-align: left;
+}
+
+.total-control {
+    background-color: #E5E5F4;
 }

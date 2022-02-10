@@ -41,7 +41,7 @@ class PamControle
      * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $nb_equipement_securite;
+    private $nb_pv_equipement_securite;
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
@@ -134,14 +134,14 @@ class PamControle
         return $this;
     }
 
-    public function getNbEquipementSecurite(): ?int
+    public function getNbPvEquipementSecurite(): ?int
     {
-        return $this->nb_equipement_securite;
+        return $this->nb_pv_equipement_securite;
     }
 
-    public function setNbEquipementSecurite(?int $nb_equipement_securite): self
+    public function setNbPvEquipementSecurite(?int $nb_pv_equipement_securite): self
     {
-        $this->nb_equipement_securite = $nb_equipement_securite;
+        $this->nb_pv_equipement_securite = $nb_pv_equipement_securite;
 
         return $this;
     }

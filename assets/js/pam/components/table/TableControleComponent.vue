@@ -11,8 +11,11 @@
         {{col.title}}
       </th>
       <th class="add-column dropbtn" id="add-btn">
-        <i class="ri-add-circle-fill"></i>
-        Ajouter un PV, nav déroutés...
+        <div class="add-column-label">
+          <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
+          <span class="icon-text">Ajouter un PV, nav déroutés...</span>
+        </div>
+
         <div class="dropdown" id="dropdown">
           <ul>
             <li>
@@ -29,10 +32,10 @@
       </th>
       </thead>
 
-      <tbody :class="'tbody-controle-' + id">
+      <tbody :class="'tbody-controle tbody-controle-' + id">
       <tr class="tr-table" v-for="(pavillon, index) in pavillons">
         <td class="td-pavillon td-table-controle">
-          <select name="pavillon" id="pavillon-select" v-model="pavillon.pavillon">
+          <select name="pavillon" id="pavillon-select" class="fr-select fr-select-custom" v-model="pavillon.pavillon">
             <option value="FR">FR</option>
             <option value="FR-SP">FR-SP</option>
             <option value="BL">BL</option>
@@ -80,35 +83,40 @@
         </TdEditable>
         <TdEditable
             v-if="cols[6].enabled"
-            v-model="controle.nb_autre_pv"
-            :value="controle.nb_autre_pv"
+            v-model="pavillon.nb_autre_pv"
+            :value="pavillon.nb_autre_pv"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[7].enabled"
-            v-model="controle.nb_nav_deroute"
-            :value="controle.nb_nav_deroute"
+            v-model="pavillon.nb_nav_deroute"
+            :value="pavillon.nb_nav_deroute"
         >
         </TdEditable>
         <TdEditable
             v-if="cols[8].enabled"
-            v-model="controle.nb_nav_interroge"
-            :value="controle.nb_nav_interroge"
+            v-model="pavillon.nb_nav_interroge"
+            :value="pavillon.nb_nav_interroge"
         >
         </TdEditable>
         <td class="td-add-column td-table-controle"></td>
       </tr>
+      <tr class="total-control">
+        <th scope="row" class="th-foot-controle">Total</th>
+        <td class="td-foot-controle" v-for="(col, index) in cols" :key="index" v-if="col.enabled">
+          {{ total(index) }}
+        </td>
+      </tr>
       </tbody>
       <tfoot>
       <tr>
-        <th scope="row" class="th-foot-controle">Total</th>
-        <td class="td-foot-controle">0</td>
+
       </tr>
       </tfoot>
     </table>
     <div class="add-pavillon" v-on:click="addPav($event)">
-      <i class="ri-add-circle-fill"></i>
-      Ajouter un pavillon
+      <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
+      <span class="icon-text">Ajouter un pavillon</span>
     </div>
   </div>
 </template>
@@ -169,20 +177,63 @@ export default {
           nom: this.pavillons[0].category.nom
         },
         pavillon: 'FR',
-        nb_navire_controle: null,
-        nb_pv_peche_sanitaire: null,
-        nb_pv_equipement_securite: null,
-        nb_pv_titre_nav: null,
-        nb_pv_police_nav: null,
-        nb_pv_env_pollution: null,
-        nb_autre_pv: null,
-        nb_nav_deroute: null,
-        nb_nav_interroge: null
+        nb_navire_controle: 0,
+        nb_pv_peche_sanitaire: 0,
+        nb_pv_equipement_securite: 0,
+        nb_pv_titre_nav: 0,
+        nb_pv_police_nav: 0,
+        nb_pv_env_pollution: 0,
+        nb_autre_pv: 0,
+        nb_nav_deroute: 0,
+        nb_nav_interroge: 0
       };
       this.pavillons.push(newPav);
     },
     getData() {
       this.$emit('get-controles', this.pavillons)
+    },
+    total(index) {
+      let result = 0;
+      this.pavillons.forEach((el) => {
+        switch(index) {
+          case 0:
+            result += el.nb_navire_controle;
+            break;
+
+          case 1:
+            result += el.nb_pv_peche_sanitaire;
+            break;
+
+          case 2:
+            result += el.nb_pv_equipement_securite;
+            break;
+
+          case 3:
+            result += el.nb_pv_titre_nav;
+            break;
+
+          case 4:
+            result += el.nb_pv_police_nav;
+            break;
+
+          case 5:
+            result += el.nb_pv_env_pollution;
+            break;
+
+          case 6:
+            result += el.nb_autre_pv;
+            break;
+
+          case 7:
+            result += el.nb_nav_deroute;
+            break;
+
+          case 8:
+            result += el.nb_nav_interroge;
+            break;
+        }
+      })
+      return parseInt(result);
     }
   },
   data: function() {

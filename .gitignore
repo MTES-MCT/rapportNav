@@ -49,5 +49,5 @@ assets/js/params.json
 /nbproject/private/
 
 ### docker
-.docker
+.docker/data
 docker-compose.yml

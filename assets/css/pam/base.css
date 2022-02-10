@@ -3,6 +3,7 @@
 @import "components/input.css";
 @import "components/current-report.css";
 @import "components/datetime.css";
+@import "components/my-reports.css";
 
 .fr-error-text{
     color:#ce0500;
@@ -24,7 +25,7 @@
 }
 .divider-vertical {
     border-left: 1px solid #e7e7e7;
-    height: 80px;
+    height: 40px;
     opacity: 1;
 }
 
@@ -43,6 +44,7 @@
 }
 
 .section {
+    padding: 24px 36px 24px 36px;
     scroll-margin-top: 140px;
 }
 
@@ -67,7 +69,16 @@
     color: #e10600;
 }
 
+.btn-danger {
+    color: #E10600;
+    font-size: 14px;
+    border: #E10600 solid 2px;
+    padding: 10px 40px 10px 40px;
+}
 
+.modal-remove-controle {
+    text-align: center;
+}
 
 [href] {
      box-shadow: none !important;
@@ -125,7 +136,7 @@
     margin-bottom: 22px;
 }
 
-.active {
+.nav-item .active {
     color: #000091;
     font-weight: bold;
 
@@ -135,12 +146,13 @@
     margin-left: 40px;
 }
 
-.active:before {
+.nav-item .active:before {
     font-family: 'remixicon' !important;
     content: "\ea6c" !important;
-    font-size: 20px;
+    font-size: 22px;
     margin-left: -40px;
-    margin-right: 20px;
+    margin-right: 15px;
+    position: absolute;
 }
 
 .text-800 {
@@ -148,14 +160,14 @@
 }
 
 .box-shadow-card {
-    width: 98%;
+    width: 100%;
     margin: auto;
     box-shadow: 0px 3px 6px #00000026;
     margin-bottom: 20px;
 }
 
 .box-shadow-card-body {
-    padding: 32px 10px 32px 20px;
+    padding: 24px 36px 24px 36px;
 }
 
 
@@ -210,10 +222,11 @@
 
 .total {
     font-size: 14px;
-    padding: 5px 10px 0 15px;
-    margin-left: 20px;
+    padding: 5px 10px 5px 15px;
+    margin-left: 14px;
     display: flex;
     background-color: #F2F2F9;
+    height: 100%;
 }
 
 .total-values {
@@ -380,8 +393,13 @@ tbody {
 
 
 .add-control-link {
+    display: block;
     font-size: 14px;
     font-weight: bold;
+}
+
+.fr-modal-container {
+    background-color: red;
 }
 
 .add-control-box {
@@ -391,7 +409,10 @@ tbody {
     height: 125px;
     text-align: center;
     vertical-align: middle;
+    margin-right: 1rem;
+    width: 218px;
 }
+
 
 .btn-remove {
     background: none;
@@ -403,6 +424,7 @@ tbody {
     display: block;
     text-align: center;
     font-size: 32px;
+    margin-bottom: 15px;
 }
 
 .fr-label-left {
@@ -420,14 +442,6 @@ tbody {
     flex-direction: row;
 }
 
-.add-pavillon {
-    display: block;
-    width: 250px;
-    padding: 5px 5px 5px 5px;
-    font-size: 12px;
-    border: 2px solid #F2F2F9;
-    border-left: rgba(0, 0, 145, 0.3) solid 5px;
-}
 .d-none {
     display: none !important;
 }
@@ -558,7 +572,7 @@ td:first-child {
 
 
 .num-report {
-    width: 250px !important;
+    margin-right: 18px;
 }
 
 .sidebar-right-history {
@@ -619,11 +633,6 @@ td:first-child {
     font-weight: normal;
 }
 
-.btn-confirmations li {
-    align-items: start;
-    background: red;
-}
-
 .leave-without-save-btn {
     margin-right: 35px;
     margin-top: 5px;
@@ -633,6 +642,32 @@ td:first-child {
     border-radius: 50%;
 }
 
+.card-header {
+    display: flex;
+}
+
+.svg-icon {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.icon-plaisance-loisir {
+    margin-top: -1px;
+    margin-bottom: 6px;
+}
+.icon-other-mission {
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+.icon-plaisance-pro {
+    margin-bottom: 7px;
+}
+
+.sidebar-left-menu {
+  margin-left: 40px;
+}
 
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
@@ -663,6 +698,10 @@ td:first-child {
         right: 140px;
     }
 
+}
+
+.btn-add-controle {
+    height: 40px;
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {

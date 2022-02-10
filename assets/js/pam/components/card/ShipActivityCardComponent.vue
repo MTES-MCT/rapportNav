@@ -1,16 +1,19 @@
 <template>
   <div @change="getData" class="fr-mt-6w section" id="shipActivity">
-    <h5 class="text-blue-france text-800">Activités du navire</h5>
+    <div class="card-header">
+      <h5 class="text-blue-france text-800">Activités du navire</h5>
+      <div class="total">
+        <span>Total</span>
+        <div class="total-values">
+          <span class="dayInSea text-blue-france text-bold">{{ activite.nb_jours_mer }} jours en mer</span>
+          <span class="missionTrackTime text-blue-france text-bold">{{ total }} heures de mission</span>
+        </div>
+      </div>
+    </div>
     <div class="box-shadow-card">
       <div>
         <div class="heading-custom fr-mt-3w">
-        <div class="total">
-          <span>Total</span>
-          <div class="total-values">
-            <span class="dayInSea text-blue-france text-bold">{{ activite.nb_jours_mer }} jours en mer</span>
-            <span class="missionTrackTime text-blue-france text-bold">{{ total }} heures de mission</span>
-          </div>
-        </div>
+
       </div>
         <div class="box-shadow-card-body">
           <!-- Présence à la mer -->
@@ -18,15 +21,14 @@
           <h6>Présence à la mer</h6>
           <div class="fr-container--fluid">
             <div class="fr-grid-row">
-              <div class="fr-col-lg-4">
-               <InputNumberComponent label="Nombre de jours en mer" add-on="j" v-model.number="activite.nb_jours_mer" :error="hasError('nb_jours_mer')"></InputNumberComponent>
-
-              </div>
               <div class="fr-col-lg-3">
+               <InputNumberComponent label="Nombre de jours en mer" add-on="j" v-model.number="activite.nb_jours_mer" :error="hasError('nb_jours_mer')"></InputNumberComponent>
+              </div>
+              <div class="fr-col-lg-2">
                 <InputNumberComponent  label="Navigation eff." add-on="h" v-model.number="activite.nav_eff" :error="hasError('nav_eff')"></InputNumberComponent>
 
               </div>
-              <div class="fr-col-lg-3 space-between">
+              <div class="fr-col-lg-2 ">
                 <InputNumberComponent  label="Mouillage" add-on="h" v-model.number="activite.mouillage" :error="hasError('mouillage')"></InputNumberComponent>
 
               </div>
@@ -44,16 +46,16 @@
               <div class="fr-col-lg-2 fr-col-md-6">
                 <InputNumberComponent label="Maintenance" add-on="h"  v-model.number="activite.maintenance" :error="hasError('maintenance')"></InputNumberComponent>
               </div>
-              <div class="fr-col-lg-2 fr-col-md6 space-between">
+              <div class="fr-col-lg-2 fr-col-md6 ">
                 <InputNumberComponent label="Météo" add-on="h"  v-model.number="activite.meteo" :error="hasError('meteo')"></InputNumberComponent>
               </div>
-              <div class="fr-col-lg-2 fr-col-md-6 space-between">
+              <div class="fr-col-lg-2 fr-col-md-6 ">
                 <InputNumberComponent label="Représentation" add-on="h"  v-model.number="activite.representation" :error="hasError('representation')"></InputNumberComponent>
               </div>
-              <div class="fr-col-lg-2 fr-col-md-6 space-between">
+              <div class="fr-col-lg-2 fr-col-md-6 ">
                 <InputNumberComponent label="Administratif" add-on="h"  v-model.number="activite.administratif" :error="hasError('administratif')"></InputNumberComponent>
               </div>
-              <div class="fr-col-lg-2 fr-col-md-6 space-between">
+              <div class="fr-col-lg-2 fr-col-md-6 ">
                 <InputNumberComponent label="Autre" add-on="h"  v-model.number="activite.autre" :error="hasError('autre')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-2 fr-col-md-6">
@@ -70,7 +72,7 @@
           <h6>Indisponibilité</h6>
           <div class="fr-container--fluid">
             <div class="fr-grid-row">
-              <div class="fr-col-lg-3 fr-col-md-4 fr-mr-2w">
+              <div class="fr-col-lg-3 fr-col-md-4">
                 <InputNumberComponent label="Technique"  add-on="h" v-model.number="activite.technique" :error="hasError('technique')"></InputNumberComponent>
               </div>
               <div class="fr-col-lg-3 fr-col-md-4">
@@ -114,7 +116,10 @@ export default {
     InputNumberComponent
   },
   props: {
-    nb_jours_mer: Number,
+    nb_jours_mer: {
+      type: Number,
+      default: () => { return 0 }
+    },
     nav_eff: Number,
     mouillage: Number,
     maintenance: Number,
@@ -174,7 +179,7 @@ export default {
           this.activite.technique +
           this.activite.autre +
           this.activite.mouillage +
-          this.activite.mouillage
+          this.activite.nav_eff
       ;
     }
   },

@@ -2,9 +2,11 @@
   <div class="fr-grid-row">
     <div class="fr-col-lg-7 fr-col-md-8">
       <div class="members-list">
-        <AgentComponent v-for="agent in membres"
+        <AgentComponent v-for="(agent, index) in membres"
+                        :key="index"
                         :membre="agent"
-                        :agent-list="membres">
+                        :agent-list="membres"
+                        :index="index">
         </AgentComponent>
       </div>
     </div>
@@ -49,10 +51,21 @@
       <div class="tooltip-new-member d-none" data-scope="member">
         <div class="add-member-content">
           <div class="fr-container--fluid">
-            <span class="text-left text-muted text-14 text-italic fr-mt-2v">Ajouter {{tmpAgent.fullName}}</span>
-            <div class="fr-input-group">
+            <span class="text-left text-muted text-14 text-italic fr-mt-2v ">Ajouter "{{tmpAgent.fullName}}"</span>
+            <div class="fr-input-group fr-mt-5v">
               <select class="fr-select" v-model="tmpAgent.role">
+                <option value="" selected disabled hidden>Poste : - sélectionner - </option>
                 <option value="Agent de pont">Agent de pont</option>
+                <option value="Commandant">Commandant</option>
+                <option value="Second capitaine">Second capitaine</option>
+                <option value="Chef de quart / Second capitaine PI">Chef de quart / Second capitaine PI</option>
+                <option value="Chef de quart">Chef de quart</option>
+                <option value="Chef mécanicien">Chef mécanicien</option>
+                <option value="Second mécanicien">Second mécanicien</option>
+                <option value="Électricien">Électricien</option>
+                <option value="Maître d’équipage">Maître d’équipage</option>
+                <option value="Cuisinier">Cuisinier</option>
+                <option value="Agent machine">Agent machine</option>
               </select>
             </div>
             <div class="fr-input-group">
@@ -90,9 +103,6 @@ export default {
     }
   },
   methods: {
-    removeMember(index) {
-        this.membres.splice(index, 1)
-    },
     addAgent(suggestion = null) {
       const membre = suggestion ? suggestion : {};
       if(!suggestion) {
@@ -102,7 +112,9 @@ export default {
         membre.observations = this.tmpAgent.observations;
         membre.role = this.tmpAgent.role;
         membre.agent.dateArrivee = new Date();
-        this.tmpAgent = {};
+        this.tmpAgent = {
+          role: ''
+        };
       }
       this.membres.push(membre);
 
@@ -136,7 +148,9 @@ export default {
   data() {
     return {
       suggestionsList: [],
-      tmpAgent: {}
+      tmpAgent: {
+        role: ''
+      }
     }
   }
 }
