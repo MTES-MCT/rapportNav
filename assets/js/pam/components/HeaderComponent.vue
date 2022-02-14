@@ -44,12 +44,12 @@
                     <div class="fr-collapse fr-menu" id="menu-776">
                       <ul class="fr-menu__list">
                         <li>
-                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" :href="urlExportRapport" target="_self">
+                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" :href="sanitizeUrl('/api/pam/export/rapport/' + this.numReport + (this.draft ? '?draft' : ''))" target="_self">
                             Télécharger le rapport de patrouille (.docx)</a>
                         </li>
                         <li>
                           <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" 
-                            :href="urlExportIndicateurs" target="_self">
+                            :href="sanitizeUrl('/api/pam/export/indicateurs/' + this.numReport + (this.draft ? '?draft' : ''))" target="_self">
                             Télécharger les indicateurs de mission (.xlsx)
                           </a>
                         </li>
@@ -196,6 +196,9 @@
       },
       update(exit = false) {
         this.$emit('update', exit);
+      },
+      sanitizeUrl(url) {
+        return sanitizeUrl(url)
       }
     },
     data() {
