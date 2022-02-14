@@ -163,6 +163,7 @@
 <script>
   import ModalConfirmationComponent from "./ModalConfirmationComponent";
   import axios from "axios";
+  import {sanitizeUrl} from "@braintree/sanitize-url";
   export default {
     name: "HeaderComponent",
     components: {ModalConfirmationComponent},
@@ -205,7 +206,7 @@
       urlExportIndicateurs: function() {
         const re = new RegExp('^[A-Z]{3}-[0-9]{4}-[0-9]+$');
         if(re.test(this.numReport)) {
-          return '/api/pam/export/indicateurs/' + this.numReport + (this.draft ? '?draft' : '');
+          return sanitizeUrl('/api/pam/export/indicateurs/' + this.numReport + (this.draft ? '?draft' : ''));
         } else {
           return '#'
         }
@@ -213,7 +214,7 @@
       urlExportRapport: function() {
         const re = new RegExp('^[A-Z]{3}-[0-9]{4}-[0-9]+$');
         if(re.test(this.numReport)) {
-          return '/api/pam/export/rapport/' + this.numReport + (this.draft ? '?draft' : '');
+          return sanitizeUrl('/api/pam/export/rapport/' + this.numReport + (this.draft ? '?draft' : ''));
         } else {
           return '#'
         }
