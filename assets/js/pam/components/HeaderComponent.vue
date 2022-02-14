@@ -44,7 +44,7 @@
                     <div class="fr-collapse fr-menu" id="menu-776">
                       <ul class="fr-menu__list">
                         <li>
-                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self">
+                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" :href="urlExportRapport" target="_self">
                             Télécharger le rapport de patrouille (.docx)</a>
                         </li>
                         <li>
@@ -206,6 +206,14 @@
         const re = new RegExp('^[A-Z]{3}-[0-9]{4}-[0-9]+$');
         if(re.test(this.numReport)) {
           return '/api/pam/export/indicateurs/' + this.numReport + (this.draft ? '?draft' : '');
+        } else {
+          return '#'
+        }
+      },
+      urlExportRapport: function() {
+        const re = new RegExp('^[A-Z]{3}-[0-9]{4}-[0-9]+$');
+        if(re.test(this.numReport)) {
+          return '/api/pam/export/rapport/' + this.numReport + (this.draft ? '?draft' : '');
         } else {
           return '#'
         }
