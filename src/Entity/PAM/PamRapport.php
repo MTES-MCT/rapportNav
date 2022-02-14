@@ -449,8 +449,11 @@ class PamRapport
         return $this;
     }
 
-    public function getStartDatetime()
+    public function getStartDatetime(): ?\DateTime
     {
+        if(is_string($this->start_datetime)) {
+            return new \DateTime($this->start_datetime);
+        }
         return $this->start_datetime;
     }
 
@@ -461,8 +464,11 @@ class PamRapport
         return $this;
     }
 
-    public function getEndDatetime()
+    public function getEndDatetime(): ?\DateTime
     {
+        if(is_string($this->end_datetime)) {
+            return new \DateTime($this->end_datetime);
+        }
         return $this->end_datetime;
     }
 
