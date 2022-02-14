@@ -56,4 +56,35 @@ class ExportController extends AbstractFOSRestController
         }
     }
 
+    /**
+     * @Rest\Get("/rapport/{rapportID}")
+     * @param string  $rapportID
+     * @param Request $request
+     *
+     * @return StreamedResponse|View
+     */
+    public function rapportDocx(string $rapportID, Request $request) {
+        $draft = $request->query->has('draft');
+        try {
+            $templateProcessor = $this->service->exportRapportDocx($rapportID, $draft);
+            $response =  new StreamedResponse(
+                function () use ($templateProcessor) {
+                    $templateProcessor->saveAs('php://output');
+                }
+            );
+            $fileName = 'rapport_' . $rapportID . '.docx';
+            $response->headers->set('Content-Description',  'File Transfer');
+            $response->headers->set('Content-Disposition',' attachment; filename="' . $fileName . '"');
+            $response->headers->set('Content-Type',' application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+            $response->headers->set('Content-Transfer-Encoding',' binary');
+            $response->headers->set('Cache-Control',' must-revalidate, post-check=0, pre-check=0');
+            $response->headers->set('Expires','0');
+
+            return $response;
+        }
+        catch(\Exception $exception) {
+            return View::create($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

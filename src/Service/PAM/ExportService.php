@@ -115,10 +115,13 @@ class ExportService {
      * @param string $rapportID
      * @param bool   $draft
      *
+     * @return TemplateProcessor
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \PhpOffice\PhpWord\Exception\CopyFileException
+     * @throws \PhpOffice\PhpWord\Exception\CreateTemporaryFileException
      */
-    public function exportRapportDocx(string $rapportID, bool $draft = false)
+    public function exportRapportDocx(string $rapportID, bool $draft = false) : TemplateProcessor
     {
         $rapport = $draft ? $this->draftRepository->findRapport($rapportID) : $this->rapportRepository->find($rapportID);
 
@@ -193,8 +196,7 @@ class ExportService {
         $templateProcessor->setComplexBlock('table_controleAutreMission', $tableAutreMission);
         $templateProcessor->setComplexBlock('table_controleTerrePechePro', $tableTerrePechePro);
         $templateProcessor->setComplexBlock('table_equipage', $tableEquipage);
-        $pathToSave = dirname(__DIR__) . '/PAM/samples/rapport_' . $rapportID . '.docx';
-        $templateProcessor->saveAs($pathToSave);
+        return $templateProcessor;
     }
 
     /**
@@ -221,6 +223,7 @@ class ExportService {
     /**
      * @param PamControle[] $controles
      * @param Table         $table
+     * @param string        $title
      */
     private function fillTabsControle(array $controles,Table $table, string $title): void
     {
@@ -287,6 +290,12 @@ class ExportService {
         }
     }
 
+    /**
+     * @param Table $table
+     * @param int   $width
+     * @param mixed $text
+     * @param int   $fontSize
+     */
     private function addCell(Table $table, int $width, $text, int $fontSize = 8): void
     {
         $table->addCell($width)->addText($text, [
