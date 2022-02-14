@@ -497,4 +497,33 @@ class PamRapport
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
+    public function getTotalPresenceMer(): ?int
+    {
+        return $this->getNavEff() + $this->getMouillage();
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function getTotalPresenceAQuai()
+    {
+        return $this->getMaintenance() + $this->getMeteo() + $this->getRepresentation() + $this->getAdministratif() + $this->getAutre() + $this->getContrPort();
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function getTotalIndisponibilite()
+    {
+        return $this->getTechnique() + $this->getPersonnel();
+    }
+
+    public function getDureeMission()
+    {
+        return $this->getTotalIndisponibilite() + $this->getTotalPresenceAQuai() + $this->getTotalPresenceMer();
+    }
+
 }

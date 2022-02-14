@@ -64,7 +64,7 @@ class ExportService {
     public function exportOds(string $rapportID, bool $draft = false) : Spreadsheet
     {
         $indicateurs = $draft ? $this->draftRepository->findAllIndicateursByRapport($rapportID) : $this->indicateurRepository->findAllByRapport($rapportID);
-        $spreadsheet = IOFactory::load(dirname(__DIR__) . '/PAM/SAMPLE_THEMIS_A_ANNEXE Suivi_Mensuel.xlsx');
+        $spreadsheet = IOFactory::load(dirname(__DIR__) . '/PAM/samples/SAMPLE_THEMIS_A_ANNEXE Suivi_Mensuel.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
         $assistanceNavire = [];
         $lutteImmigrationIllegale = [];
@@ -122,8 +122,10 @@ class ExportService {
     {
         $rapport = $draft ? $this->draftRepository->findRapport($rapportID) : $this->rapportRepository->find($rapportID);
 
-        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/PAM/SAMPLE_Rapport_mission.docx');
+        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/PAM/samples/SAMPLE_Rapport_mission.docx');
         $templateProcessor->setValues([
+            'dateDebut' => $rapport->getStartDatetime()->format('d/m/Y'),
+            'dateFin' => $rapport->getEndDatetime()->format('d/m/Y'),
             'numRapport' => $rapportID,
             'navEff' => $rapport->getNavEff(),
             'mouillage' => $rapport->getMouillage(),
@@ -135,17 +137,20 @@ class ExportService {
             'technique' => $rapport->getTechnique(),
             'personnel' => $rapport->getPersonnel(),
             'nbJoursMer' => $rapport->getNbJoursMer(),
-            'dureeMission' => 12,
             'distance' => $rapport->getDistance(),
             'essence' => $rapport->getEssence(),
-            'goMarine' => $rapport->getGoMarine()
+            'goMarine' => $rapport->getGoMarine(),
+            'totalPresenceMer' => $rapport->getTotalPresenceMer(),
+            'totalPresenceQuai' => $rapport->getTotalPresenceAQuai(),
+            'totalIndisponibilite' => $rapport->getTotalIndisponibilite(),
+            'dureeMission' => $rapport->getDureeMission()
         ]);
-        $tableEquipage = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
-        $tableMerPlaisancePro = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
-        $tableAutreMission = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
-        $tableMerNavirePlaisanceLoisir = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
-        $tableTerrePechePro = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
-        $tableMerPechePro = new Table(['borderSize' => 12, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
+        $tableEquipage = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
+        $tableMerPlaisancePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
+        $tableAutreMission = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
+        $tableMerNavirePlaisanceLoisir = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
+        $tableTerrePechePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
+        $tableMerPechePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::AUTO]);
 
         $controleMerPechePro = [];
         $controleMerPlaisancePro = [];
@@ -155,7 +160,7 @@ class ExportService {
 
         foreach($rapport->getControles() as $controle)
         {
-            switch($controle->getCategory()) {
+            switch($controle->getCategory()->getId()) {
                 case 1:
                     $controleMerPechePro[] = $controle;
                     break;
@@ -174,11 +179,11 @@ class ExportService {
             }
         }
 
-        $this->fillTabsControle($controleTerrePechePro, $tableTerrePechePro);
-        $this->fillTabsControle($controleMerNavirePlaisanceLoisir, $tableMerNavirePlaisanceLoisir);
-        $this->fillTabsControle($controleMerPlaisancePro, $tableMerPlaisancePro);
-        $this->fillTabsControle($autreMission, $tableAutreMission);
-        $this->fillTabsControle($controleMerPechePro, $tableMerPechePro);
+        $this->fillTabsControle($controleTerrePechePro, $tableTerrePechePro, 'Contrôles à terre navires de pêche professionnels');
+        $this->fillTabsControle($controleMerNavirePlaisanceLoisir, $tableMerNavirePlaisanceLoisir, 'Contrôles en mer navires de plaisance (loisir)');
+        $this->fillTabsControle($controleMerPlaisancePro, $tableMerPlaisancePro, 'Contrôles en mer navires de plaisance professionnelle');
+        $this->fillTabsControle($autreMission, $tableAutreMission, 'Autres missions');
+        $this->fillTabsControle($controleMerPechePro, $tableMerPechePro, 'Contrôles en mer navires de pêche professionnelle');
 
         $this->fillTabsEquipage($rapport->getEquipage(), $tableEquipage);
 
@@ -187,7 +192,8 @@ class ExportService {
         $templateProcessor->setComplexBlock('table_controleMerPlaisanceProPro', $tableMerPlaisancePro);
         $templateProcessor->setComplexBlock('table_controleAutreMission', $tableAutreMission);
         $templateProcessor->setComplexBlock('table_controleTerrePechePro', $tableTerrePechePro);
-        $pathToSave = './rapport_' . $rapportID . '.docx';
+        $templateProcessor->setComplexBlock('table_equipage', $tableEquipage);
+        $pathToSave = dirname(__DIR__) . '/PAM/samples/rapport_' . $rapportID . '.docx';
         $templateProcessor->saveAs($pathToSave);
     }
 
@@ -216,32 +222,48 @@ class ExportService {
      * @param PamControle[] $controles
      * @param Table         $table
      */
-    private function fillTabsControle(array $controles,Table $table): void
+    private function fillTabsControle(array $controles,Table $table, string $title): void
     {
         $table->addRow();
-        $table->addCell(150)->addText('Contrôles en mer navires de pêche professionnelle');
-        $table->addCell(50)->addText('Nbre Navires contrôlés');
-        $table->addCell(50)->addText('Nbre PV pêche sanitaire');
-        $table->addCell(50)->addText('Nbre PV équipmt sécu. permis nav.');
-        $table->addCell(50)->addText('Nbre PV titre navig. rôle/déc. eff');
-        $table->addCell(50)->addText('Nbre PV police navig.');
-        $table->addCell(50)->addText('Nbre PV envir. pollut.');
-        $table->addCell(50)->addText('Nbre PV autres');
-        $table->addCell(50)->addText('Nbre navires déroutés');
-        $table->addCell(50)->addText('Nbre navires Interrogés');
+        $table->addCell(1000, [
+            'bgColor' => '#cecece'
+        ])->addText($title, [
+            'size' => 8,
+            'name' => 'Arial',
+            'bgColor' => '#cecece',
+        ]);
+        $table->addCell(208, [
+            'bgColor' => '#FFFFB2'
+        ])->addText('Nbre Navires contrôlés', [
+            'size' => 8,
+            'name' => 'Arial',
+        ]);
+        $this->addCell($table, 208, 'Nbre PV pêche sanitaire');
+        $this->addCell($table, 208, 'Nbre PV équipmt sécu. permis nav.');
+        $this->addCell($table, 208, 'Nbre PV titre navig. rôle/déc. eff');
+        $this->addCell($table, 208, 'Nbre PV police navig.');
+        $this->addCell($table, 208, 'Nbre PV envir. pollut.');
+        $this->addCell($table, 208, 'Nbre PV autres');
+        $this->addCell($table, 208, 'Nbre navires déroutés');
+        $this->addCell($table, 208, 'Nbre navires Interrogés');
 
         foreach($controles as $controle) {
             $table->addRow();
-            $table->addCell(150)->addText($controle->getPavillon());
-            $table->addCell(50)->addText($controle->getNbNavireControle());
-            $table->addCell(50)->addText($controle->getNbPvPecheSanitaire());
-            $table->addCell(50)->addText($controle->getNbPvEquipementSecurite());
-            $table->addCell(50)->addText($controle->getNbPvTitreNav());
-            $table->addCell(50)->addText($controle->getNbPvPolice());
-            $table->addCell(50)->addText($controle->getNbPvEnvPollution());
-            $table->addCell(50)->addText($controle->getNbAutrePv());
-            $table->addCell(50)->addText($controle->getNbNavDeroute());
-            $table->addCell(50)->addText($controle->getNbNavInterroge());
+            $this->addCell($table, 1000, $controle->getPavillon());
+            $table->addCell(208, [
+                'bgColor' => '#FFFFB2'
+            ])->addText($controle->getNbNavireControle(), [
+                'size' => 8,
+                'name' => 'Arial',
+            ]);
+            $this->addCell($table, 208, $controle->getNbPvPecheSanitaire());
+            $this->addCell($table, 208, $controle->getNbPvEquipementSecurite());
+            $this->addCell($table, 208, $controle->getNbPvTitreNav());
+            $this->addCell($table, 208, $controle->getNbPvPolice());
+            $this->addCell($table, 208, $controle->getNbPvEnvPollution());
+            $this->addCell($table, 208, $controle->getNbAutrePv());
+            $this->addCell($table, 208, $controle->getNbNavDeroute());
+            $this->addCell($table, 208, $controle->getNbNavInterroge());
         }
     }
 
@@ -252,16 +274,24 @@ class ExportService {
     private function fillTabsEquipage(PamEquipage $equipage,Table $table): void
     {
         $table->addRow();
-        $table->addCell(150)->addText('Fonction');
-        $table->addCell(150)->addText('Nom');
-        $table->addCell(150)->addText('Observation');
+        $this->addCell($table, 1000, 'Fonction', 12);
+        $this->addCell($table, 1000, 'Role', 12);
+        $this->addCell($table, 1000, 'Observations', 12);;
 
         foreach($equipage->getMembres() as $membre)
         {
             $table->addRow();
-            $table->addCell(150)->addText($membre->getRole());
-            $table->addCell(150)->addText($membre->getAgent());
-            $table->addCell(150)->addText($membre->getObservations());
+            $this->addCell($table, 1000, $membre->getRole(), 12);
+            $this->addCell($table, 1000, $membre->getAgent(), 12);
+            $this->addCell($table, 1000, $membre->getObservations(), 12);
         }
+    }
+
+    private function addCell(Table $table, int $width, $text, int $fontSize = 8): void
+    {
+        $table->addCell($width)->addText($text, [
+            'size' => $fontSize,
+            'name' => 'Arial'
+        ]);
     }
 }
