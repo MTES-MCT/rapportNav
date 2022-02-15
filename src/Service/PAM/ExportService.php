@@ -8,6 +8,7 @@ use App\Entity\PAM\PamIndicateur;
 use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamIndicateurRepository;
 use App\Repository\PAM\PamRapportRepository;
+use App\Service\PAM\Utils\OfficeFiller;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -32,10 +33,6 @@ class ExportService {
      */
     private $rapportRepository;
 
-    const INDICATEUR_CATEGORY_TITLE_COL = 'A';
-    const INDICATEUR_PRINCIPALE_COL = 'F';
-    const INDICATEUR_SECONDAIRE_COL = 'G';
-    const INDICATEUR_OBSERVATION_COL = 'I';
     const ROW_ASSISTANCE_NAVIRE = 16;
     const ROW_LUTTE_IMMIGRATION_ILLEGALE = 22;
     const ROW_REPRESSION_POLLUTION = 28;
@@ -63,6 +60,7 @@ class ExportService {
      */
     public function exportOds(string $rapportID, bool $draft = false) : Spreadsheet
     {
+        $filler = new OfficeFiller();
         $indicateurs = $draft ? $this->draftRepository->findAllIndicateursByRapport($rapportID) : $this->indicateurRepository->findAllByRapport($rapportID);
         $spreadsheet = IOFactory::load(dirname(__DIR__) . '/PAM/samples/SAMPLE_THEMIS_A_ANNEXE Suivi_Mensuel.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
@@ -100,13 +98,13 @@ class ExportService {
             }
         }
 
-        $this->fillCells($sheet, self::ROW_ASSISTANCE_NAVIRE, $assistanceNavire);
-        $this->fillCells($sheet, self::ROW_INTERETS_NATIONAUX, $interetsNationaux);
-        $this->fillCells($sheet, self::ROW_LUTTE_IMMIGRATION_ILLEGALE, $lutteImmigrationIllegale);
-        $this->fillCells($sheet, self::ROW_REPRESSION_POLLUTION, $repressionPollution);
-        $this->fillCells($sheet, self::ROW_PECHE_ILLEGALE, $pecheIllegale);
-        $this->fillCells($sheet, self::ROW_SURVEILLANCE_ENVIRONNEMENT, $surveillanceEnv);
-        $this->fillCells($sheet, self::ROW_SURETE_MARITIME, $sureteMaritime);
+        $filler->fillCells($sheet, self::ROW_ASSISTANCE_NAVIRE, $assistanceNavire);
+        $filler->fillCells($sheet, self::ROW_INTERETS_NATIONAUX, $interetsNationaux);
+        $filler->fillCells($sheet, self::ROW_LUTTE_IMMIGRATION_ILLEGALE, $lutteImmigrationIllegale);
+        $filler->fillCells($sheet, self::ROW_REPRESSION_POLLUTION, $repressionPollution);
+        $filler->fillCells($sheet, self::ROW_PECHE_ILLEGALE, $pecheIllegale);
+        $filler->fillCells($sheet, self::ROW_SURVEILLANCE_ENVIRONNEMENT, $surveillanceEnv);
+        $filler->fillCells($sheet, self::ROW_SURETE_MARITIME, $sureteMaritime);
         return $spreadsheet;
 
     }
@@ -123,6 +121,7 @@ class ExportService {
      */
     public function exportRapportDocx(string $rapportID, bool $draft = false) : TemplateProcessor
     {
+        $filler = new OfficeFiller();
         $rapport = $draft ? $this->draftRepository->findRapport($rapportID) : $this->rapportRepository->find($rapportID);
 
         $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/PAM/samples/SAMPLE_Rapport_mission.docx');
@@ -182,13 +181,13 @@ class ExportService {
             }
         }
 
-        $this->fillTabsControle($controleTerrePechePro, $tableTerrePechePro, 'Contrôles à terre navires de pêche professionnels');
-        $this->fillTabsControle($controleMerNavirePlaisanceLoisir, $tableMerNavirePlaisanceLoisir, 'Contrôles en mer navires de plaisance (loisir)');
-        $this->fillTabsControle($controleMerPlaisancePro, $tableMerPlaisancePro, 'Contrôles en mer navires de plaisance professionnelle');
-        $this->fillTabsControle($autreMission, $tableAutreMission, 'Autres missions');
-        $this->fillTabsControle($controleMerPechePro, $tableMerPechePro, 'Contrôles en mer navires de pêche professionnelle');
+        $filler->fillTabsControle($controleTerrePechePro, $tableTerrePechePro, 'Contrôles à terre navires de pêche professionnels');
+        $filler->fillTabsControle($controleMerNavirePlaisanceLoisir, $tableMerNavirePlaisanceLoisir, 'Contrôles en mer navires de plaisance (loisir)');
+        $filler->fillTabsControle($controleMerPlaisancePro, $tableMerPlaisancePro, 'Contrôles en mer navires de plaisance professionnelle');
+        $filler->fillTabsControle($autreMission, $tableAutreMission, 'Autres missions');
+        $filler->fillTabsControle($controleMerPechePro, $tableMerPechePro, 'Contrôles en mer navires de pêche professionnelle');
 
-        $this->fillTabsEquipage($rapport->getEquipage(), $tableEquipage);
+        $filler->fillTabsEquipage($rapport->getEquipage(), $tableEquipage);
 
         $templateProcessor->setComplexBlock('table_controleMerPechePro', $tableMerPechePro);
         $templateProcessor->setComplexBlock('table_controleMerNavirePlaisanceLoisir', $tableMerNavirePlaisanceLoisir);
@@ -199,108 +198,5 @@ class ExportService {
         return $templateProcessor;
     }
 
-    /**
-     * Rempli les cellules d'un tableur
-     * @param Worksheet $sheet
-     * @param int       $startRow
-     * @param PamIndicateur[]     $indicateurs
-     */
-    private function fillCells(Worksheet $sheet, int $startRow, array $indicateurs): void
-    {
-        foreach($indicateurs as $key => $value) {
-            $row = ($startRow + $key);
-            $cellTitle = self::INDICATEUR_CATEGORY_TITLE_COL . $row;
-            $cellPrincipale = self::INDICATEUR_PRINCIPALE_COL . $row;
-            $cellSecondaire = self::INDICATEUR_SECONDAIRE_COL . $row;
-            $cellObservation = self::INDICATEUR_OBSERVATION_COL . $row;
-            $sheet->setCellValue($cellTitle, $value->getCategory()->getNom());
-            $sheet->setCellValue($cellPrincipale, $value->getPrincipale());
-            $sheet->setCellValue($cellSecondaire, $value->getSecondaire());
-            $sheet->setCellValue($cellObservation, $value->getObservations());
-        }
-    }
 
-    /**
-     * @param PamControle[] $controles
-     * @param Table         $table
-     * @param string        $title
-     */
-    private function fillTabsControle(array $controles,Table $table, string $title): void
-    {
-        $table->addRow();
-        $table->addCell(1000, [
-            'bgColor' => '#cecece'
-        ])->addText($title, [
-            'size' => 8,
-            'name' => 'Arial',
-            'bgColor' => '#cecece',
-        ]);
-        $table->addCell(208, [
-            'bgColor' => '#FFFFB2'
-        ])->addText('Nbre Navires contrôlés', [
-            'size' => 8,
-            'name' => 'Arial',
-        ]);
-        $this->addCell($table, 208, 'Nbre PV pêche sanitaire');
-        $this->addCell($table, 208, 'Nbre PV équipmt sécu. permis nav.');
-        $this->addCell($table, 208, 'Nbre PV titre navig. rôle/déc. eff');
-        $this->addCell($table, 208, 'Nbre PV police navig.');
-        $this->addCell($table, 208, 'Nbre PV envir. pollut.');
-        $this->addCell($table, 208, 'Nbre PV autres');
-        $this->addCell($table, 208, 'Nbre navires déroutés');
-        $this->addCell($table, 208, 'Nbre navires Interrogés');
-
-        foreach($controles as $controle) {
-            $table->addRow();
-            $this->addCell($table, 1000, $controle->getPavillon());
-            $table->addCell(208, [
-                'bgColor' => '#FFFFB2'
-            ])->addText($controle->getNbNavireControle(), [
-                'size' => 8,
-                'name' => 'Arial',
-            ]);
-            $this->addCell($table, 208, $controle->getNbPvPecheSanitaire());
-            $this->addCell($table, 208, $controle->getNbPvEquipementSecurite());
-            $this->addCell($table, 208, $controle->getNbPvTitreNav());
-            $this->addCell($table, 208, $controle->getNbPvPolice());
-            $this->addCell($table, 208, $controle->getNbPvEnvPollution());
-            $this->addCell($table, 208, $controle->getNbAutrePv());
-            $this->addCell($table, 208, $controle->getNbNavDeroute());
-            $this->addCell($table, 208, $controle->getNbNavInterroge());
-        }
-    }
-
-    /**
-     * @param PamEquipage $equipage
-     * @param Table       $table
-     */
-    private function fillTabsEquipage(PamEquipage $equipage,Table $table): void
-    {
-        $table->addRow();
-        $this->addCell($table, 1000, 'Fonction', 12);
-        $this->addCell($table, 1000, 'Role', 12);
-        $this->addCell($table, 1000, 'Observations', 12);;
-
-        foreach($equipage->getMembres() as $membre)
-        {
-            $table->addRow();
-            $this->addCell($table, 1000, $membre->getRole(), 12);
-            $this->addCell($table, 1000, $membre->getAgent(), 12);
-            $this->addCell($table, 1000, $membre->getObservations(), 12);
-        }
-    }
-
-    /**
-     * @param Table $table
-     * @param int   $width
-     * @param mixed $text
-     * @param int   $fontSize
-     */
-    private function addCell(Table $table, int $width, $text, int $fontSize = 8): void
-    {
-        $table->addCell($width)->addText($text, [
-            'size' => $fontSize,
-            'name' => 'Arial'
-        ]);
-    }
 }
