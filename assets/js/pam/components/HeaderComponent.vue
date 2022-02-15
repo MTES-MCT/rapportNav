@@ -44,12 +44,12 @@
                     <div class="fr-collapse fr-menu" id="menu-776">
                       <ul class="fr-menu__list">
                         <li>
-                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self">
+                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self" @click.prevent="exportRapport">
                             Télécharger le rapport de patrouille (.docx)</a>
                         </li>
                         <li>
                           <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" 
-                            href="#" target="_self">
+                            href="#" target="_self" @click.prevent="exportIndicateurs">
                             Télécharger les indicateurs de mission (.xlsx)
                           </a>
                         </li>
@@ -197,30 +197,15 @@
       update(exit = false) {
         this.$emit('update', exit);
       },
-      sanitizeUrl(url) {
-        return sanitizeUrl(url)
+      exportIndicateurs() {
+        window.location.href = sanitizeUrl('/api/pam/export/indicateurs/' + this.numReport + (this.draft ? '?draft' : ''));
+      },
+      exportRapport() {
+        window.location.href = sanitizeUrl('/api/pam/export/rapport/' + this.numReport + (this.draft ? '?draft' : ''));
       }
     },
     data() {
       return {
-      }
-    },
-    computed: {
-      urlExportIndicateurs: function() {
-        const re = new RegExp('^[A-Z]{3}-[0-9]{4}-[0-9]+$');
-        if(re.test(this.numReport)) {
-          return sanitizeUrl('/api/pam/export/indicateurs/' + this.numReport + (this.draft ? '?draft' : ''));
-        } else {
-          return '#'
-        }
-      },
-      urlExportRapport: function() {
-        const re = new RegExp('^[A-Z]{3}-[0-9]{4}-[0-9]+$');
-        if(re.test(this.numReport)) {
-          return sanitizeUrl('/api/pam/export/rapport/' + this.numReport + (this.draft ? '?draft' : ''));
-        } else {
-          return '#'
-        }
       }
     }
   };
