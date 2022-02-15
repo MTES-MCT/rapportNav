@@ -198,5 +198,9 @@ class ExportService {
         return $templateProcessor;
     }
 
+    public function filter( $firstDate, $lastDate, bool $onlyValidated = true)
+    {
+        $rapport = $this->rapportRepository->findByDateRange($firstDate, $lastDate);
 
+    }
 }

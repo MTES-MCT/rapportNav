@@ -65,7 +65,7 @@ class DraftFixture extends Fixture implements FixtureGroupInterface {
 
         $body->setStartDatetime(new \DateTime('+28 days'));
         $draft2->setBody($json);
-        $draft2->setNumber('MED-' . $current->format('Y') . '-2');
+        $draft2->setNumber('MED-' . $current->format('Y') . '-4');
         $draft2->setStartDatetime(new \DateTime('+28 days'));
         $draft2->setCreatedBy($service);
 

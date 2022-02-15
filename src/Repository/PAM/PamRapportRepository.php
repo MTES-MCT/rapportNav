@@ -2,6 +2,7 @@
 
 namespace App\Repository\PAM;
 
+use App\Entity\PAM\PamIndicateur;
 use App\Entity\PAM\PamRapport;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,7 +20,11 @@ class PamRapportRepository extends ServiceEntityRepository
         parent::__construct($registry, PamRapport::class);
     }
 
-    public function findLastRapportID()
+    /**
+     * @return PamRapport|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastRapportID(): ?PamRapport
     {
         return $this->createQueryBuilder('r')
             ->select('r.id')
@@ -27,5 +32,21 @@ class PamRapportRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param string $firstDate
+     * @param string $lastDate
+     *
+     * @return PamIndicateur[]
+     */
+    public function findByDateRange( $firstDate,  $lastDate)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.start_datetime BETWEEN :firstDate AND :lastDate')
+            ->setParameter('firstDate', $firstDate)
+            ->setParameter('lastDate', $lastDate)
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -47,7 +47,7 @@ class ExportOdsTest extends KernelTestCase {
     public function testAllIndicateurDraftList()
     {
         $current = new \DateTime();
-        $id = 'MED-' . $current->format('Y') . '-2';
+        $id = 'MED-' . $current->format('Y') . '-4';
         $container = static::$container;
         $repository = $container->get(PamDraftRepository::class);
         $indicateurs = $repository->findAllIndicateursByRapport($id);

@@ -130,13 +130,13 @@ class RapportControllerTest extends WebTestCase {
         $serializer = $container->get('serializer');
         /** @var RapportResponse[] $response */
         $response = $serializer->deserialize($this->client->getResponse()->getContent(), 'App\DTO\RapportResponse[]', 'json');
-        $this->assertCount(2, $response);
+        $this->assertCount(4, $response);
         $this->assertResponseStatusCodeSame(200);
         $this->assertNotNull($response[0]->getId());
         $this->assertNotNull($response[1]->getId());
 
         $this->assertEquals('validé', $response[0]->getType());
-        $this->assertEquals('brouillon', $response[1]->getType());
+        $this->assertEquals('brouillon', $response[3]->getType());
     }
 
 
