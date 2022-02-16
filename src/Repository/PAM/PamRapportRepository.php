@@ -35,12 +35,12 @@ class PamRapportRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string $firstDate
-     * @param string $lastDate
+     * @param \DateTime $firstDate
+     * @param \DateTime $lastDate
      *
-     * @return PamIndicateur[]
+     * @return PamRapport[]
      */
-    public function findByDateRange( $firstDate,  $lastDate)
+    public function findByDateRange(\DateTime $firstDate, \DateTime $lastDate): array
     {
         return $this->createQueryBuilder('r')
             ->where('r.start_datetime BETWEEN :firstDate AND :lastDate')

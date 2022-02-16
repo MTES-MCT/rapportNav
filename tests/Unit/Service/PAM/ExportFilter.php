@@ -8,6 +8,7 @@ use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
 use App\DataFixtures\Tests\PAM\RapportFixture;
 use App\DataFixtures\Tests\UsersFixture;
+use App\Repository\PAM\PamRapportRepository;
 use App\Service\PAM\ExportService;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -31,10 +32,10 @@ class ExportFilter extends KernelTestCase {
     public function testFiltre3MoisRapportValide()
     {
         $container = self::$container;
-        $service = $container->get(ExportService::class);
+        $repository = $container->get(PamRapportRepository::class);
         $firstDate = new \DateTime('01/01/2022');
         $lastDate = new \DateTime('03/01/2022');
-        $rapports = $service->filter($firstDate, $lastDate, true);
+        $rapports = $repository->findByDateRange($firstDate, $lastDate);
 
         $this->assertCount(3, $rapports);
         $this->assertEquals('MED-2022-1', $rapports[0]->getId());

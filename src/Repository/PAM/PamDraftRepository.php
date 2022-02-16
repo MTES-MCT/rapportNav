@@ -63,7 +63,29 @@ class PamDraftRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleResult();
 
-        /** @var DraftRequest $rapport */
         return $this->serializer->deserialize($result->getBody(), DraftRequest::class, 'json');
+    }
+
+    /**
+     * @param \DateTime $firstDate
+     * @param \DateTime $lastDate
+     *
+     * @return array
+     */
+    public function findByDateRange(\DateTime $firstDate, \DateTime $lastDate) : array
+    {
+        $results = $this->createQueryBuilder('pam_d')
+            ->where('pam_d.start_datetime BETWEEN :firstDate AND :lastDate')
+            ->setParameter('firstDate', $firstDate)
+            ->setParameter('lastDate', $lastDate)
+            ->getQuery()
+            ->getResult();
+
+        $rapports = [];
+        foreach($results as $result) {
+            $rapports[] = $this->serializer->deserialize($result->getBody(), DraftRequest::class, 'json');
+        }
+
+        return $rapports;
     }
 }

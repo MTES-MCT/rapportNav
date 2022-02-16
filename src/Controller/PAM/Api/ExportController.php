@@ -7,6 +7,7 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -53,6 +54,36 @@ class ExportController extends AbstractFOSRestController
         }
         catch(\Exception $exception) {
             return View::create($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @Rest\Get("/aem/{startDate}/{endDate}")
+     * @param string  $startDate
+     * @param string  $endDate
+     * @param Request $request
+     *
+     * @return View|StreamedResponse
+     */
+    public function rapportAEM(string $startDate, string $endDate, Request $request) {
+        $draft = $request->query->has('draft');
+        try {
+           $spreadSheet = $this->service->exportRapportAEM(new \DateTime($startDate), new \DateTime($endDate), !$draft);
+            $writer = new Xls($spreadSheet);
+            $response =  new StreamedResponse(
+                function () use ($writer) {
+                    $writer->save('php://output');
+                }
+            );
+            $fileName = 'rapport_AEM_' . $startDate . '_' . $endDate . '.xls';
+            $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+            $response->headers->set('Content-Disposition', 'attachment;filename="' . $fileName . '"');
+            $response->headers->set('Cache-Control','max-age=0');
+
+            return $response;
+        }
+        catch(\Exception $e) {
+            return View::create($e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
 
