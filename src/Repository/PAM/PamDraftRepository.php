@@ -10,6 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -22,9 +23,12 @@ class PamDraftRepository extends ServiceEntityRepository
 {
     protected $serializer;
 
-    public function __construct(ManagerRegistry $registry, SerializerInterface $serializer)
+    protected $tokenStorage;
+
+    public function __construct(ManagerRegistry $registry, SerializerInterface $serializer, TokenStorageInterface $tokenStorage)
     {
         $this->serializer = $serializer;
+        $this->tokenStorage = $tokenStorage;
         parent::__construct($registry, PamDraft::class);
     }
 
@@ -72,14 +76,19 @@ class PamDraftRepository extends ServiceEntityRepository
      *
      * @return array
      */
-    public function findByDateRange(\DateTime $firstDate, \DateTime $lastDate) : array
+    public function findByDateRange(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true) : array
     {
-        $results = $this->createQueryBuilder('pam_d')
+        $qb = $this->createQueryBuilder('pam_d')
             ->where('pam_d.start_datetime BETWEEN :firstDate AND :lastDate')
             ->setParameter('firstDate', $firstDate)
-            ->setParameter('lastDate', $lastDate)
-            ->getQuery()
-            ->getResult();
+            ->setParameter('lastDate', $lastDate);
+
+        if(!$wholeTeams) {
+            $qb->andWhere('pam_d.created_by = :service')
+                ->setParameter('service', $this->tokenStorage->getToken()->getUser());
+        }
+
+        $results = $qb->getQuery()->getResult();
 
         $rapports = [];
         foreach($results as $result) {

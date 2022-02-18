@@ -2,19 +2,16 @@
 
 namespace App\Service\PAM;
 setlocale (LC_TIME, 'fr_FR.utf8','fra');
-use App\Entity\PAM\PamControle;
-use App\Entity\PAM\PamEquipage;
-use App\Entity\PAM\PamIndicateur;
 use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamIndicateurRepository;
 use App\Repository\PAM\PamRapportRepository;
 use App\Service\PAM\Utils\OfficeFiller;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\TemplateProcessor;
+use \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ExportService {
 
@@ -70,16 +67,18 @@ class ExportService {
     /**
      * @param \DateTime $firstDate
      * @param \DateTime $lastDate
+     * @param bool      $onlyValidated
+     * @param bool      $wholeTeams
      *
      * @return Spreadsheet
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function exportRapportAEM(\DateTime $firstDate, \DateTime $lastDate, bool $onlyValidated = true) : Spreadsheet
+    public function exportRapportAEM(\DateTime $firstDate, \DateTime $lastDate, bool $onlyValidated = true, bool $wholeTeams = true) : Spreadsheet
     {
         $spreadsheet = IOFactory::load(dirname(__DIR__) . '/PAM/samples/SAMPLE_Rapport_AEM.xlsx');
         $filler = new OfficeFiller();
-        $rapports = $this->rapportRepository->findByDateRange($firstDate, $lastDate);
-        $rapportsDraft = !$onlyValidated ? $this->draftRepository->findByDateRange($firstDate, $lastDate) : [];
+        $rapports = $this->rapportRepository->findByDateRange($firstDate, $lastDate, $wholeTeams);
+        $rapportsDraft = !$onlyValidated ? $this->draftRepository->findByDateRange($firstDate, $lastDate, $wholeTeams) : [];
 
         $assistanceNavire = [];
         $lutteImmigrationIllegale = [];

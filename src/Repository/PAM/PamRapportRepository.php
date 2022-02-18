@@ -4,8 +4,10 @@ namespace App\Repository\PAM;
 
 use App\Entity\PAM\PamIndicateur;
 use App\Entity\PAM\PamRapport;
+use App\Entity\Service;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @method PamRapport|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,9 +17,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PamRapportRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+    protected $tokenStorage;
+
+    public function __construct(ManagerRegistry $registry, TokenStorageInterface $tokenStorage)
     {
         parent::__construct($registry, PamRapport::class);
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -40,13 +46,18 @@ class PamRapportRepository extends ServiceEntityRepository
      *
      * @return PamRapport[]
      */
-    public function findByDateRange(\DateTime $firstDate, \DateTime $lastDate): array
+    public function findByDateRange(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true): array
     {
-        return $this->createQueryBuilder('r')
+        $qb = $this->createQueryBuilder('r')
             ->where('r.start_datetime BETWEEN :firstDate AND :lastDate')
             ->setParameter('firstDate', $firstDate)
-            ->setParameter('lastDate', $lastDate)
-            ->getQuery()
-            ->getResult();
+            ->setParameter('lastDate', $lastDate);
+
+        if(!$wholeTeams) {
+            $qb->andWhere('r.created_by = :service')
+                ->setParameter('service', $this->tokenStorage->getToken()->getUser()->getService());
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }
