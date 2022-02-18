@@ -1,0 +1,20 @@
+.download-link-section {
+    margin-top: 30px;
+    padding: 15px 10px;
+    background-color: #F9F8F6;
+    font-size: 16px;
+    color: #000091;
+}
+
+.firstDate-select {
+    display: flex;
+}
+
+.date-range-select {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-download-title {
+    font-size: 18px;
+}

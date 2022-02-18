@@ -29,7 +29,7 @@ class ExportFilter extends KernelTestCase {
         self::bootKernel();
     }
 
-    public function testFiltre3MoisRapportValide()
+    public function testTelechargement3MoisRapportAEMValide()
     {
         $container = self::$container;
         $repository = $container->get(PamRapportRepository::class);
@@ -41,6 +41,18 @@ class ExportFilter extends KernelTestCase {
         $this->assertEquals('MED-2022-1', $rapports[0]->getId());
         $this->assertEquals('MED-2022-2', $rapports[1]->getId());
         $this->assertEquals('MED-2022-3', $rapports[2]->getId());
+    }
+
+    public function testTelechargement1MoisRapportAEMValide()
+    {
+        $container = self::$container;
+        $repository = $container->get(PamRapportRepository::class);
+        $firstDate = new \DateTime('01/01/2022');
+        $lastDate = new \DateTime('01/31/2022');
+        $rapports = $repository->findByDateRange($firstDate, $lastDate);
+
+        $this->assertCount(1, $rapports);
+        $this->assertEquals('MED-2022-1', $rapports[0]->getId());
     }
 
 

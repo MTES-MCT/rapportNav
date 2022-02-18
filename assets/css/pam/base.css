@@ -4,6 +4,7 @@
 @import "components/current-report.css";
 @import "components/datetime.css";
 @import "components/my-reports.css";
+@import "components/download.css";
 
 .fr-error-text{
     color:#ce0500;
