@@ -13,11 +13,9 @@
               </h1>
 
               <div class="date-range-select">
-                <div class="firstDate-select">
+                <div class="date-select">
                   <div class="fr-select-group">
-                    <label class="fr-label" for="selectYear-1">
-                      De
-                    </label>
+                    <label for="selectYear-1">De</label>
                     <select class="fr-select" id="selectYear-1" v-model="firstMonth">
                       <option value="01-01">Janvier</option>
                       <option value="01-02">Février</option>
@@ -33,8 +31,7 @@
                       <option value="01-12">Décembre</option>
                     </select>
                   </div>
-                  <div class="fr-select-group">
-                    <label class="fr-label" for="select">à</label>
+                  <div class="fr-select-group select-without-label fr-ml-2v">
                     <select class="fr-select" id="select" v-model="firstYear">
                       <option value="2022">2022</option>
                       <option value="2023">2023</option>
@@ -42,11 +39,9 @@
                   </div>
                 </div>
 
-                <div class="firstDate-select">
+                <div class="date-select">
                   <div class="fr-select-group">
-                    <label class="fr-label" for="lastDate">
-                      à
-                    </label>
+                    <label for="lastDate">à</label>
                     <select class="fr-select" id="lastDate" name="select" v-model="lastMonth">
                       <option value="31-01">Janvier</option>
                       <option value="31-02">Février</option>
@@ -62,8 +57,7 @@
                       <option value="31-12">Décembre</option>
                     </select>
                   </div>
-                  <div class="fr-select-group">
-                    <label class="fr-label" for="lastDate">à</label>
+                  <div class="fr-select-group select-without-label fr-ml-2v">
                     <select class="fr-select" id="lastDate" v-model="lastYear">
                       <option value="2022">2022</option>
                     </select>
@@ -145,7 +139,6 @@ export default {
       }
 
       window.location.href = sanitizeUrl(url);
-      //  console.log(url)
     }
   },
   data() {

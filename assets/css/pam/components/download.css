@@ -6,8 +6,10 @@
     color: #000091;
 }
 
-.firstDate-select {
+.date-select {
     display: flex;
+    flex-direction: row;
+    align-items: start;
 }
 
 .date-range-select {
@@ -17,4 +19,8 @@
 
 .modal-download-title {
     font-size: 18px;
+}
+
+.select-without-label {
+    margin-top: 23px;
 }
