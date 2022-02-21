@@ -28,3 +28,13 @@
 .download-item:hover {
     background-color: #F2F2F9;
 }
+
+.alert-download-danger {
+    background-color: #F9F8F6;
+    color: red;
+    padding: 15px;
+}
+
+.btn-download {
+    text-align: center;
+}

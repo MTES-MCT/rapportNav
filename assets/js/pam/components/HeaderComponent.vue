@@ -34,7 +34,7 @@
             </div>
 
 
-            <div class="informations">
+            <div class="informations" v-if="saved || draft">
               <nav class="fr-nav" id="navigation-773" role="navigation" aria-label="Menu principal">
                 <ul class="fr-nav__list">
                   <li class="fr-nav__item">
@@ -44,12 +44,15 @@
                     <div class="fr-collapse fr-menu" id="menu-776">
                       <ul class="fr-menu__list">
                         <li class="download-item">
-                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self" @click.prevent="exportRapport">
+                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self"
+                             :aria-controls="'fr-modal-download' + rapport.id" data-fr-opened="false"
+                             @click.prevent="typeDownload = 'rapport'">
                             Télécharger le rapport de patrouille (.docx)</a>
                         </li>
                         <li class="download-item">
-                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" 
-                            href="#" target="_self" @click.prevent="exportIndicateurs">
+                          <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line"
+                             @click.prevent="typeDownload = 'indicateurs'"
+                            href="#" target="_self" :aria-controls="'fr-modal-download' + rapport.id" data-fr-opened="false">
                             Télécharger les indicateurs de mission (.xlsx)
                           </a>
                         </li>
@@ -157,6 +160,7 @@
     </header>
 
     <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" />
+    <ModalMsgDownload :rapport="rapport" :type="typeDownload" :draft="draft" />
   </div>
 </template>
 
@@ -164,9 +168,10 @@
   import ModalConfirmationComponent from "./ModalConfirmationComponent";
   import axios from "axios";
   import {sanitizeUrl} from "@braintree/sanitize-url";
+  import ModalMsgDownload from "./modal/ModalMsgDownload";
   export default {
     name: "HeaderComponent",
-    components: {ModalConfirmationComponent},
+    components: {ModalMsgDownload, ModalConfirmationComponent},
     props: {
       nameSite: {
         type: String,
@@ -183,6 +188,10 @@
       saved: {
         type: Boolean,
         default: () => { return false }
+      },
+      rapport: {
+        type: Object,
+        default: null
       }
     },
     mounted() {
@@ -196,16 +205,11 @@
       },
       update(exit = false) {
         this.$emit('update', exit);
-      },
-      exportIndicateurs() {
-        window.location.href = sanitizeUrl('/api/pam/export/indicateurs/' + this.numReport + (this.draft ? '?draft' : ''));
-      },
-      exportRapport() {
-        window.location.href = sanitizeUrl('/api/pam/export/rapport/' + this.numReport + (this.draft ? '?draft' : ''));
       }
     },
     data() {
       return {
+        typeDownload: 'indicateurs'
       }
     }
   };
