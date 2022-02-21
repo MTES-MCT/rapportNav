@@ -141,9 +141,20 @@ export default {
       this.hidden = true;
     },
     onChangeHour(e) {
-      let time = this.date + ' ' + e.target.value + ':' + this.minute;
+      let value = e.target.value;
+
+      if(value > 23) {
+        value = 23; // Prevent value to be greater than 23
+      }
+
+      let date = this.date;
+
+      if(!date) {
+        date = new Date().getDay(); //Prevent error message while user in filling hours but day is not filled yet
+      }
+      let time = date + ' ' + value + ':' + this.minute;
       this.time = moment(time).format('HH:mm');
-      this.hour = e.target.value;
+      this.hour = value;
       this.getDateTime()
     },
     onChangeMinute(e) {
