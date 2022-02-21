@@ -66,6 +66,8 @@ export default {
     this.displayControleMounted(this.controlesNavirePlaisanceLoisir)
     this.displayControleMounted(this.controlesTerrePechePro);
     this.displayControleMounted(this.autresMission);
+    this.displayControleMounted(this.controlesTerrePlaisanceLoisir);
+    this.displayControleMounted(this.controlesTerrePlaisancePro);
   },
   data: function() {
     return {
@@ -88,6 +90,14 @@ export default {
       },
       autresMission: {
         id: 5,
+        pavillons: []
+      },
+      controlesTerrePlaisanceLoisir: {
+        id: 6,
+        pavillons: []
+      },
+      controlesTerrePlaisancePro: {
+        id: 7,
         pavillons: []
       },
       controlesByType: [],
@@ -169,6 +179,14 @@ export default {
           case 5:
             this.autresMission.nom = controle.category.nom;
             this.autresMission.pavillons.push(controle);
+            break;
+          case 6:
+            this.controlesTerrePlaisanceLoisir.nom = controle.category.nom;
+            this.controlesTerrePlaisanceLoisir.pavillons.push(controle);
+            break;
+          case 7:
+            this.controlesTerrePlaisancePro.nom = controle.category.nom;
+            this.controlesTerrePlaisancePro.pavillons.push(controle);
             break;
         }
       })
