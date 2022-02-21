@@ -2,6 +2,8 @@
 
 namespace App\Service\PAM;
 setlocale (LC_TIME, 'fr_FR.utf8','fra');
+
+use App\Exception\RapportNotFound;
 use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamIndicateurRepository;
 use App\Repository\PAM\PamRapportRepository;
@@ -95,6 +97,9 @@ class ExportService {
             }
         }
 
+        if(!$rapports) {
+            throw new RapportNotFound('Aucun rapport trouvé pour cette unité');
+        }
         foreach($rapports as $key => $rapport) {
             $sheet = clone $spreadsheet->getSheet(0);
             $sheet->setTitle($rapport->getStartDatetime()->format('F Y'));
