@@ -23,7 +23,7 @@ class MissionTypeFixture extends Fixture implements FixtureGroupInterface, Order
             "Lutte contre les activités de pêche illégale, gestion du patrimoine marin et des ressources publiques marines",
             "Surveillance et contrôles pour la protection de l’environnement",
             "Sûreté maritime",
-            "Souveraineté et protection des intérêts nationaux "
+            "Souveraineté et protection des intérêts nationaux"
         ];
 
         foreach($noms as $key => $nom) {

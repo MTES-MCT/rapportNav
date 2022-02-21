@@ -20,7 +20,7 @@
       <div class="fr-grid-row rapport-list-title">
         <div class="fr-col-lg-1"></div>
         <div class="fr-col-lg-4"></div>
-        <div class="fr-col-lg-3 rapport-list-date">
+        <div class="fr-col-lg-2 rapport-list-date">
           Date de début
         </div>
         <div class="fr-col-lg-2 rapport-list-statut">
@@ -34,7 +34,7 @@
         <div class="fr-col-lg-4">
           <h6 class="rapport-item-title"> Rapport n° {{ rapport.id }}</h6>
         </div>
-        <div class="fr-col-lg-3">
+        <div class="fr-col-lg-2">
           <span class="rapport-item-date">{{ rapport.start_datetime|date }}</span>
         </div>
         <div class="fr-col-lg-2">
@@ -47,11 +47,12 @@
             {{ rapport.type }}
           </span>
         </div>
-        <div class="fr-col-lg-2 edit-btn">
-          <button class="fr-btn" @click="edit(rapport)">
+        <div class="fr-col-lg-3 action-btn">
+          <button class="fr-btn edit-btn" @click="edit(rapport)">
             <i class="ri-pencil-line fr-mr-2v" aria-hidden="true" />
             Editer
           </button>
+          <HomeDownloadComponent :rapport="rapport"></HomeDownloadComponent>
         </div>
       </div>
     </div>
@@ -61,9 +62,11 @@
 <script>
 import AlertComponent from "../alert/AlertComponent";
 import axios from "axios";
+import {sanitizeUrl} from "@braintree/sanitize-url";
+import HomeDownloadComponent from "../dropdown/HomeDownloadComponent";
 export default {
   name: "MyReportsComponent",
-  components: {AlertComponent},
+  components: {HomeDownloadComponent, AlertComponent},
   mounted() {
     this.fetchRapports();
   },

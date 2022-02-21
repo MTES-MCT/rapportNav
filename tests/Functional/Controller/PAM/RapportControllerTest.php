@@ -7,12 +7,9 @@ use App\DataFixtures\Tests\PAM\DraftFixture;
 use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
 use App\DataFixtures\Tests\PAM\RapportFixture;
-use App\DataFixtures\Tests\ServicesFixture;
 use App\DataFixtures\Tests\UsersFixture;
 use App\DTO\RapportResponse;
-use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamRapport;
-use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamRapportRepository;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -133,13 +130,13 @@ class RapportControllerTest extends WebTestCase {
         $serializer = $container->get('serializer');
         /** @var RapportResponse[] $response */
         $response = $serializer->deserialize($this->client->getResponse()->getContent(), 'App\DTO\RapportResponse[]', 'json');
-        $this->assertCount(2, $response);
+        $this->assertCount(4, $response);
         $this->assertResponseStatusCodeSame(200);
         $this->assertNotNull($response[0]->getId());
         $this->assertNotNull($response[1]->getId());
 
         $this->assertEquals('validé', $response[0]->getType());
-        $this->assertEquals('brouillon', $response[1]->getType());
+        $this->assertEquals('brouillon', $response[3]->getType());
     }
 
 

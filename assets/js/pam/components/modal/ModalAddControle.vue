@@ -58,7 +58,31 @@
                       Contrôle à terre de navires de pêche professionnelle
                     </span>
                   </div>
-                  <div class="add-control-box" @click="addComponent('Contrôle à terre de navires de pêche professionnelle', 5)">
+                  <div class="add-control-box" @click="addComponent('Contrôle à terre de navires de plaisance professionnelle', 7)">
+                    <img
+                        class="svg-icon icon-plaisance-pro"
+                        src="../../../../css/svg/terre_plaisance_professionel.svg"
+                        alt="navire_peche_professionnel"
+                        height="30px"
+                        width="91px" />
+                    <span class="add-control-link">
+                      Contrôle à terre de navires de plaisance professionnelle
+                    </span>
+                  </div>
+                  <div class="add-control-box" @click="addComponent('Contrôle à terre de navires de plaisance de loisir', 6)">
+                    <img
+                        class="svg-icon icon-plaisance-pro"
+                        src="../../../../css/svg/terre_plaisance_loisir.svg"
+                        alt="navire_peche_professionnel"
+                        height="30px"
+                        width="91px" />
+                    <span class="add-control-link">
+                      Contrôle à terre de navires de plaisance de loisir
+                    </span>
+                  </div>
+                </div>
+                <div class="row-flex fr-mt-2w">
+                  <div class="add-control-box" @click="addComponent('Autre mission', 5)">
                     <img
                         class="svg-icon icon-other-mission"
                         src="../../../../css/svg/Path_240.svg"

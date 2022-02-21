@@ -18,4 +18,20 @@ class PamIndicateurRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PamIndicateur::class);
     }
+
+    /**
+     * @param string $rapportID
+     *
+     * @return PamIndicateur[]
+     */
+    public function findAllByRapport(string $rapportID): array
+    {
+        return $this->createQueryBuilder('pi')
+            ->leftJoin('pi.mission', 'pm')
+            ->leftJoin('pm.rapport', 'pr')
+            ->where('pr = :rapportID')
+            ->setParameter('rapportID', $rapportID)
+            ->getQuery()
+            ->getResult();
+    }
 }
