@@ -185,12 +185,16 @@ class ExportService {
         $tableMerNavirePlaisanceLoisir = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
         $tableTerrePechePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
         $tableMerPechePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::AUTO]);
+        $tableTerrePlaisancePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::AUTO]);
+        $tableTerrePlaisanceLoisir = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::AUTO]);
 
         $controleMerPechePro = [];
         $controleMerPlaisancePro = [];
         $controleMerNavirePlaisanceLoisir = [];
         $controleTerrePechePro = [];
         $autreMission = [];
+        $controleTerrePlaisancePro = [];
+        $controleTerrePlaisanceLoisir = [];
 
         foreach($rapport->getControles() as $controle)
         {
@@ -210,6 +214,12 @@ class ExportService {
                 case 5:
                     $autreMission[] = $controle;
                     break;
+                case 6:
+                    $controleTerrePlaisanceLoisir[] = $controle;
+                    break;
+                case 7:
+                    $controleTerrePlaisancePro[] = $controle;
+                    break;
             }
         }
 
@@ -218,6 +228,8 @@ class ExportService {
         $filler->fillTabsControle($controleMerPlaisancePro, $tableMerPlaisancePro, 'Contrôles en mer navires de plaisance professionnelle');
         $filler->fillTabsControle($autreMission, $tableAutreMission, 'Autres missions');
         $filler->fillTabsControle($controleMerPechePro, $tableMerPechePro, 'Contrôles en mer navires de pêche professionnelle');
+        $filler->fillTabsControle($controleTerrePlaisanceLoisir,$tableTerrePlaisanceLoisir, 'Contrôle à terre de navires de plaisance de loisir');
+        $filler->fillTabsControle($controleTerrePlaisancePro, $tableTerrePlaisancePro, 'Contrôle à terre de navires de plaisance professionnel');
 
         $filler->fillTabsEquipage($rapport->getEquipage(), $tableEquipage);
 
@@ -226,6 +238,8 @@ class ExportService {
         $templateProcessor->setComplexBlock('table_controleMerPlaisanceProPro', $tableMerPlaisancePro);
         $templateProcessor->setComplexBlock('table_controleAutreMission', $tableAutreMission);
         $templateProcessor->setComplexBlock('table_controleTerrePechePro', $tableTerrePechePro);
+        $templateProcessor->setComplexBlock('table_controleTerrePlaisancePro', $tableTerrePlaisancePro);
+        $templateProcessor->setComplexBlock('table_controleTerrePlaisanceLoisir', $tableTerrePlaisanceLoisir);
         $templateProcessor->setComplexBlock('table_equipage', $tableEquipage);
         return $templateProcessor;
     }
