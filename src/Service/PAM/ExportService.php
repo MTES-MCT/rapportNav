@@ -8,10 +8,10 @@ use App\Repository\PAM\PamRapportRepository;
 use App\Service\PAM\Utils\OfficeFiller;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\TemplateProcessor;
-use \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ExportService {
 
@@ -55,7 +55,7 @@ class ExportService {
      * @return Spreadsheet
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function exportOds(string $rapportID, bool $draft = false, bool $multiple = false) : Spreadsheet {
+    public function exportOds(string $rapportID, bool $draft = false) : Spreadsheet {
         $indicateurs = $draft ? $this->draftRepository->findAllIndicateursByRapport($rapportID) : $this->indicateurRepository->findAllByRapport($rapportID);
         $spreadsheet = IOFactory::load(dirname(__DIR__) . '/PAM/samples/SAMPLE_Rapport_AEM.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
@@ -132,6 +132,7 @@ class ExportService {
             $filler->fillCells($sheet, self::ROW_PECHE_ILLEGALE, $pecheIllegale);
             $filler->fillCells($sheet, self::ROW_SURVEILLANCE_ENVIRONNEMENT, $surveillanceEnv);
             $filler->fillCells($sheet, self::ROW_SURETE_MARITIME, $sureteMaritime);
+            $sheet->setCellValue('B9', $rapport->getCreatedBy()->getNom());
         }
 
         $sheetIndex = $spreadsheet->getIndex(
@@ -244,7 +245,11 @@ class ExportService {
         return $templateProcessor;
     }
 
-    private function fillAEM(array $indicateurs, $sheet)
+    /**
+     * @param array     $indicateurs
+     * @param Worksheet $sheet
+     */
+    private function fillAEM(array $indicateurs, Worksheet $sheet)
     {
         $filler = new OfficeFiller();
         $assistanceNavire = [];
