@@ -1,8 +1,8 @@
 <template>
   <div v-if="rapport">
-    <HeaderComponent draft name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="drafted">
+    <HeaderComponent draft name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="drafted" :rapport="rapport">
     </HeaderComponent>
-    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" @update="putFormUpdate" v-if="saved">
+    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" @update="putFormUpdate" v-if="saved" :rapport="rapport">
     </HeaderComponent>
     <HeaderComponent name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
     </HeaderComponent>
