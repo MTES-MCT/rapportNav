@@ -33,8 +33,7 @@
                   </div>
                   <div class="fr-select-group select-without-label fr-ml-2v">
                     <select class="fr-select" id="select" v-model="firstYear">
-                      <option value="2022">2022</option>
-                      <option value="2023">2023</option>
+                      <option v-for="year in years" :value="year">{{ year }}</option>
                     </select>
                   </div>
                 </div>
@@ -59,7 +58,7 @@
                   </div>
                   <div class="fr-select-group select-without-label fr-ml-2v">
                     <select class="fr-select" id="lastDate" v-model="lastYear">
-                      <option value="2022">2022</option>
+                      <option v-for="year in years" :value="year">{{ year }}</option>
                     </select>
                   </div>
                 </div>
@@ -123,9 +122,13 @@
 
 <script>
 import {sanitizeUrl} from "@braintree/sanitize-url";
+import axios from "axios";
 
 export default {
   name: "ModalDownloadAEM",
+  mounted() {
+    this.fetchYearsRange();
+  },
   methods: {
     download() {
       const firstDate = this.firstMonth + '-' + this.firstYear;
@@ -139,16 +142,26 @@ export default {
       }
 
       window.location.href = sanitizeUrl(url);
+    },
+    fetchYearsRange() {
+      axios.get('/api/pam/helper/years/rapport')
+      .then((response) => {
+        this.years = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     }
   },
   data() {
     return {
       firstMonth: '01-01',
-      firstYear: '2022',
+      firstYear: new Date().getFullYear(),
       lastMonth: '31-03',
-      lastYear: '2022',
+      lastYear: new Date().getFullYear(),
       withDraft: false,
-      wholeTeams: false
+      wholeTeams: false,
+      years: []
     }
   }
 }

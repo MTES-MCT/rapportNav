@@ -208,7 +208,10 @@ class RapportService {
         return $existingRapport;
     }
 
-    public function listAll()
+    /**
+     * @return RapportResponse[]
+     */
+    public function listAll(): array
     {
         $drafts = $this->em->getRepository(PamDraft::class)->findAll();
         $rapports = $this->em->getRepository(PamRapport::class)->findAll();
