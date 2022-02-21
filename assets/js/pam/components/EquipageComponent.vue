@@ -10,21 +10,22 @@
         </AgentComponent>
       </div>
     </div>
-    <div class="fr-col-lg-5 fr-col-md-4 fr-pl-4v">
+    <div class="fr-col-lg-5 fr-col-md-4 fr-pl-4v"  ref="suggestionList">
       <input class="fr-input" type="text" placeholder="Ajouter des membres" v-model="tmpAgent.fullName"
-             @keyup="createNewMember($event.target.value)"
+             @keydown="createNewMember($event.target.value); fetchAutocomplete()"
+             @click="hidden = !hidden"
       >
-      <div class="tooltip-add-member d-none" data-scope="member">
+      <div class="tooltip-add-member" data-scope="member" v-if="!hidden" v-click-outside="hideTooltip">
         <div class="add-member-content">
           <div class="fr-container--fluid">
-            <!--<div class="fr-grid-row">
+            <div class="fr-grid-row">
               <div class="fr-col-7">
                 <div class="text-14 text-italic text-left text-muted">Suggestions</div>
               </div>
               <div class="fr-col-5">
                 <span class="text-12" @click="addAll">  <i class="ri-add-circle-fill"></i> Tout ajouter</span>
               </div>
-            </div>-->
+            </div>
           </div>
         </div>
         <div class="add-member-content">
@@ -48,7 +49,7 @@
           </div>
         </div>
       </div>
-      <div class="tooltip-new-member d-none" data-scope="member">
+      <div class="tooltip-new-member" ref="newAgent" data-scope="member" v-if="!hiddenNewAgent" v-click-outside="hideTooltipNewAgent">
         <div class="add-member-content">
           <div class="fr-container--fluid">
             <span class="text-left text-muted text-14 text-italic fr-mt-2v ">Ajouter "{{tmpAgent.fullName}}"</span>
@@ -88,13 +89,12 @@
 
 <script>
 import AgentComponent from "./AgentComponent";
+import axios from "axios";
 export default {
   name: "EquipageComponent",
   components: {AgentComponent},
   mounted() {
-    $(document).on('click',function(e){
-      $(".tooltip-add-member").addClass('d-none');
-    });
+    this.fetchAutocomplete();
   },
   props: {
     membres: {
@@ -123,26 +123,42 @@ export default {
       this.suggestionsList.forEach(element => this.membres.push(element));
     },
     createNewMember(value) {
-      let noExist = true;
-      if(value.length > 2) {
-        this.suggestionsList.filter(element => {
-          if(element.agent.nom.indexOf(value) === 0) {
-            noExist = false;
-          }
-        });
-        if(noExist) {
-          $('.tooltip-new-member').removeClass('d-none')
-          $('.tooltip-add-member').addClass('d-none')
-        } else {
-         this.showSugestionList();
-        }
-      } else if (value.length === 0) {
-        this.showSugestionList();
+      this.hiddenNewAgent = this.suggestionsList.length !== 0;
+
+      if(value.length === 0) {
+        this.hiddenNewAgent = true;
       }
     },
-    showSugestionList() {
-      $('.tooltip-new-member').addClass('d-none')
-      $('.tooltip-add-member').removeClass('d-none')
+    fetchAutocomplete() {
+      let url = '/api/pam/equipage/autocomplete';
+      url = this.tmpAgent.fullName ? url + '?fullName=' + this.tmpAgent.fullName : url;
+      axios.get(url)
+      .then((success) => {
+        this.suggestionsList = [];
+
+        success.data.forEach((agent) => {
+          const suggestion = {
+            role: 'Agent de pont',
+            agent: {
+              nom: agent.nom,
+              prenom: agent.prenom,
+              dateArrivee: new Date()
+            }
+          }
+          this.suggestionsList.push(suggestion)
+        })
+      })
+    },
+    hideTooltip(event) {
+      if(!this.$refs.suggestionList.contains(event.target)) {
+        this.hidden = true;
+      }
+    },
+    hideTooltipNewAgent(event) {
+      if(!this.$refs.newAgent.contains(event.target)) {
+        this.hiddenNewAgent = true;
+        this.hidden = true;
+      }
     }
   },
   data() {
@@ -150,7 +166,9 @@ export default {
       suggestionsList: [],
       tmpAgent: {
         role: ''
-      }
+      },
+      hidden: true,
+      hiddenNewAgent: true
     }
   }
 }

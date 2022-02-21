@@ -9,7 +9,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass="App\Repository\AgentRepository")
  */
 class Agent {
+
     /**
+     * @Groups({"autocomplete"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -17,12 +19,14 @@ class Agent {
     private $id;
 
     /**
+     * @Groups({"autocomplete"})
      * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=45)
      */
     private $nom;
 
     /**
+     * @Groups({"autocomplete"})
      * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=45)
      */
@@ -35,12 +39,14 @@ class Agent {
     private $service;
 
     /**
+     * @Groups({"autocomplete"})
      * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="date_immutable")
      */
     private $dateArrivee;
 
     /**
+     * @Groups({"autocomplete"})
      * @ORM\Column(type="date_immutable", nullable=true)
      */
     private $dateDepart;

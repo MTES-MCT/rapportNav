@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Agent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @method Agent|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,37 +15,36 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AgentRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var TokenStorageInterface
+     */
+    protected $tokenStorage;
+
+    public function __construct(ManagerRegistry $registry, TokenStorageInterface $tokenStorage)
     {
         parent::__construct($registry, Agent::class);
+        $this->tokenStorage = $tokenStorage;
     }
 
-    // /**
-    //  * @return Agent[] Returns an array of Agent objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param string|null $fullName
+     *
+     * @return Agent[]
+     */
+    public function autocomplete(?string $fullName) : array
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $service = $this->tokenStorage->getToken()->getUser()->getService();
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.service = :service')
+            ->setParameter('service', $service);
 
-    /*
-    public function findOneBySomeField($value): ?Agent
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if($fullName) {
+            $qb->andWhere('a.prenom LIKE :prenom')
+                ->setParameter('prenom', $fullName .'%')
+                ->orWhere('a.nom LIKE :nom')
+                ->setParameter('nom',  $fullName . '%');
+        }
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }

@@ -21,7 +21,7 @@ class PamEquipageAgent
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PamEquipage::class, inversedBy="membres")
+     * @ORM\ManyToOne(targetEntity=PamEquipage::class, inversedBy="membres", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipage;

@@ -3,18 +3,26 @@
 namespace App\Service\PAM;
 
 use App\Entity\PAM\PamEquipage;
+use App\Repository\AgentRepository;
+use App\Repository\PAM\PamEquipageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class PamEquipageService {
 
     /**
-     * @var EntityManagerInterface
+     * @var PamEquipageRepository
      */
-    private $em;
+    private $equipageRepository;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var AgentRepository
+     */
+    private $agentRepository;
+
+    public function __construct(PamEquipageRepository $equipageRepository, AgentRepository $agentRepository)
     {
-        $this->em = $em;
+        $this->equipageRepository = $equipageRepository;
+        $this->agentRepository = $agentRepository;
     }
 
     /**
@@ -23,7 +31,19 @@ class PamEquipageService {
      */
     public function getLastEquipage() : ?PamEquipage
     {
-        return $this->em->getRepository(PamEquipage::class)->findLastEquipage();
+        return $this->equipageRepository->findLastEquipage();
+    }
+
+    /**
+     * Autocompletion de la liste des agents
+     *
+     * @param string|null $fullName
+     *
+     * @return array
+     */
+    public function autocomplete(?string $fullName) : array
+    {
+        return $this->agentRepository->autocomplete($fullName);
     }
 
 }
