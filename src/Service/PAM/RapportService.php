@@ -153,6 +153,9 @@ class RapportService {
     public function getLastDraft(Service $service) : ?PamDraft
     {
         $draft = $this->em->getRepository(PamDraft::class)->findOneBy(['created_by' => $service], ['created_at' => 'DESC']);
+        if(!$draft) {
+            return null;
+        }
         $rapport = $this->em->getRepository(PamRapport::class)->find($draft->getNumber());
         if(!$rapport) {
             return $draft;
