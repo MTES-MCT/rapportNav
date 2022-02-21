@@ -43,11 +43,11 @@
                     </button>
                     <div class="fr-collapse fr-menu" id="menu-776">
                       <ul class="fr-menu__list">
-                        <li>
+                        <li class="download-item">
                           <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self" @click.prevent="exportRapport">
                             Télécharger le rapport de patrouille (.docx)</a>
                         </li>
-                        <li>
+                        <li class="download-item">
                           <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" 
                             href="#" target="_self" @click.prevent="exportIndicateurs">
                             Télécharger les indicateurs de mission (.xlsx)

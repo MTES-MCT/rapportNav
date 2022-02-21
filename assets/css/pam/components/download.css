@@ -24,3 +24,7 @@
 .select-without-label {
     margin-top: 23px;
 }
+
+.download-item:hover {
+    background-color: #F2F2F9;
+}
