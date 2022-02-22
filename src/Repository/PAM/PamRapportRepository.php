@@ -43,6 +43,7 @@ class PamRapportRepository extends ServiceEntityRepository
     /**
      * @param \DateTime $firstDate
      * @param \DateTime $lastDate
+     * @param bool      $wholeTeams
      *
      * @return PamRapport[]
      */

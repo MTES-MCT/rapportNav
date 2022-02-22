@@ -160,7 +160,7 @@
     </header>
 
     <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" />
-    <ModalMsgDownload :rapport="rapport" :type="typeDownload" :draft="draft" />
+    <ModalMsgDownload :rapport="rapport" :type="typeDownload" :draft="draft" v-if="draft || saved" />
   </div>
 </template>
 

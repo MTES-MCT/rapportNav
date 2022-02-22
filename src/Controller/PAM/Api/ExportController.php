@@ -2,6 +2,7 @@
 
 namespace App\Controller\PAM\Api;
 
+use App\Exception\RapportNotFound;
 use App\Service\PAM\ExportService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -82,6 +83,9 @@ class ExportController extends AbstractFOSRestController
             $response->headers->set('Cache-Control','max-age=0');
 
             return $response;
+        }
+        catch(RapportNotFound $e) {
+            return View::create($e->getMessage(), Response::HTTP_NOT_FOUND);
         }
         catch(\Exception $e) {
             return View::create($e->getMessage(), Response::HTTP_BAD_REQUEST);

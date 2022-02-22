@@ -2,16 +2,18 @@
 
 namespace App\Service\PAM;
 setlocale (LC_TIME, 'fr_FR.utf8','fra');
+
+use App\Exception\RapportNotFound;
 use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamIndicateurRepository;
 use App\Repository\PAM\PamRapportRepository;
 use App\Service\PAM\Utils\OfficeFiller;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\TemplateProcessor;
-use \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ExportService {
 
@@ -55,7 +57,7 @@ class ExportService {
      * @return Spreadsheet
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function exportOds(string $rapportID, bool $draft = false, bool $multiple = false) : Spreadsheet {
+    public function exportOds(string $rapportID, bool $draft = false) : Spreadsheet {
         $indicateurs = $draft ? $this->draftRepository->findAllIndicateursByRapport($rapportID) : $this->indicateurRepository->findAllByRapport($rapportID);
         $spreadsheet = IOFactory::load(dirname(__DIR__) . '/PAM/samples/SAMPLE_Rapport_AEM.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
@@ -95,6 +97,9 @@ class ExportService {
             }
         }
 
+        if(!$rapports) {
+            throw new RapportNotFound('Aucun rapport trouvé pour cette unité');
+        }
         foreach($rapports as $key => $rapport) {
             $sheet = clone $spreadsheet->getSheet(0);
             $sheet->setTitle($rapport->getStartDatetime()->format('F Y'));
@@ -132,6 +137,7 @@ class ExportService {
             $filler->fillCells($sheet, self::ROW_PECHE_ILLEGALE, $pecheIllegale);
             $filler->fillCells($sheet, self::ROW_SURVEILLANCE_ENVIRONNEMENT, $surveillanceEnv);
             $filler->fillCells($sheet, self::ROW_SURETE_MARITIME, $sureteMaritime);
+            $sheet->setCellValue('B9', $rapport->getCreatedBy()->getNom());
         }
 
         $sheetIndex = $spreadsheet->getIndex(
@@ -185,12 +191,16 @@ class ExportService {
         $tableMerNavirePlaisanceLoisir = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
         $tableTerrePechePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
         $tableMerPechePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::AUTO]);
+        $tableTerrePlaisancePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::AUTO]);
+        $tableTerrePlaisanceLoisir = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::AUTO]);
 
         $controleMerPechePro = [];
         $controleMerPlaisancePro = [];
         $controleMerNavirePlaisanceLoisir = [];
         $controleTerrePechePro = [];
         $autreMission = [];
+        $controleTerrePlaisancePro = [];
+        $controleTerrePlaisanceLoisir = [];
 
         foreach($rapport->getControles() as $controle)
         {
@@ -210,6 +220,12 @@ class ExportService {
                 case 5:
                     $autreMission[] = $controle;
                     break;
+                case 6:
+                    $controleTerrePlaisanceLoisir[] = $controle;
+                    break;
+                case 7:
+                    $controleTerrePlaisancePro[] = $controle;
+                    break;
             }
         }
 
@@ -218,6 +234,8 @@ class ExportService {
         $filler->fillTabsControle($controleMerPlaisancePro, $tableMerPlaisancePro, 'Contrôles en mer navires de plaisance professionnelle');
         $filler->fillTabsControle($autreMission, $tableAutreMission, 'Autres missions');
         $filler->fillTabsControle($controleMerPechePro, $tableMerPechePro, 'Contrôles en mer navires de pêche professionnelle');
+        $filler->fillTabsControle($controleTerrePlaisanceLoisir,$tableTerrePlaisanceLoisir, 'Contrôle à terre de navires de plaisance de loisir');
+        $filler->fillTabsControle($controleTerrePlaisancePro, $tableTerrePlaisancePro, 'Contrôle à terre de navires de plaisance professionnel');
 
         $filler->fillTabsEquipage($rapport->getEquipage(), $tableEquipage);
 
@@ -226,11 +244,17 @@ class ExportService {
         $templateProcessor->setComplexBlock('table_controleMerPlaisanceProPro', $tableMerPlaisancePro);
         $templateProcessor->setComplexBlock('table_controleAutreMission', $tableAutreMission);
         $templateProcessor->setComplexBlock('table_controleTerrePechePro', $tableTerrePechePro);
+        $templateProcessor->setComplexBlock('table_controleTerrePlaisancePro', $tableTerrePlaisancePro);
+        $templateProcessor->setComplexBlock('table_controleTerrePlaisanceLoisir', $tableTerrePlaisanceLoisir);
         $templateProcessor->setComplexBlock('table_equipage', $tableEquipage);
         return $templateProcessor;
     }
 
-    private function fillAEM(array $indicateurs, $sheet)
+    /**
+     * @param array     $indicateurs
+     * @param Worksheet $sheet
+     */
+    private function fillAEM(array $indicateurs, Worksheet $sheet)
     {
         $filler = new OfficeFiller();
         $assistanceNavire = [];
