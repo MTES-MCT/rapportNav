@@ -35,14 +35,19 @@ class AgentRepository extends ServiceEntityRepository
     {
         $service = $this->tokenStorage->getToken()->getUser()->getService();
         $qb = $this->createQueryBuilder('a')
-            ->where('a.service = :service')
-            ->setParameter('service', $service);
+            ->where('a.service = :service');
 
         if($fullName) {
             $qb->andWhere('a.prenom LIKE :prenom')
-                ->setParameter('prenom', $fullName .'%')
                 ->orWhere('a.nom LIKE :nom')
-                ->setParameter('nom',  $fullName . '%');
+                ->setParameters([
+                    'service' => $service,
+                    'prenom' => $fullName .'%',
+                    'nom' => $fullName .'%'
+                ]);
+        } else {
+            $qb
+            ->setParameter('service', $service);
         }
 
         return $qb->getQuery()->getResult();
