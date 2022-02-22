@@ -51,6 +51,13 @@ class PamEquipageAgent
      */
     private $is_absent = false;
 
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @var ?string
+     * @ORM\Column(type="string", length=124, nullable=true)
+     */
+    private $fonctionParticuliere;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -115,4 +122,17 @@ class PamEquipageAgent
 
         return $this;
     }
+
+    public function getFonctionParticuliere(): ?string
+    {
+        return $this->fonctionParticuliere;
+    }
+
+    public function setFonctionParticuliere(?string $fonctionParticuliere): self
+    {
+        $this->fonctionParticuliere = $fonctionParticuliere;
+        return $this;
+    }
+
+
 }

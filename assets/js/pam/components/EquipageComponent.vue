@@ -68,6 +68,13 @@
                 <option value="Cuisinier">Cuisinier</option>
                 <option value="Agent machine">Agent machine</option>
               </select>
+
+              <select class="fr-select" v-model="tmpAgent.fonctionParticuliere">
+                <option value="" selected disabled hidden>Fonction particulière : - sélectionner - </option>
+                <option value="Plongeur">Plongeur</option>
+                <option value="Référent pêche">Référent pêche</option>
+                <option value="Référent environnement">Référent environnement</option>
+              </select>
             </div>
             <div class="fr-input-group">
               <textarea cols="30" rows="5" class="fr-input" v-model="tmpAgent.observations" placeholder="Observations"></textarea>
@@ -112,8 +119,10 @@ export default {
         membre.observations = this.tmpAgent.observations;
         membre.role = this.tmpAgent.role;
         membre.agent.dateArrivee = new Date();
+        membre.fonctionParticuliere = this.tmpAgent.fonctionParticuliere;
         this.tmpAgent = {
-          role: ''
+          role: '',
+          fonctionParticuliere: ''
         };
       }
       this.membres.push(membre);
@@ -139,6 +148,7 @@ export default {
         success.data.forEach((agent) => {
           const suggestion = {
             role: 'Agent de pont',
+            fonctionParticuliere: '',
             agent: {
               nom: agent.nom,
               prenom: agent.prenom,
@@ -165,7 +175,8 @@ export default {
     return {
       suggestionsList: [],
       tmpAgent: {
-        role: ''
+        role: '',
+        fonctionParticuliere: ''
       },
       hidden: true,
       hiddenNewAgent: true

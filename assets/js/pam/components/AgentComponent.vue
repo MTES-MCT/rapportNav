@@ -26,6 +26,13 @@
         <option value="Agent machine">Agent machine</option>
       </select>
 
+      <select class="fr-select fr-mt-3v" id="fonctionParticuliere"  v-model="membre.fonctionParticuliere">
+        <option value="" selected disabled hidden>Fonction particulière : - sélectionner - </option>
+        <option value="Plongeur">Plongeur</option>
+        <option value="Référent pêche">Référent pêche</option>
+        <option value="Référent environnement">Référent environnement</option>
+      </select>
+
       <textarea class="fr-input fr-mt-3v" id="textarea" placeholder="Observations" v-model="membre.observations"></textarea>
 
       <div class="fr-checkbox-group">
