@@ -23,7 +23,7 @@
                 <div class="text-14 text-italic text-left text-muted">Suggestions</div>
               </div>
               <div class="fr-col-5">
-                <span class="text-12" @click="addAll">  <i class="ri-add-circle-fill"></i> Tout ajouter</span>
+                <span class="text-12" @click="addAll">  <i class="ri-add-circle-fill" aria-hidden="true"></i> Tout ajouter</span>
               </div>
             </div>
           </div>
