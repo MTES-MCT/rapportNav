@@ -6,25 +6,28 @@
                         :key="index"
                         :membre="agent"
                         :agent-list="membres"
+                        :fonctions="fonctions"
+                        :fonctions-particulieres="fonctionsParticulieres"
                         :index="index">
         </AgentComponent>
       </div>
     </div>
-    <div class="fr-col-lg-5 fr-col-md-4 fr-pl-4v">
+    <div class="fr-col-lg-5 fr-col-md-4 fr-pl-4v"  ref="suggestionList">
       <input class="fr-input" type="text" placeholder="Ajouter des membres" v-model="tmpAgent.fullName"
-             @keyup="createNewMember($event.target.value)"
+             @keydown="createNewMember($event.target.value); fetchAutocomplete()"
+             @click="hidden = !hidden"
       >
-      <div class="tooltip-add-member d-none" data-scope="member">
+      <div class="tooltip-add-member" data-scope="member" v-if="!hidden" v-click-outside="hideTooltip">
         <div class="add-member-content">
           <div class="fr-container--fluid">
-            <!--<div class="fr-grid-row">
+            <div class="fr-grid-row">
               <div class="fr-col-7">
                 <div class="text-14 text-italic text-left text-muted">Suggestions</div>
               </div>
               <div class="fr-col-5">
-                <span class="text-12" @click="addAll">  <i class="ri-add-circle-fill"></i> Tout ajouter</span>
+                <span class="text-12" @click="addAll">  <i class="ri-add-circle-fill" aria-hidden="true"></i> Tout ajouter</span>
               </div>
-            </div>-->
+            </div>
           </div>
         </div>
         <div class="add-member-content">
@@ -33,7 +36,6 @@
               <div class="fr-col-7">
                 <div class="text-14 text-left">
                   {{ suggestion.agent.prenom }} {{ suggestion.agent.nom }}
-                  <span class="equipRole">{{suggestion.role}}</span>
                 </div>
               </div>
               <div class="fr-col-5">
@@ -48,24 +50,19 @@
           </div>
         </div>
       </div>
-      <div class="tooltip-new-member d-none" data-scope="member">
+      <div class="tooltip-new-member" ref="newAgent" data-scope="member" v-if="!hiddenNewAgent" v-click-outside="hideTooltipNewAgent">
         <div class="add-member-content">
           <div class="fr-container--fluid">
             <span class="text-left text-muted text-14 text-italic fr-mt-2v ">Ajouter "{{tmpAgent.fullName}}"</span>
             <div class="fr-input-group fr-mt-5v">
-              <select class="fr-select" v-model="tmpAgent.role">
-                <option value="" selected disabled hidden>Poste : - sélectionner - </option>
-                <option value="Agent de pont">Agent de pont</option>
-                <option value="Commandant">Commandant</option>
-                <option value="Second capitaine">Second capitaine</option>
-                <option value="Chef de quart / Second capitaine PI">Chef de quart / Second capitaine PI</option>
-                <option value="Chef de quart">Chef de quart</option>
-                <option value="Chef mécanicien">Chef mécanicien</option>
-                <option value="Second mécanicien">Second mécanicien</option>
-                <option value="Électricien">Électricien</option>
-                <option value="Maître d’équipage">Maître d’équipage</option>
-                <option value="Cuisinier">Cuisinier</option>
-                <option value="Agent machine">Agent machine</option>
+              <select class="fr-select" v-model="tmpAgent.fonction">
+                <option :value="{nom: ''}" selected disabled hidden>Poste : - sélectionner - </option>
+                <option v-for="fonction in fonctions" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
+              </select>
+
+              <select class="fr-select" v-model="tmpAgent.fonctionParticuliere">
+                <option :value="{nom: ''}" selected disabled hidden>Fonction particulière : - sélectionner - </option>
+                <option v-for="fonction in fonctionsParticulieres" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
               </select>
             </div>
             <div class="fr-input-group">
@@ -88,13 +85,14 @@
 
 <script>
 import AgentComponent from "./AgentComponent";
+import axios from "axios";
 export default {
   name: "EquipageComponent",
   components: {AgentComponent},
   mounted() {
-    $(document).on('click',function(e){
-      $(".tooltip-add-member").addClass('d-none');
-    });
+    this.fetchAutocomplete();
+    this.fetchFonctionsParticulieres();
+    this.fetchFonctions();
   },
   props: {
     membres: {
@@ -110,10 +108,16 @@ export default {
         membre.agent.nom = this.tmpAgent.fullName.split(' ')[1]
         membre.agent.prenom = this.tmpAgent.fullName.split(' ')[0];
         membre.observations = this.tmpAgent.observations;
-        membre.role = this.tmpAgent.role;
+        membre.fonction = this.tmpAgent.fonction;
         membre.agent.dateArrivee = new Date();
+        membre.fonctionParticuliere = this.tmpAgent.fonctionParticuliere;
         this.tmpAgent = {
-          role: ''
+          fonction:  {
+            nom: ''
+          },
+          fonctionParticuliere: {
+            nom: ''
+          }
         };
       }
       this.membres.push(membre);
@@ -123,34 +127,75 @@ export default {
       this.suggestionsList.forEach(element => this.membres.push(element));
     },
     createNewMember(value) {
-      let noExist = true;
-      if(value.length > 2) {
-        this.suggestionsList.filter(element => {
-          if(element.agent.nom.indexOf(value) === 0) {
-            noExist = false;
-          }
-        });
-        if(noExist) {
-          $('.tooltip-new-member').removeClass('d-none')
-          $('.tooltip-add-member').addClass('d-none')
-        } else {
-         this.showSugestionList();
-        }
-      } else if (value.length === 0) {
-        this.showSugestionList();
+      this.hiddenNewAgent = this.suggestionsList.length !== 0;
+
+      if(value.length === 0) {
+        this.hiddenNewAgent = true;
       }
     },
-    showSugestionList() {
-      $('.tooltip-new-member').addClass('d-none')
-      $('.tooltip-add-member').removeClass('d-none')
+    fetchAutocomplete() {
+      let url = '/api/pam/equipage/autocomplete';
+      url = this.tmpAgent.fullName ? url + '?fullName=' + this.tmpAgent.fullName : url;
+      axios.get(url)
+      .then((success) => {
+        this.suggestionsList = [];
+
+        success.data.forEach((agent) => {
+          const suggestion = {
+            fonction: {
+              nom: 'Agent de pont'
+            },
+            fonctionParticuliere: null,
+            agent: {
+              id: agent.id,
+              nom: agent.nom,
+              prenom: agent.prenom,
+              dateArrivee: new Date()
+            }
+          }
+          this.suggestionsList.push(suggestion)
+        })
+      })
+    },
+    hideTooltip(event) {
+      if(!this.$refs.suggestionList.contains(event.target)) {
+        this.hidden = true;
+      }
+    },
+    hideTooltipNewAgent(event) {
+      if(!this.$refs.newAgent.contains(event.target)) {
+        this.hiddenNewAgent = true;
+        this.hidden = true;
+      }
+    },
+    fetchFonctions() {
+      axios.get('/api/pam/equipage/fonctions')
+      .then((success) => {
+        this.fonctions = success.data;
+      });
+    },
+    fetchFonctionsParticulieres() {
+      axios.get('/api/pam/equipage/fonctions/particulieres')
+          .then((success) => {
+            this.fonctionsParticulieres = success.data;
+      });
     }
   },
   data() {
     return {
       suggestionsList: [],
       tmpAgent: {
-        role: ''
-      }
+        fonction: {
+          nom: ''
+        },
+        fonctionParticuliere: {
+          nom: ''
+        }
+      },
+      hidden: true,
+      hiddenNewAgent: true,
+      fonctions: [],
+      fonctionsParticulieres: []
     }
   }
 }

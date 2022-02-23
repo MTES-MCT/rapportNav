@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
+use App\Entity\FonctionAgent;
+use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\CategoryPamControle;
 use App\Entity\PAM\CategoryPamIndicateur;
 use App\Entity\PAM\CategoryPamMission;
@@ -16,7 +18,6 @@ use App\Entity\Agent;
 use App\Entity\Service;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
@@ -28,13 +29,22 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
 
     public function load(ObjectManager $manager)
     {
+        $fonction = new FonctionAgent();
+        $fonctionParticuliere = new FonctionParticuliereAgent();
+
+        $fonction->setNom('Commandant');
+        $fonctionParticuliere->setNom('Chef');
+
+        $manager->persist($fonction);
+        $manager->persist($fonctionParticuliere);
+
         for($i = 0; $i <= 2; $i++) {
-            $this->createRapport($manager, $i+1, $i+1);
+            $this->createRapport($manager, $i+1, $i+1, $fonction, $fonctionParticuliere);
         }
 
     }
 
-    private function createRapport(ObjectManager $manager, int $keyID, int $month)
+    private function createRapport(ObjectManager $manager, int $keyID, int $month, $fonction, $fonctionParticuliere)
     {
         $currentYear = new \DateTime();
         $service = new Service();
@@ -94,7 +104,8 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
         $membre = new PamEquipageAgent();
 
         $membre->setAgent($agent);
-        $membre->setRole('Agent de pont');
+        $membre->setFonction($fonction);
+        $membre->setFonctionParticuliere($fonctionParticuliere);
 
         $equipage->addMembre($membre);
 

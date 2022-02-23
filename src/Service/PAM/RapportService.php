@@ -3,6 +3,8 @@
 namespace App\Service\PAM;
 
 use App\DTO\RapportResponse;
+use App\Entity\FonctionAgent;
+use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\CategoryPamControle;
 use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamEquipage;
@@ -68,7 +70,7 @@ class RapportService {
         foreach($rapport->getMissions() as $mission) {
             $this->setCategory($mission->getIndicateurs(), CategoryPamIndicateur::class);
         }
-        $this->setAgent($rapport->getEquipage());
+        $this->setAgent($rapport->getEquipage(), $service);
         $errors = $this->validator->validate($rapport);
 
         if($errors->count() > 0) {
@@ -170,12 +172,13 @@ class RapportService {
      *
      * @return PamRapport
      */
-    public function updateRapport(FormInterface $form, Request $request, PamRapport $existingRapport) : PamRapport
+    public function updateRapport(FormInterface $form, Request $request, PamRapport $existingRapport, Service $service) : PamRapport
     {
         /** @var PamRapport $rapport */
         $rapport = $this->serializer->deserialize($request->getContent(), PamRapport::class, 'json'); // Mapping de la request en entity PamRapport
 
         if($rapport->getEquipage()) {
+            $this->setAgent($rapport->getEquipage(), $service);
             $existingRapport->setEquipage($rapport->getEquipage()); // Ajout des membres d'équipage
         }
 
@@ -271,15 +274,33 @@ class RapportService {
      *
      * @return void
      */
-    private function setAgent(PamEquipage $equipage)
+    private function setAgent(PamEquipage $equipage, Service $service): void
     {
         /** @var PamEquipageAgent $membre */
        foreach($equipage->getMembres() as $membre) {
            $idAgent = $membre->getAgent()->getId();
-           $agent = $idAgent ? $this->em->getRepository(Agent::class)->find($idAgent) : null;
+           $agent = $idAgent ? $this->em->getRepository(Agent::class)->findOneBy(['id' => $idAgent, 'service' => $service]) : null;
            if($agent) {
                 $membre->setAgent($agent);
+           } else {
+               $membre->getAgent()->setService($service);
            }
+
+           $nomFonction = $membre->getFonction()->getNom();
+            $fonction = $nomFonction ? $this->em->getRepository(FonctionAgent::class)->findOneBy(['nom' => $nomFonction]) : null;
+            if($fonction) {
+                $membre->setFonction($fonction);
+            }
+
+            $nomFonctionParticuliere = $membre->getFonctionParticuliere() ? $membre->getFonctionParticuliere()->getNom() : null;
+            $fonctionParticuliere = $nomFonctionParticuliere ? $this->em->getRepository(FonctionParticuliereAgent::class)->findOneBy(['nom' => $nomFonctionParticuliere]) : null;
+            if($fonctionParticuliere) {
+                $membre->setFonctionParticuliere($fonctionParticuliere);
+            } else {
+                $membre->setFonctionParticuliere(null);
+            }
         }
     }
+
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity\PAM;
 
+use App\Entity\FonctionAgent;
+use App\Entity\FonctionParticuliereAgent;
 use App\Repository\PAM\PamEquipageAgentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -21,7 +23,7 @@ class PamEquipageAgent
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PamEquipage::class, inversedBy="membres")
+     * @ORM\ManyToOne(targetEntity=PamEquipage::class, inversedBy="membres", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipage;
@@ -35,12 +37,6 @@ class PamEquipageAgent
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\Column(type="string", length=64)
-     */
-    private $role;
-
-    /**
-     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observations;
@@ -50,6 +46,22 @@ class PamEquipageAgent
      * @ORM\Column(type="boolean")
      */
     private $is_absent = false;
+
+    /**
+     *
+     * @var FonctionParticuliereAgent
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\ManyToOne(targetEntity=FonctionParticuliereAgent::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $fonctionParticuliere;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\ManyToOne(targetEntity=FonctionAgent::class, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $fonction;
 
     public function getId(): ?int
     {
@@ -80,18 +92,6 @@ class PamEquipageAgent
         return $this;
     }
 
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
     public function getObservations(): ?string
     {
         return $this->observations;
@@ -115,4 +115,32 @@ class PamEquipageAgent
 
         return $this;
     }
+
+    /**
+     * @return FonctionParticuliereAgent
+     */
+    public function getFonctionParticuliere(): ?FonctionParticuliereAgent {
+        return $this->fonctionParticuliere;
+    }
+
+    /**
+     * @param FonctionParticuliereAgent $fonctionParticuliere
+     */
+    public function setFonctionParticuliere(?FonctionParticuliereAgent $fonctionParticuliere): void {
+        $this->fonctionParticuliere = $fonctionParticuliere;
+    }
+
+    public function getFonction(): ?FonctionAgent
+    {
+        return $this->fonction;
+    }
+
+    public function setFonction(?FonctionAgent $fonction): self
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+
 }

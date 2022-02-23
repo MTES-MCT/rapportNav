@@ -1,6 +1,6 @@
 <template>
-  <td class="td-observation td-indicateur" v-if="observation" @click="hidden = !hidden" ref="observation">
-    <i class="ri-message-2-fill"></i>
+  <td class="td-observation td-indicateur" v-if="observation"  ref="observation">
+    <i class="ri-message-2-fill icon-observation" @click="hidden = !hidden"></i>
     <div
         class="tooltip-observation"
         v-if="!hidden"
