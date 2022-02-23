@@ -56,8 +56,12 @@ export default {
     getValue(e, isTextarea = false) {
       const target = e.target;
       if(!isTextarea) {
-        this.$emit('change', parseInt(target.innerText))
-        this.$emit('input', parseInt(target.innerText))
+        let value = parseInt(target.innerText);
+        if(isNaN(value)) {
+          value = 0;
+        }
+        this.$emit('change', value)
+        this.$emit('input', value)
       }
       else {
         this.$emit('input', target.value)

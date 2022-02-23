@@ -112,15 +112,15 @@ export default {
           nom: nom
         },
         pavillon: 'FR',
-        nb_navire_controle: null,
-        nb_pv_peche_sanitaire: null,
-        nb_pv_equipement_securite: null,
-        nb_pv_titre_nav: null,
-        nb_pv_police: null,
-        nb_pv_env_pollution: null,
-        nb_autre_pv: null,
-        nb_nav_deroute: null,
-        nb_nav_interroge: null
+        nb_navire_controle: 0,
+        nb_pv_peche_sanitaire: 0,
+        nb_pv_equipement_securite: 0,
+        nb_pv_titre_nav: 0,
+        nb_pv_police: 0,
+        nb_pv_env_pollution: 0,
+        nb_autre_pv: 0,
+        nb_nav_deroute: 0,
+        nb_nav_interroge: 0
       }
       let newType = {
         id: id,
