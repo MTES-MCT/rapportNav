@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Agent {
 
     /**
-     * @Groups({"autocomplete"})
+     * @Groups({"view", "draft", "save_rapport", "autocomplete"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,15 +19,13 @@ class Agent {
     private $id;
 
     /**
-     * @Groups({"autocomplete"})
-     * @Groups({"view", "draft", "save_rapport"})
+     * @Groups({"view", "draft", "save_rapport", "autocomplete"})
      * @ORM\Column(type="string", length=45)
      */
     private $nom;
 
     /**
-     * @Groups({"autocomplete"})
-     * @Groups({"view", "draft", "save_rapport"})
+     * @Groups({"view", "draft", "save_rapport", "autocomplete"})
      * @ORM\Column(type="string", length=45)
      */
     private $prenom;
@@ -39,14 +37,13 @@ class Agent {
     private $service;
 
     /**
-     * @Groups({"autocomplete"})
-     * @Groups({"view", "draft", "save_rapport"})
+     * @Groups({"view", "draft", "save_rapport", "autocomplete"})
      * @ORM\Column(type="date_immutable")
      */
     private $dateArrivee;
 
     /**
-     * @Groups({"autocomplete"})
+     * @Groups({"view", "draft", "save_rapport", "autocomplete"})
      * @ORM\Column(type="date_immutable", nullable=true)
      */
     private $dateDepart;
@@ -57,6 +54,13 @@ class Agent {
 
     public function getId(): ?int {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void {
+        $this->id = $id;
     }
 
     public function getNom(): ?string {

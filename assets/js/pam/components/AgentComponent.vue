@@ -13,12 +13,11 @@
       <input class="fr-input" type="text" id="memberName" :value="fullName" disabled>
 
       <select class="fr-select fr-mt-3v" id="select"  v-model="membre.fonction">
-        <option value="" selected disabled hidden>Poste : - sélectionner - </option>
         <option v-for="fonction in fonctions" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
       </select>
 
       <select class="fr-select fr-mt-3v" id="fonctionParticuliere"  v-model="membre.fonctionParticuliere">
-        <option value="" selected disabled hidden>Fonction particulière : - sélectionner - </option>
+        <option :value="{nom: ''}" selected disabled hidden>Fonction particulière : - sélectionner - </option>
         <option v-for="fonction in fonctionsParticulieres" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
       </select>
 

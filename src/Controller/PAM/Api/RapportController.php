@@ -153,7 +153,7 @@ class RapportController extends AbstractFOSRestController {
         $form = $this->createForm(PamRapportType::class, $existingRapport);
 
         try {
-            $response = $this->createRapportService->updateRapport($form, $request, $existingRapport);
+            $response = $this->createRapportService->updateRapport($form, $request, $existingRapport, $this->getUser()->getService());
             return View::create($response, Response::HTTP_OK);
         }
         catch(BadRequestHttpException $e) {

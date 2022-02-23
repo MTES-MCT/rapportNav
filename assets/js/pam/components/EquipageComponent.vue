@@ -56,12 +56,12 @@
             <span class="text-left text-muted text-14 text-italic fr-mt-2v ">Ajouter "{{tmpAgent.fullName}}"</span>
             <div class="fr-input-group fr-mt-5v">
               <select class="fr-select" v-model="tmpAgent.fonction">
-                <option value="" selected disabled hidden>Poste : - sélectionner - </option>
+                <option :value="{nom: ''}" selected disabled hidden>Poste : - sélectionner - </option>
                 <option v-for="fonction in fonctions" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
               </select>
 
               <select class="fr-select" v-model="tmpAgent.fonctionParticuliere">
-                <option value="" selected disabled hidden>Fonction particulière : - sélectionner - </option>
+                <option :value="{nom: ''}" selected disabled hidden>Fonction particulière : - sélectionner - </option>
                 <option v-for="fonction in fonctionsParticulieres" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
               </select>
             </div>
@@ -147,6 +147,7 @@ export default {
             },
             fonctionParticuliere: null,
             agent: {
+              id: agent.id,
               nom: agent.nom,
               prenom: agent.prenom,
               dateArrivee: new Date()
@@ -185,7 +186,7 @@ export default {
       suggestionsList: [],
       tmpAgent: {
         fonction: {
-          nom: 'Agent de pont'
+          nom: ''
         },
         fonctionParticuliere: {
           nom: ''
