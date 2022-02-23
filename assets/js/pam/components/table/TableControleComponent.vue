@@ -71,8 +71,8 @@
         </TdEditable>
         <TdEditable
             v-if="cols[4].enabled"
-            v-model="pavillon.nb_pv_police_nav"
-            :value="pavillon.nb_pv_police_nav"
+            v-model="pavillon.nb_pv_police"
+            :value="pavillon.nb_pv_police"
         >
         </TdEditable>
         <TdEditable
@@ -152,7 +152,7 @@ export default {
       if(pavillon.nb_pv_titre_nav) {
         this.cols[3].enabled = true
       }
-      if(pavillon.nb_pv_police_nav) {
+      if(pavillon.nb_pv_police) {
         this.cols[4].enabled = true
       }
       if(pavillon.nb_pv_env_pollution) {
@@ -181,7 +181,7 @@ export default {
         nb_pv_peche_sanitaire: 0,
         nb_pv_equipement_securite: 0,
         nb_pv_titre_nav: 0,
-        nb_pv_police_nav: 0,
+        nb_pv_police: 0,
         nb_pv_env_pollution: 0,
         nb_autre_pv: 0,
         nb_nav_deroute: 0,
@@ -213,7 +213,7 @@ export default {
             break;
 
           case 4:
-            result += el.nb_pv_police_nav;
+            result += el.nb_pv_police;
             break;
 
           case 5:

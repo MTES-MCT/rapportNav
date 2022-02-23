@@ -16,7 +16,20 @@
   "administratif": null,
   "essence": null,
   "equipage": {
-    "membres": []
+    "membres": [
+      {
+        "fonction": {
+          "nom": "Test agent"
+        },
+        "fonctionParticuliere": null,
+        "observations": "Test",
+        "agent": {
+          "nom": "Doe",
+          "prenom": "John"
+        }
+
+      }
+    ]
   },
   "controles": [
     {

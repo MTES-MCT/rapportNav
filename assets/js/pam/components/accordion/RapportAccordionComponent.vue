@@ -116,7 +116,7 @@ export default {
         nb_pv_peche_sanitaire: null,
         nb_pv_equipement_securite: null,
         nb_pv_titre_nav: null,
-        nb_pv_police_nav: null,
+        nb_pv_police: null,
         nb_pv_env_pollution: null,
         nb_autre_pv: null,
         nb_nav_deroute: null,
