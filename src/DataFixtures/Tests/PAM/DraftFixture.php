@@ -2,9 +2,13 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
+use App\Entity\Agent;
+use App\Entity\FonctionAgent;
 use App\Entity\PAM\CategoryPamIndicateur;
 use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamDraft;
+use App\Entity\PAM\PamEquipage;
+use App\Entity\PAM\PamEquipageAgent;
 use App\Entity\PAM\PamIndicateur;
 use App\Entity\PAM\PamMission;
 use App\Entity\Service;
@@ -37,6 +41,21 @@ class DraftFixture extends Fixture implements FixtureGroupInterface {
         $body->setStartDatetime($current);
         $body->setNbJoursMer(14);
         $body->setMouillage(1);
+
+        $agent = new Agent();
+        $agent->setNom('Doe');
+        $agent->setPrenom('John');
+        $agent->setService($service);
+        $agent->setDateArrivee(new \DateTimeImmutable());
+
+        $fonction = new FonctionAgent();
+        $fonction->setNom('Agent de test');
+        $membre = new PamEquipageAgent();
+        $membre->setAgent($agent);
+        $membre->setFonction($fonction);
+        $equipage = new PamEquipage();
+        $equipage->addMembre($membre);
+        $body->setEquipage($equipage);
 
         $catMissions = $manager->getRepository(CategoryPamMission::class)->findAll();
         $catIndicateurs = $manager->getRepository(CategoryPamIndicateur::class)->findAll();

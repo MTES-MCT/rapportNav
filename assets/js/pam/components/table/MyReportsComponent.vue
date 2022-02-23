@@ -74,7 +74,19 @@ export default {
     fetchRapports() {
       axios.get('/api/pam/rapport')
       .then((success) => {
-        this.rapports = success.data
+        let results = []
+        success.data.forEach((element) => {
+          if(element.type === 'validé') {
+            results.push(element);
+          } else {
+            let brouillon = JSON.parse(element.body);
+            brouillon.id = element.number;
+            brouillon.type = element.type;
+            results.push(brouillon);
+          }
+
+        })
+        this.rapports = results;
       })
     },
     edit(rapport) {
