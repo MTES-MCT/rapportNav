@@ -56,13 +56,6 @@ class Agent {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void {
-        $this->id = $id;
-    }
-
     public function getNom(): ?string {
         return $this->nom;
     }
