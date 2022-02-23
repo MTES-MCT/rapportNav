@@ -2,7 +2,6 @@
 
 namespace App\Service\PAM;
 
-use App\DTO\RapportResponse;
 use App\Entity\FonctionAgent;
 use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\CategoryPamControle;
@@ -93,15 +92,17 @@ class RapportService {
      *
      * @return void
      */
-    public function saveDraft(PamRapport $rapport, Service $service, string $id = null): PamDraft
+    public function saveDraft($content, Service $service, string $id = null): PamDraft
     {
-        $error = $this->validator->validateProperty($rapport, 'start_datetime');
+        $arrayBody = json_decode($content,true);
+        $startDateTime = $arrayBody['start_datetime'];
 
-        if($error->count() > 0) {
-            throw new BadRequestHttpException((string) $error);
+
+
+        if(!$startDateTime) {
+            throw new BadRequestHttpException('La date de début est manquante.');
         }
 
-        $json = $this->serializer->serialize($rapport, 'json', ['groups' => 'draft']);
 
         $draft = new PamDraft();
         if($id) {
@@ -109,9 +110,9 @@ class RapportService {
         } else {
             $draft->setNumber($this->generateID->generate());
         }
-        $draft->setBody($json);
+        $draft->setBody($content);
         $draft->setCreatedBy($service);
-        $draft->setStartDatetime($rapport->getStartDatetime());
+        $draft->setStartDatetime($startDateTime);
         $this->em->persist($draft);
         $this->em->flush();
         return $draft;
@@ -215,7 +216,7 @@ class RapportService {
     }
 
     /**
-     * @return RapportResponse[]
+     * @return array
      */
     public function listAll(): array
     {
@@ -225,22 +226,13 @@ class RapportService {
         $results = [];
 
         foreach($rapports as $rapport) {
-            $jsonRapport = $this->serializer->serialize($rapport, 'json', ['groups' => 'view']);
-            /** @var RapportResponse $dto */
-            $dto = $this->serializer->deserialize($jsonRapport, RapportResponse::class, 'json');
-            $dto->setType(RapportResponse::TYPE_VALIDE);
-            $results[] = $dto;
+            $results[] = $rapport;
             $idsRapport[] = $rapport->getId();
         }
 
         foreach($drafts as $draft) {
             if(!in_array($draft->getNumber(), $idsRapport)) {
-                /** @var RapportResponse $dto */
-                $dto = $this->serializer->deserialize($draft->getBody(), RapportResponse::class, 'json');
-                $dto->setId($draft->getNumber());
-                $dto->setType(RapportResponse::TYPE_BROUILLON);
-
-                $results[] = $dto;
+                $results[] = $draft;
             }
         }
 

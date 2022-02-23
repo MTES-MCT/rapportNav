@@ -8,7 +8,6 @@ use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
 use App\DataFixtures\Tests\PAM\RapportFixture;
 use App\DataFixtures\Tests\UsersFixture;
-use App\DTO\RapportResponse;
 use App\Entity\PAM\PamRapport;
 use App\Repository\PAM\PamRapportRepository;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
@@ -126,17 +125,18 @@ class RapportControllerTest extends WebTestCase {
     public function testRapportListSuccess()
     {
         $this->sendRequest('/rapport', null, 'GET');
-        $container = self::$container;
-        $serializer = $container->get('serializer');
-        /** @var RapportResponse[] $response */
-        $response = $serializer->deserialize($this->client->getResponse()->getContent(), 'App\DTO\RapportResponse[]', 'json');
+        $response = json_decode($this->client->getResponse()->getContent(), true);
+
+
         $this->assertCount(4, $response);
         $this->assertResponseStatusCodeSame(200);
-        $this->assertNotNull($response[0]->getId());
-        $this->assertNotNull($response[1]->getId());
+        $this->assertNotNull($response[0]['id']);
+        $this->assertNotNull($response[1]['id']);
 
-        $this->assertEquals('validé', $response[0]->getType());
-        $this->assertEquals('brouillon', $response[3]->getType());
+
+
+        $this->assertEquals('validé', $response[0]['type']);
+        $this->assertEquals('brouillon', $response[3]['type']);
     }
 
 

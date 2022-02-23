@@ -171,6 +171,12 @@ class PamRapport
      */
     private $created_by;
 
+    /**
+     * @Groups({"view"})
+     * @var string
+     */
+    private $type = 'validé';
+
 
     public function __construct()
     {
@@ -531,5 +537,21 @@ class PamRapport
     {
         return $this->getTotalIndisponibilite() + $this->getTotalPresenceAQuai() + $this->getTotalPresenceMer();
     }
+
+    /**
+     * @return string
+     */
+    public function getType(): string {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void {
+        $this->type = $type;
+    }
+
+
 
 }

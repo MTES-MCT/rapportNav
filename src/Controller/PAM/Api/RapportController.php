@@ -4,7 +4,6 @@ namespace App\Controller\PAM\Api;
 
 use App\Entity\PAM\PamRapport;
 use App\Form\PAM\PamRapportType;
-use App\Request\PAM\DraftRequest;
 use App\Service\PAM\RapportService;
 use App\Service\PAM\PamEquipageService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -15,8 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Rest\Route("/api/pam/rapport")
@@ -57,20 +54,18 @@ class RapportController extends AbstractFOSRestController {
     /**
      * @Rest\Post("/draft")
      * @Rest\View(serializerGroups={"draft"})
-     * @ParamConverter("draftRequest", converter="fos_rest.request_body")
-     * @param DraftRequest $draftRequest
-     * @param Request      $request
+     * @param Request $request
      *
      * @return View
      */
-    public function draft(DraftRequest $draftRequest, Request $request) : View
+    public function draft(Request $request) : View
     {
         try {
             $id = null;
             if($request->query->get('id')) {
                 $id = $request->query->get('id');
             }
-            $draft = $this->createRapportService->saveDraft($draftRequest, $this->getUser()->getService(), $id);
+            $draft = $this->createRapportService->saveDraft($request->getContent(), $this->getUser()->getService(), $id);
             return View::create($draft, Response::HTTP_OK);
         } catch(BadRequestHttpException $exception) {
             return View::create($exception->getMessage(), Response::HTTP_BAD_REQUEST);
