@@ -3,7 +3,7 @@
     <div class="agent-item" @click="hidden = !hidden">
       <div class="equipName">
         {{ fullName }}
-        <span class="equipRole">{{ membre.role }}</span>
+        <span class="equipRole">{{ membre.fonction.nom }}</span>
       </div>
       <div class="tooltip">
         <span class="ri-more-fill more-option-icon"></span>
@@ -12,25 +12,14 @@
     <div class="tooltipMember fr-px-2w fr-py-2w" v-if="!hidden" v-click-outside="hideTooltip">
       <input class="fr-input" type="text" id="memberName" :value="fullName" disabled>
 
-      <select class="fr-select fr-mt-3v" id="select"  v-model="membre.role">
-        <option value="Agent de pont">Agent de pont</option>
-        <option value="Commandant">Commandant</option>
-        <option value="Second capitaine">Second capitaine</option>
-        <option value="Chef de quart / Second capitaine PI">Chef de quart / Second capitaine PI</option>
-        <option value="Chef de quart">Chef de quart</option>
-        <option value="Chef mécanicien">Chef mécanicien</option>
-        <option value="Second mécanicien">Second mécanicien</option>
-        <option value="Électricien">Électricien</option>
-        <option value="Maître d’équipage">Maître d’équipage</option>
-        <option value="Cuisinier">Cuisinier</option>
-        <option value="Agent machine">Agent machine</option>
+      <select class="fr-select fr-mt-3v" id="select"  v-model="membre.fonction">
+        <option value="" selected disabled hidden>Poste : - sélectionner - </option>
+        <option v-for="fonction in fonctions" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
       </select>
 
       <select class="fr-select fr-mt-3v" id="fonctionParticuliere"  v-model="membre.fonctionParticuliere">
         <option value="" selected disabled hidden>Fonction particulière : - sélectionner - </option>
-        <option value="Plongeur">Plongeur</option>
-        <option value="Référent pêche">Référent pêche</option>
-        <option value="Référent environnement">Référent environnement</option>
+        <option v-for="fonction in fonctionsParticulieres" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
       </select>
 
       <textarea class="fr-input fr-mt-3v" id="textarea" placeholder="Observations" v-model="membre.observations"></textarea>
@@ -53,7 +42,9 @@ export default {
   props: {
     membre: Object,
     agentList: Array,
-    index: Number
+    index: Number,
+    fonctions: Array,
+    fonctionsParticulieres: Array
   },
   created () {
 

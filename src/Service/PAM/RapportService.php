@@ -3,6 +3,8 @@
 namespace App\Service\PAM;
 
 use App\DTO\RapportResponse;
+use App\Entity\FonctionAgent;
+use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\CategoryPamControle;
 use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamEquipage;
@@ -176,6 +178,7 @@ class RapportService {
         $rapport = $this->serializer->deserialize($request->getContent(), PamRapport::class, 'json'); // Mapping de la request en entity PamRapport
 
         if($rapport->getEquipage()) {
+            $this->setAgent($rapport->getEquipage());
             $existingRapport->setEquipage($rapport->getEquipage()); // Ajout des membres d'équipage
         }
 
@@ -271,7 +274,7 @@ class RapportService {
      *
      * @return void
      */
-    private function setAgent(PamEquipage $equipage)
+    private function setAgent(PamEquipage $equipage): void
     {
         /** @var PamEquipageAgent $membre */
        foreach($equipage->getMembres() as $membre) {
@@ -280,6 +283,22 @@ class RapportService {
            if($agent) {
                 $membre->setAgent($agent);
            }
+
+           $nomFonction = $membre->getFonction()->getNom();
+            $fonction = $nomFonction ? $this->em->getRepository(FonctionAgent::class)->findOneBy(['nom' => $nomFonction]) : null;
+            if($fonction) {
+                $membre->setFonction($fonction);
+            }
+
+            $nomFonctionParticuliere = $membre->getFonctionParticuliere() ? $membre->getFonctionParticuliere()->getNom() : null;
+            $fonctionParticuliere = $nomFonctionParticuliere ? $this->em->getRepository(FonctionParticuliereAgent::class)->findOneBy(['nom' => $nomFonctionParticuliere]) : null;
+            if($fonctionParticuliere) {
+                $membre->setFonctionParticuliere($fonctionParticuliere);
+            } else {
+                $membre->setFonctionParticuliere(null);
+            }
         }
     }
+
+
 }

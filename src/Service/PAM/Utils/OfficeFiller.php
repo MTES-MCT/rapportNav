@@ -100,7 +100,7 @@ class OfficeFiller {
         foreach($equipage->getMembres() as $membre)
         {
             $table->addRow();
-            $this->addCell($table, 1000, $membre->getRole(), 12);
+            $this->addCell($table, 1000, $membre->getFonction(), 12);
             $this->addCell($table, 1000, $membre->getAgent(), 12);
             $this->addCell($table, 1000, $membre->getObservations(), 12);
         }

@@ -21,7 +21,6 @@ class EquipageController extends AbstractFOSRestController {
 
     public function __construct(PamEquipageService $service) {
         $this->service = $service;
-
     }
 
 
@@ -41,6 +40,24 @@ class EquipageController extends AbstractFOSRestController {
         catch(\Exception $e) {
             return View::create($e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    /**
+     * @Rest\Get("/fonctions")
+     * @return View
+     */
+    public function listFonction() : View
+    {
+        return View::create($this->service->listFonction(), Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Get("/fonctions/particulieres")
+     * @return View
+     */
+    public function listFonctionsParticulieres() : View
+    {
+        return View::create($this->service->listFonctionParticuliere(), Response::HTTP_OK);
     }
 
 }

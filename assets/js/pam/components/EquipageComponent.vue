@@ -6,6 +6,8 @@
                         :key="index"
                         :membre="agent"
                         :agent-list="membres"
+                        :fonctions="fonctions"
+                        :fonctions-particulieres="fonctionsParticulieres"
                         :index="index">
         </AgentComponent>
       </div>
@@ -34,7 +36,6 @@
               <div class="fr-col-7">
                 <div class="text-14 text-left">
                   {{ suggestion.agent.prenom }} {{ suggestion.agent.nom }}
-                  <span class="equipRole">{{suggestion.role}}</span>
                 </div>
               </div>
               <div class="fr-col-5">
@@ -54,26 +55,14 @@
           <div class="fr-container--fluid">
             <span class="text-left text-muted text-14 text-italic fr-mt-2v ">Ajouter "{{tmpAgent.fullName}}"</span>
             <div class="fr-input-group fr-mt-5v">
-              <select class="fr-select" v-model="tmpAgent.role">
+              <select class="fr-select" v-model="tmpAgent.fonction">
                 <option value="" selected disabled hidden>Poste : - sélectionner - </option>
-                <option value="Agent de pont">Agent de pont</option>
-                <option value="Commandant">Commandant</option>
-                <option value="Second capitaine">Second capitaine</option>
-                <option value="Chef de quart / Second capitaine PI">Chef de quart / Second capitaine PI</option>
-                <option value="Chef de quart">Chef de quart</option>
-                <option value="Chef mécanicien">Chef mécanicien</option>
-                <option value="Second mécanicien">Second mécanicien</option>
-                <option value="Électricien">Électricien</option>
-                <option value="Maître d’équipage">Maître d’équipage</option>
-                <option value="Cuisinier">Cuisinier</option>
-                <option value="Agent machine">Agent machine</option>
+                <option v-for="fonction in fonctions" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
               </select>
 
               <select class="fr-select" v-model="tmpAgent.fonctionParticuliere">
                 <option value="" selected disabled hidden>Fonction particulière : - sélectionner - </option>
-                <option value="Plongeur">Plongeur</option>
-                <option value="Référent pêche">Référent pêche</option>
-                <option value="Référent environnement">Référent environnement</option>
+                <option v-for="fonction in fonctionsParticulieres" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
               </select>
             </div>
             <div class="fr-input-group">
@@ -102,6 +91,8 @@ export default {
   components: {AgentComponent},
   mounted() {
     this.fetchAutocomplete();
+    this.fetchFonctionsParticulieres();
+    this.fetchFonctions();
   },
   props: {
     membres: {
@@ -117,12 +108,16 @@ export default {
         membre.agent.nom = this.tmpAgent.fullName.split(' ')[1]
         membre.agent.prenom = this.tmpAgent.fullName.split(' ')[0];
         membre.observations = this.tmpAgent.observations;
-        membre.role = this.tmpAgent.role;
+        membre.fonction = this.tmpAgent.fonction;
         membre.agent.dateArrivee = new Date();
         membre.fonctionParticuliere = this.tmpAgent.fonctionParticuliere;
         this.tmpAgent = {
-          role: '',
-          fonctionParticuliere: ''
+          fonction:  {
+            nom: ''
+          },
+          fonctionParticuliere: {
+            nom: ''
+          }
         };
       }
       this.membres.push(membre);
@@ -147,8 +142,10 @@ export default {
 
         success.data.forEach((agent) => {
           const suggestion = {
-            role: 'Agent de pont',
-            fonctionParticuliere: '',
+            fonction: {
+              nom: 'Agent de pont'
+            },
+            fonctionParticuliere: null,
             agent: {
               nom: agent.nom,
               prenom: agent.prenom,
@@ -169,17 +166,35 @@ export default {
         this.hiddenNewAgent = true;
         this.hidden = true;
       }
+    },
+    fetchFonctions() {
+      axios.get('/api/pam/equipage/fonctions')
+      .then((success) => {
+        this.fonctions = success.data;
+      });
+    },
+    fetchFonctionsParticulieres() {
+      axios.get('/api/pam/equipage/fonctions/particulieres')
+          .then((success) => {
+            this.fonctionsParticulieres = success.data;
+      });
     }
   },
   data() {
     return {
       suggestionsList: [],
       tmpAgent: {
-        role: '',
-        fonctionParticuliere: ''
+        fonction: {
+          nom: 'Agent de pont'
+        },
+        fonctionParticuliere: {
+          nom: ''
+        }
       },
       hidden: true,
-      hiddenNewAgent: true
+      hiddenNewAgent: true,
+      fonctions: [],
+      fonctionsParticulieres: []
     }
   }
 }
