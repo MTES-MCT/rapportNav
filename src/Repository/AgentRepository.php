@@ -38,8 +38,8 @@ class AgentRepository extends ServiceEntityRepository
             ->where('a.service = :service');
 
         if($fullName) {
-            $qb->andWhere('a.prenom LIKE :prenom')
-                ->orWhere('a.nom LIKE :nom')
+            $qb->andWhere('upper(a.prenom) LIKE :prenom')
+                ->orWhere('upper(a.nom) LIKE :nom')
                 ->setParameters([
                     'service' => $service,
                     'prenom' => $fullName .'%',

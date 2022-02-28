@@ -33,7 +33,7 @@ class EquipageController extends AbstractFOSRestController {
      */
     public function autocomplete(Request $request) : View
     {
-        $nom = $request->query->get('fullName');
+        $nom = strtoupper($request->query->get('fullName'));
         try {
             return View::create($this->service->autocomplete($nom), Response::HTTP_OK);
         }
