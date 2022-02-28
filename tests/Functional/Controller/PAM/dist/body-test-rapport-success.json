@@ -16,7 +16,21 @@
   "administratif": 8,
   "essence": 6,
   "equipage": {
-    "membres": []
+    "membres": [
+      {
+        "fonction": {
+          "nom": "Test agent"
+        },
+        "fonctionParticuliere": null,
+        "observations": "Test",
+        "agent": {
+          "nom": "Doe",
+          "prenom": "John",
+          "dateArrivee": "2021-12-27T23:22:47+00:00"
+        }
+
+      }
+    ]
   },
   "controles": [
     {
@@ -26,6 +40,13 @@
       },
       "nb_navire_controle": 12,
       "nb_pv_peche_sanitaire": 64,
+      "nb_pv_equipement_securite": 3,
+      "nb_pv_police": 4,
+      "nb_pv_titre_nav": 7,
+      "nb_pv_env_pollution": 8,
+      "nb_autre_pv": 9,
+      "nb_nav_deroute": 10,
+      "nb_nav_interroge": 11,
       "pavillon": "FR"
     }
   ],
@@ -42,7 +63,7 @@
           "principale": 6,
           "secondaire": 4,
           "total": 10,
-          "observations": null,
+          "observations": "Test observation request",
           "category": {
             "id": 1,
             "nom": "Nombre d'heures de mer"

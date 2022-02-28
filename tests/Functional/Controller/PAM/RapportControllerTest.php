@@ -8,6 +8,7 @@ use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
 use App\DataFixtures\Tests\PAM\RapportFixture;
 use App\DataFixtures\Tests\UsersFixture;
+use App\Entity\PAM\PamControle;
 use App\Entity\PAM\PamRapport;
 use App\Repository\PAM\PamRapportRepository;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
@@ -45,10 +46,25 @@ class RapportControllerTest extends WebTestCase {
         $serializer = $container->get('serializer');
         $rapportResponse = $serializer->deserialize($this->client->getResponse()->getContent(), PamRapport::class, 'json');
         $rapport = $container->get(PamRapportRepository::class)->find($rapportResponse->getId());
-
+        /** @var PamControle $controle */
+        $controle = $rapport->getControles()->get(0);
+        $indicateur = $rapport->getMissions()[0]->getIndicateurs()[0];
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
         $this->assertStringContainsString('MED' , $rapportResponse->getId());
-        $this->assertNotNull($rapport);
+        $this->assertEquals(12, $controle->getNbNavireControle());
+        $this->assertEquals(64, $controle->getNbPvPecheSanitaire());
+        $this->assertEquals(3, $controle->getNbPvEquipementSecurite());
+        $this->assertEquals(4, $controle->getNbPvPolice());
+        $this->assertEquals(7, $controle->getNbPvTitreNav());
+        $this->assertEquals(8, $controle->getNbPvEnvPollution());
+        $this->assertEquals(9, $controle->getNbAutrePv());
+        $this->assertEquals(10, $controle->getNbNavDeroute());
+        $this->assertEquals(11, $controle->getNbNavInterroge());
+        $this->assertEquals('FR', $controle->getPavillon());
+        $this->assertEquals('Test observation request', $indicateur->getObservations());
+        $this->assertEquals(6, $indicateur->getPrincipale());
+        $this->assertEquals(4, $indicateur->getSecondaire());
+        $this->assertEquals(10, $indicateur->getTotal());
     }
 
     public function testRapportMissingMandatoryInfo400Error()

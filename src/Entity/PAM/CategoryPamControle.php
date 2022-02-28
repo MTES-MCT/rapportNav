@@ -64,7 +64,7 @@ class CategoryPamControle
     {
         if (!$this->controles->contains($controle)) {
             $this->controles[] = $controle;
-            $controle->setType($this);
+            $controle->setCategory($this);
         }
 
         return $this;
@@ -74,8 +74,8 @@ class CategoryPamControle
     {
         if ($this->controles->removeElement($controle)) {
             // set the owning side to null (unless already changed)
-            if ($controle->getType() === $this) {
-                $controle->setType(null);
+            if ($controle->getCategory() === $this) {
+                $controle->setCategory(null);
             }
         }
 
