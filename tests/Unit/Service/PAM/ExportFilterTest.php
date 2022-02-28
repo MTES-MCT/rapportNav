@@ -13,7 +13,7 @@ use App\Service\PAM\ExportService;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class ExportFilter extends KernelTestCase {
+class ExportFilterTest extends KernelTestCase {
 
     use FixturesTrait;
 
