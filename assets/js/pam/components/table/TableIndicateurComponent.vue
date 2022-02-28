@@ -1,5 +1,5 @@
 <template>
-  <div class="table-custom ">
+  <div class="table-custom">
     <table class="table-indicateur">
       <thead class="thead-indicateur">
       <th class="th-indicateur" scope="col">Missions</th>
@@ -14,8 +14,8 @@
         <th class="td-nb-hour-sea td-indicateur th-tr-indicateur" scope="row" >
           {{ mission.category.nom }}
         </th>
-        <TdEditable class-list="td-indicateur" :value="mission.principale" @change="setValue(mission, $event, 'principale', index)"></TdEditable>
-        <TdEditable class-list="td-indicateur" :value="mission.secondaire" @change="setValue(mission, $event, 'secondaire', index)"></TdEditable>
+        <TdEditable class-list="td-indicateur td-fillable" :value="mission.principale" @change="setValue(mission, $event, 'principale', index)"></TdEditable>
+        <TdEditable class-list="td-indicateur td-fillable" :value="mission.secondaire" @change="setValue(mission, $event, 'secondaire', index)"></TdEditable>
         <TdEditable class-list="td-indicateur td-total" :value="mission.total" total></TdEditable>
         <TdEditable v-model="mission.observations" observation></TdEditable>
       </tr>

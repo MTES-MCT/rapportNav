@@ -4,6 +4,7 @@
       <label class="fr-label input-label">{{ label }}</label>
       <div class="InputAddOn input-field">
         <input
+            :id="id"
             class="InputAddOn-field fr-input"
             v-bind:class="[
                 error && !value ? 'fr-input-invalid' : null,
@@ -41,7 +42,7 @@ export default {
     valueChanged(e){
       const value = e.target.value !== "" ? e.target.value : null;
       this.$emit('input', value);
-      this.$emit('change',value);
+   //   this.$emit('change',value);
     }
   },
   props: {
@@ -60,7 +61,8 @@ export default {
     error: {
       type: Boolean,
       default: false
-    }
+    },
+    id: String
   }
 }
 </script>

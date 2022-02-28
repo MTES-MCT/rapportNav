@@ -1,41 +1,43 @@
 <template>
   <div class="table-custom" @keyup="getData">
-    <table class="table-controle">
+    <table class="table-controle" :id="id">
       <thead class="thead-controle">
-      <th :class="'th-table-controle-' + id">Pavillon</th>
+      <th :class="'th-table-controle-' + controleId">Pavillon</th>
       <th
-          :class="'th-table-controle-' + id"
+          :class="'th-table-controle-' + controleId"
           v-for="(col, counter) in cols"
           v-if="col.enabled === true"
       >
         {{col.title}}
       </th>
-      <th class="add-column dropbtn" id="add-btn">
+      <th class="add-column dropbtn" :id="'add-btn_' + controleId">
         <div class="add-column-label">
           <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
           <span class="icon-text">Ajouter un PV, nav déroutés...</span>
         </div>
 
-        <div class="dropdown" id="dropdown">
-          <ul>
-            <li>
+        <div class="dropdown" id="add-column_dropdown">
+          <ul id="add-column_list">
+            <li id="add-column_list_ajouter_pv">
               <a href="#" class="dropdown-item" @click.prevent>Ajouter des pv</a>
-              <ul>
-                <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 6"><a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title" @click.prevent="col.enabled = true">{{col.title}}</a></li>
+              <ul id="add-column_list_ajouter_pv__list">
+                <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 6">
+                  <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title" @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{col.title}}</a>
+                </li>
               </ul>
             </li>
             <li v-for="(col, index) in cols" v-if="!col.enabled && index > 6">
-              <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title" @click.prevent="col.enabled = true">{{ col.title }}</a>
+              <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title" @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{ col.title }}</a>
             </li>
           </ul>
         </div>
       </th>
       </thead>
 
-      <tbody :class="'tbody-controle tbody-controle-' + id">
+      <tbody :class="'tbody-controle tbody-controle-' + id" >
       <tr class="tr-table" v-for="(pavillon, index) in pavillons">
         <td class="td-pavillon td-table-controle">
-          <select name="pavillon" id="pavillon-select" class="fr-select fr-select-custom" v-model="pavillon.pavillon">
+          <select name="pavillon" :id="'pavillon-select_' + id" class="fr-select fr-select-custom" v-model="pavillon.pavillon">
             <option value="FR">FR</option>
             <option value="FR-SP">FR-SP</option>
             <option value="BL">BL</option>
@@ -46,60 +48,69 @@
           </select>
         </td>
         <TdEditable
+            id="nb_navire_controle"
             v-if="cols[0].enabled"
             v-model="pavillon.nb_navire_controle"
             :value="pavillon.nb_navire_controle"
         >
         </TdEditable>
         <TdEditable
+            id="nb_pv_peche_sanitaire"
             v-if="cols[1].enabled || pavillon.nb_pv_peche_sanitaire > 0"
             v-model="pavillon.nb_pv_peche_sanitaire"
             :value="pavillon.nb_pv_peche_sanitaire"
         >
         </TdEditable>
         <TdEditable
+            id="nb_pv_equipement_securite"
             v-if="cols[2].enabled"
             v-model="pavillon.nb_pv_equipement_securite"
             :value="pavillon.nb_pv_equipement_securite"
         >
         </TdEditable>
         <TdEditable
+            id="nb_pv_titre_nav"
             v-if="cols[3].enabled"
             v-model="pavillon.nb_pv_titre_nav"
             :value="pavillon.nb_pv_titre_nav"
         >
         </TdEditable>
         <TdEditable
+            id="nb_pv_police"
             v-if="cols[4].enabled"
             v-model="pavillon.nb_pv_police"
             :value="pavillon.nb_pv_police"
         >
         </TdEditable>
         <TdEditable
+            id="nb_pv_env_pollution"
             v-if="cols[5].enabled"
             v-model="pavillon.nb_pv_env_pollution"
             :value="pavillon.nb_pv_env_pollution"
         >
         </TdEditable>
         <TdEditable
+            id="nb_autre_pv"
             v-if="cols[6].enabled"
             v-model="pavillon.nb_autre_pv"
             :value="pavillon.nb_autre_pv"
         >
         </TdEditable>
         <TdEditable
+            id="nb_nav_deroute"
             v-if="cols[7].enabled"
             v-model="pavillon.nb_nav_deroute"
             :value="pavillon.nb_nav_deroute"
         >
         </TdEditable>
         <TdEditable
+            id="nb_nav_interroge"
             v-if="cols[8].enabled"
             v-model="pavillon.nb_nav_interroge"
             :value="pavillon.nb_nav_interroge"
         >
         </TdEditable>
-        <td class="td-add-column td-table-controle"></td>
+        <td class="td-add-column td-table-controle" :id="'add_column_' + id"></td>
       </tr>
       <tr class="total-control">
         <th scope="row" class="th-foot-controle">Total</th>
@@ -114,7 +125,7 @@
       </tr>
       </tfoot>
     </table>
-    <div class="add-pavillon" v-on:click="addPav($event)">
+    <div class="add-pavillon" v-on:click="addPav($event)" :id="'ajout_pavillon_' + id">
       <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
       <span class="icon-text">Ajouter un pavillon</span>
     </div>
@@ -130,13 +141,14 @@ export default {
   },
   props: {
     id: {
-      type: Number,
+      type: String,
       default: null
     },
     pavillons: {
       type: Array,
       default: null
-    }
+    },
+    controleId: Number
   },
   mounted() {
     this.pavillons.forEach((pavillon, index) => {

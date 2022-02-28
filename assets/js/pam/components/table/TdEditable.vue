@@ -11,7 +11,7 @@
   </td>
   <td
       v-else-if="total"
-      :class="'td-table-controle ' + classList"
+      :class="'td-table-total td-table-controle ' + classList"
       v-text="value"
   >
   </td>
