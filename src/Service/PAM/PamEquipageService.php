@@ -2,6 +2,7 @@
 
 namespace App\Service\PAM;
 
+use App\Entity\Agent;
 use App\Entity\FonctionAgent;
 use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\PamEquipage;
@@ -56,9 +57,9 @@ class PamEquipageService {
      *
      * @param string|null $fullName
      *
-     * @return array
+     * @return Agent[]
      */
-    public function autocomplete(?string $fullName) : array
+    public function autocomplete(?string $fullName = null) : array
     {
         return $this->agentRepository->autocomplete($fullName);
     }
