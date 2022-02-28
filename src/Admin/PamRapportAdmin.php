@@ -72,8 +72,6 @@ final class PamRapportAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('created_at')
-            ->add('updated_at')
             ->add('nb_jours_mer')
             ->add('nav_eff')
             ->add('mouillage')
