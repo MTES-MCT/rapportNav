@@ -89,9 +89,8 @@ class RapportType extends AbstractType {
                 'query_builder' => function(EntityRepository $er) use ($service, $dateCheckAgentsPresents) {
                     return $er->createQueryBuilder('a')
                         ->where('a.service = :service')
-                        ->andWhere('a.dateArrivee < :date')
+                        ->andWhere('a.dateArrivee <= :date')
                         ->andWhere('a.dateDepart IS NULL OR a.dateDepart > :date')
-                        ->andWhere('a.dateArrivee < :date')
                         ->setParameters(["service" => $service, "date" => $dateCheckAgentsPresents]);
                 },
                 'multiple' => true,
