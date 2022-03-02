@@ -68,6 +68,8 @@ class AdminTest extends WebTestCase {
             ['/admin/app/pam-categorypamcontrole'],
             ['/admin/app/pam-categorypamindicateur'],
             ['/admin/app/pam-categorypammission'],
+            ['/admin/app/fonctionagent'],
+            ['/admin/app/fonctionparticuliereagent'],
             ['/admin/app/pam-pamrapport'],
         ];
     }
