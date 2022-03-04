@@ -10,26 +10,10 @@
       >
         {{col.title}}
       </th>
-      <th class="add-column dropbtn" :id="'add-btn_' + controleId">
-        <div class="add-column-label">
+      <th class="add-column dropbtn" :id="'add-btn_' + controleId" @click="dropdownHidden = !dropdownHidden" ref="tooltip">
+        <div class="add-column-label" >
           <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
           <span class="icon-text">Ajouter un PV, nav déroutés...</span>
-        </div>
-
-        <div class="dropdown" id="add-column_dropdown">
-          <ul id="add-column_list">
-            <li id="add-column_list_ajouter_pv">
-              <a href="#" class="dropdown-item" @click.prevent>Ajouter des pv</a>
-              <ul id="add-column_list_ajouter_pv__list">
-                <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 6">
-                  <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title" @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{col.title}}</a>
-                </li>
-              </ul>
-            </li>
-            <li v-for="(col, index) in cols" v-if="!col.enabled && index > 6">
-              <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title" @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{ col.title }}</a>
-            </li>
-          </ul>
         </div>
       </th>
       </thead>
@@ -128,6 +112,26 @@
     <div class="add-pavillon" v-on:click="addPav($event)" :id="'ajout_pavillon_' + id">
       <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
       <span class="icon-text">Ajouter un pavillon</span>
+    </div>
+    <div class="dropdown" id="add-column_dropdown" v-if="!dropdownHidden" v-click-outside="hideTooltip">
+      <ul id="add-column_list">
+        <li id="add-column_list_ajouter_pv">
+          <a href="#" class="dropdown-item" @click.prevent>Ajouter des pv</a>
+          <ul id="add-column_list_ajouter_pv__list">
+            <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 6">
+              <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title"
+                 @click.prevent="col.enabled = true"
+                 :id="'add-column_list_ajouter_pv__item_' + index">{{ col.title }}</a>
+            </li>
+          </ul>
+        </li>
+        <li v-for="(col, index) in cols" v-if="!col.enabled && index > 6">
+          <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title"
+             @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{
+              col.title
+            }}</a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -246,6 +250,14 @@ export default {
         }
       })
       return parseInt(result);
+    },
+    hideTooltip(event) {
+      if(this.$refs.tooltip) {
+        if(!this.$refs.tooltip.contains(event.target)) {
+          this.dropdownHidden = true;
+          console.log('i')
+        }
+      }
     }
   },
   data: function() {
@@ -261,7 +273,7 @@ export default {
         },
         {
           title: 'PV équipement sécu. permis de nav.',
-          enabled: false
+          enabled: true
         },
         {
           title: 'PV titre de navig. role/déc. eff',
@@ -287,7 +299,8 @@ export default {
           title: 'Navire interrogé',
           enabled: false
         },
-      ]
+      ],
+      dropdownHidden: true
     }
   }
 }
