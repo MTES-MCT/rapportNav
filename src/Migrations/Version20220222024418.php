@@ -27,7 +27,7 @@ final class Version20220222024418 extends AbstractMigration
         $this->addSql('CREATE TABLE fonction_agent (id INT NOT NULL, nom VARCHAR(124) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE fonction_particuliere_agent (id INT NOT NULL, nom VARCHAR(124) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('ALTER TABLE pam_equipage_agent ADD fonction_particuliere_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE pam_equipage_agent ADD fonction_id INT NOT NULL');
+        $this->addSql('ALTER TABLE pam_equipage_agent ADD fonction_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE pam_equipage_agent DROP role');
         $this->addSql('ALTER TABLE pam_equipage_agent DROP fonction_particuliere');
         $this->addSql('ALTER TABLE pam_equipage_agent ADD CONSTRAINT FK_EBC63E18EC0572DB FOREIGN KEY (fonction_particuliere_id) REFERENCES fonction_particuliere_agent (id) NOT DEFERRABLE INITIALLY IMMEDIATE');

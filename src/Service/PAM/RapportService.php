@@ -278,7 +278,7 @@ class RapportService {
                $membre->getAgent()->setService($service);
            }
 
-           $nomFonction = $membre->getFonction()->getNom();
+           $nomFonction = $membre->getFonction() ? $membre->getFonction()->getNom() : null;
             $fonction = $nomFonction ? $this->em->getRepository(FonctionAgent::class)->findOneBy(['nom' => $nomFonction]) : null;
             if($fonction) {
                 $membre->setFonction($fonction);

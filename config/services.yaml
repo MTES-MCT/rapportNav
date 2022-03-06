@@ -213,3 +213,17 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: rapport, label: "Rapports PAM" }
         public: true
+
+    admin.fonction_agent:
+        class: App\Admin\FonctionAgentAdmin
+        arguments: [~, App\Entity\FonctionAgent, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: FonctionAgent }
+        public: true
+
+    admin.fonction_particuliere_agent:
+        class: App\Admin\FonctionParticuliereAgentAdmin
+        arguments: [~, App\Entity\FonctionParticuliereAgent, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: FonctionParticuliereAgent }
+        public: true

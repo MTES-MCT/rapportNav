@@ -59,7 +59,7 @@ class PamEquipageAgent
     /**
      * @Groups({"view", "draft", "save_rapport"})
      * @ORM\ManyToOne(targetEntity=FonctionAgent::class, cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $fonction;
 
