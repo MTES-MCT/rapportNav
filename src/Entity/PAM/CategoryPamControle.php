@@ -26,11 +26,6 @@ class CategoryPamControle
      */
     private $nom;
 
-    public function __construct()
-    {
-        $this->controles = new ArrayCollection();
-    }
-
     public function setId(int $id) {
         $this->id = $id;
     }
@@ -48,36 +43,6 @@ class CategoryPamControle
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|PamControle[]
-     */
-    public function getControles(): Collection
-    {
-        return $this->controles;
-    }
-
-    public function addControle(PamControle $controle): self
-    {
-        if (!$this->controles->contains($controle)) {
-            $this->controles[] = $controle;
-            $controle->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeControle(PamControle $controle): self
-    {
-        if ($this->controles->removeElement($controle)) {
-            // set the owning side to null (unless already changed)
-            if ($controle->getCategory() === $this) {
-                $controle->setCategory(null);
-            }
-        }
 
         return $this;
     }
