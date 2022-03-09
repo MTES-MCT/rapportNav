@@ -52,7 +52,6 @@ export default {
         this.id = success.data.id;
 
       }
-      console.log(success.data)
     })
     .then(error => console.log(error))
   },
