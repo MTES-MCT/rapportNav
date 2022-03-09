@@ -33,17 +33,16 @@ class AgentRepository extends ServiceEntityRepository
      */
     public function autocomplete(?string $fullName) : array
     {
+        $fullName = strtoupper($fullName);
         $service = $this->tokenStorage->getToken()->getUser()->getService();
         $qb = $this->createQueryBuilder('a')
             ->where('a.service = :service');
 
         if($fullName) {
-            $qb->andWhere('a.prenom LIKE :prenom')
-                ->orWhere('a.nom LIKE :nom')
+            $qb->andWhere("upper(CONCAT(a.prenom, ' ', a.nom)) LIKE :fullName")
                 ->setParameters([
                     'service' => $service,
-                    'prenom' => $fullName .'%',
-                    'nom' => $fullName .'%'
+                    'fullName' => '%' . $fullName .'%',
                 ]);
         } else {
             $qb

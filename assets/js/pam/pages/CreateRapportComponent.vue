@@ -163,14 +163,15 @@ export default {
       if(errorsInformationGeneral.length === 0 && errorsShipActivity.length === 0) {
         axios.post(
             url,
-            JSON.stringify(this.rapport),
+            this.rapport,
             {
-              headers: {
-                'Content-Type': 'application/json'
+              onDownloadProgress: (progressEvent) => {
+                this.onFormSubmitting();
               }
             }
         ).then(
             (success) => {
+              this.$toast.dismiss(this.submittingToastID);
               this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
             }
         ).catch((error) => {
@@ -187,9 +188,14 @@ export default {
       }
       axios.post(
           url,
-          this.rapport
+          this.rapport, {
+            onDownloadProgress: (progressEvent) => {
+              this.onFormSubmitting();
+            }
+          }
       ).then(
           (success) => {
+            this.$toast.dismiss(this.submittingToastID);
             this.showToast("Le brouillon a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
             if(exit) {
               this.$router.push({
@@ -204,9 +210,15 @@ export default {
     putFormUpdate(exit) {
       axios.put(
           '/api/pam/rapport/' + this.rapport.id,
-          this.rapport
+          this.rapport,
+          {
+            onDownloadProgress: (progressEvent) => {
+              this.onFormSubmitting();
+            }
+          }
       )
       .then((success) => {
+        this.$toast.dismiss(this.submittingToastID);
         this.showToast("Le rapport n°" + this.rapport.id + " a été modifié avec succès", TYPE.SUCCESS, 'bottom-center');
         if(exit) {
           this.$router.push({
@@ -242,7 +254,7 @@ export default {
       this.rapport.controles = controles;
     },
     showToast(message, type, position) {
-      this.$toast(message, {
+      return this.$toast(message, {
         type: type,
         position: position
       })
@@ -255,6 +267,9 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+    },
+    onFormSubmitting() {
+       this.submittingToastID = this.showToast("Soumission du formulaire", TYPE.INFO, 'bottom-center');
     }
   },
   data() {
@@ -264,7 +279,8 @@ export default {
       saved: null,
       idDraft: null,
       idSave: null,
-      numReport: null
+      numReport: null,
+      submittingToastID: null
     }
   }
 };
