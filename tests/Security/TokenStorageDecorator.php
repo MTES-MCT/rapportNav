@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Security;
+namespace App\Tests\Security;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

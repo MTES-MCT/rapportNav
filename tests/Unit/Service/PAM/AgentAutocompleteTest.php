@@ -5,8 +5,8 @@ namespace App\Tests\Unit\Service\PAM;
 use App\DataFixtures\Tests\AgentsFixture;
 use App\DataFixtures\Tests\ServicesFixture;
 use App\DataFixtures\Tests\UsersFixture;
-use App\Security\Tests\SecurityTrait;
 use App\Service\PAM\PamEquipageService;
+use App\Tests\Security\SecurityTrait;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

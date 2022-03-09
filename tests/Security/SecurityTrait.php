@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Security\Tests;
+namespace App\Tests\Security;
 
 use App\Entity\Service;
 use App\Entity\User;
-use App\Security\TokenStorageDecorator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
