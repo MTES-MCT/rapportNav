@@ -33,6 +33,7 @@ class AgentRepository extends ServiceEntityRepository
      */
     public function autocomplete(?string $fullName) : array
     {
+        $fullName = strtoupper($fullName);
         $service = $this->tokenStorage->getToken()->getUser()->getService();
         $qb = $this->createQueryBuilder('a')
             ->where('a.service = :service');
