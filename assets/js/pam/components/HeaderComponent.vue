@@ -92,6 +92,7 @@
                   </li>
                   <li>
                     <button
+                        id="header_enregistrer_brouillon_btn"
                         class="fr-btn--menu fr-btn mr-2 fr-fi-save-fill fr-btn--secondary fr-btn--icon-left"
                         data-fr-opened="false"
                         aria-controls="modal-870"

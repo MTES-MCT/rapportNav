@@ -8,6 +8,7 @@
         :title="mission.category.nom"
         :indicateurs="mission.indicateurs"
         :expanded="mission.checked ? 'true' : 'false'"
+        :category-id="mission.category.id"
     ></AccordionIndicateurMissionComponent>
   </div>
 </div>

@@ -14,6 +14,7 @@
     </div>
     <div class="fr-col-lg-5 fr-col-md-4 fr-pl-4v"  ref="suggestionList">
       <input class="fr-input" type="text" placeholder="Ajouter des membres" v-model="tmpAgent.fullName"
+             id="input_ajouter_membres"
              @keydown="createNewMember($event.target.value); fetchAutocomplete()"
              @click="hidden = !hidden"
       >
@@ -34,12 +35,13 @@
           <div class="fr-container--fluid">
             <div class="fr-grid-row suggestionsList" v-for="(suggestion, index) in suggestionsList">
               <div class="fr-col-7">
-                <div class="text-14 text-left">
+                <div class="text-14 text-left" >
                   {{ suggestion.agent.prenom }} {{ suggestion.agent.nom }}
                 </div>
               </div>
               <div class="fr-col-5">
                 <button
+                    :id="'ajout_suggestion_' + index"
                     class="fr-btn--menu fr-btn fr-btn--sm fr-fi-add-circle-fill fr-btn--secondary fr-btn--icon-left"
                     title="Enregistrer"
                     @click="addAgent(suggestion)"
@@ -55,9 +57,9 @@
           <div class="fr-container--fluid">
             <span class="text-left text-muted text-14 text-italic fr-mt-2v ">Ajouter "{{tmpAgent.fullName}}"</span>
             <div class="fr-input-group fr-mt-5v">
-              <select class="fr-select" v-model="tmpAgent.fonction">
+              <select class="fr-select" v-model="tmpAgent.fonction" id="fonction_select">
                 <option :value="{nom: ''}" selected disabled hidden>Poste : - sélectionner - </option>
-                <option v-for="fonction in fonctions" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
+                <option v-for="(fonction, index) in fonctions" :value="{id: fonction.id, nom: fonction.nom}" :id="'fonction_' + index">{{ fonction.nom }}</option>
               </select>
 
               <select class="fr-select" v-model="tmpAgent.fonctionParticuliere">
@@ -66,10 +68,11 @@
               </select>
             </div>
             <div class="fr-input-group">
-              <textarea cols="30" rows="5" class="fr-input" v-model="tmpAgent.observations" placeholder="Observations"></textarea>
+              <textarea cols="30" rows="5" class="fr-input" v-model="tmpAgent.observations" placeholder="Observations" id="input_ajout_agent_observation"></textarea>
             </div>
 
             <button
+                id="btn_ajout_nouveau_agent"
                 class="fr-btn--menu fr-btn fr-btn--sm fr-fi-add-circle-fill fr-btn--secondary fr-btn--icon-left"
                 title="Enregistrer"
                 @click="addAgent()"
@@ -163,7 +166,7 @@ export default {
       }
     },
     hideTooltipNewAgent(event) {
-      if(!this.$refs.newAgent.contains(event.target)) {
+      if(this.$refs.newAgent && !this.$refs.newAgent.contains(event.target)) {
         this.hiddenNewAgent = true;
         this.hidden = true;
       }

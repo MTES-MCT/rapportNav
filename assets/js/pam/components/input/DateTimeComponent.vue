@@ -1,7 +1,7 @@
 <template>
   <div class="datetimepicker__group" ref="datetimepicker">
     <div class="datetimepicker">
-      <div class="date-picker">
+      <div class="date-picker" :id="id">
         <div
             class="selected-date"
             v-bind:class="[
@@ -18,7 +18,7 @@
 
           <i class="ri-calendar-fill datetimepicker__icon" aria-hidden="true"></i>
         </div>
-        <div class="dates" ref="dates" v-if="!hidden" v-click-outside="hideTooltip">
+        <div class="dates" ref="dates" v-if="!hidden" v-click-outside="hideTooltip" :id="id + '_dates'">
           <div class="month">
             <div class="arrows prev-mth" @click="goToPrevMonth">
               <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
@@ -35,10 +35,11 @@
             </div>
           </div>
 
-          <div class="datepicker__days">
+          <div class="datepicker__days" :id="id + '__days'">
             <div class="datepicker__day" :style="{width: getWeekStart() * 41 + 'px'}"></div>
             <div
-                v-for="day in amountDays" :key="day"
+                :id="id + '__day__' + index"
+                v-for="(day, index) in amountDays" :key="day"
                 class="datepicker__day"
                 v-bind:class="selectedDay === (day+1) && selectedYear === year && selectedMonth === month ? 'selected' : ''"
                 @click="onSelectDate(day)">
@@ -47,15 +48,15 @@
           </div>
           <hr>
           <div class="timepicker">
-          <span class="timepicker__label">
-            <i class="ri-time-fill" aria-hidden="true"></i>
-            Heure :
-          </span>
+            <span class="timepicker__label">
+              <i class="ri-time-fill" aria-hidden="true"></i>
+              Heure :
+            </span>
             <div class="timepicker__input-group">
-              <div class="timepicker__group__hour">
+              <div class="timepicker__group__hour" :id="id + '_timepicker__group_hour'">
                 <input type="number" min="0" max="23" @change="onChangeHour($event)" v-model="hour">
               </div>
-              <div class="timepicker__group__minute">
+              <div class="timepicker__group__minute" :id="id + '_timepicker__group_minute'">
                 <input type="number" min="0" max="59" @change="onChangeMinute($event)" v-model="minute">
               </div>
             </div>
@@ -89,7 +90,8 @@ export default {
   name: 'DateTimeComponent',
   props: {
     value: String,
-    error: Boolean
+    error: Boolean,
+    id: String
   },
   mounted() {
     let date = new Date();

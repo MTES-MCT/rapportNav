@@ -11,6 +11,7 @@
           <DateTimeComponent
               v-model:value="startDateTime"
               :error="hasError('startDateTime')"
+              id="datetimePicker_start"
           ></DateTimeComponent>
 
           <label class="fr-label fr-mr-6v fr-ml-6v">
@@ -19,6 +20,7 @@
           <DateTimeComponent
               v-model:value="endDateTime"
               :error="hasError('endDateTime')"
+              id="datetimePicker_end"
           ></DateTimeComponent>
         </div>
         <div class="divider-horizontal"></div>

@@ -9,7 +9,7 @@
       <div class="box-dropdown fr-mt-2w">
         <ul class="fr-accordions-group" >
           <li v-for="(controle, index) in controlesByType" :key="controle.id">
-            <div class="box-shadow-card" :id="controle.id">
+            <div class="box-shadow-card" :id="'controle_op_' + controle.id">
               <section class="fr-accordion box-shadow-card-body">
                 <div class="fr-accordion__title ">
                   <div class="fr-container--fluid">
@@ -28,7 +28,8 @@
                 <div class="fr-collapse" :id="'accordion-' + controle.id ">
                   <div class="divider-horizontal--accordion"></div>
                   <TableControleComponent
-                      :id="controle.id"
+                      :id="'controle_op_table_' + controle.id"
+                      :controle-id="controle.id"
                       :pavillons="controle.pavillons"
                       @get-controles="getPav">
                   </TableControleComponent>

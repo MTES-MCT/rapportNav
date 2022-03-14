@@ -11,7 +11,7 @@
               <div class="fr-container">
                 <h6 id="fr-modal-title-modal-controle">Ajouter un contrôle</h6>
                 <div class="row-flex fr-mt-2w">
-                  <div class="add-control-box" @click="addComponent('Contrôle en mer de navires de pêche professionnelle', 1)">
+                  <div class="add-control-box" id="controle_mer_peche_pro" @click="addComponent('Contrôle en mer de navires de pêche professionnelle', 1)">
                     <img
                         class="svg-icon icon-peche-pro"
                         src="../../../../css/svg/ship.svg"
@@ -22,7 +22,7 @@
                       Contrôle en mer de navires de pêche professionnelle
                     </span>
                   </div>
-                  <div class="add-control-box" @click="addComponent('Contrôle en mer de navires de plaisance professionnelle', 2)">
+                  <div class="add-control-box" id="controle_mer_plaisance_pro" @click="addComponent('Contrôle en mer de navires de plaisance professionnelle', 2)">
                     <img
                         class="svg-icon icon-plaisance-pro"
                         src="../../../../css/svg/surface1.svg"

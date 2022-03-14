@@ -31,6 +31,7 @@
                 <ul class="fr-links-group">
                   <li>
                     <button
+                        id="home_header_creer_un_rapport_btn"
                         class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left mr-2"
                         title="Créer un rapport"
                         @click="createRapport">

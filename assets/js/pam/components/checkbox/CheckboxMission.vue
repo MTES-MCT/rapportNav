@@ -80,7 +80,7 @@ export default {
   },
   data() {
     return {
-      id: this._uid,
+      id: this.mission.category.id,
       checkboxGroupId: 'checkbox-group-' + this._uid,
       active: 'main-task-active',
       clicked: false,
