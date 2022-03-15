@@ -12,7 +12,7 @@
 }
 
 .InputAddOn:focus-within {
-    padding: 3px;
+    padding: 1px;
     border: #4976BA 2px solid;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
