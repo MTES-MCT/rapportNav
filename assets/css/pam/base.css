@@ -9,7 +9,6 @@
 .InputAddOn-field {
     outline-offset: 0;
     outline-width: 0;
-    outline-color: #f60a64;
 }
 
 .InputAddOn:focus-within {
