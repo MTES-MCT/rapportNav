@@ -175,7 +175,7 @@ export default {
               this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
             }
         ).catch((error) => {
-          this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center');
+          this.showToast("Erreur lors de l'envoi du formulaire.", TYPE.ERROR, 'bottom-center');
         })
       } else {
         this.showToast("Erreur, merci de remplir les champs obligatoires", TYPE.ERROR, 'bottom-center');
@@ -203,7 +203,7 @@ export default {
               });
             }
           },
-          (error) => this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center')
+          (error) => this.showToast("Erreur lors de l'envoi du formulaire.", TYPE.ERROR, 'bottom-center')
       )
 
     },
@@ -227,7 +227,7 @@ export default {
         }
       })
       .catch((error) => {
-        this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center');
+        this.showToast("Erreur lors de l'envoi du formulaire.", TYPE.ERROR, 'bottom-center');
       })
     },
     setDates(date) {
