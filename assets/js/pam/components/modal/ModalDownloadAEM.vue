@@ -11,6 +11,9 @@
               <h1 id="fr-modal-title-modal-download" class="modal-download-title">
                 Télécharger le rapport AEM pour la période du :
               </h1>
+              <div class="alert-download-danger fr-mt-2w fr-mb-4w">
+                Merci de noter que seuls les rapports <span class="text-bold">validés</span> sont exportés.
+              </div>
 
               <div class="date-range-select">
                 <div class="date-select">
@@ -64,33 +67,11 @@
                 </div>
               </div>
 
-              <div class="rapport-status-check">
-                <div class="fr-form-group">
-                  <fieldset class="fr-fieldset fr-fieldset--inline">
-                    <legend class="fr-fieldset__legend" id="download-rapport-radio-1">
-                      Dont le statut est
-                    </legend>
-                    <div class="fr-fieldset__content">
-                      <div class="fr-radio-group">
-                        <input type="radio" id="radio-inline-1" name="radio-status" @change="withDraft = false" checked>
-                        <label class="fr-label" for="radio-inline-1">Validé uniquement
-                        </label>
-                      </div>
-                      <div class="fr-radio-group">
-                        <input type="radio" id="radio-inline-2" name="radio-status" @change="withDraft = true">
-                        <label class="fr-label" for="radio-inline-2">Validé et brouillon
-                        </label>
-                      </div>
-                    </div>
-                  </fieldset>
-                </div>
-              </div>
-
               <div class="rapport-equipe-radio">
                 <div class="fr-form-group">
                   <fieldset class="fr-fieldset fr-fieldset--inline">
                     <legend class="fr-fieldset__legend" id='download-rapport-radio-2'>
-                      Et dont l'équipe est :
+                      Dont l'équipe est :
                     </legend>
                     <div class="fr-fieldset__content">
                       <div class="fr-radio-group">
@@ -134,9 +115,6 @@ export default {
       const firstDate = this.firstMonth + '-' + this.firstYear;
       const lastDate = this.lastMonth + '-' + this.lastYear;
       let url = '/api/pam/export/aem/' + firstDate + '/' + lastDate;
-      if(this.withDraft) {
-        url = url + '?draft=true';
-      }
       if(this.wholeTeams) {
         url = url.includes('?') ? url + '&teams=true' : url + '?teams=true';
       }
@@ -159,7 +137,6 @@ export default {
       firstYear: new Date().getFullYear(),
       lastMonth: '31-03',
       lastYear: new Date().getFullYear(),
-      withDraft: false,
       wholeTeams: false,
       years: []
     }
