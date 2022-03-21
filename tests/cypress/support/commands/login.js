@@ -10,7 +10,7 @@ Cypress.Commands.add('loginAsUser', () => {
                 url: '/login_check',
                 form: true,
                 body: {
-                    _username: 'alfred.de-musset',
+                    _username: Cypress.env('user'),
                     _password: Cypress.env('userPassword'),
                     _csrf_token: csrf,
                     _submit: 'connexion'
