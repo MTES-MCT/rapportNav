@@ -12,7 +12,6 @@ use App\Entity\PAM\PamEquipage;
 use App\Entity\PAM\PamEquipageAgent;
 use App\Entity\PAM\PamIndicateur;
 use App\Entity\PAM\PamMission;
-use App\Entity\Service;
 use App\Request\PAM\DraftRequest;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
