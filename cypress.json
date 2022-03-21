@@ -10,6 +10,7 @@
   "viewportWidth": 1440,
   "viewportHeight": 900,
   "env": {
+    "user": "alfred.de-musset",
     "userPassword": "1234"
   }
 }

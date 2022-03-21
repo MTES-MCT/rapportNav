@@ -6,6 +6,18 @@
 @import "components/my-reports.css";
 @import "components/download.css";
 
+.InputAddOn-field {
+    outline-offset: 0;
+    outline-width: 0;
+}
+
+.InputAddOn:focus-within {
+    padding: 1px;
+    border: #4976BA 2px solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
 .btn-group {
     display: flex;
     justify-content: space-between;
