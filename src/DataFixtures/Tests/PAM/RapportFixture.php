@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
+use App\DataFixtures\Tests\ServicesFixture;
 use App\Entity\FonctionAgent;
 use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\CategoryPamControle;
@@ -18,10 +19,11 @@ use App\Entity\Agent;
 use App\Entity\Service;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface {
+class RapportFixture extends Fixture implements FixtureGroupInterface, DependentFixtureInterface {
 
     public static function getGroups(): array {
         return ['test'];
@@ -47,11 +49,6 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
     private function createRapport(ObjectManager $manager, int $keyID, int $month, $fonction, $fonctionParticuliere)
     {
         $currentYear = new \DateTime();
-        $service = new Service();
-
-        $service->setNom('PAM_test');
-
-        $manager->persist($service);
 
         $rapport = new PamRapport();
 
@@ -116,7 +113,7 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
 
 
         $rapport->setId('MED-' . $currentYear->format('Y') . '-' . $keyID);
-        $rapport->setCreatedBy($service);
+        $rapport->setCreatedBy($this->getReference('service'));
 
         $rapportID = new PamRapportId();
 
@@ -127,7 +124,9 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
         $manager->flush();
     }
 
-    public function getOrder() {
-        return 4;
+    public function getDependencies() {
+        return  [
+            ServicesFixture::class,
+        ];
     }
 }

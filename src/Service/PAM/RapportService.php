@@ -216,12 +216,14 @@ class RapportService {
     }
 
     /**
+     * @param Service $service
+     *
      * @return array
      */
-    public function listAll(): array
+    public function listAll(Service $service): array
     {
-        $drafts = $this->em->getRepository(PamDraft::class)->findAll();
-        $rapports = $this->em->getRepository(PamRapport::class)->findAll();
+        $drafts = $this->em->getRepository(PamDraft::class)->findBy(['created_by' => $service]);
+        $rapports = $this->em->getRepository(PamRapport::class)->findBy(['created_by' => $service]);
         $idsRapport = [];
         $results = [];
 

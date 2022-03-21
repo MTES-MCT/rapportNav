@@ -3,6 +3,7 @@
 namespace App\Repository\PAM;
 
 use App\Entity\PAM\PamEquipage;
+use App\Entity\Service;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,12 +22,17 @@ class PamEquipageRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param Service $service
+     *
      * @return PamEquipage|null
      * @throws NonUniqueResultException
      */
-    public function findLastEquipage() : ?PamEquipage
+    public function findLastEquipage(Service $service) : ?PamEquipage
     {
         return $this->createQueryBuilder('e')
+            ->leftJoin('e.rapport', 'r')
+            ->where('r.created_by = :service')
+            ->setParameter('service', $service)
             ->orderBy('e.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()

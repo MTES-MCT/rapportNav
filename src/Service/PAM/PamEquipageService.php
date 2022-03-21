@@ -6,6 +6,7 @@ use App\Entity\Agent;
 use App\Entity\FonctionAgent;
 use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\PamEquipage;
+use App\Entity\Service;
 use App\Repository\AgentRepository;
 use App\Repository\FonctionAgentRepository;
 use App\Repository\FonctionParticuliereAgentRepository;
@@ -45,11 +46,15 @@ class PamEquipageService {
 
     /**
      * Retrieve the last equipage used
+     *
+     * @param Service $service
+     *
      * @return PamEquipage|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getLastEquipage() : ?PamEquipage
+    public function getLastEquipage(Service $service) : ?PamEquipage
     {
-        return $this->equipageRepository->findLastEquipage();
+        return $this->equipageRepository->findLastEquipage($service);
     }
 
     /**
