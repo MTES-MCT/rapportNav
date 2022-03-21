@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
+use App\DataFixtures\Tests\ServicesFixture;
 use App\Entity\Agent;
 use App\Entity\FonctionAgent;
 use App\Entity\PAM\CategoryPamIndicateur;
@@ -15,10 +16,11 @@ use App\Entity\Service;
 use App\Request\PAM\DraftRequest;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class DraftFixture extends Fixture implements FixtureGroupInterface {
+class DraftFixture extends Fixture implements FixtureGroupInterface, DependentFixtureInterface {
 
     protected $serializer;
 
@@ -32,10 +34,10 @@ class DraftFixture extends Fixture implements FixtureGroupInterface {
 
     public function load(ObjectManager $manager)
     {
+        $service = $this->getReference('service');
         $draft1 = new PamDraft();
         $draft2 = new PamDraft();
         $current = new \DateTime();
-        $service = $manager->getRepository(Service::class)->findOneBy(['nom' => 'PAM_test']);
 
         $body = new DraftRequest();
         $body->setStartDatetime($current);
@@ -92,5 +94,11 @@ class DraftFixture extends Fixture implements FixtureGroupInterface {
         $manager->persist($draft2);
 
         $manager->flush();
+    }
+
+    public function getDependencies() {
+        return [
+            ServicesFixture::class,
+        ];
     }
 }

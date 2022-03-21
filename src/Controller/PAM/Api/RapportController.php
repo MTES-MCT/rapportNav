@@ -163,7 +163,7 @@ class RapportController extends AbstractFOSRestController {
      */
     public function list() : View
     {
-        return View::create($this->createRapportService->listAll(), Response::HTTP_OK);
+        return View::create($this->createRapportService->listAll($this->getUser()->getService()), Response::HTTP_OK);
     }
 
 }

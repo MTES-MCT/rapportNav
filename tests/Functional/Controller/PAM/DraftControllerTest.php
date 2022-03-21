@@ -5,6 +5,7 @@ namespace App\Tests\Functional\Controller\PAM;
 use App\DataFixtures\Tests\PAM\ControleTypeFixture;
 use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
+use App\DataFixtures\Tests\ServicesFixture;
 use App\DataFixtures\Tests\UsersFixture;
 use App\Entity\PAM\PamDraft;
 use App\Repository\PAM\PamDraftRepository;
@@ -20,6 +21,7 @@ class DraftControllerTest extends WebTestCase {
 
     protected function setUp(): void {
         $this->loadFixtures([
+            ServicesFixture::class,
             UsersFixture::class,
             MissionTypeFixture::class,
             IndicateurTypeFixture::class,
