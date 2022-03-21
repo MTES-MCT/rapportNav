@@ -9,7 +9,7 @@
         "test": "cypress open"
     },
     "dependencies": {
-        "@braintree/sanitize-url": "^5.0.2",
+        "@braintree/sanitize-url": "^6.0.0",
         "@gouvfr/dsfr": "1.2.0",
         "axios": "^0.24.0",
         "jquery": "^3.4.1",
