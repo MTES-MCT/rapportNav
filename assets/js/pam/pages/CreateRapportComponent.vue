@@ -53,8 +53,8 @@
                 v-if="rapport.controles"
                 :controles="rapport.controles"
                 @get-controles="getControles"
-            >
-            </RapportAccordionComponent>
+                @get-autres-missions="getAutresMission"
+                :autre-mission="rapport.autreMission" />
 
 
             <!-- Indicateurs de mission-->
@@ -270,6 +270,9 @@ export default {
     },
     onFormSubmitting() {
        this.submittingToastID = this.showToast("Soumission du formulaire", TYPE.INFO, 'bottom-center');
+    },
+    getAutresMission(value) {
+      this.rapport.autreMission = value;
     }
   },
   data() {

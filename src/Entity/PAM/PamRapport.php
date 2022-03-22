@@ -177,6 +177,12 @@ class PamRapport
      */
     private $type = 'validé';
 
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\OneToOne(targetEntity=PamAutreMission::class, cascade={"persist", "remove"})
+     */
+    private $autreMission;
+
 
     public function __construct()
     {
@@ -550,6 +556,18 @@ class PamRapport
      */
     public function setType(string $type): void {
         $this->type = $type;
+    }
+
+    public function getAutreMission(): ?PamAutreMission
+    {
+        return $this->autreMission;
+    }
+
+    public function setAutreMission(?PamAutreMission $autreMission): self
+    {
+        $this->autreMission = $autreMission;
+
+        return $this;
     }
 
 
