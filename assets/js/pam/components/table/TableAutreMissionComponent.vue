@@ -1,6 +1,6 @@
 <template>
   <div class="table-custom" @keyup="getData">
-    <table class="table-controle" :id="id">
+    <table class="table-controle" :id="id" aria-label="autres-missions">
       <thead class="thead-controle">
         <th></th>
         <th :class="'th-table-controle-' + categoryControleId">Nombre d'opérations</th>
