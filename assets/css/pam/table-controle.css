@@ -14,7 +14,9 @@
     height: 32px;
     background-color: #F9F8F6;
 }
-
+.th-row-autre-mission {
+    padding: 10px;
+}
 .thead-controle {
     text-align: center;
     line-height: 1rem;
