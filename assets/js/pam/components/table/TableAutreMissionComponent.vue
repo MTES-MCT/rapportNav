@@ -47,33 +47,10 @@ export default {
     id: String,
     entity: Object
   },
-  mounted() {
-    if(this.entity) {
-      this.model.nbAssistanceSauvetage = this.entity.nbAssistanceSauvetage;
-      this.model.dureeAssistanceSauvetage = this.entity.dureeAssistanceSauvetage;
-      this.model.nbManifestationsNautiques = this.entity.nbManifestationsNautiques;
-      this.model.dureeManifestionsNautiques = this.entity.dureeManifestionsNautiques;
-      this.model.nbLuttePollution = this.entity.nbLuttePollution;
-      this.model.dureeLuttePollution = this.entity.dureeLuttePollution;
-    }
-    this.entity = this.model;
-  },
   methods: {
     getData() {
-      this.$emit('get-autres-missions', this.model)
+      this.$emit('get-autres-missions', this.entity)
     },
-  },
-  data() {
-    return {
-      model: {
-        nbAssistanceSauvetage: 0,
-        dureeAssistanceSauvetage: 0,
-        nbManifestationsNautiques: 0,
-        dureeManifestionsNautiques: 0,
-        nbLuttePollution: 0,
-        dureeLuttePollution: 0
-      }
-    }
   }
 }
 </script>
