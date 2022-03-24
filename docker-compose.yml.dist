@@ -41,10 +41,10 @@ services:
         - 8585:8080
 
     maildev:
-        image: djfarrelly/maildev
+        image: schickling/mailcatcher
         container_name: rnav_maildev
         ports:
-          - 8001:80
+          - [1025, 1080]
 
     node:
       image: node:latest
