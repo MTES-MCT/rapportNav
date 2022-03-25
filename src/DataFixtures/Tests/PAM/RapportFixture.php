@@ -16,11 +16,9 @@ use App\Entity\PAM\PamMission;
 use App\Entity\PAM\PamRapport;
 use App\Entity\PAM\PamRapportId;
 use App\Entity\Agent;
-use App\Entity\Service;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class RapportFixture extends Fixture implements FixtureGroupInterface, DependentFixtureInterface {

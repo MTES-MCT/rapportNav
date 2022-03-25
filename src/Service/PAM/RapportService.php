@@ -200,6 +200,8 @@ class RapportService {
             }
         }
 
+        $existingRapport->setAutreMission($rapport->getAutreMission());
+
         $formData = json_decode($request->getContent(), true); // conversion json request en array
 
         $form->submit($formData, false); // submit du formulaire avec les nouveaux elements

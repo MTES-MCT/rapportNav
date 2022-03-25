@@ -28,18 +28,25 @@
                 <div class="fr-collapse" :id="'accordion-' + controle.id ">
                   <div class="divider-horizontal--accordion"></div>
                   <TableControleComponent
+                      v-if="controle.id !== 5"
                       :id="'controle_op_table_' + controle.id"
                       :controle-id="controle.id"
                       :pavillons="controle.pavillons"
-                      @get-controles="getPav">
-                  </TableControleComponent>
+                      @get-controles="getPav" />
+
+                  <TableAutreMissionComponent
+                  v-else
+                  :id="'controle_op_table_autre_missions' + controle.id"
+                  :category-controle-id="controle.id"
+                  :entity="autreMission"
+                  @get-autres-missions="getAutresMission"/>
                 </div>
               </section>
             </div>
             <ModalRemoveControle :index="index" @remove="removeType(index, controle)" />
           </li>
         </ul>
-        <ModalAddControle @clicked="onClickModal"></ModalAddControle>
+        <ModalAddControle @clicked="onClickModal" />
       </div>
   </div>
 </template>
@@ -49,16 +56,20 @@ import TableControleComponent from "../table/TableControleComponent";
 import TableIndicateurComponent from "../table/TableIndicateurComponent";
 import ModalAddControle from "../modal/ModalAddControle";
 import ModalRemoveControle from "../modal/ModalRemoveControle";
+import TableAutreMissionComponent from "../table/TableAutreMissionComponent";
 export default {
   name: "RapportAccordionComponent",
-  components: {ModalRemoveControle, TableControleComponent, TableIndicateurComponent, ModalAddControle },
+  components: {
+    TableAutreMissionComponent,
+    ModalRemoveControle, TableControleComponent, TableIndicateurComponent, ModalAddControle },
   props: {
     controles: {
       type: Array,
       default: () => {
         return  []
-        },
-      }
+        }
+      },
+    autreMission: Object
   },
   mounted() {
     this.formatPavillons();
@@ -66,9 +77,9 @@ export default {
     this.displayControleMounted(this.controlesNavirePlaisancePro);
     this.displayControleMounted(this.controlesNavirePlaisanceLoisir)
     this.displayControleMounted(this.controlesTerrePechePro);
-    this.displayControleMounted(this.autresMission);
     this.displayControleMounted(this.controlesTerrePlaisanceLoisir);
     this.displayControleMounted(this.controlesTerrePlaisancePro);
+    this.displayAutreMissionMounted(this.autreMission);
   },
   data: function() {
     return {
@@ -87,10 +98,6 @@ export default {
       },
       controlesTerrePechePro: {
         id: 4,
-        pavillons: []
-      },
-      autresMission: {
-        id: 5,
         pavillons: []
       },
       controlesTerrePlaisanceLoisir: {
@@ -147,6 +154,9 @@ export default {
       return self.indexOf(value) === index;
     },
     removeType(index, category) {
+      if(category.id === 5) {
+        this.getAutresMission(null);
+      }
       this.controlesByType.splice(index, 1);
       this.controles.forEach((controle, index) => {
         if(controle.category.id === category.id) {
@@ -177,10 +187,6 @@ export default {
             this.controlesTerrePechePro.pavillons.push(controle);
             break;
 
-          case 5:
-            this.autresMission.nom = controle.category.nom;
-            this.autresMission.pavillons.push(controle);
-            break;
           case 6:
             this.controlesTerrePlaisanceLoisir.nom = controle.category.nom;
             this.controlesTerrePlaisanceLoisir.pavillons.push(controle);
@@ -196,6 +202,18 @@ export default {
       if(obj.pavillons.length > 0) {
         this.controlesByType.push(obj);
       }
+    },
+    getAutresMission(value) {
+      this.$emit('get-autres-missions', value)
+    },
+    displayAutreMissionMounted(obj) {
+      if(Object.keys(obj).length > 0) {
+        let controle = {};
+        controle.id = 5;
+        controle.nom = 'Autres missions';
+        this.controlesByType.push(controle)
+      }
+
     }
   }
 }

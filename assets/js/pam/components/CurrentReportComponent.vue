@@ -53,7 +53,7 @@ export default {
 
       }
     })
-    .then(error => console.log(error))
+    .catch(error => console.log(error))
   },
   methods: {
     editRapport() {

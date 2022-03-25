@@ -36,6 +36,7 @@
       "pavillon": "FR"
     }
   ],
+  "autreMission": {},
   "missions": [
     {
       "checked": false,
