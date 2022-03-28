@@ -6,7 +6,7 @@
       <th
           :class="'th-table-controle-' + controleId"
           v-for="(col, counter) in cols"
-          v-if="col.enabled === true "
+          v-if="col.enabled === true"
       >
         {{col.title}}
       </th>
@@ -95,8 +95,15 @@
         >
         </TdEditable>
         <TdEditable
-            id="nb_nav_interroge"
+            id="nb_nav_deroute_env__pollution"
             v-if="cols[9].enabled"
+            v-model="pavillon.nb_nav_deroute_env_pollution"
+            :value="pavillon.nb_nav_deroute_env_pollution"
+        >
+        </TdEditable>
+        <TdEditable
+            id="nb_nav_interroge"
+            v-if="cols[10].enabled"
             v-model="pavillon.nb_nav_interroge"
             :value="pavillon.nb_nav_interroge"
         >
@@ -125,14 +132,14 @@
         <li id="add-column_list_ajouter_pv">
           <a href="#" class="dropdown-item" @click.prevent>Ajouter des pv</a>
           <ul id="add-column_list_ajouter_pv__list">
-            <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 7">
+            <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 7 && isInclude(col.controleCategoriesId)">
               <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title"
                  @click.prevent="col.enabled = true"
                  :id="'add-column_list_ajouter_pv__item_' + index">{{ col.title }}</a>
             </li>
           </ul>
         </li>
-        <li v-for="(col, index) in cols" v-if="!col.enabled && index > 7">
+        <li v-for="(col, index) in cols" v-if="!col.enabled && index > 7 && isInclude(col.controleCategoriesId)">
           <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title"
              @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{
               col.title
@@ -191,13 +198,22 @@ export default {
         if(pavillon.nb_nav_deroute) {
           this.cols[8].enabled = true
         }
+        if(pavillon.nb_nav_deroute_env_pollution) {
+          this.cols[8].enabled = true
+        }
         if(pavillon.nb_nav_interroge) {
           this.cols[9].enabled = true
         }
       }
     })
   },
+  computed: {
+
+  },
   methods: {
+    isInclude(categoriesId) {
+      return categoriesId.includes(this.controleId);
+    },
     addPav(event) {
       const newPav = {
         category: {
@@ -214,6 +230,7 @@ export default {
         nb_pv_env_pollution: 0,
         nb_autre_pv: 0,
         nb_nav_deroute: 0,
+        nb_nav_deroute_env_pollution: 0,
         nb_nav_interroge: 0
       };
       this.pavillons.push(newPav);
@@ -260,6 +277,10 @@ export default {
             break;
 
           case 9:
+            result += el.nb_nav_deroute_env_pollution;
+            break;
+
+          case 10:
             result += el.nb_nav_interroge;
             break;
         }
@@ -279,43 +300,80 @@ export default {
       cols: [
         {
           title: 'Nb de navires controlé',
-          enabled: true
+          enabled: true,
+          controleCategoriesId: [
+            1, 2, 3, 4, 6, 7
+          ]
         },
         {
           title: 'Nb de contrôles pêche sanitaire',
-          enabled: true
+          enabled: true,
+          controleCategoriesId: [
+              1, 2, 3, 4, 6, 7
+          ]
         },
         {
           title: 'Nb de pv pêches sanitaire',
-          enabled: false
+          enabled: false,
+          controleCategoriesId: [
+            1, 2, 3, 4, 6, 7
+          ]
         },
         {
           title: 'PV équipement sécu. permis de nav.',
-          enabled: false
+          enabled: false,
+          controleCategoriesId: [
+            1, 2, 3, 4, 6, 7
+          ]
         },
         {
           title: 'PV titre de navig. role/déc. eff',
-          enabled: false
+          enabled: false,
+          controleCategoriesId: [
+            1, 2, 4, 6
+          ]
         },
         {
           title: 'PV police navigation',
-          enabled: false
+          enabled: false,
+          controleCategoriesId: [
+            1, 2, 3
+          ]
         },
         {
           title: 'PV environnement pollution',
-          enabled: false
+          enabled: false,
+          controleCategoriesId: [
+            1, 2, 3, 4, 6, 7
+          ]
         },
         {
           title: 'Autres types de PV',
-          enabled: false
+          enabled: false,
+          controleCategoriesId: [
+            1, 2, 3, 4, 6, 7
+          ]
         },
         {
-          title: 'Navires dérouté',
-          enabled: false
+          title: 'Navires dérouté (pêche)',
+          enabled: false,
+          controleCategoriesId: [
+            1, 2, 3
+          ]
+        },
+        {
+          title: 'Navires dérouté (pollution/environnement)',
+          enabled: false,
+          controleCategoriesId: [
+            1, 2, 3
+          ]
         },
         {
           title: 'Navire interrogé',
-          enabled: false
+          enabled: false,
+          controleCategoriesId: [
+            1, 2, 3
+          ]
         }
       ],
       dropdownHidden: true
