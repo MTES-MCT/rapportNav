@@ -81,7 +81,7 @@
                       </div>
                       <div class="fr-radio-group">
                         <input type="radio" id="radio-inline-tout-equipe" name="radio-inline" @change="wholeTeams = true">
-                        <label class="fr-label" for="radio-inline-tout-equipe">Toutes les équipess
+                        <label class="fr-label" for="radio-inline-tout-equipe">Toutes les équipes
                         </label>
                       </div>
                     </div>

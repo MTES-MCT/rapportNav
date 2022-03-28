@@ -82,7 +82,7 @@
                   </div>
                 </div>
                 <div class="row-flex fr-mt-2w">
-                  <div class="add-control-box" @click="addComponent('Autre mission', 5)">
+                  <div class="add-control-box" @click="addComponent('Autres missions', 5)">
                     <img
                         class="svg-icon icon-other-mission"
                         src="../../../../css/svg/Path_240.svg"
@@ -90,7 +90,7 @@
                         height="14px"
                         width="50px" />
                     <span class="add-control-link">
-                      Autre mission
+                      Autres missions
                     </span>
                   </div>
                 </div>
