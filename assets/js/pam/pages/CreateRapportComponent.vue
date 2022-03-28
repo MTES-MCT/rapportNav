@@ -172,7 +172,9 @@ export default {
         ).then(
             (success) => {
               this.$toast.dismiss(this.submittingToastID);
-              this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+              this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center');
+              this.rapport = success.data;
+              this.saved = true;
             }
         ).catch((error) => {
           this.showToast("Erreur lors de l'envoi du formulaire.", TYPE.ERROR, 'bottom-center');
