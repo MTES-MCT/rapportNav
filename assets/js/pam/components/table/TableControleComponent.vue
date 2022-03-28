@@ -67,43 +67,50 @@
         >
         </TdEditable>
         <TdEditable
-            id="nb_pv_police"
+            id="nb_pv_titre_conduite"
             v-if="cols[5].enabled"
+            v-model="pavillon.nb_pv_titre_conduite"
+            :value="pavillon.nb_pv_titre_conduite"
+        >
+        </TdEditable>
+        <TdEditable
+            id="nb_pv_police"
+            v-if="cols[6].enabled"
             v-model="pavillon.nb_pv_police"
             :value="pavillon.nb_pv_police"
         >
         </TdEditable>
         <TdEditable
             id="nb_pv_env_pollution"
-            v-if="cols[6].enabled"
+            v-if="cols[7].enabled"
             v-model="pavillon.nb_pv_env_pollution"
             :value="pavillon.nb_pv_env_pollution"
         >
         </TdEditable>
         <TdEditable
             id="nb_autre_pv"
-            v-if="cols[7].enabled"
+            v-if="cols[8].enabled"
             v-model="pavillon.nb_autre_pv"
             :value="pavillon.nb_autre_pv"
         >
         </TdEditable>
         <TdEditable
             id="nb_nav_deroute"
-            v-if="cols[8].enabled"
+            v-if="cols[9].enabled"
             v-model="pavillon.nb_nav_deroute"
             :value="pavillon.nb_nav_deroute"
         >
         </TdEditable>
         <TdEditable
             id="nb_nav_deroute_env__pollution"
-            v-if="cols[9].enabled"
+            v-if="cols[10].enabled"
             v-model="pavillon.nb_nav_deroute_env_pollution"
             :value="pavillon.nb_nav_deroute_env_pollution"
         >
         </TdEditable>
         <TdEditable
             id="nb_nav_interroge"
-            v-if="cols[10].enabled"
+            v-if="cols[11].enabled"
             v-model="pavillon.nb_nav_interroge"
             :value="pavillon.nb_nav_interroge"
         >
@@ -132,14 +139,14 @@
         <li id="add-column_list_ajouter_pv">
           <a href="#" class="dropdown-item" @click.prevent>Ajouter des pv</a>
           <ul id="add-column_list_ajouter_pv__list">
-            <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 7 && isInclude(col.controleCategoriesId)">
+            <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 8 && isInclude(col.controleCategoriesId)">
               <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title"
                  @click.prevent="col.enabled = true"
                  :id="'add-column_list_ajouter_pv__item_' + index">{{ col.title }}</a>
             </li>
           </ul>
         </li>
-        <li v-for="(col, index) in cols" v-if="!col.enabled && index > 7 && isInclude(col.controleCategoriesId)">
+        <li v-for="(col, index) in cols" v-if="!col.enabled && index > 8 && isInclude(col.controleCategoriesId)">
           <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title"
              @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{
               col.title
@@ -186,23 +193,26 @@ export default {
         if(pavillon.nb_pv_titre_nav) {
           this.cols[4].enabled = true
         }
-        if(pavillon.nb_pv_police) {
+        if(pavillon.nb_pv_titre_conduite) {
           this.cols[5].enabled = true
         }
-        if(pavillon.nb_pv_env_pollution) {
+        if(pavillon.nb_pv_police) {
           this.cols[6].enabled = true
         }
-        if(pavillon.nb_autre_pv) {
+        if(pavillon.nb_pv_env_pollution) {
           this.cols[7].enabled = true
         }
-        if(pavillon.nb_nav_deroute) {
+        if(pavillon.nb_autre_pv) {
           this.cols[8].enabled = true
+        }
+        if(pavillon.nb_nav_deroute) {
+          this.cols[9].enabled = true
         }
         if(pavillon.nb_nav_deroute_env_pollution) {
-          this.cols[8].enabled = true
+          this.cols[10].enabled = true
         }
         if(pavillon.nb_nav_interroge) {
-          this.cols[9].enabled = true
+          this.cols[11].enabled = true
         }
       }
     })
@@ -225,6 +235,7 @@ export default {
         nb_pv_peche_sanitaire: 0,
         nb_controles_peche_sanitaire: 0,
         nb_pv_equipement_securite: 0,
+        nb_pv_titre_conduite: 0,
         nb_pv_titre_nav: 0,
         nb_pv_police: 0,
         nb_pv_env_pollution: 0,
@@ -259,28 +270,30 @@ export default {
           case 4:
             result += el.nb_pv_titre_nav;
             break;
-
           case 5:
+            result += el.nb_pv_titre_conduite;
+            break;
+          case 6:
             result += el.nb_pv_police;
             break;
 
-          case 6:
+          case 7:
             result += el.nb_pv_env_pollution;
             break;
 
-          case 7:
+          case 8:
             result += el.nb_autre_pv;
             break;
 
-          case 8:
+          case 9:
             result += el.nb_nav_deroute;
             break;
 
-          case 9:
+          case 10:
             result += el.nb_nav_deroute_env_pollution;
             break;
 
-          case 10:
+          case 11:
             result += el.nb_nav_interroge;
             break;
         }
@@ -330,8 +343,13 @@ export default {
           title: 'PV titre de navig. role/déc. eff',
           enabled: false,
           controleCategoriesId: [
-            1, 2, 4, 6
+            1, 2, 4
           ]
+        },
+        {
+          title: 'PV titre de conduite',
+          enabled: false,
+          controleCategoriesId: [6]
         },
         {
           title: 'PV police navigation',

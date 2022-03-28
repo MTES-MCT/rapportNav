@@ -125,6 +125,7 @@ export default {
         nb_pv_peche_sanitaire: 0,
         nb_pv_equipement_securite: 0,
         nb_pv_titre_nav: 0,
+        nb_pv_titre_conduite: 0,
         nb_pv_police: 0,
         nb_pv_env_pollution: 0,
         nb_autre_pv: 0,
