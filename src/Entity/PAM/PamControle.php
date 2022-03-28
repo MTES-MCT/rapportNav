@@ -93,6 +93,12 @@ class PamControle
      */
     private $category;
 
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nb_controles_peche_sanitaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -238,6 +244,18 @@ class PamControle
     public function setCategory(?CategoryPamControle $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getNbControlesPecheSanitaire(): ?int
+    {
+        return $this->nb_controles_peche_sanitaire;
+    }
+
+    public function setNbControlesPecheSanitaire(?int $nb_controles_peche_sanitaire): self
+    {
+        $this->nb_controles_peche_sanitaire = $nb_controles_peche_sanitaire;
 
         return $this;
     }
