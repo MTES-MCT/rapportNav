@@ -79,7 +79,7 @@ export default {
     this.displayControleMounted(this.controlesTerrePechePro);
     this.displayControleMounted(this.controlesTerrePlaisanceLoisir);
     this.displayControleMounted(this.controlesTerrePlaisancePro);
-    this.displayAutreMissionMounted(this.autreMission);
+    this.displayAutreMissionMounted();
   },
   data: function() {
     return {
@@ -206,14 +206,11 @@ export default {
     getAutresMission(value) {
       this.$emit('get-autres-missions', value)
     },
-    displayAutreMissionMounted(obj) {
-      if(Object.keys(obj).length > 0) {
-        let controle = {};
-        controle.id = 5;
-        controle.nom = 'Autres missions';
-        this.controlesByType.push(controle)
-      }
-
+    displayAutreMissionMounted() {
+      let controle = {};
+      controle.id = 5;
+      controle.nom = 'Autres missions';
+      this.controlesByType.push(controle);
     }
   }
 }
