@@ -16,10 +16,17 @@
 }
 .th-row-autre-mission {
     padding: 10px;
+    background-color: #F9F8F6;
+    font-weight: normal;
+    font-size: 14px;
+    border-right-color: #F9F8F6;
+}
+.td-blank {
+    background-color: #E5E5F4;
 }
 .thead-controle {
     text-align: center;
-    line-height: 1rem;
+    line-height: 2rem;
 }
 
 .thead-controle th {
