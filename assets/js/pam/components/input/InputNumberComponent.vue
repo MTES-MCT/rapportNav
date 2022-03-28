@@ -11,6 +11,7 @@
                 value ? 'fr-input-valid' : null
             ]"
             @keyup="valueChanged"
+            @change="valueChanged"
             min="0"
             :value="value"
             type="number"
