@@ -6,11 +6,11 @@
       <th
           :class="'th-table-controle-' + controleId"
           v-for="(col, counter) in cols"
-          v-if="col.enabled === true"
+          v-if="col.enabled === true "
       >
         {{col.title}}
       </th>
-      <th class="add-column dropbtn" :id="'add-btn_' + controleId" @click="dropdownHidden = false" ref="tooltip">
+      <th class="add-column dropbtn" :id="'add-btn_' + controleId" @click="dropdownHidden = false" ref="tooltip" v-if="controleId !== 5">
         <div class="add-column-label" >
           <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
           <span class="icon-text">Ajouter un PV, nav déroutés...</span>
@@ -39,62 +39,69 @@
         >
         </TdEditable>
         <TdEditable
+            id="nb_controles_peche_sanitaire"
+            v-if="cols[1].enabled"
+            v-model="pavillon.nb_controles_peche_sanitaire"
+            :value="pavillon.nb_controles_peche_sanitaire"
+        >
+        </TdEditable>
+        <TdEditable
             id="nb_pv_peche_sanitaire"
-            v-if="cols[1].enabled || pavillon.nb_pv_peche_sanitaire > 0"
+            v-if="cols[2].enabled"
             v-model="pavillon.nb_pv_peche_sanitaire"
             :value="pavillon.nb_pv_peche_sanitaire"
         >
         </TdEditable>
         <TdEditable
             id="nb_pv_equipement_securite"
-            v-if="cols[2].enabled"
+            v-if="cols[3].enabled"
             v-model="pavillon.nb_pv_equipement_securite"
             :value="pavillon.nb_pv_equipement_securite"
         >
         </TdEditable>
         <TdEditable
             id="nb_pv_titre_nav"
-            v-if="cols[3].enabled"
+            v-if="cols[4].enabled"
             v-model="pavillon.nb_pv_titre_nav"
             :value="pavillon.nb_pv_titre_nav"
         >
         </TdEditable>
         <TdEditable
             id="nb_pv_police"
-            v-if="cols[4].enabled"
+            v-if="cols[5].enabled"
             v-model="pavillon.nb_pv_police"
             :value="pavillon.nb_pv_police"
         >
         </TdEditable>
         <TdEditable
             id="nb_pv_env_pollution"
-            v-if="cols[5].enabled"
+            v-if="cols[6].enabled"
             v-model="pavillon.nb_pv_env_pollution"
             :value="pavillon.nb_pv_env_pollution"
         >
         </TdEditable>
         <TdEditable
             id="nb_autre_pv"
-            v-if="cols[6].enabled"
+            v-if="cols[7].enabled"
             v-model="pavillon.nb_autre_pv"
             :value="pavillon.nb_autre_pv"
         >
         </TdEditable>
         <TdEditable
             id="nb_nav_deroute"
-            v-if="cols[7].enabled"
+            v-if="cols[8].enabled"
             v-model="pavillon.nb_nav_deroute"
             :value="pavillon.nb_nav_deroute"
         >
         </TdEditable>
         <TdEditable
             id="nb_nav_interroge"
-            v-if="cols[8].enabled"
+            v-if="cols[9].enabled"
             v-model="pavillon.nb_nav_interroge"
             :value="pavillon.nb_nav_interroge"
         >
         </TdEditable>
-        <td class="td-add-column td-table-controle" :id="'add_column_' + id"></td>
+        <td class="td-add-column td-table-controle" :id="'add_column_' + id" v-if="controleId !== 5"></td>
       </tr>
       <tr class="total-control">
         <th scope="row" class="th-foot-controle">Total</th>
@@ -109,7 +116,7 @@
       </tr>
       </tfoot>
     </table>
-    <div class="add-pavillon" v-on:click="addPav($event)" :id="'ajout_pavillon_' + id">
+    <div class="add-pavillon" v-on:click="addPav($event)" :id="'ajout_pavillon_' + id" v-if="controleId !== 5" >
       <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
       <span class="icon-text">Ajouter un pavillon</span>
     </div>
@@ -118,14 +125,14 @@
         <li id="add-column_list_ajouter_pv">
           <a href="#" class="dropdown-item" @click.prevent>Ajouter des pv</a>
           <ul id="add-column_list_ajouter_pv__list">
-            <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 6">
+            <li v-for="(col, index) in cols" v-if="!col.enabled && index <= 7">
               <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title"
                  @click.prevent="col.enabled = true"
                  :id="'add-column_list_ajouter_pv__item_' + index">{{ col.title }}</a>
             </li>
           </ul>
         </li>
-        <li v-for="(col, index) in cols" v-if="!col.enabled && index > 6">
+        <li v-for="(col, index) in cols" v-if="!col.enabled && index > 7">
           <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title"
              @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{
               col.title
@@ -156,32 +163,37 @@ export default {
   },
   mounted() {
     this.pavillons.forEach((pavillon, index) => {
-      if(pavillon.nb_navire_controle) {
-        this.cols[0].enabled = true
-      }
-      if(pavillon.nb_pv_peche_sanitaire) {
-        this.cols[1].enabled = true;
-      }
-      if(pavillon.nb_pv_equipement_securite) {
-        this.cols[2].enabled = true
-      }
-      if(pavillon.nb_pv_titre_nav) {
-        this.cols[3].enabled = true
-      }
-      if(pavillon.nb_pv_police) {
-        this.cols[4].enabled = true
-      }
-      if(pavillon.nb_pv_env_pollution) {
-        this.cols[5].enabled = true
-      }
-      if(pavillon.nb_autre_pv) {
-        this.cols[6].enabled = true
-      }
-      if(pavillon.nb_nav_deroute) {
-        this.cols[7].enabled = true
-      }
-      if(pavillon.nb_nav_interroge) {
-        this.cols[8].enabled = true
+      if(this.controleId !== 5) {
+        if(pavillon.nb_navire_controle) {
+          this.cols[0].enabled = true
+        }
+        if(pavillon.nb_controles_peche_sanitaire) {
+          this.cols[1].enabled = true;
+        }
+        if(pavillon.nb_pv_peche_sanitaire) {
+          this.cols[2].enabled = true;
+        }
+        if(pavillon.nb_pv_equipement_securite) {
+          this.cols[3].enabled = true
+        }
+        if(pavillon.nb_pv_titre_nav) {
+          this.cols[4].enabled = true
+        }
+        if(pavillon.nb_pv_police) {
+          this.cols[5].enabled = true
+        }
+        if(pavillon.nb_pv_env_pollution) {
+          this.cols[6].enabled = true
+        }
+        if(pavillon.nb_autre_pv) {
+          this.cols[7].enabled = true
+        }
+        if(pavillon.nb_nav_deroute) {
+          this.cols[8].enabled = true
+        }
+        if(pavillon.nb_nav_interroge) {
+          this.cols[9].enabled = true
+        }
       }
     })
   },
@@ -195,6 +207,7 @@ export default {
         pavillon: 'FR',
         nb_navire_controle: 0,
         nb_pv_peche_sanitaire: 0,
+        nb_controles_peche_sanitaire: 0,
         nb_pv_equipement_securite: 0,
         nb_pv_titre_nav: 0,
         nb_pv_police: 0,
@@ -215,36 +228,38 @@ export default {
           case 0:
             result += el.nb_navire_controle;
             break;
-
           case 1:
+            result += el.nb_controles_peche_sanitaire;
+            break;
+          case 2:
             result += el.nb_pv_peche_sanitaire;
             break;
 
-          case 2:
+          case 3:
             result += el.nb_pv_equipement_securite;
             break;
 
-          case 3:
+          case 4:
             result += el.nb_pv_titre_nav;
             break;
 
-          case 4:
+          case 5:
             result += el.nb_pv_police;
             break;
 
-          case 5:
+          case 6:
             result += el.nb_pv_env_pollution;
             break;
 
-          case 6:
+          case 7:
             result += el.nb_autre_pv;
             break;
 
-          case 7:
+          case 8:
             result += el.nb_nav_deroute;
             break;
 
-          case 8:
+          case 9:
             result += el.nb_nav_interroge;
             break;
         }
@@ -267,8 +282,12 @@ export default {
           enabled: true
         },
         {
-          title: 'Pêches sanitaire',
+          title: 'Nb de contrôles pêche sanitaire',
           enabled: true
+        },
+        {
+          title: 'Nb de pv pêches sanitaire',
+          enabled: false
         },
         {
           title: 'PV équipement sécu. permis de nav.',
@@ -297,7 +316,7 @@ export default {
         {
           title: 'Navire interrogé',
           enabled: false
-        },
+        }
       ],
       dropdownHidden: true
     }
