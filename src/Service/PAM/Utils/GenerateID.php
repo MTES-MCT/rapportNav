@@ -3,11 +3,9 @@
 namespace App\Service\PAM\Utils;
 
 use App\Entity\PAM\PamRapportId;
-use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamRapportIdRepository;
-use App\Repository\PAM\PamRapportRepository;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class GenerateID {
 
@@ -16,10 +14,13 @@ class GenerateID {
 
     protected $em;
 
-    public function __construct(PamRapportIdRepository $pamIDRepo, EntityManagerInterface $em)
+    protected $tokenStorage;
+
+    public function __construct(PamRapportIdRepository $pamIDRepo, EntityManagerInterface $em, TokenStorageInterface $tokenStorage)
     {
         $this->pamIDRepo = $pamIDRepo;
         $this->em = $em;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function generate(): string
@@ -39,8 +40,8 @@ class GenerateID {
         $currentYear = new \DateTime();
         $currentYear = $currentYear->format('Y');
         $idKey = $lastIDKey + 1;
-
-        return 'MED-' . $currentYear . '-' . $idKey;
+        $quadrigramme = $this->tokenStorage->getToken()->getUser()->getService()->getQuadrigramme();
+        return "$quadrigramme-$currentYear-$idKey";
     }
 
 }
