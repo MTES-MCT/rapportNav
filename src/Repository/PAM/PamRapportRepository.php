@@ -55,8 +55,11 @@ class PamRapportRepository extends ServiceEntityRepository
             ->setParameter('lastDate', $lastDate);
 
         if(!$wholeTeams) {
-            $qb->andWhere('r.created_by = :service')
-                ->setParameter('service', $this->tokenStorage->getToken()->getUser()->getService());
+            $quadrigramme = $this->tokenStorage->getToken()->getUser()->getService()->getQuadrigramme();
+            $qb->leftJoin('r.created_by', 's')
+                ->andWhere('s.quadrigramme = :quadrigramme')
+                ->setParameter('quadrigramme', $quadrigramme)
+            ;
         }
 
         return $qb->getQuery()->getResult();
