@@ -21,6 +21,7 @@
                 <TableIndicateurComponent
                     :id="id"
                     :types="indicateurs"
+                    :category="categoryId"
                 ></TableIndicateurComponent>
               </div>
             </section>

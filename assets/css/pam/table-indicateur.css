@@ -4,21 +4,27 @@
 
 .td-indicateur {
     height: 48px;
+    min-width: 70px !important;
     background-color: #F2F2F9;
-    min-width: 121px;
     color: #000091;
 }
-
-.th-tr-indicateur {
-    width: 200px;
+.tr-indicateur {
+    font-weight: normal;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
 }
-
-.td-nb-hour-sea {
+.th-tr-indicateur {
+    color: #000091;
+    width: 400px;
+    font-weight: normal;
     border-left: solid  5px #000091;
     border-right: solid 1px #000091;
     padding-left: 15px;
     padding-right: 40px;
+    background-color: #F2F2F9;
+    text-align: left;
 }
+
 
 .thead-indicateur {
     height: 50px;
@@ -33,6 +39,20 @@
     text-align: center;
 }
 
+.th-tr-indicateur-child {
+    text-align: left;
+    padding-left: 25px;
+    background-color: #F9F8F6;
+    font-weight: normal;
+    border-left: solid  5px #000091;
+    border-right: solid 1px #000091;
+    color: #000091;
+}
+
+.td-indicateur-child {
+    background-color: #F9F8F6;
+    color: #000091;
+}
 .td-total {
     background-color: #E5E5F4;
     font-weight: 700;
