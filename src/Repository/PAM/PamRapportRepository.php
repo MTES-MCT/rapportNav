@@ -50,7 +50,7 @@ class PamRapportRepository extends ServiceEntityRepository
     public function findByDateRange(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true): array
     {
         $qb = $this->createQueryBuilder('r')
-            ->where('r.start_datetime BETWEEN :firstDate AND :lastDate')
+            ->where('r.end_datetime BETWEEN :firstDate AND :lastDate')
             ->setParameter('firstDate', $firstDate)
             ->setParameter('lastDate', $lastDate);
 
