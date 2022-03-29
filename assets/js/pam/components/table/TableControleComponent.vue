@@ -10,8 +10,8 @@
       >
         {{col.title}}
       </th>
-      <th class="add-column dropbtn" :id="'add-btn_' + controleId" @click="dropdownHidden = false" ref="tooltip" v-if="controleId !== 5">
-        <div class="add-column-label" >
+      <th class="add-column dropbtn" :id="'add-btn_' + controleId" ref="tooltip" v-if="controleId !== 5">
+        <div class="add-column-label" @click="dropdownHidden = !dropdownHidden">
           <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
           <span class="icon-text">Ajouter un PV, nav déroutés...</span>
         </div>
@@ -134,8 +134,8 @@
       <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
       <span class="icon-text">Ajouter un pavillon</span>
     </div>
-    <div class="dropdown" :id="'add-column_dropdown_' + controleId" v-click-outside="hideTooltip">
-      <ul id="add-column_list" v-if="!dropdownHidden">
+    <div class="dropdown" :id="'add-column_dropdown_' + controleId" v-if="!dropdownHidden" v-click-outside="hideTooltip">
+      <ul id="add-column_list">
         <li id="add-column_list_ajouter_pv">
           <a href="#" class="dropdown-item" @click.prevent>Ajouter des pv</a>
           <ul id="add-column_list_ajouter_pv__list">
@@ -216,9 +216,6 @@ export default {
         }
       }
     })
-  },
-  computed: {
-
   },
   methods: {
     isInclude(categoriesId) {
