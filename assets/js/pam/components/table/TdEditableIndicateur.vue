@@ -1,6 +1,6 @@
 <template>
   <td class="td-observation td-indicateur" v-if="observation && !isIndicateurChild"  ref="observation">
-    <i class="ri-message-2-fill icon-observation" @click="hidden = !hidden"></i>
+    <i class="ri-message-2-fill icon-observation" @click="hidden = !hidden" aria-hidden="true"></i>
     <div
         class="tooltip-observation"
         v-if="!hidden"
@@ -9,7 +9,7 @@
     </div>
   </td>
   <td class="td-observation td-indicateur-child" v-else-if="observation && isIndicateurChild"  ref="observation">
-    <i class="ri-message-2-fill icon-observation" @click="hidden = !hidden"></i>
+    <i class="ri-message-2-fill icon-observation" @click="hidden = !hidden" aria-hidden="true"></i>
     <div
         class="tooltip-observation"
         v-if="!hidden"
