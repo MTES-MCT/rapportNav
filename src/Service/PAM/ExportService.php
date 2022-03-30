@@ -70,10 +70,10 @@ class ExportService {
     /**
      * @param \DateTime $firstDate
      * @param \DateTime $lastDate
-     * @param bool      $onlyValidated
      * @param bool      $wholeTeams
      *
      * @return Spreadsheet
+     * @throws RapportNotFound
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function exportRapportAEM(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true) : Spreadsheet
