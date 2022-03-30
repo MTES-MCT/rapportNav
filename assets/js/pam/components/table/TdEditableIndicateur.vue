@@ -29,8 +29,8 @@
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
       class="td-indicateur-child"
+      v-text="displayedValue"
   >
-    {{displayedValue}}
   </td>
   <td
       class="td-indicateur td-fillable"
@@ -39,8 +39,8 @@
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
       v-else
+      v-text="displayedValue"
   >
-    {{displayedValue}}
   </td>
 </template>
 
@@ -49,11 +49,13 @@ export default {
   name: "TdEditableIndicateur",
   props: {
     observation: Boolean,
-    value: Number,
+    value: Number | String,
     isTotalCell: Boolean,
-    classList: String,
     isAutomaticCell: Boolean,
     isIndicateurChild: Boolean
+  },
+  mounted() {
+    this.displayedValue = this.value;
   },
   methods: {
     hideTooltip(event) {
@@ -79,11 +81,6 @@ export default {
       if(isNaN(e.key)) {
         e.preventDefault();
       }
-    }
-  },
-  watch: {
-    value: function(newValue, oldValue) {
-      this.displayedValue = newValue;
     }
   },
   data() {

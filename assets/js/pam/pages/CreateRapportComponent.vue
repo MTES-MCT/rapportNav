@@ -17,8 +17,6 @@
             <GeneralInformationCardComponent
                :start_datetime="rapport.start_datetime"
                :end_datetime="rapport.end_datetime"
-               :end_time="rapport.end_time"
-               :start_time="rapport.start_time"
                :equipage="rapport.equipage"
                :missions="rapport.missions"
                @get-date="setDates"

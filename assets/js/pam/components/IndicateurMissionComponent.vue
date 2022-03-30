@@ -3,7 +3,7 @@
   <div class="heading-custom heading-custom-space-between">
     <h5 class="text-blue-france text-800">Indicateurs de missions</h5>
   </div>
-  <div v-for="mission in missions">
+  <div v-for="mission in missions" :key="mission.category.id">
     <AccordionIndicateurMissionComponent
         :title="mission.category.nom"
         :indicateurs="mission.indicateurs"
