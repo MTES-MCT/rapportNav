@@ -3,6 +3,7 @@
 namespace App\Service\PAM;
 setlocale (LC_TIME, 'fr_FR.utf8','fra');
 
+use App\Entity\PAM\PamRapport;
 use App\Exception\RapportNotFound;
 use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamIndicateurRepository;
@@ -75,12 +76,11 @@ class ExportService {
      * @return Spreadsheet
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function exportRapportAEM(\DateTime $firstDate, \DateTime $lastDate, bool $onlyValidated = true, bool $wholeTeams = true) : Spreadsheet
+    public function exportRapportAEM(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true) : Spreadsheet
     {
         $spreadsheet = IOFactory::load(dirname(__DIR__) . '/PAM/samples/SAMPLE_Rapport_AEM.xlsx');
         $filler = new OfficeFiller();
         $rapports = $this->rapportRepository->findByDateRange($firstDate, $lastDate, $wholeTeams);
-        $rapportsDraft = !$onlyValidated ? $this->draftRepository->findByDateRange($firstDate, $lastDate, $wholeTeams) : [];
 
         $assistanceNavire = [];
         $lutteImmigrationIllegale = [];
@@ -90,20 +90,21 @@ class ExportService {
         $sureteMaritime = [];
         $interetsNationaux = [];
 
-
-        if(!$onlyValidated) {
-            foreach($rapportsDraft as $item) {
-               array_push($rapports, $item);
-            }
-        }
-
         if(!$rapports) {
             throw new RapportNotFound('Aucun rapport trouvé pour cette unité');
         }
+        $mois = [];
+        $merge = false;
         foreach($rapports as $key => $rapport) {
-            $sheet = clone $spreadsheet->getSheet(0);
-            $sheet->setTitle($rapport->getStartDatetime()->format('F Y'));
-            $spreadsheet->addSheet($sheet, $key);
+            if(!in_array($rapport->getEndDatetime()->format('F Y'), $mois)) {
+                $sheet = clone $spreadsheet->getSheet(0);
+                $sheet->setTitle($rapport->getEndDatetime()->format('F Y'));
+                $spreadsheet->addSheet($sheet, $key);
+            } else {
+                $sheet = $spreadsheet->getSheetByName($rapport->getEndDatetime()->format('F Y'));
+                $merge = true;
+            }
+
             foreach($rapport->getMissions() as $mission) {
                 switch($mission->getCategory()->getId()) {
                     case 1:
@@ -129,14 +130,14 @@ class ExportService {
                         break;
                 }
             }
-
-            $filler->fillCells($sheet, self::ROW_ASSISTANCE_NAVIRE, $assistanceNavire);
-            $filler->fillCells($sheet, self::ROW_INTERETS_NATIONAUX, $interetsNationaux);
-            $filler->fillCells($sheet, self::ROW_LUTTE_IMMIGRATION_ILLEGALE, $lutteImmigrationIllegale);
-            $filler->fillCells($sheet, self::ROW_REPRESSION_POLLUTION, $repressionPollution);
-            $filler->fillCells($sheet, self::ROW_PECHE_ILLEGALE, $pecheIllegale);
-            $filler->fillCells($sheet, self::ROW_SURVEILLANCE_ENVIRONNEMENT, $surveillanceEnv);
-            $filler->fillCells($sheet, self::ROW_SURETE_MARITIME, $sureteMaritime);
+            $mois[] = $rapport->getStartDatetime()->format('F Y');
+            $filler->fillCells($sheet, self::ROW_ASSISTANCE_NAVIRE, $assistanceNavire, $merge);
+            $filler->fillCells($sheet, self::ROW_INTERETS_NATIONAUX, $interetsNationaux, $merge);
+            $filler->fillCells($sheet, self::ROW_LUTTE_IMMIGRATION_ILLEGALE, $lutteImmigrationIllegale, $merge);
+            $filler->fillCells($sheet, self::ROW_REPRESSION_POLLUTION, $repressionPollution, $merge);
+            $filler->fillCells($sheet, self::ROW_PECHE_ILLEGALE, $pecheIllegale, $merge);
+            $filler->fillCells($sheet, self::ROW_SURVEILLANCE_ENVIRONNEMENT, $surveillanceEnv, $merge);
+            $filler->fillCells($sheet, self::ROW_SURETE_MARITIME, $sureteMaritime, $merge);
             $sheet->setCellValue('B9', $rapport->getCreatedBy()->getNom());
         }
 

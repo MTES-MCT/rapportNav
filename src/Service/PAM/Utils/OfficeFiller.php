@@ -17,22 +17,35 @@ class OfficeFiller {
 
     /**
      * Rempli les cellules d'un tableur
-     * @param Worksheet $sheet
-     * @param int       $startRow
-     * @param PamIndicateur[]     $indicateurs
+     *
+     * @param Worksheet       $sheet
+     * @param int             $startRow
+     * @param PamIndicateur[] $indicateurs
+     * @param bool            $merge
      */
-    public function fillCells(Worksheet $sheet, int $startRow, array $indicateurs): void
+    public function fillCells(Worksheet $sheet, int $startRow, array $indicateurs, bool $merge = false): void
     {
         foreach($indicateurs as $key => $value) {
+            $principale =  $value->getPrincipale();
+            $secondaire =  $value->getSecondaire();
+            $observations = $value->getObservations();
+
             $row = ($startRow + $key);
             $cellTitle = self::INDICATEUR_CATEGORY_TITLE_COL . $row;
             $cellPrincipale = self::INDICATEUR_PRINCIPALE_COL . $row;
             $cellSecondaire = self::INDICATEUR_SECONDAIRE_COL . $row;
             $cellObservation = self::INDICATEUR_OBSERVATION_COL . $row;
+
+            if($merge) {
+                $principale =  (int)$sheet->getCell($cellPrincipale)->getValue() + $value->getPrincipale();
+                $secondaire =  (int)$sheet->getCell($cellSecondaire)->getValue() + $value->getSecondaire();
+                $observations = $sheet->getCell($cellObservation)->getValue() ? $sheet->getCell($cellObservation)->getValue()  . ' / ' . $value->getObservations() : $value->getObservations();
+            }
+
             $sheet->setCellValue($cellTitle, $value->getCategory()->getNom());
-            $sheet->setCellValue($cellPrincipale, $value->getPrincipale());
-            $sheet->setCellValue($cellSecondaire, $value->getSecondaire());
-            $sheet->setCellValue($cellObservation, $value->getObservations());
+            $sheet->setCellValue($cellPrincipale, $principale);
+            $sheet->setCellValue($cellSecondaire, $secondaire);
+            $sheet->setCellValue($cellObservation, $observations);
         }
     }
 

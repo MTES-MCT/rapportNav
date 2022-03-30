@@ -70,7 +70,7 @@ class ExportController extends AbstractFOSRestController
         $draft = $request->query->has('draft');
         $wholeTeams = $request->query->has('teams');
         try {
-           $spreadSheet = $this->service->exportRapportAEM(new \DateTime($startDate), new \DateTime($endDate), !$draft, $wholeTeams);
+           $spreadSheet = $this->service->exportRapportAEM(new \DateTime($startDate), new \DateTime($endDate), $wholeTeams);
             $writer = new Xls($spreadSheet);
             $response =  new StreamedResponse(
                 function () use ($writer) {

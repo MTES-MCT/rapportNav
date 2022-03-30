@@ -49,19 +49,27 @@ class PamRapportRepository extends ServiceEntityRepository
      */
     public function findByDateRange(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true): array
     {
+        /** @var Service $service */
+        $service = $this->tokenStorage->getToken()->getUser()->getService();
         $qb = $this->createQueryBuilder('r')
             ->where('r.end_datetime BETWEEN :firstDate AND :lastDate')
             ->setParameter('firstDate', $firstDate)
             ->setParameter('lastDate', $lastDate);
 
-        if(!$wholeTeams) {
-            $quadrigramme = $this->tokenStorage->getToken()->getUser()->getService()->getQuadrigramme();
+        if($wholeTeams) {
+            $quadrigramme = $service->getQuadrigramme();
             $qb->leftJoin('r.created_by', 's')
                 ->andWhere('s.quadrigramme = :quadrigramme')
                 ->setParameter('quadrigramme', $quadrigramme)
             ;
+            return $qb->getQuery()->getResult();
         }
 
-        return $qb->getQuery()->getResult();
+        return $qb->andWhere('r.created_by = :service')
+            ->setParameter('service', $service)
+            ->getQuery()
+            ->getResult();
+
+
     }
 }
