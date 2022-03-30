@@ -100,11 +100,13 @@ class PamControle
     private $nb_controles_peche_sanitaire;
 
     /**
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_nav_deroute_env_pollution;
 
     /**
+     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_pv_titre_conduite;
