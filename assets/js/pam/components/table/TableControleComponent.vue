@@ -340,13 +340,13 @@ export default {
           title: 'PV titre de navig. role/déc. eff',
           enabled: false,
           controleCategoriesId: [
-            1, 2, 4
+            1, 2, 4, 7
           ]
         },
         {
           title: 'PV titre de conduite',
           enabled: false,
-          controleCategoriesId: [6]
+          controleCategoriesId: [6, 3]
         },
         {
           title: 'PV police navigation',
