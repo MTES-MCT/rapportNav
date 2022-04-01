@@ -134,7 +134,7 @@
       <i class="ri-add-circle-fill add-icon" aria-hidden="true" />
       <span class="icon-text">Ajouter un pavillon</span>
     </div>
-    <div class="dropdown" :id="'add-column_dropdown_' + controleId" v-if="!dropdownHidden" v-click-outside="hideTooltip">
+    <div class="dropdown" :id="'add-column_dropdown_' + controleId" v-if="!dropdownHidden && withSubCategory" v-click-outside="hideTooltip">
       <ul id="add-column_list">
         <li id="add-column_list_ajouter_pv">
           <a href="#" class="dropdown-item" @click.prevent>Ajouter des pv</a>
@@ -151,6 +151,14 @@
              @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{
               col.title
             }}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown" :id="'add-column_dropdown_' + controleId" v-else-if="!dropdownHidden && !withSubCategory" v-click-outside="hideTooltip">
+      <ul id="add-column_list">
+        <li v-for="(col, index) in cols" v-if="!col.enabled && isInclude(col.controleCategoriesId)">
+          <a href="#" class="dropdown-link" v-bind:data-dropdown-label="col.title"
+             @click.prevent="col.enabled = true" :id="'add-column_list_ajouter_pv__item_' + index">{{col.title}}</a>
         </li>
       </ul>
     </div>
@@ -176,6 +184,11 @@ export default {
     controleId: Number
   },
   mounted() {
+    this.controlesATerre.forEach((controle) => {
+      if(controle === this.controleId) {
+        this.withSubCategory = false;
+      }
+    })
     this.pavillons.forEach((pavillon, index) => {
       if(this.controleId !== 5) {
         if(pavillon.nb_navire_controle) {
@@ -391,7 +404,9 @@ export default {
           ]
         }
       ],
-      dropdownHidden: true
+      dropdownHidden: true,
+      controlesATerre: [4, 7, 6],
+      withSubCategory: true
     }
   }
 }
