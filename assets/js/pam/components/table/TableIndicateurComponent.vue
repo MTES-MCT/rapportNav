@@ -31,7 +31,7 @@
           <th class="th-tr-indicateur-grouped th-tr-indicateur-child" scope="row">... {{ mission.category.nom }}</th>
           <TdEditableIndicateur :value="mission.principale" @change="setValue(mission, $event, 'principale', index)" is-indicateur-child />
           <TdEditableIndicateur :value="mission.secondaire" @change="setValue(mission, $event, 'secondaire', index)" is-indicateur-child />
-          <TdEditableIndicateur :value="mission.total" is-total-cell />
+          <TdEditableIndicateur :value="mission.total" is-total-cell is-indicateur-child />
           <TdEditableIndicateur v-model="mission.observations" observation is-indicateur-child />
         </tr>
 

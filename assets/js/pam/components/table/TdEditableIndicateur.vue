@@ -18,10 +18,14 @@
     </div>
   </td>
   <td
-      v-else-if="isTotalCell"
+      v-else-if="isTotalCell && !isIndicateurChild"
       :class="'td-table-total td-indicateur'"
-      v-text="value"
-  >
+      v-text="value">
+  </td>
+  <td
+      v-else-if="isTotalCell && isIndicateurChild"
+      class="td-indicateur-child"
+      v-text="value">
   </td>
   <td
       v-else-if="isIndicateurChild"
