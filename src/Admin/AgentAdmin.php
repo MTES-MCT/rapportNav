@@ -15,7 +15,7 @@ use App\Entity\Service;
 
 final class AgentAdmin extends AbstractAdmin {
     
-    public function toString($object): ?string {
+    public function toString($object): string {
         return $object instanceof \App\Entity\Agent ? $object->__toString() : 'Agent';
     }
 
@@ -36,7 +36,7 @@ final class AgentAdmin extends AbstractAdmin {
             ->add('service.nom')
             ->add('dateArrivee')
             ->add('dateDepart')
-            ->add('_action', null, [
+            ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],

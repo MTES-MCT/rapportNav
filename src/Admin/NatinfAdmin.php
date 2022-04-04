@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 final class NatinfAdmin extends AbstractAdmin
 {
 
-    public function toString($object)
+    public function toString($object): string
     {
         return $object instanceof Natinf
             ? $object->getNumero() . " (". $object->getLibelle() .")"
@@ -43,7 +43,7 @@ final class NatinfAdmin extends AbstractAdmin
             ->add('description')
             ->add('codeNatAff', null, ['label' => "Code NatAff"])
             ->add('libelle', null, ['label' => "Libellé Nature d'affaire"])
-            ->add('_action', null, [
+            ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],

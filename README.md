@@ -47,9 +47,11 @@ Install instructions are for server using Apache on Debian (Apache user being `w
 
 A PostGre database and role should be created for the application. 
 
+For the next instructions, we will assume that you install the applicatino on a server on `/opt` with `www-data` beeing the Apache (or any other web server) user.
+
 ```(bash)
-$ cd /var/www/
-$ git clone https://github.com/SebastienTouze/rapportNav.git app/rapportNav
+$ cd /opt/rapportnav/
+$ git clone https://github.com/SebastienTouze/rapportNav.git app-ppr
 ```
 Before taking the next steps, create your environment `.env.local` file copying `.template.env`. 
 You will need to configure : 
@@ -70,6 +72,8 @@ $ sudo -u www-data yarn install
 $ sudo -u www-data yarn build
 $ sudo -u www-data bin/console doctrine:migration:migrate
 ```
+
+You may need to install assets for the SonataAdminBundle using `$ sudo -u www-data bin/console assets:install`
 
 If you aim to contribute to the code you may prefer to use the `yarn dev` or `yarn watch` commands for js compilation. 
 Some basic fixtures to get a development environment are available using `bin/console doctrine:fixtures:load --group=default`

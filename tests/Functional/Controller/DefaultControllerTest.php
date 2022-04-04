@@ -3,18 +3,30 @@
 namespace App\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
-use Liip\TestFixturesBundle\Test\FixturesTrait;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 
 class DefaultControllerTest extends WebTestCase {
-    use FixturesTrait;
+    
+    /** @var AbstractDatabaseTool */
+    protected $databaseTool;
+    
+    private $fixtures;
+    
+    public function setUp(): void {
+        static::bootKernel();
+        $this->databaseTool = self::$container->get(DatabaseToolCollection::class)->get();
+        $this->fixtures = $this->databaseTool->loadFixtures(array(
+            'App\DataFixtures\Tests\UsersFixture',
+            'App\DataFixtures\Tests\RapportFixture',
+        ));
+    }
 
     /**
      * Testing home redirect
      */
     public function testHome() {
-        $this->loadFixtures(array(
-            'App\DataFixtures\Tests\UsersFixture',
-        ));
+        
 $functional = 0;
         $client = $this->makeAuthenticatedClient();
 
@@ -26,10 +38,6 @@ $functional = 0;
      * Testing form display and submission
      */
     public function testRapport() {
-        $fixtures = $this->loadFixtures(array(
-            'App\DataFixtures\Tests\UsersFixture',
-            'App\DataFixtures\Tests\RapportFixture',
-        ));
 
         $client = $this->makeAuthenticatedClient();
 
@@ -38,7 +46,7 @@ $functional = 0;
         $this->assertStatusCode(200, $client);
 
         //Testing edit display
-        $id = $fixtures->getReferenceRepository()->getReference("rapportNavPro")->getId();
+        $id = $this->fixtures->getReferenceRepository()->getReference("rapportNavPro")->getId();
         $client->request('GET', '/rapport/edit/' . $id);
         $this->assertStatusCode(200, $client);
 

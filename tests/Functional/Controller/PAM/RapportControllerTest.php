@@ -11,17 +11,22 @@ use App\DataFixtures\Tests\UsersFixture;
 use App\Entity\PAM\PamControle;
 use App\Entity\PAM\PamRapport;
 use App\Repository\PAM\PamRapportRepository;
-use Liip\TestFixturesBundle\Test\FixturesTrait;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RapportControllerTest extends WebTestCase {
-
-    use FixturesTrait;
+    
+    /** @var AbstractDatabaseTool */
+    protected $databaseTool;
 
     private $client;
 
     protected function setUp(): void {
-        $this->loadFixtures([
+        static::bootKernel();
+        $this->databaseTool = self::$container->get(DatabaseToolCollection::class)->get();
+        
+        $this->databaseTool->loadFixtures([
             UsersFixture::class,
             MissionTypeFixture::class,
             IndicateurTypeFixture::class,

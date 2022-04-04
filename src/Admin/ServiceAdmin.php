@@ -25,7 +25,7 @@ final class ServiceAdmin extends AbstractAdmin {
         $listMapper
             ->addIdentifier('nom')
             ->add('zoneGeographique')
-            ->add('_action', null, [
+            ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],
