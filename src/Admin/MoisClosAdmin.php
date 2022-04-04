@@ -14,11 +14,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Entity\Service;
 
 class MoisClosAdmin extends AbstractAdmin {
-    protected function configureListFields(ListMapper $listMapper) {
+    protected function configureListFields(ListMapper $listMapper): void {
         $listMapper
         ->add('date')
         ->add('service')
-        ->add('_action', null, [
+        ->add(ListMapper::NAME_ACTIONS, null, [
             'actions' => [
                 'show' => [],
                 'edit' => [],
@@ -28,7 +28,7 @@ class MoisClosAdmin extends AbstractAdmin {
         ;
     }
     
-    protected function configureFormFields(FormMapper $formMapper) {
+    protected function configureFormFields(FormMapper $formMapper): void {
         $formMapper
             ->add('date')
             ->add('service', ModelType::class, [
@@ -38,7 +38,7 @@ class MoisClosAdmin extends AbstractAdmin {
         ;
     }
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void {
         $datagridMapper
             ->add('date')
             ->add('service')

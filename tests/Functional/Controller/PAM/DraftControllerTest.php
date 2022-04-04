@@ -10,17 +10,23 @@ use App\DataFixtures\Tests\UsersFixture;
 use App\Entity\PAM\PamDraft;
 use App\Repository\PAM\PamDraftRepository;
 use JMS\Serializer\SerializerInterface;
-use Liip\TestFixturesBundle\Test\FixturesTrait;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Serializer\Serializer;
 
 class DraftControllerTest extends WebTestCase {
-    use FixturesTrait;
-
+    
+    /** @var AbstractDatabaseTool */
+    protected $databaseTool;
+    
     private $client;
 
     protected function setUp(): void {
-        $this->loadFixtures([
+        static::bootKernel();
+        $this->databaseTool = self::$container->get(DatabaseToolCollection::class)->get();
+        
+        $this->databaseTool->loadFixtures([
             ServicesFixture::class,
             UsersFixture::class,
             MissionTypeFixture::class,
