@@ -13,18 +13,21 @@
           <th scope="row" class="th-row-autre-mission td-pavillon">Assistance et sauvetage</th>
           <TdEditable :value="entity.nbAssistanceSauvetage" v-model="entity.nbAssistanceSauvetage"/>
           <TdEditable :value="entity.dureeAssistanceSauvetage" v-model="entity.dureeAssistanceSauvetage"/>
+          <td class="td-blank"></td>
         </tr>
 
         <tr>
           <th scope="row" class="th-row-autre-mission td-pavillon">Manifestations nautiques</th>
           <TdEditable :value="entity.nbManifestationsNautiques" v-model="entity.nbManifestationsNautiques"/>
           <TdEditable :value="entity.dureeManifestationsNautiques" v-model="entity.dureeManifestationsNautiques"/>
+          <td class="td-blank"></td>
         </tr>
 
         <tr>
           <th scope="row" class="th-row-autre-mission td-pavillon">Lutte anti poluttion</th>
           <TdEditable :value="entity.nbLuttePollution" v-model="entity.nbLuttePollution"/>
           <TdEditable :value="entity.dureeLuttePollution" v-model="entity.dureeLuttePollution"/>
+          <td class="td-blank"></td>
         </tr>
         <tr>
           <th scope="row" class="th-row-autre-mission td-pavillon">Opérations de surveillance du trafic</th>

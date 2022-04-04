@@ -18,6 +18,7 @@ final class ServiceAdmin extends AbstractAdmin {
         $datagridMapper
             ->add('nom')
             ->add('zoneGeographique')
+            ->add('quadrigramme')
             ;
     }
 
@@ -25,13 +26,15 @@ final class ServiceAdmin extends AbstractAdmin {
         $listMapper
             ->addIdentifier('nom')
             ->add('zoneGeographique')
+            ->add('quadrigramme')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],
                     'delete' => [],
                 ],
-            ]);
+            ])
+        ;
     }
 
     protected function configureFormFields(FormMapper $formMapper): void {
@@ -42,6 +45,7 @@ final class ServiceAdmin extends AbstractAdmin {
                 'property' => 'nom',
                 'required' => false,
             ])
+            ->add('quadrigramme')
             ;
     }
 
@@ -49,6 +53,7 @@ final class ServiceAdmin extends AbstractAdmin {
         $showMapper
             ->add('nom')
             ->add('zoneGeographique')
+            ->add('quadrigramme')
             ;
     }
 }

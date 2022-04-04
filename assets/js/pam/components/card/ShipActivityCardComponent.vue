@@ -5,7 +5,7 @@
       <div class="total">
         <span>Total</span>
         <div class="total-values">
-          <span class="dayInSea text-blue-france text-bold">{{ activite.nb_jours_mer }} jours en mer</span>
+          <span class="dayInSea text-blue-france text-bold">{{ activite.nb_jours_mer || 0 }} jours en mer</span>
           <span class="missionTrackTime text-blue-france text-bold">{{ total }} heures de mission</span>
         </div>
       </div>

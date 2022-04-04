@@ -93,6 +93,24 @@ class PamControle
      */
     private $category;
 
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nb_controles_peche_sanitaire;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nb_nav_deroute_env_pollution;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nb_pv_titre_conduite;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -238,6 +256,42 @@ class PamControle
     public function setCategory(?CategoryPamControle $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getNbControlesPecheSanitaire(): ?int
+    {
+        return $this->nb_controles_peche_sanitaire;
+    }
+
+    public function setNbControlesPecheSanitaire(?int $nb_controles_peche_sanitaire): self
+    {
+        $this->nb_controles_peche_sanitaire = $nb_controles_peche_sanitaire;
+
+        return $this;
+    }
+
+    public function getNbNavDerouteEnvPollution(): ?int
+    {
+        return $this->nb_nav_deroute_env_pollution;
+    }
+
+    public function setNbNavDerouteEnvPollution(?int $nb_nav_deroute_env_pollution): self
+    {
+        $this->nb_nav_deroute_env_pollution = $nb_nav_deroute_env_pollution;
+
+        return $this;
+    }
+
+    public function getNbPvTitreConduite(): ?int
+    {
+        return $this->nb_pv_titre_conduite;
+    }
+
+    public function setNbPvTitreConduite(?int $nb_pv_titre_conduite): self
+    {
+        $this->nb_pv_titre_conduite = $nb_pv_titre_conduite;
 
         return $this;
     }

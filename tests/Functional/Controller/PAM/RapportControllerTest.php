@@ -50,7 +50,7 @@ class RapportControllerTest extends WebTestCase {
         $controle = $rapport->getControles()->get(0);
         $indicateur = $rapport->getMissions()[0]->getIndicateurs()[0];
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
-        $this->assertStringContainsString('MED' , $rapportResponse->getId());
+        $this->assertStringContainsString('TEST' , $rapportResponse->getId());
         $this->assertEquals(12, $controle->getNbNavireControle());
         $this->assertEquals(64, $controle->getNbPvPecheSanitaire());
         $this->assertEquals(3, $controle->getNbPvEquipementSecurite());

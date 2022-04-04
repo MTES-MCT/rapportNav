@@ -79,7 +79,7 @@ export default {
     this.displayControleMounted(this.controlesTerrePechePro);
     this.displayControleMounted(this.controlesTerrePlaisanceLoisir);
     this.displayControleMounted(this.controlesTerrePlaisancePro);
-    this.displayAutreMissionMounted(this.autreMission);
+    this.displayAutreMissionMounted();
   },
   data: function() {
     return {
@@ -121,13 +121,16 @@ export default {
         },
         pavillon: 'FR',
         nb_navire_controle: 0,
+        nb_controles_peche_sanitaire: 0,
         nb_pv_peche_sanitaire: 0,
         nb_pv_equipement_securite: 0,
         nb_pv_titre_nav: 0,
+        nb_pv_titre_conduite: 0,
         nb_pv_police: 0,
         nb_pv_env_pollution: 0,
         nb_autre_pv: 0,
         nb_nav_deroute: 0,
+        nb_nav_deroute_env_pollution: 0,
         nb_nav_interroge: 0
       }
       let newType = {
@@ -206,14 +209,11 @@ export default {
     getAutresMission(value) {
       this.$emit('get-autres-missions', value)
     },
-    displayAutreMissionMounted(obj) {
-      if(Object.keys(obj).length > 0) {
-        let controle = {};
-        controle.id = 5;
-        controle.nom = 'Autres missions';
-        this.controlesByType.push(controle)
-      }
-
+    displayAutreMissionMounted() {
+      let controle = {};
+      controle.id = 5;
+      controle.nom = 'Autres missions';
+      this.controlesByType.push(controle);
     }
   }
 }

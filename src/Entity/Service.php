@@ -36,6 +36,11 @@ class Service {
      */
     private $pamDrafts;
 
+    /**
+     * @ORM\Column(type="string", length=4, nullable=true)
+     */
+    private $quadrigramme;
+
     public function __construct()
     {
         $this->pamDrafts = new ArrayCollection();
@@ -95,6 +100,18 @@ class Service {
                 $pamDraft->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getQuadrigramme(): ?string
+    {
+        return $this->quadrigramme;
+    }
+
+    public function setQuadrigramme(?string $quadrigramme): self
+    {
+        $this->quadrigramme = $quadrigramme;
 
         return $this;
     }

@@ -1,30 +1,12 @@
 <template>
-  <td class="td-observation td-indicateur" v-if="observation"  ref="observation">
-    <i class="ri-message-2-fill icon-observation" @click="hidden = !hidden"></i>
-    <div
-        class="tooltip-observation"
-        v-if="!hidden"
-        v-click-outside="hideTooltip"
-    >
-      <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations" :value="value"  @keyup="getValue($event, true)"></textarea>
-    </div>
-  </td>
   <td
-      v-else-if="total"
-      :class="'td-table-total td-table-controle ' + classList"
-      v-text="value"
-  >
-  </td>
-  <td
-      :class="'td-table-controle ' + classList"
+      class="td-table-controle"
       contenteditable="true"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
       v-else
-      v-text="val"
-  >
+      v-text="displayedValue">
   </td>
-
 </template>
 
 <script>
@@ -50,7 +32,7 @@ export default {
     total: Boolean
   },
   mounted() {
-    this.val = this.value;
+    this.displayedValue = this.value;
   },
   methods: {
     getValue(e, isTextarea = false) {
@@ -82,7 +64,7 @@ export default {
   data() {
     return {
       hidden: true,
-      val: null
+      displayedValue: null
     }
   }
 }
