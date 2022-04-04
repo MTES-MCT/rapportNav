@@ -3,18 +3,27 @@
 namespace App\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
-use Liip\TestFixturesBundle\Test\FixturesTrait;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 
 class AdminTest extends WebTestCase {
-    use FixturesTrait;
+    
+    /** @var AbstractDatabaseTool */
+    protected $databaseTool;
 
-    public function testAdminsUserNotAdmin() {
-        $fixtures = $this->loadFixtures(array(
+    public function setUp(): void
+    {
+        static::bootKernel();
+        $this->databaseTool = self::$container->get(DatabaseToolCollection::class)->get();
+        $this->databaseTool->loadFixtures(array(
             'App\DataFixtures\Tests\UsersFixture',
             'App\DataFixtures\Tests\AgentsFixture',
             'App\DataFixtures\Tests\RapportFixture',
         ));
-
+    }
+        
+    public function testAdminsUserNotAdmin() {
+        
         $client = $this->makeAuthenticatedClient();
 
         $client->request('GET', '/admin');
@@ -32,11 +41,6 @@ class AdminTest extends WebTestCase {
      * @dataProvider provideAdminUrls
      */
     public function testAdminsUserAdmin($url) {
-        $fixtures = $this->loadFixtures(array(
-            'App\DataFixtures\Tests\UsersFixture',
-            'App\DataFixtures\Tests\AgentsFixture',
-            'App\DataFixtures\Tests\RapportFixture',
-        ));
 
         $client = $this->makeClientWithCredentials('admin', 'admin');
 

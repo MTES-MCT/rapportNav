@@ -36,7 +36,7 @@ final class UserAdmin extends AbstractAdmin {
                 ->add('enabled')
                 ->add('lastLogin')
                 ->add('roles')
-                ->add('_action', null, [
+                ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],

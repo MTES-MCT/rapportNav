@@ -11,21 +11,21 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class CategorieEtablissementAdmin extends AbstractAdmin {
-    protected function configureFormFields(FormMapper $formMapper) {
+    protected function configureFormFields(FormMapper $formMapper): void {
         $formMapper
             ->add('nom', TextType::class, ['required' => true])
             ->add('complementDonnee')
         ;
     }
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void {
         $datagridMapper
             ->add('nom')
             ->add('complementDonnee')
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper) {
+    protected function configureListFields(ListMapper $listMapper): void {
         $listMapper
             ->addIdentifier('nom')
             ->add('complementDonnee')
