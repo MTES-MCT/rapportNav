@@ -58,7 +58,9 @@
             <!-- Indicateurs de mission-->
             <IndicateurMissionComponent
                 v-if="rapport.missions"
-              :missions="rapport.missions"
+                :missions="rapport.missions"
+                :controles="rapport.controles"
+                :autres-missions="rapport.autreMission"
             >
             </IndicateurMissionComponent>
           </div>

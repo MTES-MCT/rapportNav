@@ -20,8 +20,10 @@
                 <div class="divider-horizontal--accordion"></div>
                 <TableIndicateurComponent
                     :id="id"
-                    :types="indicateurs"
+                    :mission="mission"
+                    :controles="controles"
                     :category="categoryId"
+                    :autres-missions="autresMissions"
                 ></TableIndicateurComponent>
               </div>
             </section>
@@ -45,14 +47,13 @@ export default {
       type: Number,
       default: null
     },
-    indicateurs: {
-      type: Array,
-      default: null
-    },
     expanded: {
       type: String,
       default: () => { return "false" }
-    }
+    },
+    mission: Object,
+    controles: Array,
+    autresMissions: Object
   },
   components: {
     TableIndicateurComponent
