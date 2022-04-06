@@ -1,5 +1,5 @@
 {
-    "license": "UNLICENSED",
+    "license": "mit-licence",
     "private": true,
     "scripts": {
         "dev-server": "encore dev-server",

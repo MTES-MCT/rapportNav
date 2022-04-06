@@ -2,7 +2,7 @@
 	"name" : "mtes-mct/rapport-nav",
 	"description" : "Éditeur de rapport de mission et d'activité pour le DCS",
 	"type" : "project",
-	"license" : "proprietary",
+	"license" : "mit-licence",
 	"require" : {
 		"php" : "^7.4",
 		"ext-ctype" : "*",
