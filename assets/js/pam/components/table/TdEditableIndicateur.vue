@@ -37,14 +37,120 @@
   >
   </td>
   <td
+      v-else-if="indicateur.isAutomaticCell && indicateur.automaticEnabled && isMainMission && isPrincipaleCell"
+      contenteditable="false"
+      class="td-indicateur"
+  >
+    {{ automaticValue }}
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
+        <div class="tooltip-automatic-calculate" v-if="!popupHidden">
+          <div class="fr-toggle fr-toggle--label-left">
+            <input type="checkbox" :checked="automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
+            <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
+          </div>
+        </div>
+  </td>
+  <td
+      v-else-if="indicateur.isAutomaticCell && !automaticEnabled && isMainMission && isPrincipaleCell"
+      contenteditable="true"
+      class="td-indicateur"
+      @keyup="getValue($event)"
+      @keypress="onKeyPress($event)"
+  >
+      {{ displayedValue }}
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
+    <div class="tooltip-automatic-calculate" v-if="!popupHidden">
+      <div class="fr-toggle fr-toggle--label-left">
+        <input type="checkbox" :checked="indicateur.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
+        <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
+        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
+          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
+        </p>
+      </div>
+    </div>
+  </td>
+  <td
+      v-else-if="indicateur.isAutomaticCell && indicateur.automaticEnabled && isMainMission && !isPrincipaleCell"
+      contenteditable="false"
+      class="td-indicateur">
+  </td>
+  <td
+      v-else-if="indicateur.isAutomaticCell && !automaticEnabled && isMainMission && !isPrincipaleCell"
+      contenteditable="true"
+      class="td-indicateur"
+      @keyup="getValue($event)"
+      @keypress="onKeyPress($event)"
+  >
+    {{ displayedValue }}
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
+    <div class="tooltip-automatic-calculate" v-if="!popupHidden">
+      <div class="fr-toggle fr-toggle--label-left">
+        <input type="checkbox" :checked="indicateur.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
+        <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
+        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
+          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
+        </p>
+      </div>
+    </div>
+  </td>
+  <td
+      v-else-if="indicateur.isAutomaticCell && indicateur.automaticEnabled && !isMainMission && isPrincipaleCell"
+      contenteditable="false"
+      class="td-indicateur">
+  </td>
+  <td
+      v-else-if="indicateur.isAutomaticCell && !indicateur.automaticEnabled && !isMainMission && isPrincipaleCell"
+      contenteditable="true"
+      class="td-indicateur"
+      @keyup="getValue($event)"
+      @keypress="onKeyPress($event)"
+  >
+    {{displayedValue}}
+  </td>
+
+  <td
+      v-else-if="indicateur.isAutomaticCell && indicateur.automaticEnabled && !isMainMission && !isPrincipaleCell"
+      contenteditable="false"
+      class="td-indicateur">
+    {{ automaticValue }}
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
+    <div class="tooltip-automatic-calculate" v-if="!popupHidden">
+      <div class="fr-toggle fr-toggle--label-left">
+        <input type="checkbox" :checked="indicateur.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
+        <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
+        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
+          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
+        </p>
+      </div>
+    </div>
+  </td>
+
+  <td
+      v-else-if="indicateur.isAutomaticCell && !automaticEnabled && !isMainMission && !isPrincipaleCell"
+      contenteditable="true"
+      class="td-indicateur"
+      @keyup="getValue($event)"
+      @keypress="onKeyPress($event)">
+    {{ displayedValue }}
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
+    <div class="tooltip-automatic-calculate" v-if="!popupHidden">
+      <div class="fr-toggle fr-toggle--label-left">
+        <input type="checkbox" :checked="indicateur.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
+        <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
+        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
+          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
+        </p>
+      </div>
+    </div>
+  </td>
+  <td
       class="td-indicateur td-fillable"
       v-bind:class="{ 'automatic-cell': isAutomaticCell }"
       contenteditable="true"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
       v-else
-      v-text="displayedValue"
-  >
+      v-text="automaticValue">
   </td>
 </template>
 
@@ -55,8 +161,12 @@ export default {
     observation: Boolean,
     value: Number | String,
     isTotalCell: Boolean,
-    isAutomaticCell: Boolean,
-    isIndicateurChild: Boolean
+    isIndicateurChild: Boolean,
+    indicateur: Object,
+    automaticValue: Number,
+    alerteCoherent: Boolean,
+    isPrincipaleCell: Boolean,
+    isMainMission: Boolean
   },
   mounted() {
     this.displayedValue = this.value;
@@ -85,13 +195,28 @@ export default {
       if(isNaN(e.key)) {
         e.preventDefault();
       }
-    }
+    },
   },
   data() {
     return {
       hidden: true,
-      automaticEnabled: false,
-      displayedValue: null
+      automaticEnabled: true,
+      displayedValue: null,
+      popupHidden: true,
+      id: this._uid
+    }
+  },
+  watch: {
+    automaticEnabled: function(newVal) {
+      this.indicateur.automaticEnabled = newVal;
+      this.$emit('input', this.value);
+      this.$emit('change', this.value);
+      if(newVal) {
+        this.displayedValue = this.value;
+      }
+    },
+    value: function(newVal, oldVal) {
+      this.displayedValue = newVal;
     }
   }
 }
