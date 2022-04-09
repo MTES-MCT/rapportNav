@@ -87,7 +87,6 @@ export default {
 
       let total = this.setTotal(indicateur, index);
       indicateur.totalCoherent = indicateur.automaticValue === total;
-      console.log(indicateur.automaticValue === total)
     },
     setAutomaticValue(indicateur, value, index) {
       indicateur.reset = true;

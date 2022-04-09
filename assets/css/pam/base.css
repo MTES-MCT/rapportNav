@@ -690,6 +690,13 @@ td:first-child {
   margin-left: 40px;
 }
 
+.accordion__title-sub {
+    font-size: 14px;
+    color: #7F7FC8;
+    font-weight: 400;
+    margin-left: 40px;
+}
+
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {

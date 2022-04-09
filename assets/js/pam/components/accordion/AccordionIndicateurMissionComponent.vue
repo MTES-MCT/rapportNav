@@ -12,6 +12,7 @@
                       <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" :aria-expanded="expanded" :aria-controls="'accordion-indicateurs-' + id">
                         {{ title }}
                       </button>
+                      <span class="accordion__title-sub">{{ countIndicateursAutomatique() }} indicateur(s) automatique</span>
                     </div>
                   </div>
                 </div>
@@ -58,7 +59,19 @@ export default {
   components: {
     TableIndicateurComponent
   },
-  methods: {},
+  mounted() {
+  },
+  methods: {
+    countIndicateursAutomatique() {
+      let count = 0;
+      this.mission.indicateurs.map((indicateur) => {
+        if(indicateur.automaticEnabled) {
+          count += 1;
+        }
+      })
+      return count;
+    }
+  },
   data: function() {
     return {
       id: this.categoryId
