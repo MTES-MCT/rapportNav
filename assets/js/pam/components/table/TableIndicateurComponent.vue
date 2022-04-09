@@ -18,31 +18,31 @@
           <TdEditableIndicateur v-model="indicateur.observations" observation />
         </tr>
       </tbody>
-   <!--   <tbody v-else>
+      <tbody v-else>
         <tr v-for="(indicateur, index) in indicateurs" :key="indicateur.category.id" v-if="indicateur.category.id === 13">
           <th class="th-tr-indicateur" scope="row">{{ indicateur.category.nom }}</th>
-          <TdEditableIndicateur :value="indicateur.principale" @change="setValue(indicateur, $event, 'principale', index)" :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.alerteIncoherence"   />
-          <TdEditableIndicateur :value="indicateur.secondaire" @change="setValue(indicateur, $event, 'secondaire', index)" :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.alerteIncoherence"   />
+          <TdEditableIndicateur :value="indicateur.principale" @change="setValue(indicateur, $event, 'principale', index)" :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.totalCoherent" :is-main-mission="mission.is_main" :is-principale-cell="true"   />
+          <TdEditableIndicateur :value="indicateur.secondaire" @change="setValue(indicateur, $event, 'secondaire', index)" :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.totalCoherent" :is-main-mission="mission.is_main"  :is-principale-cell="false"   />
           <TdEditableIndicateur :value="indicateur.total" is-total-cell />
           <TdEditableIndicateur v-model="indicateur.observations" observation />
         </tr>
 
         <tr v-else-if="indicateur.category.id === 14 || indicateur.category.id === 15">
           <th class="th-tr-indicateur-child" scope="row">... {{ indicateur.category.nom }}</th>
-          <TdEditableIndicateur :value="indicateur.principale" @change="setValue(indicateur, $event, 'principale', index)" is-indicateur-child :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.alerteIncoherence"   />
-          <TdEditableIndicateur :value="indicateur.secondaire" @change="setValue(indicateur, $event, 'secondaire', index)" is-indicateur-child :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.alerteIncoherence"   />
+          <TdEditableIndicateur :value="indicateur.principale" @change="setValue(indicateur, $event, 'principale', index)" is-indicateur-child :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.totalCoherent" :is-main-mission="mission.is_main" :is-principale-cell="true"   />
+          <TdEditableIndicateur :value="indicateur.secondaire" @change="setValue(indicateur, $event, 'secondaire', index)" is-indicateur-child :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.totalCoherent" :is-main-mission="mission.is_main"  :is-principale-cell="false"   />
           <TdEditableIndicateur :value="indicateur.total" is-total-cell is-indicateur-child />
           <TdEditableIndicateur v-model="indicateur.observations" observation is-indicateur-child />
         </tr>
 
         <tr v-else>
           <th class="th-tr-indicateur" scope="row">{{ indicateur.category.nom }}</th>
-          <TdEditableIndicateur :value="indicateur.principale" @change="setValue(indicateur, $event, 'principale', index)" :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.alerteIncoherence"   />
-          <TdEditableIndicateur :value="indicateur.secondaire" @change="setValue(indicateur, $event, 'secondaire', index)" :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.alerteIncoherence"  />
+          <TdEditableIndicateur :value="indicateur.principale" @change="setValue(indicateur, $event, 'principale', index)" :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.totalCoherent" :is-main-mission="mission.is_main" :is-principale-cell="true"   />
+          <TdEditableIndicateur :value="indicateur.secondaire" @change="setValue(indicateur, $event, 'secondaire', index)" :indicateur="indicateur" :automatic-value="indicateur.automaticValue" :alerte-incoherence="indicateur.totalCoherent" :is-main-mission="mission.is_main"  :is-principale-cell="false"  />
           <TdEditableIndicateur :value="indicateur.total" is-total-cell />
           <TdEditableIndicateur v-model="indicateur.observations" observation />
         </tr>
-      </tbody> -->
+      </tbody>
     </table>
   </div>
 </template>
@@ -77,17 +77,32 @@ export default {
       } else {
         if(scope === 'principale') {
           indicateur.principale = indicateur.automaticValue;
+          indicateur.secondaire = null;
         } else {
           indicateur.secondaire = indicateur.automaticValue;
+          indicateur.principale = null;
         }
         indicateur.totalCoherent = true;
       }
 
       let total = this.setTotal(indicateur, index);
       indicateur.totalCoherent = indicateur.automaticValue === total;
+      console.log(indicateur.automaticValue === total)
     },
     setAutomaticValue(indicateur, value, index) {
+      indicateur.reset = true;
       if(indicateur.automaticEnabled) {
+        if(this.mission.is_main) {
+          indicateur.principale = value;
+          indicateur.secondaire = null;
+          indicateur.reset = true;
+        } else {
+          indicateur.secondaire = value;
+          indicateur.principale = null;
+        }
+        indicateur.totalCoherent = true;
+      }
+      else {
         if(this.mission.is_main) {
           indicateur.principale = value;
           indicateur.secondaire = null;
@@ -96,6 +111,7 @@ export default {
           indicateur.principale = null;
         }
       }
+
       indicateur.automaticValue = value;
       return this.setTotal(indicateur, index);
     },

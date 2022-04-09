@@ -37,7 +37,7 @@
   >
   </td>
   <td
-      v-else-if="indicateur.isAutomaticCell && indicateur.automaticEnabled && isMainMission && isPrincipaleCell"
+      v-else-if="indicateurData.isAutomaticCell && indicateurData.automaticEnabled && isMainMission && isPrincipaleCell"
       contenteditable="false"
       class="td-indicateur"
   >
@@ -45,13 +45,13 @@
     <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
         <div class="tooltip-automatic-calculate" v-if="!popupHidden">
           <div class="fr-toggle fr-toggle--label-left">
-            <input type="checkbox" :checked="automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
+            <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
             <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
           </div>
         </div>
   </td>
   <td
-      v-else-if="indicateur.isAutomaticCell && !automaticEnabled && isMainMission && isPrincipaleCell"
+      v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && isMainMission && isPrincipaleCell"
       contenteditable="true"
       class="td-indicateur"
       @keyup="getValue($event)"
@@ -61,7 +61,7 @@
     <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
     <div class="tooltip-automatic-calculate" v-if="!popupHidden">
       <div class="fr-toggle fr-toggle--label-left">
-        <input type="checkbox" :checked="indicateur.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
+        <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
         <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
           Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
@@ -70,53 +70,43 @@
     </div>
   </td>
   <td
-      v-else-if="indicateur.isAutomaticCell && indicateur.automaticEnabled && isMainMission && !isPrincipaleCell"
+      v-else-if="indicateurData.isAutomaticCell && indicateurData.automaticEnabled && isMainMission && !isPrincipaleCell"
       contenteditable="false"
       class="td-indicateur">
   </td>
   <td
-      v-else-if="indicateur.isAutomaticCell && !automaticEnabled && isMainMission && !isPrincipaleCell"
+      v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && isMainMission && !isPrincipaleCell"
       contenteditable="true"
       class="td-indicateur"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
+      v-text="displayedValue"
   >
-    {{ displayedValue }}
-    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
-    <div class="tooltip-automatic-calculate" v-if="!popupHidden">
-      <div class="fr-toggle fr-toggle--label-left">
-        <input type="checkbox" :checked="indicateur.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
-        <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
-        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
-          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
-        </p>
-      </div>
-    </div>
   </td>
   <td
-      v-else-if="indicateur.isAutomaticCell && indicateur.automaticEnabled && !isMainMission && isPrincipaleCell"
+      v-else-if="indicateurData.isAutomaticCell && indicateurData.automaticEnabled && !isMainMission && isPrincipaleCell"
       contenteditable="false"
       class="td-indicateur">
   </td>
   <td
-      v-else-if="indicateur.isAutomaticCell && !indicateur.automaticEnabled && !isMainMission && isPrincipaleCell"
+      v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && !isMainMission && isPrincipaleCell"
       contenteditable="true"
       class="td-indicateur"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
+      v-text="displayedValue"
   >
-    {{displayedValue}}
   </td>
 
   <td
-      v-else-if="indicateur.isAutomaticCell && indicateur.automaticEnabled && !isMainMission && !isPrincipaleCell"
+      v-else-if="indicateurData.isAutomaticCell && indicateurData.automaticEnabled && !isMainMission && !isPrincipaleCell"
       contenteditable="false"
       class="td-indicateur">
     {{ automaticValue }}
     <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
     <div class="tooltip-automatic-calculate" v-if="!popupHidden">
       <div class="fr-toggle fr-toggle--label-left">
-        <input type="checkbox" :checked="indicateur.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
+        <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
         <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
           Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
@@ -126,7 +116,7 @@
   </td>
 
   <td
-      v-else-if="indicateur.isAutomaticCell && !automaticEnabled && !isMainMission && !isPrincipaleCell"
+      v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && !isMainMission && !isPrincipaleCell"
       contenteditable="true"
       class="td-indicateur"
       @keyup="getValue($event)"
@@ -135,7 +125,7 @@
     <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
     <div class="tooltip-automatic-calculate" v-if="!popupHidden">
       <div class="fr-toggle fr-toggle--label-left">
-        <input type="checkbox" :checked="indicateur.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="automaticEnabled">
+        <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
         <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
           Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
@@ -145,12 +135,11 @@
   </td>
   <td
       class="td-indicateur td-fillable"
-      v-bind:class="{ 'automatic-cell': isAutomaticCell }"
       contenteditable="true"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
       v-else
-      v-text="automaticValue">
+      v-text="displayedValue">
   </td>
 </template>
 
@@ -170,6 +159,15 @@ export default {
   },
   mounted() {
     this.displayedValue = this.value;
+    if(!this.isTotalCell && !this.observation) {
+      this.indicateurData.isAutomaticCell = this.indicateurData.isAutomaticCell || false;
+    } else {
+      this.indicateurData = {
+        isAutomaticCell: false,
+        automaticEnabled: false
+      }
+    }
+
   },
   methods: {
     hideTooltip(event) {
@@ -203,7 +201,8 @@ export default {
       automaticEnabled: true,
       displayedValue: null,
       popupHidden: true,
-      id: this._uid
+      id: this._uid,
+      indicateurData: this.indicateur
     }
   },
   watch: {
@@ -216,7 +215,22 @@ export default {
       }
     },
     value: function(newVal, oldVal) {
-      this.displayedValue = newVal;
+      if(this.indicateurData.reset) {
+        if(this.isPrincipaleCell) {
+          this.indicateurData.isPrincipaleCellFilled = true;
+          this.displayedValue = newVal;
+        }
+        if(!this.isPrincipaleCell){
+          this.indicateurData.isSecondaireCellFilled = true;
+          this.displayedValue = newVal;
+        }
+
+        if(this.indicateurData.isPrincipaleCellFilled && this.indicateurData.isSecondaireCellFilled) {
+          this.indicateurData.reset = false;
+          this.indicateurData.isPrincipaleCellFilled = false;
+          this.indicateurData.isSecondaireCellFilled = false;
+        }
+      }
     }
   }
 }
