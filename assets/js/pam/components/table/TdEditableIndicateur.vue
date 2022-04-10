@@ -63,7 +63,7 @@
       <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
         <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
-        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="indicateurData.total !== indicateurData.automaticValue">
+        <p class="fr-hint-text text-red-error" :id="'toggle-' + id + '-hint-text'" v-if="indicateurData.total !== indicateurData.automaticValue">
           Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie <strong>Contrôles opérationnels.</strong>
         </p>
       </div>
@@ -125,7 +125,7 @@
       <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
         <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
-        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="indicateurData.total !== indicateurData.automaticValue">
+        <p class="fr-hint-text text-red-error" :id="'toggle-' + id + '-hint-text'" v-if="indicateurData.total !== indicateurData.automaticValue">
           Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie <strong>Contrôles opérationnels.</strong>
         </p>
       </div>

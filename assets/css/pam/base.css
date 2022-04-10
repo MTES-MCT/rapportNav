@@ -83,7 +83,7 @@
     font-size: 14px;
 }
 .text-red-error {
-    color: #e10600;
+    color: #e10600 !important;
 }
 
 .btn-danger {
