@@ -41,7 +41,7 @@
       contenteditable="false"
       class="td-indicateur"
   >
-    {{ automaticValue }}
+    {{ displayedValue }}
     <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
         <div class="tooltip-automatic-calculate" v-if="!popupHidden">
           <div class="fr-toggle fr-toggle--label-left">
@@ -102,7 +102,7 @@
       v-else-if="indicateurData.isAutomaticCell && indicateurData.automaticEnabled && !isMainMission && !isPrincipaleCell"
       contenteditable="false"
       class="td-indicateur">
-    {{ automaticValue }}
+    {{ displayedValue }}
     <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
     <div class="tooltip-automatic-calculate" v-if="!popupHidden">
       <div class="fr-toggle fr-toggle--label-left">
@@ -161,6 +161,7 @@ export default {
     this.displayedValue = this.value;
     if(!this.isTotalCell && !this.observation) {
       this.indicateurData.isAutomaticCell = this.indicateurData.isAutomaticCell || false;
+    //  this.indicateurData.automaticValue = this.indicateurData.total;
     } else {
       this.indicateurData = {
         isAutomaticCell: false,
@@ -198,23 +199,25 @@ export default {
   data() {
     return {
       hidden: true,
-      automaticEnabled: true,
       displayedValue: null,
       popupHidden: true,
       id: this._uid,
-      indicateurData: this.indicateur
+      indicateurData: this.indicateur ? this.indicateur : {
+        automaticEnabled: false
+      }
     }
   },
   watch: {
-    automaticEnabled: function(newVal) {
+    'indicateurData.automaticEnabled': function(newVal) {
       this.indicateur.automaticEnabled = newVal;
-      this.$emit('input', this.value);
-      this.$emit('change', this.value);
       if(newVal) {
-        this.displayedValue = this.value;
+        this.$emit('input', this.indicateurData.automaticValue);
+        this.$emit('change', this.indicateurData.automaticValue);
+        this.displayedValue = this.indicateurData.automaticValue;
       }
     },
     value: function(newVal, oldVal) {
+      this.displayedValue = newVal;
       if(this.indicateurData.reset) {
         if(this.isPrincipaleCell) {
           this.indicateurData.isPrincipaleCellFilled = true;

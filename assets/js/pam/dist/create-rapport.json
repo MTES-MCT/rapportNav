@@ -55,6 +55,7 @@
           "total": null,
           "observations": null,
           "automaticEnabled": true,
+          "automaticValue": null,
           "totalCoherent": true,
           "isAutomaticCell": true,
           "category": {
@@ -68,6 +69,7 @@
           "total": null,
           "observations": null,
           "automaticEnabled": true,
+          "automaticValue": null,
           "isAutomaticCell": true,
           "totalCoherent": true,
           "category": {
@@ -171,6 +173,7 @@
           "total": null,
           "observation": null,
           "automaticEnabled": true,
+          "automaticValue": null,
           "totalCoherent": true,
           "isAutomaticCell": true,
           "category": {
@@ -194,6 +197,7 @@
           "total": null,
           "observation": null,
           "automaticEnabled": true,
+          "automaticValue": null,
           "isAutomaticCell": true,
           "totalCoherent": true,
           "category": {
@@ -247,6 +251,7 @@
           "total": null,
           "observation": null,
           "automaticEnabled": true,
+          "automaticValue": null,
           "totalCoherent": true,
           "isAutomaticCell": true,
           "category": {
@@ -260,6 +265,7 @@
           "total": null,
           "observation": null,
           "automaticEnabled": true,
+          "automaticValue": null,
           "totalCoherent": true,
           "isAutomaticCell": true,
           "category": {
