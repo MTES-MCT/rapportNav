@@ -18,6 +18,7 @@
                         <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + controle.id">
                          {{ controle.nom }}
                         </button>
+                        <span class="accordion__title-sub" v-if="controle.id !== 5">{{ countNavires(controle.id) }} navire(s) contrôlé(s)</span>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
                         <button data-fr-opened="false" :aria-controls="'fr-modal-' + index" class="fr-fi-delete-fill btn-remove" aria-hidden="true"></button>
@@ -214,6 +215,15 @@ export default {
       controle.id = 5;
       controle.nom = 'Autres missions';
       this.controlesByType.push(controle);
+    },
+    countNavires(id) {
+      let count = 0;
+      this.controles.map((controle) => {
+        if(controle.category.id === id) {
+          count += 1;
+        }
+      })
+      return count;
     }
   }
 }
