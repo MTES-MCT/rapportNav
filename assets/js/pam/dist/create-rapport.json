@@ -56,7 +56,6 @@
           "observations": null,
           "automaticEnabled": true,
           "automaticValue": null,
-          "totalCoherent": true,
           "isAutomaticCell": true,
           "category": {
             "id": 1,
@@ -71,7 +70,6 @@
           "automaticEnabled": true,
           "automaticValue": null,
           "isAutomaticCell": true,
-          "totalCoherent": true,
           "category": {
             "id": 2,
             "nom": "Nombre d'opérations suivies (ayant fait l'objet d'un DEFREP)"
@@ -174,7 +172,7 @@
           "observation": null,
           "automaticEnabled": true,
           "automaticValue": null,
-          "totalCoherent": true,
+          
           "isAutomaticCell": true,
           "category": {
             "id": 10,
@@ -199,7 +197,6 @@
           "automaticEnabled": true,
           "automaticValue": null,
           "isAutomaticCell": true,
-          "totalCoherent": true,
           "category": {
             "id": 12,
             "nom": "Nombre d'opérations de lutte anti-pollution en mer"
@@ -252,7 +249,6 @@
           "observation": null,
           "automaticEnabled": true,
           "automaticValue": null,
-          "totalCoherent": true,
           "isAutomaticCell": true,
           "category": {
             "id": 16,
@@ -266,7 +262,6 @@
           "observation": null,
           "automaticEnabled": true,
           "automaticValue": null,
-          "totalCoherent": true,
           "isAutomaticCell": true,
           "category": {
             "id": 17,

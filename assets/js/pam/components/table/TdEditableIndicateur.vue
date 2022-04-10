@@ -58,13 +58,13 @@
       @keypress="onKeyPress($event)"
   >
       {{ displayedValue }}
-    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
-    <div class="tooltip-automatic-calculate" v-if="!popupHidden">
-      <div class="fr-toggle fr-toggle--label-left">
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" />
+    <div class="tooltip-automatic-calculate" v-if="!popupHidden" ref="calculAutoTooltip">
+      <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
         <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
-        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
-          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
+        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="indicateurData.total !== indicateurData.automaticValue">
+          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie <strong>Contrôles opérationnels.</strong>
         </p>
       </div>
     </div>
@@ -108,9 +108,6 @@
       <div class="fr-toggle fr-toggle--label-left">
         <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
-        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
-          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
-        </p>
       </div>
     </div>
   </td>
@@ -122,13 +119,14 @@
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)">
     {{ displayedValue }}
-    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
-    <div class="tooltip-automatic-calculate" v-if="!popupHidden">
-      <div class="fr-toggle fr-toggle--label-left">
+    <i class="ri-calculator-fill automatic-icon-error fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" v-if="indicateurData.total !== indicateurData.automaticValue" />
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" v-else />
+    <div class="tooltip-automatic-calculate" v-if="!popupHidden" ref="calculAutoTooltip">
+      <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
         <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
-        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="!alerteCoherent">
-          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels
+        <p class="fr-hint-text fr-error-text" :id="'toggle-' + id + '-hint-text'" v-if="indicateurData.total !== indicateurData.automaticValue">
+          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie <strong>Contrôles opérationnels.</strong>
         </p>
       </div>
     </div>
@@ -152,7 +150,6 @@ export default {
     isTotalCell: Boolean,
     isIndicateurChild: Boolean,
     indicateur: Object,
-    automaticValue: Number,
     alerteCoherent: Boolean,
     isPrincipaleCell: Boolean,
     isMainMission: Boolean
@@ -161,7 +158,6 @@ export default {
     this.displayedValue = this.value;
     if(!this.isTotalCell && !this.observation) {
       this.indicateurData.isAutomaticCell = this.indicateurData.isAutomaticCell || false;
-    //  this.indicateurData.automaticValue = this.indicateurData.total;
     } else {
       this.indicateurData = {
         isAutomaticCell: false,
@@ -174,6 +170,11 @@ export default {
     hideTooltip(event) {
       if(!this.$refs.observation.contains(event.target)) {
         this.hidden = true;
+      }
+    },
+    hideCalculAutoTooltip(event) {
+      if(!this.$refs.calculAutoTooltip.contains(event.target) && this.$refs.automaticIcon !== event.target) {
+        this.popupHidden = true;
       }
     },
     getValue(e, isTextarea = false) {
@@ -217,7 +218,6 @@ export default {
       }
     },
     value: function(newVal, oldVal) {
-      this.displayedValue = newVal;
       if(this.indicateurData.reset) {
         if(this.isPrincipaleCell) {
           this.indicateurData.isPrincipaleCellFilled = true;
