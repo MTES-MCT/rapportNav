@@ -12,7 +12,8 @@
                       <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" :aria-expanded="expanded" :aria-controls="'accordion-indicateurs-' + id">
                         {{ title }}
                       </button>
-                      <span class="accordion__title-sub">{{ countIndicateursAutomatique() }} indicateur(s) automatique</span>
+                      <span class="accordion__title-sub" v-if="countIndicateursAutomatique > 1">{{ countIndicateursAutomatique }} indicateurs automatiques activés</span>
+                      <span class="accordion__title-sub" v-if="countIndicateursAutomatique === 1">{{ countIndicateursAutomatique }} indicateur automatique activé</span>
                     </div>
                   </div>
                 </div>
@@ -61,7 +62,7 @@ export default {
   },
   mounted() {
   },
-  methods: {
+  computed: {
     countIndicateursAutomatique() {
       let count = 0;
       this.mission.indicateurs.map((indicateur) => {
