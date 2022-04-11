@@ -2,6 +2,8 @@
   <div class="myReports">
     <AlertComponent title="Aucun rapport" message="Vous n'avez pas encore rempli de rapport." v-if="!rapports" />
 
+
+
     <div class="rapport-list">
       <div class="rapport-list-header fr-grid-row">
         <div class="fr-col-lg-2">
@@ -15,8 +17,54 @@
             Créer un rapport
           </button>
         </div>
-
       </div>
+
+      <div id="search" class="fr-grid-row fr-grid-row--gutters fr-mb-2v fr-mt-4v">
+        <div class="fr-col-md-5">
+          <div class="fr-search-bar--md" id="header-search" role="search">
+            <input class="fr-input" placeholder="Rechercher" type="search" id="search-784-input" name="search-784-input">
+          </div>
+        </div>
+        <div class="fr-col-md-7">
+          <div class="fr-grid-row fr-grid-row--gutters">
+            <div class="fr-col-md-4">
+              <div class="fr-select-group">
+                <select class="fr-select" @change="onChangeStatut($event)">
+                  <option value="" selected disabled hidden>Statut : Tous</option>
+                  <option value="brouillon">Brouillon</option>
+                  <option value="valide">Validé</option>
+                  <option value="all">Tous</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="fr-col-md-4">
+              <div class="fr-select-group">
+                <select class="fr-select" @change="onChangePeriode($event)">
+                  <option value="" selected disabled hidden>Période : Mois en cours</option>
+                  <option value="current">Mois en cours</option>
+                  <option value="6months">6 derniers mois</option>
+                  <option value="annee_2021">Année 2021</option>
+                  <option value="annee_2022">Année 2022</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="fr-col-md-4">
+              <div class="fr-select-group">
+                <select class="fr-select" @change="onChangeBordee($event)">
+                  <option value="" selected disabled hidden>Equipe : Mon équipe</option>
+                  <option value="mine">Mon équipe</option>
+                  <option value="all">Toute les bordée de mon patrouilleur</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <DownloadAEMComponent />
+
       <div class="fr-grid-row rapport-list-title">
         <div class="fr-col-lg-1"></div>
         <div class="fr-col-lg-4"></div>
@@ -62,12 +110,13 @@
 <script>
 import AlertComponent from "../alert/AlertComponent";
 import axios from "axios";
-import {sanitizeUrl} from "@braintree/sanitize-url";
+import DownloadAEMComponent from "../DownloadAEMComponent";
 import HomeDownloadComponent from "../dropdown/HomeDownloadComponent";
 export default {
   name: "MyReportsComponent",
-  components: {HomeDownloadComponent, AlertComponent},
+  components: {HomeDownloadComponent, AlertComponent, DownloadAEMComponent},
   mounted() {
+    console.log(window.location)
     this.fetchRapports();
   },
   methods: {
@@ -106,11 +155,52 @@ export default {
       this.$router.push({
         name: 'rapport'
       })
+    },
+    onChangeStatut(event) {
+      this.uriSearch.searchParams.delete('statut');
+      if(event.target.value !== 'all') {
+        this.uriSearch.searchParams.append('statut', event.target.value);
+      }
+      this.fetchFiltre();
+    },
+    onChangePeriode(event) {
+      this.uriSearch.searchParams.delete('periode');
+      this.uriSearch.searchParams.append('periode', event.target.value);
+      this.fetchFiltre();
+    },
+    onChangeBordee(event) {
+      this.uriSearch.searchParams.delete('bordee');
+      this.uriSearch.searchParams.append('bordee', event.target.value);
+
+      this.fetchFiltre();
+
+    },
+    fetchFiltre() {
+      axios.get(this.uriSearch.toString())
+          .then((success) => {
+            let results = success.data;
+            let rapports = [];
+            results.map((result) => {
+              if(result.type === 'brouillon') {
+                let brouillon = JSON.parse(result.body);
+                brouillon.id = result.number;
+                brouillon.type = result.type;
+                rapports.push(brouillon);
+              } else {
+                rapports.push(result);
+              }
+            });
+            this.rapports = rapports;
+          })
+          .catch((error) => {
+            console.log(error)
+          })
     }
   },
   data() {
     return {
-      rapports: []
+      rapports: [],
+      uriSearch: new URL('/api/pam/rapport/filtre', window.location.origin)
     }
   }
 }

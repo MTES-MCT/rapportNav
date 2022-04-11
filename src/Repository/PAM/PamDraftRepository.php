@@ -5,6 +5,8 @@ namespace App\Repository\PAM;
 use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamIndicateur;
 use App\Entity\PAM\PamRapport;
+use App\Exception\BordeeNotFound;
+use App\Repository\PAM\Utils\RapportRepositoryUtils;
 use App\Request\PAM\DraftRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -25,10 +27,17 @@ class PamDraftRepository extends ServiceEntityRepository
 
     protected $tokenStorage;
 
-    public function __construct(ManagerRegistry $registry, SerializerInterface $serializer, TokenStorageInterface $tokenStorage)
+    protected $utils;
+
+    public function __construct(ManagerRegistry $registry,
+                                SerializerInterface $serializer,
+                                TokenStorageInterface $tokenStorage,
+                                RapportRepositoryUtils $utils
+    )
     {
         $this->serializer = $serializer;
         $this->tokenStorage = $tokenStorage;
+        $this->utils = $utils;
         parent::__construct($registry, PamDraft::class);
     }
 
@@ -96,5 +105,19 @@ class PamDraftRepository extends ServiceEntityRepository
         }
 
         return $rapports;
+    }
+
+    /**
+     * @param string|null $periode
+     * @param string|null $bordee
+     *
+     * @return PamDraft[]
+     * @throws BordeeNotFound
+     */
+    public function filter(?string $periode, ?string $bordee): array
+    {
+        $qb = $this->createQueryBuilder('pam_r');
+        $service = $this->tokenStorage->getToken()->getUser()->getService();
+        return $this->utils->handleRequestFiltre($qb, $service, $periode, $bordee)->getQuery()->getResult();
     }
 }

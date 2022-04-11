@@ -5,6 +5,7 @@ namespace App\Repository\PAM;
 use App\Entity\PAM\PamIndicateur;
 use App\Entity\PAM\PamRapport;
 use App\Entity\Service;
+use App\Repository\PAM\Utils\RapportRepositoryUtils;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -20,10 +21,13 @@ class PamRapportRepository extends ServiceEntityRepository
 
     protected $tokenStorage;
 
-    public function __construct(ManagerRegistry $registry, TokenStorageInterface $tokenStorage)
+    protected $utils;
+
+    public function __construct(ManagerRegistry $registry, TokenStorageInterface $tokenStorage, RapportRepositoryUtils $utils)
     {
         parent::__construct($registry, PamRapport::class);
         $this->tokenStorage = $tokenStorage;
+        $this->utils = $utils;
     }
 
     /**
@@ -71,5 +75,18 @@ class PamRapportRepository extends ServiceEntityRepository
             ->getResult();
 
 
+    }
+
+    /**
+     * @param string|null $periode
+     * @param string|null $bordee
+     *
+     * @return array
+     */
+    public function filter(?string $periode, ?string $bordee): array
+    {
+        $qb = $this->createQueryBuilder('pam_r');
+        $service = $this->tokenStorage->getToken()->getUser()->getService();
+        return $this->utils->handleRequestFiltre($qb, $service, $periode, $bordee)->getQuery()->getResult();
     }
 }

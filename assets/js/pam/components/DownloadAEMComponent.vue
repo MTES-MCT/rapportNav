@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-mb-4v">
     <div class="download-link-section">
       <a href="#" aria-controls="fr-modal-download" data-fr-opened="false"><i class="fr-fi-download-line" aria-hidden="true"></i> Télécharger le rapport AEM</a>
     </div>

@@ -218,29 +218,14 @@ class RapportService {
     }
 
     /**
-     * @param Service $service
-     *
      * @return array
      */
-    public function listAll(Service $service): array
+    public function listAll(): array
     {
-        $drafts = $this->em->getRepository(PamDraft::class)->findBy(['created_by' => $service]);
-        $rapports = $this->em->getRepository(PamRapport::class)->findBy(['created_by' => $service]);
-        $idsRapport = [];
-        $results = [];
+        $drafts = $this->em->getRepository(PamDraft::class)->findAll();
+        $rapports = $this->em->getRepository(PamRapport::class)->findAll();
 
-        foreach($rapports as $rapport) {
-            $results[] = $rapport;
-            $idsRapport[] = $rapport->getId();
-        }
-
-        foreach($drafts as $draft) {
-            if(!in_array($draft->getNumber(), $idsRapport)) {
-                $results[] = $draft;
-            }
-        }
-
-        return $results;
+        return $this->handleRapportAndDraft($rapports, $drafts);
     }
 
     /**
@@ -296,6 +281,24 @@ class RapportService {
                 $membre->setFonctionParticuliere(null);
             }
         }
+    }
+
+    public function handleRapportAndDraft(array $rapports, array $drafts): array
+    {
+        $results = [];
+        $idsRapport = [];
+        foreach($rapports as $rapport) {
+            $results[] = $rapport;
+            $idsRapport[] = $rapport->getId();
+        }
+
+        foreach($drafts as $draft) {
+            if(!in_array($draft->getNumber(), $idsRapport)) {
+                $results[] = $draft;
+            }
+        }
+
+        return $results;
     }
 
 
