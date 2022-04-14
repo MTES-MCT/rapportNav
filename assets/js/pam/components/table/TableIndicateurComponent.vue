@@ -69,6 +69,7 @@ export default {
   methods: {
     setValue(indicateur, value, scope, index) {
       if(!indicateur.automaticEnabled) {
+        indicateur.reset = false;
         if(scope === 'principale') {
           indicateur.principale = value;
         } else {
@@ -82,11 +83,9 @@ export default {
           indicateur.secondaire = indicateur.automaticValue;
           indicateur.principale = null;
         }
-        indicateur.totalCoherent = true;
       }
 
-      let total = this.setTotal(indicateur, index);
-      indicateur.totalCoherent = indicateur.automaticValue === total;
+      this.setTotal(indicateur, index);
     },
     setAutomaticValue(indicateur, value, index) {
       indicateur.reset = true;
@@ -99,7 +98,6 @@ export default {
           indicateur.secondaire = value;
           indicateur.principale = null;
         }
-        indicateur.totalCoherent = true;
       }
       else {
         if(this.mission.is_main) {

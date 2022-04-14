@@ -207,21 +207,30 @@ export default {
       if(newVal) {
         this.$emit('input', this.indicateurData.automaticValue);
         this.$emit('change', this.indicateurData.automaticValue);
-        this.displayedValue = this.indicateurData.automaticValue;
+        if(this.isPrincipaleCell && !this.isMainMission) {
+          this.displayedValue = null;
+        }
+        else if(!this.isPrincipaleCell && this.isMainMission) {
+          this.displayedValue = null;
+        } else {
+          this.displayedValue = this.indicateurData.automaticValue;
+        }
+
       }
     },
     value: function(newVal, oldVal) {
       if(this.indicateurData.reset) {
-        if(this.isPrincipaleCell) {
+        if(this.isPrincipaleCell && this.isMainMission) {
+          this.displayedValue = newVal;
           this.indicateurData.isPrincipaleCellFilled = true;
-          this.displayedValue = newVal;
-        }
-        if(!this.isPrincipaleCell){
-          this.indicateurData.isSecondaireCellFilled = true;
-          this.displayedValue = newVal;
         }
 
-        if(this.indicateurData.isPrincipaleCellFilled && this.indicateurData.isSecondaireCellFilled) {
+        if(!this.isPrincipaleCell && !this.isMainMission){
+          this.displayedValue = newVal;
+          this.indicateurData.isSecondaireCellFilled = true;
+        }
+
+       if(this.indicateurData.isPrincipaleCellFilled && this.indicateurData.isSecondaireCellFilled) {
           this.indicateurData.reset = false;
           this.indicateurData.isPrincipaleCellFilled = false;
           this.indicateurData.isSecondaireCellFilled = false;
