@@ -204,18 +204,19 @@ export default {
   watch: {
     'indicateurData.automaticEnabled': function(newVal) {
       this.indicateur.automaticEnabled = newVal;
+      if(this.isPrincipaleCell && !this.isMainMission) {
+        this.displayedValue = null;
+      }
+      else if(!this.isPrincipaleCell && this.isMainMission) {
+        this.displayedValue = null;
+      }
+      else {
+        this.displayedValue = this.indicateurData.automaticValue;
+      }
+
       if(newVal) {
         this.$emit('input', this.indicateurData.automaticValue);
         this.$emit('change', this.indicateurData.automaticValue);
-        if(this.isPrincipaleCell && !this.isMainMission) {
-          this.displayedValue = null;
-        }
-        else if(!this.isPrincipaleCell && this.isMainMission) {
-          this.displayedValue = null;
-        } else {
-          this.displayedValue = this.indicateurData.automaticValue;
-        }
-
       }
     },
     value: function(newVal, oldVal) {
