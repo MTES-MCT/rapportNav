@@ -42,25 +42,20 @@ class FiltreService {
     {
         $query = $request->query;
         $statut = $query->get('statut');
-        $periode = $query->get('periode');
-        $bordee = $query->get('bordee');
+        $periode = $query->get('periode') ? : 'current';
+        $bordee = $query->get('bordee') ? : 'mine';
 
-        if($query->count() > 0) {
-            if($statut === 'brouillon') {
-                return $this->draftRepository->filter($periode, $bordee);
-            }
-            if($statut === 'valide') {
-                return $this->rapportRepository->filter($periode, $bordee);
-            }
-            if(!$statut) {
-                $rapports = $this->rapportRepository->filter($periode, $bordee);
-                $drafts = $this->draftRepository->filter($periode, $bordee);
-                return $this->rapportService->handleRapportAndDraft($rapports, $drafts);
-            }
-
+        if($statut === 'brouillon') {
+            return $this->draftRepository->filter($periode, $bordee);
         }
+        if($statut === 'valide') {
+            return $this->rapportRepository->filter($periode, $bordee);
+        }
+        $rapports = $this->rapportRepository->filter($periode, $bordee);
+        $drafts = $this->draftRepository->filter($periode, $bordee);
+        return $this->rapportService->handleRapportAndDraft($rapports, $drafts);
 
-        return $this->rapportService->listAll();
+
     }
 
 }
