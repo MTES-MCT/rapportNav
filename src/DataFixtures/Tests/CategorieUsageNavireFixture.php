@@ -36,6 +36,6 @@ class CategorieUsageNavireFixture extends Fixture implements FixtureGroupInterfa
     }
 
     public static function getGroups(): array {
-        return ['test'];
+        return ['test', 'app'];
     }
 }

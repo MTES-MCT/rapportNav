@@ -39,6 +39,6 @@ class MoyensFixture extends Fixture implements DependentFixtureInterface, Fixtur
 
 
   public static function getGroups(): array {
-    return ['test'];
+    return ['test', 'app'];
   }
 }

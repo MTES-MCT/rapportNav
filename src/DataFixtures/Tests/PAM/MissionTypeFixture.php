@@ -11,7 +11,7 @@ use Doctrine\Persistence\ObjectManager;
 class MissionTypeFixture extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface {
 
     public static function getGroups(): array {
-        return ['test', 'pam'];
+        return ['test', 'app'];
     }
 
     public function load(ObjectManager $manager) {
