@@ -89,24 +89,13 @@ export default {
     },
     setAutomaticValue(indicateur, value, index) {
       indicateur.reset = true;
-      if(indicateur.automaticEnabled) {
-        if(this.mission.is_main) {
-          indicateur.principale = value;
-          indicateur.secondaire = null;
-          indicateur.reset = true;
-        } else {
-          indicateur.secondaire = value;
-          indicateur.principale = null;
-        }
-      }
-      else {
-        if(this.mission.is_main) {
-          indicateur.principale = value;
-          indicateur.secondaire = null;
-        } else {
-          indicateur.secondaire = value;
-          indicateur.principale = null;
-        }
+      indicateur.automaticEnabled = true; // forcer à true, utile lors du switch mission principale / secondaire
+      if(this.mission.is_main) {
+        indicateur.principale = value;
+        indicateur.secondaire = null;
+      } else {
+        indicateur.secondaire = value;
+        indicateur.principale = null;
       }
 
       indicateur.automaticValue = value;
