@@ -55,7 +55,7 @@
                 <select class="fr-select" @change="onChangeBordee($event)">
                   <option value="" selected disabled hidden>Equipe : Mon équipe</option>
                   <option value="mine">Mon équipe</option>
-                  <option value="all">Toute les bordée de mon patrouilleur</option>
+                  <option value="all">Toutes les bordées de ce patrouilleur</option>
                 </select>
               </div>
             </div>
@@ -116,8 +116,7 @@ export default {
   name: "MyReportsComponent",
   components: {HomeDownloadComponent, AlertComponent, DownloadAEMComponent},
   mounted() {
-    console.log(window.location)
-    this.fetchRapports();
+    this.fetchFiltre();
   },
   methods: {
     fetchRapports() {
