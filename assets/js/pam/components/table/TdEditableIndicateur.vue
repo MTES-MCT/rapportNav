@@ -12,9 +12,11 @@
   </td>
   <td
       v-else-if="isTotalCell && !isIndicateurChild"
-      :class="'td-table-total td-indicateur'"
+      class="td-table-total td-indicateur"
+      v-bind:class="[indicateurData.total !== indicateurData.automaticValue && indicateurData.isAutomaticCell ? 'text-red-error' : null]"
       v-text="value">
   </td>
+
   <td
       v-else-if="isTotalCell && isIndicateurChild"
       class="td-indicateur-child"
@@ -51,14 +53,12 @@
       @keypress="onKeyPress($event)"
   >
       {{ displayedValue }}
-    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" />
+    <i class="ri-calculator-fill automatic-icon-error fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" v-if="indicateurData.total !== indicateurData.automaticValue" />
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" v-else />
     <div class="tooltip-automatic-calculate" v-if="!popupHidden" ref="calculAutoTooltip">
       <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
         <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
-        <p class="fr-hint-text text-red-error" :id="'toggle-' + id + '-hint-text'" v-if="indicateurData.total !== indicateurData.automaticValue">
-          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie <strong>Contrôles opérationnels.</strong>
-        </p>
       </div>
     </div>
   </td>
@@ -118,9 +118,6 @@
       <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
         <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
-        <p class="fr-hint-text text-red-error" :id="'toggle-' + id + '-hint-text'" v-if="indicateurData.total !== indicateurData.automaticValue">
-          Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie <strong>Contrôles opérationnels.</strong>
-        </p>
       </div>
     </div>
   </td>
@@ -149,7 +146,7 @@ export default {
   },
   mounted() {
     this.displayedValue = this.value;
-    if(!this.isTotalCell && !this.observation) {
+    if(!this.observation) {
       this.indicateurData.isAutomaticCell = this.indicateurData.isAutomaticCell || false;
     } else {
       this.indicateurData = {

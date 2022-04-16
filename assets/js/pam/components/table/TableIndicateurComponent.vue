@@ -11,10 +11,12 @@
 
       <tbody v-if="category !== 4">
         <tr class="tr-indicateur" v-for="(indicateur, index) in indicateurs">
-          <th class="th-tr-indicateur" scope="row">{{ indicateur.category.nom }}</th>
+          <th class="th-tr-indicateur"
+              v-bind:class="[indicateur.total !== indicateur.automaticValue && indicateur.isAutomaticCell ? 'text-red-error' : null]"
+              scope="row">{{ indicateur.category.nom }}</th>
           <TdEditableIndicateur :value="indicateur.principale" @change="setValue(indicateur, $event, 'principale', index)" :indicateur="indicateur" :is-main-mission="mission.is_main" :is-principale-cell="true" />
           <TdEditableIndicateur :value="indicateur.secondaire" @change="setValue(indicateur, $event, 'secondaire', index)" :indicateur="indicateur" :is-main-mission="mission.is_main"  :is-principale-cell="false"  />
-          <TdEditableIndicateur :value="indicateur.total" is-total-cell />
+          <TdEditableIndicateur :value="indicateur.total" is-total-cell :indicateur="indicateur" />
           <TdEditableIndicateur v-model="indicateur.observations" observation />
         </tr>
       </tbody>
