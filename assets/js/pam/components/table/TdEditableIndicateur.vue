@@ -215,19 +215,23 @@ export default {
       }
 
       if(newVal) {
+        this.indicateur.reset = true;
         this.$emit('input', this.indicateurData.automaticValue);
         this.$emit('change', this.indicateurData.automaticValue);
       }
+
+
     },
     value: function(newVal, oldVal) {
+
       if(this.indicateurData.reset) {
         if(this.isPrincipaleCell && this.isMainMission) {
-          this.displayedValue = newVal;
+          this.displayedValue = this.indicateurData.automaticValue;
           this.indicateurData.isPrincipaleCellFilled = true;
         }
 
         if(!this.isPrincipaleCell && !this.isMainMission){
-          this.displayedValue = newVal;
+          this.displayedValue = this.indicateurData.automaticValue;
           this.indicateurData.isSecondaireCellFilled = true;
         }
 
@@ -236,6 +240,8 @@ export default {
           this.indicateurData.isPrincipaleCellFilled = false;
           this.indicateurData.isSecondaireCellFilled = false;
         }
+      } else {
+        this.displayedValue = newVal;
       }
     }
   }
