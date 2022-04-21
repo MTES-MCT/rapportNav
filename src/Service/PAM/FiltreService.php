@@ -44,15 +44,16 @@ class FiltreService {
         $statut = $query->get('statut');
         $periode = $query->get('periode') ? : 'current';
         $bordee = $query->get('bordee') ? : 'mine';
+        $date = $query->get('date');
 
         if($statut === 'brouillon') {
-            return $this->draftRepository->filter($periode, $bordee);
+            return $this->draftRepository->filter($periode, $bordee, $date);
         }
         if($statut === 'valide') {
-            return $this->rapportRepository->filter($periode, $bordee);
+            return $this->rapportRepository->filter($periode, $bordee, $date);
         }
-        $rapports = $this->rapportRepository->filter($periode, $bordee);
-        $drafts = $this->draftRepository->filter($periode, $bordee);
+        $rapports = $this->rapportRepository->filter($periode, $bordee, $date);
+        $drafts = $this->draftRepository->filter($periode, $bordee, $date);
         return $this->rapportService->handleRapportAndDraft($rapports, $drafts);
 
 

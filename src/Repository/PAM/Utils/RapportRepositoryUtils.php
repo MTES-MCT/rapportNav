@@ -17,7 +17,7 @@ class RapportRepositoryUtils {
      * @return QueryBuilder
      * @throws BordeeNotFound
      */
-    public function handleRequestFiltre(QueryBuilder $qb, Service $service, ?string $periode, ?string $bordee): QueryBuilder
+    public function handleRequestFiltre(QueryBuilder $qb, Service $service, ?string $periode, ?string $bordee, ?string $date): QueryBuilder
     {
         if($periode) {
             switch(true) {
@@ -39,7 +39,7 @@ class RapportRepositoryUtils {
                         ->setParameter('end', $end);
                     break;
 
-                case strpos($periode, 'annee') == 0:
+                case strpos($periode, 'annee') === 0:
                     $annee = explode('_', $periode)[1];
                     $start = new \DateTime($annee . '-01-01');
                     $end = new \DateTime($annee . '-12-31');
@@ -47,6 +47,16 @@ class RapportRepositoryUtils {
                         ->setParameter('start', $start)
                         ->setParameter('end', $end);
                     break;
+
+                case $periode === "mois":
+
+                    $start = new \DateTime('first day of ' . $date);
+                    $end = new \DateTime('last day of ' . $date);
+                    $qb->andWhere('pam_r.start_datetime BETWEEN :start AND :end')
+                        ->setParameter('start', $start)
+                        ->setParameter('end', $end);
+                    break;
+
             }
         }
 
