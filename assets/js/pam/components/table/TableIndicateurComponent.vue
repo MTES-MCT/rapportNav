@@ -89,7 +89,9 @@ export default {
 
       this.setTotal(indicateur, index);
     },
-    setAutomaticValue(indicateur, value, index) {
+    setAutomaticValue(indicateur, value, index, switchMain = false) {
+      indicateur.switchMain = switchMain;
+      indicateur.automaticEnabled = switchMain ? false : indicateur.automaticEnabled;
       if(indicateur.automaticEnabled) {
         indicateur.reset = true;
         if(this.mission.is_main) {
@@ -110,16 +112,16 @@ export default {
       let total = indicateur.automaticEnabled ? indicateur.automaticValue : indicateur.principale + indicateur.secondaire;
       return this.indicateurs[index].total = !isNaN(total) ? total : null;
     },
-    setAutomaticAssistanceNavire(indicateurCategoryNom, value) {
+    setAutomaticAssistanceNavire(indicateurCategoryNom, value, switchMain = false) {
       if(this.mission.category.nom === 'Assistance aux navires en difficulté et sécurité maritime') {
         this.indicateurs.filter((indicateur, index) => {
           if(indicateur.category.nom === indicateurCategoryNom) {
-            this.setAutomaticValue(indicateur, value, index);
+            this.setAutomaticValue(indicateur, value, index, switchMain);
           }
         })
       }
     },
-    setAutomaticLuttePollution(indicateurCategoryNom, value, isControleOp = false, controles = []) {
+    setAutomaticLuttePollution(indicateurCategoryNom, value, isControleOp = false, controles = [], switchMain = false) {
       if(this.mission.category.nom === 'Répression contre les rejets illicites, lutte contre les pollutions et protection de l\'environnement') {
         this.indicateurs.filter((indicateur, index) => {
           if(indicateur.category.nom === indicateurCategoryNom) {
@@ -130,15 +132,15 @@ export default {
               });
               let total = 0;
               envPollution.forEach(pv =>  total += pv);
-              this.setAutomaticValue(indicateur, total, index);
+              this.setAutomaticValue(indicateur, total, index, switchMain);
             } else {
-              this.setAutomaticValue(indicateur, value, index);
+              this.setAutomaticValue(indicateur, value, index, switchMain);
             }
           }
         })
       }
     },
-    setAutomaticPecheIllegale(controles) {
+    setAutomaticPecheIllegale(controles, switchMain = false) {
       let nbPvPecheSanitaire = [];
       let nbControlePecheSanitaire = [];
 
@@ -156,7 +158,7 @@ export default {
             nbControlePecheSanitaire.forEach((pv) => {
               total += pv;
             })
-            this.setAutomaticValue(indicateur, total, index);
+            this.setAutomaticValue(indicateur, total, index, switchMain);
           }
 
           if(indicateur.category.nom === 'Nombre de procès-verbaux dressés (législation pêche)') {
@@ -164,7 +166,7 @@ export default {
             nbPvPecheSanitaire.forEach((pv) => {
               total += pv;
             })
-            this.setAutomaticValue(indicateur, total, index);
+            this.setAutomaticValue(indicateur, total, index, switchMain);
           }
         })
       }
@@ -188,12 +190,12 @@ export default {
       this.setAutomaticPecheIllegale(controles);
     },
     'mission.is_main': function(value) {
-      this.setAutomaticAssistanceNavire('Nombre d\'opérations suivies (ayant fait l\'objet d\'un DEFREP)', this.autresMissions.nbAssistanceSauvetage);
-      this.setAutomaticAssistanceNavire('Nombre d\'heures de mer', this.autresMissions.dureeAssistanceSauvetage);
-      this.setAutomaticLuttePollution('Nombre d\'heures de mer (surveillance et lutte)', this.autresMissions.dureeLuttePollution);
-      this.setAutomaticLuttePollution('Nombre d\'opérations de lutte anti-pollution en mer', this.autresMissions.nbLuttePollution);
-      this.setAutomaticLuttePollution('Nombre de procès-verbaux d\'infraction dressés', null, true, this.controles);
-      this.setAutomaticPecheIllegale(this.controles);
+      this.setAutomaticAssistanceNavire('Nombre d\'opérations suivies (ayant fait l\'objet d\'un DEFREP)', this.autresMissions.nbAssistanceSauvetage, true);
+      this.setAutomaticAssistanceNavire('Nombre d\'heures de mer', this.autresMissions.dureeAssistanceSauvetage, true);
+      this.setAutomaticLuttePollution('Nombre d\'heures de mer (surveillance et lutte)', this.autresMissions.dureeLuttePollution, false, [], true);
+      this.setAutomaticLuttePollution('Nombre d\'opérations de lutte anti-pollution en mer', this.autresMissions.nbLuttePollution, false, [], true);
+      this.setAutomaticLuttePollution('Nombre de procès-verbaux d\'infraction dressés', null, true, this.controles, true);
+      this.setAutomaticPecheIllegale(this.controles, true);
     }
   },
   data() {
