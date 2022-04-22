@@ -37,3 +37,13 @@
     margin-top: -5px;
     margin-left: -10px;
 }
+
+.dropdowns-search {
+    display: flex;
+}
+
+.reset-filter a {
+    font-size: 16px;
+    color: #000091;
+    font-style: italic;
+}

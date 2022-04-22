@@ -1,9 +1,6 @@
 <template>
   <div class="myReports">
     <AlertComponent title="Aucun rapport" message="Vous n'avez pas encore rempli de rapport." v-if="!rapports" />
-
-
-
     <div class="rapport-list">
       <div class="rapport-list-header fr-grid-row">
         <div class="fr-col-lg-2">
@@ -19,51 +16,109 @@
         </div>
       </div>
 
-      <div id="search" class="fr-grid-row fr-grid-row--gutters fr-mb-2v fr-mt-4v">
-        <div class="fr-col-md-5">
-        </div>
-        <div class="fr-col-md-7">
-          <div class="fr-grid-row fr-grid-row--gutters">
-            <div class="fr-col-md-4">
-              <div class="fr-select-group">
-                <select class="fr-select" @change="onChangeStatut($event)">
-                  <option value="" selected disabled hidden>Statut : Tous</option>
-                  <option value="brouillon">Brouillon</option>
-                  <option value="valide">Validé</option>
-                  <option value="all">Tous</option>
-                </select>
+        <div id="search" class="fr-mb-2v fr-mt-4v">
+          <div class="reset-filter fr-mb-2v">
+            <a href="#" @click.prevent="resetFilter"><i class="fr-fi-refresh-fill"></i> Réinitialiser tous les filtres</a>
+          </div>
+          <div class="dropdowns-search">
+            <div class="dropdown-select fr-mr-2v">
+              <button class="fr-btn fr-btn--secondary dropdown-selected fr-fi-arrow-down-s-line fr-btn--icon-right" @click="statutHidden = !statutHidden" data-toggle="select-statut">
+                Statut: {{ selectedStatut }}
+              </button>
+              <div class="selection" data-select-toggle="select-statut" v-if="!statutHidden">
+                <ul>
+                  <li data-value="brouillon" @click="onChangeStatut($event)">Brouillon</li>
+                  <li data-value="valide" @click="onChangeStatut($event)">Validé</li>
+                  <li data-value="all" @click="onChangeStatut($event)">Tout</li>
+                </ul>
               </div>
             </div>
+            <div class="dropdown-select fr-mr-2v">
+              <button class="fr-btn fr-btn--secondary dropdown-selected fr-fi-arrow-down-s-line fr-btn--icon-right" @click="periodeHidden = !periodeHidden" data-toggle="select-periode" v-if="!dateRangeEnabled">
+                Période: {{ selectedPeriode }}
+              </button>
+              <button class="fr-btn fr-btn--secondary dropdown-selected" @click="periodeHidden = !periodeHidden" data-toggle="select-periode" v-else>
+                Période: {{ startDate|date('MMMM YYYY') }} - {{ endDate|date('MMMM YYYY') }}
+              </button>
+              <div class="selection" data-select-toggle="select-periode" v-if="!periodeHidden">
+                <ul>
+                  <li data-value="current" @click="onChangePeriode($event)">Mois en cours</li>
+                  <li data-value="6months" @click="onChangePeriode($event)">6 derniers mois</li>
+                  <li data-value="annee_2021" @click="onChangePeriode($event)">Année 2021</li>
+                  <li data-value="annee_2022" @click="onChangePeriode($event)">Année 2022</li>
+                </ul>
+                <div class="selection-date">
+                  <label class="fr-label fr-mb-2v">De</label>
+                  <div class="fr-grid-row fr-grid-row--gutters">
+                    <div class="fr-col-md-6">
+                      <select class="fr-select" id="select"  v-model="filtrePeriodeMonthStart" @change="onChangeDateRange">
+                        <option value="" disabled selected hidden>- mois -</option>
+                        <option value="01-01">Janvier</option>
+                        <option value="02-01">Février</option>
+                        <option value="03-01">Mars</option>
+                        <option value="04-01">Avril</option>
+                        <option value="05-01">Mai</option>
+                        <option value="06-01">Juin</option>
+                        <option value="07-01">Juillet</option>
+                        <option value="08-01">Août</option>
+                        <option value="09-01">Septembre</option>
+                        <option value="10-01">Octobre</option>
+                        <option value="11-01">Novembre</option>
+                        <option value="12-01">Décembre</option>
+                      </select>
+                    </div>
+                    <div class="fr-col-md-6">
+                      <select class="fr-select" id="select" v-model="filtrePeriodeYearStart" @change="onChangeDateRange">
+                        <option v-for="year in years" :value="year">{{ year }}</option>
+                      </select>
+                    </div>
+                  </div>
 
-            <div class="fr-col-md-4">
-              <div class="fr-select-group">
-                <select class="fr-select" @change="onChangePeriode($event)" v-model="periodeSelect">
-                  <option value="" selected disabled hidden>Période : Mois en cours</option>
-                  <option value="mois" disabled v-if="periodeSelect === 'mois'">{{selectedMonth|date('MMMM YYYY') }}</option>
-                  <option value="current">Mois en cours</option>
-                  <option value="6months">6 derniers mois</option>
-                  <option value="annee_2021">Année 2021</option>
-                  <option value="annee_2022">Année 2022</option>
-                </select>
+                  <label class="fr-label fr-mt-4v fr-mb-2v">à</label>
+                  <div class="fr-grid-row fr-grid-row--gutters">
+                    <div class="fr-col-md-6">
+                      <select class="fr-select" id="select"  v-model="filtrePeriodeMonthEnd" @change="onChangeDateRange">
+                        <option value="" disabled selected hidden>- mois -</option>
+                        <option value="01-01">Janvier</option>
+                        <option value="02-01">Février</option>
+                        <option value="03-01">Mars</option>
+                        <option value="04-01">Avril</option>
+                        <option value="05-01">Mai</option>
+                        <option value="06-01">Juin</option>
+                        <option value="07-01">Juillet</option>
+                        <option value="08-01">Août</option>
+                        <option value="09-01">Septembre</option>
+                        <option value="10-01">Octobre</option>
+                        <option value="11-01">Novembre</option>
+                        <option value="12-01">Décembre</option>
+                      </select>
+                    </div>
+                    <div class="fr-col-md-6">
+                      <select class="fr-select" id="select" v-model="filtrePeriodeYearEnd" @change="onChangeDateRange">
+                        <option v-for="year in years" :value="year">{{ year }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div class="fr-col-md-4">
-              <div class="fr-select-group">
-                <select class="fr-select" @change="onChangeBordee($event)">
-                  <option value="" selected disabled hidden>Equipe : Mon équipe</option>
-                  <option value="mine">Mon équipe</option>
-                  <option value="all">Toutes les bordées de ce patrouilleur</option>
-                  <div>toto</div>
-                </select>
+            <div class="dropdown-select">
+              <button class="fr-btn fr-btn--secondary dropdown-selected fr-fi-arrow-down-s-line fr-btn--icon-right" @click="bordeeHidden = !bordeeHidden" data-toggle="select-bordee">
+                Bordée: {{ selectedBordee }}
+              </button>
+              <div class="selection" data-select-toggle="select-bordee" v-if="!bordeeHidden">
+                <ul>
+                  <li data-value="mine" @click="onChangeBordee($event)">Ma bordée</li>
+                  <li data-value="all" @click="onChangeBordee($event)">Toutes celles de ce patrouilleur</li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-      </div>
+    </div>
 
       <div class="download-link-section">
-        <div class="filter-month" v-if="periodeSelect === 'current'">
+        <div class="filter-month" v-if="periodeSelect === 'current' && !dateRangeEnabled">
           <div class="previous-month" @click="goToPreviousMonth">
             <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
           </div>
@@ -73,11 +128,21 @@
           </div>
         </div>
 
-        <div class="filter-month" v-if="periodeSelect === '6months'">
+        <div class="filter-month" v-if="periodeSelect === '6months' && !dateRangeEnabled">
           <div class="previous-month">
             <i class="ri-arrow-left-s-line arrow-disabled" aria-hidden="true"></i>
           </div>
           <div class="selected-month">{{ sixPreviousMonthStart|date('MMMM YYYY') }} - {{ currentMonth|date('MMMM YYYY') }}</div>
+          <div class="next-month">
+            <i class="ri-arrow-right-s-line arrow-disabled" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <div class="filter-month" v-else-if="dateRangeEnabled">
+          <div class="previous-month">
+            <i class="ri-arrow-left-s-line arrow-disabled" aria-hidden="true"></i>
+          </div>
+          <div class="selected-month">{{ startDate|date('MMMM YYYY') }} - {{ endDate|date('MMMM YYYY') }}</div>
           <div class="next-month">
             <i class="ri-arrow-right-s-line arrow-disabled" aria-hidden="true"></i>
           </div>
@@ -146,7 +211,6 @@
           <HomeDownloadComponent :rapport="rapport"></HomeDownloadComponent>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -164,6 +228,7 @@ export default {
     let currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth() - 6);
     this.sixPreviousMonthStart = moment(currentDate).format('MMMM YYYY');
+    this.fetchYearsRange();
   },
   methods: {
     fetchRapports() {
@@ -203,24 +268,47 @@ export default {
       })
     },
     onChangeStatut(event) {
+      this.statutHidden = true;
       this.uriSearch.searchParams.delete('statut');
-      if(event.target.value !== 'all') {
-        this.uriSearch.searchParams.append('statut', event.target.value);
+      this.selectedStatut = event.target.textContent;
+      if(event.target.dataset.value !== 'all') {
+        this.uriSearch.searchParams.append('statut', event.target.dataset.value);
       }
       this.fetchFiltre();
     },
     onChangePeriode(event) {
+      this.periodeHidden = true;
+      this.selectedPeriode = event.target.textContent;
+      this.periodeSelect = event.target.dataset.value;
       this.selectedMonth = this.periodeSelect === 'current' ? this.currentMonth : this.selectedMonth;
       this.uriSearch.searchParams.delete('periode');
-      this.uriSearch.searchParams.append('periode', event.target.value);
+      this.uriSearch.searchParams.append('periode', event.target.dataset.value);
       this.fetchFiltre();
     },
     onChangeBordee(event) {
+      this.bordeeHidden = true;
+      this.selectedBordee = event.target.textContent;
       this.uriSearch.searchParams.delete('bordee');
-      this.uriSearch.searchParams.append('bordee', event.target.value);
+      this.uriSearch.searchParams.append('bordee', event.target.dataset.value);
 
       this.fetchFiltre();
 
+    },
+    onChangeDateRange() {
+      if(this.filtrePeriodeMonthStart && this.filtrePeriodeMonthEnd) {
+        const startDate = moment(this.filtrePeriodeMonthStart + '-' + this.filtrePeriodeYearStart).format('YYYY-MM-DD');
+        const endDate = moment(this.filtrePeriodeMonthEnd + '-' + this.filtrePeriodeYearEnd).format('YYYY-MM-DD');
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.dateRangeEnabled = true;
+        this.uriSearch.searchParams.delete('periode');
+        this.uriSearch.searchParams.delete('date');
+        this.uriSearch.searchParams.delete('startRange');
+        this.uriSearch.searchParams.delete('endRange');
+        this.uriSearch.searchParams.append('startRange', moment(startDate).format('YYYY-MM-DD'));
+        this.uriSearch.searchParams.append('endRange', moment(endDate).format('YYYY-MM-DD'));
+        this.fetchFiltre();
+      }
     },
     fetchFiltre() {
       axios.get(this.uriSearch.toString())
@@ -288,6 +376,29 @@ export default {
     splitAnnee(str) {
       let annee = str.split('annee_');
       return annee[1];
+    },
+    fetchYearsRange() {
+      axios.get('/api/pam/helper/years/rapport')
+          .then((response) => {
+            this.years = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+    },
+    resetFilter() {
+      this.uriSearch.searchParams.forEach((value, key) => {
+        this.uriSearch.searchParams.delete(key);
+      })
+      this.periodeSelect = 'current';
+      this.selectedPeriode = 'Mois en cours';
+      this.selectedBordee = 'Ma bordée';
+      this.selectedStatut = 'Tout';
+      this.dateRangeEnabled = false;
+      this.startDate = null;
+      this.endDate = null;
+      this.filtrePeriodeMonthStart = '';
+      this.filtrePeriodeMonthEnd = '';
     }
   },
   data() {
@@ -299,7 +410,21 @@ export default {
       currentMonth: new Date(),
       sixPreviousMonthStart: null,
       periodeSelect: 'current',
-      selectedMonth: null
+      selectedMonth: null,
+      selectedStatut: 'Tout',
+      selectedPeriode: 'Mois en cours',
+      selectedBordee: 'Ma bordée',
+      statutHidden: true,
+      periodeHidden: true,
+      bordeeHidden: true,
+      filtrePeriodeMonthStart: '',
+      filtrePeriodeYearStart: 2022,
+      filtrePeriodeMonthEnd: '',
+      filtrePeriodeYearEnd: 2022,
+      years: [],
+      dateRangeEnabled: false,
+      startDate: null,
+      endDate: null
     }
   },
   computed: {

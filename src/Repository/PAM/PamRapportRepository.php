@@ -83,10 +83,10 @@ class PamRapportRepository extends ServiceEntityRepository
      *
      * @return array
      */
-    public function filter(?string $periode, ?string $bordee, ?string $date): array
+    public function filter(?string $periode, ?string $bordee, ?string $date, ?string $startDate, ?string $endDate): array
     {
         $qb = $this->createQueryBuilder('pam_r');
         $service = $this->tokenStorage->getToken()->getUser()->getService();
-        return $this->utils->handleRequestFiltre($qb, $service, $periode, $bordee, $date)->getQuery()->getResult();
+        return $this->utils->handleRequestFiltre($qb, $service, $periode, $bordee, $date, $startDate, $endDate)->getQuery()->getResult();
     }
 }

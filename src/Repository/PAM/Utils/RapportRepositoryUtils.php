@@ -17,7 +17,7 @@ class RapportRepositoryUtils {
      * @return QueryBuilder
      * @throws BordeeNotFound
      */
-    public function handleRequestFiltre(QueryBuilder $qb, Service $service, ?string $periode, ?string $bordee, ?string $date): QueryBuilder
+    public function handleRequestFiltre(QueryBuilder $qb, Service $service, ?string $periode, ?string $bordee, ?string $date, ?string $startDate, ?string $endDate): QueryBuilder
     {
         if($periode) {
             switch(true) {
@@ -60,7 +60,14 @@ class RapportRepositoryUtils {
             }
         }
 
-
+        if($startDate && $endDate) {
+            $start = new \DateTime('first day of ' . $startDate);
+            $end = new \DateTime('last day of ' . $endDate);
+            $qb
+                ->andWhere('pam_r.start_datetime BETWEEN :start AND :end')
+                ->setParameter('start', $start)
+                ->setParameter('end', $end);
+        }
 
 
         if($bordee === 'all') {
