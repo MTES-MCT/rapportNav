@@ -407,6 +407,7 @@ export default {
       this.endDate = null;
       this.filtrePeriodeMonthStart = '';
       this.filtrePeriodeMonthEnd = '';
+      this.fetchFiltre();
     },
     downloadAEM() {
       if(this.dateRangeEnabled) {
