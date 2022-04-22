@@ -33,6 +33,9 @@
 }
 .selected-month {
     text-transform: capitalize;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
 }
 
 .arrow-disabled {
@@ -70,4 +73,11 @@
 
 .btn-download {
     text-align: center;
+}
+
+.select-year {
+    background-color: #EDEDF2;
+    padding: 3px;
+    font-size: 18px;
+    font-weight: 600;
 }

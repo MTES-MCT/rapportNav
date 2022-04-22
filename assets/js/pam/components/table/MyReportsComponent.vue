@@ -21,11 +21,11 @@
             <a href="#" @click.prevent="resetFilter"><i class="fr-fi-refresh-fill" aria-hidden="true"></i> Réinitialiser tous les filtres</a>
           </div>
           <div class="dropdowns-search">
-            <div class="dropdown-select fr-mr-2v">
+            <div class="dropdown-select fr-mr-2v" ref="dropdownStatut">
               <button class="fr-btn fr-btn--secondary dropdown-selected fr-fi-arrow-down-s-line fr-btn--icon-right" @click="statutHidden = !statutHidden" data-toggle="select-statut">
                 Statut: {{ selectedStatut }}
               </button>
-              <div class="selection" data-select-toggle="select-statut" v-if="!statutHidden">
+              <div class="selection" data-select-toggle="select-statut" v-if="!statutHidden" v-click-outside="hideDropdown">
                 <ul>
                   <li data-value="brouillon" @click="onChangeStatut($event)">Brouillon</li>
                   <li data-value="valide" @click="onChangeStatut($event)">Validé</li>
@@ -33,14 +33,14 @@
                 </ul>
               </div>
             </div>
-            <div class="dropdown-select fr-mr-2v">
+            <div class="dropdown-select fr-mr-2v" ref="dropdownPeriode">
               <button class="fr-btn fr-btn--secondary dropdown-selected fr-fi-arrow-down-s-line fr-btn--icon-right" @click="periodeHidden = !periodeHidden" data-toggle="select-periode" v-if="!dateRangeEnabled">
                 Période: {{ selectedPeriode }}
               </button>
               <button class="fr-btn fr-btn--secondary dropdown-selected" @click="periodeHidden = !periodeHidden" data-toggle="select-periode" v-else>
                 Période: {{ startDate|date('MMMM YYYY') }} - {{ endDate|date('MMMM YYYY') }}
               </button>
-              <div class="selection" data-select-toggle="select-periode" v-if="!periodeHidden">
+              <div class="selection" data-select-toggle="select-periode" v-if="!periodeHidden" v-click-outside="hideDropdown">
                 <ul>
                   <li data-value="current" @click="onChangePeriode($event)">Mois en cours</li>
                   <li data-value="6months" @click="onChangePeriode($event)">6 derniers mois</li>
@@ -102,14 +102,14 @@
                 </div>
               </div>
             </div>
-            <div class="dropdown-select">
+            <div class="dropdown-select" ref="dropdownBordee">
               <button class="fr-btn fr-btn--secondary dropdown-selected fr-fi-arrow-down-s-line fr-btn--icon-right" @click="bordeeHidden = !bordeeHidden" data-toggle="select-bordee">
                 Bordée: {{ selectedBordee }}
               </button>
-              <div class="selection" data-select-toggle="select-bordee" v-if="!bordeeHidden">
+              <div class="selection" data-select-toggle="select-bordee" v-if="!bordeeHidden" v-click-outside="hideDropdown">
                 <ul>
                   <li data-value="mine" @click="onChangeBordee($event)">Ma bordée</li>
-                  <li data-value="all" @click="onChangeBordee($event)">Toutes celles de ce patrouilleur</li>
+                  <li data-value="all" @click="onChangeBordee($event)">Toutes les bordées de ce patrouilleur</li>
                 </ul>
               </div>
             </div>
@@ -118,15 +118,20 @@
     </div>
 
       <div class="download-link-section">
-          <a v-if="periodeSelect === 'current'" href="#" aria-controls="fr-modal-download" data-fr-opened="false"><i class="fr-fi-download-line" aria-hidden="true" ></i> Télécharger le rapport AEM</a>
-          <a v-else href="#" @click.prevent="downloadAEM"><i class="fr-fi-download-line" aria-hidden="true" ></i> Télécharger le rapport AEM pour la periode en cours</a>
-
+        <a v-if="periodeSelect === 'current'" href="#" aria-controls="fr-modal-download" data-fr-opened="false"><i class="fr-fi-download-line" aria-hidden="true" ></i> Télécharger le rapport AEM</a>
+        <a v-else href="#" @click.prevent="downloadAEM"><i class="fr-fi-download-line" aria-hidden="true" ></i> Télécharger le rapport AEM pour la periode en cours</a>
 
         <div class="filter-month" v-if="periodeSelect === 'current' && !dateRangeEnabled">
           <div class="previous-month" @click="goToPreviousMonth">
             <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
           </div>
-          <div class="selected-month">{{ currentMonth|date('MMMM YYYY') }}</div>
+          <div class="selected-month">
+            {{ currentMonth|date('MMMM') }}
+            <select  class="select-year" @change="selectYear" v-model="selectedYear">
+              <option :value="currentMonth|date('YYYY')">{{ currentMonth|date('YYYY') }}</option>
+              <option :value="year" v-for="(year, index) in years" :key="index" v-if="year !== currentYear">{{year}}</option>
+            </select>
+          </div>
           <div class="next-month" @click="goToNextMonth">
             <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
           </div>
@@ -156,7 +161,8 @@
           <div class="previous-month" @click="goToPreviousYear">
             <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
           </div>
-          <div class="selected-month">Année {{periodeSelect|formatAnnee}}</div>
+          <div class="selected-month">
+            Année {{periodeSelect|formatAnnee}}</div>
           <div class="next-month" @click="goToNextYear">
             <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
           </div>
@@ -166,15 +172,18 @@
           <div class="previous-month" @click="goToPreviousMonth">
             <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
           </div>
-          <div class="selected-month">{{selectedMonth|date('MMMM YYYY')}}</div>
+          <div class="selected-month">
+            {{selectedMonth|date('MMMM')}}
+            <select  class="select-year" @change="selectYear" v-model="selectedYear">
+              <option :value="currentMonth|date('YYYY')">{{ currentMonth|date('YYYY') }}</option>
+              <option :value="year" v-for="(year, index) in years" :key="index" v-if="year !== currentYear">{{year}}</option>
+            </select>
+          </div>
           <div class="next-month" @click="goToNextMonth">
             <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
           </div>
         </div>
-
       </div>
-
-     <!-- <DownloadAEMComponent />-->
 
       <div class="fr-grid-row rapport-list-title">
         <div class="fr-col-lg-1"></div>
@@ -230,10 +239,13 @@ export default {
   name: "MyReportsComponent",
   components: {ModalDownloadAEM, HomeDownloadComponent, AlertComponent, DownloadAEMComponent},
   mounted() {
+    let date = new Date();
     this.fetchFiltre();
     let currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth() - 6);
-    this.sixPreviousMonthStart = currentDate
+    this.sixPreviousMonthStart = currentDate;
+    this.currentYear = moment(date).format('YYYY');
+    this.selectedYear = moment(date).format('YYYY')
     this.fetchYearsRange();
   },
   methods: {
@@ -290,16 +302,13 @@ export default {
       this.uriSearch.searchParams.delete('periode');
       this.uriSearch.searchParams.append('periode', event.target.dataset.value);
       this.fetchFiltre();
-      console.log(this.periodeSelect)
     },
     onChangeBordee(event) {
       this.bordeeHidden = true;
       this.selectedBordee = event.target.textContent;
       this.uriSearch.searchParams.delete('bordee');
       this.uriSearch.searchParams.append('bordee', event.target.dataset.value);
-
       this.fetchFiltre();
-
     },
     onChangeDateRange() {
       if(this.filtrePeriodeMonthStart && this.filtrePeriodeMonthEnd) {
@@ -450,8 +459,6 @@ export default {
         this.fetchDownloadAEM(startDate, endDate);
         return true;
       }
-
-
     },
     fetchDownloadAEM(startDate, endDate) {
       axios.get('/api/pam/export/check/' + startDate + '/' + endDate)
@@ -472,6 +479,28 @@ export default {
           .catch((error) => {
             console.log(error)
           })
+    },
+    hideDropdown(event) {
+      if(!this.$refs.dropdownStatut.contains(event.target) && !this.statutHidden) {
+        this.statutHidden = true;
+      }
+      if(!this.$refs.dropdownPeriode.contains(event.target) && !this.periodeHidden) {
+        this.periodeHidden = true;
+      }
+
+      if(!this.$refs.dropdownBordee.contains(event.target) && !this.bordeeHidden) {
+        this.bordeeHidden = true;
+      }
+    },
+    selectYear() {
+      const date = this.selectedYear + '-' + moment(this.selectedMonth).format('MM-DD');
+      this.selectedMonth = new Date(date);
+      this.periodeSelect = 'mois';
+      this.uriSearch.searchParams.delete('periode');
+      this.uriSearch.searchParams.delete('date');
+      this.uriSearch.searchParams.append('periode', 'mois');
+      this.uriSearch.searchParams.append('date', moment(date).format('YYYY-MM-DD'));
+      this.fetchFiltre()
     }
   },
   data() {
@@ -482,7 +511,7 @@ export default {
       currentMonth: new Date(),
       sixPreviousMonthStart: null,
       periodeSelect: 'current',
-      selectedMonth: null,
+      selectedMonth: this.currentMonth,
       selectedStatut: 'Tout',
       selectedPeriode: 'Mois en cours',
       selectedBordee: 'Ma bordée',
@@ -496,7 +525,9 @@ export default {
       years: [],
       dateRangeEnabled: false,
       startDate: null,
-      endDate: null
+      endDate: null,
+      currentYear: null,
+      selectedYear: null
     }
   },
   computed: {
