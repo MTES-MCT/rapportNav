@@ -6,6 +6,10 @@
     font-size: 16px;
     color: #000091;
 }
+.download-link-section a {
+    position: absolute;
+}
+
 .filter-month {
     margin: auto;
     width: 90%;

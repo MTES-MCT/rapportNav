@@ -18,7 +18,7 @@
 
         <div id="search" class="fr-mb-2v fr-mt-4v">
           <div class="reset-filter fr-mb-2v">
-            <a href="#" @click.prevent="resetFilter"><i class="fr-fi-refresh-fill"></i> Réinitialiser tous les filtres</a>
+            <a href="#" @click.prevent="resetFilter"><i class="fr-fi-refresh-fill" aria-hidden="true"></i> Réinitialiser tous les filtres</a>
           </div>
           <div class="dropdowns-search">
             <div class="dropdown-select fr-mr-2v">
@@ -118,6 +118,10 @@
     </div>
 
       <div class="download-link-section">
+          <a v-if="periodeSelect === 'current'" href="#" aria-controls="fr-modal-download" data-fr-opened="false"><i class="fr-fi-download-line" aria-hidden="true" ></i> Télécharger le rapport AEM</a>
+          <a v-else href="#" @click.prevent="downloadAEM"><i class="fr-fi-download-line" aria-hidden="true" ></i> Télécharger le rapport AEM pour la periode en cours</a>
+
+
         <div class="filter-month" v-if="periodeSelect === 'current' && !dateRangeEnabled">
           <div class="previous-month" @click="goToPreviousMonth">
             <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
@@ -167,7 +171,6 @@
             <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
           </div>
         </div>
-        <!--<a href="#" aria-controls="fr-modal-download" data-fr-opened="false"><i class="fr-fi-download-line" aria-hidden="true"></i> Télécharger le rapport AEM</a>-->
 
       </div>
 
@@ -211,6 +214,7 @@
           <HomeDownloadComponent :rapport="rapport"></HomeDownloadComponent>
         </div>
       </div>
+    <ModalDownloadAEM/>
   </div>
 </template>
 
@@ -220,14 +224,16 @@ import axios from "axios";
 import DownloadAEMComponent from "../DownloadAEMComponent";
 import HomeDownloadComponent from "../dropdown/HomeDownloadComponent";
 import moment from "moment";
+import {sanitizeUrl} from "@braintree/sanitize-url";
+import ModalDownloadAEM from "../modal/ModalDownloadAEM";
 export default {
   name: "MyReportsComponent",
-  components: {HomeDownloadComponent, AlertComponent, DownloadAEMComponent},
+  components: {ModalDownloadAEM, HomeDownloadComponent, AlertComponent, DownloadAEMComponent},
   mounted() {
     this.fetchFiltre();
     let currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth() - 6);
-    this.sixPreviousMonthStart = moment(currentDate).format('MMMM YYYY');
+    this.sixPreviousMonthStart = currentDate
     this.fetchYearsRange();
   },
   methods: {
@@ -284,6 +290,7 @@ export default {
       this.uriSearch.searchParams.delete('periode');
       this.uriSearch.searchParams.append('periode', event.target.dataset.value);
       this.fetchFiltre();
+      console.log(this.periodeSelect)
     },
     onChangeBordee(event) {
       this.bordeeHidden = true;
@@ -301,6 +308,7 @@ export default {
         this.startDate = startDate;
         this.endDate = endDate;
         this.dateRangeEnabled = true;
+        this.periodeSelect = 'range';
         this.uriSearch.searchParams.delete('periode');
         this.uriSearch.searchParams.delete('date');
         this.uriSearch.searchParams.delete('startRange');
@@ -399,6 +407,70 @@ export default {
       this.endDate = null;
       this.filtrePeriodeMonthStart = '';
       this.filtrePeriodeMonthEnd = '';
+    },
+    downloadAEM() {
+      if(this.dateRangeEnabled) {
+        const startDate = moment(this.filtrePeriodeMonthStart + '-' + this.filtrePeriodeYearStart).format('YYYY-MM-DD');
+        const endDate = moment(this.filtrePeriodeMonthEnd + '-' + this.filtrePeriodeYearEnd).format('YYYY-MM-DD');
+        this.fetchDownloadAEM(startDate, endDate);
+        return true;
+      }
+
+      if(this.periodeSelect === '6months') {
+        let mois = parseInt(moment(this.currentMonth).format('MM'));
+        if(mois <= 9) {
+          mois = '0' + (mois+1)
+        } else {
+          mois = (mois+1);
+        }
+        const startDate = moment(this.sixPreviousMonthStart).format('YYYY-MM') + '-01';
+        const endDate = moment(this.currentMonth).format('YYYY') + '-' + mois + '-01';
+        this.fetchDownloadAEM(startDate, endDate);
+        return true;
+      }
+
+      if(this.containsAnnee) {
+        let annee = this.$options.filters.formatAnnee(this.periodeSelect);
+        const startDate = annee + '-01-01';
+        const endDate = (parseInt(annee)+1) + '-01-01';
+        this.fetchDownloadAEM(startDate, endDate);
+        return true;
+      }
+
+      if(this.periodeSelect === 'mois') {
+        let mois = parseInt(moment(this.selectedMonth).format('MM'));
+        if(mois <= 9) {
+          mois = '0' + (mois+1)
+        } else {
+          mois = (mois+1);
+        }
+        const endDate = moment(this.selectedMonth).format('YYYY') + '-' + mois + '-01';
+        const startDate = moment(this.selectedMonth).format('YYYY-MM') + '-01';
+        this.fetchDownloadAEM(startDate, endDate);
+        return true;
+      }
+
+
+    },
+    fetchDownloadAEM(startDate, endDate) {
+      axios.get('/api/pam/export/check/' + startDate + '/' + endDate)
+          .then((response) => {
+            if(parseInt(response.data) === 0) {
+               this.$toast("Aucun rapport validé n'est disponible au téléchargement.", {
+                 type: 'error',
+                 position: 'bottom-center'
+               })
+            } else {
+              let url = '/api/pam/export/aem/' + startDate + '/' + endDate;
+              if(this.selectedBordee !== 'Ma bordée') {
+                url = url.includes('?') ? url + '&teams=true' : url + '?teams=true';
+              }
+              window.location.href = sanitizeUrl(url);
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
     }
   },
   data() {
@@ -406,7 +478,6 @@ export default {
       rapports: [],
       uriSearch: new URL('/api/pam/rapport/filtre', window.location.origin),
       currentDate: new Date(),
-      moisSelect: 'current',
       currentMonth: new Date(),
       sixPreviousMonthStart: null,
       periodeSelect: 'current',

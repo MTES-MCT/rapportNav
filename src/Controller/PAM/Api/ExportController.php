@@ -3,6 +3,7 @@
 namespace App\Controller\PAM\Api;
 
 use App\Exception\RapportNotFound;
+use App\Repository\PAM\PamRapportRepository;
 use App\Service\PAM\ExportService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -67,7 +68,6 @@ class ExportController extends AbstractFOSRestController
      * @return View|StreamedResponse
      */
     public function rapportAEM(string $startDate, string $endDate, Request $request) {
-        $draft = $request->query->has('draft');
         $wholeTeams = $request->query->has('teams');
         try {
            $spreadSheet = $this->service->exportRapportAEM(new \DateTime($startDate), new \DateTime($endDate), $wholeTeams);
@@ -121,6 +121,19 @@ class ExportController extends AbstractFOSRestController
         catch(\Exception $exception) {
             return View::create($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * @Rest\Get("/check/{startDate}/{endDate}")
+     * @return View
+     *
+     */
+    public function checkAvailable(string $startDate, string $endDate, Request $request, PamRapportRepository $rapportRepository): View
+    {
+        $wholeTeams = $request->query->has('teams');
+        $rapports = $rapportRepository->findByDateRange(new \DateTime($startDate), new \DateTime($endDate), $wholeTeams);
+
+        return View::create(count($rapports), Response::HTTP_OK);
     }
 
 }
