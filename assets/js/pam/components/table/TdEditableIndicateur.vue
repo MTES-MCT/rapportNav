@@ -39,7 +39,7 @@
     {{ displayedValue }}
     <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
         <div class="tooltip-automatic-calculate" v-if="!popupHidden">
-          <div class="fr-toggle fr-toggle--label-left">
+          <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
             <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
             <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
           </div>
@@ -98,7 +98,7 @@
     {{ displayedValue }}
     <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
     <div class="tooltip-automatic-calculate" v-if="!popupHidden">
-      <div class="fr-toggle fr-toggle--label-left">
+      <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
         <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
         <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
       </div>
@@ -238,7 +238,9 @@ export default {
           this.indicateurData.isSecondaireCellFilled = false;
         }
       } else {
-        this.displayedValue = newVal;
+        setTimeout(() => {
+          this.displayedValue = newVal;
+        }, 3000)
       }
     }
   }

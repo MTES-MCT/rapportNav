@@ -91,7 +91,6 @@ export default {
     },
     setAutomaticValue(indicateur, value, index, switchMain = false) {
       indicateur.switchMain = switchMain;
-      indicateur.automaticEnabled = switchMain ? false : indicateur.automaticEnabled;
       if(indicateur.automaticEnabled) {
         indicateur.reset = true;
         if(this.mission.is_main) {
