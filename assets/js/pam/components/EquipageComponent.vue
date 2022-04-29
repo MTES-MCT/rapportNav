@@ -44,7 +44,7 @@
                     :id="'ajout_suggestion_' + index"
                     class="fr-btn--menu fr-btn fr-btn--sm fr-fi-add-circle-fill fr-btn--secondary fr-btn--icon-left"
                     title="Enregistrer"
-                    @click="addAgent(suggestion)"
+                    @click="addAgent(suggestion, index)"
                 >Ajouter
                 </button>
               </div>
@@ -104,7 +104,7 @@ export default {
     }
   },
   methods: {
-    addAgent(suggestion = null) {
+    addAgent(suggestion = null, index = null) {
       const membre = suggestion ? suggestion : {};
       if(!suggestion) {
         membre.agent = {};
@@ -122,6 +122,8 @@ export default {
             nom: ''
           }
         };
+      } else {
+        this.suggestionsList.splice(index, 1);
       }
       this.membres.push(membre);
 
