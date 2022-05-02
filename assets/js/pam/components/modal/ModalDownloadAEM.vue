@@ -150,12 +150,16 @@ export default {
     startDate: function(newVal, oldVal) {
       this.firstMonth = moment(newVal).format('MM') + '-01' || '01-01';
       this.firstYear = moment(newVal).format('YYYY') || new Date().getFullYear();
-      !this.years.includes(this.firstYear) ? this.years.push(this.firstYear ) : null;
+      if(!this.years.includes(this.firstYear)) {
+        this.years.push(this.firstYear )
+      }
     },
     endDate: function(newVal, oldVal) {
       this.lastMonth = moment(newVal).format('MM') + '-01' || '02-01';
       this.lastYear = moment(newVal).format('YYYY') || new Date().getFullYear();
-      !this.years.includes(this.lastYear) ? this.years.push(this.lastYear) : null;
+      if(!this.years.includes(this.lastYear)) {
+        this.years.push(this.lastYear )
+      }
     }
   }
 }
