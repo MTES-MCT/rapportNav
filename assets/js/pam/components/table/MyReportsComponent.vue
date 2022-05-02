@@ -305,6 +305,7 @@ export default {
         this.startDate = moment(this.sixPreviousMonthStart).format('YYYY-MM-DD');
         this.endDate = moment(this.currentMonth).format('YYYY-MM-DD');
       }
+      this.prepapreDownloadAEM()
     },
     onChangeBordee(event) {
       this.bordeeHidden = true;
@@ -356,7 +357,8 @@ export default {
       date.setMonth(date.getMonth());
       date = new Date(date.getFullYear(), (date.getMonth()), 0);
       this.selectedMonth = date;
-
+      this.startDate = moment(date).format('YYYY-MM-DD');
+      this.endDate = moment(date).format('YYYY-MM-DD');
       this.periodeSelect = 'mois';
       this.uriSearch.searchParams.delete('periode');
       this.uriSearch.searchParams.delete('date');
@@ -369,6 +371,8 @@ export default {
 
       date.setMonth(date.getMonth());
       date = new Date(date.getFullYear(), (date.getMonth()+2), 0);
+      this.startDate = moment(date).format('YYYY-MM-DD');
+      this.endDate = moment(date).format('YYYY-MM-DD');
       this.selectedMonth = date;
       this.periodeSelect = 'mois';
       this.uriSearch.searchParams.delete('periode');
@@ -415,17 +419,16 @@ export default {
       this.selectedBordee = 'Ma bordée';
       this.selectedStatut = 'Tout';
       this.dateRangeEnabled = false;
-      this.startDate = null;
-      this.endDate = null;
+      this.startDate = moment(new Date()).format('YYYY-MM-DD');
+      this.endDate = moment(new Date()).format('YYYY-MM-DD');
       this.filtrePeriodeMonthStart = '';
       this.filtrePeriodeMonthEnd = '';
       this.fetchFiltre();
     },
-    downloadAEM() {
+    prepapreDownloadAEM() {
       if(this.dateRangeEnabled) {
         const startDate = moment(this.filtrePeriodeMonthStart + '-' + this.filtrePeriodeYearStart).format('YYYY-MM-DD');
         const endDate = moment(this.filtrePeriodeMonthEnd + '-' + this.filtrePeriodeYearEnd).format('YYYY-MM-DD');
-        this.fetchDownloadAEM(startDate, endDate);
         return true;
       }
 
@@ -438,7 +441,6 @@ export default {
         }
         const startDate = moment(this.sixPreviousMonthStart).format('YYYY-MM') + '-01';
         const endDate = moment(this.currentMonth).format('YYYY') + '-' + mois + '-01';
-        this.fetchDownloadAEM(startDate, endDate);
         return true;
       }
 
@@ -446,7 +448,8 @@ export default {
         let annee = this.$options.filters.formatAnnee(this.periodeSelect);
         const startDate = annee + '-01-01';
         const endDate = (parseInt(annee)+1) + '-01-01';
-        this.fetchDownloadAEM(startDate, endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
         return true;
       }
 
@@ -459,29 +462,8 @@ export default {
         }
         const endDate = moment(this.selectedMonth).format('YYYY') + '-' + mois + '-01';
         const startDate = moment(this.selectedMonth).format('YYYY-MM') + '-01';
-        this.fetchDownloadAEM(startDate, endDate);
         return true;
       }
-    },
-    fetchDownloadAEM(startDate, endDate) {
-      axios.get('/api/pam/export/check/' + startDate + '/' + endDate)
-          .then((response) => {
-            if(parseInt(response.data) === 0) {
-               this.$toast("Aucun rapport validé n'est disponible au téléchargement.", {
-                 type: 'error',
-                 position: 'bottom-center'
-               })
-            } else {
-              let url = '/api/pam/export/aem/' + startDate + '/' + endDate;
-              if(this.selectedBordee !== 'Ma bordée') {
-                url = url.includes('?') ? url + '&teams=true' : url + '?teams=true';
-              }
-              window.location.href = sanitizeUrl(url);
-            }
-          })
-          .catch((error) => {
-            console.log(error)
-          })
     },
     hideDropdown(event) {
       if(!this.$refs.dropdownStatut.contains(event.target) && !this.statutHidden) {
@@ -527,8 +509,8 @@ export default {
       filtrePeriodeYearEnd: 2022,
       years: [],
       dateRangeEnabled: false,
-      startDate: null,
-      endDate: null,
+      startDate: moment(new Date()).format('YYYY-MM-DD'),
+      endDate: moment(new Date()).format('YYYY-MM-DD'),
       currentYear: null,
       selectedYear: null
     }

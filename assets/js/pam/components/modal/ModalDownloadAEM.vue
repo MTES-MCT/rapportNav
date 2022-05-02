@@ -35,7 +35,7 @@
                     </select>
                   </div>
                   <div class="fr-select-group select-without-label fr-ml-2v">
-                    <select class="fr-select" id="select" v-model="firstYear">
+                    <select class="fr-select" v-model="firstYear">
                       <option v-for="year in years" :value="year">{{ year }}</option>
                     </select>
                   </div>
@@ -60,7 +60,7 @@
                     </select>
                   </div>
                   <div class="fr-select-group select-without-label fr-ml-2v">
-                    <select class="fr-select" id="lastDate" v-model="lastYear">
+                    <select class="fr-select" v-model="lastYear">
                       <option v-for="year in years" :value="year">{{ year }}</option>
                     </select>
                   </div>
@@ -138,9 +138,9 @@ export default {
   },
   data() {
     return {
-      firstMonth: '01-01',
+      firstMonth: moment(new Date()).format('MM-01'),
       firstYear: new Date().getFullYear(),
-      lastMonth: '02-01',
+      lastMonth: moment(new Date()).format('MM-01'),
       lastYear: new Date().getFullYear(),
       wholeTeams: false,
       years: []
@@ -148,15 +148,14 @@ export default {
   },
   watch: {
     startDate: function(newVal, oldVal) {
-      this.firstMonth = moment(newVal).format('MM-DD') || '01-01';
+      this.firstMonth = moment(newVal).format('MM') + '-01' || '01-01';
       this.firstYear = moment(newVal).format('YYYY') || new Date().getFullYear();
-
+      !this.years.includes(this.firstYear) ? this.years.push(this.firstYear ) : null;
     },
     endDate: function(newVal, oldVal) {
-
-      this.lastMonth = moment(newVal).format('MM-DD') || '02-01';
-      console.log(this.lastMonth)
+      this.lastMonth = moment(newVal).format('MM') + '-01' || '02-01';
       this.lastYear = moment(newVal).format('YYYY') || new Date().getFullYear();
+      !this.years.includes(this.lastYear) ? this.years.push(this.lastYear) : null;
     }
   }
 }
