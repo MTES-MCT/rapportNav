@@ -3,7 +3,7 @@
     <div class="fr-col-lg-7 fr-col-md-8">
       <div class="members-list">
         <AgentComponent v-for="(agent, index) in membres"
-                        :key="index"
+                        :key="agent.hash"
                         :membre="agent"
                         :agent-list="membres"
                         :fonctions="fonctions"
@@ -125,6 +125,7 @@ export default {
       } else {
         this.suggestionsList.splice(index, 1);
       }
+      membre.hash = new Date().getTime();
       this.membres.push(membre);
 
     },
