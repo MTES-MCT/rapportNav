@@ -32,6 +32,7 @@ class RapportRepositoryUtils {
 
                 case $periode === '6months':
                     $start = new \DateTime('-6 months');
+                    $start = $start->format('Y-m-01');
                     $end = new \DateTime('last day of now');
 
                     $qb->andWhere('pam_r.start_datetime BETWEEN :first AND :end')
