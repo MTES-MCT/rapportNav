@@ -384,6 +384,8 @@ export default {
     goToNextYear() {
       let annee = parseInt(this.splitAnnee(this.periodeSelect))
       let nextYear = 'annee_' + (annee + 1);
+      this.startDate = (annee+1) + '-01-01';
+      this.endDate = (annee+2) + '-01-01';
       this.periodeSelect = nextYear;
       this.uriSearch.searchParams.delete('periode');
       this.uriSearch.searchParams.append('periode', nextYear);
@@ -392,6 +394,8 @@ export default {
     goToPreviousYear() {
       let annee = parseInt(this.splitAnnee(this.periodeSelect))
       let previousYear = 'annee_' + (annee - 1);
+      this.startDate = (annee-1) + '-01-01';
+      this.endDate = annee + '-01-01';
       this.periodeSelect = previousYear;
       this.uriSearch.searchParams.delete('periode');
       this.uriSearch.searchParams.append('periode', previousYear);
