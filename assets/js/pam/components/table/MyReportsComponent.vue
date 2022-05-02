@@ -118,8 +118,7 @@
     </div>
 
       <div class="download-link-section">
-        <a v-if="periodeSelect === 'current'" href="#" aria-controls="fr-modal-download" data-fr-opened="false"><i class="fr-fi-download-line" aria-hidden="true" ></i> Télécharger le rapport AEM</a>
-        <a v-else href="#" @click.prevent="downloadAEM"><i class="fr-fi-download-line" aria-hidden="true" ></i> Télécharger le rapport AEM pour la periode en cours</a>
+        <a href="#" aria-controls="fr-modal-download" data-fr-opened="false"><i class="fr-fi-download-line" aria-hidden="true" ></i> Télécharger le rapport AEM</a>
 
         <div class="filter-month" v-if="periodeSelect === 'current' && !dateRangeEnabled">
           <div class="previous-month" @click="goToPreviousMonth">
@@ -223,7 +222,7 @@
           <HomeDownloadComponent :rapport="rapport"></HomeDownloadComponent>
         </div>
       </div>
-    <ModalDownloadAEM/>
+    <ModalDownloadAEM :start-date="startDate" :end-date="endDate"/>
   </div>
 </template>
 
@@ -302,6 +301,10 @@ export default {
       this.uriSearch.searchParams.delete('periode');
       this.uriSearch.searchParams.append('periode', event.target.dataset.value);
       this.fetchFiltre();
+      if(this.periodeSelect === '6months') {
+        this.startDate = moment(this.sixPreviousMonthStart).format('YYYY-MM-DD');
+        this.endDate = moment(this.currentMonth).format('YYYY-MM-DD');
+      }
     },
     onChangeBordee(event) {
       this.bordeeHidden = true;
