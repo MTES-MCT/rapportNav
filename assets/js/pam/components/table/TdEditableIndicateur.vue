@@ -1,14 +1,7 @@
 <template>
-  <td class="td-observation td-indicateur" v-if="observation && !isIndicateurChild"  ref="observation">
-    <i class="ri-message-2-fill icon-observation" @click="hidden = !hidden" aria-hidden="true"></i>
-    <div
-        class="tooltip-observation"
-        v-if="!hidden"
-        v-click-outside="hideTooltip">
-      <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations" :value="value"  @keyup="getValue($event, true)"></textarea>
-    </div>
-  </td>
-  <td class="td-observation td-indicateur-child" v-else-if="observation && isIndicateurChild"  ref="observation">
+  <td class="td-observation"
+      v-bind:class="[ isIndicateurChild ? 'td-indicateur-child' : 'td-indicateur' ]"
+      v-if="observation"  ref="observation">
     <i class="ri-message-2-fill icon-observation" @click="hidden = !hidden" aria-hidden="true"></i>
     <div
         class="tooltip-observation"
@@ -19,9 +12,11 @@
   </td>
   <td
       v-else-if="isTotalCell && !isIndicateurChild"
-      :class="'td-table-total td-indicateur'"
+      class="td-table-total td-indicateur"
+      v-bind:class="[indicateurData.total !== indicateurData.automaticValue && indicateurData.isAutomaticCell ? 'text-red-error' : null]"
       v-text="value">
   </td>
+
   <td
       v-else-if="isTotalCell && isIndicateurChild"
       class="td-indicateur-child"
@@ -37,14 +32,104 @@
   >
   </td>
   <td
+      v-else-if="indicateurData.isAutomaticCell && indicateurData.automaticEnabled && isMainMission && isPrincipaleCell"
+      contenteditable="false"
+      class="td-indicateur"
+  >
+    {{ displayedValue }}
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
+        <div class="tooltip-automatic-calculate" v-if="!popupHidden">
+          <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
+            <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
+            <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
+          </div>
+        </div>
+  </td>
+  <td
+      v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && isMainMission && isPrincipaleCell"
+      contenteditable="true"
+      class="td-indicateur"
+      @keyup="getValue($event)"
+      @keypress="onKeyPress($event)"
+  >
+      {{ displayedValue }}
+    <i class="ri-calculator-fill automatic-icon-error fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" v-if="indicateurData.total !== indicateurData.automaticValue" />
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" v-else />
+    <div class="tooltip-automatic-calculate" v-if="!popupHidden" ref="calculAutoTooltip">
+      <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
+        <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
+        <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
+        <p class="fr-hint-text text-red-error" v-if="indicateurData.total !== indicateurData.automaticValue">Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels</p>
+      </div>
+    </div>
+  </td>
+  <td
+      v-else-if="indicateurData.isAutomaticCell && indicateurData.automaticEnabled && isMainMission && !isPrincipaleCell"
+      contenteditable="false"
+      class="td-indicateur">
+  </td>
+  <td
+      v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && isMainMission && !isPrincipaleCell"
+      contenteditable="true"
+      class="td-indicateur"
+      @keyup="getValue($event)"
+      @keypress="onKeyPress($event)"
+      v-text="displayedValue"
+  >
+  </td>
+  <td
+      v-else-if="indicateurData.isAutomaticCell && indicateurData.automaticEnabled && !isMainMission && isPrincipaleCell"
+      contenteditable="false"
+      class="td-indicateur">
+  </td>
+  <td
+      v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && !isMainMission && isPrincipaleCell"
+      contenteditable="true"
+      class="td-indicateur"
+      @keyup="getValue($event)"
+      @keypress="onKeyPress($event)"
+      v-text="displayedValue"
+  >
+  </td>
+
+  <td
+      v-else-if="indicateurData.isAutomaticCell && indicateurData.automaticEnabled && !isMainMission && !isPrincipaleCell"
+      contenteditable="false"
+      class="td-indicateur">
+    {{ displayedValue }}
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" />
+    <div class="tooltip-automatic-calculate" v-if="!popupHidden">
+      <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
+        <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
+        <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
+      </div>
+    </div>
+  </td>
+
+  <td
+      v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && !isMainMission && !isPrincipaleCell"
+      contenteditable="true"
+      class="td-indicateur"
+      @keyup="getValue($event)"
+      @keypress="onKeyPress($event)">
+    {{ displayedValue }}
+    <i class="ri-calculator-fill automatic-icon-error fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" v-if="indicateurData.total !== indicateurData.automaticValue" />
+    <i class="ri-calculator-fill automatic-icon fr-mr-2v" aria-hidden="true" @click="popupHidden = !popupHidden" readonly="true" ref="automaticIcon" v-else />
+    <div class="tooltip-automatic-calculate" v-if="!popupHidden" ref="calculAutoTooltip">
+      <div class="fr-toggle fr-toggle--label-left" v-click-outside="hideCalculAutoTooltip">
+        <input type="checkbox" :checked="indicateurData.automaticEnabled" class="fr-toggle__input" :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="indicateurData.automaticEnabled">
+        <label class="fr-toggle__label" :for="'toggle-' + id">Calculé automatiquement à partir des déclarations opérationnelles</label>
+        <p class="fr-hint-text text-red-error" v-if="indicateurData.total !== indicateurData.automaticValue">Vous avez saisi un chiffre qui ne correspond pas aux informations renseignées dans la partie Contrôles opérationnels</p>
+      </div>
+    </div>
+  </td>
+  <td
       class="td-indicateur td-fillable"
-      v-bind:class="{ 'automatic-cell': isAutomaticCell }"
       contenteditable="true"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
       v-else
-      v-text="displayedValue"
-  >
+      v-text="displayedValue">
   </td>
 </template>
 
@@ -55,16 +140,33 @@ export default {
     observation: Boolean,
     value: Number | String,
     isTotalCell: Boolean,
-    isAutomaticCell: Boolean,
-    isIndicateurChild: Boolean
+    isIndicateurChild: Boolean,
+    indicateur: Object,
+    alerteCoherent: Boolean,
+    isPrincipaleCell: Boolean,
+    isMainMission: Boolean
   },
   mounted() {
     this.displayedValue = this.value;
+    if(!this.observation) {
+      this.indicateurData.isAutomaticCell = this.indicateurData.isAutomaticCell || false;
+    } else {
+      this.indicateurData = {
+        isAutomaticCell: false,
+        automaticEnabled: false
+      }
+    }
+
   },
   methods: {
     hideTooltip(event) {
       if(!this.$refs.observation.contains(event.target)) {
         this.hidden = true;
+      }
+    },
+    hideCalculAutoTooltip(event) {
+      if(!this.$refs.calculAutoTooltip.contains(event.target) && this.$refs.automaticIcon !== event.target) {
+        this.popupHidden = true;
       }
     },
     getValue(e, isTextarea = false) {
@@ -85,13 +187,63 @@ export default {
       if(isNaN(e.key)) {
         e.preventDefault();
       }
-    }
+    },
   },
   data() {
     return {
       hidden: true,
-      automaticEnabled: false,
-      displayedValue: null
+      displayedValue: null,
+      popupHidden: true,
+      id: this._uid,
+      indicateurData: this.indicateur ? this.indicateur : {
+        automaticEnabled: false
+      }
+    }
+  },
+  watch: {
+    'indicateurData.automaticEnabled': function(newVal) {
+      this.indicateur.automaticEnabled = newVal;
+      if(this.isPrincipaleCell && !this.isMainMission) {
+        this.displayedValue = null;
+      }
+      else if(!this.isPrincipaleCell && this.isMainMission) {
+        this.displayedValue = null;
+      }
+      else {
+        this.displayedValue = this.indicateurData.automaticValue;
+      }
+
+      if(newVal) {
+        this.indicateur.reset = true;
+        this.$emit('input', this.indicateurData.automaticValue);
+        this.$emit('change', this.indicateurData.automaticValue);
+      }
+
+
+    },
+    value: function(newVal, oldVal) {
+
+      if(this.indicateurData.reset) {
+        if(this.isPrincipaleCell && this.isMainMission) {
+          this.displayedValue = this.indicateurData.automaticValue;
+          this.indicateurData.isPrincipaleCellFilled = true;
+        }
+
+        if(!this.isPrincipaleCell && !this.isMainMission){
+          this.displayedValue = this.indicateurData.automaticValue;
+          this.indicateurData.isSecondaireCellFilled = true;
+        }
+
+       if(this.indicateurData.isPrincipaleCellFilled && this.indicateurData.isSecondaireCellFilled) {
+          this.indicateurData.reset = false;
+          this.indicateurData.isPrincipaleCellFilled = false;
+          this.indicateurData.isSecondaireCellFilled = false;
+        }
+      } else {
+        setTimeout(() => {
+          this.displayedValue = newVal;
+        }, 3000)
+      }
     }
   }
 }

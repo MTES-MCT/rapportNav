@@ -54,6 +54,9 @@
           "secondaire": null,
           "total": null,
           "observations": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 1,
             "nom": "Nombre d'heures de mer"
@@ -64,6 +67,9 @@
           "secondaire": null,
           "total": null,
           "observations": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 2,
             "nom": "Nombre d'opérations suivies (ayant fait l'objet d'un DEFREP)"
@@ -164,6 +170,10 @@
           "secondaire": null,
           "total": null,
           "observation": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          
+          "isAutomaticCell": true,
           "category": {
             "id": 10,
             "nom": "Nombre de procès-verbaux d'infraction dressés"
@@ -184,6 +194,9 @@
           "secondaire": null,
           "total": null,
           "observation": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 12,
             "nom": "Nombre d'opérations de lutte anti-pollution en mer"
@@ -234,6 +247,9 @@
           "secondaire": null,
           "total": null,
           "observation": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 16,
             "nom": "Nombre de navires contrôlés en mer (législation pêche)"
@@ -244,6 +260,9 @@
           "secondaire": null,
           "total": null,
           "observation": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 17,
             "nom": "Nombre de procès-verbaux dressés (législation pêche)"

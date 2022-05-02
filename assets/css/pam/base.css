@@ -83,7 +83,7 @@
     font-size: 14px;
 }
 .text-red-error {
-    color: #e10600;
+    color: #e10600 !important;
 }
 
 .btn-danger {
@@ -688,6 +688,13 @@ td:first-child {
 
 .sidebar-left-menu {
   margin-left: 40px;
+}
+
+.accordion__title-sub {
+    font-size: 14px;
+    color: #7F7FC8;
+    font-weight: 400;
+    margin-left: 40px;
 }
 
 

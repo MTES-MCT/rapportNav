@@ -136,3 +136,12 @@
 .icon-observation {
     cursor: pointer;
 }
+
+.automatic-icon {
+    cursor: pointer;
+}
+
+.automatic-icon-error {
+    color: #E10600;
+    cursor: pointer;
+}
