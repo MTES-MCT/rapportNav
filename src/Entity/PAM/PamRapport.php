@@ -166,6 +166,7 @@ class PamRapport
     private $personnel;
 
     /**
+     * @Groups({"view", "draft"})
      * @ORM\ManyToOne(targetEntity=Service::class)
      * @ORM\JoinColumn(nullable=false)
      */

@@ -1,5 +1,5 @@
 <template>
-  <div class="myReports">
+  <div class="myReports" v-if="userMe">
     <AlertComponent title="Aucun rapport" message="Vous n'avez pas encore rempli de rapport." v-if="!rapports" />
     <div class="rapport-list">
       <div class="rapport-list-header fr-grid-row">
@@ -215,9 +215,13 @@
           </span>
         </div>
         <div class="fr-col-lg-3 action-btn">
-          <button class="fr-btn edit-btn" @click="edit(rapport)">
+          <button class="fr-btn edit-btn" @click="edit(rapport)" v-if="rapport.created_by && (userMe.service.id === rapport.created_by.id)">
             <i class="ri-pencil-line fr-mr-2v" aria-hidden="true" />
             Editer
+          </button>
+          <button class="fr-btn edit-btn" @click="edit(rapport)" v-else>
+            <i class="ri-eye-fill fr-mr-2v" aria-hidden="true" />
+            Voir
           </button>
           <HomeDownloadComponent :rapport="rapport"></HomeDownloadComponent>
         </div>
@@ -232,12 +236,12 @@ import axios from "axios";
 import DownloadAEMComponent from "../DownloadAEMComponent";
 import HomeDownloadComponent from "../dropdown/HomeDownloadComponent";
 import moment from "moment";
-import {sanitizeUrl} from "@braintree/sanitize-url";
 import ModalDownloadAEM from "../modal/ModalDownloadAEM";
 export default {
   name: "MyReportsComponent",
   components: {ModalDownloadAEM, HomeDownloadComponent, AlertComponent, DownloadAEMComponent},
   mounted() {
+    this.fetchMe()
     let date = new Date();
     this.fetchFiltre();
     let currentDate = new Date();
@@ -259,6 +263,7 @@ export default {
             let brouillon = JSON.parse(element.body);
             brouillon.id = element.number;
             brouillon.type = element.type;
+            brouillon.created_by = element.created_by
             results.push(brouillon);
           }
 
@@ -490,6 +495,15 @@ export default {
       this.uriSearch.searchParams.append('periode', 'mois');
       this.uriSearch.searchParams.append('date', moment(date).format('YYYY-MM-DD'));
       this.fetchFiltre()
+    },
+    fetchMe() {
+      axios.get('/api/profile/me')
+          .then((success) => {
+            this.userMe = success.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
     }
   },
   data() {
@@ -516,7 +530,8 @@ export default {
       startDate: moment(new Date()).format('YYYY-MM-DD'),
       endDate: moment(new Date()).format('YYYY-MM-DD'),
       currentYear: null,
-      selectedYear: null
+      selectedYear: null,
+      userMe: null
     }
   },
   computed: {

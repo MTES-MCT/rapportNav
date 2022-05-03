@@ -1,11 +1,8 @@
 <template>
   <div v-if="rapport">
-    <HeaderComponent draft name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="drafted" :rapport="rapport">
-    </HeaderComponent>
-    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" @update="putFormUpdate" v-if="saved" :rapport="rapport">
-    </HeaderComponent>
-    <HeaderComponent name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
-    </HeaderComponent>
+    <HeaderComponent draft name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="drafted && userMe" :rapport="rapport" :user="userMe" :created-by="createdBy" />
+    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" @update="putFormUpdate" v-if="saved && userMe" :rapport="rapport" :user="userMe" :created-by="createdBy" />
+    <HeaderComponent name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted && userMe" :user="userMe" />
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
         <div class="fr-col-lg-2 fr-col-md-2 fr-col-sm-12 sidebar-left-menu">
@@ -21,7 +18,6 @@
                :missions="rapport.missions"
                @get-date="setDates"
                ref="informationGeneral"
-
             >
             </GeneralInformationCardComponent>
 
@@ -116,6 +112,7 @@ export default {
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id')
     const draft = urlParams.get('draft')
+    this.fetchMe();
     if(id && draft) {
       axios.get('/api/pam/rapport/draft/' + id)
           .then((response) => {
@@ -125,6 +122,7 @@ export default {
             this.idDraft = id;
             this.numReport = idRapport;
             this.rapport.id = idRapport;
+            this.createdBy = response.data.created_by;
           })
     }
     else if (id) {
@@ -134,7 +132,7 @@ export default {
             this.saved = true;
             this.idSave = id;
             this.numReport = this.rapport.id;
-
+            this.createdBy = response.data.created_by;
           })
     } else {
       this.rapport = require('../dist/create-rapport.json');
@@ -275,6 +273,15 @@ export default {
     },
     getAutresMission(value) {
       this.rapport.autreMission = value;
+    },
+    fetchMe() {
+      axios.get('/api/profile/me')
+          .then((success) => {
+            this.userMe = success.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
     }
   },
   data() {
@@ -285,7 +292,9 @@ export default {
       idDraft: null,
       idSave: null,
       numReport: null,
-      submittingToastID: null
+      submittingToastID: null,
+      userMe: null,
+      createdBy: null
     }
   }
 };

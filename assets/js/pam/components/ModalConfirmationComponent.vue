@@ -8,7 +8,8 @@
               <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="fr-modal-200">Fermer</button>
             </div>
             <div class="fr-modal__content text-center">
-              <h5 class="text-normal">Vous êtes sur le point de quitter l'édition du rapport n°1498</h5>
+              <h5 class="text-normal" v-if="numRapport">Vous êtes sur le point de quitter l'édition du rapport n°{{numRapport}}</h5>
+              <h5 class="text-normal" v-else>Vous êtes sur le point de quitter l'édition du rapport</h5>
               <h5 class="">Voulez-vous enregistrer vos modifications ?</h5>
               <div class="">
                 <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
@@ -35,7 +36,8 @@
 export default {
   name: "ModalConfirmationComponent",
   props: {
-    saved: Boolean
+    saved: Boolean,
+    numRapport: String
   },
   methods: {
     onSaveExit() {
