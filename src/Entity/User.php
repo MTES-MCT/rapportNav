@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class User extends BaseUser {
     /**
+     * @Groups({"me"})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -23,15 +24,26 @@ class User extends BaseUser {
     protected $id;
 
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "me"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Service")
      */
     protected $service;
 
     /**
+     * @Groups({"me"})
      * @ORM\Column(type="boolean", options={"default" : 0})
      */
     private $chefUlam=false;
+
+    /**
+     * @Groups({"me"})
+     */
+    protected $email;
+
+    /**
+     * @Groups({"me"})
+     */
+    protected $username;
 
     public function __construct()
     {

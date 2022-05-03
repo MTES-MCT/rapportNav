@@ -11,9 +11,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ServiceRepository")
  */
-class Service {
+class
+Service {
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "me", "view"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -21,7 +22,7 @@ class Service {
     private $id;
 
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "me", "view"})
      * @ORM\Column(type="string", length=100)
      */
     private $nom;
@@ -37,6 +38,7 @@ class Service {
     private $pamDrafts;
 
     /**
+     * @Groups({"draft", "me", "view"})
      * @ORM\Column(type="string", length=4, nullable=true)
      */
     private $quadrigramme;
