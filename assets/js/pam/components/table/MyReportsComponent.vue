@@ -240,8 +240,10 @@ import ModalDownloadAEM from "../modal/ModalDownloadAEM";
 export default {
   name: "MyReportsComponent",
   components: {ModalDownloadAEM, HomeDownloadComponent, AlertComponent, DownloadAEMComponent},
+  props: {
+    me: Object
+  },
   mounted() {
-    this.fetchMe()
     let date = new Date();
     this.fetchFiltre();
     let currentDate = new Date();
@@ -495,15 +497,6 @@ export default {
       this.uriSearch.searchParams.append('periode', 'mois');
       this.uriSearch.searchParams.append('date', moment(date).format('YYYY-MM-DD'));
       this.fetchFiltre()
-    },
-    fetchMe() {
-      axios.get('/api/profile/me')
-          .then((success) => {
-            this.userMe = success.data;
-          })
-          .catch((error) => {
-            console.log(error);
-          })
     }
   },
   data() {
@@ -531,7 +524,7 @@ export default {
       endDate: moment(new Date()).format('YYYY-MM-DD'),
       currentYear: null,
       selectedYear: null,
-      userMe: null
+      userMe: this.me
     }
   },
   computed: {
