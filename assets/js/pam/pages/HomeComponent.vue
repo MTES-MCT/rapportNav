@@ -4,7 +4,6 @@
     <div class="fr-container fr-mt-31v">
       <h3 class="home-heading-1">Bonjour</h3>
       <CurrentReportComponent></CurrentReportComponent>
-      <DownloadAEMComponent></DownloadAEMComponent>
       <MyReportsComponent></MyReportsComponent>
     </div>
   </div>

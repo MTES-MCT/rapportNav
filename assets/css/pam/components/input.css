@@ -34,4 +34,58 @@
     font-size: 16px;
 }
 
+.dropdown-selected {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    padding: 12px;
+    border: 1px #000091 solid;
+    font-size: 16px;
+    color: #000091 ;
+    font-weight: 600;
 
+}
+
+.dropdown-selected div {
+    flex: 6 2;
+}
+.selection-date {
+    padding: 8px;
+    font-size: 14px;
+}
+.selection ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.selection ul li {
+    border-bottom: #E7E7E7 1px solid;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.selection ul li:hover {
+    cursor: pointer;
+    background-color: #F2F2F9;
+}
+
+
+.selection {
+    box-shadow: 0px 3px 10px #00000029;
+    min-width: 210px;
+    position: absolute;
+    z-index: 9;
+    background-color: #fff;
+}
+
+.selection .dropdown-selected:hover {
+    visibility: visible;
+}
+
+.dropdown-date span {
+    font-size: 12px;
+    color: #9C9C9C;
+    font-style: italic;
+    padding-left: 8px;
+    display: block;
+}

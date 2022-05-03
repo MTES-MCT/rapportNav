@@ -3,7 +3,9 @@
 namespace App\Controller\PAM\Api;
 
 use App\Entity\PAM\PamRapport;
+use App\Exception\BordeeNotFound;
 use App\Form\PAM\PamRapportType;
+use App\Service\PAM\FiltreService;
 use App\Service\PAM\RapportService;
 use App\Service\PAM\PamEquipageService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -24,9 +26,14 @@ class RapportController extends AbstractFOSRestController {
      * @var RapportService
      */
     private $createRapportService;
+    /**
+     * @var FiltreService
+     */
+    private $filtreService;
 
-    public function __construct(RapportService $createRapportService) {
+    public function __construct(RapportService $createRapportService, FiltreService $filtreService) {
         $this->createRapportService = $createRapportService;
+        $this->filtreService = $filtreService;
     }
 
     /**
@@ -163,7 +170,25 @@ class RapportController extends AbstractFOSRestController {
      */
     public function list() : View
     {
-        return View::create($this->createRapportService->listAll($this->getUser()->getService()), Response::HTTP_OK);
+        return View::create($this->createRapportService->listAll(), Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Get("/filtre")
+     * @Rest\View(serializerGroups={"view"})
+     * @param Request $request
+     *
+     * @return View
+     */
+    public function filtre(Request $request) : View
+    {
+        try {
+            $result = $this->filtreService->filtre($request);
+            return View::create($result, Response::HTTP_OK);
+        }
+        catch(BordeeNotFound $e) {
+            return View::create($e->getMessage(), $e->getCode());
+        }
     }
 
 }

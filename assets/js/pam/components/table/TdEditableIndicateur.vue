@@ -25,6 +25,7 @@
   <td
       v-else-if="isIndicateurChild"
       contenteditable="true"
+      ref="tdIndicateur"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
       class="td-indicateur-child"
@@ -49,6 +50,7 @@
       v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && isMainMission && isPrincipaleCell"
       contenteditable="true"
       class="td-indicateur"
+      ref="tdIndicateur"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
   >
@@ -72,6 +74,7 @@
       v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && isMainMission && !isPrincipaleCell"
       contenteditable="true"
       class="td-indicateur"
+      ref="tdIndicateur"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
       v-text="displayedValue"
@@ -85,6 +88,7 @@
   <td
       v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && !isMainMission && isPrincipaleCell"
       contenteditable="true"
+      ref="tdIndicateur"
       class="td-indicateur"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
@@ -110,6 +114,7 @@
       v-else-if="indicateurData.isAutomaticCell && !indicateurData.automaticEnabled && !isMainMission && !isPrincipaleCell"
       contenteditable="true"
       class="td-indicateur"
+      ref="tdIndicateur"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)">
     {{ displayedValue }}
@@ -126,6 +131,7 @@
   <td
       class="td-indicateur td-fillable"
       contenteditable="true"
+      ref="tdIndicateur"
       @keyup="getValue($event)"
       @keypress="onKeyPress($event)"
       v-else
@@ -240,9 +246,12 @@ export default {
           this.indicateurData.isSecondaireCellFilled = false;
         }
       } else {
-        setTimeout(() => {
-          this.displayedValue = newVal;
-        }, 3000)
+        const $tdIndicateur = this.$refs.tdIndicateur;
+        if($tdIndicateur) {
+          $tdIndicateur.onblur = (event) => {
+            this.displayedValue = newVal;
+          }
+        }
       }
     }
   }

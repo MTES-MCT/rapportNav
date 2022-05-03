@@ -21,21 +21,21 @@
                     <label for="selectYear-1">De</label>
                     <select class="fr-select" id="selectYear-1" v-model="firstMonth">
                       <option value="01-01">Janvier</option>
-                      <option value="01-02">Février</option>
-                      <option value="01-03">Mars</option>
-                      <option value="01-04">Avril</option>
-                      <option value="01-05">Mai</option>
-                      <option value="01-06">Juin</option>
-                      <option value="01-07">Juillet</option>
-                      <option value="01-08">Août</option>
-                      <option value="01-09">Septembre</option>
-                      <option value="01-10">Octobre</option>
-                      <option value="01-11">Novembre</option>
-                      <option value="01-12">Décembre</option>
+                      <option value="02-01">Février</option>
+                      <option value="03-01">Mars</option>
+                      <option value="04-01">Avril</option>
+                      <option value="05-01">Mai</option>
+                      <option value="06-01">Juin</option>
+                      <option value="07-01">Juillet</option>
+                      <option value="08-01">Août</option>
+                      <option value="09-01">Septembre</option>
+                      <option value="10-01">Octobre</option>
+                      <option value="11-01">Novembre</option>
+                      <option value="12-01">Décembre</option>
                     </select>
                   </div>
                   <div class="fr-select-group select-without-label fr-ml-2v">
-                    <select class="fr-select" id="select" v-model="firstYear">
+                    <select class="fr-select" v-model="firstYear">
                       <option v-for="year in years" :value="year">{{ year }}</option>
                     </select>
                   </div>
@@ -45,22 +45,22 @@
                   <div class="fr-select-group">
                     <label for="lastDate">à</label>
                     <select class="fr-select" id="lastDate" name="select" v-model="lastMonth">
-                      <option value="31-01">Janvier</option>
-                      <option value="31-02">Février</option>
-                      <option value="31-03">Mars</option>
-                      <option value="31-04">Avril</option>
-                      <option value="31-05">Mai</option>
-                      <option value="31-06">Juin</option>
-                      <option value="31-07">Juillet</option>
-                      <option value="31-08">Août</option>
-                      <option value="31-09">Septembre</option>
-                      <option value="31-10">Octobre</option>
-                      <option value="31-11">Novembre</option>
-                      <option value="31-12">Décembre</option>
+                      <option value="01-01">Janvier</option>
+                      <option value="02-01">Février</option>
+                      <option value="03-01">Mars</option>
+                      <option value="04-01">Avril</option>
+                      <option value="05-01">Mai</option>
+                      <option value="06-01">Juin</option>
+                      <option value="07-01">Juillet</option>
+                      <option value="08-01">Août</option>
+                      <option value="09-01">Septembre</option>
+                      <option value="10-01">Octobre</option>
+                      <option value="11-01">Novembre</option>
+                      <option value="12-01">Décembre</option>
                     </select>
                   </div>
                   <div class="fr-select-group select-without-label fr-ml-2v">
-                    <select class="fr-select" id="lastDate" v-model="lastYear">
+                    <select class="fr-select" v-model="lastYear">
                       <option v-for="year in years" :value="year">{{ year }}</option>
                     </select>
                   </div>
@@ -104,9 +104,14 @@
 <script>
 import {sanitizeUrl} from "@braintree/sanitize-url";
 import axios from "axios";
+import moment from "moment";
 
 export default {
   name: "ModalDownloadAEM",
+  props: {
+    startDate: String,
+    endDate: String
+  },
   mounted() {
     this.fetchYearsRange();
   },
@@ -133,12 +138,28 @@ export default {
   },
   data() {
     return {
-      firstMonth: '01-01',
+      firstMonth: moment(new Date()).format('MM-01'),
       firstYear: new Date().getFullYear(),
-      lastMonth: '31-03',
+      lastMonth: moment(new Date()).format('MM-01'),
       lastYear: new Date().getFullYear(),
       wholeTeams: false,
       years: []
+    }
+  },
+  watch: {
+    startDate: function(newVal, oldVal) {
+      this.firstMonth = moment(newVal).format('MM') + '-01' || '01-01';
+      this.firstYear = moment(newVal).format('YYYY') || new Date().getFullYear();
+      if(!this.years.includes(this.firstYear)) {
+        this.years.push(this.firstYear )
+      }
+    },
+    endDate: function(newVal, oldVal) {
+      this.lastMonth = moment(newVal).format('MM') + '-01' || '02-01';
+      this.lastYear = moment(newVal).format('YYYY') || new Date().getFullYear();
+      if(!this.years.includes(this.lastYear)) {
+        this.years.push(this.lastYear )
+      }
     }
   }
 }
