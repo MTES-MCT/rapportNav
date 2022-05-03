@@ -2,7 +2,7 @@
   <div class="my-profile" v-if="me">
     <HeaderHomeComponent name-site="RapportNav" />
     <div class="fr-container my-profile__container">
-      <router-link class="back_dashboard__link" to="/pam">Retour au tableau de bord</router-link>
+      <router-link class="back_dashboard__link" to="/pam"><i class="ri ri-arrow-left-s-line fr-mr-2v" aria-hidden="true"></i>Retour au tableau de bord</router-link>
       <div class="fr-grid-row fr-mt-6v">
         <div class="fr-col-lg-4">
           <h2 class="my-profile__heading">Mes informations personnelles</h2>

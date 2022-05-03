@@ -28,11 +28,6 @@
     font-size: 18px;
 }
 
-.back_dashboard__link:before {
-    font-family: 'remixicon' !important;
-    content: "\ea64 " !important;
-    padding-right: 8px;
-}
 
 .my-profile__container {
     margin-top: 140px;
