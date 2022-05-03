@@ -1,0 +1,39 @@
+.my-profile__heading {
+    font-size: 22px !important;
+    margin-bottom: 20px;
+}
+
+.informations-personnelles {
+    background-color: #F9F8F6;
+    padding: 15px 15px 45px 15px;
+}
+
+.informations-personnelles h4 {
+    font-size: 16px;
+    margin: 0;
+    color: #747474;
+    font-weight: normal;
+}
+
+.informations-personnelles__content span {
+    font-weight: 600;
+}
+
+.informations-personnelles__content {
+    margin-bottom: 15px;
+}
+
+.back_dashboard__link {
+    color: #000091;
+    font-size: 18px;
+}
+
+.back_dashboard__link:before {
+    font-family: 'remixicon' !important;
+    content: "\ea64 " !important;
+    padding-right: 8px;
+}
+
+.my-profile__container {
+    margin-top: 140px;
+}

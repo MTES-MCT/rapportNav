@@ -5,6 +5,7 @@
 @import "components/datetime.css";
 @import "components/my-reports.css";
 @import "components/download.css";
+@import "components/profile.css";
 
 .InputAddOn-field {
     outline-offset: 0;

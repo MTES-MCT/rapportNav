@@ -45,6 +45,12 @@ class User extends BaseUser {
      */
     protected $username;
 
+    /**
+     * @Groups({"me"})
+     * @ORM\OneToOne(targetEntity=Agent::class, mappedBy="userAccount", cascade={"persist", "remove"})
+     */
+    private $agent;
+
     public function __construct()
     {
         parent::__construct();
@@ -72,6 +78,28 @@ class User extends BaseUser {
     public function setChefUlam(bool $chefUlam): self
     {
         $this->chefUlam = $chefUlam;
+
+        return $this;
+    }
+
+    public function getAgent(): ?Agent
+    {
+        return $this->agent;
+    }
+
+    public function setAgent(?Agent $agent): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($agent === null && $this->agent !== null) {
+            $this->agent->setUserAccount(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($agent !== null && $agent->getUserAccount() !== $this) {
+            $agent->setUserAccount($this);
+        }
+
+        $this->agent = $agent;
 
         return $this;
     }

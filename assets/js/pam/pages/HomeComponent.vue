@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderHomeComponent name-site="RapportNav"></HeaderHomeComponent>
+    <HeaderHomeComponent name-site="RapportNav" enable-my-profile></HeaderHomeComponent>
     <div class="fr-container fr-mt-31v">
       <h3 class="home-heading-1">Bonjour</h3>
       <CurrentReportComponent></CurrentReportComponent>
