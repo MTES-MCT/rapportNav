@@ -15,6 +15,7 @@ const router = new VueRouter({
     routes:[
         { path:'/pam', name:'home', component: require('./pages/HomeComponent.vue').default },
         { path:'/pam/rapport', name:'rapport', component: require('./pages/CreateRapportComponent.vue').default },
+        { path:'/pam/profil', name:'profil', component: require('./pages/MyProfileComponent.vue').default },
         { path: '*', redirect: '/' }
     ]
 });

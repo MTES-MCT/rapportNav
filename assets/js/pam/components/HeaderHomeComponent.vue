@@ -26,7 +26,7 @@
               </div>
             </div>
 
-            <div class="fr-header__tools fr-ml-8w">
+            <div class="fr-header__tools fr-ml-8w" v-if="enableMyProfile">
               <div class="fr-header__tools-links">
                 <ul class="fr-links-group">
                   <li>
@@ -38,19 +38,18 @@
                       Créer un rapport
                     </button>
                   </li>
-              <!--    <li>
-                    <button
+                  <li>
+                    <router-link
                         class="fr-btn--menu fr-btn mr-2 fr-fi-user-line fr-btn--secondary fr-btn--icon-left"
-                        data-fr-opened="false"
-                        aria-controls="modal-870"
                         title="Mon profil"
+                        to="/pam/profil"
                     >
                       Mon profil
-                    </button>
+                    </router-link>
                   </li>
                   <li>
 
-                  </li>-->
+                  </li>
                 </ul>
               </div>
             </div>
@@ -76,7 +75,8 @@
 export default {
   name: "HeaderHomeComponent",
   props: {
-    nameSite: String
+    nameSite: String,
+    enableMyProfile: Boolean
   },
   methods: {
     createRapport() {

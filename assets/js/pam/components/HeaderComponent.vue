@@ -62,7 +62,7 @@
                 </ul>
               </nav>
             </div>
-            <div class="fr-header__tools responsive-btn fr-ml-8w">
+            <div class="fr-header__tools responsive-btn fr-ml-8w" v-if="createdBy.id === user.service.id || createdBy.id === null">
               <div class="fr-header__tools-links">
                 <ul class="fr-links-group">
                   <li>
@@ -114,7 +114,7 @@
             <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right"
                data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter</a>
           </div>
-          <div class="fr-header__body-row responsive-btn-header">
+          <div class="fr-header__body-row responsive-btn-header" v-if="createdBy.id === user.service.id || createdBy.id === null">
             <div class="">
               <div class="">
                 <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
@@ -160,7 +160,8 @@
       </div>
     </header>
 
-    <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" />
+    <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" :num-rapport="rapport.id" v-if="rapport" />
+    <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" v-else />
     <ModalMsgDownload :rapport="rapport" :type="typeDownload" :draft="draft" v-if="draft || saved" />
   </div>
 </template>
@@ -193,6 +194,15 @@
       rapport: {
         type: Object,
         default: null
+      },
+      user: Object,
+      createdBy: {
+        type: Object,
+        default: () => {
+          return {
+            id: null
+          }
+        }
       }
     },
     mounted() {

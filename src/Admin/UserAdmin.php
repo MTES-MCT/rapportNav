@@ -24,6 +24,7 @@ final class UserAdmin extends AbstractAdmin {
                 ->add('enabled')
                 ->add('lastLogin')
                 ->add('roles')
+                ->add('agent')
         ;
     }
 
@@ -36,6 +37,7 @@ final class UserAdmin extends AbstractAdmin {
                 ->add('enabled')
                 ->add('lastLogin')
                 ->add('roles')
+                ->add('agent')
                 ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
@@ -52,6 +54,7 @@ final class UserAdmin extends AbstractAdmin {
                 ->add('username')
                 ->add('email')
                 ->add('plainPassword', TextType::class)
+                ->add('agent')
                 ->add('service', ModelType::class, [
                     'class' => Service::class,
                     'property' => 'nom',
@@ -71,6 +74,7 @@ final class UserAdmin extends AbstractAdmin {
                 ->add('username')
                 ->add('email')
                 ->add('service')
+                ->add('agent')
             ->end()
             ->with('Management')
                 ->add('chefUlam')

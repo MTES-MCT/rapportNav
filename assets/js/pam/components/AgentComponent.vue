@@ -28,7 +28,7 @@
         <label class="fr-label" :for="'membre-' + id">Absent</label>
       </div>
 
-      <button class="custom-btn fr-fi-checkbox-circle-line fr-btn--icon-left fr-mt-3v remove-equip-btn" @click="removeAgent(index)">
+      <button class="custom-btn fr-fi-delete-fill fr-btn--icon-left fr-mt-3v remove-equip-btn" @click="removeAgent(index)">
         Supprimer le membre
       </button>
     </div>

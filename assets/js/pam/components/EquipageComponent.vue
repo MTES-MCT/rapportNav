@@ -3,7 +3,7 @@
     <div class="fr-col-lg-7 fr-col-md-8">
       <div class="members-list">
         <AgentComponent v-for="(agent, index) in membres"
-                        :key="index"
+                        :key="agent.hash"
                         :membre="agent"
                         :agent-list="membres"
                         :fonctions="fonctions"
@@ -44,7 +44,7 @@
                     :id="'ajout_suggestion_' + index"
                     class="fr-btn--menu fr-btn fr-btn--sm fr-fi-add-circle-fill fr-btn--secondary fr-btn--icon-left"
                     title="Enregistrer"
-                    @click="addAgent(suggestion)"
+                    @click="addAgent(suggestion, index)"
                 >Ajouter
                 </button>
               </div>
@@ -104,7 +104,7 @@ export default {
     }
   },
   methods: {
-    addAgent(suggestion = null) {
+    addAgent(suggestion = null, index = null) {
       const membre = suggestion ? suggestion : {};
       if(!suggestion) {
         membre.agent = {};
@@ -122,7 +122,10 @@ export default {
             nom: ''
           }
         };
+      } else {
+        this.suggestionsList.splice(index, 1);
       }
+      membre.hash = new Date().getTime();
       this.membres.push(membre);
 
     },

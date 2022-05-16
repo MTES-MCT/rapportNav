@@ -97,8 +97,6 @@ class RapportService {
         $arrayBody = json_decode($content,true);
         $startDateTime = $arrayBody['start_datetime'];
 
-
-
         if(!$startDateTime) {
             throw new BadRequestHttpException('La date de début est manquante.');
         }
@@ -107,6 +105,9 @@ class RapportService {
         $draft = new PamDraft();
         if($id) {
             $draft = $this->showDraftById($id);
+            if($draft->getCreatedBy() !== $service) {
+                throw new BadRequestHttpException('User not authorized');
+            }
         } else {
             $draft->setNumber($this->generateID->generate());
         }
@@ -175,6 +176,10 @@ class RapportService {
      */
     public function updateRapport(FormInterface $form, Request $request, PamRapport $existingRapport, Service $service) : PamRapport
     {
+
+        if($existingRapport->getCreatedBy() !== $service) {
+            throw new BadRequestHttpException('User not authorized');
+        }
         /** @var PamRapport $rapport */
         $rapport = $this->serializer->deserialize($request->getContent(), PamRapport::class, 'json'); // Mapping de la request en entity PamRapport
 
