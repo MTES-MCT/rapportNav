@@ -322,44 +322,44 @@ class ExportService {
        }
 
         if($totalControlesNavires > 0) {
-            $templateProcessor->setValue('commentairesControlesNavires', $commentaireNavire);
             $templateProcessor->setComplexBlock('tableControlesNavires', $tableControleNavire);
             $templateProcessor->setValues([
                 'block_controles_navires' => '',
-                '/block_controles_navires' => ''
+                '/block_controles_navires' => '',
+                'commentairesControlesNavires' => $commentaireNavire
             ]);
         } else {
             $templateProcessor->cloneBlock('block_controles_navires', 0, true, true);
         }
 
         if($totalEtablissementControles > 0) {
-            $templateProcessor->setValue('commentairesControlesEtablissements', $commentaireEtablissement);
             $templateProcessor->setComplexBlock('tableControlesEtablissements', $tableControlesEtablissements);
             $templateProcessor->setValues([
                 'block_controles_etablissements' => '',
-                '/block_controles_etablissements' => ''
+                '/block_controles_etablissements' => '',
+                'commentairesControlesEtablissements' => $commentaireEtablissement
             ]);
         } else {
             $templateProcessor->cloneBlock('block_controles_etablissements', 0, true, true);
         }
 
         if($totalControlePechePied > 0) {
-            $templateProcessor->setValue('commentairesControlePechePied', $commentairePechePied);
             $templateProcessor->setComplexBlock('tableControlesDetailPechePied', $tableControlePechePied);
             $templateProcessor->setValues([
                 'block_controles_peche_pied' => '',
-                '/block_controles_peche_pied' => ''
+                '/block_controles_peche_pied' => '',
+                'commentairesControlePechePied' => $commentairePechePied
             ]);
         } else {
             $templateProcessor->cloneBlock('block_controles_peche_pied', 0, true, true);
         }
 
         if($totalControleLoisirNautique > 0) {
-            $templateProcessor->setValue('commentaireControleLoisirNautique', $commentaireLoisurNautique);
             $templateProcessor->setComplexBlock('tableControlesLoisirsNautiques', $tableControleLoisirsNautiques);
             $templateProcessor->setValues([
                 'block_controles_loisirs_nautiques' => '',
-                '/block_controles_loisirs_nautiques' => ''
+                '/block_controles_loisirs_nautiques' => '',
+                'commentaireControleLoisirNautique' => $commentaireLoisurNautique
             ]);
         } else {
             $templateProcessor->cloneBlock('block_controles_loisirs_nautiques', 0, true, true);
@@ -367,10 +367,10 @@ class ExportService {
 
         if($totalAutreTypeControles > 0) {
             $templateProcessor->setValue('lieuxAutreTypeControles', $lieuxAutreTypeControles);
-            $templateProcessor->setValue('commentaireAutreTypeControles', $commentaireAutreTypeControle);
             $templateProcessor->setValues([
                 'block_autre_controles' => '',
-                '/block_autre_controles' => ''
+                '/block_autre_controles' => '',
+                'commentairesControlesNavires' => $commentaireAutreTypeControle
             ]);
         } else {
             $templateProcessor->cloneBlock('block_autre_controles', 0, true, true);
