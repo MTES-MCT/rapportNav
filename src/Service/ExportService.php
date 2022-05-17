@@ -36,7 +36,7 @@ class ExportService {
             throw new RapportNotFound("Le rapport n'a pas été trouvé.");
         }
 
-        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/Service/samples/SAMPLE_Rapport_mission_ULAM.docm');
+        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/Service/samples/SAMPLE_Rapport_mission_ULAM.docx');
 
         $templateProcessor->setValues([
             'dateDebut' => $rapport->getDateDebutMission()->format('d/m/Y'),
@@ -79,23 +79,23 @@ class ExportService {
             $templateProcessor->replaceBlock('agent_list', $agent->getPrenom());
         }
 
-        $tableControleNavire = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
+        $tableControleNavire = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
         $tableControleNavire->addRow();
-        $tableControleNavire->addCell(300)->addText('Immatriculation');
-        $tableControleNavire->addCell(300)->addText('Informations');
-        $tableControleNavire->addCell(300)->addText('Contrôles réalisés');
-        $tableControleNavire->addCell(300)->addText('Date/lieu de contrôle');
-        $tableControleNavire->addCell(300)->addText('Sanction(s)');
-        $tableControleNavire->addCell(300)->addText('Commentaires');
+        $tableControleNavire->addCell(600)->addText('Immatriculation');
+        $tableControleNavire->addCell(600)->addText('Informations');
+        $tableControleNavire->addCell(600)->addText('Contrôles réalisés');
+        $tableControleNavire->addCell(600)->addText('Date/lieu de contrôle');
+        $tableControleNavire->addCell(600)->addText('Sanction(s)');
+        $tableControleNavire->addCell(600)->addText('Commentaires');
         $commentaireNavire = null;
         $totalControlesNavires = 0;
 
-        $tableControlesEtablissements = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
+        $tableControlesEtablissements = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 *50, 'unit' => TblWidth::PERCENT]);
         $tableControlesEtablissements->addRow();
-        $tableControlesEtablissements->addCell(300)->addText('Etablissement');
-        $tableControlesEtablissements->addCell(300)->addText('Date du contrôle');
-        $tableControlesEtablissements->addCell(300)->addText('Sanction(s)');
-        $tableControlesEtablissements->addCell(300)->addText('Commentaires');
+        $tableControlesEtablissements->addCell(600)->addText('Etablissement');
+        $tableControlesEtablissements->addCell(600)->addText('Date du contrôle');
+        $tableControlesEtablissements->addCell(600)->addText('Sanction(s)');
+        $tableControlesEtablissements->addCell(600)->addText('Commentaires');
         $totalEtablissementControles = 0;
         $commentaireEtablissement = null;
 
@@ -133,77 +133,119 @@ class ExportService {
         $totalActivitesAdministratives = 0;
         $lieuxFormations = null;
 
+        $predefinedMultilevelStyle = ['listType' => \PhpOffice\PhpWord\Style\ListItem::TYPE_BULLET_FILLED];
+
         foreach($rapport->getActivites() as $activite) {
 
+            if($activite->getControles()) {
+                foreach($activite->getControles() as $controle) {
+                    /** @var ControleNavire $controle */
+                    if($controle instanceof ControleNavire) {
+                        $commentaireNavire = $controle->getActivite()->getCommentaire();
+                        $totalControlesNavires += 1;
+                        $tableControleNavire->addRow();
+                        $tableControleNavire->addCell(600)->addText($controle->getNavire()->getImmatriculation());
+                        $informationCell = $tableControleNavire->addCell(600);
+                        $informationCell->addListItem('Pavillon : ' . $controle->getNavire()->getPavillon(), 0, null, $predefinedMultilevelStyle);
+                        $informationCell->addListItem('Nom : ' . $controle->getNavire()->getNom());
+                        $informationCell->addListItem('Longueur : ' . $controle->getNavire()->getLongueurHorsTout());
+                        $informationCell->addListItem('Type : ' . $controle->getNavire()->getGenreNav());
+                        $informationCell->addListItem('Catégorie : ' . $controle->getNavire()->getCategorieUsageNavire()->getNom());
 
-            foreach($activite->getControles() as $controle) {
-                dump($controle);
-                /** @var ControleNavire $controle */
-               if($controle instanceof ControleNavire) {
-                   $controlesRealises = null;
-                   foreach($controle->getControleNavireRealises() as $controleNavireRealise) {
-                       $controlesRealises = $controlesRealises . ' / ' . $controleNavireRealise;
-                   }
-                   $commentaireNavire = $controle->getActivite()->getCommentaire();
-                   $totalControlesNavires += 1;
-                   $tableControleNavire->addRow();
-                   $tableControleNavire->addCell(300)->addText($controle->getNavire()->getImmatriculation());
-                   $tableControleNavire->addCell(300)->addText($controle->getNavire()->getPavillon());
-                   $tableControleNavire->addCell(300)->addText($controlesRealises);
-                   $tableControleNavire->addCell(300)->addText($controle->getDate()->format('d/m/Y'));
-                   $tableControleNavire->addCell(300)->addText($controle->getCommentaire());
-               }
+                        $controlesRealisesCell = $tableControleNavire->addCell(600);
 
-               /** @var ControleEtablissement $controle */
-               if($controle instanceof ControleEtablissement) {
-                   $lieux = null;
-                   $commentaireEtablissement = $controle->getActivite()->getCommentaire();
-                   $totalEtablissementControles += 1;
-                   foreach($controle->getActivite()->getZones() as $zone) {
-                       $lieux = $lieux . ' / ' . $zone->getNom();
-                   }
+                        foreach($controle->getControleNavireRealises() as $controleNavireRealise) {
+                            $controlesRealisesCell->addListItem($controleNavireRealise);
+                        }
 
-                   $tableControlesEtablissements->addRow();
-                   $tableControlesEtablissements->addCell(300)->addText($controle->getEtablissement()->getNom());
-                   $tableControleNavire->addCell(300)->addText($controle->getDate()->format('d/m/Y'));
-                   $tableControleNavire->addCell(300)->addText($controle->getPv());
-                   $tableControleNavire->addCell(300)->addText($controle->getCommentaire());
-               }
+                        $tableControleNavire->addCell(600)->addText($controle->getDate()->format('d/m/Y'));
 
-                /** @var ControlePecheurPied $controle */
-                if($controle instanceof ControlePecheurPied) {
-                    $commentairePechePied = $controle->getActivite()->getCommentaire();
-                    $totalControlePechePied += 1;
-                    $tableControlePechePied->addRow();
-                    $tableControlePechePied->addCell(300)->addText($controle->getPecheurPied());
-                    $tableControlePechePied->addCell(300)->addText($controle->getPecheurPied()->getEstPro() ? 'Professionnel' : 'Plaisancier');
-                    $tableControlePechePied->addCell(300)->addText($controle->getDate()->format('d/m/Y'));
-                    $tableControlePechePied->addCell(300)->addText($controle->getPv() ? 'PV : oui' : 'PV: non');
-                    $tableControlePechePied->addCell(300)->addText($controle->getCommentaire());
-                }
+                        $sanctionsCell = $tableControleNavire->addCell(600);
+                        $sanctionsCell->addText($controle->getPv() ? 'PV : oui' : 'PV : non');
 
-                /** @var ControleLoisir $controle */
-                if($controle instanceof ControleLoisir) {
-                    $commentaireLoisurNautique = $controle->getActivite()->getCommentaire();
-                    $totalControleLoisirNautique += 1;
-                    $tableControleLoisirsNautiques->addRow();
-                    $tableControleLoisirsNautiques->addCell(300)->addText($controle->getLoisir()->getNom());
-                    $tableControleLoisirsNautiques->addCell(300)
-                        ->addListItem('Total contrôles : ' . $controle->getNombreControleAireProtegee());
-                    $tableControleLoisirsNautiques->addCell(300)->addText($controle->getNombrePv() > 0 ? 'PV : oui' : 'PV : non');
-                    $tableControleLoisirsNautiques->addCell(300)->addText($controle->getCommentaire());
-                }
+                        if($controle->getNatinfs()->count() > 0) {
+                            $sanctionsCell->addText('Natinfs concernés : ');
+                            foreach($controle->getNatinfs() as $natinf) {
+                                $sanctionsCell->addListItem($natinf->getCodeNatAff());
+                            }
+                        }
 
-                /** @var ControleAutre $controle */
-                if($controle instanceof ControleAutre) {
-                    $commentaireAutreTypeControle = $controle->getActivite()->getCommentaire();
-                    $totalAutreTypeControles += 1;
+                        if($controle->getDeroutement()) {
+                            $sanctionsCell->addText($controle->getDeroutement()->getNom());
+                        }
 
-                    foreach($controle->getActivite()->getZones() as $zone) {
-                        $lieuxAutreTypeControles = $zone;
+                        $tableControleNavire->addCell(600)->addText($controle->getCommentaire());
+                    }
+
+                    /** @var ControleEtablissement $controle */
+                    if($controle instanceof ControleEtablissement) {
+                        $lieux = null;
+                        $commentaireEtablissement = $controle->getActivite()->getCommentaire();
+                        $totalEtablissementControles += 1;
+                        foreach($controle->getActivite()->getZones() as $zone) {
+                            $lieux = $lieux . ' / ' . $zone->getNom();
+                        }
+
+                        $tableControlesEtablissements->addRow();
+                        $informationCell = $tableControlesEtablissements->addCell(600);
+                        $informationCell->addText('Nom : ' . $controle->getEtablissement()->getNom());
+                        $informationCell->addText('Nom : ' . $controle->getEtablissement()->getAdresse());
+                        $informationCell->addText('Nom : ' . $controle->getEtablissement()->getType()->getNom());
+                        $tableControlesEtablissements->addCell(600)->addText($controle->getDate()->format('d/m/Y'));
+
+
+                        $sanctionsCell = $tableControlesEtablissements->addCell(600);
+                        $sanctionsCell->addText($controle->getPv() ? 'PV : oui' : 'PV : non');
+
+                        if($controle->getNatinfs()->count() > 0) {
+                            $sanctionsCell->addText('Natinfs concernés : ');
+                            foreach($controle->getNatinfs() as $natinf) {
+                                $sanctionsCell->addListItem($natinf->getCodeNatAff());
+                            }
+                        }
+
+                        $tableControlesEtablissements->addCell(600)->addText($controle->getPv());
+                        $tableControlesEtablissements->addCell(600)->addText($controle->getCommentaire());
+                    }
+
+                    /** @var ControlePecheurPied $controle */
+                    if($controle instanceof ControlePecheurPied) {
+                        $commentairePechePied = $controle->getActivite()->getCommentaire();
+                        $totalControlePechePied += 1;
+                        $tableControlePechePied->addRow();
+                        $tableControlePechePied->addCell(300)->addText($controle->getPecheurPied());
+                        $tableControlePechePied->addCell(300)->addText($controle->getPecheurPied()->getEstPro() ? 'Professionnel' : 'Plaisancier');
+                        $tableControlePechePied->addCell(300)->addText($controle->getDate()->format('d/m/Y'));
+                        $tableControlePechePied->addCell(300)->addText($controle->getPv() ? 'PV : oui' : 'PV: non');
+                        $tableControlePechePied->addCell(300)->addText($controle->getCommentaire());
+                    }
+
+                    /** @var ControleLoisir $controle */
+                    if($controle instanceof ControleLoisir) {
+                        $commentaireLoisurNautique = $controle->getActivite()->getCommentaire();
+                        $totalControleLoisirNautique += 1;
+                        $tableControleLoisirsNautiques->addRow();
+                        $tableControleLoisirsNautiques->addCell(300)->addText($controle->getLoisir()->getNom());
+                        $tableControleLoisirsNautiques->addCell(300)
+                            ->addListItem('Total contrôles : ' . $controle->getNombreControleAireProtegee());
+                        $tableControleLoisirsNautiques->addCell(300)->addText($controle->getNombrePv() > 0 ? 'PV : oui' : 'PV : non');
+                        $tableControleLoisirsNautiques->addCell(300)->addText($controle->getCommentaire());
+                    }
+
+                    /** @var ControleAutre $controle */
+                    if($controle instanceof ControleAutre) {
+                        $commentaireAutreTypeControle = $controle->getActivite()->getCommentaire();
+                        $totalAutreTypeControles += 1;
+
+                        foreach($controle->getActivite()->getZones() as $zone) {
+                            $lieuxAutreTypeControles = $zone;
+                        }
                     }
                 }
             }
+
+
+
 
             /** @var ActiviteAdministratif $activite */
             if($activite instanceof ActiviteAdministratif) {
