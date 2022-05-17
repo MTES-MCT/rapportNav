@@ -71,9 +71,30 @@ class ExportService {
             'assistance' => $rapport->getRepartitionHeures()->getAssistance() / 60,
             'plongee' => $rapport->getRepartitionHeures()->getPlongee() / 60,
             'nombreVisiteSecurite' => $rapport->getRepartitionHeures()->getNombreVisiteSecurite(),
-            'commentaires' => $rapport->getCommentaire()
-
+            'commentaires' => $rapport->getCommentaire(),
+            'missionAvecService' => $rapport->getServiceConjoints()->count() > 0 ? 'La mission était une mission conjointe avec le ou les services suivants : ' : 'La mission n’était pas réalisée avec d’autres services.',
         ]);
+
+
+        if($rapport->getServiceConjoints()->count() > 0) {
+            $tableServicesConjoints = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
+            $tableServicesConjoints->addRow();
+            $tableServicesConjoints->addCell(900)->addText('Nom du service');
+            foreach($rapport->getServiceConjoints() as $serviceConjoint) {
+                $tableServicesConjoints->addRow();
+                $tableServicesConjoints->addCell(900)->addText($serviceConjoint->getNom());
+            }
+
+            $templateProcessor->setComplexBlock('table_services', $tableServicesConjoints);
+        } else {
+            $templateProcessor->setValue('table_services', ''); // remove macro
+        }
+
+        $templateProcessor->setValues([
+            'block_services' => '',
+            '/block_services' => ''
+        ]); // remove macros
+
 
         $tableAgents = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
         $tableAgents->addRow();
@@ -142,6 +163,7 @@ class ExportService {
         $lieuxFormations = null;
 
         $predefinedMultilevelStyle = ['listType' => \PhpOffice\PhpWord\Style\ListItem::TYPE_BULLET_FILLED];
+
 
         foreach($rapport->getActivites() as $activite) {
 
