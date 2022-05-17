@@ -129,7 +129,7 @@ export default {
     fetchYearsRange() {
       axios.get('/api/pam/helper/years/rapport')
       .then((response) => {
-        this.years = response.data;
+        this.years = Object.values(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -155,6 +155,7 @@ export default {
       }
     },
     endDate: function(newVal, oldVal) {
+
       this.lastMonth = moment(newVal).format('MM') + '-01' || '02-01';
       this.lastYear = moment(newVal).format('YYYY') || new Date().getFullYear();
       if(!this.years.includes(this.lastYear)) {

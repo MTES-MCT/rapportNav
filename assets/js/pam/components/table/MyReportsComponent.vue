@@ -459,7 +459,7 @@ export default {
       if(this.containsAnnee) {
         let annee = this.$options.filters.formatAnnee(this.periodeSelect);
         const startDate = annee + '-01-01';
-        const endDate = (parseInt(annee)+1) + '-01-01';
+        const endDate = annee + '-12-31';
         this.startDate = startDate;
         this.endDate = endDate;
         return true;
