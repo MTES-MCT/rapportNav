@@ -27,10 +27,8 @@
               <div class="divider-vertical"></div>
             </div>
 
-            <div>
-              <div class=" num-report" v-if="numReport !== null">
-                <p class=" fr-text--md text-grey fr-ml-2v">Rapport n°{{ numReport }}</p>
-              </div>
+            <div class="num-report" v-if="numReport !== null">
+              <p class=" fr-text--md text-grey fr-ml-2v">Rapport n°{{ numReport }}</p>
             </div>
 
 
@@ -111,8 +109,9 @@
               </div>
             </div>
 
-            <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right"
-               data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter</a>
+            <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right quitter-btn"
+               data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter
+            </a>
           </div>
           <div class="fr-header__body-row responsive-btn-header" v-if="createdBy.id === user.service.id || createdBy.id === null">
             <div class="">
@@ -121,9 +120,6 @@
                   <li>
                     <button
                         class="fr-btn--menu fr-btn fr-fi-check-line fr-btn--icon-left mr-2"
-                        data-fr-opened="false"
-                        aria-controls="modal-870"
-                        aria-haspopup="validate"
                         title="Valider le rapport"
                         @click="submitted"
                     >
@@ -133,9 +129,6 @@
                   <li>
                     <button
                         class="fr-btn--menu fr-btn mr-2 fr-fi-save-fill fr-btn--secondary fr-btn--icon-left"
-                        data-fr-opened="false"
-                        aria-controls="modal-870"
-                        aria-haspopup="draft"
                         title="Enregistrer"
                         @click="drafted"
                     >
@@ -154,6 +147,33 @@
           <div class="fr-header__menu-links"></div>
           <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
             <ul class="fr-nav__list">
+              <li class="fr-nav__item">
+                <button class="fr-nav__btn fr-text" aria-expanded="false"
+                        aria-controls="menu-888">Télécharger
+                </button>
+                <div class="fr-collapse fr-menu" id="menu-888">
+                  <ul class="fr-menu__list">
+                    <li class="download-item">
+                      <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self"
+                         :aria-controls="'fr-modal-download' + rapport.id" data-fr-opened="false"
+                         @click.prevent="typeDownload = 'rapport'">
+                        Télécharger le rapport de patrouille (.docx)</a>
+                    </li>
+                    <li class="download-item">
+                      <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line"
+                         @click.prevent="typeDownload = 'indicateurs'"
+                         href="#" target="_self" :aria-controls="'fr-modal-download' + rapport.id" data-fr-opened="false">
+                        Télécharger les indicateurs de mission (.xlsx)
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="fr-nav__item">
+                <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error"
+                   data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
