@@ -161,6 +161,7 @@ class ExportService {
 
         $totalActivitesAdministratives = 0;
         $lieuxFormations = null;
+        $totalFormations = 0;
 
         $predefinedMultilevelStyle = ['listType' => \PhpOffice\PhpWord\Style\ListItem::TYPE_BULLET_FILLED];
 
@@ -346,7 +347,8 @@ class ExportService {
 
             /** @var ActiviteFormation $activite */
             if($activite instanceof ActiviteFormation) {
-                $templateProcessor->setValue('formateur', $activite->getFormateur() ? 'Formateur' : 'stagiaire');
+                $totalFormations += 1;
+                $templateProcessor->setValue('formateur', $activite->getFormateur() ? 'formateur' : 'stagiaire');
                 $templateProcessor->setValue('commentaireFormateur', $activite->getCommentaire());
             }
        }
@@ -416,6 +418,17 @@ class ExportService {
             $templateProcessor->cloneBlock('block_activites_administratives', 0, true, true);
         }
 
+        if($totalFormations > 0) {
+            $templateProcessor->setValues([
+                'block_formations' => '',
+                '/block_formations' => ''
+            ]);
+        } else {
+            $templateProcessor->cloneBlock('block_formations', 0, true, true);
+        }
+
+
+
 
 
         $templateProcessor->setValues([
@@ -424,7 +437,8 @@ class ExportService {
             'totalAutreTypeControles' => $totalAutreTypeControles,
             'totalControlePechePied' => $totalControlePechePied,
             'totalEtablissementsControles' => $totalEtablissementControles,
-            'totalControleLoisirNautique' => $totalControleLoisirNautique
+            'totalControleLoisirNautique' => $totalControleLoisirNautique,
+            'totalFormations' => $totalFormations
         ]);
 
         return $templateProcessor;
