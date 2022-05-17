@@ -90,7 +90,7 @@ class ExportService {
         $commentaireNavire = null;
         $totalControlesNavires = 0;
 
-        $tableControlesEtablissements = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 *50, 'unit' => TblWidth::PERCENT]);
+        $tableControlesEtablissements = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
         $tableControlesEtablissements->addRow();
         $tableControlesEtablissements->addCell(600)->addText('Etablissement');
         $tableControlesEtablissements->addCell(600)->addText('Date du contrôle');
@@ -99,13 +99,13 @@ class ExportService {
         $totalEtablissementControles = 0;
         $commentaireEtablissement = null;
 
-        $tableControlePechePied = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
+        $tableControlePechePied = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
         $tableControlePechePied->addRow();
-        $tableControlePechePied->addCell(300)->addText('Pêcheur à pied');
-        $tableControlePechePied->addCell(300)->addText('Statut du pêcheur');
-        $tableControlePechePied->addCell(300)->addText('Contrôles');
-        $tableControlePechePied->addCell(300)->addText('Sanction(s)');
-        $tableControlePechePied->addCell(300)->addText('Commentaires');
+        $tableControlePechePied->addCell(600)->addText('Pêcheur à pied');
+        $tableControlePechePied->addCell(600)->addText('Statut du pêcheur');
+        $tableControlePechePied->addCell(600)->addText('Contrôles');
+        $tableControlePechePied->addCell(600)->addText('Sanction(s)');
+        $tableControlePechePied->addCell(600)->addText('Commentaires');
         $totalControlePechePied = 0;
         $commentairePechePied = null;
 
@@ -179,6 +179,7 @@ class ExportService {
 
                     /** @var ControleEtablissement $controle */
                     if($controle instanceof ControleEtablissement) {
+                     //
                         $lieux = null;
                         $commentaireEtablissement = $controle->getActivite()->getCommentaire();
                         $totalEtablissementControles += 1;
@@ -193,7 +194,6 @@ class ExportService {
                         $informationCell->addText('Nom : ' . $controle->getEtablissement()->getType()->getNom());
                         $tableControlesEtablissements->addCell(600)->addText($controle->getDate()->format('d/m/Y'));
 
-
                         $sanctionsCell = $tableControlesEtablissements->addCell(600);
                         $sanctionsCell->addText($controle->getPv() ? 'PV : oui' : 'PV : non');
 
@@ -203,21 +203,58 @@ class ExportService {
                                 $sanctionsCell->addListItem($natinf->getCodeNatAff());
                             }
                         }
-
-                        $tableControlesEtablissements->addCell(600)->addText($controle->getPv());
                         $tableControlesEtablissements->addCell(600)->addText($controle->getCommentaire());
                     }
 
+
                     /** @var ControlePecheurPied $controle */
                     if($controle instanceof ControlePecheurPied) {
+                        $controleProSansPv = $controle->getActivite()->getControleProSansPv();
+                        $controlePlaisanceSansPv = $controle->getActivite()->getControlePlaisanceSansPv();
+
+                        $nbControlesPechePiedPro = $controleProSansPv->getNombreControle();
+                        $nbControleAMPPechePiedPro = $controleProSansPv->getNombreControleAireProtegee();
+                        $nbControleChlordeconeTotalePechePiedPro = $controleProSansPv->getNombreControleChlordeconeTotale();
+                        $nbControleChlordeconePartiellePechePiedPro = $controleProSansPv->getNombreControleChlordeconePartiel();
+
+                        $nbControlesPechePiedPlaisance = $controlePlaisanceSansPv->getNombreControle();
+                        $nbControleAMPPechePiedPlaisance = $controlePlaisanceSansPv->getNombreControleAireProtegee();
+                        $nbControleChlordeconeTotalePechePiedPlaisance = $controlePlaisanceSansPv->getNombreControleChlordeconeTotale();
+                        $nbControleChlordeconePartiellePechePiedPlaisance = $controlePlaisanceSansPv->getNombreControleChlordeconePartiel();
+
                         $commentairePechePied = $controle->getActivite()->getCommentaire();
                         $totalControlePechePied += 1;
                         $tableControlePechePied->addRow();
-                        $tableControlePechePied->addCell(300)->addText($controle->getPecheurPied());
-                        $tableControlePechePied->addCell(300)->addText($controle->getPecheurPied()->getEstPro() ? 'Professionnel' : 'Plaisancier');
-                        $tableControlePechePied->addCell(300)->addText($controle->getDate()->format('d/m/Y'));
-                        $tableControlePechePied->addCell(300)->addText($controle->getPv() ? 'PV : oui' : 'PV: non');
-                        $tableControlePechePied->addCell(300)->addText($controle->getCommentaire());
+                        $tableControlePechePied->addCell(600)->addText($controle->getPecheurPied());
+                        $tableControlePechePied->addCell(600)->addText($controle->getPecheurPied()->getEstPro() ? 'Professionnel' : 'Plaisancier');
+                        $controlesCell = $tableControlePechePied->addCell(600);
+                        $controlesCell->addText('Date : ' . $controle->getDate()->format('d/m/Y'));
+                        $controlesCell->addListItem( $controle->getTerrestre() ? 'Réalisé à terre' : 'Réalisé en mer');
+
+                        if($controle->getAireProtegee()) {
+                            $controlesCell->addListItem('Contrôle en AMP');
+                        }
+                        if($controle->getChloredeconeTotal()) {
+                            $controlesCell->addListItem('Contrôle en zone Chloredecone total');
+                        }
+
+                        if($controle->getChloredeconeTotal()) {
+                            $controlesCell->addListItem('Contrôle en zone Chloredecone partielle');
+                        }
+
+
+                        $sanctionsCell = $tableControlePechePied->addCell(600);
+                        $sanctionsCell->addText($controle->getPv() ? 'PV : oui' : 'PV : non');
+
+                        if($controle->getNatinfs()->count() > 0) {
+                            $sanctionsCell->addText('Natinfs concernés : ');
+                            foreach($controle->getNatinfs() as $natinf) {
+                                $sanctionsCell->addListItem($natinf->getCodeNatAff());
+                            }
+                        }
+
+
+                        $tableControlePechePied->addCell(600)->addText($controle->getCommentaire());
                     }
 
                     /** @var ControleLoisir $controle */
