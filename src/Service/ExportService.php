@@ -36,7 +36,7 @@ class ExportService {
             throw new RapportNotFound("Le rapport n'a pas été trouvé.");
         }
 
-        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/Service/samples/SAMPLE_Rapport_mission_ULAM.docx');
+        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/Service/samples/SAMPLE_Rapport_mission_ULAM.docm');
 
         $templateProcessor->setValues([
             'dateDebut' => $rapport->getDateDebutMission()->format('d/m/Y'),
@@ -221,6 +221,17 @@ class ExportService {
                         $nbControleAMPPechePiedPlaisance = $controlePlaisanceSansPv->getNombreControleAireProtegee();
                         $nbControleChlordeconeTotalePechePiedPlaisance = $controlePlaisanceSansPv->getNombreControleChlordeconeTotale();
                         $nbControleChlordeconePartiellePechePiedPlaisance = $controlePlaisanceSansPv->getNombreControleChlordeconePartiel();
+
+                        $templateProcessor->setValues([
+                            'nbControlesPecheursPlaisance' => $nbControlesPechePiedPlaisance,
+                            'nbControlesPecheursPro' => $nbControlesPechePiedPro,
+                            'nbControlesAMPPlaisance' => $nbControleAMPPechePiedPlaisance,
+                            'nbControlesAMPPro' => $nbControleAMPPechePiedPro,
+                            'nbControlesChlordeconeTotalePlaisance' => $nbControleChlordeconeTotalePechePiedPlaisance,
+                            'nbControlesChlordeconeTotalePro' => $nbControleChlordeconeTotalePechePiedPro,
+                            'nbControlesChlordeconePartielPlaisance' => $nbControleChlordeconePartiellePechePiedPlaisance,
+                            'nbControlesChlordeconePartielPro' => $nbControleChlordeconePartiellePechePiedPro
+                        ]);
 
                         $commentairePechePied = $controle->getActivite()->getCommentaire();
                         $totalControlePechePied += 1;
