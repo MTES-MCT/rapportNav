@@ -272,11 +272,23 @@ class ExportService {
                         $commentaireLoisurNautique = $controle->getActivite()->getCommentaire();
                         $totalControleLoisirNautique += 1;
                         $tableControleLoisirsNautiques->addRow();
-                        $tableControleLoisirsNautiques->addCell(300)->addText($controle->getLoisir()->getNom());
-                        $tableControleLoisirsNautiques->addCell(300)
-                            ->addListItem('Total contrôles : ' . $controle->getNombreControleAireProtegee());
-                        $tableControleLoisirsNautiques->addCell(300)->addText($controle->getNombrePv() > 0 ? 'PV : oui' : 'PV : non');
-                        $tableControleLoisirsNautiques->addCell(300)->addText($controle->getCommentaire());
+                        $tableControleLoisirsNautiques->addCell(600)->addText($controle->getLoisir()->getNom());
+                        $controlesCell = $tableControleLoisirsNautiques->addCell(600);
+                        $controlesCell->addText('Nombre total de contrôles : ');
+                        $controlesCell->addText('dont en AMP : ' . $controle->getNombreControleAireProtegee());
+                        $controlesCell->addText('Nombre de PV : ' . $controle->getNombrePv());
+
+                        $sanctionsCell = $tableControleLoisirsNautiques->addCell(600);
+                        $sanctionsCell->addText($controle->getNombrePv() > 0 ? 'PV : oui' : 'PV : non');
+
+                        if($controle->getNatinfs()->count() > 0) {
+                            $sanctionsCell->addText('Natinfs concernés : ');
+                            foreach($controle->getNatinfs() as $natinf) {
+                                $sanctionsCell->addListItem($natinf->getCodeNatAff());
+                            }
+                        }
+
+                        $tableControleLoisirsNautiques->addCell(600)->addText($controle->getCommentaire());
                     }
 
                     /** @var ControleAutre $controle */
