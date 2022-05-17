@@ -179,7 +179,6 @@ class ExportService {
 
                     /** @var ControleEtablissement $controle */
                     if($controle instanceof ControleEtablissement) {
-                     //
                         $lieux = null;
                         $commentaireEtablissement = $controle->getActivite()->getCommentaire();
                         $totalEtablissementControles += 1;
@@ -293,8 +292,6 @@ class ExportService {
             }
 
 
-
-
             /** @var ActiviteAdministratif $activite */
             if($activite instanceof ActiviteAdministratif) {
                 foreach($activite->getTaches() as $tache) {
@@ -315,36 +312,41 @@ class ExportService {
             if($totalControlesNavires > 0) {
                 $templateProcessor->setValue('commentairesControlesNavires', $commentaireNavire);
                 $templateProcessor->setComplexBlock('tableControlesNavires', $tableControleNavire);
-                $templateProcessor->setValue('totalControlesNavires', $totalControlesNavires);
+
             }
             if($totalEtablissementControles > 0) {
                 $templateProcessor->setValue('commentairesControlesEtablissements', $commentaireEtablissement);
                 $templateProcessor->setComplexBlock('tableControlesEtablissements', $tableControlesEtablissements);
-                $templateProcessor->setValue('totalEtablissementsControles', $totalEtablissementControles);
+
             }
 
             if($totalControlePechePied > 0) {
                 $templateProcessor->setValue('commentairesControlePechePied', $commentairePechePied);
                 $templateProcessor->setComplexBlock('tableControlesDetailPechePied', $tableControlePechePied);
-                $templateProcessor->setValue('totalControlePechePied', $totalControlePechePied);
+
             }
 
             if($totalControleLoisirNautique > 0) {
                 $templateProcessor->setValue('commentaireControleLoisirNautique', $commentaireLoisurNautique);
                 $templateProcessor->setComplexBlock('tableControlesLoisirsNautiques', $tableControleLoisirsNautiques);
-                $templateProcessor->setValue('totalControleLoisirNautique', $totalControleLoisirNautique);
             }
 
             if($totalAutreTypeControles > 0) {
-                $templateProcessor->setValue('totalAutreTypeControles', $totalAutreTypeControles);
                 $templateProcessor->setValue('lieuxAutreTypeControles', $lieuxAutreTypeControles);
                 $templateProcessor->setValue('commentaireAutreTypeControles', $commentaireAutreTypeControle);
             }
        }
 
         $templateProcessor->setComplexBlock('tableActivitesAdministratives', $tableActivitesAdministratives);
-        $templateProcessor->setValue('totalActivitesAdministratives', $totalActivitesAdministratives);
 
+        $templateProcessor->setValues([
+            'totalActivitesAdministratives' => $totalActivitesAdministratives,
+            'totalControlesNavires' => $totalControlesNavires,
+            'totalAutreTypeControles' => $totalAutreTypeControles,
+            'totalControlePechePied' => $totalControlePechePied,
+            'totalEtablissementsControles' => $totalEtablissementControles,
+            'totalControleLoisirNautique' => $totalControleLoisirNautique
+        ]);
 
         return $templateProcessor;
     }
