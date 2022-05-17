@@ -30,20 +30,19 @@ class ExportService {
     public function getDataForExport($id)
     {
         $rapport = $this->rapportRepository->find($id);
-        $containControleNavire = false;
 
         if(!$rapport) {
             throw new RapportNotFound("Le rapport n'a pas été trouvé.");
         }
 
-        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/Service/samples/SAMPLE_Rapport_mission_ULAM.docm');
+        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/Service/samples/SAMPLE_Rapport_mission_ULAM.docx');
 
         $templateProcessor->setValues([
             'dateDebut' => $rapport->getDateDebutMission()->format('d/m/Y'),
             'heureDebut' => $rapport->getDateDebutMission()->format('H:m'),
             'dateFin' => $rapport->getDateFinMission()->format('d/m/Y'),
             'heureFin' => $rapport->getDateFinMission()->format('H:m'),
-            'missionArme' => $rapport->getArme() ? 'La mission était armé' : "La mission n'était pas armé",
+            'missionArme' => $rapport->getArme() ? 'La mission était armée.' : "La mission n'était pas armée.",
             'controleMer' => $rapport->getRepartitionHeures()->getControleMer() / 60,
             'controleTerre' => $rapport->getRepartitionHeures()->getControleTerre() / 60,
             'controleAerien' => $rapport->getRepartitionHeures()->getControleAerien() / 60,
@@ -75,9 +74,18 @@ class ExportService {
             'commentaires' => $rapport->getCommentaire()
 
         ]);
+
+        $tableAgents = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 6000, 'unit' => TblWidth::TWIP]);
+        $tableAgents->addRow();
+        $tableAgents->addCell(800)->addText('Nom');
+        $tableAgents->addCell(800)->addText('Prénom');
         foreach($rapport->getAgents() as $agent) {
-            $templateProcessor->replaceBlock('agent_list', $agent->getPrenom());
+            $tableAgents->addRow();
+            $tableAgents->addCell(500)->addText($agent->getNom());
+            $tableAgents->addCell(500)->addText($agent->getPrenom());
         }
+
+        $templateProcessor->setComplexBlock('agent_list', $tableAgents);
 
         $tableControleNavire = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
         $tableControleNavire->addRow();
