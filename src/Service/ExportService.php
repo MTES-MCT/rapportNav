@@ -326,9 +326,12 @@ class ExportService {
             $templateProcessor->setComplexBlock('tableControlesNavires', $tableControleNavire);
             $templateProcessor->setValues([
                 'block_controles_navires' => '',
-                '\block_controles_navires' => ''
+                '/block_controles_navires' => ''
             ]);
+        } else {
+            $templateProcessor->cloneBlock('block_controles_navires', 0, true, true);
         }
+
         if($totalEtablissementControles > 0) {
             $templateProcessor->setValue('commentairesControlesEtablissements', $commentaireEtablissement);
             $templateProcessor->setComplexBlock('tableControlesEtablissements', $tableControlesEtablissements);
@@ -336,6 +339,8 @@ class ExportService {
                 'block_controles_etablissements' => '',
                 '/block_controles_etablissements' => ''
             ]);
+        } else {
+            $templateProcessor->cloneBlock('block_controles_etablissements', 0, true, true);
         }
 
         if($totalControlePechePied > 0) {
@@ -345,6 +350,8 @@ class ExportService {
                 'block_controles_peche_pied' => '',
                 '/block_controles_peche_pied' => ''
             ]);
+        } else {
+            $templateProcessor->cloneBlock('block_controles_peche_pied', 0, true, true);
         }
 
         if($totalControleLoisirNautique > 0) {
@@ -354,6 +361,8 @@ class ExportService {
                 'block_controles_loisirs_nautiques' => '',
                 '/block_controles_loisirs_nautiques' => ''
             ]);
+        } else {
+            $templateProcessor->cloneBlock('block_controles_loisirs_nautiques', 0, true, true);
         }
 
         if($totalAutreTypeControles > 0) {
@@ -363,6 +372,8 @@ class ExportService {
                 'block_autre_controles' => '',
                 '/block_autre_controles' => ''
             ]);
+        } else {
+            $templateProcessor->cloneBlock('block_autre_controles', 0, true, true);
         }
 
         if($totalActivitesAdministratives > 0) {
@@ -371,6 +382,8 @@ class ExportService {
                 'block_activites_administratives' => '',
                 '/block_activites_administratives' => ''
             ]);
+        } else {
+            $templateProcessor->cloneBlock('block_activites_administratives', 0, true, true);
         }
 
 
