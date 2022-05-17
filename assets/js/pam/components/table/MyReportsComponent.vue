@@ -422,9 +422,10 @@ export default {
           })
     },
     resetFilter() {
-      this.uriSearch.searchParams.forEach((value, key) => {
-        this.uriSearch.searchParams.delete(key);
-      })
+      this.uriSearch.searchParams.delete('statut');
+      this.uriSearch.searchParams.delete('bordee');
+      this.uriSearch.searchParams.delete('periode');
+      this.uriSearch.searchParams.delete('date');
       this.periodeSelect = 'current';
       this.selectedPeriode = 'Mois en cours';
       this.selectedBordee = 'Ma bordée';
