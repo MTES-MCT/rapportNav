@@ -7,6 +7,10 @@
 @import "components/download.css";
 @import "components/profile.css";
 
+.label__presence {
+    display: inline-block;
+}
+
 .InputAddOn-field {
     outline-offset: 0;
     outline-width: 0;
@@ -698,6 +702,13 @@ td:first-child {
     margin-left: 40px;
 }
 
+.display-flex {
+    display: flex;
+    justify-content: start;
+
+    margin-right: 5px;
+}
+
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {
@@ -803,5 +814,11 @@ td:first-child {
 
     .informations, .num-report {
        display: none;
+    }
+}
+
+@media (min-width: 1441px) {
+    .item-quitter {
+        display: none;
     }
 }

@@ -21,11 +21,34 @@
         <option v-for="fonction in fonctionsParticulieres" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
       </select>
 
+      <div class="display-flex fr-mt-3v" v-if="!membre.isPresent">
+        <div class="display-flex" @change="onChangeArrivee($event)">
+          <select name="" id="" class="fr-select" v-model="arrivee.day">
+            <option :value="day" v-for="(day, index) in 31" :key="day">{{day}}</option>
+          </select>
+          <select name="" id="" class="fr-select" v-model="arrivee.month">
+            <option :value="index" v-for="(month, index) in months">{{month}}</option>
+          </select>
+          <input type="time" class="fr-input" v-model="arrivee.time">
+        </div>
+        <div class="display-flex">
+          <select class="fr-select" v-model="depart.day">
+            <option :value="day" v-for="(day, index) in 31" :key="day">{{day}}</option>
+          </select>
+          <select class="fr-select" v-model="depart.month">
+            <option :value="index" v-for="(month, index) in months">{{month}}</option>
+          </select>
+          <input type="time" class="fr-input" v-model="depart.time">
+        </div>
+      </div>
+
+
+
       <textarea class="fr-input fr-mt-3v" id="textarea" placeholder="Observations" v-model="membre.observations"></textarea>
 
       <div class="fr-checkbox-group">
-        <input type="checkbox" v-model="membre.is_absent" :id="'membre-' + id">
-        <label class="fr-label" :for="'membre-' + id">Absent</label>
+        <input type="checkbox" v-model="membre.isPresent" :id="'membre-' + id">
+        <label class="fr-label" :for="'membre-' + id">Agent présent sur toute la mission</label>
       </div>
 
       <button class="custom-btn fr-fi-delete-fill fr-btn--icon-left fr-mt-3v remove-equip-btn" @click="removeAgent(index)">
@@ -56,13 +79,34 @@ export default {
         if(!this.$refs.agentItem.contains(event.target)) {
           this.hidden = true;
         }
+    },
+    onChangeArrivee(event) {
+      let currentYear = new Date().getFullYear();
+      let date = new Date(currentYear, parseInt(this.arrivee.month), parseInt(this.arrivee.day), parseInt(this.arrivee.time))
+      console.log(date)
     }
   },
   data() {
     return {
       fullName: this.membre.agent.prenom + ' ' + this.membre.agent.nom,
       id: this._uid,
-      hidden: true
+      hidden: true,
+      months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+      depart: {
+        day: new Date().getDate(),
+        month: new Date().getMonth(),
+        time: null
+      },
+      arrivee: {
+        day: new Date().getDate(),
+        month: new Date().getMonth(),
+        time: null
+      },
+    }
+  },
+  watch: {
+    'depart': function(newVal, oldVal) {
+
     }
   }
 }
