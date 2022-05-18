@@ -21,17 +21,17 @@
                     <label for="selectYear-1">De</label>
                     <select class="fr-select" id="selectYear-1" v-model="firstMonth">
                       <option value="01-01">Janvier</option>
-                      <option value="02-01">Février</option>
-                      <option value="03-01">Mars</option>
-                      <option value="04-01">Avril</option>
-                      <option value="05-01">Mai</option>
-                      <option value="06-01">Juin</option>
-                      <option value="07-01">Juillet</option>
-                      <option value="08-01">Août</option>
-                      <option value="09-01">Septembre</option>
-                      <option value="10-01">Octobre</option>
-                      <option value="11-01">Novembre</option>
-                      <option value="12-01">Décembre</option>
+                      <option value="01-02">Février</option>
+                      <option value="01-03">Mars</option>
+                      <option value="01-04">Avril</option>
+                      <option value="01-05">Mai</option>
+                      <option value="01-06">Juin</option>
+                      <option value="01-07">Juillet</option>
+                      <option value="01-08">Août</option>
+                      <option value="01-09">Septembre</option>
+                      <option value="01-10">Octobre</option>
+                      <option value="01-11">Novembre</option>
+                      <option value="01-12">Décembre</option>
                     </select>
                   </div>
                   <div class="fr-select-group select-without-label fr-ml-2v">
@@ -46,17 +46,17 @@
                     <label for="lastDate">à</label>
                     <select class="fr-select" id="lastDate" name="select" v-model="lastMonth">
                       <option value="01-01">Janvier</option>
-                      <option value="02-01">Février</option>
-                      <option value="03-01">Mars</option>
-                      <option value="04-01">Avril</option>
-                      <option value="05-01">Mai</option>
-                      <option value="06-01">Juin</option>
-                      <option value="07-01">Juillet</option>
-                      <option value="08-01">Août</option>
-                      <option value="09-01">Septembre</option>
-                      <option value="10-01">Octobre</option>
-                      <option value="11-01">Novembre</option>
-                      <option value="12-01">Décembre</option>
+                      <option value="01-02">Février</option>
+                      <option value="01-03">Mars</option>
+                      <option value="01-04">Avril</option>
+                      <option value="01-05">Mai</option>
+                      <option value="01-06">Juin</option>
+                      <option value="01-07">Juillet</option>
+                      <option value="01-08">Août</option>
+                      <option value="01-09">Septembre</option>
+                      <option value="01-10">Octobre</option>
+                      <option value="01-11">Novembre</option>
+                      <option value="01-12">Décembre</option>
                     </select>
                   </div>
                   <div class="fr-select-group select-without-label fr-ml-2v">
@@ -148,7 +148,7 @@ export default {
   },
   watch: {
     startDate: function(newVal, oldVal) {
-      this.firstMonth = moment(newVal).format('MM') + '-01' || '01-01';
+      this.firstMonth = '01-' + moment(newVal).format('MM')  || '01-01';
       this.firstYear = moment(newVal).format('YYYY') || new Date().getFullYear();
       if(!this.years.includes(this.firstYear)) {
         this.years.push(this.firstYear )
@@ -156,7 +156,7 @@ export default {
     },
     endDate: function(newVal, oldVal) {
 
-      this.lastMonth = moment(newVal).format('MM') + '-01' || '02-01';
+      this.lastMonth = '01-' + moment(newVal).format('MM') || '01-02';
       this.lastYear = moment(newVal).format('YYYY') || new Date().getFullYear();
       if(!this.years.includes(this.lastYear)) {
         this.years.push(this.lastYear )

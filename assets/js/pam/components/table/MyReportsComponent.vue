@@ -439,8 +439,8 @@ export default {
     },
     prepapreDownloadAEM() {
       if(this.dateRangeEnabled) {
-        const startDate = moment(this.filtrePeriodeMonthStart + '-' + this.filtrePeriodeYearStart).format('YYYY-MM-DD');
-        const endDate = moment(this.filtrePeriodeMonthEnd + '-' + this.filtrePeriodeYearEnd).format('YYYY-MM-DD');
+        this.startDate = moment(this.filtrePeriodeMonthStart + '-' + this.filtrePeriodeYearStart).format('YYYY-MM-DD');
+        this.endDate = moment(this.filtrePeriodeMonthEnd + '-' + this.filtrePeriodeYearEnd).format('YYYY-MM-DD');
         return true;
       }
 
@@ -451,8 +451,8 @@ export default {
         } else {
           mois = (mois+1);
         }
-        const startDate = moment(this.sixPreviousMonthStart).format('YYYY-MM') + '-01';
-        const endDate = moment(this.currentMonth).format('YYYY') + '-' + mois + '-01';
+        this.startDate = moment(this.sixPreviousMonthStart).format('YYYY-MM') + '-01';
+        this.endDate = moment(this.currentMonth).format('YYYY') + '-' + mois + '-01';
         return true;
       }
 
@@ -472,8 +472,8 @@ export default {
         } else {
           mois = (mois+1);
         }
-        const endDate = moment(this.selectedMonth).format('YYYY') + '-' + mois + '-01';
-        const startDate = moment(this.selectedMonth).format('YYYY-MM') + '-01';
+        this.startDate = moment(this.selectedMonth).format('YYYY') + '-' + mois + '-01';
+        this.endDate = moment(this.selectedMonth).format('YYYY-MM') + '-01';
         return true;
       }
     },
