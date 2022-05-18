@@ -147,7 +147,7 @@
           <div class="fr-header__menu-links"></div>
           <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
             <ul class="fr-nav__list">
-              <li class="fr-nav__item">
+              <li class="fr-nav__item" v-if="saved || draft">
                 <button class="fr-nav__btn fr-text" aria-expanded="false"
                         aria-controls="menu-888">Télécharger
                 </button>
@@ -169,7 +169,7 @@
                   </ul>
                 </div>
               </li>
-              <li class="fr-nav__item">
+              <li class="fr-nav__item item-quitter">
                 <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error"
                    data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter
                 </a>
