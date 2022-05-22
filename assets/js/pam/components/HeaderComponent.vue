@@ -104,11 +104,8 @@
                   </li>
                   <li>
                     <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right"
-                      data-fr-opened="false" aria-controls="fr-modal-200" href="#" v-if="!saved">Quitter
+                      data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter
                     </a>
-                    <router-link class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right"
-                       data-fr-opened="false" aria-controls="fr-modal-200" :to="'/pam'" v-else>Quitter
-                    </router-link>
                   </li>
                 </ul>
               </div>
@@ -138,11 +135,8 @@
                     </li>
                     <li>
                       <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error"
-                        data-fr-opened="false" aria-controls="fr-modal-200" href="#" v-if="!saved">Quitter
+                        data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter
                       </a>
-                      <router-link class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right"
-                                   data-fr-opened="false" aria-controls="fr-modal-200" :to="'/pam'" v-else>Quitter
-                      </router-link>
                     </li>
                   </ul>
                 </div>
@@ -189,7 +183,7 @@
 
     </header>
 
-    <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" :num-rapport="rapport.id" v-if="rapport && !saved" />
+    <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" :num-rapport="rapport.id" v-if="rapport" />
     <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" v-else />
     <ModalMsgDownload :rapport="rapport" :type="typeDownload" :draft="draft" v-if="draft || saved" />
   </div>
