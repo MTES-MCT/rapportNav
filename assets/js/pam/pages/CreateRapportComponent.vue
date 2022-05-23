@@ -173,6 +173,9 @@ export default {
               this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center');
               this.rapport = success.data;
               this.saved = true;
+              this.$router.push({
+                name: 'home'
+              });
             }
         ).catch((error) => {
           this.showToast("Erreur lors de l'envoi du formulaire.", TYPE.ERROR, 'bottom-center');
