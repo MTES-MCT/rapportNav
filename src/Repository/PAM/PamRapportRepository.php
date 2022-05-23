@@ -53,12 +53,13 @@ class PamRapportRepository extends ServiceEntityRepository
      */
     public function findByDateRange(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true): array
     {
+        $preparedDate = new \DateTime('+1 month ' . $lastDate->format('d-m-Y'));
         /** @var Service $service */
         $service = $this->tokenStorage->getToken()->getUser()->getService();
         $qb = $this->createQueryBuilder('r')
             ->where('r.end_datetime BETWEEN :firstDate AND :lastDate')
             ->setParameter('firstDate', $firstDate)
-            ->setParameter('lastDate', $lastDate);
+            ->setParameter('lastDate', $preparedDate);
 
         if($wholeTeams) {
             $quadrigramme = $service->getQuadrigramme();

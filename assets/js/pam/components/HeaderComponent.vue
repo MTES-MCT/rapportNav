@@ -27,10 +27,8 @@
               <div class="divider-vertical"></div>
             </div>
 
-            <div>
-              <div class=" num-report" v-if="numReport !== null">
-                <p class=" fr-text--md text-grey fr-ml-2v">Rapport n°{{ numReport }}</p>
-              </div>
+            <div class="num-report" v-if="numReport !== null">
+              <p class=" fr-text--md text-grey fr-ml-2v">Rapport n°{{ numReport }}</p>
             </div>
 
 
@@ -105,59 +103,84 @@
                     </button>
                   </li>
                   <li>
-
+                    <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right"
+                      data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter
+                    </a>
                   </li>
                 </ul>
               </div>
             </div>
 
-            <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right"
-               data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter</a>
-          </div>
-          <div class="fr-header__body-row responsive-btn-header" v-if="createdBy.id === user.service.id || createdBy.id === null">
-            <div class="">
+            <div class="fr-header__body-row responsive-btn-header" v-if="createdBy.id === user.service.id || createdBy.id === null">
               <div class="">
-                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
-                  <li>
-                    <button
-                        class="fr-btn--menu fr-btn fr-fi-check-line fr-btn--icon-left mr-2"
-                        data-fr-opened="false"
-                        aria-controls="modal-870"
-                        aria-haspopup="validate"
-                        title="Valider le rapport"
-                        @click="submitted"
-                    >
-                      Valider le rapport
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                        class="fr-btn--menu fr-btn mr-2 fr-fi-save-fill fr-btn--secondary fr-btn--icon-left"
-                        data-fr-opened="false"
-                        aria-controls="modal-870"
-                        aria-haspopup="draft"
-                        title="Enregistrer"
-                        @click="drafted"
-                    >
-                      Enregistrer
-                    </button>
-                  </li>
-                </ul>
+                <div class="">
+                  <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
+                    <li>
+                      <button
+                          class="fr-btn--menu fr-btn fr-fi-check-line fr-btn--icon-left mr-2"
+                          title="Valider le rapport"
+                          @click="submitted"
+                      >
+                        Valider le rapport
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                          class="fr-btn--menu fr-btn mr-2 fr-fi-save-fill fr-btn--secondary fr-btn--icon-left"
+                          title="Enregistrer"
+                          @click="drafted"
+                      >
+                        Enregistrer
+                      </button>
+                    </li>
+                    <li>
+                      <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error"
+                        data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
+
           </div>
+
         </div>
       </div>
+
       <div class="fr-header__menu fr-modal" id="modal-833" aria-labelledby="fr-btn-menu-mobile">
         <div class="fr-container">
           <button class="fr-link--close fr-link" aria-controls="modal-833">Fermer</button>
           <div class="fr-header__menu-links"></div>
-          <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
+          <nav class="fr-header__menu-links" id="navigation-832" role="navigation" aria-label="Menu principal">
             <ul class="fr-nav__list">
+              <li class="fr-nav__item" v-if="saved || draft">
+                <button class="fr-nav__btn fr-text" aria-expanded="false"
+                        aria-controls="menu-888">Télécharger
+                </button>
+                <div class="fr-collapse fr-menu" id="menu-888">
+                  <ul class="fr-menu__list">
+                    <li class="download-item">
+                      <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line" href="#" target="_self"
+                         :aria-controls="'fr-modal-download' + rapport.id" data-fr-opened="false"
+                         @click.prevent="typeDownload = 'rapport'">
+                        Télécharger le rapport de patrouille (.docx)</a>
+                    </li>
+                    <li class="download-item">
+                      <a class="fr-nav__link fr-btn--icon-left fr-fi-download-line"
+                         @click.prevent="typeDownload = 'indicateurs'"
+                         href="#" target="_self" :aria-controls="'fr-modal-download' + rapport.id" data-fr-opened="false">
+                        Télécharger les indicateurs de mission (.xlsx)
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
             </ul>
           </nav>
         </div>
       </div>
+
     </header>
 
     <ModalConfirmationComponent @save-exit="update(true)" @draft-exit="drafted(true)" :saved="saved" :num-rapport="rapport.id" v-if="rapport" />

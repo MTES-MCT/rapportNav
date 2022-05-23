@@ -27,7 +27,7 @@ export default {
           .then((success) => {
             this.userMe = success.data
           })
-          .then((error) => {
+          .catch((error) => {
             console.log(error)
           })
     }

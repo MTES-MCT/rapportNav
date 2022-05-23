@@ -43,7 +43,7 @@ class RapportRepositoryUtils {
                 case strpos($periode, 'annee') === 0:
                     $annee = explode('_', $periode)[1];
                     $start = new \DateTime($annee . '-01-01');
-                    $end = new \DateTime($annee . '-12-31');
+                    $end = new \DateTime(((int)$annee + 1) . '-01-01');
                     $qb->andWhere('pam_r.start_datetime BETWEEN :start AND :end')
                         ->setParameter('start', $start)
                         ->setParameter('end', $end);

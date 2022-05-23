@@ -323,8 +323,8 @@ export default {
     },
     onChangeDateRange() {
       if(this.filtrePeriodeMonthStart && this.filtrePeriodeMonthEnd) {
-        const startDate = moment(this.filtrePeriodeMonthStart + '-' + this.filtrePeriodeYearStart).format('YYYY-MM-DD');
-        const endDate = moment(this.filtrePeriodeMonthEnd + '-' + this.filtrePeriodeYearEnd).format('YYYY-MM-DD');
+        const startDate = moment(this.filtrePeriodeYearStart + '-' + this.filtrePeriodeMonthStart).format('YYYY-MM-DD');
+        const endDate = moment(this.filtrePeriodeYearEnd + '-' + this.filtrePeriodeMonthEnd).format('YYYY-MM-DD');
         this.startDate = startDate;
         this.endDate = endDate;
         this.dateRangeEnabled = true;
@@ -422,9 +422,10 @@ export default {
           })
     },
     resetFilter() {
-      this.uriSearch.searchParams.forEach((value, key) => {
-        this.uriSearch.searchParams.delete(key);
-      })
+      this.uriSearch.searchParams.delete('statut');
+      this.uriSearch.searchParams.delete('bordee');
+      this.uriSearch.searchParams.delete('periode');
+      this.uriSearch.searchParams.delete('date');
       this.periodeSelect = 'current';
       this.selectedPeriode = 'Mois en cours';
       this.selectedBordee = 'Ma bordée';
@@ -438,8 +439,8 @@ export default {
     },
     prepapreDownloadAEM() {
       if(this.dateRangeEnabled) {
-        const startDate = moment(this.filtrePeriodeMonthStart + '-' + this.filtrePeriodeYearStart).format('YYYY-MM-DD');
-        const endDate = moment(this.filtrePeriodeMonthEnd + '-' + this.filtrePeriodeYearEnd).format('YYYY-MM-DD');
+        this.startDate = moment(this.filtrePeriodeMonthStart + '-' + this.filtrePeriodeYearStart).format('YYYY-MM-DD');
+        this.endDate = moment(this.filtrePeriodeMonthEnd + '-' + this.filtrePeriodeYearEnd).format('YYYY-MM-DD');
         return true;
       }
 
@@ -450,15 +451,15 @@ export default {
         } else {
           mois = (mois+1);
         }
-        const startDate = moment(this.sixPreviousMonthStart).format('YYYY-MM') + '-01';
-        const endDate = moment(this.currentMonth).format('YYYY') + '-' + mois + '-01';
+        this.startDate = moment(this.sixPreviousMonthStart).format('YYYY-MM') + '-01';
+        this.endDate = moment(this.currentMonth).format('YYYY') + '-' + mois + '-01';
         return true;
       }
 
       if(this.containsAnnee) {
         let annee = this.$options.filters.formatAnnee(this.periodeSelect);
         const startDate = annee + '-01-01';
-        const endDate = (parseInt(annee)+1) + '-01-01';
+        const endDate = annee + '-12-31';
         this.startDate = startDate;
         this.endDate = endDate;
         return true;
@@ -471,8 +472,8 @@ export default {
         } else {
           mois = (mois+1);
         }
-        const endDate = moment(this.selectedMonth).format('YYYY') + '-' + mois + '-01';
-        const startDate = moment(this.selectedMonth).format('YYYY-MM') + '-01';
+        this.startDate = moment(this.selectedMonth).format('YYYY') + '-' + mois + '-01';
+        this.endDate = moment(this.selectedMonth).format('YYYY-MM') + '-01';
         return true;
       }
     },

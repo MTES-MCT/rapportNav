@@ -795,3 +795,13 @@ td:first-child {
         display: block;
     }
 }
+
+@media (max-width: 1440px) {
+    .sidebar-left-menu {
+        display: none;
+    }
+
+    .informations, .num-report {
+       display: none;
+    }
+}
