@@ -1,12 +1,12 @@
 <template>
   <div class="myReports" v-if="userMe">
     <AlertComponent title="Aucun rapport" message="Vous n'avez pas encore rempli de rapport." v-if="!rapports" />
-    <div class="rapport-list">
-      <div class="rapport-list-header fr-grid-row">
-        <div class="fr-col-lg-2">
+    <div class="rapport-list fr-grid-row" style="align-content: center; justify-content:space-between">
+      <div class="rapport-list-header fr-grid-row" style="align-content: center; justify-content:space-between">
+        <div class="">
           <h5>Mes Rapports</h5>
         </div>
-        <div class="fr-col-lg-3 rapport-list-btn-create">
+        <div class="rapport-list-btn-create" style="margin: 0 1rem;">
           <button
               class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left mr-2"
               title="Créer un rapport"
