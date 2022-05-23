@@ -16,7 +16,6 @@ final class FonctionAgentAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
-            ->add('id')
             ->add('nom')
             ;
     }
@@ -38,7 +37,6 @@ final class FonctionAgentAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('id')
             ->add('nom')
             ;
     }
