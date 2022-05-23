@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use App\Entity\PAM\PamRapport;
 
 final class PamRapportAdmin extends AbstractAdmin
 {
@@ -18,6 +19,7 @@ final class PamRapportAdmin extends AbstractAdmin
         $filter
             ->add('id')
             ->add('created_at')
+            ->add('created_by')
             ->add('updated_at')
             ->add('nb_jours_mer')
             ->add('nav_eff')
@@ -44,6 +46,7 @@ final class PamRapportAdmin extends AbstractAdmin
             ->add('id')
             ->add('created_at')
             ->add('updated_at')
+            ->add('created_by')
             ->add('nb_jours_mer')
             ->add('nav_eff')
             ->add('mouillage')
@@ -114,5 +117,9 @@ final class PamRapportAdmin extends AbstractAdmin
             ->add('end_datetime')
             ->add('personnel')
             ;
+    }
+
+    public function toString($rapport): string {
+        return $rapport instanceof PamRapport ? "Rapport n°".$rapport->getId() : 'Rapport';
     }
 }
