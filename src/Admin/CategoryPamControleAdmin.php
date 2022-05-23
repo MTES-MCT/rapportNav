@@ -38,6 +38,7 @@ final class CategoryPamControleAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
+            ->add('id')
             ->add('nom')
             ;
     }
