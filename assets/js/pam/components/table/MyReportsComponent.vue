@@ -323,8 +323,8 @@ export default {
     },
     onChangeDateRange() {
       if(this.filtrePeriodeMonthStart && this.filtrePeriodeMonthEnd) {
-        const startDate = moment(this.filtrePeriodeMonthStart + '-' + this.filtrePeriodeYearStart).format('YYYY-MM-DD');
-        const endDate = moment(this.filtrePeriodeMonthEnd + '-' + this.filtrePeriodeYearEnd).format('YYYY-MM-DD');
+        const startDate = moment(this.filtrePeriodeYearStart + '-' + this.filtrePeriodeMonthStart).format('YYYY-MM-DD');
+        const endDate = moment(this.filtrePeriodeYearEnd + '-' + this.filtrePeriodeMonthEnd).format('YYYY-MM-DD');
         this.startDate = startDate;
         this.endDate = endDate;
         this.dateRangeEnabled = true;
