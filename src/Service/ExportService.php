@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\ActiviteAdministratif;
 use App\Entity\ActiviteFormation;
+use App\Entity\CategorieControleNavire;
 use App\Entity\ControleAutre;
 use App\Entity\ControleEtablissement;
 use App\Entity\ControleLoisir;
@@ -38,6 +39,8 @@ class ExportService {
         $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/Service/samples/SAMPLE_Rapport_mission_ULAM.docx');
 
         $templateProcessor->setValues([
+            'nomService' => $rapport->getCreatedBy()->getService()->getNom(),
+            'numRapport' => $rapport->getId(),
             'dateDebut' => $rapport->getDateDebutMission()->format('d/m/Y'),
             'heureDebut' => $rapport->getDateDebutMission()->format('H:m'),
             'dateFin' => $rapport->getDateFinMission()->format('d/m/Y'),
@@ -108,6 +111,23 @@ class ExportService {
 
         $templateProcessor->setComplexBlock('agent_list', $tableAgents);
 
+        $tableMoyens = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
+        $tableMoyens->addRow();
+        $tableMoyens->addCell(800)->addText('Nom');
+        $tableMoyens->addCell(800)->addText('Nautique / terrestre');
+        $tableMoyens->addCell(800)->addText('Km');
+        $tableMoyens->addCell(800)->addText('heures moteur');
+
+        foreach($rapport->getMoyens() as $moyen) {
+            $tableMoyens->addRow();
+            $tableMoyens->addCell(800)->addText($moyen->getMoyen()->getNom());
+            $tableMoyens->addCell(800)->addText($moyen->getMoyen()->getTerrestre() ? 'terrestre' :  'nautique');
+            $tableMoyens->addCell(800)->addText($moyen->getDistance());
+            $tableMoyens->addCell(800)->addText($moyen->getTempsMoteur() / 60);
+        }
+
+        $templateProcessor->setComplexBlock('table_moyens', $tableMoyens);
+
         $tableControleNavire = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
         $tableControleNavire->addRow();
         $tableControleNavire->addCell(600)->addText('Immatriculation');
@@ -118,6 +138,13 @@ class ExportService {
         $tableControleNavire->addCell(600)->addText('Commentaires');
         $commentaireNavire = null;
         $totalControlesNavires = 0;
+        $lieuxControlesNavires = null;
+        $totalCatPecheSanitaire = 0;
+        $totalCatEquipementSecurite = 0;
+        $totalCatPoliceNavigation = 0;
+        $totalCatEnvironnementPollution = 0;
+        $totalCatReglementTravail = 0;
+        $totalCatAutre = 0;
 
         $tableControlesEtablissements = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
         $tableControlesEtablissements->addRow();
@@ -127,6 +154,7 @@ class ExportService {
         $tableControlesEtablissements->addCell(600)->addText('Commentaires');
         $totalEtablissementControles = 0;
         $commentaireEtablissement = null;
+        $lieuxControlesEtablissements = null;
 
         $tableControlePechePied = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
         $tableControlePechePied->addRow();
@@ -137,6 +165,7 @@ class ExportService {
         $tableControlePechePied->addCell(600)->addText('Commentaires');
         $totalControlePechePied = 0;
         $commentairePechePied = null;
+        $lieuxControlesPechePied = null;
 
 
         $tableControleLoisirsNautiques = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
@@ -147,6 +176,7 @@ class ExportService {
         $tableControleLoisirsNautiques->addCell(300)->addText('Commentaires');
         $totalControleLoisirNautique = 0;
         $commentaireLoisurNautique = null;
+        $lieuxControlesLoisirNautique = null;
 
 
         $tableActivitesAdministratives = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
@@ -154,6 +184,7 @@ class ExportService {
         $tableActivitesAdministratives->addCell(300)->addText('Tâche');
         $tableActivitesAdministratives->addCell(300)->addText('Durée');
         $tableActivitesAdministratives->addCell(300)->addText('Commentaire');
+        $lieuxActivitesAdministratif = null;
 
         $totalAutreTypeControles = 0;
         $lieuxAutreTypeControles = null;
@@ -187,6 +218,26 @@ class ExportService {
 
                         foreach($controle->getControleNavireRealises() as $controleNavireRealise) {
                             $controlesRealisesCell->addListItem($controleNavireRealise);
+                            switch($controleNavireRealise) {
+                                case CategorieControleNavire::PECHE_SANITAIRE:
+                                    $totalCatPecheSanitaire += 1;
+                                    break;
+                                case CategorieControleNavire::REGLEMENTATION_TRAVAIL_MARITIME:
+                                    $totalCatReglementTravail += 1;
+                                    break;
+                                case CategorieControleNavire::ENVIRONNEMENT_POLLUTION:
+                                    $totalCatEnvironnementPollution += 1;
+                                    break;
+                                case CategorieControleNavire::EQUIPEMENT_SECURITE_PERMIS:
+                                    $totalCatEquipementSecurite += 1;
+                                    break;
+                                case CategorieControleNavire::POLICE_NAVIGATION:
+                                    $totalCatPoliceNavigation += 1;
+                                    break;
+                                case CategorieControleNavire::AUTRE:
+                                    $totalCatAutre += 1;
+                                    break;
+                            }
                         }
 
                         $tableControleNavire->addCell(600)->addText($controle->getDate()->format('d/m/Y'));
@@ -206,6 +257,10 @@ class ExportService {
                         }
 
                         $tableControleNavire->addCell(600)->addText($controle->getCommentaire());
+
+                        foreach($activite->getZones() as $zone) {
+                            $lieuxControlesNavires = $lieuxControlesNavires . ', ' .$zone;
+                        }
                     }
 
                     /** @var ControleEtablissement $controle */
@@ -234,6 +289,10 @@ class ExportService {
                             }
                         }
                         $tableControlesEtablissements->addCell(600)->addText($controle->getCommentaire());
+
+                        foreach($activite->getZones() as $zone) {
+                            $lieuxControlesEtablissements = $lieuxControlesEtablissements . ',' . $zone;
+                        }
                     }
 
 
@@ -296,6 +355,10 @@ class ExportService {
 
 
                         $tableControlePechePied->addCell(600)->addText($controle->getCommentaire());
+
+                        foreach($activite->getZones() as $zone) {
+                            $lieuxControlesPechePied = $lieuxControlesPechePied . ',' . $zone;
+                        }
                     }
 
                     /** @var ControleLoisir $controle */
@@ -320,6 +383,10 @@ class ExportService {
                         }
 
                         $tableControleLoisirsNautiques->addCell(600)->addText($controle->getCommentaire());
+
+                        foreach($activite->getZones() as $zone) {
+                            $lieuxControlesLoisirNautique = $lieuxControlesLoisirNautique . ',' . $zone;
+                        }
                     }
 
                     /** @var ControleAutre $controle */
@@ -358,7 +425,14 @@ class ExportService {
             $templateProcessor->setValues([
                 'block_controles_navires' => '',
                 '/block_controles_navires' => '',
-                'commentairesControlesNavires' => $commentaireNavire
+                'commentairesControlesNavires' => $commentaireNavire,
+                'lieuxControlesNavires' => $lieuxControlesNavires,
+                'totalPecheSanitaire' => $totalCatPecheSanitaire,
+                'totalEquipementSecurite' => $totalCatEquipementSecurite,
+                'totalPoliceNavigation' => $totalCatPoliceNavigation,
+                'totalEnvironnement' => $totalCatEnvironnementPollution,
+                'totalReglementTravail' => $totalCatReglementTravail,
+                'totalAutre' => $totalCatAutre
             ]);
         } else {
             $templateProcessor->cloneBlock('block_controles_navires', 0, true, true);
@@ -369,7 +443,8 @@ class ExportService {
             $templateProcessor->setValues([
                 'block_controles_etablissements' => '',
                 '/block_controles_etablissements' => '',
-                'commentairesControlesEtablissements' => $commentaireEtablissement
+                'commentairesControlesEtablissements' => $commentaireEtablissement,
+                'lieuxControlesEtablissements' => $lieuxControlesEtablissements
             ]);
         } else {
             $templateProcessor->cloneBlock('block_controles_etablissements', 0, true, true);
@@ -380,7 +455,8 @@ class ExportService {
             $templateProcessor->setValues([
                 'block_controles_peche_pied' => '',
                 '/block_controles_peche_pied' => '',
-                'commentairesControlePechePied' => $commentairePechePied
+                'commentairesControlePechePied' => $commentairePechePied,
+                'lieuxControlesPechePied' => $lieuxControlesPechePied
             ]);
         } else {
             $templateProcessor->cloneBlock('block_controles_peche_pied', 0, true, true);
@@ -391,7 +467,8 @@ class ExportService {
             $templateProcessor->setValues([
                 'block_controles_loisirs_nautiques' => '',
                 '/block_controles_loisirs_nautiques' => '',
-                'commentaireControleLoisirNautique' => $commentaireLoisurNautique
+                'commentaireControleLoisirNautique' => $commentaireLoisurNautique,
+                'lieuxControlesLoisirNautique' => $lieuxControlesLoisirNautique
             ]);
         } else {
             $templateProcessor->cloneBlock('block_controles_loisirs_nautiques', 0, true, true);
@@ -402,7 +479,8 @@ class ExportService {
             $templateProcessor->setValues([
                 'block_autre_controles' => '',
                 '/block_autre_controles' => '',
-                'commentairesControlesNavires' => $commentaireAutreTypeControle
+                'commentairesControlesNavires' => $commentaireAutreTypeControle,
+                'lieuxAutreTypeControles' => $lieuxAutreTypeControles
             ]);
         } else {
             $templateProcessor->cloneBlock('block_autre_controles', 0, true, true);
@@ -412,7 +490,8 @@ class ExportService {
             $templateProcessor->setComplexBlock('tableActivitesAdministratives', $tableActivitesAdministratives);
             $templateProcessor->setValues([
                 'block_activites_administratives' => '',
-                '/block_activites_administratives' => ''
+                '/block_activites_administratives' => '',
+                'lieuxActivitesAdministratives' => $lieuxActivitesAdministratif
             ]);
         } else {
             $templateProcessor->cloneBlock('block_activites_administratives', 0, true, true);
@@ -421,7 +500,8 @@ class ExportService {
         if($totalFormations > 0) {
             $templateProcessor->setValues([
                 'block_formations' => '',
-                '/block_formations' => ''
+                '/block_formations' => '',
+                'lieuxFormations' => $lieuxFormations
             ]);
         } else {
             $templateProcessor->cloneBlock('block_formations', 0, true, true);
@@ -440,7 +520,7 @@ class ExportService {
             'totalControleLoisirNautique' => $totalControleLoisirNautique,
             'totalFormations' => $totalFormations
         ]);
-
+die();
         return $templateProcessor;
     }
 
