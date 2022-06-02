@@ -23,22 +23,22 @@
 
       <div class="display-flex fr-mt-3v" v-if="!membre.isPresent && !membre.is_absent">
         <div class="display-flex" @change="onChangeArrivee($event)">
-          <select name="" id="" class="fr-select" v-model="arrivee.day">
+          <select name="" id="" class="fr-select select-day" v-model="arrivee.day">
             <option :value="day" v-for="(day, index) in 31" :key="day">{{day}}</option>
           </select>
-          <select name="" id="" class="fr-select" v-model="arrivee.month">
+          <select name="" id="" class="fr-select select-month" v-model="arrivee.month">
             <option :value="index" v-for="(month, index) in months">{{month}}</option>
           </select>
-          <input type="time" class="fr-input" v-model="arrivee.time">
+          <input type="time" class="fr-input select-time" v-model="arrivee.time">
         </div>
-        <div class="display-flex">
-          <select class="fr-select" v-model="depart.day">
+        <div class="display-flex" @change="onChangeDepart($event)">
+          <select class="fr-select select-day" v-model="depart.day">
             <option :value="day" v-for="(day, index) in 31" :key="day">{{day}}</option>
           </select>
-          <select class="fr-select" v-model="depart.month">
+          <select class="fr-select select-month" v-model="depart.month">
             <option :value="index" v-for="(month, index) in months">{{month}}</option>
           </select>
-          <input type="time" class="fr-input" v-model="depart.time">
+          <input type="time" class="fr-input select-time" v-model="depart.time">
         </div>
       </div>
 
@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "AgentComponent",
   props: {
@@ -88,12 +90,12 @@ export default {
     onChangeArrivee(event) {
       let currentYear = new Date().getFullYear();
       let date = new Date(currentYear, parseInt(this.arrivee.month), parseInt(this.arrivee.day), parseInt(this.arrivee.time))
-      this.membre.dateArrivee = date;
+      this.membre.dateArrivee = date.toISOString();
     },
     onChangeDepart(event) {
       let currentYear = new Date().getFullYear();
-      let date = new Date(currentYear, parseInt(this.arrivee.month), parseInt(this.arrivee.day), parseInt(this.arrivee.time))
-      this.membre.dateDepart = date;
+      let date = new Date(currentYear, parseInt(this.depart.month), parseInt(this.depart.day), parseFloat(this.depart.time));
+      this.membre.dateDepart = date.toISOString();
     }
   },
   data() {
@@ -103,14 +105,14 @@ export default {
       hidden: true,
       months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
       depart: {
-        day: new Date().getDate(),
-        month: new Date().getMonth(),
-        time: null
+        day: moment(this.membre.dateDepart).format('DD') || new Date().getDate(),
+        month: moment(this.membre.dateDepart).format('MM') || new Date().getMonth(),
+        time: moment(this.membre.dateDepart).format('HH:mm') || null
       },
       arrivee: {
-        day: new Date().getDate(),
-        month: new Date().getMonth(),
-        time: null
+        day: moment(this.membre.dateArrivee).format('DD') || new Date().getDate(),
+        month: moment(this.membre.dateArrivee).format('MM') || new Date().getMonth(),
+        time: moment(this.membre.dateArrivee).format('HH:mm') || null
       },
     }
   },

@@ -182,6 +182,7 @@ class RapportService {
         }
         /** @var PamRapport $rapport */
         $rapport = $this->serializer->deserialize($request->getContent(), PamRapport::class, 'json'); // Mapping de la request en entity PamRapport
+        dd($rapport);
 
         if($rapport->getEquipage()) {
             $this->setAgent($rapport->getEquipage(), $service);
