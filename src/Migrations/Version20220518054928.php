@@ -21,7 +21,6 @@ final class Version20220518054928 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE pam_equipage_agent ADD is_present BOOLEAN DEFAULT NULL');
-        $this->addSql('ALTER TABLE pam_equipage_agent DROP is_absent');
     }
 
     public function down(Schema $schema): void
@@ -29,6 +28,5 @@ final class Version20220518054928 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE pam_equipage_agent ADD is_absent BOOLEAN NOT NULL');
-        $this->addSql('ALTER TABLE pam_equipage_agent DROP is_present');
     }
 }

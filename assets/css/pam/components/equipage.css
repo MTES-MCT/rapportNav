@@ -41,7 +41,7 @@
     box-shadow: 0px 3px 10px #00000029;
     text-align: center;
     padding: 5px 0;
-    min-width: 243px;
+    min-width: 300px;
     /* Position the tooltip */
     position: absolute;
     z-index: 3;

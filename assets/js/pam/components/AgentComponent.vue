@@ -21,7 +21,7 @@
         <option v-for="fonction in fonctionsParticulieres" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
       </select>
 
-      <div class="display-flex fr-mt-3v" v-if="!membre.isPresent">
+      <div class="display-flex fr-mt-3v" v-if="!membre.isPresent && !membre.is_absent">
         <div class="display-flex" @change="onChangeArrivee($event)">
           <select name="" id="" class="fr-select" v-model="arrivee.day">
             <option :value="day" v-for="(day, index) in 31" :key="day">{{day}}</option>
@@ -47,8 +47,13 @@
       <textarea class="fr-input fr-mt-3v" id="textarea" placeholder="Observations" v-model="membre.observations"></textarea>
 
       <div class="fr-checkbox-group">
-        <input type="checkbox" v-model="membre.isPresent" :id="'membre-' + id">
+        <input type="checkbox" v-model="membre.isPresent" :id="'membre-' + id" :disabled="membre.is_absent">
         <label class="fr-label" :for="'membre-' + id">Agent présent sur toute la mission</label>
+      </div>
+
+      <div class="fr-checkbox-group">
+        <input type="checkbox" v-model="membre.is_absent" :id="'membre_absent-' + id" :disabled="membre.isPresent">
+        <label class="fr-label" :for="'membre_absent-' + id">Agent absent</label>
       </div>
 
       <button class="custom-btn fr-fi-delete-fill fr-btn--icon-left fr-mt-3v remove-equip-btn" @click="removeAgent(index)">
@@ -83,7 +88,12 @@ export default {
     onChangeArrivee(event) {
       let currentYear = new Date().getFullYear();
       let date = new Date(currentYear, parseInt(this.arrivee.month), parseInt(this.arrivee.day), parseInt(this.arrivee.time))
-      console.log(date)
+      this.membre.dateArrivee = date;
+    },
+    onChangeDepart(event) {
+      let currentYear = new Date().getFullYear();
+      let date = new Date(currentYear, parseInt(this.arrivee.month), parseInt(this.arrivee.day), parseInt(this.arrivee.time))
+      this.membre.dateDepart = date;
     }
   },
   data() {
@@ -105,9 +115,7 @@ export default {
     }
   },
   watch: {
-    'depart': function(newVal, oldVal) {
 
-    }
   }
 }
 </script>

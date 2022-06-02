@@ -75,6 +75,12 @@ class PamEquipageAgent
      */
     private $isPresent = true;
 
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_absent = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -174,6 +180,18 @@ class PamEquipageAgent
     public function setIsPresent(?bool $isPresent): self
     {
         $this->isPresent = $isPresent;
+
+        return $this;
+    }
+
+    public function getIsAbsent(): ?bool
+    {
+        return $this->is_absent;
+    }
+
+    public function setIsAbsent(?bool $is_absent): self
+    {
+        $this->is_absent = $is_absent;
 
         return $this;
     }
