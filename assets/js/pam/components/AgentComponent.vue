@@ -62,8 +62,9 @@ export default {
       this.agentList.splice(index, 1);
     },
     hideTooltip(event) {
-        if(!this.$refs.agentItem.contains(event.target)) {
-          //this.hidden = true;
+      const $daterangepicker = $('.daterangepicker');
+        if(!this.$refs.agentItem.contains(event.target) && !$daterangepicker[0].contains(event.target)) {
+          this.hidden = true;
         }
     },
   },
