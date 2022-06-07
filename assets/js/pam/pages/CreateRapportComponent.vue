@@ -211,8 +211,7 @@ export default {
 
     },
     putFormUpdate(exit) {
-      console.log(this.rapport)
- /*     axios.put(
+      axios.put(
           '/api/pam/rapport/' + this.rapport.id,
           this.rapport,
           {
@@ -232,7 +231,7 @@ export default {
       })
       .catch((error) => {
         this.showToast("Erreur lors de l'envoi du formulaire.", TYPE.ERROR, 'bottom-center');
-      })*/
+      })
     },
     setDates(date) {
       this.rapport.start_datetime = date.startDateTime;

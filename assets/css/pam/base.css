@@ -8,7 +8,8 @@
 @import "components/profile.css";
 
 .label__presence {
-    display: inline-block;
+    float: left;
+    margin-bottom: 6px;
 }
 
 .InputAddOn-field {

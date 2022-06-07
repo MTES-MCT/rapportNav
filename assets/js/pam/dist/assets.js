@@ -29,3 +29,4 @@ import '../../../css/pam/table-indicateur.css';
 import '../../../css/override/_grid_dsfr.css';
 import "vue-toastification/dist/index.css";
 import '@gouvfr/dsfr/dist/component/radio/radio.min.css';
+import 'daterangepicker';
