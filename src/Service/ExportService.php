@@ -520,7 +520,7 @@ class ExportService {
             'totalControleLoisirNautique' => $totalControleLoisirNautique,
             'totalFormations' => $totalFormations
         ]);
-die();
+
         return $templateProcessor;
     }
 

@@ -7,6 +7,9 @@ use App\Service\ExportService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use PhpOffice\PhpWord\Exception\Exception;
+use PhpOffice\PhpWord\IOFactory;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -23,20 +26,36 @@ class ExportController extends AbstractFOSRestController {
 
 
     /**
-     * @Rest\Get("/odt/{id}")
-     * @param $id
+     * @Rest\Get("/rapport/{id}", name="api_export_rapport")
+     * @param int     $id
+     * @param Request $request
      *
      * @return StreamedResponse|View
+     * @throws Exception
      */
-    public function export($id) : StreamedResponse {
+    public function export(int $id, Request $request) : StreamedResponse {
         try {
             $templateProcessor = $this->service->getDataForExport($id);
-            $response =  new StreamedResponse(
-                function () use ($templateProcessor) {
-                    $templateProcessor->saveAs('php://output');
-                }
-            );
-            $fileName = 'rapport_ulam_' . $id . '.docx';
+            $type = $request->query->get('type');
+            if($type === 'odt') {
+                $templateProcessor->saveAs(__DIR__ . '/temp_rapport.docx');
+                $phpWord = IOFactory::load(__DIR__ . '/temp_rapport.docx');
+                $xmlWriter = IOFactory::createWriter($phpWord , 'ODText');
+                $fileName = 'rapport_ulam_' . $id . '.odt';
+                $response =  new StreamedResponse(
+                    function () use ($xmlWriter ) {
+                        $xmlWriter->save('php://output');
+                    }
+                );
+                unlink(__DIR__ . '/temp_rapport.docx');
+            } else {
+                $response =  new StreamedResponse(
+                    function () use ($templateProcessor) {
+                        $templateProcessor->saveAs('php://output');
+                    }
+                );
+                $fileName = 'rapport_ulam_' . $id . '.docx';
+            }
             $response->headers->set('Content-Description',  'File Transfer');
             $response->headers->set('Content-Disposition',' attachment; filename="' . $fileName . '"');
             $response->headers->set('Content-Type',' application/vnd.openxmlformats-officedocument.wordprocessingml.document');
