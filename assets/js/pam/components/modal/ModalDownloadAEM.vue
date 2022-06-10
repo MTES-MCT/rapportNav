@@ -43,7 +43,7 @@
 
                 <div class="date-select">
                   <div class="fr-select-group">
-                    <label for="lastDate">à</label>
+                    <label for="lastDate">à (inclus)</label>
                     <select class="fr-select" id="lastDate" name="select" v-model="lastMonth">
                       <option value="01-01">Janvier</option>
                       <option value="01-02">Février</option>
