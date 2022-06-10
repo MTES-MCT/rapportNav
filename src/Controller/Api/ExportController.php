@@ -38,8 +38,8 @@ class ExportController extends AbstractFOSRestController {
             $templateProcessor = $this->service->getDataForExport($id);
             $type = $request->query->get('type');
             if($type === 'odt') {
-                $templateProcessor->saveAs(__DIR__ . '/temp_rapport.docx');
-                $phpWord = IOFactory::load(__DIR__ . '/temp_rapport.docx');
+                $templateProcessor->saveAs(__DIR__ .'/../../temp_rapport.docx');
+                $phpWord = IOFactory::load(__DIR__ .'/../../temp_rapport.docx');
                 $xmlWriter = IOFactory::createWriter($phpWord , 'ODText');
                 $fileName = 'rapport_ulam_' . $id . '.odt';
                 $response =  new StreamedResponse(
@@ -47,7 +47,7 @@ class ExportController extends AbstractFOSRestController {
                         $xmlWriter->save('php://output');
                     }
                 );
-                unlink(__DIR__ . '/temp_rapport.docx');
+                unlink(__DIR__ .'/../../temp_rapport.docx');
             } else {
                 $response =  new StreamedResponse(
                     function () use ($templateProcessor) {
