@@ -11,6 +11,7 @@ use App\Entity\ControleEtablissement;
 use App\Entity\ControleLoisir;
 use App\Entity\ControleNavire;
 use App\Entity\ControlePecheurPied;
+use App\Entity\ZoneGeographique;
 use App\Exception\RapportNotFound;
 use App\Repository\RapportRepository;
 use PhpOffice\PhpWord\Element\Table;
@@ -181,8 +182,9 @@ class ExportService {
 
         $tableControlesEtablissements = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
         $tableControlesEtablissements->addRow();
-        $tableControlesEtablissements->addCell(600)->addText('Etablissement');
+        $tableControlesEtablissements->addCell(600)->addText('Établissement');
         $tableControlesEtablissements->addCell(600)->addText('Date du contrôle');
+        $tableControlesEtablissements->addCell(600)->addText('Information spécifique');
         $tableControlesEtablissements->addCell(600)->addText('Sanction(s)');
         $tableControlesEtablissements->addCell(600)->addText('Commentaires');
         $totalEtablissementControles = 0;
@@ -308,9 +310,12 @@ class ExportService {
                         $tableControlesEtablissements->addRow();
                         $informationCell = $tableControlesEtablissements->addCell(600);
                         $informationCell->addText('Nom : ' . $controle->getEtablissement()->getNom());
-                        $informationCell->addText('Nom : ' . $controle->getEtablissement()->getAdresse());
-                        $informationCell->addText('Nom : ' . $controle->getEtablissement()->getType()->getNom());
-                        $tableControlesEtablissements->addCell(600)->addText($controle->getDate()->format('d/m/Y'));
+                        $informationCell->addText('Adresse : ' . $controle->getEtablissement()->getAdresse() . ', ' . $controle->getEtablissement()->getCommune());
+                        $informationCell->addText('Type : ' . $controle->getEtablissement()->getType()->getNom());
+                        
+                        $tableControlesEtablissements->addCell(600)->addText($controle->getDate()->format('d/m/Y à H:i'));
+                        $tableControlesEtablissements->addCell(600)->addText($controle->getBateauxControles() ? 
+                                                    "Nombre de navires contrôlés : " . $controle->getBateauxControles() : "-");
 
                         $sanctionsCell = $tableControlesEtablissements->addCell(600);
                         $sanctionsCell->addText($controle->getPv() ? 'PV : oui' : 'PV : non');
@@ -323,9 +328,11 @@ class ExportService {
                         }
                         $tableControlesEtablissements->addCell(600)->addText($controle->getCommentaire());
 
-                        foreach($activite->getZones() as $zone) {
-                            $lieuxControlesEtablissements = $lieuxControlesEtablissements . ',' . $zone;
-                        }
+                        $lieuxControlesEtablissements = implode(', ', 
+                                                            array_map(function(ZoneGeographique $zg) 
+                                                                    { return $zg->getNom(); }, 
+                                                                $activite->getZones()->toArray())
+                                                            );
                     }
 
 
@@ -358,10 +365,10 @@ class ExportService {
                         $commentairePechePied = $controle->getActivite()->getCommentaire();
                         $totalControlePechePied += 1;
                         $tableControlePechePied->addRow();
-                        $tableControlePechePied->addCell(600)->addText($controle->getPecheurPied());
+                        $tableControlePechePied->addCell(600)->addText($controle->getPecheurPied()->getPrenom(). " ". $controle->getPecheurPied()->getNom());
                         $tableControlePechePied->addCell(600)->addText($controle->getPecheurPied()->getEstPro() ? 'Professionnel' : 'Plaisancier');
                         $controlesCell = $tableControlePechePied->addCell(600);
-                        $controlesCell->addText('Date : ' . $controle->getDate()->format('d/m/Y'));
+                        $controlesCell->addText('Date : ' . $controle->getDate()->format('d/m/Y à H:i'));
                         $controlesCell->addListItem( $controle->getTerrestre() ? 'Réalisé à terre' : 'Réalisé en mer');
 
                         if($controle->getAireProtegee()) {
