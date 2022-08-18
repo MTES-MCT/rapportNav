@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\ActiviteAdministratif;
 use App\Entity\ActiviteFormation;
+use App\Entity\ActiviteNavire;
 use App\Entity\CategorieControleNavire;
 use App\Entity\ControleAutre;
 use App\Entity\ControleEtablissement;
@@ -73,7 +74,7 @@ class ExportService {
             'maintientOrdre' => $rapport->getRepartitionHeures()->getMaintienOrdre() / 60,
             'assistance' => $rapport->getRepartitionHeures()->getAssistance() / 60,
             'plongee' => $rapport->getRepartitionHeures()->getPlongee() / 60,
-            'nombreVisiteSecurite' => $rapport->getRepartitionHeures()->getNombreVisiteSecurite(),
+            'nombreVisiteSecurite' => $rapport->getRepartitionHeures()->getNombreVisiteSecurite() ?? 0,
             'commentaires' => $rapport->getCommentaire(),
             'missionAvecService' => $rapport->getServiceConjoints()->count() > 0 ? 'La mission était une mission conjointe avec le ou les services suivants : ' : 'La mission n’était pas réalisée avec d’autres services.',
         ]);
@@ -138,13 +139,45 @@ class ExportService {
         $tableControleNavire->addCell(600)->addText('Commentaires');
         $commentaireNavire = null;
         $totalControlesNavires = 0;
-        $lieuxControlesNavires = null;
         $totalCatPecheSanitaire = 0;
         $totalCatEquipementSecurite = 0;
         $totalCatPoliceNavigation = 0;
         $totalCatEnvironnementPollution = 0;
         $totalCatReglementTravail = 0;
         $totalCatAutre = 0;
+
+        foreach($rapport->getActivites() as $activite) {
+            if($activite instanceof ActiviteNavire) {
+                $totalControlesNavires = $activite->getControleSansPv()->getNombreControleMer()
+                                        + $activite->getControleSansPv()->getNombreControleTerre();
+
+                foreach($activite->getControleSansPv()->getControleNavireRealises() as $controleNavireRealise) {
+                    switch($controleNavireRealise) {
+                        case CategorieControleNavire::PECHE_SANITAIRE:
+                            $totalCatPecheSanitaire += $totalControlesNavires;
+                            break;
+                        case CategorieControleNavire::REGLEMENTATION_TRAVAIL_MARITIME:
+                            $totalCatReglementTravail += $totalControlesNavires;
+                            break;
+                        case CategorieControleNavire::ENVIRONNEMENT_POLLUTION:
+                            $totalCatEnvironnementPollution += $totalControlesNavires;
+                            break;
+                        case CategorieControleNavire::EQUIPEMENT_SECURITE_PERMIS:
+                            $totalCatEquipementSecurite += $totalControlesNavires;
+                            break;
+                        case CategorieControleNavire::POLICE_NAVIGATION:
+                            $totalCatPoliceNavigation += $totalControlesNavires;
+                            break;
+                        case CategorieControleNavire::AUTRE:
+                            $totalCatAutre += $totalControlesNavires;
+                            break;
+                    }
+                }
+
+            }
+        }
+
+        $lieuxControlesNavires = null;
 
         $tableControlesEtablissements = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 100 * 50, 'unit' => TblWidth::PERCENT]);
         $tableControlesEtablissements->addRow();

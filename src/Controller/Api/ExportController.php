@@ -18,10 +18,10 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class ExportController extends AbstractFOSRestController {
 
-    protected $service;
+    protected $exportService;
 
     public function __construct(ExportService $exportService) {
-        $this->service = $exportService;
+        $this->exportService = $exportService;
     }
 
 
@@ -35,7 +35,7 @@ class ExportController extends AbstractFOSRestController {
      */
     public function export(int $id, Request $request) : StreamedResponse {
         try {
-            $templateProcessor = $this->service->getDataForExport($id);
+            $templateProcessor = $this->exportService->getDataForExport($id);
             $type = $request->query->get('type');
             if($type === 'odt') {
                 $templateProcessor->saveAs(__DIR__ .'/../../temp_rapport.docx');
