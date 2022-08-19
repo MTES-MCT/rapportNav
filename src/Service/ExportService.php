@@ -211,7 +211,7 @@ class ExportService {
         $tableControleLoisirsNautiques->addCell(300)->addText('Commentaires');
         $totalControleLoisirNautique = 0;
         $commentaireLoisurNautique = null;
-        $lieuxControlesLoisirNautique = null;
+        $lieuxControlesLoisirsNautiques = null;
 
 
         $tableActivitesAdministratives = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
@@ -406,14 +406,16 @@ class ExportService {
                         $commentaireLoisurNautique = $controle->getActivite()->getCommentaire();
                         $totalControleLoisirNautique += 1;
                         $tableControleLoisirsNautiques->addRow();
-                        $tableControleLoisirsNautiques->addCell(600)->addText($controle->getLoisir()->getNom());
+                        $tableControleLoisirsNautiques->addCell(600)->addText(
+                            $controle->getLoisir()->getNom() . 
+                            ($controle->getDetailLoisir() ? ' (' . $controle->getDetailLoisir() . ')' : '')
+                        );
                         $controlesCell = $tableControleLoisirsNautiques->addCell(600);
                         $controlesCell->addText('Nombre total de contrôles : ');
                         $controlesCell->addText('dont en AMP : ' . $controle->getNombreControleAireProtegee());
-                        $controlesCell->addText('Nombre de PV : ' . $controle->getNombrePv());
 
                         $sanctionsCell = $tableControleLoisirsNautiques->addCell(600);
-                        $sanctionsCell->addText($controle->getNombrePv() > 0 ? 'PV : oui' : 'PV : non');
+                        $sanctionsCell->addText('PV : ' . ($controle->getNombrePv() > 0 ? $controle->getNombrePv(): 'non'));
 
                         if($controle->getNatinfs()->count() > 0) {
                             $sanctionsCell->addText('Natinfs concernés : ');
@@ -425,7 +427,7 @@ class ExportService {
                         $tableControleLoisirsNautiques->addCell(600)->addText($controle->getCommentaire());
 
                         foreach($activite->getZones() as $zone) {
-                            $lieuxControlesLoisirNautique = $lieuxControlesLoisirNautique . ',' . $zone;
+                            $lieuxControlesLoisirsNautiques = $lieuxControlesLoisirsNautiques . ',' . $zone;
                         }
                     }
 
@@ -508,7 +510,7 @@ class ExportService {
                 'block_controles_loisirs_nautiques' => '',
                 '/block_controles_loisirs_nautiques' => '',
                 'commentaireControleLoisirNautique' => $commentaireLoisurNautique,
-                'lieuxControlesLoisirNautique' => $lieuxControlesLoisirNautique
+                'lieuxControlesLoisirsNautiques' => $lieuxControlesLoisirsNautiques
             ]);
         } else {
             $templateProcessor->cloneBlock('block_controles_loisirs_nautiques', 0, true, true);
