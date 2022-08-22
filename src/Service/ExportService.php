@@ -301,19 +301,17 @@ class ExportService {
 
                         $tableControleNavire->addCell(600)->addText($controle->getCommentaire());
 
-                        foreach($activite->getZones() as $zone) {
-                            $lieuxControlesNavires = $lieuxControlesNavires . ', ' .$zone;
-                        }
+                        $lieuxControlesNavires = implode(', ',
+                                                        array_map(function(ZoneGeographique $zg)
+                                                                { return $zg->getNom(); },
+                                                            $activite->getZones()->toArray())
+                                                        );
                     }
 
                     /** @var ControleEtablissement $controle */
                     if($controle instanceof ControleEtablissement) {
-                        $lieux = null;
                         $commentaireEtablissement = $controle->getActivite()->getCommentaire();
                         $totalEtablissementControles += 1;
-                        foreach($controle->getActivite()->getZones() as $zone) {
-                            $lieux = $lieux . ' / ' . $zone->getNom();
-                        }
 
                         $tableControlesEtablissements->addRow();
                         $informationCell = $tableControlesEtablissements->addCell(600);
@@ -404,9 +402,11 @@ class ExportService {
 
                         $tableControlePechePied->addCell(600)->addText($controle->getCommentaire());
 
-                        foreach($activite->getZones() as $zone) {
-                            $lieuxControlesPechePied = $lieuxControlesPechePied . ',' . $zone;
-                        }
+                        $lieuxControlesPechePied = implode(', ',
+                                                            array_map(function(ZoneGeographique $zg)
+                                                                    { return $zg->getNom(); },
+                                                                $activite->getZones()->toArray())
+                                                            );
                     }
 
                     /** @var ControleLoisir $controle */
@@ -434,9 +434,12 @@ class ExportService {
 
                         $tableControleLoisirsNautiques->addCell(600)->addText($controle->getCommentaire());
 
-                        foreach($activite->getZones() as $zone) {
-                            $lieuxControlesLoisirsNautiques = $lieuxControlesLoisirsNautiques . ',' . $zone;
-                        }
+                        $lieuxControlesLoisirsNautiques = implode(', ',
+                                                            array_map(function(ZoneGeographique $zg)
+                                                                    { return $zg->getNom(); },
+                                                                $activite->getZones()->toArray())
+                                                            );
+                        
                     }
 
                     /** @var ControleAutre $controle */
@@ -444,9 +447,11 @@ class ExportService {
                         $commentaireAutreTypeControle = $controle->getActivite()->getCommentaire();
                         $totalAutreTypeControles += 1;
 
-                        foreach($controle->getActivite()->getZones() as $zone) {
-                            $lieuxAutreTypeControles = $zone;
-                        }
+                        $lieuxAutreTypeControles = implode(', ',
+                                                        array_map(function(ZoneGeographique $zg)
+                                                                { return $zg->getNom(); },
+                                                            $activite->getZones()->toArray())
+                                                        );
 
                         $tableControlesAutres->addRow();
                         $tableControlesAutres->addCell()->addText($controle->getControle()->getNom());
@@ -476,9 +481,12 @@ class ExportService {
             if($activite instanceof ActiviteAdministratif) {
                 $commentaireActivitesAdministratives = $controle->getActivite()->getCommentaire();
 
-                foreach($controle->getActivite()->getZones() as $zone) {
-                    $lieuxActivitesAdministratif .= ', ' . $zone->getNom();
-                }
+                $lieuxActivitesAdministratif = implode(', ',
+                                                    array_map(function(ZoneGeographique $zg)
+                                                            { return $zg->getNom(); },
+                                                        $activite->getZones()->toArray())
+                                                    );
+
                 foreach($activite->getTaches() as $tache) {
                     $totalActivitesAdministratives += 1;
                     $tableActivitesAdministratives->addRow();
@@ -499,10 +507,11 @@ class ExportService {
                 $templateProcessor->setValue('informationFormation', $activite->getFormation());
                 $templateProcessor->setValue('commentaireFormateur', $activite->getCommentaire());
                 
-                $lieuxFormation = null;
-                foreach($activite->getZones() as $zone) {
-                    $lieuxFormation .= ', ' . $zone->getNom();
-                }
+                $lieuxFormation = implode(', ',
+                                        array_map(function(ZoneGeographique $zg)
+                                                { return $zg->getNom(); },
+                                            $activite->getZones()->toArray())
+                                        );
                 $templateProcessor->setValue('lieuxFormation', $lieuxFormation);
             }
        }
