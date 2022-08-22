@@ -58,6 +58,14 @@ services:
         arguments:
             $api: '%api_natinf%'
 
+    App\Service\ExportService:
+        arguments:
+            $project_dir: '%kernel.project_dir%'
+
+    App\Service\PAM\ExportService:
+        arguments:
+            $project_dir: '%kernel.project_dir%'
+
     # Explicit wiring for forms with event listeners
     App\Form\ControleNavireType:
         arguments: ['@App\Form\EventListener\ResetNatinfDataListener']

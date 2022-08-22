@@ -25,9 +25,12 @@ class ExportService {
      */
     private $rapportRepository;
 
-    public function __construct(RapportRepository $rapportRepository)
+    private string $templateDir;
+
+    public function __construct(RapportRepository $rapportRepository, string $project_dir)
     {
         $this->rapportRepository = $rapportRepository;
+        $this->templateDir = $project_dir . '/templates/export/';
     }
 
     public function getDataForExport($id)
@@ -38,7 +41,7 @@ class ExportService {
             throw new RapportNotFound("Le rapport n'a pas été trouvé.");
         }
 
-        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/Service/samples/SAMPLE_Rapport_mission_ULAM.docx');
+        $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission_ULAM.docx');
 
         $templateProcessor->setValues([
             'nomService' => $rapport->getCreatedBy()->getService()->getNom(),
