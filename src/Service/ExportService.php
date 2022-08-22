@@ -496,7 +496,14 @@ class ExportService {
             if($activite instanceof ActiviteFormation) {
                 $totalFormations += 1;
                 $templateProcessor->setValue('formateur', $activite->getFormateur() ? 'formateur' : 'stagiaire');
+                $templateProcessor->setValue('informationFormation', $activite->getFormation());
                 $templateProcessor->setValue('commentaireFormateur', $activite->getCommentaire());
+                
+                $lieuxFormation = null;
+                foreach($activite->getZones() as $zone) {
+                    $lieuxFormation .= ', ' . $zone->getNom();
+                }
+                $templateProcessor->setValue('lieuxFormation', $lieuxFormation);
             }
        }
 
