@@ -213,12 +213,20 @@ class ExportService {
         $commentaireLoisurNautique = null;
         $lieuxControlesLoisirsNautiques = null;
 
+        $tableControlesAutres = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
+        $tableControlesAutres->addRow();
+        $tableControlesAutres->addCell(800)->addText('Type de contrôle');
+        $tableControlesAutres->addCell(600)->addText('Nombre de contrôles réalisés');
+        $tableControlesAutres->addCell(600)->addText('Information spécifique');
+        $tableControlesAutres->addCell(600)->addText('Sanction');
+        $tableControlesAutres->addCell(1000)->addText('Commentaire');
 
         $tableActivitesAdministratives = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
         $tableActivitesAdministratives->addRow();
-        $tableActivitesAdministratives->addCell(300)->addText('Tâche');
-        $tableActivitesAdministratives->addCell(300)->addText('Durée');
-        $tableActivitesAdministratives->addCell(300)->addText('Commentaire');
+        $tableActivitesAdministratives->addCell(800)->addText('Tâche');
+        $tableActivitesAdministratives->addCell(600)->addText('Information spécifique');
+        $tableActivitesAdministratives->addCell(600)->addText('Durée');
+        $tableActivitesAdministratives->addCell(1000)->addText('Commentaire');
         $lieuxActivitesAdministratif = null;
 
         $totalAutreTypeControles = 0;
@@ -312,9 +320,9 @@ class ExportService {
                         $informationCell->addText('Nom : ' . $controle->getEtablissement()->getNom());
                         $informationCell->addText('Adresse : ' . $controle->getEtablissement()->getAdresse() . ', ' . $controle->getEtablissement()->getCommune());
                         $informationCell->addText('Type : ' . $controle->getEtablissement()->getType()->getNom());
-                        
+
                         $tableControlesEtablissements->addCell(600)->addText($controle->getDate()->format('d/m/Y à H:i'));
-                        $tableControlesEtablissements->addCell(600)->addText($controle->getBateauxControles() ? 
+                        $tableControlesEtablissements->addCell(600)->addText($controle->getBateauxControles() ?
                                                     "Nombre de navires contrôlés : " . $controle->getBateauxControles() : "-");
 
                         $sanctionsCell = $tableControlesEtablissements->addCell(600);
@@ -328,9 +336,9 @@ class ExportService {
                         }
                         $tableControlesEtablissements->addCell(600)->addText($controle->getCommentaire());
 
-                        $lieuxControlesEtablissements = implode(', ', 
-                                                            array_map(function(ZoneGeographique $zg) 
-                                                                    { return $zg->getNom(); }, 
+                        $lieuxControlesEtablissements = implode(', ',
+                                                            array_map(function(ZoneGeographique $zg)
+                                                                    { return $zg->getNom(); },
                                                                 $activite->getZones()->toArray())
                                                             );
                     }
@@ -407,11 +415,11 @@ class ExportService {
                         $totalControleLoisirNautique += 1;
                         $tableControleLoisirsNautiques->addRow();
                         $tableControleLoisirsNautiques->addCell(600)->addText(
-                            $controle->getLoisir()->getNom() . 
+                            $controle->getLoisir()->getNom() .
                             ($controle->getDetailLoisir() ? ' (' . $controle->getDetailLoisir() . ')' : '')
                         );
                         $controlesCell = $tableControleLoisirsNautiques->addCell(600);
-                        $controlesCell->addText('Nombre total de contrôles : ');
+                        $controlesCell->addText('Nombre total de contrôles : ' . $controle->getNombreControle());
                         $controlesCell->addText('dont en AMP : ' . $controle->getNombreControleAireProtegee());
 
                         $sanctionsCell = $tableControleLoisirsNautiques->addCell(600);
@@ -439,6 +447,26 @@ class ExportService {
                         foreach($controle->getActivite()->getZones() as $zone) {
                             $lieuxAutreTypeControles = $zone;
                         }
+
+                        $tableControlesAutres->addRow();
+                        $tableControlesAutres->addCell()->addText($controle->getControle()->getNom());
+                        $tableControlesAutres->addCell()->addText($controle->getNombreControle());
+                        $tableControlesAutres->addCell()->addText(
+                            $controle->getNombreDetruit() > 0 ?
+                            'Nombre d\'équipements détruits : ' . $controle->getNombreDetruit() :
+                            '');
+                        $sanctionsAutresCell = $tableControlesAutres->addCell();
+
+                        $sanctionsAutresCell->addText('Nombre de PV : '  . $controle->getNombrePv());
+
+                        if($controle->getNatinfs()->count() > 0) {
+                            $sanctionsAutresCell->addText('Natinfs concernés : ');
+                            foreach($controle->getNatinfs() as $natinf) {
+                                $sanctionsAutresCell->addListItem($natinf->getCodeNatAff());
+                            }
+                        }
+                        $tableControlesAutres->addCell()->addText($controle->getCommentaire());
+
                     }
                 }
             }
@@ -446,11 +474,21 @@ class ExportService {
 
             /** @var ActiviteAdministratif $activite */
             if($activite instanceof ActiviteAdministratif) {
+                $commentaireActivitesAdministratives = $controle->getActivite()->getCommentaire();
+
+                foreach($controle->getActivite()->getZones() as $zone) {
+                    $lieuxActivitesAdministratif .= ', ' . $zone->getNom();
+                }
                 foreach($activite->getTaches() as $tache) {
                     $totalActivitesAdministratives += 1;
-                    $tableActivitesAdministratives->addCell(300)->addText($tache->getTache()->getNom());
-                    $tableActivitesAdministratives->addCell(300)->addText($tache->getDureeTache());
-                    $tableActivitesAdministratives->addCell(300)->addText($tache->getCommentaire());
+                    $tableActivitesAdministratives->addRow();
+                    $tableActivitesAdministratives->addCell()->addText($tache->getTache()->getNom());
+                    $tableActivitesAdministratives->addCell()->addText(
+                        ($tache->getDetailTache() ? $tache->getDetailTache() : '') . 
+                        ($tache->getNombreDossiers() > 0 ?'Nombre de dossiers traités : '. $tache->getNombreDossiers() : '')
+                    );
+                    $tableActivitesAdministratives->addCell()->addText($tache->getDureeTache()/60);
+                    $tableActivitesAdministratives->addCell()->addText($tache->getCommentaire());
                 }
             }
 
@@ -517,11 +555,11 @@ class ExportService {
         }
 
         if($totalAutreTypeControles > 0) {
-            $templateProcessor->setValue('lieuxAutreTypeControles', $lieuxAutreTypeControles);
+            $templateProcessor->setComplexBlock('tableAutreTypeControles', $tableControlesAutres);
             $templateProcessor->setValues([
                 'block_autre_controles' => '',
                 '/block_autre_controles' => '',
-                'commentairesControlesNavires' => $commentaireAutreTypeControle,
+                'commentaireAutreTypeControles' => $commentaireAutreTypeControle,
                 'lieuxAutreTypeControles' => $lieuxAutreTypeControles
             ]);
         } else {
@@ -533,7 +571,8 @@ class ExportService {
             $templateProcessor->setValues([
                 'block_activites_administratives' => '',
                 '/block_activites_administratives' => '',
-                'lieuxActivitesAdministratives' => $lieuxActivitesAdministratif
+                'lieuxActivitesAdministratives' => $lieuxActivitesAdministratif,
+                'commentaireActivitesAdministratives' => $commentaireActivitesAdministratives,
             ]);
         } else {
             $templateProcessor->cloneBlock('block_activites_administratives', 0, true, true);
