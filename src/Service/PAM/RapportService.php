@@ -183,6 +183,9 @@ class RapportService {
         /** @var PamRapport $rapport */
         $rapport = $this->serializer->deserialize($request->getContent(), PamRapport::class, 'json'); // Mapping de la request en entity PamRapport
 
+        $existingRapport->setStartDatetime($rapport->getStartDatetime());
+        $existingRapport->setEndDatetime($rapport->getEndDatetime());
+
         if($rapport->getEquipage()) {
             $this->setAgent($rapport->getEquipage(), $service);
             $existingRapport->setEquipage($rapport->getEquipage()); // Ajout des membres d'équipage

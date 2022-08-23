@@ -196,7 +196,8 @@ export default {
         },
         fonctionParticuliere: {
           nom: ''
-        }
+        },
+        isPresent: true
       },
       hidden: true,
       hiddenNewAgent: true,

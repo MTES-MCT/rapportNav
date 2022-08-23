@@ -104,8 +104,12 @@
                   </li>
                   <li>
                     <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right"
-                      data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter
+                       data-fr-opened="false" aria-controls="fr-modal-200"
+                      v-if="!saved" href="#">Quitter
                     </a>
+                    <router-link class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error float-right"
+                      v-else :to="'/pam'">Quitter
+                    </router-link>
                   </li>
                 </ul>
               </div>
@@ -135,8 +139,11 @@
                     </li>
                     <li>
                       <a class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error"
-                        data-fr-opened="false" aria-controls="fr-modal-200" href="#">Quitter
+                        data-fr-opened="false" aria-controls="fr-modal-200" href="#" v-if="!saved">Quitter
                       </a>
+                      <router-link class="fr-link--icon-left fr-fi-close-line fr-text text-bold text-red-error"
+                         v-else :to="'/pam'">Quitter
+                      </router-link>
                     </li>
                   </ul>
                 </div>
