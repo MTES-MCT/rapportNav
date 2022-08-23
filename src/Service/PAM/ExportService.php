@@ -33,6 +33,8 @@ class ExportService {
      */
     private $rapportRepository;
 
+    private string $templateDir;
+
     const ROW_ASSISTANCE_NAVIRE = 16;
     const ROW_LUTTE_IMMIGRATION_ILLEGALE = 22;
     const ROW_REPRESSION_POLLUTION = 28;
@@ -45,10 +47,12 @@ class ExportService {
      * @param PamIndicateurRepository $indicateurRepository
      * @param PamDraftRepository      $draftRepository
      */
-    public function __construct(PamIndicateurRepository $indicateurRepository, PamDraftRepository $draftRepository, PamRapportRepository $rapportRepository) {
+    public function __construct(PamIndicateurRepository $indicateurRepository, PamDraftRepository $draftRepository, 
+                                PamRapportRepository $rapportRepository, string $project_dir) {
         $this->indicateurRepository = $indicateurRepository;
         $this->draftRepository = $draftRepository;
         $this->rapportRepository = $rapportRepository;
+        $this->templateDir = $project_dir . '/templates/export/';
     }
 
     /**
@@ -60,7 +64,7 @@ class ExportService {
      */
     public function exportOds(string $rapportID, bool $draft = false) : Spreadsheet {
         $indicateurs = $draft ? $this->draftRepository->findAllIndicateursByRapport($rapportID) : $this->indicateurRepository->findAllByRapport($rapportID);
-        $spreadsheet = IOFactory::load(dirname(__DIR__) . '/PAM/samples/SAMPLE_Rapport_AEM.xlsx');
+        $spreadsheet = IOFactory::load($this->templateDir . 'SAMPLE_Rapport_AEM.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
         $this->fillAEM($indicateurs, $sheet);
 
@@ -78,7 +82,7 @@ class ExportService {
      */
     public function exportRapportAEM(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true) : Spreadsheet
     {
-        $spreadsheet = IOFactory::load(dirname(__DIR__) . '/PAM/samples/SAMPLE_Rapport_AEM.xlsx');
+        $spreadsheet = IOFactory::load($this->templateDir . 'SAMPLE_Rapport_AEM.xlsx');
         $filler = new OfficeFiller();
         $rapports = $this->rapportRepository->findByDateRange($firstDate, $lastDate, $wholeTeams);
 
@@ -163,7 +167,7 @@ class ExportService {
         $filler = new OfficeFiller();
         $rapport = $draft ? $this->draftRepository->findRapport($rapportID) : $this->rapportRepository->find($rapportID);
 
-        $templateProcessor = new TemplateProcessor(dirname(__DIR__) . '/PAM/samples/SAMPLE_Rapport_mission.docx');
+        $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission.docx');
         $templateProcessor->setValues([
             'dateDebut' => $rapport->getStartDatetime()->format('d/m/Y'),
             'dateFin' => $rapport->getEndDatetime()->format('d/m/Y'),
