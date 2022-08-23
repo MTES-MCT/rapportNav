@@ -22,7 +22,6 @@ jobs:
 
       - run: sudo apt update
       - run: sudo apt install -y libpq-dev #add PostGre lib
-      - run: composer check
       - run: sudo -E install-php-extensions xdebug
       - run: sudo composer self-update
 
