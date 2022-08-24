@@ -33,7 +33,7 @@
         </div>
         <div class="add-member-content">
           <div class="fr-container--fluid">
-            <div class="fr-grid-row suggestionsList" v-for="(suggestion, index) in suggestionsList">
+            <div class="fr-grid-row suggestionsList" v-for="(suggestion, index) in suggestionsList" :key="index">
               <div class="fr-col-7">
                 <div class="text-14 text-left" >
                   {{ suggestion.agent.prenom }} {{ suggestion.agent.nom }}
@@ -59,12 +59,12 @@
             <div class="fr-input-group fr-mt-5v">
               <select class="fr-select" v-model="tmpAgent.fonction" id="fonction_select">
                 <option :value="{nom: ''}" selected disabled hidden>Poste : - sélectionner - </option>
-                <option v-for="(fonction, index) in fonctions" :value="{id: fonction.id, nom: fonction.nom}" :id="'fonction_' + index">{{ fonction.nom }}</option>
+                <option v-for="(fonction, index) in fonctions" :key="index" :value="{id: fonction.id, nom: fonction.nom}" :id="'fonction_' + index">{{ fonction.nom }}</option>
               </select>
 
               <select class="fr-select" v-model="tmpAgent.fonctionParticuliere">
                 <option :value="{nom: ''}" selected disabled hidden>Fonction particulière : - sélectionner - </option>
-                <option v-for="fonction in fonctionsParticulieres" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
+                <option v-for="fonction in fonctionsParticulieres" :key="fonction.id" :value="{id: fonction.id, nom: fonction.nom}">{{ fonction.nom }}</option>
               </select>
             </div>
             <div class="fr-input-group">
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     addAgent(suggestion = null, index = null) {
-      const membre = suggestion ? suggestion : {};
+      let membre = suggestion ? suggestion : {};
       if(!suggestion) {
         membre.agent = {};
         membre.agent.nom = this.tmpAgent.fullName.split(' ')[1]
