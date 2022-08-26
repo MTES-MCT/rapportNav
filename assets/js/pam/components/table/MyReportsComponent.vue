@@ -244,7 +244,6 @@ export default {
     me: Object
   },
   mounted() {
-    //let lastDayOfCurrentMonth = moment().endOf('month').format('YYYY-MM-DD');
     this.uriSearch.searchParams.append('periode', 'mois');
     this.uriSearch.searchParams.append('date', moment(this.endDate).format('YYYY-MM-DD'));
     this.fetchFiltre();
