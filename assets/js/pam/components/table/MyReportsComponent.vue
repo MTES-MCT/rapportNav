@@ -244,13 +244,15 @@ export default {
     me: Object
   },
   mounted() {
-    let date = new Date();
+    //let lastDayOfCurrentMonth = moment().endOf('month').format('YYYY-MM-DD');
+    this.uriSearch.searchParams.append('periode', 'mois');
+    this.uriSearch.searchParams.append('date', moment(this.endDate).format('YYYY-MM-DD'));
     this.fetchFiltre();
     let currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth() - 6);
     this.sixPreviousMonthStart = currentDate;
-    this.currentYear = moment(date).format('YYYY');
-    this.selectedYear = moment(date).format('YYYY')
+    this.currentYear = moment(this.endDate).format('YYYY');
+    this.selectedYear = moment(this.endDate).format('YYYY')
     this.fetchYearsRange();
   },
   methods: {
@@ -521,8 +523,8 @@ export default {
       filtrePeriodeYearEnd: 2022,
       years: [],
       dateRangeEnabled: false,
-      startDate: moment(new Date()).format('YYYY-MM-DD'),
-      endDate: moment(new Date()).format('YYYY-MM-DD'),
+      startDate: moment().startOf('month').format('YYYY-MM-DD'),
+      endDate: moment().endOf('month').format('YYYY-MM-DD'),
       currentYear: null,
       selectedYear: null,
       userMe: this.me
