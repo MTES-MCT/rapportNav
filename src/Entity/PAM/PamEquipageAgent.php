@@ -42,12 +42,6 @@ class PamEquipageAgent
     private $observations;
 
     /**
-     * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\Column(type="boolean")
-     */
-    private $is_absent = false;
-
-    /**
      *
      * @var FonctionParticuliereAgent
      * @Groups({"view", "draft", "save_rapport"})
@@ -62,6 +56,23 @@ class PamEquipageAgent
      * @ORM\JoinColumn(nullable=true)
      */
     private $fonction;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateDepart;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateArrivee;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 2})
+     */
+    private $presence = 2;
 
     public function getId(): ?int
     {
@@ -104,18 +115,6 @@ class PamEquipageAgent
         return $this;
     }
 
-    public function getIsAbsent(): ?bool
-    {
-        return $this->is_absent;
-    }
-
-    public function setIsAbsent(bool $is_absent): self
-    {
-        $this->is_absent = $is_absent;
-
-        return $this;
-    }
-
     /**
      * @return FonctionParticuliereAgent
      */
@@ -138,6 +137,42 @@ class PamEquipageAgent
     public function setFonction(?FonctionAgent $fonction): self
     {
         $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    public function getDateDepart(): ?\DateTimeInterface
+    {
+        return $this->dateDepart;
+    }
+
+    public function setDateDepart(?\DateTimeInterface $dateDepart): self
+    {
+        $this->dateDepart = $dateDepart;
+
+        return $this;
+    }
+
+    public function getDateArrivee(): ?\DateTimeInterface
+    {
+        return $this->dateArrivee;
+    }
+
+    public function setDateArrivee(?\DateTimeInterface $dateArrivee): self
+    {
+        $this->dateArrivee = $dateArrivee;
+
+        return $this;
+    }
+
+    public function getPresence(): ?int
+    {
+        return $this->presence;
+    }
+
+    public function setPresence(int $presence): self
+    {
+        $this->presence = $presence;
 
         return $this;
     }

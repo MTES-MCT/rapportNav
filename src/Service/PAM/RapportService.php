@@ -97,10 +97,9 @@ class RapportService {
         $arrayBody = json_decode($content,true);
         $startDateTime = $arrayBody['start_datetime'];
 
-        if(!$startDateTime) {
-            throw new BadRequestHttpException('La date de début est manquante.');
+        if(!$startDateTime || !strtotime($startDateTime)) {
+            throw new BadRequestHttpException('La date de début est manquante ou invalide.');
         }
-
 
         $draft = new PamDraft();
         if($id) {
@@ -113,9 +112,13 @@ class RapportService {
         }
         $draft->setBody($content);
         $draft->setCreatedBy($service);
-        $draft->setStartDatetime($startDateTime);
-        $this->em->persist($draft);
-        $this->em->flush();
+        $draft->setStartDatetime($startDateTime); # will not throw exception as $startDateTime is valid due to strtotime check
+        try {
+            $this->em->persist($draft);
+            $this->em->flush();
+        } catch(\Exeption $e) {
+            throw new  HttpException(500, 'Erreur serveur');
+        }
         return $draft;
 
     }
@@ -182,6 +185,13 @@ class RapportService {
         }
         /** @var PamRapport $rapport */
         $rapport = $this->serializer->deserialize($request->getContent(), PamRapport::class, 'json'); // Mapping de la request en entity PamRapport
+
+        if($rapport->getStartDatetime()) {
+            $existingRapport->setStartDatetime($rapport->getStartDatetime());
+        }
+        if($rapport->getEndDatetime()) {
+            $existingRapport->setEndDatetime($rapport->getEndDatetime());
+        }
 
         if($rapport->getEquipage()) {
             $this->setAgent($rapport->getEquipage(), $service);

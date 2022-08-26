@@ -206,7 +206,10 @@ export default {
               });
             }
           },
-          (error) => this.showToast("Erreur lors de l'envoi du formulaire.", TYPE.ERROR, 'bottom-center')
+          (error) => {
+            let errorInfo = ('string' == typeof(error.response.data)) ? " (" + error.response.data + ")" : ""
+            this.showToast("Erreur lors de l'envoi du formulaire" + errorInfo, TYPE.ERROR, 'bottom-center')
+          }
       )
 
     },
