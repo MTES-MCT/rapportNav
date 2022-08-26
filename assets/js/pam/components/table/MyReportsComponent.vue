@@ -6,9 +6,9 @@
         <div class="">
           <h5>Mes Rapports</h5>
         </div>
-        <div class="rapport-list-btn-create" style="margin: 0 1rem;">
+        <div class="rapport-list-btn-create fr-mr-3w" style="margin: 0 1rem;">
           <button
-              class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left mr-2"
+              class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left"
               title="Créer un rapport"
               @click="create">
             Créer un rapport
@@ -69,7 +69,7 @@
                     </div>
                     <div class="fr-col-md-6">
                       <select class="fr-select" id="select" v-model="filtrePeriodeYearStart" @change="onChangeDateRange">
-                        <option v-for="year in years" :value="year">{{ year }}</option>
+                        <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
                       </select>
                     </div>
                   </div>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="fr-col-md-6">
                       <select class="fr-select" id="select" v-model="filtrePeriodeYearEnd" @change="onChangeDateRange">
-                        <option v-for="year in years" :value="year">{{ year }}</option>
+                        <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
                       </select>
                     </div>
                   </div>

@@ -43,9 +43,6 @@
     margin-top: 55px;
 }
 
-.mr-2 { /*suppression ? */
-    margin-right: 25px;
-}
 .divider-vertical {
     border-left: 1px solid #e7e7e7;
     height: 40px;
@@ -592,11 +589,6 @@ td:first-child {
     display: none;
 }
 
-.float-right {/* suppression ?*/
-    float: right !important;
-    margin-left: 50px;
-}
-
 .sidebar-right-history {
     width: 240px;
     padding-right: 10px;
@@ -760,11 +752,6 @@ td:first-child {
 
     .page-content {
         margin-top: 200px !important;;
-    }
-
-    .float-right {
-        float: right !important;
-        margin-left: 150px;
     }
 
     .sidebar-right-history {
