@@ -108,12 +108,13 @@ export default {
       let membre = suggestion ? suggestion : {};
       if(!suggestion) {
         membre.agent = {};
-        membre.agent.nom = this.tmpAgent.fullName.split(' ')[1]
+        membre.agent.nom = this.tmpAgent.fullName.split(' ')[1] //TODO missing the end of the name
         membre.agent.prenom = this.tmpAgent.fullName.split(' ')[0];
         membre.observations = this.tmpAgent.observations;
         membre.fonction = this.tmpAgent.fonction;
         membre.agent.dateArrivee = new Date();
         membre.fonctionParticuliere = this.tmpAgent.fonctionParticuliere;
+        membre.presence = 2
         this.tmpAgent = {
           fonction:  {
             nom: ''
@@ -151,6 +152,7 @@ export default {
             fonction: {
               nom: 'Agent de pont'
             },
+            presence: 2,
             fonctionParticuliere: null,
             agent: {
               id: agent.id,
@@ -196,8 +198,7 @@ export default {
         },
         fonctionParticuliere: {
           nom: ''
-        },
-        isPresent: true
+        }
       },
       hidden: true,
       hiddenNewAgent: true,

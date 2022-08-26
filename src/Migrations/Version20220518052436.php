@@ -23,6 +23,7 @@ final class Version20220518052436 extends AbstractMigration
         $this->addSql('ALTER INDEX uniq_268b9c9d9b6b5fba RENAME TO UNIQ_268B9C9D3C0C9956');
         $this->addSql('ALTER TABLE pam_equipage_agent ADD date_depart TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL');
         $this->addSql('ALTER TABLE pam_equipage_agent ADD date_arrivee TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL');
+        $this->addSql('ALTER TABLE pam_equipage_agent ADD presence INT DEFAULT 2 NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -32,5 +33,6 @@ final class Version20220518052436 extends AbstractMigration
         $this->addSql('ALTER INDEX uniq_268b9c9d3c0c9956 RENAME TO uniq_268b9c9d9b6b5fba');
         $this->addSql('ALTER TABLE pam_equipage_agent DROP date_depart');
         $this->addSql('ALTER TABLE pam_equipage_agent DROP date_arrivee');
+        $this->addSql('ALTER TABLE pam_equipage_agent DROP presence');
     }
 }

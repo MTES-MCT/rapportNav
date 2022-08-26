@@ -70,16 +70,9 @@ class PamEquipageAgent
     private $dateArrivee;
 
     /**
-     * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="integer", options={"default" : 2})
      */
-    private $isPresent = true;
-
-    /**
-     * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $is_absent = false;
+    private $presence = 2;
 
     public function getId(): ?int
     {
@@ -172,26 +165,14 @@ class PamEquipageAgent
         return $this;
     }
 
-    public function getIsPresent(): ?bool
+    public function getPresence(): ?int
     {
-        return $this->isPresent;
+        return $this->presence;
     }
 
-    public function setIsPresent(?bool $isPresent): self
+    public function setPresence(int $presence): self
     {
-        $this->isPresent = $isPresent;
-
-        return $this;
-    }
-
-    public function getIsAbsent(): ?bool
-    {
-        return $this->is_absent;
-    }
-
-    public function setIsAbsent(?bool $is_absent): self
-    {
-        $this->is_absent = $is_absent;
+        $this->presence = $presence;
 
         return $this;
     }
