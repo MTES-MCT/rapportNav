@@ -108,8 +108,9 @@ export default {
       let membre = suggestion ? suggestion : {};
       if(!suggestion) {
         membre.agent = {};
-        membre.agent.nom = this.tmpAgent.fullName.split(' ')[1] //TODO missing the end of the name
         membre.agent.prenom = this.tmpAgent.fullName.split(' ')[0];
+        membre.agent.nom = this.tmpAgent.fullName.replace(membre.agent.prenom + " ", "")
+        console.log(this.tmpAgent.fullName)
         membre.observations = this.tmpAgent.observations;
         membre.fonction = this.tmpAgent.fonction;
         membre.agent.dateArrivee = new Date();
