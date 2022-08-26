@@ -89,7 +89,7 @@ class RapportControllerTest extends WebTestCase {
 
         $json = $this->jsonReader('body-test-rapport-update-informationsGenerales-success.json');
         $this->sendRequest('/rapport/' . $id, $json, 'PUT');
-
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         /** @var PamRapport $updatedRapport */
         $updatedRapport = $container->get(PamRapportRepository::class)->find($id);
