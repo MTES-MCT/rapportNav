@@ -6,6 +6,7 @@ use App\Entity\ControleNavire;
 use App\Entity\ActiviteNavire;
 use App\Entity\User;
 use App\Entity\Rapport;
+use App\Entity\CategorieUsageNavire;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
