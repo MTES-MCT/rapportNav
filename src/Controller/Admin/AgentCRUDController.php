@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Controller\CRUDController as SonataController;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Rapport;
 
 class AgentCRUDController extends SonataController
 {
@@ -19,7 +20,7 @@ class AgentCRUDController extends SonataController
             throw $this->createNotFoundException(sprintf('Impossible de trouver l\'élément d\'identifiant : %s', $id));
         }
         
-        $rapports = $this->getDoctrine()->getRepository("App:Rapport")->findAllWithAgent($id);
+        $rapports = $this->getDoctrine()->getRepository(Rapport::class)->findAllWithAgent($id);
         
         if($rapports) {
             $this->addFlash(
@@ -38,7 +39,7 @@ class AgentCRUDController extends SonataController
         $selectedAgents = $query->execute();
 
         foreach ($selectedAgents as $selectedAgent) {
-            $rapports = $this->getDoctrine()->getRepository("App:Rapport")->findAllWithAgent($selectedAgent->getId());
+            $rapports = $this->getDoctrine()->getRepository(Rapport::class)->findAllWithAgent($selectedAgent->getId());
             
             if($rapports) {
                 $this->addFlash(

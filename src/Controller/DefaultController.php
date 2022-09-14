@@ -301,19 +301,19 @@ class DefaultController extends AbstractController {
         
         $service = $this->getUser()->getService();
         $openMonths=[];
-        if(!$em->getRepository("App:MoisClos")->isClosed($service, $beforePrevMonth)) {
+        if(!$em->getRepository(MoisClos::class)->isClosed($service, $beforePrevMonth)) {
             $openMonths[]=$beforePrevMonth;
         }
-        if(!$em->getRepository("App:MoisClos")->isClosed($service, $prevMonth)) {
+        if(!$em->getRepository(MoisClos::class)->isClosed($service, $prevMonth)) {
             $openMonths[]=$prevMonth;
         }
 
-        $reports = $em->getRepository('App:Rapport')->findByPeriod(
+        $reports = $em->getRepository(Rapport::class)->findByPeriod(
             $now,
             null,
             $userService,
             200);
-        $pastReports = $em->getRepository('App:Rapport')->findByPeriod(
+        $pastReports = $em->getRepository(Rapport::class)->findByPeriod(
             $prevMonth,
             $now,
             $userService,
@@ -357,7 +357,7 @@ class DefaultController extends AbstractController {
             $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅e sur la page d'accueil. ");
             return $this->redirectToRoute('home');
         }
-        $reports = $em->getRepository('App:Rapport')->findByPeriod(
+        $reports = $em->getRepository(Rapport::class)->findByPeriod(
             $date,
             $nextMonth,
             $userService,
