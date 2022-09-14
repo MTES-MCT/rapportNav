@@ -29,9 +29,11 @@
                                 {% if rapport.updatedAt is not null %}le {{ rapport.updatedAt | date('d/m/Y') }}{% endif %}
                                 {% if rapport.updatedBy is not null %}par {{ rapport.updatedBy }}{% endif %}
                             -
-                            <a href="{{ path('export_sati_inspection_mer', {'id': rapport.id}) }}"
-                               onclick="alert('Attention, cette fonctionnalité est expérimentale, se référer à la documentation pour plus d\'information sur son usage.')">
-                                Télécharger les données pour export SATI</a>
+                            <a href="{{ path('api_export_rapport', {'id': rapport.id}) }}">
+                                Télécharger le rapport au format .docx</a>
+                            <br>
+                            <a href="{{ path('api_export_rapport', {'id': rapport.id, 'type': 'odt'}) }}">
+                                Télécharger le rapport au format .odt</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -54,9 +56,11 @@
                             {% if rapport.updatedAt is not null %}le {{ rapport.updatedAt | date('d/m/Y') }}{% endif %}
                             {% if rapport.updatedBy is not null %}par {{ rapport.updatedBy }}{% endif %}
                             -
-                            <a href="{{ path('export_sati_inspection_mer', {'id': rapport.id}) }}"
-                               onclick="alert('Attention, cette fonctionnalité est expérimentale, se référer à la documentation pour plus d\'information sur son usage.')">
-                                Télécharger les données pour export SATI</a>
+                            <a href="{{ path('api_export_rapport', {'id': rapport.id}) }}">
+                                Télécharger le rapport au format .docx</a>
+                            <br>
+                            <a href="{{ path('api_export_rapport', {'id': rapport.id, 'type': 'odt'}) }}">
+                                Télécharger le rapport au format .odt</a>
                         </li>
                     {% endfor %}
                 </ul>

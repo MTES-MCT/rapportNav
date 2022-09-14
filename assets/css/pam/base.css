@@ -7,6 +7,11 @@
 @import "components/download.css";
 @import "components/profile.css";
 
+.label__presence {
+    float: left;
+    margin-bottom: 6px;
+}
+
 .InputAddOn-field {
     outline-offset: 0;
     outline-width: 0;
@@ -38,9 +43,6 @@
     margin-top: 55px;
 }
 
-.mr-2 {
-    margin-right: 25px;
-}
 .divider-vertical {
     border-left: 1px solid #e7e7e7;
     height: 40px;
@@ -587,16 +589,6 @@ td:first-child {
     display: none;
 }
 
-.float-right {
-    float: right !important;
-    margin-left: 50px;
-}
-
-
-.num-report {
-    margin-right: 18px;
-}
-
 .sidebar-right-history {
     width: 240px;
     padding-right: 10px;
@@ -698,6 +690,13 @@ td:first-child {
     margin-left: 40px;
 }
 
+.display-flex {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-right: 5px;
+}
+
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {
@@ -754,20 +753,6 @@ td:first-child {
     .page-content {
         margin-top: 200px !important;;
     }
-    .responsive-btn-header {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        padding-left: 290px;
-        margin-top: -50px;
-    }
-    .responsive-btn {
-        display: none;
-    }
-    .float-right {
-        float: right !important;
-        margin-left: 150px;
-    }
 
     .sidebar-right-history {
         overflow: scroll;
@@ -800,8 +785,10 @@ td:first-child {
     .sidebar-left-menu {
         display: none;
     }
+}
 
-    .informations, .num-report {
-       display: none;
+@media (min-width: 1441px) {
+    .item-quitter {
+        display: none;
     }
 }

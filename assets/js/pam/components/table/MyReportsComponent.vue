@@ -6,9 +6,9 @@
         <div class="">
           <h5>Mes Rapports</h5>
         </div>
-        <div class="rapport-list-btn-create" style="margin: 0 1rem;">
+        <div class="rapport-list-btn-create fr-mr-3w" style="margin: 0 1rem;">
           <button
-              class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left mr-2"
+              class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left"
               title="Créer un rapport"
               @click="create">
             Créer un rapport
@@ -69,7 +69,7 @@
                     </div>
                     <div class="fr-col-md-6">
                       <select class="fr-select" id="select" v-model="filtrePeriodeYearStart" @change="onChangeDateRange">
-                        <option v-for="year in years" :value="year">{{ year }}</option>
+                        <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
                       </select>
                     </div>
                   </div>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="fr-col-md-6">
                       <select class="fr-select" id="select" v-model="filtrePeriodeYearEnd" @change="onChangeDateRange">
-                        <option v-for="year in years" :value="year">{{ year }}</option>
+                        <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
                       </select>
                     </div>
                   </div>
@@ -244,13 +244,14 @@ export default {
     me: Object
   },
   mounted() {
-    let date = new Date();
+    this.uriSearch.searchParams.append('periode', 'mois');
+    this.uriSearch.searchParams.append('date', moment(this.endDate).format('YYYY-MM-DD'));
     this.fetchFiltre();
     let currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth() - 6);
     this.sixPreviousMonthStart = currentDate;
-    this.currentYear = moment(date).format('YYYY');
-    this.selectedYear = moment(date).format('YYYY')
+    this.currentYear = moment(this.endDate).format('YYYY');
+    this.selectedYear = moment(this.endDate).format('YYYY')
     this.fetchYearsRange();
   },
   methods: {
@@ -521,8 +522,8 @@ export default {
       filtrePeriodeYearEnd: 2022,
       years: [],
       dateRangeEnabled: false,
-      startDate: moment(new Date()).format('YYYY-MM-DD'),
-      endDate: moment(new Date()).format('YYYY-MM-DD'),
+      startDate: moment().startOf('month').format('YYYY-MM-DD'),
+      endDate: moment().endOf('month').format('YYYY-MM-DD'),
       currentYear: null,
       selectedYear: null,
       userMe: this.me

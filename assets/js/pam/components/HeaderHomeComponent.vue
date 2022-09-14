@@ -29,18 +29,18 @@
             <div class="fr-header__tools fr-ml-8w" v-if="enableMyProfile">
               <div class="fr-header__tools-links">
                 <ul class="fr-links-group">
-                  <li>
+                  <li class="fr-mr-3w">
                     <button
                         id="home_header_creer_un_rapport_btn"
-                        class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left mr-2"
+                        class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left"
                         title="Créer un rapport"
                         @click="createRapport">
                       Créer un rapport
                     </button>
                   </li>
-                  <li>
+                  <li class="fr-mr-3w">
                     <router-link
-                        class="fr-btn--menu fr-btn mr-2 fr-fi-user-line fr-btn--secondary fr-btn--icon-left"
+                        class="fr-btn--menu fr-btn fr-fi-user-line fr-btn--secondary fr-btn--icon-left"
                         title="Mon profil"
                         to="/pam/profil"
                     >
