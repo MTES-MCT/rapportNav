@@ -45,7 +45,7 @@ class NatinfFiller {
 
         foreach($natinfs as $natinf) {
             /** @var string $natinf */
-            $exists = $this->em->getRepository('App:Natinf')->findOneBy(['numero' => $natinf]);
+            $exists = $this->em->getRepository(Natinf::class)->findOneBy(['numero' => $natinf]);
             if(!$exists) {
                 $newNatinfs[] = $natinf;
             } elseif($returnValidObjects) {
