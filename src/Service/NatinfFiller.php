@@ -12,7 +12,8 @@ use GuzzleHttp\Pool;
  * Class NatinfFiller request NatInf API with Natinf Number to create the NatInf object then persit it if the Natinf
  * numbers were valid.
  */
-class NatinfFiller {
+class NatinfFiller
+{
 
     /**
      * @var array
@@ -23,7 +24,8 @@ class NatinfFiller {
      */
     private $em;
 
-    public function __construct(EntityManagerInterface $em, string $api) {
+    public function __construct(EntityManagerInterface $em, string $api)
+    {
         $this->api = $api;
         $this->em = $em;
     }
@@ -36,32 +38,33 @@ class NatinfFiller {
      *
      * @return array
      */
-    public function fromArray(array $natinfs, bool $returnValidObjects = false): array {
+    public function fromArray(array $natinfs, bool $returnValidObjects = false): array
+    {
         $result = [];
         $newNatinfs = [];
         if(0 === count($natinfs)) {
             return $result;
         }
 
-        foreach($natinfs as $natinf) {
+        foreach ($natinfs as $natinf) {
             /** @var string $natinf */
-            $exists = $this->em->getRepository('App:Natinf')->findOneBy(['numero' => $natinf]);
-            if(!$exists) {
+            $exists = $this->em->getRepository(Natinf::class)->findOneBy(['numero' => $natinf]);
+            if (!$exists) {
                 $newNatinfs[] = $natinf;
-            } elseif($returnValidObjects) {
+            } elseif ($returnValidObjects) {
                 $result[] = $exists;
             }
         }
-        if(0 === count($newNatinfs)) {
+        if (0 === count($newNatinfs)) {
             return $returnValidObjects ? $result : $natinfs;
         }
 
         $client = new Client(['base_uri' => $this->api]);
 
-        $requests = function(array $natinfs) use ($client) {
+        $requests = function (array $natinfs) use ($client) {
             $uri = 'natinfs/';
-            for($i = 0 ; $i < count($natinfs) ; $i++) {
-                yield function() use ($client, $uri, $natinfs, $i) {
+            for ($i = 0 ; $i < count($natinfs) ; $i++) {
+                yield function () use ($client, $uri, $natinfs, $i) {
                     return $client->getAsync($uri.$natinfs[$i]);
                 };
             }
@@ -69,7 +72,7 @@ class NatinfFiller {
 
         $pool = new Pool($client, $requests($newNatinfs), [
             'concurrency' => 5,
-            'fulfilled' => function($response, $index) use ($returnValidObjects, &$result) {
+            'fulfilled' => function ($response, $index) use ($returnValidObjects, &$result) {
                 $bodyStr = (string)($response->getBody());
                 $body = json_decode($bodyStr);
                 $natinfObj = new Natinf();
@@ -78,7 +81,7 @@ class NatinfFiller {
                     ->setLibelle($body->libelleNataff);
                 $this->em->persist($natinfObj);
 
-                if($returnValidObjects) {
+                if ($returnValidObjects) {
                     $result[] = $natinfObj;
                 }
             },
