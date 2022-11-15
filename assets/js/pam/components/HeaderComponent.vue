@@ -14,7 +14,7 @@
                   </p>
                 </div>
                 <div class="fr-header__navbar">
-                  <button 
+                  <button
                     class="fr-btn--menu fr-btn"
                     data-fr-opened="false"
                     aria-controls="modal-833"
@@ -68,7 +68,7 @@
                                   Télécharger le rapport de patrouille (.docx)</a>
                               </li>
                               <li class="download-item">
-                                <a 
+                                <a
                                   class="fr-nav__link fr-btn--icon-left fr-fi-download-line"
                                   @click.prevent="typeDownload = 'indicateurs'"
                                   href="#"
@@ -96,7 +96,7 @@
                       @click="submitted"
                       v-if="!saved"
                     >
-                      Valider <span class="fr-displayed-xl">le rapport</span>
+                      Valider le rapport
                     </button>
 
                     <button
@@ -108,7 +108,7 @@
                       @click="update"
                       v-if="saved"
                     >
-                      Valider <span class="fr-displayed-xl">le rapport</span>
+                      Valider le rapport
                     </button>
                   </li>
                   <li class="fr-mr-3w">

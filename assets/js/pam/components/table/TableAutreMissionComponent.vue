@@ -24,7 +24,7 @@
         </tr>
 
         <tr>
-          <th scope="row" class="th-row-autre-mission td-pavillon">Lutte anti poluttion</th>
+          <th scope="row" class="th-row-autre-mission td-pavillon">Lutte anti pollution</th>
           <TdEditable :value="entity.nbLuttePollution" v-model="entity.nbLuttePollution"/>
           <TdEditable :value="entity.dureeLuttePollution" v-model="entity.dureeLuttePollution"/>
           <td class="td-blank"></td>
