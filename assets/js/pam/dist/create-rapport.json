@@ -82,7 +82,7 @@
           "observations": null,
           "category": {
             "id": 3,
-            "nom": "Nombre de mise en demeure"
+            "nom": "Nombre de mises en demeure"
           }
         },
         {
@@ -172,7 +172,7 @@
           "observation": null,
           "automaticEnabled": true,
           "automaticValue": null,
-          
+
           "isAutomaticCell": true,
           "category": {
             "id": 10,
