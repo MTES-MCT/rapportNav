@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use App\Entity\Service;
@@ -58,6 +59,14 @@ final class UserAdmin extends AbstractAdmin {
                 ->add('service', ModelType::class, [
                     'class' => Service::class,
                     'property' => 'nom',
+                ])
+                ->add('roles', ChoiceType::class, [
+                    'choices' => [
+                        'ROLE_ULAM' => 'ROLE_ULAM',
+                        'ROLE_PAM' => 'ROLE_PAM',
+                        'ROLE_ADMIN' => 'ROLE_ADMIN'
+                    ],
+                    'multiple' => true
                 ])
             ->end()
             ->with('Management')
