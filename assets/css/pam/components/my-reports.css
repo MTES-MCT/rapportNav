@@ -4,6 +4,17 @@
     margin-bottom: 10px;
 }
 
+.pagination-month {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.pagination-month .previous, .pagination-month .next {
+    color: #000091;
+}
+
+
 .icon-rapport {
     color: #9A9AFF;
 }
