@@ -218,12 +218,21 @@ export default {
     },
     countNavires(id) {
       let count = 0;
-      this.controles.map((controle) => {
-        if(controle.category.id === id) {
+
+      this.controles.forEach((controle) => {
+        if(controle.category.id === id && this.checkControlesFilled(controle)) {
           count += 1;
         }
       })
       return count;
+    },
+    checkControlesFilled(controle) {
+      return (controle.nb_pv_env_pollution || controle.nb_controles_peche_sanitaire
+          || controle.nb_pv_peche_sanitaire || controle.nb_navire_controle
+          || controle.nb_autre_pv || controle.nb_nav_interroge
+          || controle.nb_pv_titre_conduite || controle.nb_pv_titre_nav
+          || controle.nb_pv_equipement_securite || controle.nb_pv_police
+          || controle.nb_nav_deroute_env_pollution || controle.nb_nav_deroute) > 0;
     }
   }
 }
