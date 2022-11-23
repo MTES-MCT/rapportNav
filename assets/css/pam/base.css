@@ -7,6 +7,10 @@
 @import "components/download.css";
 @import "components/profile.css";
 
+html {
+    --background-elevated-white: #fff;
+}
+
 .label__presence {
     float: left;
     margin-bottom: 6px;
