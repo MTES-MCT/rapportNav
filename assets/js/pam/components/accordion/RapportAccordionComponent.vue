@@ -18,7 +18,7 @@
                         <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + controle.id">
                          {{ controle.nom }}
                         </button>
-                        <span class="accordion__title-sub" v-if="controle.id !== 5">{{ countNavires(controle.id) }} navire(s) contrôlé(s)</span>
+                        <span class="accordion__title-sub" v-if="controle.id !== 5">{{ countNavires(controle.pavillons) }} navire(s) contrôlé(s)</span>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
                         <button data-fr-opened="false" :aria-controls="'fr-modal-' + index" class="fr-fi-delete-fill btn-remove" aria-hidden="true"></button>
@@ -216,23 +216,13 @@ export default {
       controle.nom = 'Autres missions';
       this.controlesByType.push(controle);
     },
-    countNavires(id) {
+    countNavires(pavillons) {
       let count = 0;
 
-      this.controles.forEach((controle) => {
-        if(controle.category.id === id && this.checkControlesFilled(controle)) {
-          count += 1;
-        }
+      pavillons.forEach((pavillon) => {
+        count += pavillon.nb_navire_controle;
       })
       return count;
-    },
-    checkControlesFilled(controle) {
-      return (controle.nb_pv_env_pollution || controle.nb_controles_peche_sanitaire
-          || controle.nb_pv_peche_sanitaire || controle.nb_navire_controle
-          || controle.nb_autre_pv || controle.nb_nav_interroge
-          || controle.nb_pv_titre_conduite || controle.nb_pv_titre_nav
-          || controle.nb_pv_equipement_securite || controle.nb_pv_police
-          || controle.nb_nav_deroute_env_pollution || controle.nb_nav_deroute) > 0;
     }
   }
 }
