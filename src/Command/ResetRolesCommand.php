@@ -12,7 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ResetRolesCommand extends Command
 {
     protected static $defaultName = 'app:reset-roles';
-    protected static $defaultDescription = 'Ajout des roles ULAM ou PAM aux différents comptes utilisateurs';
+    protected static $defaultDescription = 'Ajout des rôles ULAM ou PAM aux différents comptes utilisateurs';
 
     private $entityManager;
 
