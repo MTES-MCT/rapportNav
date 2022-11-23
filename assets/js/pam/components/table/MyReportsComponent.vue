@@ -232,7 +232,7 @@
       </div>
       <div class="next">
         <a class="fr-link" href="#" @click.prevent="goToNextMonth">Afficher mois suivant</a>
-        <i class="fr-link fr-fi-arrow-right-s-line"></i>
+        <i class="fr-link fr-fi-arrow-right-s-line" aria-hidden="true"></i>
       </div>
     </div>
 
