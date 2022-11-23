@@ -226,6 +226,16 @@
           <HomeDownloadComponent :rapport="rapport"></HomeDownloadComponent>
         </div>
       </div>
+    <div class="pagination-month">
+      <div class="previous">
+        <a class="fr-link fr-fi-arrow-left-s-line fr-link--icon-left" href="#" @click.prevent="goToPreviousMonth">Afficher mois précédent</a>
+      </div>
+      <div class="next">
+        <a class="fr-link" href="#" @click.prevent="goToNextMonth">Afficher mois suivant</a>
+        <i class="fr-link fr-fi-arrow-right-s-line" aria-hidden="true"></i>
+      </div>
+    </div>
+
     <ModalDownloadAEM :start-date="startDate" :end-date="endDate"/>
   </div>
 </template>

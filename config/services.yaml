@@ -235,3 +235,10 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: categorie, label: FonctionParticuliereAgent }
         public: true
+
+    admin.categorie_deroutement:
+        class: App\Admin\CategorieDeroutementAdmin
+        arguments: [ ~, App\Entity\CategorieDeroutement, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: CategorieDeroutement }
+        public: true
