@@ -41,16 +41,15 @@ class ResetRolesCommand extends Command
         foreach($users as $user) {
             if($user->getService()) {
                 $nomService = $user->getService()->getNom();
-                $prefixNomService = explode('_', $nomService)[0];
+                $prefixNomService = strtoupper(explode(' ', $nomService)[0]);
 
-                if($prefixNomService === 'ULAM') {
+                if($prefixNomService === 'ULAM' || $prefixNomService === 'SMC3' || $prefixNomService === 'VR' ) {
                     $user->addRole('ROLE_ULAM');
                 }
-                if($prefixNomService === 'PAM') {
+                if($prefixNomService === 'PAM' || $prefixNomService === 'SMC3') {
                     $user->addRole('ROLE_PAM');
                 }
             }
-
         }
 
         $this->entityManager->flush();
