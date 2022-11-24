@@ -1,10 +1,16 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <router-view></router-view>
+
+    <FooterComponent/>
+  </div>
 </template>
 
 <script>
+import FooterComponent from "./components/FooterComponent";
 export default {
-  name: "App"
+  name: "App",
+  components: {FooterComponent}
 }
 </script>
 

@@ -1,0 +1,21 @@
+footer {
+    height: 89px;
+    background-color: #F2F2F9;
+    border-top: #000091 2px solid;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #1E1E1E;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    padding: 1rem;
+    text-align: center;
+}
+
+footer a {
+    padding-right: 45px;
+}
