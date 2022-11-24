@@ -42,5 +42,6 @@ security:
         - { path: ^/resetting, role: ROLE_ADMIN }
         - { path: ^/pam/*, roles:  [ROLE_PAM, ROLE_ADMIN] }
         - { path: ^/api/profile/*, roles: [ROLE_USER] }
+        - { path: ^/api/contacts/*, roles: [ROLE_USER] }
         - { path: ^/api/pam, roles: [ROLE_PAM, ROLE_ADMIN] }
         - { path: ^/, roles: [ROLE_ULAM, ROLE_ADMIN] }
