@@ -1,7 +1,7 @@
 <template>
   <footer>
     <a href="#">Documentation</a>
-    <a :href="'mailto:' + mailto" v-if="mailto">Contact</a>
+    <a :href="mailto" v-if="mailto">Contact</a>
   </footer>
 </template>
 
@@ -11,15 +11,33 @@ import axios from "axios";
 export default {
   name: "FooterComponent",
   mounted() {
-    let mailto = null;
+    let mailto = 'mailto:';
+    let recipients = [];
+    let copys = [];
     axios.get('/api/contacts').then((response) => {
       let contacts = response.data;
       contacts.forEach((contact) => {
         if(contact.isRecipient) {
-          mailto = contact.email;
+          recipients.push(contact.email)
         }
         if(contact.isCopy) {
-          mailto = mailto + '?cc=' + contact.email;
+          copys.push(contact.email)
+        }
+      })
+
+      recipients.forEach((recipient, index) => {
+        if(index > 0) {
+          mailto = mailto + ',' + recipient;
+        } else {
+          mailto = mailto + recipient;
+        }
+      })
+
+      copys.forEach((copy, index) => {
+        if(index > 0) {
+          mailto = mailto + ',' + copy;
+        } else {
+          mailto = mailto + '?cc=' + copy;
         }
       })
 
