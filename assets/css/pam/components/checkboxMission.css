@@ -14,3 +14,18 @@
 .checkbox-mission {
     margin-bottom: 10px;
 }
+
+.toggle-mission-principale {
+    margin-left: 2rem;
+    margin-top: -18px;
+    width: 60%;
+}
+
+.toggle-mission-principale label {
+    color: #9C9C9C;
+}
+
+.define-date .text-small-blue {
+    cursor: pointer;
+    margin-left: 2rem;
+}
