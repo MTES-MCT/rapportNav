@@ -7,6 +7,7 @@
 
 <script>
 import axios from "axios";
+import {sanitizeUrl} from "@braintree/sanitize-url";
 
 export default {
   name: "FooterComponent",
@@ -41,7 +42,7 @@ export default {
         }
       })
 
-      this.mailto = mailto;
+      this.mailto = sanitizeUrl(mailto);
     })
   },
   data() {
