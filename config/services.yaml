@@ -240,5 +240,12 @@ services:
         class: App\Admin\CategorieDeroutementAdmin
         arguments: [ ~, App\Entity\CategorieDeroutement, ~ ]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: categorie, label: CategorieDeroutement }
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: 'Catégorie de déroutement' }
+        public: true
+
+    admin.contact:
+        class: App\Admin\ContactAdmin
+        arguments: [ ~, App\Entity\Contact, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Contact }
         public: true

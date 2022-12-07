@@ -12,7 +12,7 @@
       <label class="fr-label text-sm" :for="'checkboxes-' + id">{{ nom }}</label>
     </div>
     <div
-        class="fr-toggle fr-toggle--label-left" v-if="mission.checked">
+        class="fr-toggle fr-toggle--label-left toggle-mission-principale" v-if="mission.checked">
       <input type="checkbox" class="fr-toggle__input is-main-mission " :aria-describedby="'toggle-' + id + '-hint-text'" :id="'toggle-' + id" v-model="mission.is_main">
       <label class="fr-toggle__label" :for="'toggle-' + id">Mission principale</label>
     </div>
