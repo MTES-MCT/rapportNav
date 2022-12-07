@@ -1,7 +1,7 @@
 <template>
   <footer>
     <a href="#">Documentation</a>
-    <a :href="mailto" v-if="mailto">Contact</a>
+    <a class="mailtoContact" href="#">Contact</a>
   </footer>
 </template>
 
@@ -42,12 +42,11 @@ export default {
         }
       })
 
-      this.mailto = sanitizeUrl(mailto);
+      document.querySelector('.mailtoContact').href = sanitizeUrl(mailto);
     })
   },
   data() {
     return {
-      mailto: null
     }
   }
 }
