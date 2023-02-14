@@ -68,6 +68,12 @@ final class PamRapportAdmin extends AbstractAdmin
                     'show' => [],
                     'edit' => [],
                     'delete' => [],
+                    'exportDocx' => [
+                        'template' => 'admin/pam/export_button.html.twig'
+                    ],
+                    'exportIndicateurs' => [
+                        'template' => 'admin/pam/export_indicateurs_button.html.twig'
+                    ],
                 ],
             ]);
     }
