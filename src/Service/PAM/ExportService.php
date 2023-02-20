@@ -35,19 +35,20 @@ class ExportService {
 
     private string $templateDir;
 
-    const ROW_ASSISTANCE_NAVIRE = 16;
-    const ROW_LUTTE_IMMIGRATION_ILLEGALE = 22;
-    const ROW_REPRESSION_POLLUTION = 28;
-    const ROW_PECHE_ILLEGALE = 34;
-    const ROW_SURVEILLANCE_ENVIRONNEMENT = 41;
-    const ROW_SURETE_MARITIME = 45;
-    const ROW_INTERETS_NATIONAUX = 49;
+    const ROW_ASSISTANCE_NAVIRE = 23;
+    const ROW_LUTTE_IMMIGRATION_ILLEGALE = 29;
+    const ROW_REPRESSION_POLLUTION = 35;
+    const ROW_PECHE_ILLEGALE = 41;
+    const ROW_SURVEILLANCE_ENVIRONNEMENT = 48;
+    const ROW_SURETE_MARITIME = 52;
+    const ROW_INTERETS_NATIONAUX = 56;
+    const ROW_SAUVETAGE = 17;
 
     /**
      * @param PamIndicateurRepository $indicateurRepository
      * @param PamDraftRepository      $draftRepository
      */
-    public function __construct(PamIndicateurRepository $indicateurRepository, PamDraftRepository $draftRepository, 
+    public function __construct(PamIndicateurRepository $indicateurRepository, PamDraftRepository $draftRepository,
                                 PamRapportRepository $rapportRepository, string $project_dir) {
         $this->indicateurRepository = $indicateurRepository;
         $this->draftRepository = $draftRepository;
@@ -66,6 +67,7 @@ class ExportService {
         $indicateurs = $draft ? $this->draftRepository->findAllIndicateursByRapport($rapportID) : $this->indicateurRepository->findAllByRapport($rapportID);
         $spreadsheet = IOFactory::load($this->templateDir . 'SAMPLE_Rapport_AEM.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
+
         $this->fillAEM($indicateurs, $sheet);
 
         return $spreadsheet;
@@ -82,7 +84,7 @@ class ExportService {
      */
     public function exportRapportAEM(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true) : Spreadsheet
     {
-        $spreadsheet = IOFactory::load($this->templateDir . 'SAMPLE_Rapport_AEM.xlsx');
+        $spreadsheet = IOFactory::load($this->templateDir . 'SAMPLE_Rapport_AEM_2.xslx');
         $filler = new OfficeFiller();
         $rapports = $this->rapportRepository->findByDateRange($firstDate, $lastDate, $wholeTeams);
 
@@ -93,6 +95,7 @@ class ExportService {
         $surveillanceEnv = [];
         $sureteMaritime = [];
         $interetsNationaux = [];
+        $sauvetage = [];
 
         if(!$rapports) {
             throw new RapportNotFound('Aucun rapport trouvé pour cette unité');
@@ -132,6 +135,8 @@ class ExportService {
                     case 7:
                         $interetsNationaux = $mission->getIndicateurs()->toArray();
                         break;
+                    case 8:
+                        $sauvetage = $mission->getIndicateurs()->toArray();
                 }
             }
             $mois[] = $rapport->getStartDatetime()->format('F Y');
@@ -142,7 +147,8 @@ class ExportService {
             $filler->fillCells($sheet, self::ROW_PECHE_ILLEGALE, $pecheIllegale, $merge);
             $filler->fillCells($sheet, self::ROW_SURVEILLANCE_ENVIRONNEMENT, $surveillanceEnv, $merge);
             $filler->fillCells($sheet, self::ROW_SURETE_MARITIME, $sureteMaritime, $merge);
-            $sheet->setCellValue('B9', $rapport->getCreatedBy()->getNom());
+            $filler->fillCells($sheet, self::ROW_SAUVETAGE, $sauvetage, $merge);
+            $sheet->setCellValue('B7', $rapport->getCreatedBy()->getNom());
         }
 
         $sheetIndex = $spreadsheet->getIndex(
@@ -269,6 +275,7 @@ class ExportService {
         $surveillanceEnv = [];
         $sureteMaritime = [];
         $interetsNationaux = [];
+        $sauvetage = [];
 
         foreach($indicateurs as $value) {
             switch($value->getMission()->getCategory()->getId()) {
@@ -293,8 +300,12 @@ class ExportService {
                 case 7:
                     $interetsNationaux[] = $value;
                     break;
+                case 8:
+                    $sauvetage[] = $value;
+                    break;
             }
         }
+
 
         $filler->fillCells($sheet, self::ROW_ASSISTANCE_NAVIRE, $assistanceNavire);
         $filler->fillCells($sheet, self::ROW_INTERETS_NATIONAUX, $interetsNationaux);
@@ -303,5 +314,6 @@ class ExportService {
         $filler->fillCells($sheet, self::ROW_PECHE_ILLEGALE, $pecheIllegale);
         $filler->fillCells($sheet, self::ROW_SURVEILLANCE_ENVIRONNEMENT, $surveillanceEnv);
         $filler->fillCells($sheet, self::ROW_SURETE_MARITIME, $sureteMaritime);
+        $filler->fillCells($sheet, self::ROW_SAUVETAGE, $sauvetage);
     }
 }
