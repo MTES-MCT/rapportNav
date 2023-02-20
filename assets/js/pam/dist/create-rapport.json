@@ -79,7 +79,7 @@
           "total": null,
           "observations": null,
           "category": {
-            "id": 26,
+            "id": 27,
             "nom": "Nombre d'opérations conduites"
           }
         },
@@ -89,7 +89,7 @@
           "total": null,
           "observations": null,
           "category": {
-            "id": 27,
+            "id": 28,
             "nom": "Nombre de personnes secourues"
           }
         },
@@ -99,7 +99,7 @@
           "total": null,
           "observations": null,
           "category": {
-            "id": 28,
+            "id": 29,
             "nom": "Nombre de personnes disparues ou décédées"
           }
         }
