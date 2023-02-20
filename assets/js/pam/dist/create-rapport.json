@@ -45,6 +45,70 @@
       "checked": false,
       "is_main": false,
       "category": {
+        "id": 8,
+        "nom": "Sauvetage de la vie humaine"
+      },
+      "indicateurs": [
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "automaticEnabled": false,
+          "automaticValue": null,
+          "category": {
+            "id": 1,
+            "nom": "Nombre d'heures de mer"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "automaticEnabled": false,
+          "automaticValue": null,
+          "category": {
+            "id": 26,
+            "nom": "Nombre d’heures de mer hors SRR française et hors coordination d'un CROSS ou MRCC français"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 26,
+            "nom": "Nombre d'opérations conduites"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 27,
+            "nom": "Nombre de personnes secourues"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 28,
+            "nom": "Nombre de personnes disparues ou décédées"
+          }
+        }
+      ]
+    },
+    {
+      "checked": false,
+      "is_main": false,
+      "category": {
         "id": 1,
         "nom": "Assistance aux navires en difficulté et sécurité maritime"
       },
