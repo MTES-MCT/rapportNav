@@ -84,7 +84,7 @@ class ExportService {
      */
     public function exportRapportAEM(\DateTime $firstDate, \DateTime $lastDate, bool $wholeTeams = true) : Spreadsheet
     {
-        $spreadsheet = IOFactory::load($this->templateDir . 'SAMPLE_Rapport_AEM_2.xslx');
+        $spreadsheet = IOFactory::load($this->templateDir . 'SAMPLE_Rapport_AEM.xlsx');
         $filler = new OfficeFiller();
         $rapports = $this->rapportRepository->findByDateRange($firstDate, $lastDate, $wholeTeams);
 
