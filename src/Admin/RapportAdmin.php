@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -65,11 +66,14 @@ class RapportAdmin extends AbstractAdmin {
                     'show' => [],
                     'edit' => [],
                     'delete' => [],
+                    'exportDocx' => [
+                        'template' => 'admin/export_button.html.twig'
+                    ]
                 ],
             ])
         ;
     }
-    
+
     protected function configureShowFields(ShowMapper $showMapper): void {
         $showMapper
         ->add('id')
@@ -84,7 +88,7 @@ class RapportAdmin extends AbstractAdmin {
         ->add('commentaire')
         ;
     }
-    
+
     public function toString($rapport): string {
         return $rapport instanceof Rapport ? "Rapport n°".$rapport->getId() : 'Rapport';
     }
