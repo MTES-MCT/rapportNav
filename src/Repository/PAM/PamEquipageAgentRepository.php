@@ -18,4 +18,13 @@ class PamEquipageAgentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PamEquipageAgent::class);
     }
+
+    public function add(PamEquipageAgent $entity, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
 }
