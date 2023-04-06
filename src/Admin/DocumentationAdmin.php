@@ -11,27 +11,20 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use App\Entity\Service;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 
-final class ContactAdmin extends AbstractAdmin {
+final class DocumentationAdmin extends AbstractAdmin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void {
         $datagridMapper
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-            ->add('isRecipient')
-            ->add('isCopy')
+            ->add('version')
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper): void {
         $listMapper
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-            ->add('isRecipient')
-            ->add('isCopy')
+            ->add('path')
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
@@ -43,21 +36,15 @@ final class ContactAdmin extends AbstractAdmin {
 
     protected function configureFormFields(FormMapper $formMapper): void {
         $formMapper
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-            ->add('isRecipient')
-            ->add('isCopy')
+            ->add('file', FileType::class)
+            ->add('version')
         ;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void {
         $showMapper
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-            ->add('isRecipient')
-            ->add('isCopy')
+            ->add('path')
+            ->add('version')
         ;
     }
 }

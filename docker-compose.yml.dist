@@ -27,10 +27,7 @@ services:
         container_name: rnav_php
         volumes:
           - .:/home/wwwroot/app
-        environment:
-          - maildev_host=rnav_maildev
         depends_on:
-          - maildev
           - db
 
     adminer:
@@ -39,17 +36,3 @@ services:
         ADMINER_DEFAULT_SERVER: rnav_db
       ports:
         - 8585:8080
-
-    maildev:
-        image: schickling/mailcatcher
-        container_name: rnav_maildev
-        ports:
-          - [1025, 1080]
-
-    node:
-      image: node:latest
-      working_dir: /home/wwwroot/app
-      container_name: rnav_node
-      command: ["yarn", "dev-server"]
-      volumes:
-        - .:/home/wwwroot/app

@@ -18,4 +18,22 @@ class FonctionAgentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, FonctionAgent::class);
     }
+
+    public function remove(FonctionAgent $entity, bool $flush = false)
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function add(FonctionAgent $entity, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
 }

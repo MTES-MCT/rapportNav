@@ -1,4 +1,7 @@
-
+creerzipProd.sh
+deployer.sh
+prod.env.local
+src/DataFixtures/Local/dropo
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -31,7 +34,7 @@
 .settings
 nbproject
 
-### node modules 
+### node modules
 /node_modules
 
 ### Ignoring local datafixtures
