@@ -37,7 +37,7 @@ class SuiviMensuelController extends AbstractController {
             throw new NotFoundHttpException("Pas de rapport pour la date spécifiée, avez vous indiqué une date correcte ? ".$month."/".$year);
         }
 
-        $suiviMensuel = $entityManager->getRepository("App:SuiviMensuel")
+        $suiviMensuel = $entityManager->getRepository(SuiviMensuel::class)
             ->findBy(['service' => $service, 'date' => $date]);
 
         if(1 < count($suiviMensuel)) {

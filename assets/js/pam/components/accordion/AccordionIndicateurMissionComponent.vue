@@ -5,22 +5,27 @@
         <li>
           <div class="box-shadow-card" :id="id">
             <section class="fr-accordion box-shadow-card-body">
-              <div class="fr-accordion__title ">
+              <div class="fr-accordion__title">
                 <div class="fr-container--fluid">
                   <div class="fr-grid-row">
                     <div class="fr-col-11">
-                      <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" :aria-expanded="expanded" :aria-controls="'accordion-' + id">
+                      <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" :aria-expanded="expanded" :aria-controls="'accordion-indicateurs-' + id">
                         {{ title }}
                       </button>
+                      <span class="accordion__title-sub" v-if="countIndicateursAutomatique > 1">{{ countIndicateursAutomatique }} indicateurs automatiques activés</span>
+                      <span class="accordion__title-sub" v-if="countIndicateursAutomatique === 1">{{ countIndicateursAutomatique }} indicateur automatique activé</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="fr-collapse" :id="'accordion-' + id ">
+              <div class="fr-collapse" :id="'accordion-indicateurs-' + id ">
                 <div class="divider-horizontal--accordion"></div>
                 <TableIndicateurComponent
                     :id="id"
-                    :types="indicateurs"
+                    :mission="mission"
+                    :controles="controles"
+                    :category="categoryId"
+                    :autres-missions="autresMissions"
                 ></TableIndicateurComponent>
               </div>
             </section>
@@ -40,26 +45,37 @@ export default {
       type: String,
       default: null
     },
-    category: {
+    categoryId: {
       type: Number,
-      default: null
-    },
-    indicateurs: {
-      type: Array,
       default: null
     },
     expanded: {
       type: String,
       default: () => { return "false" }
-    }
+    },
+    mission: Object,
+    controles: Array,
+    autresMissions: Object
   },
   components: {
     TableIndicateurComponent
   },
-  methods: {},
+  mounted() {
+  },
+  computed: {
+    countIndicateursAutomatique() {
+      let count = 0;
+      this.mission.indicateurs.map((indicateur) => {
+        if(indicateur.automaticEnabled) {
+          count += 1;
+        }
+      })
+      return count;
+    }
+  },
   data: function() {
     return {
-      id: this._uid
+      id: this.categoryId
     }
   }
 }

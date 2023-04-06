@@ -2,28 +2,87 @@
 
 namespace App\Service\PAM;
 
+use App\Entity\Agent;
+use App\Entity\FonctionAgent;
+use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\PamEquipage;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Service;
+use App\Repository\AgentRepository;
+use App\Repository\FonctionAgentRepository;
+use App\Repository\FonctionParticuliereAgentRepository;
+use App\Repository\PAM\PamEquipageRepository;
 
 class PamEquipageService {
 
     /**
-     * @var EntityManagerInterface
+     * @var PamEquipageRepository
      */
-    private $em;
+    private $equipageRepository;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var AgentRepository
+     */
+    private $agentRepository;
+
+    /**
+     * @var FonctionAgentRepository
+     */
+    private $fonctionAgentRepository;
+
+    /**
+     * @var FonctionParticuliereAgentRepository
+     */
+    private $fonctionParticuliereRepository;
+
+    public function __construct(PamEquipageRepository $equipageRepository, AgentRepository $agentRepository,
+                                FonctionAgentRepository $fonctionAgentRepository,
+                                FonctionParticuliereAgentRepository $fonctionParticuliereAgentRepository)
     {
-        $this->em = $em;
+        $this->equipageRepository = $equipageRepository;
+        $this->agentRepository = $agentRepository;
+        $this->fonctionAgentRepository = $fonctionAgentRepository;
+        $this->fonctionParticuliereRepository = $fonctionParticuliereAgentRepository;
     }
 
     /**
      * Retrieve the last equipage used
+     *
+     * @param Service $service
+     *
      * @return PamEquipage|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getLastEquipage() : ?PamEquipage
+    public function getLastEquipage(Service $service) : ?PamEquipage
     {
-        return $this->em->getRepository(PamEquipage::class)->findLastEquipage();
+        return $this->equipageRepository->findLastEquipage($service);
+    }
+
+    /**
+     * Autocompletion de la liste des agents
+     *
+     * @param string|null $fullName
+     *
+     * @return Agent[]
+     */
+    public function autocomplete(?string $fullName = null) : array
+    {
+        return $this->agentRepository->autocomplete($fullName);
+    }
+
+    /**
+     * @return FonctionAgent[]
+     */
+    public function listFonction() : array
+    {
+        return $this->fonctionAgentRepository->findAll();
+    }
+
+    /**
+     * @return FonctionParticuliereAgent[]
+     */
+    public function listFonctionParticuliere() : array
+    {
+        return $this->fonctionParticuliereRepository->findAll();
     }
 
 }

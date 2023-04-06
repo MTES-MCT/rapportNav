@@ -2,6 +2,8 @@
 
 namespace App\Entity\PAM;
 
+use App\Entity\FonctionAgent;
+use App\Entity\FonctionParticuliereAgent;
 use App\Repository\PAM\PamEquipageAgentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -21,7 +23,7 @@ class PamEquipageAgent
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PamEquipage::class, inversedBy="membre")
+     * @ORM\ManyToOne(targetEntity=PamEquipage::class, inversedBy="membres", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipage;
@@ -35,21 +37,42 @@ class PamEquipageAgent
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\Column(type="string", length=64)
-     */
-    private $role;
-
-    /**
-     * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observations;
 
     /**
+     *
+     * @var FonctionParticuliereAgent
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\Column(type="boolean")
+     * @ORM\ManyToOne(targetEntity=FonctionParticuliereAgent::class)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $is_absent = false;
+    private $fonctionParticuliere;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\ManyToOne(targetEntity=FonctionAgent::class, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $fonction;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateDepart;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateArrivee;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 2})
+     */
+    private $presence = 2;
 
     public function getId(): ?int
     {
@@ -80,18 +103,6 @@ class PamEquipageAgent
         return $this;
     }
 
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
     public function getObservations(): ?string
     {
         return $this->observations;
@@ -104,15 +115,67 @@ class PamEquipageAgent
         return $this;
     }
 
-    public function getIsAbsent(): ?bool
-    {
-        return $this->is_absent;
+    /**
+     * @return FonctionParticuliereAgent
+     */
+    public function getFonctionParticuliere(): ?FonctionParticuliereAgent {
+        return $this->fonctionParticuliere;
     }
 
-    public function setIsAbsent(bool $is_absent): self
+    /**
+     * @param FonctionParticuliereAgent $fonctionParticuliere
+     */
+    public function setFonctionParticuliere(?FonctionParticuliereAgent $fonctionParticuliere): void {
+        $this->fonctionParticuliere = $fonctionParticuliere;
+    }
+
+    public function getFonction(): ?FonctionAgent
     {
-        $this->is_absent = $is_absent;
+        return $this->fonction;
+    }
+
+    public function setFonction(?FonctionAgent $fonction): self
+    {
+        $this->fonction = $fonction;
 
         return $this;
     }
+
+    public function getDateDepart(): ?\DateTimeInterface
+    {
+        return $this->dateDepart;
+    }
+
+    public function setDateDepart(?\DateTimeInterface $dateDepart): self
+    {
+        $this->dateDepart = $dateDepart;
+
+        return $this;
+    }
+
+    public function getDateArrivee(): ?\DateTimeInterface
+    {
+        return $this->dateArrivee;
+    }
+
+    public function setDateArrivee(?\DateTimeInterface $dateArrivee): self
+    {
+        $this->dateArrivee = $dateArrivee;
+
+        return $this;
+    }
+
+    public function getPresence(): ?int
+    {
+        return $this->presence;
+    }
+
+    public function setPresence(int $presence): self
+    {
+        $this->presence = $presence;
+
+        return $this;
+    }
+
+
 }

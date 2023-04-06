@@ -43,15 +43,17 @@ export default {
   mounted() {
     axios.get('/api/pam/rapport/last/draft')
     .then((success) => {
-      const body = JSON.parse(success.data.body)
-      this.startDateTime = body.start_datetime;
-      this.endDateTime = body.end_datetime;
-      this.numRapport = success.data.number;
-      this.created_by = success.data.created_by
-      this.id = success.data.id;
-      console.log(success.data)
+      if(success.data) {
+        const body = JSON.parse(success.data.body)
+        this.startDateTime = body.start_datetime;
+        this.endDateTime = body.end_datetime;
+        this.numRapport = success.data.number;
+        this.created_by = success.data.created_by
+        this.id = success.data.id;
+
+      }
     })
-    .then(error => console.log(error))
+    .catch(error => console.log(error))
   },
   methods: {
     editRapport() {

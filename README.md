@@ -30,8 +30,9 @@ Simple reporting tool for Direction des Affaires Maritimes (French Maritime Affa
 ## Requirements
 
 Backend : 
-* PHP7.2
+* PHP7.3
 * composer
+* PostGreSQL (may work with MariaDB but not tested) >= 9.6
 
 Frontend:
 * node >=12
@@ -46,9 +47,11 @@ Install instructions are for server using Apache on Debian (Apache user being `w
 
 A PostGre database and role should be created for the application. 
 
+For the next instructions, we will assume that you install the applicatino on a server on `/opt` with `www-data` beeing the Apache (or any other web server) user.
+
 ```(bash)
-$ cd /var/www/
-$ git clone https://github.com/SebastienTouze/rapportNav.git app/rapportNav
+$ cd /opt/rapportnav/
+$ git clone https://github.com/SebastienTouze/rapportNav.git app-ppr
 ```
 Before taking the next steps, create your environment `.env.local` file copying `.template.env`. 
 You will need to configure : 
@@ -70,13 +73,18 @@ $ sudo -u www-data yarn build
 $ sudo -u www-data bin/console doctrine:migration:migrate
 ```
 
+You may need to install assets for the SonataAdminBundle using `$ sudo -u www-data bin/console assets:install`
+
 If you aim to contribute to the code you may prefer to use the `yarn dev` or `yarn watch` commands for js compilation. 
 Some basic fixtures to get a development environment are available using `bin/console doctrine:fixtures:load --group=default`
+This command should be executed in dev environment, you may add the `--env=dev` depending on the environment defined in your `.env.local`
+TODO: some fixtures are missing on the repository. 
 
 ### Test environment configuration (for developers)
 
 For tests only it is required to create a `var/data` folder where a SQLite database for tests will be instantiated, the module `php-sqlite3` is also required for running tests. 
 You can check dev requirements with the command `$ sudo -u www-data composer check-platform-reqs`
+
 
 ## Contribution 
 

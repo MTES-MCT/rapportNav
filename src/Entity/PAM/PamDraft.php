@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PamDraft
 {
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "view"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -22,36 +22,42 @@ class PamDraft
     private $id;
 
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "view"})
      * @var string
      * @ORM\Column(type="text")
      */
     private $body;
 
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "view"})
      * @ORM\Column(type="datetime_immutable")
      */
     private $created_at;
 
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "view"})
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updated_at;
 
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "view"})
      * @ORM\Column(type="string", length=20)
      */
     private $number;
 
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "view"})
      * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="pamDrafts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $created_by;
+
+    /**
+     * @Groups({"view"})
+     * @var string
+     */
+    private $type = 'brouillon';
 
     /**
      * @ORM\Column(type="datetime")
@@ -155,4 +161,20 @@ class PamDraft
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getType(): string {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void {
+        $this->type = $type;
+    }
+
+
 }

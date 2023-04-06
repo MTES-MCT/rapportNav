@@ -26,33 +26,30 @@
               </div>
             </div>
 
-            <div class="fr-header__tools responsive-btn fr-ml-8w">
+            <div class="fr-header__tools fr-ml-8w" v-if="enableMyProfile">
               <div class="fr-header__tools-links">
                 <ul class="fr-links-group">
-                  <li>
+                  <li class="fr-mr-3w">
                     <button
-                        class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left mr-2"
-                        data-fr-opened="false"
-                        aria-controls="modal-870"
+                        id="home_header_creer_un_rapport_btn"
+                        class="fr-btn--menu fr-btn fr-fi-add-circle-fill fr-btn--icon-left"
                         title="Créer un rapport"
-                        @click="createRapport"
-                    >
+                        @click="createRapport">
                       Créer un rapport
                     </button>
                   </li>
-              <!--    <li>
-                    <button
-                        class="fr-btn--menu fr-btn mr-2 fr-fi-user-line fr-btn--secondary fr-btn--icon-left"
-                        data-fr-opened="false"
-                        aria-controls="modal-870"
+                  <li class="fr-mr-3w">
+                    <router-link
+                        class="fr-btn--menu fr-btn fr-fi-user-line fr-btn--secondary fr-btn--icon-left"
                         title="Mon profil"
+                        to="/pam/profil"
                     >
                       Mon profil
-                    </button>
+                    </router-link>
                   </li>
                   <li>
 
-                  </li>-->
+                  </li>
                 </ul>
               </div>
             </div>
@@ -78,7 +75,8 @@
 export default {
   name: "HeaderHomeComponent",
   props: {
-    nameSite: String
+    nameSite: String,
+    enableMyProfile: Boolean
   },
   methods: {
     createRapport() {

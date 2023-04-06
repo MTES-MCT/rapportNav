@@ -1,0 +1,38 @@
+version: '3'
+services:
+    apache:
+        build: .docker/apache
+        container_name: rnav_apache
+        ports:
+          - 8080:80
+        volumes:
+          - .docker/config/vhosts:/etc/apache2/sites-enabled
+          - .:/home/wwwroot/app
+        depends_on:
+          - php
+
+    db:
+      container_name: rnav_db
+      image: postgres:10
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: rapportnav_dev
+        POSTGRES_USER: aleck
+      ports:
+        - 15432:5432
+
+    php:
+        build: .docker/php
+        container_name: rnav_php
+        volumes:
+          - .:/home/wwwroot/app
+        depends_on:
+          - db
+
+    adminer:
+      image: adminer:latest
+      environment:
+        ADMINER_DEFAULT_SERVER: rnav_db
+      ports:
+        - 8585:8080

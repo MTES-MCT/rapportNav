@@ -1,21 +1,23 @@
 .members-list {
     display: flex;
     flex-direction: column;
-    max-height: 250px;
+    max-height: 600px;
     flex-wrap: wrap;
 }
 
-.member-group {
+.agent-item {
     display: flex;
     margin-bottom: 20px;
+    padding: 5px;
+    max-width: 150px;
 }
 
 .more-option-icon {
     background: #E5E5F4;
     padding: 2px;
     border-radius: 50%;
-    font-size: 11px;
-    margin-left: 5px;
+    font-size: 15px;
+    margin-left: 15px;
 }
 
 .equipRole {
@@ -34,17 +36,28 @@
 }
 
 .tooltipMember {
-    visibility: hidden;
     min-height: 300px;
     background-color: #fff;
     box-shadow: 0px 3px 10px #00000029;
     text-align: center;
     padding: 5px 0;
-
+    width: 680px;
     /* Position the tooltip */
     position: absolute;
     z-index: 3;
     margin-left: -60px;
+}
+
+.select-month {
+    width: 90px;
+}
+
+.select-day {
+    width: 90px;
+}
+
+.select-time {
+    width: 120px;
 }
 
 .remove-equip-btn {
@@ -53,8 +66,10 @@
     color: #E10600;
 }
 
-.member-group:hover .tooltipMember{
-    visibility: visible;
+.agent-item:hover{
+  /*  visibility: visible;*/
+    background-color: #ececec;
+    cursor: pointer;
 }
 
 .tooltip-add-member {
@@ -71,7 +86,7 @@
 .tooltip-new-member {
     background-color: #fff;
     box-shadow: 0px 3px 10px #00000029;
-    padding: 5px 10px 5px 10px;
+    padding: 24px 18px;
     width: 340px;
     /* Position the tooltip */
     position: absolute;

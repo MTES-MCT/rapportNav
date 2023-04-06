@@ -3,9 +3,10 @@
 namespace App\Controller\PAM\Api;
 
 use App\Entity\PAM\PamRapport;
+use App\Exception\BordeeNotFound;
 use App\Form\PAM\PamRapportType;
-use App\Request\PAM\DraftRequest;
-use App\Service\PAM\CreateRapport;
+use App\Service\PAM\FiltreService;
+use App\Service\PAM\RapportService;
 use App\Service\PAM\PamEquipageService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -15,8 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Rest\Route("/api/pam/rapport")
@@ -24,12 +23,17 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class RapportController extends AbstractFOSRestController {
 
     /**
-     * @var CreateRapport
+     * @var RapportService
      */
     private $createRapportService;
+    /**
+     * @var FiltreService
+     */
+    private $filtreService;
 
-    public function __construct(CreateRapport $createRapportService) {
+    public function __construct(RapportService $createRapportService, FiltreService $filtreService) {
         $this->createRapportService = $createRapportService;
+        $this->filtreService = $filtreService;
     }
 
     /**
@@ -57,20 +61,18 @@ class RapportController extends AbstractFOSRestController {
     /**
      * @Rest\Post("/draft")
      * @Rest\View(serializerGroups={"draft"})
-     * @ParamConverter("draftRequest", converter="fos_rest.request_body")
-     * @param DraftRequest $draftRequest
-     * @param Request      $request
+     * @param Request $request
      *
      * @return View
      */
-    public function draft(DraftRequest $draftRequest, Request $request) : View
+    public function draft(Request $request) : View
     {
         try {
             $id = null;
             if($request->query->get('id')) {
                 $id = $request->query->get('id');
             }
-            $draft = $this->createRapportService->saveDraft($draftRequest, $this->getUser()->getService(), $id);
+            $draft = $this->createRapportService->saveDraft($request->getContent(), $this->getUser()->getService(), $id);
             return View::create($draft, Response::HTTP_OK);
         } catch(BadRequestHttpException $exception) {
             return View::create($exception->getMessage(), Response::HTTP_BAD_REQUEST);
@@ -134,7 +136,7 @@ class RapportController extends AbstractFOSRestController {
      */
     public function lastEquipage(PamEquipageService $service) : View
     {
-        return View::create($service->getLastEquipage(), Response::HTTP_OK);
+        return View::create($service->getLastEquipage($this->getUser()->getService()), Response::HTTP_OK);
     }
 
     /**
@@ -153,11 +155,39 @@ class RapportController extends AbstractFOSRestController {
         $form = $this->createForm(PamRapportType::class, $existingRapport);
 
         try {
-            $response = $this->createRapportService->updateRapport($form, $request, $existingRapport);
+            $response = $this->createRapportService->updateRapport($form, $request, $existingRapport, $this->getUser()->getService());
             return View::create($response, Response::HTTP_OK);
         }
         catch(BadRequestHttpException $e) {
             return View::create($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
+     * @Rest\Get
+     * @Rest\View(serializerGroups={"view"})
+     * @return View
+     */
+    public function list() : View
+    {
+        return View::create($this->createRapportService->listAll(), Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Get("/filtre")
+     * @Rest\View(serializerGroups={"view"})
+     * @param Request $request
+     *
+     * @return View
+     */
+    public function filtre(Request $request) : View
+    {
+        try {
+            $result = $this->filtreService->filtre($request);
+            return View::create($result, Response::HTTP_OK);
+        }
+        catch(BordeeNotFound $e) {
+            return View::create($e->getMessage(), $e->getCode());
         }
     }
 

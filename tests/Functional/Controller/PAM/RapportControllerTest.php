@@ -3,29 +3,36 @@
 namespace App\Tests\Functional\Controller\PAM;
 
 use App\DataFixtures\Tests\PAM\ControleTypeFixture;
+use App\DataFixtures\Tests\PAM\DraftFixture;
 use App\DataFixtures\Tests\PAM\IndicateurTypeFixture;
 use App\DataFixtures\Tests\PAM\MissionTypeFixture;
 use App\DataFixtures\Tests\PAM\RapportFixture;
-use App\DataFixtures\Tests\ServicesFixture;
 use App\DataFixtures\Tests\UsersFixture;
+use App\Entity\PAM\PamControle;
 use App\Entity\PAM\PamRapport;
 use App\Repository\PAM\PamRapportRepository;
-use Liip\TestFixturesBundle\Test\FixturesTrait;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RapportControllerTest extends WebTestCase {
-
-    use FixturesTrait;
+    
+    /** @var AbstractDatabaseTool */
+    protected $databaseTool;
 
     private $client;
 
     protected function setUp(): void {
-        $this->loadFixtures([
+        static::bootKernel();
+        $this->databaseTool = self::$container->get(DatabaseToolCollection::class)->get();
+        
+        $this->databaseTool->loadFixtures([
             UsersFixture::class,
             MissionTypeFixture::class,
             IndicateurTypeFixture::class,
             ControleTypeFixture::class,
             RapportFixture::class,
+            DraftFixture::class
         ]);
 
         $this->client = static::createClient([], [
@@ -43,12 +50,26 @@ class RapportControllerTest extends WebTestCase {
         $container = self::$container;
         $serializer = $container->get('serializer');
         $rapportResponse = $serializer->deserialize($this->client->getResponse()->getContent(), PamRapport::class, 'json');
-       // dd($this->client->getResponse());
         $rapport = $container->get(PamRapportRepository::class)->find($rapportResponse->getId());
-
+        /** @var PamControle $controle */
+        $controle = $rapport->getControles()->get(0);
+        $indicateur = $rapport->getMissions()[0]->getIndicateurs()[0];
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
-        $this->assertStringContainsString('MED' , $rapportResponse->getId());
-        $this->assertNotNull($rapport);
+        $this->assertStringContainsString('TEST' , $rapportResponse->getId());
+        $this->assertEquals(12, $controle->getNbNavireControle());
+        $this->assertEquals(64, $controle->getNbPvPecheSanitaire());
+        $this->assertEquals(3, $controle->getNbPvEquipementSecurite());
+        $this->assertEquals(4, $controle->getNbPvPolice());
+        $this->assertEquals(7, $controle->getNbPvTitreNav());
+        $this->assertEquals(8, $controle->getNbPvEnvPollution());
+        $this->assertEquals(9, $controle->getNbAutrePv());
+        $this->assertEquals(10, $controle->getNbNavDeroute());
+        $this->assertEquals(11, $controle->getNbNavInterroge());
+        $this->assertEquals('FR', $controle->getPavillon());
+        $this->assertEquals('Test observation request', $indicateur->getObservations());
+        $this->assertEquals(6, $indicateur->getPrincipale());
+        $this->assertEquals(4, $indicateur->getSecondaire());
+        $this->assertEquals(10, $indicateur->getTotal());
     }
 
     public function testRapportMissingMandatoryInfo400Error()
@@ -68,7 +89,7 @@ class RapportControllerTest extends WebTestCase {
 
         $json = $this->jsonReader('body-test-rapport-update-informationsGenerales-success.json');
         $this->sendRequest('/rapport/' . $id, $json, 'PUT');
-
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         /** @var PamRapport $updatedRapport */
         $updatedRapport = $container->get(PamRapportRepository::class)->find($id);
@@ -122,8 +143,25 @@ class RapportControllerTest extends WebTestCase {
         $this->assertEquals($id, $updatedRapport->getId());
     }
 
+    public function testRapportListSuccess()
+    {
+        $this->sendRequest('/rapport', null, 'GET');
+        $response = json_decode($this->client->getResponse()->getContent(), true);
 
-    private function sendRequest(string $url, string $body, $method = 'POST')
+
+        $this->assertCount(4, $response);
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertNotNull($response[0]['id']);
+        $this->assertNotNull($response[1]['id']);
+
+
+
+        $this->assertEquals('validé', $response[0]['type']);
+        $this->assertEquals('brouillon', $response[3]['type']);
+    }
+
+
+    private function sendRequest(string $url, string $body = null, $method = 'POST')
     {
         $this->client->request(
             $method,

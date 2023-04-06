@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ZoneGeographiqueAdmin extends AbstractAdmin {
-    protected function configureFormFields(FormMapper $formMapper) {
+    protected function configureFormFields(FormMapper $formMapper): void {
         $formMapper
             ->add('nom', TextType::class, ['required' => true, 'label' => "Nom de la zone"])
             ->add('alias', TextType::class, ['required' => false, 'label' => "Alias (ex. numéro de département)"])
@@ -21,7 +21,7 @@ class ZoneGeographiqueAdmin extends AbstractAdmin {
         ;
     }
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void {
         $datagridMapper
             ->add('nom')
             ->add('alias')
@@ -29,7 +29,7 @@ class ZoneGeographiqueAdmin extends AbstractAdmin {
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper) {
+    protected function configureListFields(ListMapper $listMapper): void {
         $listMapper
             ->addIdentifier('nom')
             ->add('alias')

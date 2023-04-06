@@ -12,6 +12,7 @@ class ServicesFixture extends Fixture implements FixtureGroupInterface {
 
     $service = new Service();
     $service->setNom('Service');
+    $service->setQuadrigramme('TEST');
 
     $manager->persist($service);
     $this->setReference('service', $service);
@@ -20,7 +21,7 @@ class ServicesFixture extends Fixture implements FixtureGroupInterface {
   }
 
   public static function getGroups(): array {
-    return ['test'];
+    return ['test', 'app'];
   }
 
 }

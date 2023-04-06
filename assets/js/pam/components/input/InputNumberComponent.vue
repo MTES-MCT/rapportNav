@@ -1,15 +1,17 @@
 <template>
-  <div>
+  <div class="input-number">
     <div class="space-between">
-      <label class="fr-label">{{ label }}</label>
-      <div class="InputAddOn">
+      <label class="fr-label input-label">{{ label }}</label>
+      <div class="InputAddOn input-field">
         <input
+            :id="id"
             class="InputAddOn-field fr-input"
             v-bind:class="[
                 error && !value ? 'fr-input-invalid' : null,
                 value ? 'fr-input-valid' : null
             ]"
             @keyup="valueChanged"
+            @change="valueChanged"
             min="0"
             :value="value"
             type="number"
@@ -41,7 +43,7 @@ export default {
     valueChanged(e){
       const value = e.target.value !== "" ? e.target.value : null;
       this.$emit('input', value);
-      this.$emit('change',value);
+   //   this.$emit('change',value);
     }
   },
   props: {
@@ -60,7 +62,8 @@ export default {
     error: {
       type: Boolean,
       default: false
-    }
+    },
+    id: String
   }
 }
 </script>

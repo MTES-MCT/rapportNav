@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class User extends BaseUser {
     /**
+     * @Groups({"me"})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -23,15 +24,32 @@ class User extends BaseUser {
     protected $id;
 
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "me"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Service")
      */
     protected $service;
 
     /**
+     * @Groups({"me"})
      * @ORM\Column(type="boolean", options={"default" : 0})
      */
     private $chefUlam=false;
+
+    /**
+     * @Groups({"me"})
+     */
+    protected $email;
+
+    /**
+     * @Groups({"me"})
+     */
+    protected $username;
+
+    /**
+     * @Groups({"me"})
+     * @ORM\OneToOne(targetEntity=Agent::class, mappedBy="userAccount", cascade={"persist", "remove"})
+     */
+    private $agent;
 
     public function __construct()
     {
@@ -60,6 +78,28 @@ class User extends BaseUser {
     public function setChefUlam(bool $chefUlam): self
     {
         $this->chefUlam = $chefUlam;
+
+        return $this;
+    }
+
+    public function getAgent(): ?Agent
+    {
+        return $this->agent;
+    }
+
+    public function setAgent(?Agent $agent): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($agent === null && $this->agent !== null) {
+            $this->agent->setUserAccount(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($agent !== null && $agent->getUserAccount() !== $this) {
+            $agent->setUserAccount($this);
+        }
+
+        $this->agent = $agent;
 
         return $this;
     }

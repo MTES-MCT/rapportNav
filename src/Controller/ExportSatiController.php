@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\ControleNavire;
 use App\Entity\ActiviteNavire;
 use App\Entity\User;
+use App\Entity\Rapport;
+use App\Entity\CategorieUsageNavire;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,13 +31,13 @@ class ExportSatiController extends AbstractController {
     public function inspectionMer(EntityManagerInterface $em, EngineInterface $twig, int $id) {
         /** @var User $user */
         $user = $this->getUser();
-        $rapport = $em->getRepository("App:Rapport")->findOneBy(["id" => $id, "serviceCreateur" => $user->getService()]);
+        $rapport = $em->getRepository(Rapport::class)->findOneBy(["id" => $id, "serviceCreateur" => $user->getService()]);
 
         if(!$rapport) {
             throw $this->createNotFoundException("Le rapport n'existe pas ou n'est pas accessible pour cet utilisateur");
         }
 
-        $categoriesControle = $em->getRepository("App:CategorieUsageNavire")->findAll();
+        $categoriesControle = $em->getRepository(CategorieUsageNavire::class)->findAll();
         $idCatPechePro=null;
         for($i=0;$i < count($categoriesControle);$i++) {
             if(preg_match('/Navire de pêche pro/', $categoriesControle[$i]->getNom())) {

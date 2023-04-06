@@ -2,35 +2,51 @@
 
 namespace App\DataFixtures\Tests\PAM;
 
+use App\DataFixtures\Tests\ServicesFixture;
+use App\Entity\FonctionAgent;
+use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\CategoryPamControle;
+use App\Entity\PAM\CategoryPamIndicateur;
 use App\Entity\PAM\CategoryPamMission;
 use App\Entity\PAM\PamControle;
 use App\Entity\PAM\PamEquipage;
 use App\Entity\PAM\PamEquipageAgent;
+use App\Entity\PAM\PamIndicateur;
 use App\Entity\PAM\PamMission;
 use App\Entity\PAM\PamRapport;
 use App\Entity\PAM\PamRapportId;
 use App\Entity\Agent;
-use App\Entity\Service;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface {
+class RapportFixture extends Fixture implements FixtureGroupInterface, DependentFixtureInterface {
 
     public static function getGroups(): array {
         return ['test'];
     }
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
+        $fonction = new FonctionAgent();
+        $fonctionParticuliere = new FonctionParticuliereAgent();
 
-        $service = new Service();
+        $fonction->setNom('Commandant');
+        $fonctionParticuliere->setNom('Chef');
 
-        $service->setNom('PAM_test');
+        $manager->persist($fonction);
+        $manager->persist($fonctionParticuliere);
 
-        $manager->persist($service);
+        for($i = 0; $i <= 2; $i++) {
+            $this->createRapport($manager, $i+1, $i+1, $fonction, $fonctionParticuliere);
+        }
+
+    }
+
+    private function createRapport(ObjectManager $manager, int $keyID, int $month, $fonction, $fonctionParticuliere)
+    {
+        $currentYear = new \DateTime();
 
         $rapport = new PamRapport();
 
@@ -47,21 +63,31 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
             ->setMouillage(41)
             ->setMeteo(41)
             ->setMaintenance(41)
-            ->setStartDatetime(new \DateTimeImmutable())
-            ->setEndDatetime(new \DateTimeImmutable("+25 days"));
+            ->setStartDatetime(new \DateTimeImmutable($month . '/01/' . $currentYear->format('Y')))
+            ->setEndDatetime(new \DateTimeImmutable($month . '/25/' . $currentYear->format('Y')));
 
         $catControles = $manager->getRepository(CategoryPamControle::class)->findAll();
+        $catIndicateurs = $manager->getRepository(CategoryPamIndicateur::class)->findAll();
 
         $controle = new PamControle();
         $controle->setPavillon('FR');
         $controle->setNbNavDeroute(2);
         $controle->setCategory($catControles[0]);
 
-
         $catMissions = $manager->getRepository(CategoryPamMission::class)->findAll();
         $mission = new PamMission();
         $mission->setCategory($catMissions[0]);
         $mission->setChecked(true);
+
+        for($i = 1; $i <= 10; $i++) {
+            $indicateur = new PamIndicateur();
+            $indicateur->setPrincipale(10);
+            $indicateur->setSecondaire(22);
+            $indicateur->setTotal(32);
+            $indicateur->setObservations('Test observation');
+            $indicateur->setCategory($catIndicateurs[$i]);
+            $mission->addIndicateur($indicateur);
+        }
 
         $equipage = new PamEquipage();
 
@@ -73,7 +99,8 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
         $membre = new PamEquipageAgent();
 
         $membre->setAgent($agent);
-        $membre->setRole('Agent de pont');
+        $membre->setFonction($fonction);
+        $membre->setFonctionParticuliere($fonctionParticuliere);
 
         $equipage->addMembre($membre);
 
@@ -82,9 +109,9 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
         $rapport->addMission($mission);
 
 
-        $currentYear = new \DateTime();
-        $rapport->setId('MED-' . $currentYear->format('Y') . '-1');
-        $rapport->setCreatedBy($service);
+
+        $rapport->setId('MED-' . $currentYear->format('Y') . '-' . $keyID);
+        $rapport->setCreatedBy($this->getReference('service'));
 
         $rapportID = new PamRapportId();
 
@@ -95,7 +122,9 @@ class RapportFixture extends Fixture implements FixtureGroupInterface, OrderedFi
         $manager->flush();
     }
 
-    public function getOrder() {
-        return 4;
+    public function getDependencies() {
+        return  [
+            ServicesFixture::class,
+        ];
     }
 }

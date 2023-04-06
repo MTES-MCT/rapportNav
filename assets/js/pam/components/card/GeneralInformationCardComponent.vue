@@ -1,9 +1,9 @@
 <template>
-  <div @change="getData" id="generalInformation" class="section">
-    <h5 class="text-blue-france text-800">Informations générale</h5>
+  <div @click="getData" id="generalInformation" class="section">
+    <h5 class="text-blue-france text-800">Informations générales</h5>
     <div class="box-shadow-card ">
       <div class="box-shadow-card-body">
-        <h6>Dates de la marée</h6>
+        <h6>Dates du rapport</h6>
         <div class="form-inline">
           <label class="fr-label">
             De
@@ -11,14 +11,16 @@
           <DateTimeComponent
               v-model:value="startDateTime"
               :error="hasError('startDateTime')"
+              id="datetimePicker_start"
           ></DateTimeComponent>
 
-          <label class="fr-label fr-mr-6v">
+          <label class="fr-label fr-mr-6v fr-ml-6v">
             à
           </label>
           <DateTimeComponent
               v-model:value="endDateTime"
               :error="hasError('endDateTime')"
+              id="datetimePicker_end"
           ></DateTimeComponent>
         </div>
         <div class="divider-horizontal"></div>

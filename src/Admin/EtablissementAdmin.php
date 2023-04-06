@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EtablissementAdmin extends AbstractAdmin {
-    protected function configureFormFields(FormMapper $formMapper) {
+    protected function configureFormFields(FormMapper $formMapper): void {
         $formMapper
             ->add('nom', TextType::class, ['required' => true, 'label' => "Nom (ou N/A pour non applicable)"])
             ->add('type')
@@ -22,7 +22,7 @@ class EtablissementAdmin extends AbstractAdmin {
         ;
     }
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void {
         $datagridMapper
             ->add('nom')
             ->add('type')
@@ -31,13 +31,13 @@ class EtablissementAdmin extends AbstractAdmin {
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper) {
+    protected function configureListFields(ListMapper $listMapper): void {
         $listMapper
             ->addIdentifier('nom')
             ->add('type')
             ->add('adresse')
             ->add('commune')
-            ->add('_action', null, [
+            ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],

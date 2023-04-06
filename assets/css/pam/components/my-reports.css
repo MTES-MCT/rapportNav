@@ -1,0 +1,60 @@
+.rapport-item {
+    box-shadow: 0px 2px 6px #00000029;
+    padding: 25px 10px 10px 25px;
+    margin-bottom: 10px;
+}
+
+.pagination-month {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.pagination-month .previous, .pagination-month .next {
+    color: #000091;
+}
+
+
+.icon-rapport {
+    color: #9A9AFF;
+}
+.icon-type-brouillon {
+    color: #E10600;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+
+.icon-type-valide {
+    color: #008941;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+
+.rapport-item-title, .rapport-item-date {
+    font-size: 18px;
+}
+.rapport-list-date, .rapport-list-statut {
+    font-size: 16px;
+    color: #9C9C9C;
+}
+
+.rapport-list-title {
+    margin-bottom: 10px;
+}
+
+.rapport-list-btn-create {
+    margin-top: -5px;
+    margin-left: -10px;
+}
+
+.dropdowns-search {
+    display: flex;
+}
+
+.reset-filter a {
+    font-size: 16px;
+    color: #000091;
+    font-style: italic;
+}

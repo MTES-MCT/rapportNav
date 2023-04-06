@@ -35,7 +35,7 @@ class PamMission
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\ManyToOne(targetEntity=CategoryPamMission::class, inversedBy="missions")
+     * @ORM\ManyToOne(targetEntity=CategoryPamMission::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

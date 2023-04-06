@@ -1,20 +1,12 @@
-.dropbtn:hover .dropdown  {
-    visibility: visible;
-}
-
 .dropdown {
- visibility: hidden;
-}
-
-.dropdown {
-    background-color: #fff;
-    box-shadow: 0px 3px 10px #00000029;
-    text-align: left;
-    /* Position the tooltip */
-     position: absolute;
-     z-index: 1;
-     margin-left: -60px;
-     width: 242px;
+background-color: #fff;
+box-shadow: 0 3px 10px #00000029;
+text-align: left;
+position: absolute;
+z-index: 1;
+right: 0;
+margin-top: -120px;
+width: 242px;
 }
 
 .dropdown-list {

@@ -26,11 +26,6 @@ class CategoryPamMission
      */
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=PamMission::class, mappedBy="type")
-     */
-    private $missions;
-
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -54,36 +49,6 @@ class CategoryPamMission
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|PamMission[]
-     */
-    public function getMissions(): Collection
-    {
-        return $this->missions;
-    }
-
-    public function addMission(PamMission $mission): self
-    {
-        if (!$this->missions->contains($mission)) {
-            $this->missions[] = $mission;
-            $mission->setType($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMission(PamMission $mission): self
-    {
-        if ($this->missions->removeElement($mission)) {
-            // set the owning side to null (unless already changed)
-            if ($mission->getType() === $this) {
-                $mission->setType(null);
-            }
-        }
 
         return $this;
     }

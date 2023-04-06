@@ -1,11 +1,8 @@
 <template>
   <div v-if="rapport">
-    <HeaderComponent draft name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="drafted">
-    </HeaderComponent>
-    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" @update="putFormUpdate" v-if="saved">
-    </HeaderComponent>
-    <HeaderComponent name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted">
-    </HeaderComponent>
+    <HeaderComponent draft name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="drafted && userMe" :rapport="rapport" :user="userMe" :created-by="createdBy" />
+    <HeaderComponent saved name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" @update="putFormUpdate" v-if="saved && userMe" :rapport="rapport" :user="userMe" :created-by="createdBy" />
+    <HeaderComponent name-site="RapportNav" :num-report="rapport.id" @submitted="postForm" @drafted="postFormDraft" v-if="!saved && !drafted && userMe" :user="userMe" />
     <div class="fr-container--fluid fr-mt-10w page-content">
       <div class="fr-grid-row">
         <div class="fr-col-lg-2 fr-col-md-2 fr-col-sm-12 sidebar-left-menu">
@@ -17,13 +14,10 @@
             <GeneralInformationCardComponent
                :start_datetime="rapport.start_datetime"
                :end_datetime="rapport.end_datetime"
-               :end_time="rapport.end_time"
-               :start_time="rapport.start_time"
                :equipage="rapport.equipage"
                :missions="rapport.missions"
                @get-date="setDates"
                ref="informationGeneral"
-
             >
             </GeneralInformationCardComponent>
 
@@ -53,26 +47,28 @@
                 v-if="rapport.controles"
                 :controles="rapport.controles"
                 @get-controles="getControles"
-            >
-            </RapportAccordionComponent>
+                @get-autres-missions="getAutresMission"
+                :autre-mission="rapport.autreMission" />
 
 
             <!-- Indicateurs de mission-->
             <IndicateurMissionComponent
                 v-if="rapport.missions"
-              :missions="rapport.missions"
+                :missions="rapport.missions"
+                :controles="rapport.controles"
+                :autres-missions="rapport.autreMission"
             >
             </IndicateurMissionComponent>
           </div>
         </div>
 
-        <div class="sidebar-right-responsive" v-on:click="displayHistory" style="padding-left: 5px !important;">
+      <!--  <div class="sidebar-right-responsive" v-on:click="displayHistory" style="padding-left: 5px !important;">
           <span class="fr-fi-arrow-left-s-line d-block" aria-hidden="true" ></span>
           <span class="ri-history-line d-block"></span>
         </div>
         <div class="sidebar-right-history d-none">
           <SidebarHistoryRapportComponent></SidebarHistoryRapportComponent>
-        </div>
+        </div>-->
 
       </div>
     </div>
@@ -116,6 +112,7 @@ export default {
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id')
     const draft = urlParams.get('draft')
+    this.fetchMe();
     if(id && draft) {
       axios.get('/api/pam/rapport/draft/' + id)
           .then((response) => {
@@ -125,6 +122,7 @@ export default {
             this.idDraft = id;
             this.numReport = idRapport;
             this.rapport.id = idRapport;
+            this.createdBy = response.data.created_by;
           })
     }
     else if (id) {
@@ -134,7 +132,7 @@ export default {
             this.saved = true;
             this.idSave = id;
             this.numReport = this.rapport.id;
-
+            this.createdBy = response.data.created_by;
           })
     } else {
       this.rapport = require('../dist/create-rapport.json');
@@ -163,49 +161,79 @@ export default {
       if(errorsInformationGeneral.length === 0 && errorsShipActivity.length === 0) {
         axios.post(
             url,
-            JSON.stringify(this.rapport),
+            this.rapport,
             {
-              headers: {
-                'Content-Type': 'application/json'
+              onDownloadProgress: (progressEvent) => {
+                this.onFormSubmitting();
               }
             }
         ).then(
             (success) => {
-              this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+              this.$toast.dismiss(this.submittingToastID);
+              this.showToast("Le rapport a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center');
+              this.rapport = success.data;
+              this.saved = true;
+              this.$router.push({
+                name: 'home'
+              });
             }
         ).catch((error) => {
-          this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center');
+          this.showToast("Erreur lors de l'envoi du formulaire.", TYPE.ERROR, 'bottom-center');
         })
       } else {
         this.showToast("Erreur, merci de remplir les champs obligatoires", TYPE.ERROR, 'bottom-center');
       }
     },
-    postFormDraft() {
+    postFormDraft(exit) {
       let url = '/api/pam/rapport/draft';
       if(this.drafted) {
         url = url + '?id=' + this.idDraft;
       }
       axios.post(
           url,
-          this.rapport
+          this.rapport, {
+            onDownloadProgress: (progressEvent) => {
+              this.onFormSubmitting();
+            }
+          }
       ).then(
           (success) => {
+            this.$toast.dismiss(this.submittingToastID);
             this.showToast("Le brouillon a été enregistré avec succès", TYPE.SUCCESS, 'bottom-center')
+            if(exit) {
+              this.$router.push({
+                name: 'home'
+              });
+            }
           },
-          (error) => this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center')
+          (error) => {
+            let errorInfo = ('string' == typeof(error.response.data)) ? " (" + error.response.data + ")" : ""
+            this.showToast("Erreur lors de l'envoi du formulaire" + errorInfo, TYPE.ERROR, 'bottom-center')
+          }
       )
 
     },
-    putFormUpdate() {
+    putFormUpdate(exit) {
       axios.put(
           '/api/pam/rapport/' + this.rapport.id,
-          this.rapport
+          this.rapport,
+          {
+            onDownloadProgress: (progressEvent) => {
+              this.onFormSubmitting();
+            }
+          }
       )
       .then((success) => {
-        this.showToast("Le rapport n°" + this.rapport.id + " a été modifié avec succès", TYPE.SUCCESS, 'bottom-center')
+        this.$toast.dismiss(this.submittingToastID);
+        this.showToast("Le rapport n°" + this.rapport.id + " a été modifié avec succès", TYPE.SUCCESS, 'bottom-center');
+        if(exit) {
+          this.$router.push({
+            name: 'home'
+          });
+        }
       })
       .catch((error) => {
-        this.showToast("Erreur lors de l'envoie du formulaire.", TYPE.ERROR, 'bottom-center');
+        this.showToast("Erreur lors de l'envoi du formulaire.", TYPE.ERROR, 'bottom-center');
       })
     },
     setDates(date) {
@@ -232,7 +260,7 @@ export default {
       this.rapport.controles = controles;
     },
     showToast(message, type, position) {
-      this.$toast(message, {
+      return this.$toast(message, {
         type: type,
         position: position
       })
@@ -245,6 +273,21 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+    },
+    onFormSubmitting() {
+       this.submittingToastID = this.showToast("Soumission du formulaire", TYPE.INFO, 'bottom-center');
+    },
+    getAutresMission(value) {
+      this.rapport.autreMission = value;
+    },
+    fetchMe() {
+      axios.get('/api/profile/me')
+          .then((success) => {
+            this.userMe = success.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
     }
   },
   data() {
@@ -254,7 +297,10 @@ export default {
       saved: null,
       idDraft: null,
       idSave: null,
-      numReport: null
+      numReport: null,
+      submittingToastID: null,
+      userMe: null,
+      createdBy: null
     }
   }
 };

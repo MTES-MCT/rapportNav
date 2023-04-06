@@ -2,6 +2,8 @@
 
 namespace App\Service\PAM;
 
+use App\Entity\FonctionAgent;
+use App\Entity\FonctionParticuliereAgent;
 use App\Entity\PAM\CategoryPamControle;
 use App\Entity\PAM\PamDraft;
 use App\Entity\PAM\PamEquipage;
@@ -21,7 +23,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CreateRapport {
+class RapportService {
 
     /**
      * @var EntityManagerInterface
@@ -67,7 +69,7 @@ class CreateRapport {
         foreach($rapport->getMissions() as $mission) {
             $this->setCategory($mission->getIndicateurs(), CategoryPamIndicateur::class);
         }
-        $this->setAgent($rapport->getEquipage());
+        $this->setAgent($rapport->getEquipage(), $service);
         $errors = $this->validator->validate($rapport);
 
         if($errors->count() > 0) {
@@ -84,33 +86,39 @@ class CreateRapport {
     }
 
     /**
-     * @param PamRapport $rapport
-     * @param Service    $service
-     * @param int|null   $id
+     * @param PamRapport  $rapport
+     * @param Service     $service
+     * @param string|null $id
      *
      * @return void
      */
-    public function saveDraft(PamRapport $rapport, Service $service, int $id = null): PamDraft
+    public function saveDraft($content, Service $service, string $id = null): PamDraft
     {
-        $error = $this->validator->validateProperty($rapport, 'start_datetime');
+        $arrayBody = json_decode($content,true);
+        $startDateTime = $arrayBody['start_datetime'];
 
-        if($error->count() > 0) {
-            throw new BadRequestHttpException((string) $error);
+        if(!$startDateTime || !strtotime($startDateTime)) {
+            throw new BadRequestHttpException('La date de début est manquante ou invalide.');
         }
-
-        $json = $this->serializer->serialize($rapport, 'json', ['groups' => 'draft']);
 
         $draft = new PamDraft();
         if($id) {
             $draft = $this->showDraftById($id);
+            if($draft->getCreatedBy() !== $service) {
+                throw new BadRequestHttpException('User not authorized');
+            }
         } else {
             $draft->setNumber($this->generateID->generate());
         }
-        $draft->setBody($json);
+        $draft->setBody($content);
         $draft->setCreatedBy($service);
-        $draft->setStartDatetime($rapport->getStartDatetime());
-        $this->em->persist($draft);
-        $this->em->flush();
+        $draft->setStartDatetime($startDateTime); # will not throw exception as $startDateTime is valid due to strtotime check
+        try {
+            $this->em->persist($draft);
+            $this->em->flush();
+        } catch(\Exeption $e) {
+            throw new  HttpException(500, 'Erreur serveur');
+        }
         return $draft;
 
     }
@@ -152,6 +160,9 @@ class CreateRapport {
     public function getLastDraft(Service $service) : ?PamDraft
     {
         $draft = $this->em->getRepository(PamDraft::class)->findOneBy(['created_by' => $service], ['created_at' => 'DESC']);
+        if(!$draft) {
+            return null;
+        }
         $rapport = $this->em->getRepository(PamRapport::class)->find($draft->getNumber());
         if(!$rapport) {
             return $draft;
@@ -166,12 +177,24 @@ class CreateRapport {
      *
      * @return PamRapport
      */
-    public function updateRapport(FormInterface $form, Request $request, PamRapport $existingRapport) : PamRapport
+    public function updateRapport(FormInterface $form, Request $request, PamRapport $existingRapport, Service $service) : PamRapport
     {
+
+        if($existingRapport->getCreatedBy() !== $service) {
+            throw new BadRequestHttpException('User not authorized');
+        }
         /** @var PamRapport $rapport */
         $rapport = $this->serializer->deserialize($request->getContent(), PamRapport::class, 'json'); // Mapping de la request en entity PamRapport
 
+        if($rapport->getStartDatetime()) {
+            $existingRapport->setStartDatetime($rapport->getStartDatetime());
+        }
+        if($rapport->getEndDatetime()) {
+            $existingRapport->setEndDatetime($rapport->getEndDatetime());
+        }
+
         if($rapport->getEquipage()) {
+            $this->setAgent($rapport->getEquipage(), $service);
             $existingRapport->setEquipage($rapport->getEquipage()); // Ajout des membres d'équipage
         }
 
@@ -192,6 +215,8 @@ class CreateRapport {
             }
         }
 
+        $existingRapport->setAutreMission($rapport->getAutreMission());
+
         $formData = json_decode($request->getContent(), true); // conversion json request en array
 
         $form->submit($formData, false); // submit du formulaire avec les nouveaux elements
@@ -205,6 +230,17 @@ class CreateRapport {
         $this->em->flush();
 
         return $existingRapport;
+    }
+
+    /**
+     * @return array
+     */
+    public function listAll(): array
+    {
+        $drafts = $this->em->getRepository(PamDraft::class)->findAll();
+        $rapports = $this->em->getRepository(PamRapport::class)->findAll();
+
+        return $this->handleRapportAndDraft($rapports, $drafts);
     }
 
     /**
@@ -234,15 +270,51 @@ class CreateRapport {
      *
      * @return void
      */
-    private function setAgent(PamEquipage $equipage)
+    private function setAgent(PamEquipage $equipage, Service $service): void
     {
         /** @var PamEquipageAgent $membre */
        foreach($equipage->getMembres() as $membre) {
            $idAgent = $membre->getAgent()->getId();
-           $agent = $idAgent ? $this->em->getRepository(Agent::class)->find($idAgent) : null;
+           $agent = $idAgent ? $this->em->getRepository(Agent::class)->findOneBy(['id' => $idAgent, 'service' => $service]) : null;
            if($agent) {
                 $membre->setAgent($agent);
+           } else {
+               $membre->getAgent()->setService($service);
            }
+
+           $nomFonction = $membre->getFonction() ? $membre->getFonction()->getNom() : null;
+            $fonction = $nomFonction ? $this->em->getRepository(FonctionAgent::class)->findOneBy(['nom' => $nomFonction]) : null;
+            if($fonction) {
+                $membre->setFonction($fonction);
+            }
+
+            $nomFonctionParticuliere = $membre->getFonctionParticuliere() ? $membre->getFonctionParticuliere()->getNom() : null;
+            $fonctionParticuliere = $nomFonctionParticuliere ? $this->em->getRepository(FonctionParticuliereAgent::class)->findOneBy(['nom' => $nomFonctionParticuliere]) : null;
+            if($fonctionParticuliere) {
+                $membre->setFonctionParticuliere($fonctionParticuliere);
+            } else {
+                $membre->setFonctionParticuliere(null);
+            }
         }
     }
+
+    public function handleRapportAndDraft(array $rapports, array $drafts): array
+    {
+        $results = [];
+        $idsRapport = [];
+        foreach($rapports as $rapport) {
+            $results[] = $rapport;
+            $idsRapport[] = $rapport->getId();
+        }
+
+        foreach($drafts as $draft) {
+            if(!in_array($draft->getNumber(), $idsRapport)) {
+                $results[] = $draft;
+            }
+        }
+
+        return $results;
+    }
+
+
 }

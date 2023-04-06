@@ -166,10 +166,23 @@ class PamRapport
     private $personnel;
 
     /**
+     * @Groups({"view", "draft"})
      * @ORM\ManyToOne(targetEntity=Service::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $created_by;
+
+    /**
+     * @Groups({"view"})
+     * @var string
+     */
+    private $type = 'validé';
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\OneToOne(targetEntity=PamAutreMission::class, cascade={"persist", "remove"})
+     */
+    private $autreMission;
 
 
     public function __construct()
@@ -189,7 +202,7 @@ class PamRapport
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->created_at;
     }
@@ -449,8 +462,11 @@ class PamRapport
         return $this;
     }
 
-    public function getStartDatetime()
+    public function getStartDatetime(): ?\DateTime
     {
+        if(is_string($this->start_datetime)) {
+            return new \DateTime($this->start_datetime);
+        }
         return $this->start_datetime;
     }
 
@@ -461,8 +477,11 @@ class PamRapport
         return $this;
     }
 
-    public function getEndDatetime()
+    public function getEndDatetime(): ?\DateTime
     {
+        if(is_string($this->end_datetime)) {
+            return new \DateTime($this->end_datetime);
+        }
         return $this->end_datetime;
     }
 
@@ -496,5 +515,62 @@ class PamRapport
 
         return $this;
     }
+
+    /**
+     * @return int|null
+     */
+    public function getTotalPresenceMer(): ?int
+    {
+        return $this->getNavEff() + $this->getMouillage();
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function getTotalPresenceAQuai()
+    {
+        return $this->getMaintenance() + $this->getMeteo() + $this->getRepresentation() + $this->getAdministratif() + $this->getAutre() + $this->getContrPort();
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function getTotalIndisponibilite()
+    {
+        return $this->getTechnique() + $this->getPersonnel();
+    }
+
+    public function getDureeMission()
+    {
+        return $this->getTotalIndisponibilite() + $this->getTotalPresenceAQuai() + $this->getTotalPresenceMer();
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void {
+        $this->type = $type;
+    }
+
+    public function getAutreMission(): ?PamAutreMission
+    {
+        return $this->autreMission;
+    }
+
+    public function setAutreMission(?PamAutreMission $autreMission): self
+    {
+        $this->autreMission = $autreMission;
+
+        return $this;
+    }
+
+
 
 }

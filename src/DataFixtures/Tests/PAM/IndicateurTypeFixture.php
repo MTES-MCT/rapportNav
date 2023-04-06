@@ -11,7 +11,7 @@ use Doctrine\Persistence\ObjectManager;
 class IndicateurTypeFixture extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface {
 
     public static function getGroups(): array {
-        return ['test'];
+        return ['test', 'app'];
     }
 
     public function load(ObjectManager $manager) {

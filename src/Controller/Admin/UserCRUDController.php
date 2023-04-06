@@ -5,10 +5,12 @@ namespace App\Controller\Admin;
 use Sonata\AdminBundle\Controller\CRUDController as SonataController;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Rapport;
 
 class UserCRUDController extends SonataController
 {
-    public function deleteAction($id)
+    public function deleteAction($id): Response
     {
         $request = $this->getRequest();
         $id      = $request->get($this->admin->getIdParameter());
@@ -28,8 +30,8 @@ class UserCRUDController extends SonataController
             return $this->redirectTo($object);
         }
         
-        $rapportsUpdated = $this->getDoctrine()->getRepository("App:Rapport")->findBy(['updatedBy' => $id], null, 1);
-        $rapportsCreated = $this->getDoctrine()->getRepository("App:Rapport")->findBy(['createdBy' => $id], null, 1);
+        $rapportsUpdated = $this->getDoctrine()->getRepository(Rapport::class)->findBy(['updatedBy' => $id], null, 1);
+        $rapportsCreated = $this->getDoctrine()->getRepository(Rapport::class)->findBy(['createdBy' => $id], null, 1);
         
         if($rapportsCreated || $rapportsUpdated) {
             $this->addFlash(
@@ -43,7 +45,7 @@ class UserCRUDController extends SonataController
         return parent::deleteAction($id);
     }
 
-    public function batchActionDelete(ProxyQueryInterface $query)
+    public function batchActionDelete(ProxyQueryInterface $query): Response
     {
         $currentUserId = $this->getUser()->getId(); // ID of the current user
         $selectedUsers = $query->execute();
@@ -62,8 +64,8 @@ class UserCRUDController extends SonataController
                 );
             }
             
-            $rapports = $this->getDoctrine()->getRepository("App:Rapport")->findBy(['updatedBy' => $selectedAgent->getId()], null, 1);
-            $rapports = $this->getDoctrine()->getRepository("App:Rapport")->findBy(['createdBy' => $selectedAgent->getId()], null, 1);
+            $rapports = $this->getDoctrine()->getRepository(Rapport::class)->findBy(['updatedBy' => $selectedAgent->getId()], null, 1);
+            $rapports = $this->getDoctrine()->getRepository(Rapport::class)->findBy(['createdBy' => $selectedAgent->getId()], null, 1);
             
             if($rapports) {
                 $this->addFlash(

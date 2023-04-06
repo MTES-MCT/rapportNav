@@ -11,7 +11,7 @@ use Doctrine\Persistence\ObjectManager;
 class ControleTypeFixture extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface {
 
     public static function getGroups(): array {
-        return ['test', 'pam'];
+        return ['test', 'app'];
     }
 
     public function load(ObjectManager $manager) {
@@ -20,7 +20,9 @@ class ControleTypeFixture extends Fixture implements FixtureGroupInterface, Orde
             'Contrôle en mer de navires de plaisance professionnelle',
             'Contrôle en mer des navires de plaisance de loisir',
             'Contrôles à terre navires de pêche professionnels',
-            'Autres missions'
+            'Autres missions',
+            'Contrôle à terre de navires de plaisance de loisir',
+            'Contrôle à terre de navires de plaisance professionnelle'
         ];
 
         foreach($noms as $key => $nom) {

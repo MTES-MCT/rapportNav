@@ -1,4 +1,7 @@
-
+creerzipProd.sh
+deployer.sh
+prod.env.local
+src/DataFixtures/Local/dropo
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -25,7 +28,13 @@
 .idea/dataSources*
 .idea
 
-### node modules 
+### Other IDE
+.buildpath
+.project
+.settings
+nbproject
+
+### node modules
 /node_modules
 
 ### Ignoring local datafixtures
@@ -43,5 +52,5 @@ assets/js/params.json
 /nbproject/private/
 
 ### docker
-.docker
+.docker/data
 docker-compose.yml

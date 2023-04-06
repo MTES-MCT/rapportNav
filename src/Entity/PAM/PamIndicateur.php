@@ -56,6 +56,24 @@ class PamIndicateur
      */
     private $category;
 
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isAutomaticCell;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $automaticEnabled;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $automaticValue;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -129,6 +147,42 @@ class PamIndicateur
     public function setCategory(?CategoryPamIndicateur $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getIsAutomaticCell(): ?bool
+    {
+        return $this->isAutomaticCell;
+    }
+
+    public function setIsAutomaticCell(?bool $isAutomaticCell): self
+    {
+        $this->isAutomaticCell = $isAutomaticCell;
+
+        return $this;
+    }
+
+    public function getAutomaticEnabled(): ?bool
+    {
+        return $this->automaticEnabled;
+    }
+
+    public function setAutomaticEnabled(?bool $automaticEnabled): self
+    {
+        $this->automaticEnabled = $automaticEnabled;
+
+        return $this;
+    }
+
+    public function getAutomaticValue(): ?int
+    {
+        return $this->automaticValue;
+    }
+
+    public function setAutomaticValue(?int $automaticValue): self
+    {
+        $this->automaticValue = $automaticValue;
 
         return $this;
     }

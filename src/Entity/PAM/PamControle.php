@@ -21,7 +21,7 @@ class PamControle
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\Column(type="string", length=8)
+     * @ORM\Column(type="string", length=32)
      */
     private $pavillon;
 
@@ -41,7 +41,7 @@ class PamControle
      * @Groups({"view", "draft", "save_rapport"})
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $nb_equipement_securite;
+    private $nb_pv_equipement_securite;
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
@@ -88,10 +88,28 @@ class PamControle
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\ManyToOne(targetEntity=CategoryPamControle::class, inversedBy="controles")
+     * @ORM\ManyToOne(targetEntity=CategoryPamControle::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nb_controles_peche_sanitaire;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nb_nav_deroute_env_pollution;
+
+    /**
+     * @Groups({"view", "draft", "save_rapport"})
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nb_pv_titre_conduite;
 
     public function getId(): ?int
     {
@@ -134,14 +152,14 @@ class PamControle
         return $this;
     }
 
-    public function getNbEquipementSecurite(): ?int
+    public function getNbPvEquipementSecurite(): ?int
     {
-        return $this->nb_equipement_securite;
+        return $this->nb_pv_equipement_securite;
     }
 
-    public function setNbEquipementSecurite(?int $nb_equipement_securite): self
+    public function setNbPvEquipementSecurite(?int $nb_pv_equipement_securite): self
     {
-        $this->nb_equipement_securite = $nb_equipement_securite;
+        $this->nb_pv_equipement_securite = $nb_pv_equipement_securite;
 
         return $this;
     }
@@ -238,6 +256,42 @@ class PamControle
     public function setCategory(?CategoryPamControle $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getNbControlesPecheSanitaire(): ?int
+    {
+        return $this->nb_controles_peche_sanitaire;
+    }
+
+    public function setNbControlesPecheSanitaire(?int $nb_controles_peche_sanitaire): self
+    {
+        $this->nb_controles_peche_sanitaire = $nb_controles_peche_sanitaire;
+
+        return $this;
+    }
+
+    public function getNbNavDerouteEnvPollution(): ?int
+    {
+        return $this->nb_nav_deroute_env_pollution;
+    }
+
+    public function setNbNavDerouteEnvPollution(?int $nb_nav_deroute_env_pollution): self
+    {
+        $this->nb_nav_deroute_env_pollution = $nb_nav_deroute_env_pollution;
+
+        return $this;
+    }
+
+    public function getNbPvTitreConduite(): ?int
+    {
+        return $this->nb_pv_titre_conduite;
+    }
+
+    public function setNbPvTitreConduite(?int $nb_pv_titre_conduite): self
+    {
+        $this->nb_pv_titre_conduite = $nb_pv_titre_conduite;
 
         return $this;
     }

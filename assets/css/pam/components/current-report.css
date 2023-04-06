@@ -11,6 +11,30 @@
 .icon-current-report {
     height: 35px !important;
 }
- .edit-btn {
+ .action-btn {
     right: 0 !important;
+     display: flex;
+     justify-content: space-between;
 }
+
+ .navigation-download {
+     position: absolute;
+     width: 280px;
+     background-color: #FFFFFF;
+     box-shadow: 0 3px 10px #00000029;
+     color: #000091;
+ }
+
+ .navigation-download ul  {
+     list-style: none;
+ }
+
+ .navigation-download ul li {
+     display: list-item;
+     font-size: 14px;
+     cursor: pointer;
+ }
+
+ .edit-btn {
+     height: 40px;
+ }

@@ -1,54 +1,56 @@
 <template>
-    <div class=" fr-mr-4v" @change="getDateTime">
-      <input
-          type="date"
-          v-model="date"
-          v-bind:class="[
-              error ? 'fr-input-invalid' : null,
-              date && !error ? 'fr-input-valid' : null
+  <div class="datetimepicker__group" ref="datetimepicker">
+    <input type="date"
+           class="picker"
+           v-bind:class="[
+              error ? 'invalid' : null,
+              date && !error ? 'valid' : null
           ]"
-      >
-      <input
-          type="time"
-          v-model="time"
-          v-bind:class="[
-              error ? 'fr-input-invalid' : null,
-              time && !error ? 'fr-input-valid' : null
+           v-model="date" >
+    <input type="time"
+           class="picker"
+           v-bind:class="[
+              error ? 'invalid' : null,
+              time && !error ? 'valid' : null
           ]"
-      >
-      <p class="fr-error-text" v-if="error">
-        Merci de saisir une date et une heure
-      </p>
-    </div>
+           v-model="time">
+  </div>
+
 </template>
 
 <script>
-import moment from "moment";
-
+import moment from 'moment';
 export default {
-  name: "DateTimeComponent",
+  name: 'DateTimeComponent',
   props: {
     value: String,
-    error: {
-      type: Boolean,
-      default: false
-    }
+    error: Boolean,
+    id: String
+  },
+  mounted() {
   },
   methods: {
-    getDateTime() {
-      let dateTime = this.date;
-      let format = 'YYYY-MM-DD';
-      if(this.time) {
-        format = null;
-        dateTime = this.date + ' ' + this.time;
-      }
-       this.$emit('input', moment(dateTime).format(format));
+    emit() {
+      this.$emit('input', this.datetime)
     }
   },
   data() {
     return {
       date: this.value ? moment(this.value).format('YYYY-MM-DD') : null,
       time: this.value ? moment(this.value).format('HH:mm') : null
+    }
+  },
+  watch: {
+    date: function(newVal, oldVal) {
+      this.emit();
+    },
+    time: function(newVal, oldVal) {
+      this.emit();
+    }
+  },
+  computed: {
+    datetime: function () {
+      return `${this.date} ${this.time}`
     }
   }
 }

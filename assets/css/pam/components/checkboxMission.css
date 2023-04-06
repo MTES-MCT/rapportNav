@@ -3,8 +3,8 @@
     box-shadow: 0px 3px 10px #00000029;
     text-align: center;
     height: 250px;
-    width: 280px;
-    padding: 5px;
+    width: 320px;
+    padding: 10px;
 
     /* Position the tooltip */
     position: absolute;
@@ -13,4 +13,19 @@
 
 .checkbox-mission {
     margin-bottom: 10px;
+}
+
+.toggle-mission-principale {
+    margin-left: 2rem;
+    margin-top: -18px;
+    width: 60%;
+}
+
+.toggle-mission-principale label {
+    color: #9C9C9C;
+}
+
+.define-date .text-small-blue {
+    cursor: pointer;
+    margin-left: 2rem;
 }

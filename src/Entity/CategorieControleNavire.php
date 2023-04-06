@@ -8,6 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\CategorieControleNavireRepository")
  */
 class CategorieControleNavire {
+
+    const PECHE_SANITAIRE = 'Contrôles Pêche / Sanitaire';
+    const EQUIPEMENT_SECURITE_PERMIS = 'Équipement de sécurité / Permis de navigation';
+    const POLICE_NAVIGATION = 'Police de la navigation';
+    const ENVIRONNEMENT_POLLUTION = 'Environnement / pollution';
+    const REGLEMENTATION_TRAVAIL_MARITIME = 'Réglementation du travail maritime';
+    const AUTRE = 'Autre';
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -1,15 +1,15 @@
 <template>
   <div class="operationalControl fr-mt-10w section" id="controle">
       <div class="heading-custom heading-custom-space-between">
-        <h5 class="text-blue-france text-800">Contrôles opérationnel</h5>
-        <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="fr-modal-10">
+        <h5 class="text-blue-france text-800">Contrôles opérationnels</h5>
+        <button class="fr-btn fr-btn--secondary btn-add-controle" data-fr-opened="false" aria-controls="fr-modal-controle">
           <i class="ri-add-circle-fill fr-mt-1v fr-mr-1w"></i> <span class="text-bold">Ajouter un contrôle</span>
         </button>
       </div>
       <div class="box-dropdown fr-mt-2w">
         <ul class="fr-accordions-group" >
-          <li v-for="(controle, index) in controlesByType">
-            <div class="box-shadow-card" :id="controle.id">
+          <li v-for="(controle, index) in controlesByType" :key="controle.id">
+            <div class="box-shadow-card" :id="'controle_op_' + controle.id">
               <section class="fr-accordion box-shadow-card-body">
                 <div class="fr-accordion__title ">
                   <div class="fr-container--fluid">
@@ -18,9 +18,10 @@
                         <button class="fr-accordion__btn fr-fi-arrow-down-s-line fr-btn--icon-left" aria-expanded="true" :aria-controls="'accordion-' + controle.id">
                          {{ controle.nom }}
                         </button>
+                        <span class="accordion__title-sub" v-if="controle.id !== 5">{{ countNavires(controle.pavillons) }} navire(s) contrôlé(s)</span>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
-                        <button class="fr-fi-delete-fill btn-remove" aria-hidden="true" @click="removeType(index, controle)"></button>
+                        <button data-fr-opened="false" :aria-controls="'fr-modal-' + index" class="fr-fi-delete-fill btn-remove" aria-hidden="true"></button>
                       </div>
                     </div>
                   </div>
@@ -28,17 +29,25 @@
                 <div class="fr-collapse" :id="'accordion-' + controle.id ">
                   <div class="divider-horizontal--accordion"></div>
                   <TableControleComponent
-                      :id="controle.id"
+                      v-if="controle.id !== 5"
+                      :id="'controle_op_table_' + controle.id"
+                      :controle-id="controle.id"
                       :pavillons="controle.pavillons"
-                      @get-controles="getPav"
-                  >
-                  </TableControleComponent>
+                      @get-controles="getPav" />
+
+                  <TableAutreMissionComponent
+                  v-else
+                  :id="'controle_op_table_autre_missions' + controle.id"
+                  :category-controle-id="controle.id"
+                  :entity="autreMission"
+                  @get-autres-missions="getAutresMission"/>
                 </div>
               </section>
             </div>
+            <ModalRemoveControle :index="index" @remove="removeType(index, controle)" />
           </li>
         </ul>
-        <ModalAddControle @clicked="onClickModal"></ModalAddControle>
+        <ModalAddControle @clicked="onClickModal" />
       </div>
   </div>
 </template>
@@ -46,17 +55,22 @@
 <script>
 import TableControleComponent from "../table/TableControleComponent";
 import TableIndicateurComponent from "../table/TableIndicateurComponent";
-import ModalAddControle from "../ModalAddControle";
+import ModalAddControle from "../modal/ModalAddControle";
+import ModalRemoveControle from "../modal/ModalRemoveControle";
+import TableAutreMissionComponent from "../table/TableAutreMissionComponent";
 export default {
   name: "RapportAccordionComponent",
-  components: { TableControleComponent, TableIndicateurComponent, ModalAddControle },
+  components: {
+    TableAutreMissionComponent,
+    ModalRemoveControle, TableControleComponent, TableIndicateurComponent, ModalAddControle },
   props: {
     controles: {
       type: Array,
       default: () => {
         return  []
-        },
-      }
+        }
+      },
+    autreMission: Object
   },
   mounted() {
     this.formatPavillons();
@@ -64,7 +78,9 @@ export default {
     this.displayControleMounted(this.controlesNavirePlaisancePro);
     this.displayControleMounted(this.controlesNavirePlaisanceLoisir)
     this.displayControleMounted(this.controlesTerrePechePro);
-    this.displayControleMounted(this.autresMission);
+    this.displayControleMounted(this.controlesTerrePlaisanceLoisir);
+    this.displayControleMounted(this.controlesTerrePlaisancePro);
+    this.displayAutreMissionMounted();
   },
   data: function() {
     return {
@@ -85,8 +101,12 @@ export default {
         id: 4,
         pavillons: []
       },
-      autresMission: {
-        id: 5,
+      controlesTerrePlaisanceLoisir: {
+        id: 6,
+        pavillons: []
+      },
+      controlesTerrePlaisancePro: {
+        id: 7,
         pavillons: []
       },
       controlesByType: [],
@@ -101,15 +121,18 @@ export default {
           nom: nom
         },
         pavillon: 'FR',
-        nb_navire_controle: null,
-        nb_pv_peche_sanitaire: null,
-        nb_pv_equipement_securite: null,
-        nb_pv_titre_nav: null,
-        nb_pv_police_nav: null,
-        nb_pv_env_pollution: null,
-        nb_autre_pv: null,
-        nb_nav_deroute: null,
-        nb_nav_interroge: null
+        nb_navire_controle: 0,
+        nb_controles_peche_sanitaire: 0,
+        nb_pv_peche_sanitaire: 0,
+        nb_pv_equipement_securite: 0,
+        nb_pv_titre_nav: 0,
+        nb_pv_titre_conduite: 0,
+        nb_pv_police: 0,
+        nb_pv_env_pollution: 0,
+        nb_autre_pv: 0,
+        nb_nav_deroute: 0,
+        nb_nav_deroute_env_pollution: 0,
+        nb_nav_interroge: 0
       }
       let newType = {
         id: id,
@@ -117,7 +140,11 @@ export default {
         pavillons: []
       }
       newType.pavillons.push(controle);
-      this.controlesByType.push(newType);
+      let alreadyExist = false;
+      this.controlesByType.filter((type) => {
+        alreadyExist = type.id === id;
+      })
+      !alreadyExist ? this.controlesByType.push(newType) : null;
     },
     getPav(datas) {
       this.result = this.controles
@@ -131,13 +158,15 @@ export default {
       return self.indexOf(value) === index;
     },
     removeType(index, category) {
+      if(category.id === 5) {
+        this.getAutresMission(null);
+      }
       this.controlesByType.splice(index, 1);
       this.controles.forEach((controle, index) => {
         if(controle.category.id === category.id) {
           this.controles.splice(index, 1)
         }
       })
-
     },
     formatPavillons() {
       this.controles.forEach((controle, index) => {
@@ -162,9 +191,13 @@ export default {
             this.controlesTerrePechePro.pavillons.push(controle);
             break;
 
-          case 5:
-            this.autresMission.nom = controle.category.nom;
-            this.autresMission.pavillons.push(controle);
+          case 6:
+            this.controlesTerrePlaisanceLoisir.nom = controle.category.nom;
+            this.controlesTerrePlaisanceLoisir.pavillons.push(controle);
+            break;
+          case 7:
+            this.controlesTerrePlaisancePro.nom = controle.category.nom;
+            this.controlesTerrePlaisancePro.pavillons.push(controle);
             break;
         }
       })
@@ -173,6 +206,23 @@ export default {
       if(obj.pavillons.length > 0) {
         this.controlesByType.push(obj);
       }
+    },
+    getAutresMission(value) {
+      this.$emit('get-autres-missions', value)
+    },
+    displayAutreMissionMounted() {
+      let controle = {};
+      controle.id = 5;
+      controle.nom = 'Autres missions';
+      this.controlesByType.push(controle);
+    },
+    countNavires(pavillons) {
+      let count = 0;
+
+      pavillons.forEach((pavillon) => {
+        count += pavillon.nb_navire_controle;
+      })
+      return count;
     }
   }
 }

@@ -59,6 +59,6 @@ class RapportFixture extends Fixture implements DependentFixtureInterface, Fixtu
     }
 
     public static function getGroups(): array {
-        return ['test'];
+        return ['test', 'app'];
     }
 }

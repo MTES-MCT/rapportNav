@@ -1,20 +1,11 @@
 <template>
-  <td class="td-observation td-indicateur" v-if="observation">
-    <i class="ri-message-2-fill" v-on:click="displayObservationInput = !displayObservationInput"></i>
-    <div
-        class="tooltip-observation"
-        v-bind:class="{'d-none': !displayObservationInput}"
-    >
-      <textarea name="observation" id="observation" cols="4" rows="6" class="fr-input" placeholder="Observations" :value="value"  @keyup="getValue($event.target, true)"></textarea>
-    </div>
-  </td>
   <td
-      :class="'td-table-controle ' + classList"
+      class="td-table-controle"
       contenteditable="true"
-      @keyup="getValue($event.target)"
+      @keyup="getValue($event)"
+      @keypress="onKeyPress($event)"
       v-else
-      v-text="value"
-  >
+      v-text="displayedValue">
   </td>
 </template>
 
@@ -37,23 +28,43 @@ export default {
   textObservation: {
      type: String,
     default: null
-  }
+  },
+    total: Boolean
+  },
+  mounted() {
+    this.displayedValue = this.value;
   },
   methods: {
-    getValue(target, isTextarea = false) {
+    getValue(e, isTextarea = false) {
+      const target = e.target;
       if(!isTextarea) {
-        this.$emit('input', parseInt(target.innerText))
-        this.$emit('change', parseInt(target.innerText))
-      } else {
+        let value = parseInt(target.innerText);
+        if(isNaN(value)) {
+          value = 0;
+        }
+        this.$emit('change', value)
+        this.$emit('input', value)
+      }
+      else {
         this.$emit('input', target.value)
         this.$emit('change', target.value)
       }
-
+    },
+    onKeyPress(e) {
+      if(isNaN(e.key)) {
+        e.preventDefault();
+      }
+    },
+    hideTooltip(event) {
+      if(!this.$refs.observation.contains(event.target)) {
+        this.hidden = true;
+      }
     }
   },
   data() {
     return {
-      displayObservationInput: false
+      hidden: true,
+      displayedValue: null
     }
   }
 }

@@ -29,7 +29,7 @@ class UsersFixture extends Fixture implements DependentFixtureInterface, Fixture
             ->setPlainPassword('1234')
             ->setEnabled(true)
             ->setService($this->getReference("service"))
-            ->setRoles(['ROLE_USER']);
+            ->setRoles(['ROLE_USER', 'ROLE_ULAM', 'ROLE_PAM']);
         $manager->persist($user);
 
         $admin->setUsername('admin')
@@ -54,6 +54,6 @@ class UsersFixture extends Fixture implements DependentFixtureInterface, Fixture
 
 
   public static function getGroups(): array {
-    return ['test'];
+    return ['test', 'app'];
   }
 }

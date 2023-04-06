@@ -1,6 +1,6 @@
 <template>
   <div class="missions fr-mt-3w" >
-    <h6>Missions à réaliser <span class="fr-fi-xs fr-fi-information-fill icon-grey" aria-hidden="true"></span> </h6>
+    <h6>Missions à réaliser <span class="fr-fi-information-fill icon-grey" aria-hidden="true"></span> </h6>
     <div class="fr-container--fluid">
       <div class="fr-grid-row">
         <div class="fr-col-lg-6">

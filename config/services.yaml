@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    app.version: '0.11.2'
+    app.version: '0.18.0'
     app.warning: '%env(resolve:APP_SHOW_WARNING)%'
     api_app: '%env(resolve:API_APP)%'
     api_navire: '%env(resolve:API_NAVIRE)%'
@@ -57,6 +57,14 @@ services:
     App\Service\NatinfFiller:
         arguments:
             $api: '%api_natinf%'
+
+    App\Service\ExportService:
+        arguments:
+            $project_dir: '%kernel.project_dir%'
+
+    App\Service\PAM\ExportService:
+        arguments:
+            $project_dir: '%kernel.project_dir%'
 
     # Explicit wiring for forms with event listeners
     App\Form\ControleNavireType:
@@ -184,4 +192,67 @@ services:
         arguments: [~, App\Entity\Natinf, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: rapport, label: Natinf }
+        public: true
+
+    admin.category_pam_controle:
+        class: App\Admin\CategoryPamControleAdmin
+        arguments: [~, App\Entity\PAM\CategoryPamControle, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de contrôles PAM" }
+        public: true
+
+    admin.category_pam_indicateur:
+        class: App\Admin\CategoryPamIndicateurAdmin
+        arguments: [~, App\Entity\PAM\CategoryPamIndicateur, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories d'indicateurs PAM" }
+        public: true
+
+    admin.category_pam_mission:
+        class: App\Admin\CategoryPamMissionAdmin
+        arguments: [~, App\Entity\PAM\CategoryPamMission, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de missions PAM" }
+        public: true
+
+    admin.pam_rapport:
+        class: App\Admin\PamRapportAdmin
+        arguments: [~, App\Entity\PAM\PamRapport, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: rapport, label: "Rapports PAM" }
+        public: true
+
+    admin.fonction_agent:
+        class: App\Admin\FonctionAgentAdmin
+        arguments: [~, App\Entity\FonctionAgent, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: FonctionAgent }
+        public: true
+
+    admin.fonction_particuliere_agent:
+        class: App\Admin\FonctionParticuliereAgentAdmin
+        arguments: [~, App\Entity\FonctionParticuliereAgent, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: FonctionParticuliereAgent }
+        public: true
+
+    admin.categorie_deroutement:
+        class: App\Admin\CategorieDeroutementAdmin
+        arguments: [ ~, App\Entity\CategorieDeroutement, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: 'Catégorie de déroutement' }
+        public: true
+
+    admin.contact:
+        class: App\Admin\ContactAdmin
+        arguments: [ ~, App\Entity\Contact, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Contact }
+        public: true
+
+    admin.documentation:
+        class: App\Admin\DocumentationAdmin
+        arguments: [ ~, App\Entity\Documentation, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Documentation }
         public: true

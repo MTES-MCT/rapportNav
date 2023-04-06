@@ -1,20 +1,20 @@
 {
   "start_datetime": null,
   "end_datetime": null,
-  "nb_jours_mer": null,
-  "nav_eff": null,
-  "mouillage": null,
-  "maintenance": null,
-  "meteo": null,
-  "representation": null,
-  "autre": null,
-  "contr_port": null,
-  "technique": null,
-  "distance": null,
-  "go_marine": null,
-  "personnel": null,
-  "administratif": null,
-  "essence": null,
+  "nb_jours_mer": 0,
+  "nav_eff": 0,
+  "mouillage": 0,
+  "maintenance": 0,
+  "meteo": 0,
+  "representation": 0,
+  "autre": 0,
+  "contr_port": 0,
+  "technique": 0,
+  "distance": 0,
+  "go_marine": 0,
+  "personnel": 0,
+  "administratif": 0,
+  "essence": 0,
   "equipage": {
     "membres": []
   },
@@ -24,12 +24,151 @@
         "nom": "Contrôle en mer de navires  de pêche professionnelle",
         "id": 1
       },
-      "nb_navire_controle": null,
-      "nb_pv_peche_sanitaire": null,
+      "nb_navire_controle": 0,
+      "nb_pv_peche_sanitaire": 0,
+      "nb_controles_peche_sanitaire": 0,
+      "nb_pv_equipement_securite": 0,
+      "nb_pv_police": 0,
+      "nb_pv_titre_nav": 0,
+      "nb_pv_titre_conduite": 0,
+      "nb_pv_env_pollution": 0,
+      "nb_autre_pv": 0,
+      "nb_nav_deroute": 0,
+      "nb_nav_deroute_env_pollution": 0,
+      "nb_nav_interroge": 0,
       "pavillon": "FR"
     }
   ],
+  "autreMission": {},
   "missions": [
+    {
+      "checked": false,
+      "is_main": false,
+      "category": {
+        "id": 8,
+        "nom": "Sauvetage de la vie humaine"
+      },
+      "indicateurs": [
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "automaticEnabled": false,
+          "automaticValue": null,
+          "category": {
+            "id": 1,
+            "nom": "Nombre d'heures de mer"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "automaticEnabled": false,
+          "automaticValue": null,
+          "category": {
+            "id": 26,
+            "nom": "Nombre d’heures de mer hors SRR française et hors coordination d'un CROSS ou MRCC français"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 27,
+            "nom": "Nombre d'opérations conduites"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 28,
+            "nom": "Nombre de personnes secourues"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 29,
+            "nom": "Nombre de personnes disparues ou décédées"
+          }
+        }
+      ]
+    },
+    {
+      "checked": false,
+      "is_main": false,
+      "category": {
+        "id": 8,
+        "nom": "Sauvetage de la vie humaine"
+      },
+      "indicateurs": [
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "automaticEnabled": false,
+          "automaticValue": null,
+          "category": {
+            "id": 1,
+            "nom": "Nombre d'heures de mer"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "automaticEnabled": false,
+          "automaticValue": null,
+          "category": {
+            "id": 26,
+            "nom": "Nombre d’heures de mer hors SRR française et hors coordination d'un CROSS ou MRCC français"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 27,
+            "nom": "Nombre d'opérations conduites"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 28,
+            "nom": "Nombre de personnes secourues"
+          }
+        },
+        {
+          "principale": null,
+          "secondaire": null,
+          "total": null,
+          "observations": null,
+          "category": {
+            "id": 29,
+            "nom": "Nombre de personnes disparues ou décédées"
+          }
+        }
+      ]
+    },
     {
       "checked": false,
       "is_main": false,
@@ -43,6 +182,9 @@
           "secondaire": null,
           "total": null,
           "observations": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 1,
             "nom": "Nombre d'heures de mer"
@@ -53,6 +195,9 @@
           "secondaire": null,
           "total": null,
           "observations": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 2,
             "nom": "Nombre d'opérations suivies (ayant fait l'objet d'un DEFREP)"
@@ -65,7 +210,7 @@
           "observations": null,
           "category": {
             "id": 3,
-            "nom": "Nombre de mise en demeure"
+            "nom": "Nombre de mises en demeure"
           }
         },
         {
@@ -153,6 +298,10 @@
           "secondaire": null,
           "total": null,
           "observation": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+
+          "isAutomaticCell": true,
           "category": {
             "id": 10,
             "nom": "Nombre de procès-verbaux d'infraction dressés"
@@ -173,6 +322,9 @@
           "secondaire": null,
           "total": null,
           "observation": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 12,
             "nom": "Nombre d'opérations de lutte anti-pollution en mer"
@@ -223,6 +375,9 @@
           "secondaire": null,
           "total": null,
           "observation": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 16,
             "nom": "Nombre de navires contrôlés en mer (législation pêche)"
@@ -233,6 +388,9 @@
           "secondaire": null,
           "total": null,
           "observation": null,
+          "automaticEnabled": true,
+          "automaticValue": null,
+          "isAutomaticCell": true,
           "category": {
             "id": 17,
             "nom": "Nombre de procès-verbaux dressés (législation pêche)"

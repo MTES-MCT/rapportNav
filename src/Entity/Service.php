@@ -11,9 +11,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ServiceRepository")
  */
-class Service {
+class
+Service {
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "me", "view"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -21,7 +22,7 @@ class Service {
     private $id;
 
     /**
-     * @Groups({"draft"})
+     * @Groups({"draft", "me", "view"})
      * @ORM\Column(type="string", length=100)
      */
     private $nom;
@@ -35,6 +36,12 @@ class Service {
      * @ORM\OneToMany(targetEntity=PamDraft::class, mappedBy="created_by", orphanRemoval=true)
      */
     private $pamDrafts;
+
+    /**
+     * @Groups({"draft", "me", "view"})
+     * @ORM\Column(type="string", length=4, nullable=true)
+     */
+    private $quadrigramme;
 
     public function __construct()
     {
@@ -95,6 +102,18 @@ class Service {
                 $pamDraft->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getQuadrigramme(): ?string
+    {
+        return $this->quadrigramme;
+    }
+
+    public function setQuadrigramme(?string $quadrigramme): self
+    {
+        $this->quadrigramme = $quadrigramme;
 
         return $this;
     }

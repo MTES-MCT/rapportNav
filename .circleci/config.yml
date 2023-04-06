@@ -6,8 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      # Specify the version you desire here
-      - image: circleci/php:7.2-node-browsers
+      - image: cimg/php:7.4-node
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -21,39 +20,39 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo apt install -y libpq-dev
-      - run: sudo docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
-      - run: sudo docker-php-ext-install pdo pdo_pgsql pgsql
+      - run: sudo apt update
+      - run: sudo apt install -y libpq-dev #add PostGre lib
+      - run: sudo -E install-php-extensions xdebug
+      - run: sudo docker-php-ext-enable xdebug
       - run: sudo composer self-update
 
       # Download and cache dependencies
       - restore_cache:
           keys:
             # "composer.lock" can be used if it is committed to the repo
-            - v1-dependencies-{{ checksum "composer.lock" }}
+            - v2-dependencies-{{ checksum "composer.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v2-dependencies-
 
       - run: composer install -n --prefer-dist --dev
 
       - save_cache:
-          key: v1-dependencies-{{ checksum "composer.lock" }}
+          key: v2-dependencies-{{ checksum "composer.lock" }}
           paths:
             - ./vendor
       - restore_cache:
           keys:
-            - node-v1-{{ checksum "yarn.lock" }}
-            - node-v1-
+            - node-v2-{{ checksum "yarn.lock" }}
+            - node-v2-
       - run: yarn install
       - save_cache:
-          key: node-v1-{{ checksum "yarn.lock" }}
+          key: node-v2-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
       - run: cp assets/js/template.params.json assets/js/params.json && yarn dev
 
       # running tests
-      - run: php -d memory_limit=512M vendor/bin/simple-phpunit --configuration .circleci/phpunit.xml tests/Functional
+      - run: php -d memory_limit=512M vendor/bin/phpunit --configuration .circleci/phpunit.xml tests/Functional
       
       - run:
           name: Creating Zip from builded project
