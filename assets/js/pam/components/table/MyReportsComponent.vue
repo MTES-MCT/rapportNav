@@ -216,12 +216,12 @@
         </div>
         <div class="fr-col-lg-3 action-btn">
           <button class="fr-btn edit-btn" @click="edit(rapport)" v-if="rapport.created_by && (userMe.service.id === rapport.created_by.id)">
-            <i class="ri-pencil-line fr-mr-2v" aria-hidden="true" />
-            Editer
+            <i class="ri-eye-fill fr-mr-2v" aria-hidden="true" />
+            Ouvrir
           </button>
           <button class="fr-btn edit-btn" @click="edit(rapport)" v-else>
             <i class="ri-eye-fill fr-mr-2v" aria-hidden="true" />
-            Voir
+            Ouvrir
           </button>
           <HomeDownloadComponent :rapport="rapport"></HomeDownloadComponent>
         </div>
