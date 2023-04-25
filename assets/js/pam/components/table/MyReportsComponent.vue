@@ -374,6 +374,10 @@ export default {
       let date = this.selectedMonth ? this.selectedMonth : new Date(this.currentMonth.toLocaleDateString('en'));
       date.setMonth(date.getMonth());
       date = new Date(date.getFullYear(), (date.getMonth()), 0);
+      if(date.getMonth() === 11) { // changement d'année
+        this.currentMonth = new Date((date.getFullYear()-1), (date.getMonth()), 0);
+        this.selectedYear = date.getFullYear();
+      }
       this.selectedMonth = date;
       this.startDate = moment(date).format('YYYY-MM-DD');
       this.endDate = moment(date).format('YYYY-MM-DD');
