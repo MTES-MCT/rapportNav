@@ -15,12 +15,14 @@ class MenuController extends AbstractController
         $mailto = 'mailto:';
         $recipients = [];
         $copys = [];
+        $containsCopy = false;
 
         foreach($contacts as $contact) {
             if($contact->getIsRecipient()) {
                 $recipients[] = $contact->getEmail();
             }
             if($contact->getIsCopy()) {
+                $containsCopy = true;
                 $copys[] = $contact->getEmail();
             }
         }
@@ -39,6 +41,12 @@ class MenuController extends AbstractController
             } else {
                 $mailto .= "?cc=$copy";
             }
+        }
+
+        if($containsCopy) {
+            $mailto .= "&subject=[Formulaire-contact-RapportNav]";
+        } else {
+            $mailto .= "?subject=[Formulaire-contact-RapportNav]";
         }
 
 
