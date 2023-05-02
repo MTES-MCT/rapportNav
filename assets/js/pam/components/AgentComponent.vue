@@ -25,7 +25,7 @@
         <input type="checkbox" :checked="isPresent" @change="toggleIsPresentPartiel()" :id="'membre-' + id" :disabled="isAbsent">
         <label class="fr-label" :for="'membre-' + id">Agent présent partiellement sur toute la mission</label>
       </div>
-      
+
       <div class="fr-mt-4v" v-if="isPresent">
         <label for="dates_abscence" class="label__presence">Dates d'absences</label>
         <input type="text" class="fr-input dates-absences" id="dates_abscence" readonly />
@@ -62,8 +62,7 @@ export default {
       this.agentList.splice(index, 1);
     },
     hideTooltip(event) {
-      const $daterangepicker = $('.daterangepicker');
-        if(!this.$refs.agentItem.contains(event.target) && !$daterangepicker[0].contains(event.target)) {
+        if(!this.$refs.agentItem.contains(event.target)) {
           this.hidden = true;
         }
     },
