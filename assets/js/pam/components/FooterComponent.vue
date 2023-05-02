@@ -26,6 +26,8 @@ export default {
         }
       })
 
+      let containsCopy = false;
+
       recipients.forEach((recipient, index) => {
         if(index > 0) {
           mailto = mailto + ',' + recipient;
@@ -35,12 +37,19 @@ export default {
       })
 
       copys.forEach((copy, index) => {
+        containsCopy = true
         if(index > 0) {
           mailto = mailto + ',' + copy;
         } else {
           mailto = mailto + '?cc=' + copy;
         }
       })
+
+      if(containsCopy) {
+        mailto = mailto + '&subject=[Formulaire-contact-RapportNav]'
+      } else {
+        mailto = mailto + '?subject=[Formulaire-contact-RapportNav]'
+      }
 
       document.querySelector('.mailtoContact').href = sanitizeUrl(mailto);
     })
