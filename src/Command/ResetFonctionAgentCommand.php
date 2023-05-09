@@ -63,7 +63,7 @@ class ResetFonctionAgentCommand extends Command
             $this->fonctionAgentRepository->remove($fonction, true);
         }
 
-        $io->success('Les fonctions agents ont été réinitialisés.');
+        $io->success('Les fonctions agents ont été réinitialisées.');
 
         return 0;
 
