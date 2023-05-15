@@ -36,7 +36,9 @@ class AgentRepository extends ServiceEntityRepository
         $fullName = strtoupper($fullName);
         $service = $this->tokenStorage->getToken()->getUser()->getService();
         $qb = $this->createQueryBuilder('a')
-            ->where('a.service = :service');
+            ->where('a.service = :service')
+            ->andWhere('a.deletedAt IS NULL')
+        ;
 
         if($fullName) {
             $qb->andWhere("upper(CONCAT(a.prenom, ' ', a.nom)) LIKE :fullName")
@@ -50,5 +52,14 @@ class AgentRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function add(Agent $entity, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 }

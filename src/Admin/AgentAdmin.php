@@ -14,7 +14,7 @@ use App\Entity\Service;
 
 
 final class AgentAdmin extends AbstractAdmin {
-    
+
     public function toString($object): string {
         return $object instanceof \App\Entity\Agent ? $object->__toString() : 'Agent';
     }
@@ -26,6 +26,7 @@ final class AgentAdmin extends AbstractAdmin {
             ->add('service')
             ->add('dateArrivee')
             ->add('dateDepart')
+            ->add('deletedAt')
         ;
     }
 
@@ -36,11 +37,15 @@ final class AgentAdmin extends AbstractAdmin {
             ->add('service.nom')
             ->add('dateArrivee')
             ->add('dateDepart')
+            ->add('deletedAt')
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],
                     'delete' => [],
+                    'desactivation' => [
+                        'template' => 'admin/desactivation_agent.html.twig'
+                    ]
                 ],
             ]);
     }
@@ -57,7 +62,7 @@ final class AgentAdmin extends AbstractAdmin {
             ->add('dateDepart')
         ;
     }
-    
+
     protected function configureShowFields(ShowMapper $showMapper): void {
         $showMapper
         ->add('nom')

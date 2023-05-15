@@ -31,7 +31,10 @@ class PamEquipageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('e')
             ->leftJoin('e.rapport', 'r')
+            ->leftJoin('e.membres', 'm')
+            ->leftJoin('m.agent', 'a')
             ->where('r.created_by = :service')
+            ->andWhere('a.deletedAt IS NULL')
             ->setParameter('service', $service)
             ->orderBy('e.id', 'DESC')
             ->setMaxResults(1)
