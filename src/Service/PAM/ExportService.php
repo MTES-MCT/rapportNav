@@ -172,6 +172,22 @@ class ExportService {
     {
         $filler = new OfficeFiller();
         $rapport = $draft ? $this->draftRepository->findRapport($rapportID) : $this->rapportRepository->find($rapportID);
+        $service = $rapport->getCreatedBy()->getNom();
+
+        $copys = null;
+
+        if($service === 'PAM Jeanne Barret A' || $service === 'PAM Jeanne Barret B') {
+            $copys = 'DIRM MEMN/DIAM/SRCAM';
+        }
+        if($service === 'PAM IRIS A' || $service === 'PAM IRIS B') {
+            $copys = 'DIRM MEMN/DIAM/SRCAM';
+        }
+        if($service === 'PAM THEMIS A' || $service === 'PAM THEMIS B') {
+            $copys = 'DIRM MEMN/DIAM/SRCAM';
+        }
+        if($service === 'PAM GYPTIS bordée A' || $service === 'PAM GYPTIS bordée B') {
+            $copys = 'DIRM MEMN/DIAM/SRCAM';
+        }
 
         $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission.docx');
         $templateProcessor->setValues([
@@ -194,7 +210,9 @@ class ExportService {
             'totalPresenceMer' => $rapport->getTotalPresenceMer(),
             'totalPresenceQuai' => $rapport->getTotalPresenceAQuai(),
             'totalIndisponibilite' => $rapport->getTotalIndisponibilite(),
-            'dureeMission' => $rapport->getDureeMission()
+            'dureeMission' => $rapport->getDureeMission(),
+            'serviceNom' => $rapport->getCreatedBy()->getNom(),
+            'destinataireCopies' => $copys
         ]);
         $tableEquipage = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
         $tableMerPlaisancePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
