@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Agent;
 use App\Entity\Rapport;
 use App\Entity\RapportRepartitionHeures;
 use App\Entity\Service;
@@ -16,10 +17,13 @@ use App\Form\ActiviteNavireType;
 use App\Form\ActivitePechePiedType;
 use App\Form\RapportType;
 use App\Helper\TimeConvert;
+use App\Repository\AgentRepository;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
 use InvalidArgumentException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
@@ -269,9 +273,9 @@ class DefaultController extends AbstractController {
         $iframeUrl = $metabaseDbUrl."embed/dashboard/".$token."#bordered=true&titled=true";
 
         return $this->render('listForms.html.twig', [
-            'iframeUrl' => $iframeUrl, 
-            'now' => $now, 
-            'previousMonth' => $previousMonth, 
+            'iframeUrl' => $iframeUrl,
+            'now' => $now,
+            'previousMonth' => $previousMonth,
             ]);
 
     }
@@ -298,7 +302,7 @@ class DefaultController extends AbstractController {
             $this->addFlash("error", "Une erreur est survenue en tentant d'afficher la page, vous avez été redirigé⋅ sur la page d'accueil. ");
             return $this->redirectToRoute('home');
         }
-        
+
         $service = $this->getUser()->getService();
         $openMonths=[];
         if(!$em->getRepository(MoisClos::class)->isClosed($service, $beforePrevMonth)) {
@@ -400,7 +404,7 @@ class DefaultController extends AbstractController {
         return $response;
 
     }
-    
+
     /**
      * @Route("/api/mois_clos", name="mois_clos", methods={"POST"})
      */
@@ -414,9 +418,9 @@ class DefaultController extends AbstractController {
         } catch (Exception $ex) {
             throw new InvalidArgumentException("La date est invalide ou l'utilisateur n'a pas de service");
         }
-        
+
         $moisClos = new MoisClos();
-        
+
         try {
             $date = new \DateTimeImmutable("01-".$dateString);
             $moisClos->setService($service)
@@ -424,12 +428,12 @@ class DefaultController extends AbstractController {
         } catch (Exception $ex) {
             throw new InvalidArgumentException("La date est invalide ou l'utilisateur n'a pas de service");
         }
-        
+
         $this->addFlash("success", "Le mois de ".$date->format("M")." est clos.");
-        
+
         $em->persist($moisClos);
         $em->flush();
-        
+
         return $this->json(['status' => "success"]);
     }
 
@@ -464,6 +468,21 @@ class DefaultController extends AbstractController {
             'assistance' => $rH->getAssistance() ? TimeConvert::minutesToTime($rH->getAssistance())->format("H:i") : null,
             'plongee' => $rH->getPlongee() ? TimeConvert::minutesToTime($rH->getPlongee())->format("H:i") : null,
         ];
+    }
+
+
+    /**
+     * @Route("/desactiver/{id}", name="app_desactivation_agent")
+     */
+    public function desactivationAgent(Agent $agent, AgentRepository $repository, Request $request)
+    {
+        $agent->setDeletedAt(new DateTimeImmutable());
+        $repository->add($agent, true);
+        $this->addFlash('success', 'Désactivé');
+
+        $referer = $request->headers->get('referer');
+
+        return new RedirectResponse($referer);
     }
 
 }

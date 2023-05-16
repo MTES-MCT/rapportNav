@@ -53,6 +53,11 @@ class Agent {
      */
     private $userAccount;
 
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $deletedAt;
+
     public function __toString() {
         return $this->prenom." ".$this->nom;
     }
@@ -128,6 +133,18 @@ class Agent {
     public function setUserAccount(?User $userAccount): self
     {
         $this->userAccount = $userAccount;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

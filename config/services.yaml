@@ -256,3 +256,10 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Documentation }
         public: true
+
+    admin.commandant:
+        class: App\Admin\CommandantAdmin
+        arguments: [ ~, App\Entity\Commandant, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Commandant }
+        public: true

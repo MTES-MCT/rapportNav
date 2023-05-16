@@ -5,6 +5,7 @@ setlocale (LC_TIME, 'fr_FR.utf8','fra');
 
 use App\Entity\PAM\PamRapport;
 use App\Exception\RapportNotFound;
+use App\Repository\CommandantRepository;
 use App\Repository\PAM\PamDraftRepository;
 use App\Repository\PAM\PamIndicateurRepository;
 use App\Repository\PAM\PamRapportRepository;
@@ -35,6 +36,8 @@ class ExportService {
 
     private string $templateDir;
 
+    private $commandantRepository;
+
     const ROW_ASSISTANCE_NAVIRE = 23;
     const ROW_LUTTE_IMMIGRATION_ILLEGALE = 29;
     const ROW_REPRESSION_POLLUTION = 35;
@@ -49,11 +52,12 @@ class ExportService {
      * @param PamDraftRepository      $draftRepository
      */
     public function __construct(PamIndicateurRepository $indicateurRepository, PamDraftRepository $draftRepository,
-                                PamRapportRepository $rapportRepository, string $project_dir) {
+                                PamRapportRepository $rapportRepository, string $project_dir, CommandantRepository $commandantRepository) {
         $this->indicateurRepository = $indicateurRepository;
         $this->draftRepository = $draftRepository;
         $this->rapportRepository = $rapportRepository;
         $this->templateDir = $project_dir . '/templates/export/';
+        $this->commandantRepository = $commandantRepository;
     }
 
     /**
@@ -172,6 +176,26 @@ class ExportService {
     {
         $filler = new OfficeFiller();
         $rapport = $draft ? $this->draftRepository->findRapport($rapportID) : $this->rapportRepository->find($rapportID);
+        $service = $rapport->getCreatedBy()->getNom();
+
+        $copys = null;
+
+        if($service === 'PAM Jeanne Barret A' || $service === 'PAM Jeanne Barret B') {
+            $copys = 'DIRM MEMN/DIAM/SRCAM';
+        }
+        if($service === 'PAM IRIS A' || $service === 'PAM IRIS B') {
+            $copys = 'DIRM MEMN/DIAM/SRCAM';
+        }
+        if($service === 'PAM THEMIS A' || $service === 'PAM THEMIS B') {
+            $copys = 'DIRM MEMN/DIAM/SRCAM';
+        }
+        if($service === 'PAM GYPTIS bordée A' || $service === 'PAM GYPTIS bordée B') {
+            $copys = 'DIRM MEMN/DIAM/SRCAM';
+        }
+
+        $commandant = $this->commandantRepository->findOneBy(['service' => $rapport->getCreatedBy()]);
+        $nomCommandant = $commandant->getAgent()->getPrenom() . ' ' . strtoupper($commandant->getAgent()->getNom());
+        $bordee = $commandant->getIntitule();
 
         $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission.docx');
         $templateProcessor->setValues([
@@ -194,7 +218,12 @@ class ExportService {
             'totalPresenceMer' => $rapport->getTotalPresenceMer(),
             'totalPresenceQuai' => $rapport->getTotalPresenceAQuai(),
             'totalIndisponibilite' => $rapport->getTotalIndisponibilite(),
-            'dureeMission' => $rapport->getDureeMission()
+            'dureeMission' => $rapport->getDureeMission(),
+            'serviceNom' => $rapport->getCreatedBy()->getNom(),
+            'destinataireCopies' => $copys,
+            'nomCommandant' => $nomCommandant,
+            'roleBordee' => $bordee
+
         ]);
         $tableEquipage = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
         $tableMerPlaisancePro = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
