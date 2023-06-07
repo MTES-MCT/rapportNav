@@ -160,6 +160,18 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de moyen nautique" }
 
+    admin.categorie_armement:
+        class: App\Admin\CategorieControleArmementAdmin
+        arguments: [ ~,App\Entity\CategorieControleArmement,~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de contrôle (armement)" }
+
+    admin.categorie_personnel:
+        class: App\Admin\CategorieControlePersonnelAdmin
+        arguments: [ ~,App\Entity\CategorieControlePersonnel,~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de contrôle (personnel)" }
+
     admin.categorie_methode_ciblage:
         class: App\Admin\CategorieMethodeCiblage
         arguments: [~,App\Entity\CategorieMethodeCiblage,~]

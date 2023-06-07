@@ -3,12 +3,59 @@
 
 {% block body %}
     <div class="fr-container">
-        <h1 class="fr-mt-4w">Ajout d'un contrôle GM administratif par lot</h1>
+        <h1 class="fr-mt-4w">Ajout d'un contrôle GM {{ titrePage }}</h1>
 
         <div class="fr-grid-row fr-mt-6w">
-            <form action="">
-                <label class="fr-label" for="text-input-text">Nombre de contrôles documentaires : </label>
-                <input class="fr-input" type="number" id="text-input-text" name="text-input-text" value="0">
+            <form action="{{ path('app_navpro_default_ajoutcontroleparlot') }}" method="post">
+                <div class="fr-grid-row">
+                    {{ form_label(form.nombre) }}
+                    {{ form_widget(form.nombre) }}
+                </div>
+                <div class="fr-grid-row fr-grid-row--gutters fr-mt-3v row__controle-realises">
+                    <div class="fr-col-6">
+                        {{ form_label(form.controlesRealisesArmement) }}
+                        <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
+                            <div class="fr-fieldset__element fr-fieldset__element--inline">
+                                <div class="fr-checkbox-group">
+                                    {{ form_widget(form.controlesRealisesArmement) }}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="fr-col-6">
+                        {{ form_label(form.controlesRealisesPersonnel) }}
+                        <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
+                            <div class="fr-fieldset__element fr-fieldset__element--inline">
+                                <div class="fr-checkbox-group">
+                                    {{ form_widget(form.controlesRealisesPersonnel) }}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="fr-grid-row">
+                    <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
+                        <div class="fr-fieldset__element fr-fieldset__element--inline">
+                            <div class="fr-checkbox-group">
+                                {{ form_widget(form.pvEmis) }}
+                                {{ form_label(form.pvEmis) }}
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="fr-grid-row">
+                    {{ form_label(form.commentaire) }}
+                    {{ form_widget(form.commentaire) }}
+                </div>
+
+
+                <div class="fr-grid-row fr-mt-4w action">
+                    <button class="fr-btn" type="submit">Valider</button>
+                    <button class="fr-btn fr-ml-2w">Enregistrer le brouillon</button>
+                    <button class="fr-btn fr-btn--secondary fr-ml-4w">Supprimer</button>
+                </div>
+                {{ form_widget(form._token) }}
             </form>
         </div>
 
