@@ -15,12 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ControleLot
 {
 
-    const TYPE_CONTROLE_ADMINISTRATIF_LOT = 'controle_administratif_lot';
-    const TYPE_CONTROLE_ADMINISTRATIF_UNITAIRE = 'controle_administratif_unitaire';
-    const TYPE_CONTROLE_TERRAIN_MER_LOT = 'controle_terrain_mer_lot';
-    const TYPE_CONTROLE_TERRAIN_MER_UNITAIRE = 'controle_terrain_mer_unitaire';
-    const TYPE_CONTROLE_TERRAIN_QUAI_LOT = 'controle_terrain_quai_lot';
-    const TYPE_CONTROLE_TERRAIN_QUAI_UNITAIRE = 'controle_terrain_quai_unitaire';
+    const TYPE_CONTROLE_ADMINISTRATIF = 'controle_administratif';
 
     /**
      * @ORM\Id
@@ -62,7 +57,7 @@ class ControleLot
     /**
      * @ORM\Column(type="string", length=128)
      */
-    private $type;
+    private $type = self::TYPE_CONTROLE_ADMINISTRATIF;
 
     public function __construct()
     {

@@ -4,38 +4,42 @@ namespace App\Form\NavPro;
 
 use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
-use App\Entity\NavPro\ControleLot;
+use App\Entity\NavPro\ControleUnitaire;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ControleLotType extends AbstractType
+class ControleUnitaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nombre', IntegerType::class, [
-                'label' => 'Nombre de contrôles documentaires',
+            ->add('pvEmis', CheckboxType::class, [
+                'label' => 'PV émis ?',
+                'label_attr' => ['class' => 'fr-label'],
+                'required' => false,
+            ])
+            ->add('navireEtranger', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Navire étranger',
+                'label_attr' => ['class' => 'fr-label'],
+            ])
+            ->add('enregistrementNavire', TextType::class, [
+                'label' => 'Enregistrement du navire',
                 'label_attr' => ['class' => 'fr-label'],
                 'attr' => ['class' => 'fr-input']
             ])
-            ->add('pvEmis', CheckboxType::class, [
-                'label' => 'PV émis',
-                'required' => false,
-                'label_attr' => ['class' => 'fr-label']
-            ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
-                'attr' => ['class' => 'fr-input'],
                 'label' => 'Commentaire et remarque sur ce contrôle',
-                'label_attr' => ['class' => 'fr-label']
+                'label_attr' => ['class' => 'fr-label'],
+                'attr' => ['class' => 'fr-input']
             ])
-            ->add('controlesRealisesArmement', EntityType::class, [
+            ->add('controleRealisesArmement', EntityType::class, [
                 'class' => CategorieControleArmement::class,
                 'multiple' => true,
                 'expanded' => true,
@@ -43,11 +47,11 @@ class ControleLotType extends AbstractType
                 'label_attr' => ['class' => 'fr-label'],
                 'choice_attr' => ['class' => 'fr-mb-2v']
             ])
-            ->add('controlesRealisesPersonnel', EntityType::class, [
+            ->add('controleRealisesGM', EntityType::class, [
                 'class' => CategorieControlePersonnel::class,
                 'multiple' => true,
                 'expanded' => true,
-                'label' => 'Contrôles réalisés (personnel)',
+                'label' => 'Contrôles réalisés (gens de mer)',
                 'label_attr' => ['class' => 'fr-label']
             ])
         ;
@@ -56,7 +60,7 @@ class ControleLotType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ControleLot::class,
+            'data_class' => ControleUnitaire::class,
         ]);
     }
 }
