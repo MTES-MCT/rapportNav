@@ -3,13 +3,13 @@
 
 {% block body %}
     <div class="fr-container">
-        <h1 class="fr-mt-4w">Ajout d'un contrôle GM {{ titrePage }}</h1>
+        <h1 class="fr-mt-4w">Contrôle <GM></GM> {{ titrePage }}</h1>
 
         <div class="fr-grid-row fr-mt-6w">
-            <form action="{{ path('app_navpro_default_ajoutcontrole_unitaire') }}" method="post">
+            <form action="{{ path('app_navpro_default_ajoutcontrole_unitaire', {'type': app.request.query.get('type')}) }}" method="post">
                 <div class="fr-grid-row">
                     {{ form_label(form.enregistrementNavire) }}
-                    <small>Si le navire est sans immatriculation, notez "sans" et cochez "Navire étranger"</small>
+
                     {{ form_widget(form.enregistrementNavire) }}
                 </div>
                 <div class="fr-grid-row fr-mt-4w">
@@ -72,5 +72,7 @@
 
 
     </div>
+
+
 
 {% endblock %}

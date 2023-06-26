@@ -31,7 +31,7 @@ class ControleUnitaireType extends AbstractType
             ->add('enregistrementNavire', TextType::class, [
                 'label' => 'Enregistrement du navire',
                 'label_attr' => ['class' => 'fr-label'],
-                'attr' => ['class' => 'fr-input']
+                'attr' => ['class' => 'fr-input fr-input-enregistrement']
             ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
@@ -45,7 +45,10 @@ class ControleUnitaireType extends AbstractType
                 'expanded' => true,
                 'label' => 'Contrôles réalisés (armement)',
                 'label_attr' => ['class' => 'fr-label'],
-                'choice_attr' => ['class' => 'fr-mb-2v']
+                'choice_attr' => function ($choice, string $key, $value) {
+                    // adds a class like attending_yes, attending_no, etc
+                    return ['class' => 'test'];
+                },
             ])
             ->add('controleRealisesGM', EntityType::class, [
                 'class' => CategorieControlePersonnel::class,

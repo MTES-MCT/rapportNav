@@ -6,6 +6,7 @@ use App\Entity\NavPro\ControleLot;
 use App\Entity\NavPro\ControleUnitaire;
 use App\Form\NavPro\ControleLotType;
 use App\Form\NavPro\ControleUnitaireType;
+use App\Repository\NavPro\ControleUnitaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +19,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/navpro", name="app_navpro_accueil" )
      */
-    public function accueil()
+    public function accueil(ControleUnitaireRepository $controleUnitaireRepository)
     {
-        return $this->render("navPro/accueil.html.twig");
+        return $this->render("navPro/accueil.html.twig", [
+            'contrUnitaires' => $controleUnitaireRepository->findAll()
+        ]);
     }
 
 
@@ -68,6 +71,40 @@ class DefaultController extends AbstractController
         }
 
         $controleUnitaire = new ControleUnitaire();
+        $controleUnitaire->setType($type);
+        $form = $this->createForm(ControleUnitaireType::class, $controleUnitaire);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($controleUnitaire);
+            $em->flush();
+            return new Response('ok');
+        }
+
+        return $this->render('navPro/controle_unitaire.html.twig', [
+            'titrePage' => $titrePage,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/navpro/controle/unitaire/{id}", name="app_navpro_default_modif_controle_unitaire")
+     */
+    public function modifControleUnitaire(ControleUnitaire $controleUnitaire, Request $request, EntityManagerInterface $em)
+    {
+        $titrePage = null;
+        switch($controleUnitaire->getType()) {
+            case ControleUnitaire::TYPE_CONTROLE_ADMINISTRATIF:
+                $titrePage = 'administratif unitaire';
+                break;
+            case ControleUnitaire::TYPE_CONTROLE_TERRAIN_MER:
+                $titrePage = 'terrain en mer unitaire';
+                break;
+            case ControleUnitaire::TYPE_CONTROLE_TERRAIN_QUAI:
+                $titrePage = 'terrain à quai unitaire';
+                break;
+
+        }
+
         $form = $this->createForm(ControleUnitaireType::class, $controleUnitaire);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
