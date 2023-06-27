@@ -41,6 +41,7 @@ Encore
                 ])
     .addEntry('pamRapport', './assets/js/pam/pam.js')
     .addEntry('assets-gouv', './assets/js/pam/dist/assets.js')
+    .addEntry('navpro', './assets/js/navpro.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

@@ -1,0 +1,18 @@
+.text-red {
+    color: #ff4140;
+    font-weight: 700;
+}
+
+.text-blue {
+    color: #000091;
+    font-weight: 700;
+}
+
+.test {
+    margin-bottom: 15px !important;
+    background-color: red !important;
+}
+
+.gm-controle-icon {
+    color: #8585f6;
+}

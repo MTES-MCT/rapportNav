@@ -1,0 +1,5 @@
+require('@gouvfr/dsfr/dist/dsfr/dsfr.css')
+require('@gouvfr/dsfr/dist/dsfr/dsfr.module')
+require('@gouvfr/dsfr/dist/component/modal/modal.module')
+require('@gouvfr/dsfr/dist/component/modal/modal.css')
+require('../css/navpro.css')

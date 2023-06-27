@@ -1,0 +1,111 @@
+{% extends 'navPro/base.html.twig' %}
+
+
+{% block body %}
+    <div class="fr-container">
+        <h1 class="fr-mt-4w">{{ titrePage }}</h1>
+
+        <div class="fr-grid-row fr-mt-6w">
+            <form action="{{ action }}" method="post" id="form-controle">
+                <div class="fr-grid-row">
+                    <div class="fr-col-3">
+                        {{ form_label(form.date) }}
+                        {{ form_widget(form.date) }}
+                    </div>
+                </div>
+                <div class="fr-grid-row fr-mt-3w">
+                    {{ form_label(form.nombre) }}
+                    {{ form_widget(form.nombre) }}
+                </div>
+                <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w row__controle-realises">
+                    <div class="fr-col-6">
+                        {{ form_label(form.controlesRealisesArmement) }}
+                        <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
+                            <div class="fr-fieldset__element fr-fieldset__element--inline">
+                                <div class="fr-checkbox-group fr-mt-2v">
+                                    {{ form_widget(form.controlesRealisesArmement) }}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="fr-col-6">
+                        {{ form_label(form.controlesRealisesPersonnel) }}
+                        <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
+                            <div class="fr-fieldset__element fr-fieldset__element--inline">
+                                <div class="fr-checkbox-group fr-mt-2v">
+                                    {{ form_widget(form.controlesRealisesPersonnel) }}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="fr-grid-row fr-mt-6w">
+                    <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
+                        <div class="fr-fieldset__element fr-fieldset__element--inline">
+                            <div class="fr-checkbox-group">
+                                {{ form_widget(form.pvEmis) }}
+                                {{ form_label(form.pvEmis) }}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="fr-grid-row fr-ml-4w">
+                        <div class="fr-download">
+                            <p>
+                                <a id="download-rapport" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link text-blue">
+                                    Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fr-grid-row fr-mt-6w">
+                    {{ form_label(form.commentaire) }}
+                    {{ form_widget(form.commentaire) }}
+                </div>
+
+
+                <div class="fr-grid-row fr-mt-4w action">
+                    <button class="fr-btn" type="submit">Valider</button>
+                    {% if brouillon %}
+                        <button class="fr-btn fr-ml-2w" id="btn-brouillon">Enregistrer le brouillon</button>
+                        <button class="fr-btn fr-btn--secondary fr-ml-4w" type="reset">Ré-initialiser</button>
+                    {% endif %}
+                </div>
+                {{ form_widget(form._token) }}
+            </form>
+        </div>
+
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        let $checkbox = document.getElementsByClassName('pv-emis-checkbox');
+        $checkbox = $checkbox[0];
+        const $download = document.getElementById('download-rapport');
+        handleCheckbox($checkbox, $download)
+
+        $checkbox.addEventListener('change', function(){
+            handleCheckbox($checkbox, $download)
+        })
+
+        function handleCheckbox(checkbox, download) {
+            if(checkbox.checked) {
+                download.style.display = 'block'
+            } else {
+                download.style.display = 'none'
+            }
+        }
+
+        const $btnBrouillon = document.getElementById("btn-brouillon");
+        const $form = document.getElementById("form-controle");
+        $btnBrouillon.addEventListener('click', function(e) {
+            e.preventDefault();
+            $form.action = "{{ action }}" + "&brouillon=true"
+            $form.submit()
+        })
+
+    </script>
+{% endblock %}

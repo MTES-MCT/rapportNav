@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    app.version: '0.20.0'
+    app.version: '0.21.0'
     app.warning: '%env(resolve:APP_SHOW_WARNING)%'
     api_app: '%env(resolve:API_APP)%'
     api_navire: '%env(resolve:API_NAVIRE)%'
@@ -159,6 +159,18 @@ services:
         arguments: [~,App\Entity\CategorieMoyen,~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de moyen nautique" }
+
+    admin.categorie_armement:
+        class: App\Admin\CategorieControleArmementAdmin
+        arguments: [ ~,App\Entity\CategorieControleArmement,~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de contrôle (armement)" }
+
+    admin.categorie_personnel:
+        class: App\Admin\CategorieControlePersonnelAdmin
+        arguments: [ ~,App\Entity\CategorieControlePersonnel,~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: categorie, label: "Catégories de contrôle (personnel)" }
 
     admin.categorie_methode_ciblage:
         class: App\Admin\CategorieMethodeCiblage
