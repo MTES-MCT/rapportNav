@@ -10,7 +10,7 @@
                 Ajouter un contrôle administratif
             </button>
         </div>
-        <div class="fr-grid-row fr-mt-4w">
+        <div class="fr-grid-row fr-mt-4w" data-fr-opened="false" aria-controls="fr-modal-terrain">
             <button class="fr-btn">
                 Ajouter un contrôle terrain (sur site)
             </button>
@@ -20,35 +20,140 @@
             <h3>Contrôles effectués</h3>
         </div>
 
-        <div class="fr-card fr-pb-4w fr-pl-2w">
-            <div class="fr-grid-row fr-mt-4w fr-mb-2w">
-                <div class="fr-col-md-1"></div>
-                <div class="fr-col-md-5"></div>
-                <div class="fr-col-md-2">Date</div>
-                <div class="fr-col-md-2">Statut</div>
-                <div class="fr-col-md-2"></div>
+
+        <div class="fr-grid-row fr-mt-4w fr-mb-2w">
+            <div class="fr-col-12">
+                <div class="fr-grid-row">
+                    <div class="fr-col-md-1"></div>
+                    <div class="fr-col-md-5"></div>
+                    <div class="fr-col-md-2">Date</div>
+                    <div class="fr-col-md-2">Statut</div>
+                    <div class="fr-col-md-2"></div>
+                </div>
+
             </div>
 
-            <div class="fr-grid-row">
-                {% for contrUnit in contrUnitaires %}
-                    <div class="fr-col-md-1">   <span class="fr-fi-file-fill fr-fi--lg icon-current-report" aria-hidden="true"></span></div>
-                    <div class="fr-col-md-5">{{ contrUnit.type|formatControleGM }}</div>
-                    <div class="fr-col-md-2">26/06/2023</div>
-                    <div class="fr-col-md-2">
-                        {% if contrUnit.brouillon %}
-                            <span class="text-red">Brouillon</span>
-                        {% else %}
-                            Validé
-                        {% endif %}
-                    </div>
-                    <div class="fr-col-md-2"><a class="fr-btn" href="{{ path('app_navpro_default_modif_controle_unitaire', {'id': contrUnit.id}) }}">Ouvrir</a></div>
-                {% endfor %}
+        </div>
+
+        <div class="fr-grid-row">
+            <div class="fr-col-12">
+                <div class="fr-grid-row">
+                    {% for contrUnit in contrUnitaires %}
+                        <div class="fr-col-md-1">   <span class="fr-fi-file-fill fr-fi--lg icon-current-report" aria-hidden="true"></span></div>
+                        <div class="fr-col-md-5">{{ contrUnit.type|formatControleGM }}</div>
+                        <div class="fr-col-md-2">{{ contrUnit.date|date('d/m/Y') }}</div>
+                        <div class="fr-col-md-2">
+                            {% if contrUnit.brouillon %}
+                                <span class="text-red">Brouillon</span>
+                            {% else %}
+                                Validé
+                            {% endif %}
+                        </div>
+                        <div class="fr-col-md-2"><a class="fr-btn" href="{{ path('app_navpro_default_modif_controle_unitaire', {'id': contrUnit.id}) }}">Ouvrir</a></div>
+                    {% endfor %}
+                </div>
             </div>
+
+            <div class="fr-col-12">
+                <div class="fr-grid-row">
+                    {% for contrLot in contrLots %}
+                        <div class="fr-col-md-1">   <span class="fr-fi-file-fill fr-fi--lg icon-current-report" aria-hidden="true"></span></div>
+                        <div class="fr-col-md-5">{{ contrLot.type|formatControleGM }}</div>
+                        <div class="fr-col-md-2">{{ contrLot.date|date('d/m/Y') }}</div>
+                        <div class="fr-col-md-2">
+                            {% if contrLot.brouillon %}
+                                <span class="text-red">Brouillon</span>
+                            {% else %}
+                                <span class="text-blue">Validé</span>
+                            {% endif %}
+                        </div>
+                        <div class="fr-col-md-2"><a class="fr-btn" href="{{ path('app_navpro_default_modif_controle_lot', {'id': contrLot.id}) }}">Ouvrir</a></div>
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
     </div>
 
+    <!--Bouton d'ouverture de la modale-->
 
-    <!--Bouton d'ouverture de la modale--><button class="fr-btn"  data-fr-opened="false" aria-controls="fr-modal-1">    Titre de modal simple</button><!-- Modale Simple     La balise <dialog> peut être placée n'importe où sur la page, toutefois     nous vous conseillons, si vous en avez la possibilité,     d'en faire un enfant direct de la balise <body>--><dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="fr-modal-1" class="fr-modal">    <div class="fr-container fr-container--fluid fr-container-md">        <div class="fr-grid-row fr-grid-row--center">            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">                <div class="fr-modal__body">                    <div class="fr-modal__header">                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="fr-modal-1">Fermer</button>                    </div>                    <div class="fr-modal__content">                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Titre de la modale</h1>                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, sit amet tempor nibh finibus et. Aenean eu enim justo. Vestibulum aliquam hendrerit molestie. Mauris malesuada nisi sit amet augue accumsan tincidunt. Maecenas tincidunt, velit ac porttitor pulvinar, tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.</p>                    </div>                </div>            </div>        </div>    </div></dialog>
+
+
+    <!-- Modale Simple
+         La balise <dialog> peut être placée n'importe où sur la page, toutefois
+         nous vous conseillons, si vous en avez la possibilité,
+         d'en faire un enfant direct de la balise <body>
+    -->
+
+
+
+{% endblock %}
+{% block modals %}
+    <dialog aria-labelledby="fr-modal-title-administratif" role="dialog" id="fr-modal-administratif" class="fr-modal">
+        <div class="fr-container fr-container--fluid fr-container-md">
+            <div class="fr-grid-row fr-grid-row--center">
+                <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                    <div class="fr-modal__body">
+                        <div class="fr-modal__header">
+                            <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="fr-modal-administratif">Fermer</button>
+                        </div>
+                        <div class="fr-modal__content">
+                            <h1 id="fr-modal-title-administratif" class="fr-modal__title"><span class="fr-fi-add-circle-fill fr-fi--lg"></span>Ajouter un contrôle administratif GM</h1>
+
+                            <div class="fr-mt-4w">
+                                <ul class="fr-btns-group">
+                                    <li>
+                                        <a class="fr-btn" href="{{ path('app_navpro_default_ajoutcontroleparlot', {'type': constant('App\\Entity\\NavPro\\ControleLot::TYPE_CONTROLE_ADMINISTRATIF') }) }}">
+                                            Contrôle administratif par lot
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="fr-btn" href="{{ path('app_navpro_default_ajoutcontrole_unitaire', {'type': constant('App\\Entity\\NavPro\\ControleUnitaire::TYPE_CONTROLE_ADMINISTRATIF') }) }}">
+                                            Contrôle administratif unitaire
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog aria-labelledby="fr-modal-title-terrain" role="dialog" id="fr-modal-terrain" class="fr-modal">
+        <div class="fr-container fr-container--fluid fr-container-md">
+            <div class="fr-grid-row fr-grid-row--center">
+                <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                    <div class="fr-modal__body">
+                        <div class="fr-modal__header">
+                            <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="fr-modal-terrain">Fermer</button>
+                        </div>
+                        <div class="fr-modal__content">
+                            <h1 id="fr-modal-title-terrain" class="fr-modal__title"><span class="fr-fi-add-circle-fill fr-fi--lg"></span>Ajouter un contrôle terrain GM</h1>
+
+                            <div class="fr-mt-4w">
+                                <ul class="fr-btns-group">
+                                    <li>
+                                        <a class="fr-btn" href="{{ path('app_navpro_default_ajoutcontrole_unitaire', {'type': constant('App\\Entity\\NavPro\\ControleUnitaire::TYPE_CONTROLE_TERRAIN_MER') }) }}">
+                                            Contrôle en mer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="fr-btn" href="{{ path('app_navpro_default_ajoutcontrole_unitaire', {'type': constant('App\\Entity\\NavPro\\ControleUnitaire::TYPE_CONTROLE_TERRAIN_QUAI') }) }}">
+                                            Contrôle à quai
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
 
 
 {% endblock %}

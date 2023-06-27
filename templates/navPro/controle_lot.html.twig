@@ -3,11 +3,17 @@
 
 {% block body %}
     <div class="fr-container">
-        <h1 class="fr-mt-4w">Ajout d'un contrôle GM {{ titrePage }}</h1>
+        <h1 class="fr-mt-4w">{{ titrePage }}</h1>
 
         <div class="fr-grid-row fr-mt-6w">
             <form action="{{ path('app_navpro_default_ajoutcontroleparlot') }}" method="post">
                 <div class="fr-grid-row">
+                    <div class="fr-col-3">
+                        {{ form_label(form.date) }}
+                        {{ form_widget(form.date) }}
+                    </div>
+                </div>
+                <div class="fr-grid-row fr-mt-3v">
                     {{ form_label(form.nombre) }}
                     {{ form_widget(form.nombre) }}
                 </div>
@@ -53,7 +59,7 @@
                 <div class="fr-grid-row fr-mt-4w action">
                     <button class="fr-btn" type="submit">Valider</button>
                     <button class="fr-btn fr-ml-2w">Enregistrer le brouillon</button>
-                    <button class="fr-btn fr-btn--secondary fr-ml-4w">Supprimer</button>
+                    <button class="fr-btn fr-btn--secondary fr-ml-4w" type="reset">Supprimer</button>
                 </div>
                 {{ form_widget(form._token) }}
             </form>

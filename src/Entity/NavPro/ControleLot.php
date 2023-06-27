@@ -4,6 +4,7 @@ namespace App\Entity\NavPro;
 
 use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
+use App\Entity\Service;
 use App\Repository\NavPro\ControleLotRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -58,6 +59,16 @@ class ControleLot
      * @ORM\Column(type="string", length=128)
      */
     private $type = self::TYPE_CONTROLE_ADMINISTRATIF;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Service::class)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date;
 
     public function __construct()
     {
@@ -174,6 +185,30 @@ class ControleLot
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?Service
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?Service $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

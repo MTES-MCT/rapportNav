@@ -4,6 +4,7 @@ namespace App\Entity\NavPro;
 
 use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
+use App\Entity\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,9 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
 class ControleUnitaire
 {
 
-    const TYPE_CONTROLE_TERRAIN_MER = 'controle_terrain_mer';
-    const TYPE_CONTROLE_TERRAIN_QUAI = 'controle_terrain_quai';
-    const TYPE_CONTROLE_ADMINISTRATIF = 'controle_terrain_administratif';
+    const TYPE_CONTROLE_TERRAIN_MER = 'controle_terrain_mer_unitaire';
+    const TYPE_CONTROLE_TERRAIN_QUAI = 'controle_terrain_quai_unitaire';
+    const TYPE_CONTROLE_ADMINISTRATIF = 'controle_administratif_unitaire';
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -63,6 +64,16 @@ class ControleUnitaire
      * @ORM\ManyToMany(targetEntity=CategorieControlePersonnel::class)
      */
     private $controleRealisesGM;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Service::class)
+     */
+    private $createdBy;
 
     public function __construct()
     {
@@ -191,6 +202,30 @@ class ControleUnitaire
     public function removeControleRealisesGM(CategorieControlePersonnel $controleRealisesGM): self
     {
         $this->controleRealisesGM->removeElement($controleRealisesGM);
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?Service
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?Service $createdBy): self
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }

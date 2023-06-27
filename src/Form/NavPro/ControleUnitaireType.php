@@ -8,6 +8,7 @@ use App\Entity\NavPro\ControleUnitaire;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,6 +23,7 @@ class ControleUnitaireType extends AbstractType
                 'label' => 'PV émis ?',
                 'label_attr' => ['class' => 'fr-label'],
                 'required' => false,
+                'attr' => ['class' => 'pv-emis-checkbox']
             ])
             ->add('navireEtranger', CheckboxType::class, [
                 'required' => false,
@@ -55,6 +57,12 @@ class ControleUnitaireType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'Contrôles réalisés (gens de mer)',
+                'label_attr' => ['class' => 'fr-label']
+            ])
+            ->add('date', DateType::class, [
+                'attr' => ['class' => 'fr-input'],
+                'widget' => 'single_text',
+                'label' => 'Date du contrôle',
                 'label_attr' => ['class' => 'fr-label']
             ])
         ;

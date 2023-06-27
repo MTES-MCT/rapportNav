@@ -3,14 +3,22 @@
 
 {% block body %}
     <div class="fr-container">
-        <h1 class="fr-mt-4w">Contrôle <GM></GM> {{ titrePage }}</h1>
+        <h1 class="fr-mt-4w">Contrôle GM {{ titrePage }}</h1>
 
         <div class="fr-grid-row fr-mt-6w">
             <form action="{{ path('app_navpro_default_ajoutcontrole_unitaire', {'type': app.request.query.get('type')}) }}" method="post">
                 <div class="fr-grid-row">
-                    {{ form_label(form.enregistrementNavire) }}
+                    <div class="fr-col-3">
+                        {{ form_label(form.date) }}
+                        {{ form_widget(form.date) }}
+                    </div>
 
-                    {{ form_widget(form.enregistrementNavire) }}
+                </div>
+                <div class="fr-grid-row fr-mt-4w">
+                    <div class="fr-col-6">
+                        {{ form_label(form.enregistrementNavire) }}
+                        {{ form_widget(form.enregistrementNavire) }}
+                    </div>
                 </div>
                 <div class="fr-grid-row fr-mt-4w">
                     <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
@@ -53,6 +61,15 @@
                             </div>
                         </div>
                     </fieldset>
+                    <div class="fr-grid-row fr-ml-4w">
+                        <div class="fr-download">
+                            <p>
+                                <a id="download-rapport" href="[À MODIFIER]" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM
+                                    <span class="fr-download__detail">Docx</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="fr-grid-row">
@@ -60,19 +77,35 @@
                     {{ form_widget(form.commentaire) }}
                 </div>
 
-
                 <div class="fr-grid-row fr-mt-4w action">
                     <button class="fr-btn" type="submit">Valider</button>
                     <button class="fr-btn fr-ml-2w">Enregistrer le brouillon</button>
-                    <button class="fr-btn fr-btn--secondary fr-ml-4w">Supprimer</button>
+                    <button class="fr-btn fr-btn--secondary fr-ml-4w" type="reset">Supprimer</button>
                 </div>
                 {{ form_widget(form._token) }}
             </form>
         </div>
-
-
     </div>
+{% endblock %}
 
+{% block javascripts %}
+    <script>
+        let $checkbox = document.getElementsByClassName('pv-emis-checkbox');
+        $checkbox = $checkbox[0];
+        const $download = document.getElementById('download-rapport');
+        handleCheckbox($checkbox, $download)
 
+        $checkbox.addEventListener('change', function(){
+            handleCheckbox($checkbox, $download)
+        })
 
+        function handleCheckbox(checkbox, download) {
+            if(checkbox.checked) {
+                download.style.display = 'block'
+            } else {
+                download.style.display = 'none'
+            }
+        }
+
+    </script>
 {% endblock %}

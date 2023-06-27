@@ -6,6 +6,7 @@ use App\Entity\NavPro\ControleLot;
 use App\Entity\NavPro\ControleUnitaire;
 use App\Form\NavPro\ControleLotType;
 use App\Form\NavPro\ControleUnitaireType;
+use App\Repository\NavPro\ControleLotRepository;
 use App\Repository\NavPro\ControleUnitaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,10 +20,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/navpro", name="app_navpro_accueil" )
      */
-    public function accueil(ControleUnitaireRepository $controleUnitaireRepository)
+    public function accueil(ControleUnitaireRepository $controleUnitaireRepository, ControleLotRepository $controleLotRepository)
     {
         return $this->render("navPro/accueil.html.twig", [
-            'contrUnitaires' => $controleUnitaireRepository->findAll()
+            'contrUnitaires' => $controleUnitaireRepository->findAll(),
+            'contrLots' => $controleLotRepository->findAll()
         ]);
     }
 
@@ -42,7 +44,7 @@ class DefaultController extends AbstractController
         }
         return $this->render("navPro/controle_lot.html.twig", [
             'form' => $form->createView(),
-            'titrePage' => 'administratif par lot'
+            'titrePage' => 'Contrôle administratif par lot'
         ]);
     }
 
@@ -118,5 +120,26 @@ class DefaultController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+
+    /**
+     * @Route("/navpro/controle/lot/{id}", name="app_navpro_default_modif_controle_lot")
+     */
+    public function modifControleLot(ControleLot $controleLot, Request $request, EntityManagerInterface $em)
+    {
+
+        $form = $this->createForm(ControleLotType::class, $controleLot);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return new Response('ok');
+        }
+
+        return $this->render('navPro/controle_lot.html.twig', [
+            'titrePage' => 'Contrôle administratif par lot',
+            'form' => $form->createView()
+        ]);
+    }
+
 
 }
