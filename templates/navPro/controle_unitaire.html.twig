@@ -1,12 +1,11 @@
 {% extends 'navPro/base.html.twig' %}
 
-
 {% block body %}
     <div class="fr-container">
         <h1 class="fr-mt-4w">Contrôle GM {{ titrePage }}</h1>
 
         <div class="fr-grid-row fr-mt-6w">
-            <form action="{{ path('app_navpro_default_ajoutcontrole_unitaire', {'type': app.request.query.get('type')}) }}" method="post">
+            <form action="{{ action }}" method="post" id="form-controle">
                 <div class="fr-grid-row">
                     <div class="fr-col-3">
                         {{ form_label(form.date) }}
@@ -16,11 +15,12 @@
                 </div>
                 <div class="fr-grid-row fr-mt-4w">
                     <div class="fr-col-6">
-                        {{ form_label(form.enregistrementNavire) }}
-                        {{ form_widget(form.enregistrementNavire) }}
+                        {{ form_label(form.navire) }}
+                        <small><em>Si le navire est sans immatriculation, cochez "Navire étrangers" </em></small>
+                        {{ form_widget(form.navire) }}
                     </div>
                 </div>
-                <div class="fr-grid-row fr-mt-4w">
+                <div class="fr-grid-row fr-mt-3w">
                     <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
                         <div class="fr-fieldset__element fr-fieldset__element--inline">
                             <div class="fr-checkbox-group">
@@ -30,29 +30,32 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="fr-grid-row fr-grid-row--gutters fr-mt-3v row__controle-realises">
+                <div class="fr-grid-row fr-grid-row--gutters fr-mt-5w row__controle-realises">
                     <div class="fr-col-6">
-                        {{ form_label(form.controleRealisesArmement) }}
+                        <b>{{ form_label(form.controleRealisesArmement) }}</b>
                         <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
                             <div class="fr-fieldset__element fr-fieldset__element--inline">
-                                <div class="fr-checkbox-group">
+                                <div class="fr-checkbox-group fr-mt-2v">
                                     {{ form_widget(form.controleRealisesArmement) }}
                                 </div>
                             </div>
                         </fieldset>
                     </div>
                     <div class="fr-col-6">
-                        {{ form_label(form.controleRealisesGM) }}
+                        <b>{{ form_label(form.controleRealisesGM) }}</b>
                         <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
                             <div class="fr-fieldset__element fr-fieldset__element--inline">
-                                <div class="fr-checkbox-group">
+                                <div class="fr-checkbox-group fr-mt-2v">
                                     {{ form_widget(form.controleRealisesGM) }}
                                 </div>
                             </div>
                         </fieldset>
                     </div>
                 </div>
-                <div class="fr-grid-row">
+                <div class="fr-grid-row fr-mt-6w">
+                    <div class="fr-col-12">
+                        <p><b>Procès verbal</b></p>
+                    </div>
                     <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
                         <div class="fr-fieldset__element fr-fieldset__element--inline">
                             <div class="fr-checkbox-group">
@@ -64,7 +67,7 @@
                     <div class="fr-grid-row fr-ml-4w">
                         <div class="fr-download">
                             <p>
-                                <a id="download-rapport" href="[À MODIFIER]" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM
+                                <a id="download-rapport" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM
                                     <span class="fr-download__detail">Docx</span>
                                 </a>
                             </p>
@@ -72,15 +75,17 @@
                     </div>
                 </div>
 
-                <div class="fr-grid-row">
+                <div class="fr-grid-row fr-mt-4w">
                     {{ form_label(form.commentaire) }}
                     {{ form_widget(form.commentaire) }}
                 </div>
 
                 <div class="fr-grid-row fr-mt-4w action">
                     <button class="fr-btn" type="submit">Valider</button>
-                    <button class="fr-btn fr-ml-2w">Enregistrer le brouillon</button>
-                    <button class="fr-btn fr-btn--secondary fr-ml-4w" type="reset">Supprimer</button>
+                    {% if brouillon %}
+                        <button class="fr-btn fr-ml-2w" id="btn-brouillon">Enregistrer le brouillon</button>
+                        <button class="fr-btn fr-btn--secondary fr-ml-4w" type="reset">Réinitialiser</button>
+                    {% endif %}
                 </div>
                 {{ form_widget(form._token) }}
             </form>
@@ -107,5 +112,66 @@
             }
         }
 
+        const $btnBrouillon = document.getElementById("btn-brouillon");
+        const $form = document.getElementById("form-controle");
+        $btnBrouillon.addEventListener('click', function(e) {
+            e.preventDefault();
+            $form.action = "{{ action }}" + "&brouillon=true"
+            $form.submit()
+        })
+
+        $(document).ready(function() {
+            var data = [
+                {
+                    id: 0,
+                    text: 'enhancement'
+                },
+                {
+                    id: 1,
+                    text: 'bug'
+                },
+                {
+                    id: 2,
+                    text: 'duplicate'
+                },
+                {
+                    id: 3,
+                    text: 'invalid'
+                },
+                {
+                    id: 4,
+                    text: 'wontfix'
+                }
+            ];
+            $('.fr-input-enregistrement').select2({
+                allowClear: true,
+                placeholder: 'Immatriculation du navire',
+                ajax: {
+                    url: "{{ path('app_api_navire_autocomplete') }}",
+                    data: function (params) {
+                        const query = {
+                            term: params.term,
+                        }
+
+                        // Query parameters will be ?search=[term]&type=public
+                        return query;
+                    },
+                    processResults: function (data) {
+                        // Transforms the top-level key of the response object from 'items' to 'results'
+                        return {
+                            results: [
+                                {
+                                    id: data.id,
+                                    text: data.immatriculation
+                                }
+                            ]
+                        };
+                    }
+                }
+            });
+        });
+
     </script>
+
+
 {% endblock %}

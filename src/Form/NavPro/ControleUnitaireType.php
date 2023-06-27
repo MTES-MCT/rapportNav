@@ -4,10 +4,12 @@ namespace App\Form\NavPro;
 
 use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
+use App\Entity\Navire;
 use App\Entity\NavPro\ControleUnitaire;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,16 +32,21 @@ class ControleUnitaireType extends AbstractType
                 'label' => 'Navire étranger',
                 'label_attr' => ['class' => 'fr-label'],
             ])
-            ->add('enregistrementNavire', TextType::class, [
+            ->add('navire', EntityType::class, [
+                'placeholder' => 'Immatriculation',
                 'label' => 'Enregistrement du navire',
                 'label_attr' => ['class' => 'fr-label'],
-                'attr' => ['class' => 'fr-input fr-input-enregistrement']
+                'attr' => ['class' => 'fr-input fr-input-enregistrement'],
+                'class' => Navire::class
             ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
                 'label' => 'Commentaire et remarque sur ce contrôle',
                 'label_attr' => ['class' => 'fr-label'],
-                'attr' => ['class' => 'fr-input']
+                'attr' => [
+                    'class' => 'fr-input',
+                    'rows' => 10
+                ]
             ])
             ->add('controleRealisesArmement', EntityType::class, [
                 'class' => CategorieControleArmement::class,

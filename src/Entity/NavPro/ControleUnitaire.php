@@ -4,6 +4,7 @@ namespace App\Entity\NavPro;
 
 use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
+use App\Entity\Navire;
 use App\Entity\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -34,11 +35,6 @@ class ControleUnitaire
      * @ORM\Column(type="boolean")
      */
     private $navireEtranger = false;
-
-    /**
-     * @ORM\Column(type="string", length=32)
-     */
-    private $enregistrementNavire;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -75,10 +71,16 @@ class ControleUnitaire
      */
     private $createdBy;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Navire::class)
+     */
+    private $navire;
+
     public function __construct()
     {
         $this->controleRealisesArmement = new ArrayCollection();
         $this->controleRealisesGM = new ArrayCollection();
+        $this->date = new \DateTime();
     }
 
     public function getId(): ?int
@@ -106,18 +108,6 @@ class ControleUnitaire
     public function setNavireEtranger(bool $navireEtranger): self
     {
         $this->navireEtranger = $navireEtranger;
-
-        return $this;
-    }
-
-    public function getEnregistrementNavire(): ?string
-    {
-        return $this->enregistrementNavire;
-    }
-
-    public function setEnregistrementNavire(string $enregistrementNavire): self
-    {
-        $this->enregistrementNavire = $enregistrementNavire;
 
         return $this;
     }
@@ -226,6 +216,18 @@ class ControleUnitaire
     public function setCreatedBy(?Service $createdBy): self
     {
         $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getNavire(): ?Navire
+    {
+        return $this->navire;
+    }
+
+    public function setNavire(?Navire $navire): self
+    {
+        $this->navire = $navire;
 
         return $this;
     }

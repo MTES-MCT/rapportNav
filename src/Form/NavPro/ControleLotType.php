@@ -27,7 +27,8 @@ class ControleLotType extends AbstractType
             ->add('pvEmis', CheckboxType::class, [
                 'label' => 'PV émis',
                 'required' => false,
-                'label_attr' => ['class' => 'fr-label']
+                'label_attr' => ['class' => 'fr-label'],
+                'attr' => ['class' => 'pv-emis-checkbox'],
             ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,

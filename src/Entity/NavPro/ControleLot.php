@@ -74,6 +74,7 @@ class ControleLot
     {
         $this->controlesRealisesArmement = new ArrayCollection();
         $this->controlesRealisesPersonnel = new ArrayCollection();
+        $this->date = new \DateTime();
     }
 
     public function getId(): ?int
