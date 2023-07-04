@@ -78,6 +78,13 @@
                     </div>
                 </div>
 
+                <div class="fr-grid-row fr-ml-4w" id="nbPV">
+                    <div class="fr-col-5">
+                        {{ form_label(form.nbPv) }}
+                        {{ form_widget(form.nbPv) }}
+                    </div>
+                </div>
+
                 <div class="fr-grid-row fr-mt-4w">
                     {{ form_label(form.commentaire) }}
                     {{ form_widget(form.commentaire) }}
@@ -136,19 +143,23 @@
         $checkbox = $checkbox[0];
         const $downloadDocx = document.getElementById('download-rapport-docx');
         const $downloadOdt = document.getElementById('download-rapport-odt');
-        handleCheckbox($checkbox, $downloadDocx)
-        handleCheckbox($checkbox, $downloadOdt)
+
+        const $nbPv = document.getElementById('nbPV');
+        handleCheckbox($checkbox, $downloadDocx, $nbPv)
+        handleCheckbox($checkbox, $downloadOdt, $nbPv)
 
         $checkbox.addEventListener('change', function(){
-            handleCheckbox($checkbox, $downloadDocx)
-            handleCheckbox($checkbox, $downloadOdt)
+            handleCheckbox($checkbox, $downloadDocx, $nbPv)
+            handleCheckbox($checkbox, $downloadOdt, $nbPv)
         })
 
-        function handleCheckbox(checkbox, download) {
+        function handleCheckbox(checkbox, download, nbPv) {
             if(checkbox.checked) {
-                download.style.display = 'block'
+                download.style.display = 'block';
+                nbPv.style.display = 'block';
             } else {
-                download.style.display = 'none'
+                download.style.display = 'none';
+                nbPv.style.display = 'none';
             }
         }
 

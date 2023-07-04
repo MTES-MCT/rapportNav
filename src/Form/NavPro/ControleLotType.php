@@ -57,6 +57,11 @@ class ControleLotType extends AbstractType
                 'label' => 'Date du contrôle',
                 'label_attr' => ['class' => 'fr-label']
             ])
+            ->add('nbPv', IntegerType::class, [
+                'attr' => ['class' => 'fr-input input-nb-pv'],
+                'label' => 'Nombre de procès verbaux dressé',
+                'label_attr' => ['class' => 'fr-label']
+            ])
         ;
     }
 
