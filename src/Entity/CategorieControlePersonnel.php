@@ -26,7 +26,7 @@ class CategorieControlePersonnel
     private $titre;
 
     /**
-     * @ORM\ManyToMany(targetEntity=ControleLot::class, mappedBy="controleRealisesPersonnel")
+     * @ORM\ManyToMany(targetEntity=ControleLot::class, mappedBy="controlesRealisesPersonnel")
      */
     private $controleLots;
 
