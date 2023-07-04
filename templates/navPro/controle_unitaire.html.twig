@@ -67,8 +67,11 @@
                     <div class="fr-grid-row fr-ml-4w">
                         <div class="fr-download">
                             <p>
-                                <a id="download-rapport" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM
-                                    <span class="fr-download__detail">Docx</span>
+                                <a id="download-rapport-docx" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format .docx (Microsoft Word)
+                                </a>
+                            </p>
+                            <p>
+                                <a id="download-rapport-odt" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format .odt (LibreOffice / OpenOffice)
                                 </a>
                             </p>
                         </div>
@@ -97,11 +100,14 @@
     <script>
         let $checkbox = document.getElementsByClassName('pv-emis-checkbox');
         $checkbox = $checkbox[0];
-        const $download = document.getElementById('download-rapport');
-        handleCheckbox($checkbox, $download)
+        const $downloadDocx = document.getElementById('download-rapport-docx');
+        const $downloadOdt = document.getElementById('download-rapport-odt');
+        handleCheckbox($checkbox, $downloadDocx)
+        handleCheckbox($checkbox, $downloadOdt)
 
         $checkbox.addEventListener('change', function(){
-            handleCheckbox($checkbox, $download)
+            handleCheckbox($checkbox, $downloadDocx)
+            handleCheckbox($checkbox, $downloadOdt)
         })
 
         function handleCheckbox(checkbox, download) {
@@ -121,28 +127,6 @@
         })
 
         $(document).ready(function() {
-            var data = [
-                {
-                    id: 0,
-                    text: 'enhancement'
-                },
-                {
-                    id: 1,
-                    text: 'bug'
-                },
-                {
-                    id: 2,
-                    text: 'duplicate'
-                },
-                {
-                    id: 3,
-                    text: 'invalid'
-                },
-                {
-                    id: 4,
-                    text: 'wontfix'
-                }
-            ];
             $('.fr-input-enregistrement').select2({
                 allowClear: true,
                 placeholder: 'Immatriculation du navire',

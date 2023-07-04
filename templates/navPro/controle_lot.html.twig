@@ -51,8 +51,11 @@
                     <div class="fr-grid-row fr-ml-4w">
                         <div class="fr-download">
                             <p>
-                                <a id="download-rapport" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link text-blue">
-                                    Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM
+                                <a id="download-rapport-docx" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format .docx (Microsoft Word)
+                                </a>
+                            </p>
+                            <p>
+                                <a id="download-rapport-odt" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format .odt (LibreOffice / OpenOffice)
                                 </a>
                             </p>
                         </div>
@@ -84,11 +87,14 @@
     <script>
         let $checkbox = document.getElementsByClassName('pv-emis-checkbox');
         $checkbox = $checkbox[0];
-        const $download = document.getElementById('download-rapport');
-        handleCheckbox($checkbox, $download)
+        const $downloadDocx = document.getElementById('download-rapport-docx');
+        const $downloadOdt = document.getElementById('download-rapport-odt');
+        handleCheckbox($checkbox, $downloadDocx)
+        handleCheckbox($checkbox, $downloadOdt)
 
         $checkbox.addEventListener('change', function(){
-            handleCheckbox($checkbox, $download)
+            handleCheckbox($checkbox, $downloadDocx)
+            handleCheckbox($checkbox, $downloadOdt)
         })
 
         function handleCheckbox(checkbox, download) {
@@ -103,7 +109,7 @@
         const $form = document.getElementById("form-controle");
         $btnBrouillon.addEventListener('click', function(e) {
             e.preventDefault();
-            $form.action = "{{ action }}" + "&brouillon=true"
+            $form.action = "{{ action }}" + "?brouillon=true"
             $form.submit()
         })
 
