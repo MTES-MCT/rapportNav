@@ -87,14 +87,48 @@
                     <button class="fr-btn" type="submit">Valider</button>
                     {% if brouillon %}
                         <button class="fr-btn fr-ml-2w" id="btn-brouillon">Enregistrer le brouillon</button>
-                        <button class="fr-btn fr-btn--secondary fr-ml-4w" type="reset">Réinitialiser</button>
+                        <a href="#" class="fr-btn fr-btn--secondary fr-ml-4w" data-fr-opened="false" aria-controls="fr-modal-annuler">Annuler</a>
                     {% endif %}
                 </div>
                 {{ form_widget(form._token) }}
             </form>
         </div>
     </div>
+
+    <dialog aria-labelledby="fr-modal-title-annuler" role="dialog" id="fr-modal-annuler" class="fr-modal">
+        <div class="fr-container fr-container--fluid fr-container-md">
+            <div class="fr-grid-row fr-grid-row--center">
+                <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                    <div class="fr-modal__body">
+                        <div class="fr-modal__header">
+                            <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="fr-modal-annuler" id="fermer-modale">Fermer</button>
+                        </div>
+                        <div class="fr-modal__content">
+                            <h1 id="fr-modal-title-annuler" class="fr-modal__title">Annuler l'ajout d'un contrôle {{ titrePage }}</h1>
+
+                            <div class="fr-mt-4w">
+                                <ul class="fr-btns-group">
+                                    <li>
+                                        <a class="fr-btn fr-btn--secondary" id="btn-reset" href="#">
+                                            Réinitialiser le formulaire
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="fr-btn fr-btn--danger" href="{{ path('app_navpro_accueil') }}">
+                                            Retour à l'accueil
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
 {% endblock %}
+
 
 {% block javascripts %}
     <script>
@@ -124,6 +158,14 @@
             e.preventDefault();
             $form.action = "{{ action }}" + "&brouillon=true"
             $form.submit()
+        })
+
+        const $btnReset = document.getElementById("btn-reset");
+        const $fermerModale = document.getElementById("fermer-modale");
+
+        $btnReset.addEventListener('click', function(e) {
+            $form.reset();
+            $fermerModale.click();
         })
 
         $(document).ready(function() {
@@ -159,3 +201,5 @@
 
 
 {% endblock %}
+
+
