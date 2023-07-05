@@ -32,7 +32,10 @@ class ControleLotType extends AbstractType
             ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
-                'attr' => ['class' => 'fr-input'],
+                'attr' => [
+                    'class' => 'fr-input',
+                    'rows' => 10
+                ],
                 'label' => 'Commentaire et remarque sur ce contrôle',
                 'label_attr' => ['class' => 'fr-label']
             ])
@@ -55,6 +58,11 @@ class ControleLotType extends AbstractType
                 'attr' => ['class' => 'fr-input'],
                 'widget' => 'single_text',
                 'label' => 'Date du contrôle',
+                'label_attr' => ['class' => 'fr-label']
+            ])
+            ->add('nbPv', IntegerType::class, [
+                'attr' => ['class' => 'fr-input input-nb-pv'],
+                'label' => 'Nombre de procès verbaux émis',
                 'label_attr' => ['class' => 'fr-label']
             ])
         ;

@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,7 +38,8 @@ class ControleUnitaireType extends AbstractType
                 'label' => 'Enregistrement du navire',
                 'label_attr' => ['class' => 'fr-label'],
                 'attr' => ['class' => 'fr-input fr-input-enregistrement'],
-                'class' => Navire::class
+                'class' => Navire::class,
+                'required' => false
             ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
@@ -70,6 +72,11 @@ class ControleUnitaireType extends AbstractType
                 'attr' => ['class' => 'fr-input'],
                 'widget' => 'single_text',
                 'label' => 'Date du contrôle',
+                'label_attr' => ['class' => 'fr-label']
+            ])
+            ->add('nbPv', IntegerType::class, [
+                'attr' => ['class' => 'fr-input input-nb-pv'],
+                'label' => 'Nombre de procès verbaux émis',
                 'label_attr' => ['class' => 'fr-label']
             ])
         ;

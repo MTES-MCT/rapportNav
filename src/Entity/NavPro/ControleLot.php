@@ -70,6 +70,11 @@ class ControleLot
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbPv;
+
     public function __construct()
     {
         $this->controlesRealisesArmement = new ArrayCollection();
@@ -210,6 +215,18 @@ class ControleLot
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getNbPv(): ?int
+    {
+        return $this->nbPv;
+    }
+
+    public function setNbPv(?int $nbPv): self
+    {
+        $this->nbPv = $nbPv;
 
         return $this;
     }

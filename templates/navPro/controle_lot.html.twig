@@ -51,10 +51,19 @@
                     <div class="fr-grid-row fr-ml-4w">
                         <div class="fr-download">
                             <p>
-                                <a id="download-rapport" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link text-blue">
-                                    Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM
+                                <a id="download-rapport-docx" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format .docx (Microsoft Word)
                                 </a>
                             </p>
+                            <p>
+                                <a id="download-rapport-odt" href="/DGAMPAGM3_Modèle_PV_CANGM.odt" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format .odt (LibreOffice / OpenOffice)
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="fr-grid-row fr-ml-4w" id="nbPV">
+                        <div class="fr-col-12">
+                            {{ form_label(form.nbPv) }}
+                            {{ form_widget(form.nbPv) }}
                         </div>
                     </div>
                 </div>
@@ -69,33 +78,70 @@
                     <button class="fr-btn" type="submit">Valider</button>
                     {% if brouillon %}
                         <button class="fr-btn fr-ml-2w" id="btn-brouillon">Enregistrer le brouillon</button>
-                        <button class="fr-btn fr-btn--secondary fr-ml-4w" type="reset">Ré-initialiser</button>
+                        <a href="#" class="fr-btn fr-btn--secondary fr-ml-4w" data-fr-opened="false" aria-controls="fr-modal-annuler">Annuler</a>
                     {% endif %}
                 </div>
                 {{ form_widget(form._token) }}
             </form>
         </div>
-
-
     </div>
+
+    <dialog aria-labelledby="fr-modal-title-annuler" role="dialog" id="fr-modal-annuler" class="fr-modal">
+        <div class="fr-container fr-container--fluid fr-container-md">
+            <div class="fr-grid-row fr-grid-row--center">
+                <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                    <div class="fr-modal__body">
+                        <div class="fr-modal__header">
+                            <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="fr-modal-annuler" id="fermer-modale">Fermer</button>
+                        </div>
+                        <div class="fr-modal__content">
+                            <h1 id="fr-modal-title-annuler" class="fr-modal__title">Annuler l'ajout d'un contrôle {{ titrePage }}</h1>
+
+                            <div class="fr-mt-4w">
+                                <ul class="fr-btns-group">
+                                    <li>
+                                        <a class="fr-btn fr-btn--secondary" id="btn-reset" href="#">
+                                            Réinitialiser le formulaire
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="fr-btn fr-btn--danger" href="{{ path('app_navpro_accueil') }}">
+                                            Retour à l'accueil
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
 
 {% endblock %}
 {% block javascripts %}
     <script>
         let $checkbox = document.getElementsByClassName('pv-emis-checkbox');
         $checkbox = $checkbox[0];
-        const $download = document.getElementById('download-rapport');
-        handleCheckbox($checkbox, $download)
+        const $downloadDocx = document.getElementById('download-rapport-docx');
+        const $downloadOdt = document.getElementById('download-rapport-odt');
+        const $nbPv = document.getElementById('nbPV');
+        handleCheckbox($checkbox, $downloadDocx, $nbPv)
+        handleCheckbox($checkbox, $downloadOdt, $nbPv)
 
         $checkbox.addEventListener('change', function(){
-            handleCheckbox($checkbox, $download)
+            handleCheckbox($checkbox, $downloadDocx, $nbPv)
+            handleCheckbox($checkbox, $downloadOdt, $nbPv)
         })
 
-        function handleCheckbox(checkbox, download) {
+        function handleCheckbox(checkbox, download, nbPv) {
             if(checkbox.checked) {
-                download.style.display = 'block'
+                download.style.display = 'block';
+                nbPv.style.display = 'block';
             } else {
-                download.style.display = 'none'
+                download.style.display = 'none';
+                nbPv.style.display = 'none';
             }
         }
 
@@ -103,9 +149,18 @@
         const $form = document.getElementById("form-controle");
         $btnBrouillon.addEventListener('click', function(e) {
             e.preventDefault();
-            $form.action = "{{ action }}" + "&brouillon=true"
+            $form.action = "{{ action }}" + "?brouillon=true"
             $form.submit()
         })
+
+        const $btnReset = document.getElementById("btn-reset");
+        const $fermerModale = document.getElementById("fermer-modale");
+
+        $btnReset.addEventListener('click', function(e) {
+            $form.reset();
+            $fermerModale.click();
+        })
+
 
     </script>
 {% endblock %}

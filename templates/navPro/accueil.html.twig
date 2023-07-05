@@ -23,27 +23,32 @@
             </button>
         </div>
 
-        <div class="fr-mt-4w">
-            <h3>Contrôles effectués</h3>
-        </div>
 
-
-        <div class="fr-grid-row fr-mt-4w fr-mb-2w">
-            <div class="fr-col-12">
-                <div class="fr-grid-row">
-                    <div class="fr-col-md-1"></div>
-                    <div class="fr-col-md-5"></div>
-                    <div class="fr-col-md-2">Date</div>
-                    <div class="fr-col-md-2">Statut</div>
-                    <div class="fr-col-md-2"></div>
-                </div>
+        {% if contrUnitaires|length > 0 or contrLots|length > 0 %}
+            <div class="fr-mt-4w">
+                <h3>Contrôles effectués</h3>
             </div>
 
-        </div>
+
+            <div class="fr-grid-row fr-mt-4w fr-mb-2w">
+                <div class="fr-col-12">
+                    <div class="fr-grid-row">
+                        <div class="fr-col-md-1"></div>
+                        <div class="fr-col-md-5"></div>
+                        <div class="fr-col-md-2">Date</div>
+                        <div class="fr-col-md-2">Statut</div>
+                        <div class="fr-col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 
         <div class="fr-grid-row">
             <div class="fr-col-12">
-                <h6>Contrôle unitaire</h6>
+                {% if contrUnitaires|length > 0 %}
+                    <h6>Contrôles unitaires</h6>
+                {% endif %}
+
                 <div class="fr-grid-row">
                     {% for contrUnit in contrUnitaires %}
                         <div class="fr-col-md-1 fr-mt-2v">
@@ -64,7 +69,9 @@
             </div>
 
             <div class="fr-col-12">
-                <h5 class="fr-mt-2w">Contrôle par lots</h5>
+                {% if contrLots|length > 0 %}
+                    <h6>Contrôles par lots</h6>
+                {% endif %}
                 <div class="fr-grid-row">
                     {% for contrLot in contrLots %}
                         <div class="fr-col-md-1 fr-mt-2v">   <span class="fr-fi-file-fill fr-fi--lg icon-current-report gm-controle-icon" aria-hidden="true"></span></div>
@@ -136,12 +143,12 @@
                                 <ul class="fr-btns-group">
                                     <li>
                                         <a class="fr-btn" href="{{ path('app_navpro_default_ajoutcontrole_unitaire', {'type': constant('App\\Entity\\NavPro\\ControleUnitaire::TYPE_CONTROLE_TERRAIN_MER') }) }}">
-                                            Contrôle en mer
+                                            Contrôle unitaire en mer
                                         </a>
                                     </li>
                                     <li>
                                         <a class="fr-btn" href="{{ path('app_navpro_default_ajoutcontrole_unitaire', {'type': constant('App\\Entity\\NavPro\\ControleUnitaire::TYPE_CONTROLE_TERRAIN_QUAI') }) }}">
-                                            Contrôle à quai
+                                            Contrôle unitaire à quai
                                         </a>
                                     </li>
                                 </ul>

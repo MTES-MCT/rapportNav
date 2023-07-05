@@ -76,6 +76,11 @@ class ControleUnitaire
      */
     private $navire;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbPv;
+
     public function __construct()
     {
         $this->controleRealisesArmement = new ArrayCollection();
@@ -228,6 +233,18 @@ class ControleUnitaire
     public function setNavire(?Navire $navire): self
     {
         $this->navire = $navire;
+
+        return $this;
+    }
+
+    public function getNbPv(): ?int
+    {
+        return $this->nbPv;
+    }
+
+    public function setNbPv(?int $nbPv): self
+    {
+        $this->nbPv = $nbPv;
 
         return $this;
     }
