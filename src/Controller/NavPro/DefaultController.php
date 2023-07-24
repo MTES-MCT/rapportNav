@@ -46,7 +46,7 @@ class DefaultController extends AbstractController
             }
             $em->persist($controleLot);
             $em->flush();
-            $this->addFlash('success', "Le contrôle du " . $controleLot->getDate()->format('d/m/Y') . " a bien été envoyé.");
+            $this->addFlash('success', "Le contrôle du " . $controleLot->getDate()->format('d/m/Y') . " a bien été enregistré.");
             return $this->redirectToRoute('app_navpro_accueil');
         }
         return $this->render("navPro/controle_lot.html.twig", [
@@ -93,7 +93,7 @@ class DefaultController extends AbstractController
             }
             $em->persist($controleUnitaire);
             $em->flush();
-            $this->addFlash('success', "Le contrôle du " . $controleUnitaire->getDate()->format('d/m/Y') . " a bien été envoyé.");
+            $this->addFlash('success', "Le contrôle du " . $controleUnitaire->getDate()->format('d/m/Y') . " a bien été enregistré.");
             return $this->redirectToRoute('app_navpro_accueil');
         }
 
@@ -136,7 +136,7 @@ class DefaultController extends AbstractController
             }
             $em->persist($controleUnitaire);
             $em->flush();
-            $this->addFlash('success', "Le contrôle du " . $controleUnitaire->getDate()->format('d/m/Y') . " a bien été envoyé.");
+            $this->addFlash('success', "Le contrôle du " . $controleUnitaire->getDate()->format('d/m/Y') . " a bien été enregistré.");
             return $this->redirectToRoute('app_navpro_accueil');
         }
 
@@ -166,7 +166,7 @@ class DefaultController extends AbstractController
                 $controleLot->setBrouillon(false);
             }
             $em->flush();
-            $this->addFlash('success', "Le contrôle du " . $controleLot->getDate()->format('d/m/Y') . " a bien été envoyé.");
+            $this->addFlash('success', "Le contrôle du " . $controleLot->getDate()->format('d/m/Y') . " a bien été enregistré.");
             return $this->redirectToRoute('app_navpro_accueil');
         }
 
