@@ -23,8 +23,8 @@ class DefaultController extends AbstractController
     public function accueil(ControleUnitaireRepository $controleUnitaireRepository, ControleLotRepository $controleLotRepository)
     {
         return $this->render("navPro/accueil.html.twig", [
-            'contrUnitaires' => $controleUnitaireRepository->findAll(),
-            'contrLots' => $controleLotRepository->findAll()
+            'contrUnitaires' => $controleUnitaireRepository->findBy(['createdBy' => $this->getUser()->getService()]),
+            'contrLots' => $controleLotRepository->findBy(['createdBy' => $this->getUser()->getService()])
         ]);
     }
 

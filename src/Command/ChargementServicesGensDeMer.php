@@ -45,38 +45,46 @@ class ChargementServicesGensDeMer extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $csv = Reader::createFromPath(__DIR__ .'/dist/agents_gm.csv', 'r');
+        $csv->setDelimiter(';');
         $csv->setHeaderOffset(0); //set the CSV header offset
 
         $stmt = Statement::create();
         $records = $stmt->process($csv);
 
         foreach ($records as $record) {
-            /** @var ServiceRepository $serviceRepository */
-           $serviceRepository = $this->entityManager->getRepository(Service::class);
-           $service = $serviceRepository->findOneBy(['nom' => $record['service']]);
-            $user = new User();
-            if($service) {
+            if($record['nom'])
+            {
+                $nom = explode(' ', $record['nom'])[0];
+                $prenom = explode(' ', $record['nom'])[1];
+                /** @var ServiceRepository $serviceRepository */
+                $serviceRepository = $this->entityManager->getRepository(Service::class);
+                $service = $serviceRepository->findOneBy(['nom' => trim($record['service_nom'])]);
+                $user = new User();
+                if(!$service) {
+                    $service = new Service();
+                    $service->setNom($record['service_nom']);
+                }
                 $user->setService($service);
-            } else {
-                $service = new Service();
-                $service->setNom($record['service']);
+                $user->setEmail($record['email'])
+                    ->setEnabled(true)
+                    ->setUsername($this->generateUsernameFromFullName($prenom, $nom))
+                    ->setPassword($this->hashPassword($user))
+                    ->addRole('ROLE_GM')
+                ;
+                $agent = new Agent();
+                $agent->setNom($nom)
+                    ->setPrenom($prenom)
+                    ->setUserAccount($user)
+                    ->setDateArrivee(new \DateTimeImmutable())
+                ;
+                $this->entityManager->persist($agent);
+                $this->entityManager->flush();
             }
-            $user->setEmail($record['email'])
-                ->setEnabled(true)
-                ->setUsername($this->generateUsernameFromFullName($record['prenom'], $record['nom']))
-                ->setPassword($this->hashPassword($user))
-            ;
-            $agent = new Agent();
-            $agent->setNom($record['nom'])
-                ->setPrenom($record['prenom'])
-                ->setUserAccount($user)
-            ;
-            $this->entityManager->persist($agent);
+
         }
 
 
-        $this->entityManager->flush();
-        $io->success('Les agents Gens de Mer ont été inséré en base de données.');
+        $io->success('Les agents Gens de Mer ont été ajoutés en base de données.');
 
         return 0;
     }
@@ -94,8 +102,8 @@ class ChargementServicesGensDeMer extends Command
     private function generateUsernameFromFullName($firstName, $lastName)
     {
         $firstName = $this->replace_accents($firstName);
-        $lastName - $this->replace_accents($lastName);
-        return "${firstName}.${lastName}";
+        $lastName = $this->replace_accents($lastName);
+        return strtolower("${firstName}.${lastName}");
     }
 
     private function hashPassword(User $user)

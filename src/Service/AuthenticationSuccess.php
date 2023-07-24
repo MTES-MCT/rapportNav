@@ -22,6 +22,9 @@ class AuthenticationSuccess implements AuthenticationSuccessHandlerInterface {
         if(in_array('ROLE_PAM', $roles, true)) {
             return new RedirectResponse($this->router->generate('pam_rapport_dashboard', ['vueRouting' => null]));
         }
+        if(in_array('ROLE_GM', $roles, true)) {
+            return new RedirectResponse($this->router->generate('app_navpro_accueil'));
+        }
 
         return new RedirectResponse($this->router->generate('list_forms'));
     }
