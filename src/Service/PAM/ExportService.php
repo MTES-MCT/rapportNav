@@ -197,7 +197,7 @@ class ExportService {
         $nomCommandant = $commandant->getAgent()->getPrenom() . ' ' . strtoupper($commandant->getAgent()->getNom());
         $bordee = $commandant->getIntitule();
 
-        $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission.docx');
+        $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission_test.docx');
         $templateProcessor->setValues([
             'dateDebut' => $rapport->getStartDatetime()->format('d/m/Y'),
             'dateFin' => $rapport->getEndDatetime()->format('d/m/Y'),
@@ -222,7 +222,20 @@ class ExportService {
             'serviceNom' => $rapport->getCreatedBy()->getNom(),
             'destinataireCopies' => $copys,
             'nomCommandant' => $nomCommandant,
-            'roleBordee' => $bordee
+            'roleBordee' => $bordee,
+            'contrPort' => $rapport->getContrPort(),
+            'nbOperationsSauvetage' => $rapport->getAutreMission()->getNbAssistanceSauvetage(),
+            'dureeSauvetage' => $rapport->getAutreMission()->getDureeAssistanceSauvetage(),
+            'nbManifsNautiques' => $rapport->getAutreMission()->getNbManifestationsNautiques(),
+            'dureeManifsNautiques' => $rapport->getAutreMission()->getDureeManifestationsNautiques(),
+            'nbLutteAntiPollution' => $rapport->getAutreMission()->getNbLuttePollution(),
+            'dureeAntiPollution' => $rapport->getAutreMission()->getDureeLuttePollution(),
+            'nbSurveillance' => $rapport->getAutreMission()->getNbOperationsSurveillanceTrafic(),
+            'dureeSurveillance' => $rapport->getAutreMission()->getDureeOperationsSurveillanceTrafic(),
+            'nbNaviresSurveillance' => $rapport->getAutreMission()->getNbNaviresOperationsSurveillanceTrafic(),
+            'nbVigimer' => $rapport->getAutreMission()->getNbPermanenceVigimer(),
+            'dureeVigimer' => $rapport->getAutreMission()->getDureePermanenceVigimer(),
+            'nbNaviresVigimer' => $rapport->getAutreMission()->getNbNaviresPermanenceVigimer()
 
         ]);
         $tableEquipage = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
