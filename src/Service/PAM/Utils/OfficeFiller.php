@@ -28,7 +28,7 @@ class OfficeFiller {
         foreach($indicateurs as $key => $value) {
             $principale =  $value->getPrincipale();
             $secondaire =  $value->getSecondaire();
-            $observations = $value->getObservations();
+            $observations = htmlspecialchars($value->getObservations(), ENT_COMPAT, 'UTF-8');
 
             $row = ($startRow + $key);
             $cellTitle = self::INDICATEUR_CATEGORY_TITLE_COL . $row;
@@ -39,7 +39,7 @@ class OfficeFiller {
             if($merge) {
                 $principale =  (int)$sheet->getCell($cellPrincipale)->getValue() + $value->getPrincipale();
                 $secondaire =  (int)$sheet->getCell($cellSecondaire)->getValue() + $value->getSecondaire();
-                $observations = $sheet->getCell($cellObservation)->getValue() ? $sheet->getCell($cellObservation)->getValue()  . ' / ' . $value->getObservations() : $value->getObservations();
+                $observations = $sheet->getCell($cellObservation)->getValue() ? $sheet->getCell($cellObservation)->getValue()  . ' / ' . htmlspecialchars($value->getObservations(), ENT_COMPAT, 'UTF-8') : htmlspecialchars($value->getObservations(), ENT_COMPAT, 'UTF-8');
             }
 
             $sheet->setCellValue($cellTitle, $value->getCategory()->getNom());
@@ -107,15 +107,16 @@ class OfficeFiller {
     {
         $table->addRow();
         $this->addCell($table, 1000, 'Fonction', 12);
-        $this->addCell($table, 1000, 'Role', 12);
+        $this->addCell($table, 1000, 'Nom', 12);
         $this->addCell($table, 1000, 'Observations', 12);;
 
         foreach($equipage->getMembres() as $membre)
         {
+
             $table->addRow();
             $this->addCell($table, 1000, $membre->getFonction(), 12);
-            $this->addCell($table, 1000, $membre->getAgent(), 12);
-            $this->addCell($table, 1000, $membre->getObservations(), 12);
+            $this->addCell($table, 1000, htmlspecialchars($membre->getAgent(), ENT_COMPAT, 'UTF-8'), 12);
+            $this->addCell($table, 1000, htmlspecialchars($membre->getObservations(), ENT_COMPAT, 'UTF-8'), 12);
         }
     }
 

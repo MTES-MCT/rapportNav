@@ -6,6 +6,7 @@ use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
 use App\Entity\Navire;
 use App\Entity\NavPro\ControleUnitaire;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -39,7 +40,11 @@ class ControleUnitaireType extends AbstractType
                 'label_attr' => ['class' => 'fr-label'],
                 'attr' => ['class' => 'fr-input fr-input-enregistrement'],
                 'class' => Navire::class,
-                'required' => false
+                'required' => false,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('n')
+                        ->orderBy('n.immatriculation', 'ASC');
+                }
             ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,
@@ -77,7 +82,8 @@ class ControleUnitaireType extends AbstractType
             ->add('nbPv', IntegerType::class, [
                 'attr' => ['class' => 'fr-input input-nb-pv'],
                 'label' => 'Nombre de procès verbaux émis',
-                'label_attr' => ['class' => 'fr-label']
+                'label_attr' => ['class' => 'fr-label'],
+                'required' => false
             ])
         ;
     }

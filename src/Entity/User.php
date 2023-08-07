@@ -25,7 +25,7 @@ class User extends BaseUser {
 
     /**
      * @Groups({"draft", "me"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Service")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Service", cascade={"persist"})
      */
     protected $service;
 

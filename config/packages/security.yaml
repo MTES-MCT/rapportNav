@@ -44,4 +44,5 @@ security:
         - { path: ^/api/profile/*, roles: [ROLE_USER] }
         - { path: ^/api/contacts/*, roles: [ROLE_USER] }
         - { path: ^/api/pam, roles: [ROLE_PAM, ROLE_ADMIN] }
+        - { path: ^/navpro/*, roles: [ROLE_ADMIN, ROLE_GM] }
         - { path: ^/, roles: [ROLE_ULAM, ROLE_ADMIN] }

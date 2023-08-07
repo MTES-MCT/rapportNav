@@ -54,3 +54,4 @@ assets/js/params.json
 ### docker
 .docker/data
 docker-compose.yml
+/public/.htaccess
