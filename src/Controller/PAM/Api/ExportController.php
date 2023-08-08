@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use PhpOffice\PhpWord\Settings;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -101,14 +102,65 @@ class ExportController extends AbstractFOSRestController
      */
     public function rapportDocx(string $rapportID, Request $request) {
         $draft = $request->query->has('draft');
+        $type = $request->query->get('type');
         try {
             $templateProcessor = $this->service->exportRapportDocx($rapportID, $draft);
-            $response =  new StreamedResponse(
-                function () use ($templateProcessor) {
-                    $templateProcessor->saveAs('php://output');
-                }
-            );
-            $fileName = 'rapport_' . $rapportID . '.docx';
+            if($type === 'odt') {
+                $templateProcessor->saveAs(__DIR__ .'/../../temp_rapport_pam.docx');
+                $phpWord = \PhpOffice\PhpWord\IOFactory::load(__DIR__ .'/../../temp_rapport_pam.docx');
+                $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord , 'ODText');
+                $fileName = 'Rapport_' . $rapportID . '.odt';
+                $response =  new StreamedResponse(
+                    function () use ($xmlWriter ) {
+                        $xmlWriter->save('php://output');
+                    }
+                );
+                unlink(__DIR__ .'/../../temp_rapport_pam.docx');
+                $response->headers->set('Content-Description',  'File Transfer');
+                $response->headers->set('Content-Disposition',' attachment; filename="' . $fileName . '"');
+                $response->headers->set('Content-Type',' application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=utf-8');
+                $response->headers->set('Content-Transfer-Encoding',' binary');
+                $response->headers->set('Cache-Control',' must-revalidate, post-check=0, pre-check=0');
+                $response->headers->set('Expires','0');
+
+                return $response;
+            }
+            if($type === 'pdf'){
+                $templateProcessor->saveAs(__DIR__ .'/../../temp_rapport_pam.docx');
+                $phpWord = \PhpOffice\PhpWord\IOFactory::load(__DIR__ .'/../../temp_rapport_pam.docx');
+                $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord , 'ODText');
+
+
+                // Make sure you have `dompdf/dompdf` in your composer dependencies.
+                Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
+                // Any writable directory here. It will be ignored.
+                Settings::setPdfRendererPath('.');
+
+                //   $phpWord = \PhpOffice\PhpWord\IOFactory::load('document.docx', 'Word2007');
+
+                $response =  new StreamedResponse(
+                    function () use ($phpWord ) {
+                        $phpWord->save('php://output', 'PDF');
+                    }
+                );
+                $fileName = 'Rapport_' . $rapportID . '.pdf';
+                $response->headers->set('Content-Description',  'File Transfer');
+                $response->headers->set('Content-Disposition',' attachment; filename="' . $fileName . '"');
+                $response->headers->set('Content-Type',' application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                $response->headers->set('Content-Transfer-Encoding',' binary');
+                $response->headers->set('Cache-Control',' must-revalidate, post-check=0, pre-check=0');
+                $response->headers->set('Expires','0');
+
+                return $response;
+            }
+            else {
+                $response =  new StreamedResponse(
+                    function () use ($templateProcessor) {
+                        $templateProcessor->saveAs('php://output');
+                    }
+                );
+                $fileName = 'rapport_' . $rapportID . '.docx';
+            }
             $response->headers->set('Content-Description',  'File Transfer');
             $response->headers->set('Content-Disposition',' attachment; filename="' . $fileName . '"');
             $response->headers->set('Content-Type',' application/vnd.openxmlformats-officedocument.wordprocessingml.document');

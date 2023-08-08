@@ -64,7 +64,9 @@ final class UserAdmin extends AbstractAdmin {
                     'choices' => [
                         'ROLE_ULAM' => 'ROLE_ULAM',
                         'ROLE_PAM' => 'ROLE_PAM',
-                        'ROLE_ADMIN' => 'ROLE_ADMIN'
+                        'ROLE_ADMIN' => 'ROLE_ADMIN',
+                        'ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN',
+                        'ROLE_GM' => 'ROLE_GM'
                     ],
                     'multiple' => true
                 ])
