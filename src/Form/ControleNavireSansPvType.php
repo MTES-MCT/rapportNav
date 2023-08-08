@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\CategorieControleNavire;
 use App\Entity\ControleNavireSansPv;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -30,7 +31,13 @@ class ControleNavireSansPvType extends AbstractType {
                 'required' => false,
                 'multiple' => true,
                 'expanded' => true,
-                'label' => "Contrôles réalisés sur chacun de ces navires"]);
+                'label' => "Contrôles réalisés sur chacun de ces navires",
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('ccn')
+                        ->where('ccn.active = true');
+                }
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver) {

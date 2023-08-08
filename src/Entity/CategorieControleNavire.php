@@ -29,6 +29,26 @@ class CategorieControleNavire {
      */
     private $nom;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isGM;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isGMSubItem;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isGMPersonnelSousItem;
+
     public function __toString() {
         return $this->getNom();
     }
@@ -43,6 +63,54 @@ class CategorieControleNavire {
 
     public function setNom(string $nom): self {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getIsGM(): ?bool
+    {
+        return $this->isGM;
+    }
+
+    public function setIsGM(?bool $isGM): self
+    {
+        $this->isGM = $isGM;
+
+        return $this;
+    }
+
+    public function getIsGMSubItem(): ?bool
+    {
+        return $this->isGMSubItem;
+    }
+
+    public function setIsGMSubItem(?bool $isGMSubItem): self
+    {
+        $this->isGMSubItem = $isGMSubItem;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function getIsGMPersonnelSousItem(): ?bool
+    {
+        return $this->isGMPersonnelSousItem;
+    }
+
+    public function setIsGMPersonnelSousItem(?bool $isGMPersonnelSousItem): self
+    {
+        $this->isGMPersonnelSousItem = $isGMPersonnelSousItem;
 
         return $this;
     }

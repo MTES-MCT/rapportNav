@@ -37,7 +37,12 @@ class ControleNavireType extends AbstractType {
                 'required' => false,
                 'multiple' => true,
                 'expanded' => true,
-                'label' => "Contrôles réalisés"])
+                'label' => "Contrôles réalisés",
+                'query_builder' => function (EntityRepository  $er) {
+                    return $er->createQueryBuilder('ccn')
+                        ->where('ccn.active = true');
+                }
+            ])
             ->add('pingerApplicable', CheckboxType::class, [
                 'required' => false,
                 'label' => "La règlementation Pinger est applicable à ce navire"
