@@ -24,10 +24,21 @@
                   <i class="ri-download-2-line fr-mr-2v" aria-hidden="true" />
                   Télécharger les indicateurs de missions (.xlsx)
                 </button>
-                <button class="fr-btn fr-mt-4v" v-else @click="exportRapport">
-                  <i class="ri-download-2-line fr-mr-2v" aria-hidden="true" />
-                  Télécharger le rapport de patrouille (.docx)
-                </button>
+                <div v-else>
+                  <button class="fr-btn fr-mt-4v" @click="exportRapport('docx')">
+                    <i class="ri-download-2-line fr-mr-2v" aria-hidden="true" />
+                    Télécharger le rapport de patrouille (.docx)
+                  </button>
+                  <button class="fr-btn fr-mt-4v" @click="exportRapport('odt')">
+                    <i class="ri-download-2-line fr-mr-2v" aria-hidden="true" />
+                    Télécharger le rapport de patrouille (.odt)
+                  </button>
+                  <button class="fr-btn fr-mt-4v" @click="exportRapport('pdf')">
+                    <i class="ri-download-2-line fr-mr-2v" aria-hidden="true" />
+                    Télécharger le rapport de patrouille (.pdf)
+                  </button>
+                </div>
+
               </div>
 
             </div>
@@ -52,8 +63,8 @@ export default {
     exportIndicateurs() {
       window.location.href = sanitizeUrl('/api/pam/export/indicateurs/' + this.rapport.id + (this.draft ? '?draft' : ''));
     },
-    exportRapport() {
-      window.location.href = sanitizeUrl('/api/pam/export/rapport/' + this.rapport.id + (this.draft ? '?draft' : ''));
+    exportRapport(type = 'docx') {
+      window.location.href = sanitizeUrl('/api/pam/export/rapport/' + this.rapport.id + '?type=' + type + (this.draft ? '&draft' : '')   );
     }
   }
 }
