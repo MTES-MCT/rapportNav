@@ -55,4 +55,6 @@ ul.stacked-list {
     background: white;
 }
 
-
+.ml-2 {
+    padding-left: 15px;
+}

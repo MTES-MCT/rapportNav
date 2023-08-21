@@ -23,18 +23,72 @@
         {{ form_errors(form.controleSansPv.controleNavireRealises) }}
         {% set half_controls = max(((form.controleSansPv.controleNavireRealises|length)/3)|round,1) %}
         <div class="row">
-            {% for batch in form.controleSansPv.controleNavireRealises|batch(half_controls) %}
+            <div class="col-lg-4">
+                {% for batch in form.controleSansPv.controleNavireRealises|batch(half_controls) %}
+                    <ul class="no-decoration stacked-list">
+                        {% for box in batch %}
+                            {% if box.vars.label not in controlesGM and box.vars.label not in controlesGMSousItem and box.vars.label not in controlesGMPersonnelSousItem and box.vars.label not in controlesGMPersonnel %}
+                                <li>
+                                    {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {
+                                        'v-model': "activites['navire'].controleSansPv.controleNavireRealises",
+                                        'v-bind:name': "'activite_navire[controleSansPv][controleNavireRealises][]'",
+                                        'v-bind:id': "'activite_navire_controleSansPv_controleNavireRealises_'+"~box.vars.value}} %}
+                                </li>
+                            {% endif %}
+
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </div>
+            <div class="col-lg-4">
                 <ul class="no-decoration stacked-list">
-                    {% for box in batch %}
-                        <li>
-                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {
-                                'v-model': "activites['navire'].controleSansPv.controleNavireRealises",
-                                'v-bind:name': "'activite_navire[controleSansPv][controleNavireRealises][]'",
-                                'v-bind:id': "'activite_navire_controleSansPv_controleNavireRealises_'+"~box.vars.value}} %}
-                        </li>
+                    {% for box in form.controleSansPv.controleNavireRealises %}
+                        {% if box.vars.label in controlesGM %}
+                            <li>
+                                {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {
+                                    'v-model': "activites['navire'].controleSansPv.controleNavireRealises",
+                                    'v-bind:name': "'activite_navire[controleSansPv][controleNavireRealises][]'",
+                                    'v-bind:id': "'activite_navire_controleSansPv_controleNavireRealises_'+"~box.vars.value}} %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% for box in form.controleSansPv.controleNavireRealises %}
+                        {% if box.vars.label in controlesGMSousItem %}
+                            <li class="ml-2">
+                                {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {
+                                    'v-model': "activites['navire'].controleSansPv.controleNavireRealises",
+                                    'v-bind:name': "'activite_navire[controleSansPv][controleNavireRealises][]'",
+                                    'v-bind:id': "'activite_navire_controleSansPv_controleNavireRealises_'+"~box.vars.value}} %}
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
-            {% endfor %}
+            </div>
+            <div class="col-lg-4">
+                <ul class="no-decoration stacked-list">
+                    {% for box in form.controleSansPv.controleNavireRealises %}
+                        {% if box.vars.label in controlesGMPersonnel %}
+                            <li>
+                                {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {
+                                    'v-model': "activites['navire'].controleSansPv.controleNavireRealises",
+                                    'v-bind:name': "'activite_navire[controleSansPv][controleNavireRealises][]'",
+                                    'v-bind:id': "'activite_navire_controleSansPv_controleNavireRealises_'+"~box.vars.value}} %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% for box in form.controleSansPv.controleNavireRealises %}
+                        {% if box.vars.label in controlesGMPersonnelSousItem %}
+                            <li class="ml-2">
+                                {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {
+                                    'v-model': "activites['navire'].controleSansPv.controleNavireRealises",
+                                    'v-bind:name': "'activite_navire[controleSansPv][controleNavireRealises][]'",
+                                    'v-bind:id': "'activite_navire_controleSansPv_controleNavireRealises_'+"~box.vars.value}} %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
         </div>
     </fieldset>
 </div>
