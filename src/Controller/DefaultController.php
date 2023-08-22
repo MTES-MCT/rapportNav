@@ -89,10 +89,19 @@ class DefaultController extends AbstractController {
             'isGMPersonnelSousItem' => true
         ]);
 
+        $catControlesULAM = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => false,
+            'isGMArmementSousItem' => false,
+            'isGMPersonnel' => false,
+            'isGMPersonnelSousItem' => false,
+            'active' => true
+        ]);
+
         $controlesGM = [];
         $controlesGMSousItem = [];
         $controlesGMPersonnel = [];
         $controlesGMPersonnelSousItem = [];
+        $controlesULAM = [];
 
 
         foreach($catControlesGM as $controle) {
@@ -110,6 +119,10 @@ class DefaultController extends AbstractController {
 
         foreach($catControlesGMPersonnelSousItem as $controle) {
             $controlesGMPersonnelSousItem[] = $controle->getNom();
+        }
+
+        foreach($catControlesULAM as $controle) {
+            $controlesULAM[] = $controle->getNom();
         }
 
 
@@ -193,7 +206,8 @@ class DefaultController extends AbstractController {
             'controlesGM' => $controlesGM,
             'controlesGMSousItem' => $controlesGMSousItem,
             'controlesGMPersonnel' => $controlesGMPersonnel,
-            'controlesGMPersonnelSousItem' => $controlesGMPersonnelSousItem
+            'controlesGMPersonnelSousItem' => $controlesGMPersonnelSousItem,
+            'controlesULAM' => $controlesULAM,
         ]);
     }
 
@@ -295,6 +309,14 @@ class DefaultController extends AbstractController {
             'isGMPersonnelSousItem' => true
         ]);
 
+        $catControlesULAM = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => false,
+            'isGMArmementSousItem' => false,
+            'isGMPersonnel' => false,
+            'isGMPersonnelSousItem' => false,
+            'active' => true
+        ]);
+
         $controlesGM = [];
         $controlesGMSousItem = [];
         $controlesGMPersonnel = [];
@@ -318,6 +340,10 @@ class DefaultController extends AbstractController {
             $controlesGMPersonnelSousItem[] = $controle->getNom();
         }
 
+        foreach($catControlesULAM as $controle) {
+            $controlesULAM[] = $controle->getNom();
+        }
+
         $crud = ['deletable' => false, 'draftable' => false];
         return $this->render('rapport.html.twig', [
             'crud' => $crud,
@@ -334,7 +360,8 @@ class DefaultController extends AbstractController {
             'controlesGM' => $controlesGM,
             'controlesGMSousItem' => $controlesGMSousItem,
             'controlesGMPersonnel' => $controlesGMPersonnel,
-            'controlesGMPersonnelSousItem' => $controlesGMPersonnelSousItem
+            'controlesGMPersonnelSousItem' => $controlesGMPersonnelSousItem,
+            'controlesULAM' => $controlesULAM,
         ]);
     }
 

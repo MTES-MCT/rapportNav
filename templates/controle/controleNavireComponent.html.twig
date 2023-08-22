@@ -9,26 +9,69 @@
                     {{ form_label(form.navires.vars.prototype.controleNavireRealises, null, {'element': 'legend'} ) }}
                     {{ form_errors(form.navires.vars.prototype.controleNavireRealises) }}
                     {% for box in form.navires.vars.prototype.controleNavireRealises %}
-                        {% if "Autre" == box.vars.label %}
-                            {% set attr={'v-model': "controle.controleNavireRealises",
-                                '@change': "toggleCheckAutre($event, index)",
-                                'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
-                                'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
-                        {% else %}
-                            {% set attr={'v-model': "controle.controleNavireRealises",
-                                'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
-                                'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
-                        {% endif %}
-                        {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr } %}
-                        {% if "Autre" == box.vars.label %}
-                            {{ form_widget(form.navires.vars.prototype.detailControle, {'attr': {
-                                'v-model': "controle.detailControle",
-                                'v-if': "controle.showDetail",
-                                'v-bind:name': "'activite_navire[navires]['+index+'][detailControle]'",
-                                'v-bind:id': "'activite_navire_navires_'+index+'_detailControle_'+"~box.vars.value
-                            }} ) }}
+                        {% if box.vars.label in controlesULAM %}
+                            {% if "Autre" == box.vars.label %}
+                                {% set attr={'v-model': "controle.controleNavireRealises",
+                                    '@change': "toggleCheckAutre($event, index)",
+                                    'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
+                                    'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
+                            {% else %}
+                                {% set attr={'v-model': "controle.controleNavireRealises",
+                                    'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
+                                    'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
+                            {% endif %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr } %}
+                            {% if "Autre" == box.vars.label %}
+                                {{ form_widget(form.navires.vars.prototype.detailControle, {'attr': {
+                                    'v-model': "controle.detailControle",
+                                    'v-if': "controle.showDetail",
+                                    'v-bind:name': "'activite_navire[navires]['+index+'][detailControle]'",
+                                    'v-bind:id': "'activite_navire_navires_'+index+'_detailControle_'+"~box.vars.value
+                                }} ) }}
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
+
+
+                    {% for box in form.navires.vars.prototype.controleNavireRealises %}
+                        {% if box.vars.label in controlesGM %}
+                            {% set attr={'v-model': "controle.controleNavireRealises",
+                                'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
+                                'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr } %}
+                        {% endif %}
+                    {% endfor %}
+
+
+                    {% for box in form.navires.vars.prototype.controleNavireRealises %}
+                        {% if box.vars.label in controlesGMSousItem %}
+                            {% set attr={'v-model': "controle.controleNavireRealises",
+                                'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
+                                'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'ml-2' } %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for box in form.navires.vars.prototype.controleNavireRealises %}
+                        {% if box.vars.label in controlesGMPersonnel %}
+                            {% set attr={'v-model': "controle.controleNavireRealises",
+                                'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
+                                'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr } %}
+                        {% endif %}
+                    {% endfor %}
+
+
+                    {% for box in form.navires.vars.prototype.controleNavireRealises %}
+                        {% if box.vars.label in controlesGMPersonnelSousItem %}
+                            {% set attr={'v-model': "controle.controleNavireRealises",
+                                'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
+                                'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'ml-2' } %}
+                        {% endif %}
+                    {% endfor %}
+
+
                 </fieldset>
                 <div>
                     <p>Dispositif de dissuasion accoustique des cétacés :</p>
