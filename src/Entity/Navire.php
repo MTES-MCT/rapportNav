@@ -161,6 +161,6 @@ class Navire implements JsonSerializable {
     }
 
     public function __toString() {
-        return $this->getImmatriculation();
+        return $this->getNom() . ' - ' . $this->getImmatriculation();
     }
 }

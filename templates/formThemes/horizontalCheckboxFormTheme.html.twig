@@ -1,5 +1,5 @@
 {% spaceless %}
-<span class="form__checkbox">
+<span class="form__checkbox {% if spanClass is defined %} {{ spanClass }} {% endif %}" >
     {% if attr is defined %}
         {{ form_widget(box, {'attr': attr}) }}
     {% else %}

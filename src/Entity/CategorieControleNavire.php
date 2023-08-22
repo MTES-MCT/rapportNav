@@ -32,12 +32,12 @@ class CategorieControleNavire {
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isGM;
+    private $isGMArmement;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isGMSubItem;
+    private $isGMArmementSousItem;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -48,6 +48,11 @@ class CategorieControleNavire {
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isGMPersonnelSousItem;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isGMPersonnel;
 
     public function __toString() {
         return $this->getNom();
@@ -67,26 +72,26 @@ class CategorieControleNavire {
         return $this;
     }
 
-    public function getIsGM(): ?bool
+    public function getIsGMArmement(): ?bool
     {
-        return $this->isGM;
+        return $this->isGMArmement;
     }
 
-    public function setIsGM(?bool $isGM): self
+    public function setIsGMArmement(?bool $isGMArmement): self
     {
-        $this->isGM = $isGM;
+        $this->isGMArmement = $isGMArmement;
 
         return $this;
     }
 
-    public function getIsGMSubItem(): ?bool
+    public function getIsGMArmementSousItem(): ?bool
     {
-        return $this->isGMSubItem;
+        return $this->isGMArmementSousItem;
     }
 
-    public function setIsGMSubItem(?bool $isGMSubItem): self
+    public function setIsGMArmementSousItem(?bool $isGMArmementSousItem): self
     {
-        $this->isGMSubItem = $isGMSubItem;
+        $this->isGMArmementSousItem = $isGMArmementSousItem;
 
         return $this;
     }
@@ -111,6 +116,18 @@ class CategorieControleNavire {
     public function setIsGMPersonnelSousItem(?bool $isGMPersonnelSousItem): self
     {
         $this->isGMPersonnelSousItem = $isGMPersonnelSousItem;
+
+        return $this;
+    }
+
+    public function getIsGMPersonnel(): ?bool
+    {
+        return $this->isGMPersonnel;
+    }
+
+    public function setIsGMPersonnel(?bool $isGMPersonnel): self
+    {
+        $this->isGMPersonnel = $isGMPersonnel;
 
         return $this;
     }

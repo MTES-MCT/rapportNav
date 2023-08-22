@@ -41,7 +41,7 @@
                     </p>
                   </li>
 
-                  <li class="fr-mr-3w" v-if="saved || draft">
+                  <li class="fr-mr-3w" v-if="saved">
                     <nav
                       class="fr-nav"
                       id="navigation-773"
@@ -63,8 +63,7 @@
                                   target="_self"
                                   :aria-controls="'fr-modal-download' + rapport.id"
                                   data-fr-opened="false"
-                                  @click.prevent="typeDownload = 'rapport'"
-                                >
+                                  @click.prevent="typeDownload = 'rapport'">
                                   Télécharger le rapport de patrouille (.docx)</a>
                               </li>
                               <li class="download-item">
@@ -187,6 +186,18 @@
                         @click.prevent="typeDownload = 'rapport'"
                       >
                         Télécharger le rapport de patrouille (.docx)</a
+                      >
+                    </li>
+                    <li class="download-item">
+                      <a
+                          class="fr-nav__link fr-btn--icon-left fr-fi-download-line"
+                          href="#"
+                          target="_self"
+                          :aria-controls="'fr-modal-download' + rapport.id"
+                          data-fr-opened="false"
+                          @click.prevent="typeDownload = 'rapport'"
+                      >
+                        Télécharger le rapport de patrouille (.odt)</a
                       >
                     </li>
                     <li class="download-item">

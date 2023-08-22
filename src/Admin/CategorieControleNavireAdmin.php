@@ -15,8 +15,9 @@ final class CategorieControleNavireAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper): void {
         $formMapper
             ->add('nom', TextType::class, ['required' => true])
-            ->add('isGM', CheckboxType::class, ['required' => false])
-            ->add('isGMSubItem', CheckboxType::class, ['required' => false])
+            ->add('isGMArmement', CheckboxType::class, ['required' => false])
+            ->add('isGMArmementSousItem', CheckboxType::class, ['required' => false])
+            ->add('isGMPersonnel', CheckboxType::class, ['required' => false])
             ->add('isGMPersonnelSousItem', CheckboxType::class, ['required' => false])
             ->add('active', CheckboxType::class, ['required' => false])
         ;
@@ -25,8 +26,9 @@ final class CategorieControleNavireAdmin extends AbstractAdmin {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void {
         $datagridMapper
             ->add('nom')
-            ->add('isGM')
-            ->add('isGMSubItem')
+            ->add('isGMArmement')
+            ->add('isGMPersonnel')
+            ->add('isGMArmementSousItem')
             ->add('isGMPersonnelSousItem')
             ->add('active')
         ;
@@ -35,8 +37,9 @@ final class CategorieControleNavireAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper): void {
         $listMapper
             ->addIdentifier('nom')
-            ->add('isGM')
-            ->add('isGMSubITem')
+            ->add('isGMArmement')
+            ->add('isGMPersonnel')
+            ->add('isGMArmementSousItem')
             ->add('isGMPersonnelSousItem')
             ->add('active')
         ;

@@ -2,6 +2,7 @@
   <footer>
     <a href="#">Documentation</a>
     <a class="mailtoContact" href="#">Contact</a>
+    <a href="/logout">Déconnexion</a>
   </footer>
 </template>
 

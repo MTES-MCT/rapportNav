@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agent;
+use App\Entity\CategorieControleNavire;
 use App\Entity\Rapport;
 use App\Entity\RapportRepartitionHeures;
 use App\Entity\Service;
@@ -22,15 +23,12 @@ use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use InvalidArgumentException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -65,6 +63,70 @@ class DefaultController extends AbstractController {
      * @return RedirectResponse|Response
      */
     public function rapportCreate(Request $request, EntityManagerInterface $em) {
+
+
+        $catControlesGM = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => true,
+            'isGMArmementSousItem' => false
+        ]);
+
+        $catControlesGMSousItem = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => true,
+            'isGMArmementSousItem' => true
+        ]);
+
+        $catControlesGMPersonnel = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => false,
+            'isGMArmementSousItem' => false,
+            'isGMPersonnel' => true,
+            'isGMPersonnelSousItem' => false
+        ]);
+
+        $catControlesGMPersonnelSousItem = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => false,
+            'isGMArmementSousItem' => false,
+            'isGMPersonnel' => true,
+            'isGMPersonnelSousItem' => true
+        ]);
+
+        $catControlesULAM = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => false,
+            'isGMArmementSousItem' => false,
+            'isGMPersonnel' => false,
+            'isGMPersonnelSousItem' => false,
+            'active' => true
+        ]);
+
+        $controlesGM = [];
+        $controlesGMSousItem = [];
+        $controlesGMPersonnel = [];
+        $controlesGMPersonnelSousItem = [];
+        $controlesULAM = [];
+
+
+        foreach($catControlesGM as $controle) {
+            /** @var CategorieControleNavire $controle */
+            $controlesGM[] = $controle->getNom();
+        }
+
+        foreach($catControlesGMSousItem as $controle) {
+            $controlesGMSousItem[] = $controle->getNom();
+        }
+
+        foreach($catControlesGMPersonnel as $controle) {
+            $controlesGMPersonnel[] = $controle->getNom();
+        }
+
+        foreach($catControlesGMPersonnelSousItem as $controle) {
+            $controlesGMPersonnelSousItem[] = $controle->getNom();
+        }
+
+        foreach($catControlesULAM as $controle) {
+            $controlesULAM[] = $controle->getNom();
+        }
+
+
+
         /** @var Rapport $rapport */
         $rapport = new Rapport();
         $rapportData = ['error' => false];
@@ -141,6 +203,11 @@ class DefaultController extends AbstractController {
             'formFormation' => $forms['formation']->createView(),
             'activites' => $currentActivites,
             'rapport' => $rapportData,
+            'controlesGM' => $controlesGM,
+            'controlesGMSousItem' => $controlesGMSousItem,
+            'controlesGMPersonnel' => $controlesGMPersonnel,
+            'controlesGMPersonnelSousItem' => $controlesGMPersonnelSousItem,
+            'controlesULAM' => $controlesULAM,
         ]);
     }
 
@@ -207,7 +274,6 @@ class DefaultController extends AbstractController {
                 }
             }
         }
-
         if($form->isSubmitted() && $form->isValid() && false  === $rapportData['error']) {
             $rapport->setVersion($rapport->getVersion()+1);
 
@@ -217,6 +283,65 @@ class DefaultController extends AbstractController {
             $this->addFlash("success", "Modification enregistrée");
 
             return $this->redirectToRoute('list_submissions');
+        }
+
+        $catControlesGM = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => true,
+            'isGMArmementSousItem' => false
+        ]);
+
+        $catControlesGMSousItem = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => true,
+            'isGMArmementSousItem' => true
+        ]);
+
+        $catControlesGMPersonnel = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => false,
+            'isGMArmementSousItem' => false,
+            'isGMPersonnel' => true,
+            'isGMPersonnelSousItem' => false
+        ]);
+
+        $catControlesGMPersonnelSousItem = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => false,
+            'isGMArmementSousItem' => false,
+            'isGMPersonnel' => true,
+            'isGMPersonnelSousItem' => true
+        ]);
+
+        $catControlesULAM = $em->getRepository(CategorieControleNavire::class)->findBy([
+            'isGMArmement' => false,
+            'isGMArmementSousItem' => false,
+            'isGMPersonnel' => false,
+            'isGMPersonnelSousItem' => false,
+            'active' => true
+        ]);
+
+        $controlesGM = [];
+        $controlesGMSousItem = [];
+        $controlesGMPersonnel = [];
+        $controlesGMPersonnelSousItem = [];
+
+
+        foreach($catControlesGM as $controle) {
+            /** @var CategorieControleNavire $controle */
+            $controlesGM[] = $controle->getNom();
+        }
+
+        foreach($catControlesGMSousItem as $controle) {
+            $controlesGMSousItem[] = $controle->getNom();
+        }
+
+        foreach($catControlesGMPersonnel as $controle) {
+            $controlesGMPersonnel[] = $controle->getNom();
+        }
+
+        foreach($catControlesGMPersonnelSousItem as $controle) {
+            $controlesGMPersonnelSousItem[] = $controle->getNom();
+        }
+
+        foreach($catControlesULAM as $controle) {
+            $controlesULAM[] = $controle->getNom();
         }
 
         $crud = ['deletable' => false, 'draftable' => false];
@@ -232,6 +357,11 @@ class DefaultController extends AbstractController {
             'formFormation' => $forms['formation']->createView(),
             'activites' => $currentActivites,
             'rapport' => $rapportData,
+            'controlesGM' => $controlesGM,
+            'controlesGMSousItem' => $controlesGMSousItem,
+            'controlesGMPersonnel' => $controlesGMPersonnel,
+            'controlesGMPersonnelSousItem' => $controlesGMPersonnelSousItem,
+            'controlesULAM' => $controlesULAM,
         ]);
     }
 
