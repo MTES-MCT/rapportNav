@@ -41,10 +41,10 @@
                 {% endfor %}
             </div>
             <div class="col-lg-4">
-                <ul class="no-decoration stacked-list controlesGMArmement">
+                <ul class="no-decoration stacked-list">
                     {% for box in form.controleSansPv.controleNavireRealises %}
                         {% if box.vars.label in controlesGM %}
-                            <li>
+                            <li class="controlesGMArmement">
                                 {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {
                                     '@change': "toggleCheckGM($event, '.controlesGMArmementSousItem')",
                                     'v-model': "activites['navire'].controleSansPv.controleNavireRealises",
@@ -69,7 +69,7 @@
                 <ul class="no-decoration stacked-list">
                     {% for box in form.controleSansPv.controleNavireRealises %}
                         {% if box.vars.label in controlesGMPersonnel %}
-                            <li>
+                            <li class="controlesGMPersonnel">
                                 {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': {
                                     '@change': "toggleCheckGM($event, '.controlesGMPersonnelSousItem')",
                                     'v-model': "activites['navire'].controleSansPv.controleNavireRealises",

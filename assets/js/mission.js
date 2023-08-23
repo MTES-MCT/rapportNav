@@ -192,6 +192,30 @@ $(document).ready(function() {
                     this.errorList = rapport.error_where;
                 }
             }
+
+
+
+        },
+        mounted() {
+            this.$nextTick(function () {
+                const $controleGMArmement = document.querySelector('.controlesGMArmement');
+                const $controleGMPersonnel = document.querySelector('.controlesGMPersonnel');
+                const $checkboxGMArmement = $controleGMArmement.querySelector('input');
+                const $checkboxGMPersonnel = $controleGMPersonnel.querySelector('input');
+                const $sousItemArmement = document.querySelectorAll('.controlesGMArmementSousItem');
+                const $sousItemPersonnel = document.querySelectorAll('.controlesGMPersonnelSousItem');
+                if($checkboxGMArmement.checked) {
+                    $sousItemArmement.forEach((element) => {
+                        element.style.display = 'block'
+                    })
+                }
+                if($checkboxGMPersonnel.checked) {
+                    $sousItemPersonnel.forEach((element) => {
+                        element.style.display = 'block'
+                    })
+                }
+            })
+
         },
         methods: {
             deleteActivite: function(index) {
