@@ -38,7 +38,7 @@
                             {% set attr={'v-model': "controle.controleNavireRealises",
                                 'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
                                 'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
-                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr } %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'mt-2' } %}
                         {% endif %}
                     {% endfor %}
 
@@ -57,7 +57,7 @@
                             {% set attr={'v-model': "controle.controleNavireRealises",
                                 'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
                                 'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
-                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr } %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'mt-2' } %}
                         {% endif %}
                     {% endfor %}
 
@@ -70,8 +70,6 @@
                             {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'ml-2' } %}
                         {% endif %}
                     {% endfor %}
-
-
                 </fieldset>
                 <div>
                     <p>Dispositif de dissuasion accoustique des cétacés :</p>
