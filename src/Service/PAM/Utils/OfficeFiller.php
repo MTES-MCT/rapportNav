@@ -114,7 +114,7 @@ class OfficeFiller {
         {
 
             $table->addRow();
-            $this->addCell($table, 1000, $membre->getFonction(), 12);
+            $this->addCell($table, 1000, htmlspecialchars($membre->getFonction(), ENT_COMPAT, 'UTF-8'), 12);
             $this->addCell($table, 1000, htmlspecialchars($membre->getAgent(), ENT_COMPAT, 'UTF-8'), 12);
             $this->addCell($table, 1000, htmlspecialchars($membre->getObservations(), ENT_COMPAT, 'UTF-8'), 12);
         }

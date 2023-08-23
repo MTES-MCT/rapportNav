@@ -234,6 +234,14 @@ services:
             - { name: sonata.admin, manager_type: orm, group: rapport, label: "Rapports PAM" }
         public: true
 
+    admin.pam_rapport_brouillon:
+        class: App\Admin\PamRapportBrouillonAdmin
+        arguments: [~, App\Entity\PAM\PamDraft, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: rapport, label: "Rapports PAM brouillon" }
+        public: true
+
+
     admin.fonction_agent:
         class: App\Admin\FonctionAgentAdmin
         arguments: [~, App\Entity\FonctionAgent, ~]
