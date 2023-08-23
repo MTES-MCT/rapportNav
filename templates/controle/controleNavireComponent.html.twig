@@ -36,6 +36,7 @@
                     {% for box in form.navires.vars.prototype.controleNavireRealises %}
                         {% if box.vars.label in controlesGM %}
                             {% set attr={'v-model': "controle.controleNavireRealises",
+                                '@change': "toggleCheckGM($event, '.controlesGMArmementSousItem')",
                                 'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
                                 'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
                             {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'mt-2' } %}
@@ -48,13 +49,14 @@
                             {% set attr={'v-model': "controle.controleNavireRealises",
                                 'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
                                 'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
-                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'ml-2' } %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'ml-2 controlesGMArmementSousItem' } %}
                         {% endif %}
                     {% endfor %}
 
                     {% for box in form.navires.vars.prototype.controleNavireRealises %}
                         {% if box.vars.label in controlesGMPersonnel %}
                             {% set attr={'v-model': "controle.controleNavireRealises",
+                                '@change': "toggleCheckGM($event, '.controlesGMPersonnelSousItem')",
                                 'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
                                 'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
                             {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'mt-2' } %}
@@ -67,7 +69,7 @@
                             {% set attr={'v-model': "controle.controleNavireRealises",
                                 'v-bind:name': "'activite_navire[navires]['+index+'][controleNavireRealises][]'",
                                 'v-bind:id': "'activite_navire_navires_'+index+'_controleNavireRealises_'+"~box.vars.value} %}
-                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'ml-2' } %}
+                            {% include 'formThemes/horizontalCheckboxFormTheme.html.twig' with {'box': box, 'attr': attr, 'spanClass': 'ml-2 controlesGMPersonnelSousItem' } %}
                         {% endif %}
                     {% endfor %}
                 </fieldset>

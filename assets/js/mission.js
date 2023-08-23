@@ -233,6 +233,7 @@ $(document).ready(function() {
                         newControle['pingerPresent'] = null;
                         newControle['detailControle'] = null;
                         newControle['showDetail'] = false;
+                        newControle['showSousItem'] = false;
                         newControle['aireProtegee'] = false;
                         newControle['date'] = now.format("YYYY-MM-DD HH:mm");
                         const nbControles = this.activites['navire'].controles.length;
@@ -410,6 +411,18 @@ $(document).ready(function() {
                         }
                     }
                 }
+            },
+            toggleCheckGM: function(event, sousItemSelecteur){
+                const $sousItemsArmement = document.querySelectorAll(sousItemSelecteur);
+                $sousItemsArmement.forEach((element) => {
+                    const $checkbox = element.querySelector('input');
+                    if(event.target.checked){
+                        element.style.display = 'block';
+                    } else {
+                        element.style.display = 'none';
+                        $checkbox.checked = false;
+                    }
+                })
             }
         }
     });
