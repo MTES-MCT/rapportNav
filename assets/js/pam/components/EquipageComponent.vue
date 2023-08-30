@@ -142,6 +142,7 @@ export default {
       }
     },
     fetchAutocomplete() {
+      console.log(this.membres)
       let url = '/api/pam/equipage/autocomplete';
       url = this.tmpAgent.fullName ? url + '?fullName=' + this.tmpAgent.fullName : url;
       axios.get(url)
@@ -162,7 +163,17 @@ export default {
               dateArrivee: new Date()
             }
           }
-          this.suggestionsList.push(suggestion)
+          let alreadyExist = false;
+          this.membres.find((membre) => {
+            if(membre.agent.id === suggestion.agent.id) {
+              alreadyExist = true;
+            }
+          })
+
+          if(!alreadyExist) {
+            this.suggestionsList.push(suggestion)
+          }
+
         })
       })
     },
