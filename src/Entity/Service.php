@@ -43,6 +43,11 @@ Service {
      */
     private $quadrigramme;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Service::class, cascade={"persist", "remove"})
+     */
+    private $bordeeLiee;
+
     public function __construct()
     {
         $this->pamDrafts = new ArrayCollection();
@@ -114,6 +119,18 @@ Service {
     public function setQuadrigramme(?string $quadrigramme): self
     {
         $this->quadrigramme = $quadrigramme;
+
+        return $this;
+    }
+
+    public function getBordeeLiee(): ?self
+    {
+        return $this->bordeeLiee;
+    }
+
+    public function setBordeeLiee(?self $bordeeLiee): self
+    {
+        $this->bordeeLiee = $bordeeLiee;
 
         return $this;
     }

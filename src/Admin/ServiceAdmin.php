@@ -19,6 +19,7 @@ final class ServiceAdmin extends AbstractAdmin {
             ->add('nom')
             ->add('zoneGeographique')
             ->add('quadrigramme')
+            ->add('bordeeLiee')
             ;
     }
 
@@ -27,6 +28,9 @@ final class ServiceAdmin extends AbstractAdmin {
             ->addIdentifier('nom')
             ->add('zoneGeographique')
             ->add('quadrigramme')
+            ->add('bordeeLiee', null, [
+                'label' => 'Lié à la bordée'
+            ])
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
@@ -45,6 +49,9 @@ final class ServiceAdmin extends AbstractAdmin {
                 'required' => false,
             ])
             ->add('quadrigramme')
+            ->add('bordeeLiee', null, [
+                'label' => 'Lié à la bordée'
+            ])
             ;
     }
 
@@ -53,6 +60,9 @@ final class ServiceAdmin extends AbstractAdmin {
             ->add('nom')
             ->add('zoneGeographique')
             ->add('quadrigramme')
+            ->add('bordeeLiee', null, [
+                'label' => 'Lié à la bordée'
+            ])
             ;
     }
 }
