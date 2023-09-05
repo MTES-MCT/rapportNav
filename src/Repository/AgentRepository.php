@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Agent;
+use App\Entity\Service;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -34,9 +35,13 @@ class AgentRepository extends ServiceEntityRepository
     public function autocomplete(?string $fullName) : array
     {
         $fullName = strtoupper($fullName);
+        /** @var Service $service */
         $service = $this->tokenStorage->getToken()->getUser()->getService();
+        $bordeeLiee = $service->getBordeeLiee();
         $qb = $this->createQueryBuilder('a')
+            ->leftJoin('a.service', 's')
             ->where('a.service = :service')
+            ->orWhere('a.service = :bordeeliee')
             ->andWhere('a.deletedAt IS NULL')
         ;
 
@@ -45,10 +50,13 @@ class AgentRepository extends ServiceEntityRepository
                 ->setParameters([
                     'service' => $service,
                     'fullName' => '%' . $fullName .'%',
+                    'bordeeliee' => $bordeeLiee
                 ]);
         } else {
             $qb
-            ->setParameter('service', $service);
+                ->setParameter('service', $service)
+                ->setParameter(':bordeeliee', $bordeeLiee)
+            ;
         }
 
         return $qb->getQuery()->getResult();
