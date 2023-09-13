@@ -62,7 +62,9 @@ final class PamRapportAdmin extends AbstractAdmin
             ->add('essence')
             ->add('start_datetime')
             ->add('end_datetime')
-            ->add('personnel')
+            ->add('personnel', null, [
+                'label' => 'Indispo. personnel'
+            ])
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
@@ -121,7 +123,9 @@ final class PamRapportAdmin extends AbstractAdmin
             ->add('essence')
             ->add('start_datetime')
             ->add('end_datetime')
-            ->add('personnel')
+            ->add('personnel', null, [
+                'label' => 'Indispo. personnel'
+            ])
             ;
     }
 
