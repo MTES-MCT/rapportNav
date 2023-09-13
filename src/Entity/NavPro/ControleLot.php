@@ -4,6 +4,7 @@ namespace App\Entity\NavPro;
 
 use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
+use App\Entity\Document;
 use App\Entity\Service;
 use App\Repository\NavPro\ControleLotRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -75,11 +76,22 @@ class ControleLot
      */
     private $nbPv;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pvFile;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="navProControleLot", cascade={"persist"})
+     */
+    private $documents;
+
     public function __construct()
     {
         $this->controlesRealisesArmement = new ArrayCollection();
         $this->controlesRealisesPersonnel = new ArrayCollection();
         $this->date = new \DateTime();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -227,6 +239,48 @@ class ControleLot
     public function setNbPv(?int $nbPv): self
     {
         $this->nbPv = $nbPv;
+
+        return $this;
+    }
+
+    public function getPvFichiers(): ?string
+    {
+        return $this->pvFichiers;
+    }
+
+    public function setPvFichiers(?string $pvFichiers): self
+    {
+        $this->pvFichiers = $pvFichiers;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setNavProControleLot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getNavProControleLot() === $this) {
+                $document->setNavProControleLot(null);
+            }
+        }
 
         return $this;
     }

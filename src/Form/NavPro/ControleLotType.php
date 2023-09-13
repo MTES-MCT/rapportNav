@@ -4,15 +4,20 @@ namespace App\Form\NavPro;
 
 use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
+use App\Entity\Document;
 use App\Entity\NavPro\ControleLot;
+use App\Form\DocumentType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ControleLotType extends AbstractType
 {
@@ -65,6 +70,11 @@ class ControleLotType extends AbstractType
                 'label' => 'Nombre de procès verbaux émis',
                 'label_attr' => ['class' => 'fr-label'],
                 'required' => false
+            ])
+            ->add('documents', CollectionType::class, [
+                'entry_type' => DocumentType::class,
+                'by_reference' => false,
+                'allow_add' => true
             ])
         ;
     }
