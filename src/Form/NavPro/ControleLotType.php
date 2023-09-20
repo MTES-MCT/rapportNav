@@ -74,7 +74,8 @@ class ControleLotType extends AbstractType
             ->add('documents', CollectionType::class, [
                 'entry_type' => DocumentType::class,
                 'by_reference' => false,
-                'allow_add' => true
+                'allow_add' => true,
+                'prototype' => true
             ])
         ;
     }
