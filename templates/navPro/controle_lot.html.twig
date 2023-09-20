@@ -6,91 +6,110 @@
         <h1 class="fr-mt-4w">{{ titrePage }}</h1>
 
         <div class="fr-grid-row fr-mt-6w">
-            <form action="{{ action }}" method="post" id="form-controle">
-                <div class="fr-grid-row">
-                    <div class="fr-col-3">
-                        {{ form_label(form.date) }}
-                        {{ form_widget(form.date) }}
+            <div class="fr-col-6">
+                <form action="{{ action }}" method="post" id="form-controle" enctype="multipart/form-data">
+                    <div class="fr-grid-row">
+                        <div class="fr-col-3">
+                            {{ form_label(form.date) }}
+                            {{ form_widget(form.date) }}
+                        </div>
                     </div>
-                </div>
-                <div class="fr-grid-row fr-mt-3w">
-                    {{ form_label(form.nombre) }}
-                    {{ form_widget(form.nombre) }}
-                </div>
-                <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w row__controle-realises">
-                    <div class="fr-col-6">
-                        {{ form_label(form.controlesRealisesArmement) }}
+                    <div class="fr-grid-row fr-mt-3w">
+                        <div class="fr-col-5">
+                            {{ form_label(form.nombre) }}
+                            {{ form_widget(form.nombre) }}
+                        </div>
+                    </div>
+                    <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w row__controle-realises">
+                        <div class="fr-col-6">
+                            {{ form_label(form.controlesRealisesArmement) }}
+                            <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
+                                <div class="fr-fieldset__element fr-fieldset__element--inline">
+                                    <div class="fr-checkbox-group fr-mt-2v">
+                                        {{ form_widget(form.controlesRealisesArmement) }}
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="fr-col-6">
+                            {{ form_label(form.controlesRealisesPersonnel) }}
+                            <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
+                                <div class="fr-fieldset__element fr-fieldset__element--inline">
+                                    <div class="fr-checkbox-group fr-mt-2v">
+                                        {{ form_widget(form.controlesRealisesPersonnel) }}
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="fr-grid-row fr-mt-6w">
                         <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
                             <div class="fr-fieldset__element fr-fieldset__element--inline">
-                                <div class="fr-checkbox-group fr-mt-2v">
-                                    {{ form_widget(form.controlesRealisesArmement) }}
+                                <div class="fr-checkbox-group">
+                                    {{ form_widget(form.pvEmis) }}
+                                    {{ form_label(form.pvEmis) }}
                                 </div>
                             </div>
                         </fieldset>
-                    </div>
-                    <div class="fr-col-6">
-                        {{ form_label(form.controlesRealisesPersonnel) }}
-                        <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
-                            <div class="fr-fieldset__element fr-fieldset__element--inline">
-                                <div class="fr-checkbox-group fr-mt-2v">
-                                    {{ form_widget(form.controlesRealisesPersonnel) }}
+
+                        <div id="downloadModelesPV">
+                            <div class="fr-grid-row fr-ml-4w">
+                                <div class="fr-download fr-mt-2w">
+                                    <p>
+                                        <a id="download-rapport-docx" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link text-blue">Cliquer ici</a> pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format
+                                        <b>.docx</b> (Microsoft Word)
+                                    </p>
+                                    <p>
+                                        <a id="download-rapport-odt" href="/DGAMPAGM3_Modèle_PV_CANGM.odt" download class="fr-download__link text-blue">Cliquer ici</a> pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format
+                                        <b>.odt</b> (LibreOffice / OpenOffice)
+                                    </p>
                                 </div>
                             </div>
-                        </fieldset>
-                    </div>
-                </div>
-                <div class="fr-grid-row fr-mt-6w">
-                    <ul class="documents"
-                        data-index="{{ form.documents|length > 0 ? form.documents|last.vars.fileName + 1 : 0 }}"
-                        data-prototype="{{ form_widget(form.documents.vars.prototype)|e('html_attr') }}"
-                    ></ul>
+                            <div class="fr-grid-row fr-ml-4w" id="nbPV">
+                                <div class="fr-col-6">
+                                    {{ form_label(form.nbPv) }}
+                                    {{ form_widget(form.nbPv, {'attr': {'id': "nbPVInput"}}) }}
+                                </div>
+                            </div>
 
-                    <button type="button" class="add_item_link" data-collection-holder-class="documents">Add a tag</button>
-                </div>
-                <div class="fr-grid-row fr-mt-6w">
-                    <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
-                        <div class="fr-fieldset__element fr-fieldset__element--inline">
-                            <div class="fr-checkbox-group">
-                                {{ form_widget(form.pvEmis) }}
-                                {{ form_label(form.pvEmis) }}
+                            <div class="fr-grid-row fr-mt-6w fr-grid-row--gutters" data-prototype="{{ _self.document_prototype(form.documents.vars.prototype)|e }}" id="collectionHolder">
+                                {% for formDocument in form.documents %}
+                                    <div class="fr-col-6">
+                                        <div class="fr-card">
+                                            <div class="fr-card__body">
+                                                <div class="fr-upload-group">
+                                                    <label class="fr-label" for="file-upload">Procès-verbal n°1
+                                                        <span class="fr-hint-text">Formats supportés : .odt, .docx, pdf. </span>
+                                                    </label>
+                                                   {{ form_widget(formDocument.file) }}
+                                                    {{ form_widget(formDocument.fileName) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
-                    </fieldset>
-                    <div class="fr-grid-row fr-ml-4w">
-                        <div class="fr-download">
-                            <p>
-                                <a id="download-rapport-docx" href="/DGAMPAGM3_Modèle_PV_CANGM.docx" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format .docx (Microsoft Word)
-                                </a>
-                            </p>
-                            <p>
-                                <a id="download-rapport-odt" href="/DGAMPAGM3_Modèle_PV_CANGM.odt" download class="fr-download__link">Cliquer ici pour télécharger le modèle de PV pour le contrôle de l'armement des navires et des GM au format .odt (LibreOffice / OpenOffice)
-                                </a>
-                            </p>
-                        </div>
+
                     </div>
-                    <div class="fr-grid-row fr-ml-4w" id="nbPV">
-                        <div class="fr-col-12">
-                            {{ form_label(form.nbPv) }}
-                            {{ form_widget(form.nbPv) }}
-                        </div>
+
+                    <div class="fr-grid-row fr-mt-6w">
+                        {{ form_label(form.commentaire) }}
+                        {{ form_widget(form.commentaire) }}
                     </div>
-                </div>
-
-                <div class="fr-grid-row fr-mt-6w">
-                    {{ form_label(form.commentaire) }}
-                    {{ form_widget(form.commentaire) }}
-                </div>
 
 
-                <div class="fr-grid-row fr-mt-4w action">
-                    <button class="fr-btn" type="submit">Valider</button>
-                    {% if brouillon %}
-                        <button class="fr-btn fr-ml-2w" id="btn-brouillon">Enregistrer le brouillon</button>
-                        <a href="#" class="fr-btn fr-btn--secondary fr-ml-4w" data-fr-opened="false" aria-controls="fr-modal-annuler">Annuler</a>
-                    {% endif %}
-                </div>
-                {{ form_widget(form._token) }}
-            </form>
+                    <div class="fr-grid-row fr-mt-4w action">
+                        <button class="fr-btn" type="submit">Valider</button>
+                        {% if brouillon %}
+                            <button class="fr-btn fr-ml-2w" id="btn-brouillon">Enregistrer le brouillon</button>
+                            <a href="#" class="fr-btn fr-btn--secondary fr-ml-4w" data-fr-opened="false" aria-controls="fr-modal-annuler">Annuler</a>
+                        {% endif %}
+                    </div>
+                    {{ form_widget(form._token) }}
+                </form>
+            </div>
         </div>
     </div>
 
@@ -127,6 +146,29 @@
         </div>
     </dialog>
 
+
+
+    {% macro document_prototype(d) %}
+        {{ form_errors(d) }}
+        <div class="fr-col-6 uploadSection">
+            <div class="fr-card">
+                <div class="fr-card__content fr-p-3w">
+                    <div class="fr-upload-group">
+                        <label class="fr-label" for="file-upload">Procès-verbal n°__numeropv__
+                            <span class="fr-hint-text">Formats supportés : .odt, .docx, pdf. </span>
+                        </label>
+                        {{ form_widget(d.file) }}
+                        {{ form_widget(d.fileName) }}
+                    </div>
+                </div>
+                <div class="fr-card__desc fr-p-1v">
+                    <a href="#" class="">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    {% endmacro %}
+
+
 {% endblock %}
 {% block javascripts %}
     <script>
@@ -134,13 +176,16 @@
         $checkbox = $checkbox[0];
         const $downloadDocx = document.getElementById('download-rapport-docx');
         const $downloadOdt = document.getElementById('download-rapport-odt');
+        const $downloadModelesPV = document.getElementById('downloadModelesPV');
         const $nbPv = document.getElementById('nbPV');
-        handleCheckbox($checkbox, $downloadDocx, $nbPv)
-        handleCheckbox($checkbox, $downloadOdt, $nbPv)
+        const $nbPVInput = document.getElementById('controle_lot_nbPv');
+
+        handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
+        handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
 
         $checkbox.addEventListener('change', function(){
-            handleCheckbox($checkbox, $downloadDocx, $nbPv)
-            handleCheckbox($checkbox, $downloadOdt, $nbPv)
+            handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
+            handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
         })
 
         function handleCheckbox(checkbox, download, nbPv) {
@@ -169,29 +214,33 @@
             $fermerModale.click();
         })
 
-        const addFormToCollection = (e) => {
-            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
-            const item = document.createElement('li');
+        const $collectionHolder = $("#collectionHolder");
 
-            item.innerHTML = collectionHolder
-                .dataset
-                .prototype
-                .replace(
-                    /__name__/g,
-                    collectionHolder.dataset.index
-                );
+        $($nbPVInput).on('change', function(e){
+            for(let i=1; i <= e.target.value; i++){
+                addFormToCollection($collectionHolder, i)
+            }
+        })
 
-            collectionHolder.appendChild(item);
 
-            collectionHolder.dataset.index++;
+
+        const addFormToCollection = (collectionHolder, index) => {
+            const lengthUploadSection = $('.uploadSection').length;
+
+            console.log(lengthUploadSection)
+            console.log(lengthUploadSection < index)
+
+            if(lengthUploadSection < index) {
+                let prototype = collectionHolder.data('prototype');
+                prototype = prototype.replace(/__name__/g, index);
+                prototype = prototype.replace(/__numeropv__/g, index);
+                collectionHolder.append(prototype);
+            }
         };
 
-        document
-            .querySelectorAll('.add_item_link')
-            .forEach(btn => {
-                btn.addEventListener("click", addFormToCollection)
-            });
+
+
 
 
 
