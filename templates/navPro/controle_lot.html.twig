@@ -150,7 +150,7 @@
 
     {% macro document_prototype(d) %}
         {{ form_errors(d) }}
-        <div class="fr-col-6 uploadSection">
+        <div class="fr-col-6 uploadSection section__index__">
             <div class="fr-card">
                 <div class="fr-card__content fr-p-3w">
                     <div class="fr-upload-group">
@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <div class="fr-card__desc fr-p-1v">
-                    <a href="#" class="">Supprimer</a>
+                    <a href="#" class="suppUpload__index__">Supprimer</a>
                 </div>
             </div>
         </div>
@@ -217,27 +217,45 @@
 
         const $collectionHolder = $("#collectionHolder");
 
+
         $($nbPVInput).on('change', function(e){
             for(let i=1; i <= e.target.value; i++){
                 addFormToCollection($collectionHolder, i)
             }
         })
 
-
-
         const addFormToCollection = (collectionHolder, index) => {
             const lengthUploadSection = $('.uploadSection').length;
 
-            console.log(lengthUploadSection)
-            console.log(lengthUploadSection < index)
-
             if(lengthUploadSection < index) {
+
                 let prototype = collectionHolder.data('prototype');
                 prototype = prototype.replace(/__name__/g, index);
+                prototype = prototype.replace(/__index__/g, index);
                 prototype = prototype.replace(/__numeropv__/g, index);
                 collectionHolder.append(prototype);
+                const $suppUpload = $('.suppUpload' + index);
+                const $section = $('.section' + index);
+                $suppUpload.click(function(e) {
+                    e.preventDefault();
+                    $section.remove()
+
+                })
             }
         };
+
+
+
+
+        $suppUpload.forEach(function(el, index) {
+            console.log(el)
+            el.click(function(e) {
+                e.preventDefault();
+                const $section = $('#section' + index);
+                $section.remove();
+            })
+
+        })
 
 
 
