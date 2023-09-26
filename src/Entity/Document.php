@@ -114,7 +114,6 @@ class Document
      */
     public function setFile(?File $file): void
     {
-        $file = new UploadedFile($this->fileName, $this->fileName, null, $this->size, false, true);
         $this->file = $file;
         $this->updatedAt = new \DateTimeImmutable();
     }

@@ -21,10 +21,8 @@ class DocumentType extends AbstractType
                 'label' => 'Charger un procès-verbal',
                 'required' => false,
                 'download_label' => 'Télécharger le pv',
-                'delete_label' => 'Supprimer ?',
-                'allow_delete' => true,
+                'allow_delete' => false,
             ])
-            ->add('fileName', HiddenType::class)
         ;
     }
 

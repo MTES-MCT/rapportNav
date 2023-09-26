@@ -74,20 +74,24 @@
                             </div>
 
                             <div class="fr-grid-row fr-mt-6w fr-grid-row--gutters" data-prototype="{{ _self.document_prototype(form.documents.vars.prototype)|e }}" id="collectionHolder">
+                                {% set index = 0 %}
                                 {% for formDocument in form.documents %}
-                                    <div class="fr-col-6">
+                                    <div class="fr-col-6 uploadSection section{{ index }}">
                                         <div class="fr-card">
-                                            <div class="fr-card__body">
+                                            <div class="fr-card__content fr-p-3w">
                                                 <div class="fr-upload-group">
-                                                    <label class="fr-label" for="file-upload">Procès-verbal n°1
+                                                    <label class="fr-label" for="file-upload">Procès-verbal n°{{ index+1 }}
                                                         <span class="fr-hint-text">Formats supportés : .odt, .docx, pdf. </span>
                                                     </label>
-                                                   {{ form_widget(formDocument.file) }}
-                                                    {{ form_widget(formDocument.fileName) }}
+                                                    {{ form_widget(formDocument.file) }}
                                                 </div>
+                                            </div>
+                                            <div class="fr-card__desc fr-p-1v">
+                                                <a href="#" class="suppUpload{{ index }}">Supprimer</a>
                                             </div>
                                         </div>
                                     </div>
+                                    {% set index = index+1 %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -239,27 +243,9 @@
                 $suppUpload.click(function(e) {
                     e.preventDefault();
                     $section.remove()
-
                 })
             }
         };
-
-
-
-
-        $suppUpload.forEach(function(el, index) {
-            console.log(el)
-            el.click(function(e) {
-                e.preventDefault();
-                const $section = $('#section' + index);
-                $section.remove();
-            })
-
-        })
-
-
-
-
 
 
     </script>
