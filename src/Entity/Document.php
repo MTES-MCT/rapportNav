@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\NavPro\ControleLot;
+use App\Entity\NavPro\ControleUnitaire;
 use App\Repository\DocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -47,6 +48,11 @@ class Document
      *
      */
     private ?File $file;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ControleUnitaire::class, inversedBy="documents")
+     */
+    private $navProControleUnitaire;
 
     public function getId(): ?int
     {
@@ -116,5 +122,17 @@ class Document
     {
         $this->file = $file;
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getNavProControleUnitaire(): ?ControleUnitaire
+    {
+        return $this->navProControleUnitaire;
+    }
+
+    public function setNavProControleUnitaire(?ControleUnitaire $navProControleUnitaire): self
+    {
+        $this->navProControleUnitaire = $navProControleUnitaire;
+
+        return $this;
     }
 }
