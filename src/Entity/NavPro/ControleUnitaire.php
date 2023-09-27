@@ -4,6 +4,7 @@ namespace App\Entity\NavPro;
 
 use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
+use App\Entity\Document;
 use App\Entity\Navire;
 use App\Entity\Service;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -81,11 +82,17 @@ class ControleUnitaire
      */
     private $nbPv;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="navProControleUnitaire", cascade={"persist"})
+     */
+    private $documents;
+
     public function __construct()
     {
         $this->controleRealisesArmement = new ArrayCollection();
         $this->controleRealisesGM = new ArrayCollection();
         $this->date = new \DateTime();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,6 +252,36 @@ class ControleUnitaire
     public function setNbPv(?int $nbPv): self
     {
         $this->nbPv = $nbPv;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setNavProControleUnitaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getNavProControleUnitaire() === $this) {
+                $document->setNavProControleUnitaire(null);
+            }
+        }
 
         return $this;
     }

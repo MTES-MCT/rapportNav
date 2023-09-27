@@ -34,6 +34,7 @@ class DefaultController extends AbstractController
      */
     public function ajoutControleParLot(Request $request, EntityManagerInterface $em)
     {
+
         $controleLot = new ControleLot();
         $controleLot->setCreatedBy($this->getUser()->getService());
         $form = $this->createForm(ControleLotType::class, $controleLot);
