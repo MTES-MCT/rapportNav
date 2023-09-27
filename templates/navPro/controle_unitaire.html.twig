@@ -200,9 +200,6 @@
         const $nbPv = document.getElementById('nbPV');
         const $nbPVInput = document.getElementById('controle_unitaire_nbPv');
 
-
-        console.log($nbPVInput)
-
         handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
         handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
 
@@ -239,18 +236,17 @@
 
 
 
-       /**$('.fr-input-enregistrement').select2({
+       $('.fr-input-enregistrement').select2({
             minimumInputLength: 2,
             allowClear: true,
             placeholder: "Immatriculation du navire",
             language: { inputTooShort: function () { return 'Merci de renseigner l\'immatriculation du navire'; } },
-        });**/
+        });
 
 
         const $collectionHolder = $("#collectionHolder");
 
-        $($nbPVInput).on('change', function(e){
-            alert('change')
+        $($nbPVInput).on('keyup', function(e){
             for(let i=1; i <= e.target.value; i++){
                 addFormToCollection($collectionHolder, i)
             }
