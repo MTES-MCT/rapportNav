@@ -221,7 +221,7 @@
         const $collectionHolder = $("#collectionHolder");
 
 
-        $($nbPVInput).on('change', function(e){
+        $($nbPVInput).on('keyup', function(e){
             for(let i=1; i <= e.target.value; i++){
                 addFormToCollection($collectionHolder, i)
             }
