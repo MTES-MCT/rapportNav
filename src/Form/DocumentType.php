@@ -19,7 +19,7 @@ class DocumentType extends AbstractType
 
             ->add('file', VichFileType::class, [
                 'label' => 'Charger un procès-verbal',
-                'required' => false,
+                'required' => true,
                 'download_label' => 'Télécharger le pv',
                 'allow_delete' => false,
             ])
