@@ -87,6 +87,11 @@
                                     {{ form_widget(form.nbPv, {'attr': {'id': "nbPVInput"}}) }}
                                 </div>
                             </div>
+                            <div class="fr-grid-row fr-ml-4w fr-mt-2w" id="nbPV">
+                                <div class="fr-col-6">
+                                    <button type="button" id="btnUpload" class="fr-btn fr-btn--secondary fr-fi-upload-2-fill fr-btn--icon-left">Charger des fichiers PV</button>
+                                </div>
+                            </div>
 
                             <div class="fr-grid-row fr-mt-6w fr-grid-row--gutters" data-prototype="{{ _self.document_prototype(form.documents.vars.prototype)|e }}" id="collectionHolder">
                                 {% set index = 0 %}
@@ -199,6 +204,7 @@
         const $downloadModelesPV = document.getElementById('downloadModelesPV');
         const $nbPv = document.getElementById('nbPV');
         const $nbPVInput = document.getElementById('controle_unitaire_nbPv');
+        const $btnUpload = document.getElementById('btnUpload');
 
         handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
         handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
@@ -246,8 +252,9 @@
 
         const $collectionHolder = $("#collectionHolder");
 
-        $($nbPVInput).on('keyup', function(e){
-            for(let i=1; i <= e.target.value; i++){
+        $($btnUpload).on('click', function(e){
+            const nbPv = $($nbPVInput).val()
+            for(let i=1; i <= nbPv; i++){
                 addFormToCollection($collectionHolder, i)
             }
         })
