@@ -26,7 +26,7 @@ class Document
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $fileName;
+    private ?string $fileName;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -64,7 +64,7 @@ class Document
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): self
+    public function setFileName(?string $fileName): self
     {
         $this->fileName = $fileName;
 
