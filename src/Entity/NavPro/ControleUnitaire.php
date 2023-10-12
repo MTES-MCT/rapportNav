@@ -83,7 +83,7 @@ class ControleUnitaire
     private $nbPv;
 
     /**
-     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="navProControleUnitaire", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="navProControleUnitaire", cascade={"persist", "remove"})
      */
     private $documents;
 
