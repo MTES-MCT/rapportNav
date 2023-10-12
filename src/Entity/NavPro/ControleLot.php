@@ -82,7 +82,7 @@ class ControleLot
     private $pvFile;
 
     /**
-     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="navProControleLot", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="navProControleLot", cascade={"persist", "remove"})
      */
     private $documents;
 
