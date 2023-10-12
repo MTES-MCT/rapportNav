@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    app.version: '0.26.0'
+    app.version: '0.28.0'
     app.warning: '%env(resolve:APP_SHOW_WARNING)%'
     api_app: '%env(resolve:API_APP)%'
     api_navire: '%env(resolve:API_NAVIRE)%'
@@ -282,4 +282,18 @@ services:
         arguments: [ ~, App\Entity\Commandant, ~ ]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Commandant }
+        public: true
+
+    admin.navpro_lot:
+        class: App\Admin\NavProLotAdmin
+        arguments: [ ~, App\Entity\NavPro\ControleLot, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: rapport, label: 'Contrôles NavPro par Lot' }
+        public: true
+
+    admin.navpro_unitaire:
+        class: App\Admin\NavProUnitaireAdmin
+        arguments: [ ~, App\Entity\NavPro\ControleUnitaire, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: rapport, label: 'Contrôles NavPro unitaire' }
         public: true

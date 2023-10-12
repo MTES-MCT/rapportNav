@@ -39,7 +39,7 @@ class PamIndicateur
 
     /**
      * @Groups({"view", "draft", "save_rapport"})
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $observations;
 
