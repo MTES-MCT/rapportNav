@@ -47,32 +47,16 @@ class PamPlanningRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return PamPlanning[] Returns an array of PamPlanning objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function prochaineMissionADebuter()
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $tomorrow = new \DateTime('now +1days 00:00:00');
 
-    /*
-    public function findOneBySomeField($value): ?PamPlanning
-    {
+      //  dd($tomorrow);
+
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('p.dateDebut = :tomorrow')
+            ->setParameter('tomorrow', $tomorrow)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }

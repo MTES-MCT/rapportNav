@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
-use App\Entity\PAM\PamDatePlanning;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\Form\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use App\Entity\Service;
 
