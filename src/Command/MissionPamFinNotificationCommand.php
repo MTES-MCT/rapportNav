@@ -12,14 +12,15 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
 class MissionPamFinNotificationCommand extends Command
 {
 
-    protected static $defaultName = 'app:pam:mission-debut-notification';
-    protected static $defaultDescription = 'Notification des PAM de leurs début de mission';
+    protected static $defaultName = 'app:pam:mission-fin-notification';
+    protected static $defaultDescription = 'Notification des PAM de leurs fin de mission';
 
     private EntityManagerInterface $entityManager;
 
@@ -52,21 +53,22 @@ class MissionPamFinNotificationCommand extends Command
 
         foreach($plannings as $planning) {
             $email = (new TemplatedEmail())
-                ->from('TODO')
+                ->from('aleck.vincent@beta.gouv.fr')
                 ->to($planning->getEmail())
                 ->subject('TODO')
-                ->htmlTemplate('pam/email/notification-debut-mission.html.twig')
+                ->htmlTemplate('pam/email/notification-fin-mission.html.twig')
                 ->context([
                     'service' => $planning->getService()
                 ])
             ;
-
-            $this->mailer->send($email);
+            try {
+                $this->mailer->send($email);
+                $io->success('Les emails ont été envoyé');
+                $this->logger->info('Les emails ont été envoyé');
+            } catch(TransportExceptionInterface $e) {
+                $this->logger->error($e->getMessage());
+            }
         }
-
-        $this->entityManager->flush();
-        $io->success('Les emails ont été envoyé');
-        $this->logger->info('Les emails ont été envoyé');
 
         return 0;
 

@@ -12,6 +12,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -48,11 +49,12 @@ class MissionPamDebutNotificationCommand extends Command
 
         /** @var PamPlanning[] $plannings */
         $plannings = $this->entityManager->getRepository(PamPlanning::class)->prochaineMissionADebuter();
-
+     //   dd($plannings);
 
         foreach($plannings as $planning) {
+
             $email = (new TemplatedEmail())
-                ->from('TODO')
+                ->from('aleck.vincent@beta.gouv.fr')
                 ->to($planning->getEmail())
                 ->subject('TODO')
                 ->htmlTemplate('pam/email/notification-debut-mission.html.twig')
@@ -61,12 +63,15 @@ class MissionPamDebutNotificationCommand extends Command
                 ])
             ;
 
-            $this->mailer->send($email);
-        }
+            try {
+                $this->mailer->send($email);
+                $io->success('Les emails ont été envoyé');
+                $this->logger->info('Les emails ont été envoyé');
+            } catch(TransportExceptionInterface $e) {
+                $io->error($e->getMessage());
+            }
 
-        $this->entityManager->flush();
-        $io->success('Les emails ont été envoyé');
-        $this->logger->info('Les emails ont été envoyé');
+        }
 
         return 0;
 
