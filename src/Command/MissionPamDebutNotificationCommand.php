@@ -52,11 +52,12 @@ class MissionPamDebutNotificationCommand extends Command
      //   dd($plannings);
 
         foreach($plannings as $planning) {
-
+            $serviceNom = $planning->getService()->getNom();
+            $subject = "Votre prochaine mission à bord du ${serviceNom} : pensez à remplir RapportNav !";
             $email = (new TemplatedEmail())
                 ->from('aleck.vincent@beta.gouv.fr')
                 ->to($planning->getEmail())
-                ->subject('TODO')
+                ->subject($subject)
                 ->htmlTemplate('pam/email/notification-debut-mission.html.twig')
                 ->context([
                     'service' => $planning->getService()
