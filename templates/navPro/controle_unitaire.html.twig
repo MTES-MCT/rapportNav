@@ -228,7 +228,7 @@
         const $form = document.getElementById("form-controle");
         $btnBrouillon.addEventListener('click', function(e) {
             e.preventDefault();
-            $form.action = "{{ action }}" + "&brouillon=true"
+            $form.action = "{{ action }}" + "?brouillon=true"
             $form.submit()
         })
 
