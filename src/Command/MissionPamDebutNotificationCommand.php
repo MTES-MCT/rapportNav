@@ -3,9 +3,7 @@
 namespace App\Command;
 
 use App\Entity\PAM\PamPlanning;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Command\Command;
@@ -14,7 +12,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
 class MissionPamDebutNotificationCommand extends Command
 {
@@ -49,7 +46,6 @@ class MissionPamDebutNotificationCommand extends Command
 
         /** @var PamPlanning[] $plannings */
         $plannings = $this->entityManager->getRepository(PamPlanning::class)->prochaineMissionADebuter();
-     //   dd($plannings);
 
         foreach($plannings as $planning) {
             $serviceNom = $planning->getService()->getNom();
