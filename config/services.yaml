@@ -6,6 +6,7 @@
 parameters:
     locale: 'fr'
     app.version: '0.29.0'
+
     app.warning: '%env(resolve:APP_SHOW_WARNING)%'
     api_app: '%env(resolve:API_APP)%'
     api_navire: '%env(resolve:API_NAVIRE)%'
@@ -303,4 +304,5 @@ services:
         arguments: [ ~, App\Entity\PAM\PamPlanning, ~ ]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: 'Planning PAM' }
+
         public: true
