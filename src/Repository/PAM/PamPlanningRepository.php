@@ -51,10 +51,19 @@ class PamPlanningRepository extends ServiceEntityRepository
     {
         $tomorrow = new \DateTime('now +1days 00:00:00');
 
-      //  dd($tomorrow);
-
         return $this->createQueryBuilder('p')
             ->where('p.dateDebut = :tomorrow')
+            ->setParameter('tomorrow', $tomorrow)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function missionACloturer()
+    {
+        $tomorrow = new \DateTime('now +1days 00:00:00');
+
+        return $this->createQueryBuilder('p')
+            ->where('p.dateFin = :tomorrow')
             ->setParameter('tomorrow', $tomorrow)
             ->getQuery()
             ->getResult();

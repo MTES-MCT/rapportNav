@@ -38,6 +38,13 @@ class PamPlanning
      */
     private $dateFin;
 
+
+    public function __construct()
+    {
+        $this->dateDebut = new \DateTime("now 00:00:00");
+        $this->dateFin = new \DateTime("now 00:00:00");
+    }
+
     public function getId(): ?int
     {
         return $this->id;

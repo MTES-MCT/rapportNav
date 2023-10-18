@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use App\Entity\Service;
+use Sonata\Form\Type\DatePickerType;
 
 final class PamPlanningAdmin extends AbstractAdmin {
 

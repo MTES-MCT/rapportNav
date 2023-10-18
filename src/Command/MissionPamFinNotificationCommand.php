@@ -48,7 +48,7 @@ class MissionPamFinNotificationCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         /** @var PamPlanning[] $plannings */
-        $plannings = $this->entityManager->getRepository(PamPlanning::class)->prochaineMissionADebuter();
+        $plannings = $this->entityManager->getRepository(PamPlanning::class)->missionACloturer();
 
 
         foreach($plannings as $planning) {
