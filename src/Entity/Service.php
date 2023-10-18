@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\PAM\PamDraft;
+use App\Entity\PAM\PamPlanning;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -48,9 +49,15 @@ Service {
      */
     private $bordeeLiee;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PamPlanning::class, mappedBy="service")
+     */
+    private $pamPlannings;
+
     public function __construct()
     {
         $this->pamDrafts = new ArrayCollection();
+        $this->pamPlannings = new ArrayCollection();
     }
 
     public function __toString() {
@@ -131,6 +138,36 @@ Service {
     public function setBordeeLiee(?self $bordeeLiee): self
     {
         $this->bordeeLiee = $bordeeLiee;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PamPlanning>
+     */
+    public function getPamPlannings(): Collection
+    {
+        return $this->pamPlannings;
+    }
+
+    public function addPamPlanning(PamPlanning $pamPlanning): self
+    {
+        if (!$this->pamPlannings->contains($pamPlanning)) {
+            $this->pamPlannings[] = $pamPlanning;
+            $pamPlanning->setService($this);
+        }
+
+        return $this;
+    }
+
+    public function removePamPlanning(PamPlanning $pamPlanning): self
+    {
+        if ($this->pamPlannings->removeElement($pamPlanning)) {
+            // set the owning side to null (unless already changed)
+            if ($pamPlanning->getService() === $this) {
+                $pamPlanning->setService(null);
+            }
+        }
 
         return $this;
     }

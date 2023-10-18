@@ -27,9 +27,12 @@ class ControleUnitaireType extends AbstractType
         $builder
             ->add('pvEmis', CheckboxType::class, [
                 'label' => 'PV émis ?',
-                'label_attr' => ['class' => 'fr-label'],
+                'label_attr' => ['class' => 'fr-toggle__label'],
                 'required' => false,
-                'attr' => ['class' => 'pv-emis-checkbox']
+                'attr' => [
+                    'class' => 'pv-emis-checkbox fr-toggle__input',
+                    'aria-describedBy' => 'controle_unitaire_pvEmis-hint-text'
+                    ]
             ])
             ->add('navireEtranger', CheckboxType::class, [
                 'required' => false,

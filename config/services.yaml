@@ -5,7 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    app.version: '0.28.0'
+    app.version: '0.29.0'
+
     app.warning: '%env(resolve:APP_SHOW_WARNING)%'
     api_app: '%env(resolve:API_APP)%'
     api_navire: '%env(resolve:API_NAVIRE)%'
@@ -296,4 +297,12 @@ services:
         arguments: [ ~, App\Entity\NavPro\ControleUnitaire, ~ ]
         tags:
             - { name: sonata.admin, manager_type: orm, group: rapport, label: 'Contrôles NavPro unitaire' }
+        public: true
+
+    admin.pam_planning:
+        class: App\Admin\PamPlanningAdmin
+        arguments: [ ~, App\Entity\PAM\PamPlanning, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: 'Planning PAM' }
+
         public: true
