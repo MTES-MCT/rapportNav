@@ -180,13 +180,13 @@ class ExportService {
 
         $copys = null;
 
-        if($service === 'PAM Jeanne Barret A' || $service === 'PAM Jeanne Barret B') {
+        if($service === 'PAM Jeanne Barret bordée A' || $service === 'PAM Jeanne Barret bordée B') {
             $copys = 'DIRM MEMN/DIAM/SRCAM';
         }
-        if($service === 'PAM IRIS A' || $service === 'PAM IRIS B') {
+        if($service === 'PAM IRIS bordée A' || $service === 'PAM IRIS bordée B') {
             $copys = 'DIRM MEMN/DIAM/SRCAM';
         }
-        if($service === 'PAM THEMIS A' || $service === 'PAM THEMIS B') {
+        if($service === 'PAM THEMIS bordée A' || $service === 'PAM THEMIS bordée B') {
             $copys = 'DIRM MEMN/DIAM/SRCAM';
         }
         if($service === 'PAM GYPTIS bordée A' || $service === 'PAM GYPTIS bordée B') {
@@ -224,18 +224,18 @@ class ExportService {
             'nomCommandant' => $nomCommandant,
             'roleBordee' => $bordee,
             'contrPort' => $rapport->getContrPort(),
-            'nbOperationsSauvetage' => $rapport->getAutreMission()->getNbAssistanceSauvetage(),
-            'dureeSauvetage' => $rapport->getAutreMission()->getDureeAssistanceSauvetage(),
-            'nbManifsNautiques' => $rapport->getAutreMission()->getNbManifestationsNautiques(),
-            'dureeManifsNautiques' => $rapport->getAutreMission()->getDureeManifestationsNautiques(),
-            'nbLutteAntiPollution' => $rapport->getAutreMission()->getNbLuttePollution(),
-            'dureeAntiPollution' => $rapport->getAutreMission()->getDureeLuttePollution(),
-            'nbSurveillance' => $rapport->getAutreMission()->getNbOperationsSurveillanceTrafic(),
-            'dureeSurveillance' => $rapport->getAutreMission()->getDureeOperationsSurveillanceTrafic(),
-            'nbNaviresSurveillance' => $rapport->getAutreMission()->getNbNaviresOperationsSurveillanceTrafic(),
-            'nbVigimer' => $rapport->getAutreMission()->getNbPermanenceVigimer(),
-            'dureeVigimer' => $rapport->getAutreMission()->getDureePermanenceVigimer(),
-            'nbNaviresVigimer' => $rapport->getAutreMission()->getNbNaviresPermanenceVigimer()
+            'nbOperationsSauvetage' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getNbAssistanceSauvetage() : '',
+            'dureeSauvetage' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getDureeAssistanceSauvetage() : '',
+            'nbManifsNautiques' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getNbManifestationsNautiques() : '',
+            'dureeManifsNautiques' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getDureeManifestationsNautiques() : '',
+            'nbLutteAntiPollution' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getNbLuttePollution() : '',
+            'dureeAntiPollution' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getDureeLuttePollution() : '',
+            'nbSurveillance' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getNbOperationsSurveillanceTrafic() : '',
+            'dureeSurveillance' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getDureeOperationsSurveillanceTrafic() : '',
+            'nbNaviresSurveillance' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getNbNaviresOperationsSurveillanceTrafic() : '',
+            'nbVigimer' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getNbPermanenceVigimer() : '',
+            'dureeVigimer' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getDureePermanenceVigimer() : '',
+            'nbNaviresVigimer' => $rapport->getAutreMission() ? $rapport->getAutreMission()->getNbNaviresPermanenceVigimer() : ''
 
         ]);
         $tableEquipage = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
@@ -285,7 +285,7 @@ class ExportService {
         $filler->fillTabsControle($controleTerrePechePro, $tableTerrePechePro, 'Contrôles à terre navires de pêche professionnels');
         $filler->fillTabsControle($controleMerNavirePlaisanceLoisir, $tableMerNavirePlaisanceLoisir, 'Contrôles en mer navires de plaisance (loisir)');
         $filler->fillTabsControle($controleMerPlaisancePro, $tableMerPlaisancePro, 'Contrôles en mer navires de plaisance professionnelle');
-        $filler->fillTabsControle($autreMission, $tableAutreMission, 'Autres missions');
+        //$filler->fillTabsControle($autreMission, $tableAutreMission, 'Autres missions');
         $filler->fillTabsControle($controleMerPechePro, $tableMerPechePro, 'Contrôles en mer navires de pêche professionnelle');
         $filler->fillTabsControle($controleTerrePlaisanceLoisir,$tableTerrePlaisanceLoisir, 'Contrôle à terre de navires de plaisance de loisir');
         $filler->fillTabsControle($controleTerrePlaisancePro, $tableTerrePlaisancePro, 'Contrôle à terre de navires de plaisance professionnel');
@@ -295,7 +295,7 @@ class ExportService {
         $templateProcessor->setComplexBlock('table_controleMerPechePro', $tableMerPechePro);
         $templateProcessor->setComplexBlock('table_controleMerNavirePlaisanceLoisir', $tableMerNavirePlaisanceLoisir);
         $templateProcessor->setComplexBlock('table_controleMerPlaisanceProPro', $tableMerPlaisancePro);
-        $templateProcessor->setComplexBlock('table_controleAutreMission', $tableAutreMission);
+       // $templateProcessor->setComplexBlock('table_controleAutreMission', $tableAutreMission);
         $templateProcessor->setComplexBlock('table_controleTerrePechePro', $tableTerrePechePro);
         $templateProcessor->setComplexBlock('table_controleTerrePlaisancePro', $tableTerrePlaisancePro);
         $templateProcessor->setComplexBlock('table_controleTerrePlaisanceLoisir', $tableTerrePlaisanceLoisir);

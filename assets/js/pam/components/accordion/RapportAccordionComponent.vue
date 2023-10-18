@@ -21,7 +21,7 @@
                         <span class="accordion__title-sub" v-if="controle.id !== 5">{{ countNavires(controle.pavillons) }} navire(s) contrôlé(s)</span>
                       </div>
                       <div class="fr-col-1 fr-mt-2v">
-                        <button data-fr-opened="false" :aria-controls="'fr-modal-' + index" class="fr-fi-delete-fill btn-remove" aria-hidden="true"></button>
+                        <button data-fr-opened="false" :aria-controls="'fr-modal-' + index" class="fr-fi-delete-fill btn-remove" aria-hidden="true" v-if="controle.nom !== 'Autres missions' "></button>
                       </div>
                     </div>
                   </div>
