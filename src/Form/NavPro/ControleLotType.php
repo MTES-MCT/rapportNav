@@ -30,10 +30,13 @@ class ControleLotType extends AbstractType
                 'attr' => ['class' => 'fr-input']
             ])
             ->add('pvEmis', CheckboxType::class, [
-                'label' => 'PV émis',
+                'label' => 'PV émis ?',
+                'label_attr' => ['class' => 'fr-toggle__label'],
                 'required' => false,
-                'label_attr' => ['class' => 'fr-label'],
-                'attr' => ['class' => 'pv-emis-checkbox'],
+                'attr' => [
+                    'class' => 'pv-emis-checkbox fr-toggle__input',
+                    'aria-describedBy' => 'controle_lot_pvEmis-hint-text'
+                ]
             ])
             ->add('commentaire', TextareaType::class, [
                 'required' => false,

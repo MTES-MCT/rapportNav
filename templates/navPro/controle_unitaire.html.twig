@@ -59,14 +59,10 @@
                     </div>
 
                     <div class="fr-grid-row fr-mt-6w">
-                        <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
-                            <div class="fr-fieldset__element fr-fieldset__element--inline">
-                                <div class="fr-checkbox-group">
-                                    {{ form_widget(form.pvEmis) }}
-                                    {{ form_label(form.pvEmis) }}
-                                </div>
-                            </div>
-                        </fieldset>
+                        <div class="fr-toggle fr-toggle--label-right">
+                            {{ form_widget(form.pvEmis) }}
+                            {{ form_label(form.pvEmis) }}
+                        </div>
 
                         <div id="downloadModelesPV">
                             <div class="fr-grid-row fr-ml-4w">
