@@ -12,11 +12,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
-class MissionPamDebutNotificationCommand extends Command
+class MissionNotificationTestCommand extends Command
 {
 
-    protected static $defaultName = 'app:pam:mission-debut-notification';
+    protected static $defaultName = 'app:pam:mission-test-notification';
     protected static $defaultDescription = 'Notification des PAM de leurs début de mission';
 
     private EntityManagerInterface $entityManager;
@@ -44,31 +45,24 @@ class MissionPamDebutNotificationCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int {
         $io = new SymfonyStyle($input, $output);
 
-        /** @var PamPlanning[] $plannings */
-        $plannings = $this->entityManager->getRepository(PamPlanning::class)->prochaineMissionADebuter();
+      $email = (new Email())
+        ->from('rapportnav.csam@developpement-durable.gouv.fr')
+        ->to('camille.nguyen@developpement-durable.gouv.fr')
+        ->cc('aleck.vincent@beta.gouv.fr')
+        //->bcc('bcc@example.com')
+        ->replyTo('aleck.vincent@beta.gouv.fr')
+        ->priority(Email::PRIORITY_HIGH)
+        ->subject('Test EMAIL postfix DAM')
+        ->text('Hello World')
+        ->html('<p>RapportNav</p>');
 
-        foreach($plannings as $planning) {
-            $serviceNom = $planning->getService()->getNom();
-            $subject = "Votre prochaine mission à bord du ${serviceNom} : pensez à remplir RapportNav !";
-            $email = (new TemplatedEmail())
-                ->from('rapportnav.csam@developpement-durable.gouv.fr')
-                ->to($planning->getEmail())
-                ->subject($subject)
-                ->htmlTemplate('pam/email/notification-debut-mission.html.twig')
-                ->context([
-                    'service' => $planning->getService()
-                ])
-            ;
-
-            try {
-                $this->mailer->send($email);
-                $io->success('Les emails ont été envoyé');
-                $this->logger->info('Les emails ont été envoyé');
-            } catch(TransportExceptionInterface $e) {
-                $io->error($e->getMessage());
-            }
-
-        }
+      try {
+        $this->mailer->send($email);
+        $io->success('Email envoyé');
+        $this->logger->info('Email envoyé');
+      } catch(TransportExceptionInterface $e) {
+        $io->error($e->getMessage());
+      }
 
         return 0;
 
