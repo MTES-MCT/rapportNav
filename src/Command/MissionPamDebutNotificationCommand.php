@@ -53,6 +53,7 @@ class MissionPamDebutNotificationCommand extends Command
             $email = (new TemplatedEmail())
                 ->from('rapportnav.csam@developpement-durable.gouv.fr')
                 ->to($planning->getEmail())
+                ->replyTo('camille.nguyen@mer.gouv.fr')
                 ->subject($subject)
                 ->htmlTemplate('pam/email/notification-debut-mission.html.twig')
                 ->context([
