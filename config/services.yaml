@@ -63,6 +63,10 @@ services:
         arguments:
             $project_dir: '%kernel.project_dir%'
 
+    App\Service\PublicAPI\ExportOdtService:
+      arguments:
+        $project_dir: '%kernel.project_dir%'
+
     App\Service\PAM\ExportService:
         arguments:
             $project_dir: '%kernel.project_dir%'

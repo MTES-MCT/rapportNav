@@ -33,9 +33,9 @@ class ExportOdtRequest
 
   private int $essence;
 
-  private array $timeline;
+  private ?array $timeline;
 
-  private array $crew;
+  private ?array $crew;
 
   public function getId(): string {
     return $this->id;

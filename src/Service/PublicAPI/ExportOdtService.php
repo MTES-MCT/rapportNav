@@ -14,8 +14,8 @@ class ExportOdtService {
 
   private OfficeFiller $filler;
 
-  public function __construct(string $templateDir, OfficeFiller $filler) {
-    $this->templateDir = $templateDir;
+  public function __construct(OfficeFiller $filler, string $project_dir) {
+    $this->templateDir = $project_dir . '/templates/export/';
     $this->filler = $filler;
 
   }
@@ -23,7 +23,7 @@ class ExportOdtService {
   public function handleData(ExportOdtRequest $request)
   {
 
-    $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission_ULAM.docx');
+    $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission_test.docx');
 
     $templateProcessor->setValues([
       'serviceNom' => $request->getService(),
@@ -59,9 +59,9 @@ class ExportOdtService {
 
     $tableEquipage = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
 
-    $this->filler->fillTabsEquipage($request->getCrew(), $tableEquipage);
+    //$this->filler->fillTabsEquipage($request->getCrew(), $tableEquipage);
 
-    $templateProcessor->setComplexBlock('table_equipage', $tableEquipage);
+   // $templateProcessor->setComplexBlock('table_equipage', $tableEquipage);
     return $templateProcessor;
   }
 
