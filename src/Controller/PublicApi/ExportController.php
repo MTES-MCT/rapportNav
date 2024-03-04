@@ -8,10 +8,10 @@ use App\Service\PublicAPI\ExportOdtService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * @Rest\Route("/public_api/export")
@@ -20,45 +20,66 @@ class ExportController extends AbstractFOSRestController
 {
 
   protected ExportOdtService $service;
+  protected LoggerInterface $logger;
+  protected ParameterBagInterface $parameterBag;
 
-  public function __construct(ExportOdtService $service)
+  public function __construct(ExportOdtService $service, LoggerInterface $logger, ParameterBagInterface $parameterBag)
   {
     $this->service = $service;
+    $this->logger = $logger;
+    $this->parameterBag = $parameterBag;
   }
 
   /**
    * @Rest\Post("/odt")
-   * @param ExportOdtRequest $request
-   * @ParamConverter("request", converter="fos_rest.request_body")
+   * @param ExportOdtRequest $odtRequest
    *
-   * @return View|StreamedResponse
-   * @throws \PhpOffice\PhpWord\Exception\Exception
+   * @return Response|View
+   * @ParamConverter("odtRequest", converter="fos_rest.request_body")
    */
-  public function export(ExportOdtRequest $request, ParameterBagInterface $parameterBag) {
+  public function export(ExportOdtRequest $odtRequest) {
     try {
-      $templateProcessor = $this->service->handleData($request);
-      $templateProcessor->saveAs(__DIR__ .'/../../temp_rapport_pam.docx');
-      $phpWord = \PhpOffice\PhpWord\IOFactory::load(__DIR__ .'/../../temp_rapport_pam.docx');
-      $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord , 'ODText');
-      $fileName = 'Rapport_pam.odt';
-      $response =  new StreamedResponse(
-        function () use ($xmlWriter ) {
-          $xmlWriter->save('php://output');
-        }
-      );
-      unlink(__DIR__ .'/../../temp_rapport_pam.docx');
-      $response->headers->set('Content-Description',  'File Transfer');
-      $response->headers->set('Content-Disposition',' attachment; filename="' . $fileName . '"');
-      $response->headers->set('Content-Type',' application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=utf-8');
-      $response->headers->set('Content-Transfer-Encoding',' binary');
-      $response->headers->set('Cache-Control',' must-revalidate, post-check=0, pre-check=0');
-      $response->headers->set('Expires','0');
+      $currentTimestamp = time();
+      $templateProcessor = $this->service->handleData($odtRequest);
+      $path = __DIR__ ."/../../temp_rapport_pam_$currentTimestamp";
+      $templateProcessor->saveAs($path . '.docx');
+
+      $this->executeLibreOffice($path);
+
+      $fileName = "/temp_rapport_pam_$currentTimestamp.odt";
+      $odtFile = $this->parameterBag->get('public_dir') . $fileName ;
+
+      $base64Content = $this->convertToBase64($odtFile);
+
+      $response = new Response($base64Content, Response::HTTP_CREATED);
+      $response->headers->set('Content-Type', 'application/octet-stream');
+      $response->headers->set('Content-Disposition', 'attachment; filename=" '.$fileName.'""');
+
+      unlink($odtFile);
 
       return $response;
     }
     catch(RapportNotFound $e) {
       return View::create($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
     }
+  }
+
+
+  private function executeLibreOffice(string $path): void
+  {
+    $command =  $_ENV['LIBREOFFICE_PATH'] . " --headless --convert-to odt  $path.docx";
+    $output = null;
+    $result_code = null;
+    exec($command, $output, $result_code);
+    $this->logger->debug("Execution of libreoffice --headless --convert-to odt $path.docx returned with status $result_code");
+    unlink($path . '.docx');
+  }
+
+  private function convertToBase64(string $odtFile): string
+  {
+
+    $fileContent = file_get_contents($odtFile);
+    return base64_encode($fileContent);
   }
 
 }

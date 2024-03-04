@@ -27,11 +27,11 @@ class ExportOdtRequest
 
   private int $patrouilleMigrant;
 
-  private int $distanceMilles;
+  private float $distanceMilles;
 
-  private int $goMarine;
+  private float $goMarine;
 
-  private int $essence;
+  private float $essence;
 
   private ?array $timeline;
 
@@ -136,29 +136,29 @@ class ExportOdtRequest
     return $this;
   }
 
-  public function getDistanceMilles(): int {
+  public function getDistanceMilles(): float {
     return $this->distanceMilles;
   }
 
-  public function setDistanceMilles(int $distanceMilles): ExportOdtRequest {
+  public function setDistanceMilles(float $distanceMilles): ExportOdtRequest {
     $this->distanceMilles = $distanceMilles;
     return $this;
   }
 
-  public function getGoMarine(): int {
+  public function getGoMarine(): float {
     return $this->goMarine;
   }
 
-  public function setGoMarine(int $goMarine): ExportOdtRequest {
+  public function setGoMarine(float $goMarine): ExportOdtRequest {
     $this->goMarine = $goMarine;
     return $this;
   }
 
-  public function getEssence(): int {
+  public function getEssence(): float {
     return $this->essence;
   }
 
-  public function setEssence(int $essence): ExportOdtRequest {
+  public function setEssence(float $essence): ExportOdtRequest {
     $this->essence = $essence;
     return $this;
   }

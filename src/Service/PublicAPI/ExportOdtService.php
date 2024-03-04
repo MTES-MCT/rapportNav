@@ -23,7 +23,22 @@ class ExportOdtService {
   public function handleData(ExportOdtRequest $request)
   {
 
-    $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission_test.docx');
+    $service = $request->getService();
+    $copys = "";
+    if(strpos($service, 'pam-jeanne-barret') !== false) {
+      $copys = 'DIRM MEMN/DIAM/SRCAM';
+    }
+    if(strpos($service, 'pam-iris') !== false) {
+      $copys = 'DIRM MEMN/DIAM/SRCAM';
+    }
+    if(strpos($service, 'pam-themis') !== false) {
+      $copys = 'DIRM MEMN/DIAM/SRCAM';
+    }
+    if(strpos($service, 'pam-gyptis') !== false) {
+      $copys = 'DIRM MEMN/DIAM/SRCAM';
+    }
+
+    $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission_rpn63.docx');
 
     $templateProcessor->setValues([
       'serviceNom' => $request->getService(),
@@ -50,18 +65,64 @@ class ExportOdtService {
       'essence' => $request->getEssence(),
       'goMarine' => $request->getGoMarine(),
       'dureeMission' => $request->getDureeMission(),
-
-  /*    'destinataireCopies' => $copys,
-      'nomCommandant' => $nomCommandant,
+      'destinataireCopies' => $copys,
+      /*'nomCommandant' => $nomCommandant,
       'roleBordee' => $bordee,*/
     ]);
 
 
     $tableEquipage = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
 
-    //$this->filler->fillTabsEquipage($request->getCrew(), $tableEquipage);
 
-   // $templateProcessor->setComplexBlock('table_equipage', $tableEquipage);
+
+    $replacements = [];
+    $i = 0;
+    foreach($request->getTimeline() as $groupNote => $group) {
+      $replacements[] = [
+        'date' => '${date_'.$i.'}',
+        'block_group_freenotes' => '${block_group_freenotes_'.$i.'}',
+        '/block_group_freenotes' => '${/block_group_freenotes_'.$i.'}',
+        'freenote_observations' => '${freenote_observations_'.$i . '}',
+      ];
+      $i++;
+    }
+    $templateProcessor->cloneBlock('block_group', count($replacements), true, false, $replacements);
+
+    $i = 0;
+    foreach($request->getTimeline() as $row) {
+      $templateProcessor->setValue("date_$i", $row['date']);
+      $i++;
+    }
+
+
+    $j = 0;
+    $k = 0;
+    foreach($request->getTimeline() as $groupNote => $group) {
+      $freeNoteReplacements = [];
+      foreach($group['freeNote'] as $freeNote) {
+        $freeNoteReplacements[] = [
+          'freenote_observations_' . $j => '${freenote_observations_'.$j.'_'.$k.'}',
+        ];
+        $k++;
+      }
+      $templateProcessor->cloneBlock('block_group_freenotes_' .$j, 1, true, false, $freeNoteReplacements);
+      $j++;
+    }
+
+    $j = 0;
+    $k = 0;
+    foreach($request->getTimeline() as $row) {
+      foreach($row['freeNote'] as $freeNote) {
+        $templateProcessor->setValue("freenote_observations_$j" . "_$k", $freeNote['observations']);
+        $k++;
+      }
+      $j++;
+    }
+
+
+    $this->filler->fillTabsEquipage($request->getCrew(), $tableEquipage);
+    $templateProcessor->setComplexBlock('table_equipage', $tableEquipage);
+
     return $templateProcessor;
   }
 
