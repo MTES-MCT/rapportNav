@@ -70,10 +70,7 @@ class ExportOdtService {
       'roleBordee' => $bordee,*/
     ]);
 
-
     $tableEquipage = new Table(['borderSize' => 0.5, 'borderColor' => 'black', 'width' => 8000, 'unit' => TblWidth::TWIP]);
-
-
 
     $replacements = [];
     $i = 0;

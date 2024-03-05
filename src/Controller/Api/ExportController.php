@@ -3,12 +3,15 @@
 namespace App\Controller\Api;
 
 use App\Exception\RapportNotFound;
+use App\Service\CLIService;
 use App\Service\ExportService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\IOFactory;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -20,8 +23,14 @@ class ExportController extends AbstractFOSRestController {
 
     protected $exportService;
 
-    public function __construct(ExportService $exportService) {
+    protected CLIService $cliService;
+
+    protected ParameterBagInterface $parameterBag;
+
+    public function __construct(ExportService $exportService, CLIService $cliService, ParameterBagInterface $parameterBag) {
         $this->exportService = $exportService;
+        $this->cliService = $cliService;
+        $this->parameterBag = $parameterBag;
     }
 
 
@@ -33,28 +42,24 @@ class ExportController extends AbstractFOSRestController {
      * @return StreamedResponse|View
      * @throws Exception
      */
-    public function export(int $id, Request $request) : StreamedResponse {
+    public function export(int $id, Request $request)  {
         try {
             $templateProcessor = $this->exportService->getDataForExport($id);
             $type = $request->query->get('type');
             if($type === 'odt') {
-                $templateProcessor->saveAs(__DIR__ .'/../../temp_rapport.docx');
-                $phpWord = IOFactory::load(__DIR__ .'/../../temp_rapport.docx');
-                $xmlWriter = IOFactory::createWriter($phpWord , 'ODText');
-                $fileName = 'rapport_ulam_' . $id . '.odt';
-                $response =  new StreamedResponse(
-                    function () use ($xmlWriter ) {
-                        $xmlWriter->save('php://output');
-                    }
-                );
-                unlink(__DIR__ .'/../../temp_rapport.docx');
+              $path = __DIR__ .'/../../rapport_mission_ULAM.docx';
+              $templateProcessor->saveAs("$path");
+              $this->cliService->executeLibreOffice($path);
+
+              $fileName = 'rapport_mission_ULAM.odt';
+              $response =  new BinaryFileResponse($fileName);
             } else {
                 $response =  new StreamedResponse(
                     function () use ($templateProcessor) {
                         $templateProcessor->saveAs('php://output');
                     }
                 );
-                $fileName = 'rapport_ulam_' . $id . '.docx';
+                $fileName = 'rapport_mission_ULAM_' . $id . '.docx';
             }
             $response->headers->set('Content-Description',  'File Transfer');
             $response->headers->set('Content-Disposition',' attachment; filename="' . $fileName . '"');
