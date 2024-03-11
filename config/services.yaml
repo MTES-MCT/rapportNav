@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    app.version: '0.29.0'
+    app.version: '0.33.0'
 
     app.warning: '%env(resolve:APP_SHOW_WARNING)%'
     api_app: '%env(resolve:API_APP)%'
@@ -15,6 +15,7 @@ parameters:
     metabase_url: '%env(resolve:METABASE)%'
     metabase_key: '%env(resolve:METABASE_KEY)%'
     metabase_dashboard: '%env(resolve:METABASE_DASHBOARD)%'
+    public_dir: '%kernel.project_dir%/public'
 
 services:
     twig.extension.intl:
@@ -62,6 +63,10 @@ services:
     App\Service\ExportService:
         arguments:
             $project_dir: '%kernel.project_dir%'
+
+    App\Service\PublicAPI\ExportOdtService:
+      arguments:
+        $project_dir: '%kernel.project_dir%'
 
     App\Service\PAM\ExportService:
         arguments:

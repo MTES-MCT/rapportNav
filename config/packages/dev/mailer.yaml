@@ -1,4 +1,0 @@
-framework:
-  mailer:
-    envelope:
-      recipients: ['aleck.vincent@beta.gouv.fr']

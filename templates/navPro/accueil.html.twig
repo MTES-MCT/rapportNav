@@ -34,8 +34,10 @@
                 <div class="fr-col-12">
                     <div class="fr-grid-row">
                         <div class="fr-col-md-1"></div>
-                        <div class="fr-col-md-5"></div>
-                        <div class="fr-col-md-2">Date</div>
+                        <div class="fr-col-md-1">N°</div>
+                        <div class="fr-col-md-3"></div>
+                        <div class="fr-col-md-2">Navire</div>
+                        <div class="fr-col-md-1">Date</div>
                         <div class="fr-col-md-2">Statut</div>
                         <div class="fr-col-md-2"></div>
                     </div>
@@ -54,8 +56,14 @@
                         <div class="fr-col-md-1 fr-mt-2v">
                             <span class="fr-fi-file-fill fr-fi--lg icon-current-report gm-controle-icon" aria-hidden="true"></span>
                         </div>
-                        <div class="fr-col-md-5 fr-mt-2v">{{ contrUnit.type|formatControleGM }}</div>
-                        <div class="fr-col-md-2 fr-mt-2v">{{ contrUnit.date|date('d/m/Y') }}</div>
+                        <div class="fr-col-md-1 fr-mt-2v">{{ contrUnit.id }}</div>
+                        <div class="fr-col-md-3 fr-mt-2v">{{ contrUnit.type|formatControleGM }}</div>
+                        <div class="fr-col-md-2 fr-mt-2v">
+                          {% if contrUnit.navire is not null %}
+                            {{ contrUnit.navire.immatriculation }}
+                          {% endif %}
+                        </div>
+                        <div class="fr-col-md-1 fr-mt-2v">{{ contrUnit.date|date('d/m/Y') }}</div>
                         <div class="fr-col-md-2 fr-mt-2v">
                             {% if contrUnit.brouillon %}
                                 <span class="text-red">Brouillon</span>
@@ -75,8 +83,10 @@
                 <div class="fr-grid-row">
                     {% for contrLot in contrLots %}
                         <div class="fr-col-md-1 fr-mt-2v">   <span class="fr-fi-file-fill fr-fi--lg icon-current-report gm-controle-icon" aria-hidden="true"></span></div>
-                        <div class="fr-col-md-5 fr-mt-2v">{{ contrLot.type|formatControleGM }}</div>
-                        <div class="fr-col-md-2 fr-mt-2v">{{ contrLot.date|date('d/m/Y') }}</div>
+                        <div class="fr-col-md-1 fr-mt-2v">{{ contrLot.id }}</div>
+                        <div class="fr-col-md-3 fr-mt-2v">{{ contrLot.type|formatControleGM }}</div>
+                        <div class="fr-col-md-2 fr-mt-2v"></div>
+                        <div class="fr-col-md-1 fr-mt-2v">{{ contrLot.date|date('d/m/Y') }}</div>
                         <div class="fr-col-md-2 fr-mt-2v">
                             {% if contrLot.brouillon %}
                                 <span class="text-red">Brouillon</span>

@@ -21,6 +21,7 @@ final class NavProLotAdmin extends AbstractAdmin
             ->add('date')
             ->add('pvEmis')
             ->add('brouillon')
+            ->add('createdBy')
             ;
     }
 
@@ -31,6 +32,7 @@ final class NavProLotAdmin extends AbstractAdmin
             ->add('pvEmis')
             ->add('date')
             ->add('brouillon')
+            ->add('createdBy')
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
@@ -56,6 +58,7 @@ final class NavProLotAdmin extends AbstractAdmin
             ->add('date')
             ->add('pvEmis')
             ->add('brouillon')
+            ->add('createdBy')
             ;
     }
 

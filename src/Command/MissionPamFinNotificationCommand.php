@@ -55,8 +55,9 @@ class MissionPamFinNotificationCommand extends Command
             $serviceNom = $planning->getService()->getNom();
             $subject = "Votre mission à bord du ${serviceNom} est terminée : avez-vous pensé à Rapportnav ?";
             $email = (new TemplatedEmail())
-                ->from('aleck.vincent@beta.gouv.fr')
+                ->from('rapportnav.csam@developpement-durable.gouv.fr')
                 ->to($planning->getEmail())
+                ->replyTo('camille.nguyen@mer.gouv.fr')
                 ->subject($subject)
                 ->htmlTemplate('pam/email/notification-fin-mission.html.twig')
                 ->context([
