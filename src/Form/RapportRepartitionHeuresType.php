@@ -225,6 +225,42 @@ class RapportRepartitionHeuresType extends AbstractType {
           ->add('lutteTraficArmesNbArmesMunitionsSaisies', IntegerType::class, [
             'required' => false,
           ])
+          ->add('lutteTraficStupefiantNbHeuresMer', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('lutteTraficStupefiantNbHeuresVol', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('lutteTraficStupefiantNbOpeNARCO', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('lutteTraficStupefiantNbInspectionsMer', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('lutteTraficStupefiantNbNavireSaisisMer', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('lutteTraficStupefiantKgSaisis', IntegerType::class, [
+            'required' => false,
+          ])
+
+          ->add('lutteTraficEspecesNbHeuresMer', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('lutteTraficEspecesNbHeuresVol', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('lutteTraficEspecesNbNaviresSaisisMer', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('lutteTraficEspecesNbSaisis', IntegerType::class, [
+            'required' => false,
+          ])
+
 
         ;
         $builder->get('controleMer')
@@ -298,9 +334,18 @@ class RapportRepartitionHeuresType extends AbstractType {
 
         $builder->get('lutteTraficArmesNbHeuresMer')
           ->addModelTransformer($this->transformer);
+        $builder->get('lutteTraficArmesNbHeureVol')
+          ->addModelTransformer($this->transformer);
 
-      $builder->get('lutteTraficArmesNbHeureVol')
-        ->addModelTransformer($this->transformer);
+        $builder->get('lutteTraficStupefiantNbHeuresMer')
+          ->addModelTransformer($this->transformer);
+        $builder->get('lutteTraficStupefiantNbHeuresVol')
+          ->addModelTransformer($this->transformer);
+
+        $builder->get('lutteTraficEspecesNbHeuresMer')
+          ->addModelTransformer($this->transformer);
+        $builder->get('lutteTraficEspecesNbHeuresVol')
+          ->addModelTransformer($this->transformer);
 
 
 

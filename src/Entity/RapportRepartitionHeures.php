@@ -301,6 +301,56 @@ class RapportRepartitionHeures {
      */
     private $lutteTraficArmesNbArmesMunitionsSaisies;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+      private $lutteTraficStupefiantNbHeuresMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantNbHeuresVol;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantNbOpeNARCO;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantNbInspectionsMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantNbNavireSaisisMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantKgSaisis;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficEspecesNbHeuresMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficEspecesNbHeuresVol;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficEspecesNbNaviresSaisisMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficEspecesNbSaisis;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -915,6 +965,126 @@ class RapportRepartitionHeures {
     public function setLutteTraficArmesNbArmesMunitionsSaisies(?int $lutteTraficArmesNbArmesMunitionsSaisies): self
     {
         $this->lutteTraficArmesNbArmesMunitionsSaisies = $lutteTraficArmesNbArmesMunitionsSaisies;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbHeuresMer(): ?int
+    {
+        return $this->lutteTraficStupefiantNbHeuresMer;
+    }
+
+    public function setLutteTraficStupefiantNbHeuresMer(?int $lutteTraficStupefiantNbHeuresMer): self
+    {
+        $this->lutteTraficStupefiantNbHeuresMer = $lutteTraficStupefiantNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbHeuresVol(): ?int
+    {
+        return $this->lutteTraficStupefiantNbHeuresVol;
+    }
+
+    public function setLutteTraficStupefiantNbHeuresVol(?int $lutteTraficStupefiantNbHeuresVol): self
+    {
+        $this->lutteTraficStupefiantNbHeuresVol = $lutteTraficStupefiantNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbOpeNARCO(): ?int
+    {
+        return $this->lutteTraficStupefiantNbOpeNARCO;
+    }
+
+    public function setLutteTraficStupefiantNbOpeNARCO(?int $lutteTraficStupefiantNbOpeNARCO): self
+    {
+        $this->lutteTraficStupefiantNbOpeNARCO = $lutteTraficStupefiantNbOpeNARCO;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbInspectionsMer(): ?int
+    {
+        return $this->lutteTraficStupefiantNbInspectionsMer;
+    }
+
+    public function setLutteTraficStupefiantNbInspectionsMer(?int $lutteTraficStupefiantNbInspectionsMer): self
+    {
+        $this->lutteTraficStupefiantNbInspectionsMer = $lutteTraficStupefiantNbInspectionsMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbNavireSaisisMer(): ?int
+    {
+        return $this->lutteTraficStupefiantNbNavireSaisisMer;
+    }
+
+    public function setLutteTraficStupefiantNbNavireSaisisMer(?int $lutteTraficStupefiantNbNavireSaisisMer): self
+    {
+        $this->lutteTraficStupefiantNbNavireSaisisMer = $lutteTraficStupefiantNbNavireSaisisMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantKgSaisis(): ?int
+    {
+        return $this->lutteTraficStupefiantKgSaisis;
+    }
+
+    public function setLutteTraficStupefiantKgSaisis(?int $lutteTraficStupefiantKgSaisis): self
+    {
+        $this->lutteTraficStupefiantKgSaisis = $lutteTraficStupefiantKgSaisis;
+
+        return $this;
+    }
+
+    public function getLutteTraficEspecesNbHeuresMer(): ?int
+    {
+        return $this->lutteTraficEspecesNbHeuresMer;
+    }
+
+    public function setLutteTraficEspecesNbHeuresMer(?int $lutteTraficEspecesNbHeuresMer): self
+    {
+        $this->lutteTraficEspecesNbHeuresMer = $lutteTraficEspecesNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficEspecesNbHeuresVol(): ?int
+    {
+        return $this->lutteTraficEspecesNbHeuresVol;
+    }
+
+    public function setLutteTraficEspecesNbHeuresVol(?int $lutteTraficEspecesNbHeuresVol): self
+    {
+        $this->lutteTraficEspecesNbHeuresVol = $lutteTraficEspecesNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getLutteTraficEspecesNbNaviresSaisisMer(): ?int
+    {
+        return $this->lutteTraficEspecesNbNaviresSaisisMer;
+    }
+
+    public function setLutteTraficEspecesNbNaviresSaisisMer(?int $lutteTraficEspecesNbNaviresSaisisMer): self
+    {
+        $this->lutteTraficEspecesNbNaviresSaisisMer = $lutteTraficEspecesNbNaviresSaisisMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficEspecesNbSaisis(): ?int
+    {
+        return $this->lutteTraficEspecesNbSaisis;
+    }
+
+    public function setLutteTraficEspecesNbSaisis(?int $lutteTraficEspecesNbSaisis): self
+    {
+        $this->lutteTraficEspecesNbSaisis = $lutteTraficEspecesNbSaisis;
 
         return $this;
     }

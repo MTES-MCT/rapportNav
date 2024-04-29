@@ -626,8 +626,18 @@ class DefaultController extends AbstractController {
             'lutteTraficArmesNbInspectionsMer' => $rH->getLutteTraficArmesNbInspectionsMer(),
             'lutteTraficArmesNbNaviresSaisisMer' => $rH->getLutteTraficArmesNbNaviresSaisisMer(),
             'lutteTraficArmesNbArmesMunitionsSaisies' => $rH->getLutteTraficArmesNbArmesMunitionsSaisies(),
-
+            'lutteTraficStupefiantNbHeuresMer' => $rH->getLutteTraficStupefiantNbHeuresMer() ? TimeConvert::minutesToTime($rH->getLutteTraficStupefiantNbHeuresMer())->format("H:i") : null,
+            'lutteTraficStupefiantNbHeuresVol' => $rH->getLutteTraficStupefiantNbHeuresVol() ? TimeConvert::minutesToTime($rH->getLutteTraficStupefiantNbHeuresVol())->format("H:i") : null,
+            'lutteTraficStupefiantNbOpeNARCO' => $rH->getLutteTraficStupefiantNbOpeNARCO(),
+            'lutteTraficStupefiantNbInspectionsMer' => $rH->getLutteTraficStupefiantNbInspectionsMer(),
+            'lutteTraficStupefiantNbNavireSaisisMer' => $rH->getLutteTraficStupefiantNbNavireSaisisMer(),
+            'lutteTraficStupefiantKgSaisis' => $rH->getLutteTraficStupefiantKgSaisis(),
+            'lutteTraficEspecesNbHeuresMer' => $rH->getLutteTraficEspecesNbHeuresMer() ? TimeConvert::minutesToTime($rH->getLutteTraficEspecesNbHeuresMer())->format("H:i") : null,
+            'lutteTraficEspecesNbHeuresVol' => $rH->getLutteTraficEspecesNbHeuresVol() ? TimeConvert::minutesToTime($rH->getLutteTraficEspecesNbHeuresVol())->format("H:i") : null,
+            'lutteTraficEspecesNbNaviresSaisisMer' => $rH->getLutteTraficEspecesNbNaviresSaisisMer(),
+            'lutteTraficEspecesNbSaisis' => $rH->getLutteTraficEspecesNbSaisis()
         ];
+
     }
 
 

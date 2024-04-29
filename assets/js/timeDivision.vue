@@ -328,6 +328,79 @@
 
 
 
+
+          <tr>
+            <td><strong>Lutte contre le trafic en mer de produits stupéfiants</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'heures</td>
+            <td><input type="time" class="" v-model="lutteTraficStupefiantNbHeuresMer"></td>
+            <td></td>
+            <td><input type="time" class="" v-model="lutteTraficStupefiantNbHeuresVol"></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'opérations NARCO en mer</td>
+            <td><input type="number" class="" v-model="lutteTraficStupefiantNbOpeNARCO" placeholder="0"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'inspections</td>
+            <td><input type="number" class="" v-model="lutteTraficStupefiantNbInspectionsMer" placeholder="0"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de navires ou embarcations déroutés ou saisis</td>
+            <td><input type="number" class="" v-model="lutteTraficStupefiantNbNavireSaisisMer" placeholder="0"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Quantité saisie en kg suite à ces opérations</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="lutteTraficStupefiantKgSaisis" placeholder="0"></td>
+          </tr>
+
+          <tr>
+            <td><strong>Lutte contre le trafic en mer d’espèces protégées</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'heures</td>
+            <td><input type="time" class="" v-model="lutteTraficEspecesNbHeuresMer"></td>
+            <td></td>
+            <td><input type="time" class="" v-model="lutteTraficEspecesNbHeuresVol"></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de navires ou embarcations déroutés ou saisis</td>
+            <td><input type="number" class="" v-model="lutteTraficEspecesNbNaviresSaisisMer" placeholder="0"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de saisies</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="lutteTraficEspecesNbSaisis" placeholder="0"></td>
+          </tr>
         </table>
     </div>
 </template>
@@ -397,6 +470,16 @@
                 lutteTraficArmesNbInspectionsMer: this.value.lutteTraficArmesNbInspectionsMer || 0,
                 lutteTraficArmesNbNaviresSaisisMer: this.value.lutteTraficArmesNbNaviresSaisisMer || 0,
                 lutteTraficArmesNbArmesMunitionsSaisies: this.value.lutteTraficArmesNbArmesMunitionsSaisies || 0,
+                lutteTraficStupefiantNbHeuresMer: this.value.lutteTraficStupefiantNbHeuresMer || 0,
+                lutteTraficStupefiantNbHeuresVol: this.value.lutteTraficStupefiantNbHeuresVol || 0,
+                lutteTraficStupefiantNbOpeNARCO: this.value.lutteTraficStupefiantNbOpeNARCO || 0,
+                lutteTraficStupefiantNbInspectionsMer: this.value.lutteTraficStupefiantNbInspectionsMer || 0,
+                lutteTraficStupefiantNbNavireSaisisMer: this.value.lutteTraficStupefiantNbNavireSaisisMer || 0,
+                lutteTraficStupefiantKgSaisis: this.value.lutteTraficStupefiantKgSaisis || 0,
+                lutteTraficEspecesNbHeuresMer: this.value.lutteTraficEspecesNbHeuresMer || 0,
+                lutteTraficEspecesNbHeuresVol: this.value.lutteTraficEspecesNbHeuresVol || 0,
+                lutteTraficEspecesNbNaviresSaisisMer: this.value.lutteTraficEspecesNbNaviresSaisisMer || 0,
+                lutteTraficEspecesNbSaisis: this.value.lutteTraficEspecesNbSaisis || 0,
 
             }
         },
@@ -459,6 +542,16 @@
                     lutteTraficArmesNbInspectionsMer: this.lutteTraficArmesNbInspectionsMer ,
                     lutteTraficArmesNbNaviresSaisisMer: this.lutteTraficArmesNbNaviresSaisisMer ,
                     lutteTraficArmesNbArmesMunitionsSaisies: this.lutteTraficArmesNbArmesMunitionsSaisies ,
+                    lutteTraficStupefiantNbHeuresMer: this.lutteTraficStupefiantNbHeuresMer,
+                    lutteTraficStupefiantNbHeuresVol: this.lutteTraficStupefiantNbHeuresVol,
+                    lutteTraficStupefiantNbOpeNARCO: this.lutteTraficStupefiantNbOpeNARCO,
+                    lutteTraficStupefiantNbInspectionsMer: this.lutteTraficStupefiantNbInspectionsMer,
+                    lutteTraficStupefiantNbNavireSaisisMer: this.lutteTraficStupefiantNbNavireSaisisMer,
+                    lutteTraficStupefiantKgSaisis: this.lutteTraficStupefiantKgSaisis,
+                    lutteTraficEspecesNbHeuresMer: this.value.lutteTraficEspecesNbHeuresMer,
+                    lutteTraficEspecesNbHeuresVol: this.value.lutteTraficEspecesNbHeuresVol,
+                    lutteTraficEspecesNbNaviresSaisisMer: this.value.lutteTraficEspecesNbNaviresSaisisMer,
+                    lutteTraficEspecesNbSaisis: this.value.lutteTraficEspecesNbSaisis,
                 };
             }
         },
