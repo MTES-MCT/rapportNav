@@ -205,6 +205,26 @@ class RapportRepartitionHeuresType extends AbstractType {
           ->add('assistancePoidsMatiereActive', IntegerType::class, [
             'required' => false,
           ])
+          ->add('lutteTraficArmesNbHeuresMer', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('lutteTraficArmesNbHeureVol', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('lutteTraficArmesNbOpeMer', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('lutteTraficArmesNbInspectionsMer', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('lutteTraficArmesNbNaviresSaisisMer', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('lutteTraficArmesNbArmesMunitionsSaisies', IntegerType::class, [
+            'required' => false,
+          ])
 
         ;
         $builder->get('controleMer')
@@ -274,6 +294,15 @@ class RapportRepartitionHeuresType extends AbstractType {
           ->addModelTransformer($this->transformer);
         $builder->get('assistanceNbHeuresVol')
           ->addModelTransformer($this->transformer);
+
+
+        $builder->get('lutteTraficArmesNbHeuresMer')
+          ->addModelTransformer($this->transformer);
+
+      $builder->get('lutteTraficArmesNbHeureVol')
+        ->addModelTransformer($this->transformer);
+
+
 
     }
 

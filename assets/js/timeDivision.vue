@@ -280,6 +280,54 @@
           </tr>
 
 
+
+          <tr>
+            <td><strong>Lutte contre le trafic en mer d’armes, de munitions ou d’explosifs</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'heures</td>
+            <td><input type="time" class="" v-model="lutteTraficArmesNbHeuresMer"></td>
+            <td></td>
+            <td><input type="time" class="" v-model="lutteTraficArmesNbHeureVol"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'opérations</td>
+            <td><input type="number" class="" v-model="lutteTraficArmesNbOpeMer"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d’inspections</td>
+            <td><input type="number" class="" v-model="lutteTraficArmesNbInspectionsMer" placeholder="0"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de navires ou embarcations déroutés ou saisis en mer</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="lutteTraficArmesNbNaviresSaisisMer" placeholder="0"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'armes et de munitions saisies suite à ces opérations</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="lutteTraficArmesNbArmesMunitionsSaisies" placeholder="0"></td>
+          </tr>
+
+
+
         </table>
     </div>
 </template>
@@ -342,7 +390,13 @@
                 assistanceNbMunitionsDetruites: this.value.assistanceNbMunitionsDetruites || null,
                 assistancePoidsMatiereActive: this.value.assistancePoidsMatiereActive || null,
                 assistanceNbHeuresMer: this.value.assistanceNbHeuresMer || null,
-                assistanceNbHeuresVol: this.value.assistanceNbHeuresVol || null
+                assistanceNbHeuresVol: this.value.assistanceNbHeuresVol || null,
+                lutteTraficArmesNbHeuresMer: this.value.lutteTraficArmesNbHeuresMer || 0,
+                lutteTraficArmesNbHeureVol: this.value.lutteTraficArmesNbHeureVol || 0,
+                lutteTraficArmesNbOpeMer: this.value.lutteTraficArmesNbOpeMer || 0,
+                lutteTraficArmesNbInspectionsMer: this.value.lutteTraficArmesNbInspectionsMer || 0,
+                lutteTraficArmesNbNaviresSaisisMer: this.value.lutteTraficArmesNbNaviresSaisisMer || 0,
+                lutteTraficArmesNbArmesMunitionsSaisies: this.value.lutteTraficArmesNbArmesMunitionsSaisies || 0,
 
             }
         },
@@ -398,7 +452,13 @@
                     assistanceNbMunitionsDetruites: this.assistanceNbMunitionsDetruites,
                     assistancePoidsMatiereActive: this.assistancePoidsMatiereActive,
                     assistanceNbHeuresMer: this.assistanceNbHeuresMer,
-                    assistanceNbHeuresVol: this.assistanceNbHeuresVol
+                    assistanceNbHeuresVol: this.assistanceNbHeuresVol,
+                    lutteTraficArmesNbHeuresMer: this.lutteTraficArmesNbHeuresMer ,
+                    lutteTraficArmesNbHeureVol: this.lutteTraficArmesNbHeureVol ,
+                    lutteTraficArmesNbOpeMer: this.lutteTraficArmesNbOpeMer ,
+                    lutteTraficArmesNbInspectionsMer: this.lutteTraficArmesNbInspectionsMer ,
+                    lutteTraficArmesNbNaviresSaisisMer: this.lutteTraficArmesNbNaviresSaisisMer ,
+                    lutteTraficArmesNbArmesMunitionsSaisies: this.lutteTraficArmesNbArmesMunitionsSaisies ,
                 };
             }
         },

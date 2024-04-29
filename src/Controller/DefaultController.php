@@ -620,6 +620,12 @@ class DefaultController extends AbstractController {
             'assistanceNbOpeDeminage' => $rH->getAssistanceNbOpeDeminage(),
             'assistanceNbMunitionsDetruites' => $rH->getAssistanceNbMunitionsDetruites(),
             'assistancePoidsMatiereActive' => $rH->getAssistancePoidsMatiereActive(),
+            'lutteTraficArmesNbHeuresMer' => $rH->getLutteTraficArmesNbHeuresMer() ? TimeConvert::minutesToTime($rH->getLutteTraficArmesNbHeuresMer())->format("H:i") : null,
+            'lutteTraficArmesNbHeureVol' => $rH->getLutteTraficArmesNbHeureVol() ? TimeConvert::minutesToTime($rH->getLutteTraficArmesNbHeureVol())->format("H:i") : null,
+            'lutteTraficArmesNbOpeMer' => $rH->getLutteTraficArmesNbOpeMer(),
+            'lutteTraficArmesNbInspectionsMer' => $rH->getLutteTraficArmesNbInspectionsMer(),
+            'lutteTraficArmesNbNaviresSaisisMer' => $rH->getLutteTraficArmesNbNaviresSaisisMer(),
+            'lutteTraficArmesNbArmesMunitionsSaisies' => $rH->getLutteTraficArmesNbArmesMunitionsSaisies(),
 
         ];
     }
