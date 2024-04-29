@@ -351,6 +351,26 @@ class RapportRepartitionHeures {
        */
       private $lutteTraficEspecesNbSaisis;
 
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $immigrationNbHeuresVol;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $immigrationNbNaviresInterceptes;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $immigrationNbMigrantInterceptes;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $immigrationNbPasseursInterceptes;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -1085,6 +1105,54 @@ class RapportRepartitionHeures {
     public function setLutteTraficEspecesNbSaisis(?int $lutteTraficEspecesNbSaisis): self
     {
         $this->lutteTraficEspecesNbSaisis = $lutteTraficEspecesNbSaisis;
+
+        return $this;
+    }
+
+    public function getImmigrationNbHeuresVol(): ?int
+    {
+        return $this->immigrationNbHeuresVol;
+    }
+
+    public function setImmigrationNbHeuresVol(?int $immigrationNbHeuresVol): self
+    {
+        $this->immigrationNbHeuresVol = $immigrationNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getImmigrationNbNaviresInterceptes(): ?int
+    {
+        return $this->immigrationNbNaviresInterceptes;
+    }
+
+    public function setImmigrationNbNaviresInterceptes(?int $immigrationNbNaviresInterceptes): self
+    {
+        $this->immigrationNbNaviresInterceptes = $immigrationNbNaviresInterceptes;
+
+        return $this;
+    }
+
+    public function getImmigrationNbMigrantInterceptes(): ?int
+    {
+        return $this->immigrationNbMigrantInterceptes;
+    }
+
+    public function setImmigrationNbMigrantInterceptes(?int $immigrationNbMigrantInterceptes): self
+    {
+        $this->immigrationNbMigrantInterceptes = $immigrationNbMigrantInterceptes;
+
+        return $this;
+    }
+
+    public function getImmigrationNbPasseursInterceptes(): ?int
+    {
+        return $this->immigrationNbPasseursInterceptes;
+    }
+
+    public function setImmigrationNbPasseursInterceptes(?int $immigrationNbPasseursInterceptes): self
+    {
+        $this->immigrationNbPasseursInterceptes = $immigrationNbPasseursInterceptes;
 
         return $this;
     }

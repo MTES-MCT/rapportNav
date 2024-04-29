@@ -57,13 +57,7 @@
                 <td/>
                 <td/>
             </tr>
-            <tr>
-                <td>Lutte contre l'immigration illégale en mer</td>
-                <td><input type="time" class="" v-model="immigration">
-                <td/>
-                <td/>
-                <td/>
-            </tr>
+
             <tr>
                 <td>Visite de sécurité (au titre de l'inspection de la sécurité des navires)</td>
                 <td/>
@@ -401,6 +395,48 @@
             <td></td>
             <td><input type="number" class="" v-model="lutteTraficEspecesNbSaisis" placeholder="0"></td>
           </tr>
+
+          <tr>
+            <td><strong>Lutte contre l’immigration illégale par voie maritime</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'heures</td>
+            <td><input type="time" class="" v-model="immigration"></td>
+            <td></td>
+            <td><input type="time" class="" v-model="immigrationNbHeuresVol"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de navires/embarcations interceptés </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="immigrationNbNaviresInterceptes"></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de migrants interceptés </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="immigrationNbMigrantInterceptes"></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de passeurs présumés interceptés</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="immigrationNbPasseursInterceptes"></td>
+          </tr>
+
+
         </table>
     </div>
 </template>
@@ -414,144 +450,153 @@
         ],
         data: function() {
             return {
-                controleMer: this.value.controleMer || null,
-                controleTerre: this.value.controleTerre || null,
-                controleAerien: this.value.controleAerien || null,
-                controleAireProtegeeMer: this.value.controleAireProtegeeMer || null,
-                controleAireProtegeeTerre: this.value.controleAireProtegeeTerre || null,
-                controleAireProtegeeAerien: this.value.controleAireProtegeeAerien || null,
-                controlePollutionMer: this.value.controlePollutionMer || null,
-                controlePollutionTerre: this.value.controlePollutionTerre || null,
-                controlePollutionAerien: this.value.controlePollutionAerien || null,
-                controleEnvironnementMer: this.value.controleEnvironnementMer || null,
-                controleEnvironnementTerre: this.value.controleEnvironnementTerre || null,
-                controleEnvironnementAerien: this.value.controleEnvironnementAerien || null,
-                controleChlordeconeTotalMer: this.value.controleChlordeconeTotalMer || null,
-                controleChlordeconeTotalTerre: this.value.controleChlordeconeTotalTerre || null,
-                controleChlordeconePartielMer: this.value.controleChlordeconePartielMer || null,
-                controleChlordeconePartielTerre: this.value.controleChlordeconePartielTerre || null,
-                controleCroise: this.value.controleCroise || null,
-                immigration: this.value.immigration || null,
-                visiteSecurite: this.value.visiteSecurite || null,
-                nombreVisiteSecurite: this.value.nombreVisiteSecurite || null,
-                surveillanceManifestationMer: this.value.surveillanceManifestationMer || null,
-                surveillanceManifestationTerre: this.value.surveillanceManifestationTerre || null,
-                surveillanceDpmMer: this.value.surveillanceDpmMer || null,
-                surveillanceDpmTerre: this.value.surveillanceDpmTerre || null,
-                surete: this.value.surete || null,
-                maintienOrdre: this.value.maintienOrdre || null,
-                assistance: this.value.assistance || null,
-                plongee: this.value.plongee || null,
-                sauvegardeHumaineNbHeureMer: this.value.sauvegardeHumaineNbHeureMer || null,
-                sauvegardeHumaineNbHeuresVol: this.value.sauvegardeHumaineNbHeuresVol || null,
-                sauvegardeHumaineNbOpeConduites: this.value.sauvegardeHumaineNbOpeConduites || null,
-                sauvegardeHumaineNbPersonnesSecourues: this.value.sauvegardeHumaineNbPersonnesSecourues || null,
-                sauvegardeHumaineMigratoireNbHeuresVol: this.value.sauvegardeHumaineMigratoireNbHeuresVol || null,
-                sauvegardeHumaineMigratoireNbHeuresMer: this.value.sauvegardeHumaineMigratoireNbHeuresMer || null,
-                sauvegardeHumaineMigratoireNbOpeConduite: this.value.sauvegardeHumaineMigratoireNbOpeConduite || null,
-                sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention: this.value.sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention || null,
-                sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre: this.value.sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre || null,
-                sauvegardeHumaineMigratoireNbOpeSauvetageConduites: this.value.sauvegardeHumaineMigratoireNbOpeSauvetageConduites,
-                sauvegardeHumaineMigratoireNbPersonnesSecourues: this.value.sauvegardeHumaineMigratoireNbPersonnesSecourues,
-                assistanceNbOpeANED: this.value.assistanceNbOpeANED || null,
-                assistanceNbInterventionMiseEnDemeure: this.value.assistanceNbInterventionMiseEnDemeure || null,
-                assistanceNbMiseEnDemeureEvaluation: this.value.assistanceNbMiseEnDemeureEvaluation || null,
-                assistanceNbMiseEnOeuvreCAPINAV: this.value.assistanceNbMiseEnOeuvreCAPINAV || null,
-                assistanceNbRemorquages: this.value.assistanceNbRemorquages || null,
-                assistanceNbOpeMaintenanceSignalisation: this.value.assistanceNbOpeMaintenanceSignalisation || null,
-                assistanceNbOpeDeminage: this.value.assistanceNbOpeDeminage || null,
-                assistanceNbMunitionsDetruites: this.value.assistanceNbMunitionsDetruites || null,
-                assistancePoidsMatiereActive: this.value.assistancePoidsMatiereActive || null,
-                assistanceNbHeuresMer: this.value.assistanceNbHeuresMer || null,
-                assistanceNbHeuresVol: this.value.assistanceNbHeuresVol || null,
-                lutteTraficArmesNbHeuresMer: this.value.lutteTraficArmesNbHeuresMer || null,
-                lutteTraficArmesNbHeureVol: this.value.lutteTraficArmesNbHeureVol || null,
-                lutteTraficArmesNbOpeMer: this.value.lutteTraficArmesNbOpeMer || null,
-                lutteTraficArmesNbInspectionsMer: this.value.lutteTraficArmesNbInspectionsMer || null,
-                lutteTraficArmesNbNaviresSaisisMer: this.value.lutteTraficArmesNbNaviresSaisisMer || null,
-                lutteTraficArmesNbArmesMunitionsSaisies: this.value.lutteTraficArmesNbArmesMunitionsSaisies || null,
-                lutteTraficStupefiantNbHeuresMer: this.value.lutteTraficStupefiantNbHeuresMer || null,
-                lutteTraficStupefiantNbHeuresVol: this.value.lutteTraficStupefiantNbHeuresVol || null,
-                lutteTraficStupefiantNbOpeNARCO: this.value.lutteTraficStupefiantNbOpeNARCO || null,
-                lutteTraficStupefiantNbInspectionsMer: this.value.lutteTraficStupefiantNbInspectionsMer || null,
-                lutteTraficStupefiantNbNavireSaisisMer: this.value.lutteTraficStupefiantNbNavireSaisisMer || null,
-                lutteTraficStupefiantKgSaisis: this.value.lutteTraficStupefiantKgSaisis || null,
-                lutteTraficEspecesNbHeuresMer: this.value.lutteTraficEspecesNbHeuresMer || null,
-                lutteTraficEspecesNbHeuresVol: this.value.lutteTraficEspecesNbHeuresVol || null,
-                lutteTraficEspecesNbNaviresSaisisMer: this.value.lutteTraficEspecesNbNaviresSaisisMer || null,
-                lutteTraficEspecesNbSaisis: this.value.lutteTraficEspecesNbSaisis || null,
+              controleMer: this.value.controleMer || null,
+              controleTerre: this.value.controleTerre || null,
+              controleAerien: this.value.controleAerien || null,
+              controleAireProtegeeMer: this.value.controleAireProtegeeMer || null,
+              controleAireProtegeeTerre: this.value.controleAireProtegeeTerre || null,
+              controleAireProtegeeAerien: this.value.controleAireProtegeeAerien || null,
+              controlePollutionMer: this.value.controlePollutionMer || null,
+              controlePollutionTerre: this.value.controlePollutionTerre || null,
+              controlePollutionAerien: this.value.controlePollutionAerien || null,
+              controleEnvironnementMer: this.value.controleEnvironnementMer || null,
+              controleEnvironnementTerre: this.value.controleEnvironnementTerre || null,
+              controleEnvironnementAerien: this.value.controleEnvironnementAerien || null,
+              controleChlordeconeTotalMer: this.value.controleChlordeconeTotalMer || null,
+              controleChlordeconeTotalTerre: this.value.controleChlordeconeTotalTerre || null,
+              controleChlordeconePartielMer: this.value.controleChlordeconePartielMer || null,
+              controleChlordeconePartielTerre: this.value.controleChlordeconePartielTerre || null,
+              controleCroise: this.value.controleCroise || null,
+              immigration: this.value.immigration || null,
+              visiteSecurite: this.value.visiteSecurite || null,
+              nombreVisiteSecurite: this.value.nombreVisiteSecurite || null,
+              surveillanceManifestationMer: this.value.surveillanceManifestationMer || null,
+              surveillanceManifestationTerre: this.value.surveillanceManifestationTerre || null,
+              surveillanceDpmMer: this.value.surveillanceDpmMer || null,
+              surveillanceDpmTerre: this.value.surveillanceDpmTerre || null,
+              surete: this.value.surete || null,
+              maintienOrdre: this.value.maintienOrdre || null,
+              assistance: this.value.assistance || null,
+              plongee: this.value.plongee || null,
+              sauvegardeHumaineNbHeureMer: this.value.sauvegardeHumaineNbHeureMer || null,
+              sauvegardeHumaineNbHeuresVol: this.value.sauvegardeHumaineNbHeuresVol || null,
+              sauvegardeHumaineNbOpeConduites: this.value.sauvegardeHumaineNbOpeConduites || null,
+              sauvegardeHumaineNbPersonnesSecourues: this.value.sauvegardeHumaineNbPersonnesSecourues || null,
+              sauvegardeHumaineMigratoireNbHeuresVol: this.value.sauvegardeHumaineMigratoireNbHeuresVol || null,
+              sauvegardeHumaineMigratoireNbHeuresMer: this.value.sauvegardeHumaineMigratoireNbHeuresMer || null,
+              sauvegardeHumaineMigratoireNbOpeConduite: this.value.sauvegardeHumaineMigratoireNbOpeConduite || null,
+              sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention: this.value.sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention || null,
+              sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre: this.value.sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre || null,
+              sauvegardeHumaineMigratoireNbOpeSauvetageConduites: this.value.sauvegardeHumaineMigratoireNbOpeSauvetageConduites,
+              sauvegardeHumaineMigratoireNbPersonnesSecourues: this.value.sauvegardeHumaineMigratoireNbPersonnesSecourues,
+              assistanceNbOpeANED: this.value.assistanceNbOpeANED || null,
+              assistanceNbInterventionMiseEnDemeure: this.value.assistanceNbInterventionMiseEnDemeure || null,
+              assistanceNbMiseEnDemeureEvaluation: this.value.assistanceNbMiseEnDemeureEvaluation || null,
+              assistanceNbMiseEnOeuvreCAPINAV: this.value.assistanceNbMiseEnOeuvreCAPINAV || null,
+              assistanceNbRemorquages: this.value.assistanceNbRemorquages || null,
+              assistanceNbOpeMaintenanceSignalisation: this.value.assistanceNbOpeMaintenanceSignalisation || null,
+              assistanceNbOpeDeminage: this.value.assistanceNbOpeDeminage || null,
+              assistanceNbMunitionsDetruites: this.value.assistanceNbMunitionsDetruites || null,
+              assistancePoidsMatiereActive: this.value.assistancePoidsMatiereActive || null,
+              assistanceNbHeuresMer: this.value.assistanceNbHeuresMer || null,
+              assistanceNbHeuresVol: this.value.assistanceNbHeuresVol || null,
+              lutteTraficArmesNbHeuresMer: this.value.lutteTraficArmesNbHeuresMer || null,
+              lutteTraficArmesNbHeureVol: this.value.lutteTraficArmesNbHeureVol || null,
+              lutteTraficArmesNbOpeMer: this.value.lutteTraficArmesNbOpeMer || null,
+              lutteTraficArmesNbInspectionsMer: this.value.lutteTraficArmesNbInspectionsMer || null,
+              lutteTraficArmesNbNaviresSaisisMer: this.value.lutteTraficArmesNbNaviresSaisisMer || null,
+              lutteTraficArmesNbArmesMunitionsSaisies: this.value.lutteTraficArmesNbArmesMunitionsSaisies || null,
+              lutteTraficStupefiantNbHeuresMer: this.value.lutteTraficStupefiantNbHeuresMer || null,
+              lutteTraficStupefiantNbHeuresVol: this.value.lutteTraficStupefiantNbHeuresVol || null,
+              lutteTraficStupefiantNbOpeNARCO: this.value.lutteTraficStupefiantNbOpeNARCO || null,
+              lutteTraficStupefiantNbInspectionsMer: this.value.lutteTraficStupefiantNbInspectionsMer || null,
+              lutteTraficStupefiantNbNavireSaisisMer: this.value.lutteTraficStupefiantNbNavireSaisisMer || null,
+              lutteTraficStupefiantKgSaisis: this.value.lutteTraficStupefiantKgSaisis || null,
+              lutteTraficEspecesNbHeuresMer: this.value.lutteTraficEspecesNbHeuresMer || null,
+              lutteTraficEspecesNbHeuresVol: this.value.lutteTraficEspecesNbHeuresVol || null,
+              lutteTraficEspecesNbNaviresSaisisMer: this.value.lutteTraficEspecesNbNaviresSaisisMer || null,
+              lutteTraficEspecesNbSaisis: this.value.lutteTraficEspecesNbSaisis || null,
+              immigrationNbHeuresVol: this.value.immigrationNbHeuresVol || null,
+              immigrationNbNaviresInterceptes: this.value.immigrationNbNaviresInterceptes || null,
+              immigrationNbMigrantInterceptes: this.value.immigrationNbMigrantInterceptes || null,
+              immigrationNbPasseursInterceptes: this.value.immigrationNbPasseursInterceptes || null
 
             }
         },
         computed: {
             timeDivision: function() {
                 return {
-                    controleMer: this.controleMer,
-                    controleTerre: this.controleTerre,
-                    controleAerien: this.controleAerien,
-                    controleAireProtegeeMer: this.controleAireProtegeeMer,
-                    controleAireProtegeeTerre: this.controleAireProtegeeTerre,
-                    controleAireProtegeeAerien: this.controleAireProtegeeAerien,
-                    controlePollutionMer: this.controlePollutionMer,
-                    controlePollutionTerre: this.controlePollutionTerre,
-                    controlePollutionAerien: this.controlePollutionAerien,
-                    controleEnvironnementMer: this.controleEnvironnementMer,
-                    controleEnvironnementTerre: this.controleEnvironnementTerre,
-                    controleEnvironnementAerien: this.controleEnvironnementAerien,
-                    controleChlordeconeTotalMer: this.controleChlordeconeTotalMer,
-                    controleChlordeconeTotalTerre: this.controleChlordeconeTotalTerre,
-                    controleChlordeconePartielMer: this.controleChlordeconePartielMer,
-                    controleChlordeconePartielTerre: this.controleChlordeconePartielTerre,
-                    controleCroise: this.controleCroise,
-                    immigration: this.immigration,
-                    visiteSecurite: this.visiteSecurite,
-                    nombreVisiteSecurite: this.nombreVisiteSecurite,
-                    surveillanceManifestationMer: this.surveillanceManifestationMer,
-                    surveillanceManifestationTerre: this.surveillanceManifestationTerre,
-                    surveillanceDpmMer: this.surveillanceDpmMer,
-                    surveillanceDpmTerre: this.surveillanceDpmTerre,
-                    surete: this.surete,
-                    maintienOrdre: this.maintienOrdre,
-                    assistance: this.assistance,
-                    plongee: this.plongee,
-                    sauvegardeHumaineNbHeureMer: this.sauvegardeHumaineNbHeureMer,
-                    sauvegardeHumaineNbHeuresVol: this.sauvegardeHumaineNbHeuresVol,
-                    sauvegardeHumaineNbOpeConduites: this.sauvegardeHumaineNbOpeConduites,
-                    sauvegardeHumaineNbPersonnesSecourues: this.sauvegardeHumaineNbPersonnesSecourues,
-                    sauvegardeHumaineMigratoireNbHeuresVol: this.sauvegardeHumaineMigratoireNbHeuresVol,
-                    sauvegardeHumaineMigratoireNbHeuresMer: this.sauvegardeHumaineMigratoireNbHeuresMer,
-                    sauvegardeHumaineMigratoireNbOpeConduite: this.sauvegardeHumaineMigratoireNbOpeConduite,
-                    sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre: this.sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre,
-                    sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention: this.sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention,
-                    sauvegardeHumaineMigratoireNbPersonnesSecourues: this.sauvegardeHumaineMigratoireNbPersonnesSecourues,
-                    sauvegardeHumaineMigratoireNbOpeSauvetageConduites: this.sauvegardeHumaineMigratoireNbOpeSauvetageConduites,
-                    assistanceNbOpeANED: this.assistanceNbOpeANED,
-                    assistanceNbInterventionMiseEnDemeure: this.assistanceNbInterventionMiseEnDemeure,
-                    assistanceNbMiseEnDemeureEvaluation: this.assistanceNbMiseEnDemeureEvaluation,
-                    assistanceNbMiseEnOeuvreCAPINAV: this.assistanceNbMiseEnOeuvreCAPINAV,
-                    assistanceNbRemorquages: this.assistanceNbRemorquages,
-                    assistanceNbOpeMaintenanceSignalisation: this.assistanceNbOpeMaintenanceSignalisation,
-                    assistanceNbOpeDeminage: this.assistanceNbOpeDeminage,
-                    assistanceNbMunitionsDetruites: this.assistanceNbMunitionsDetruites,
-                    assistancePoidsMatiereActive: this.assistancePoidsMatiereActive,
-                    assistanceNbHeuresMer: this.assistanceNbHeuresMer,
-                    assistanceNbHeuresVol: this.assistanceNbHeuresVol,
-                    lutteTraficArmesNbHeuresMer: this.lutteTraficArmesNbHeuresMer ,
-                    lutteTraficArmesNbHeureVol: this.lutteTraficArmesNbHeureVol ,
-                    lutteTraficArmesNbOpeMer: this.lutteTraficArmesNbOpeMer ,
-                    lutteTraficArmesNbInspectionsMer: this.lutteTraficArmesNbInspectionsMer ,
-                    lutteTraficArmesNbNaviresSaisisMer: this.lutteTraficArmesNbNaviresSaisisMer ,
-                    lutteTraficArmesNbArmesMunitionsSaisies: this.lutteTraficArmesNbArmesMunitionsSaisies ,
-                    lutteTraficStupefiantNbHeuresMer: this.lutteTraficStupefiantNbHeuresMer,
-                    lutteTraficStupefiantNbHeuresVol: this.lutteTraficStupefiantNbHeuresVol,
-                    lutteTraficStupefiantNbOpeNARCO: this.lutteTraficStupefiantNbOpeNARCO,
-                    lutteTraficStupefiantNbInspectionsMer: this.lutteTraficStupefiantNbInspectionsMer,
-                    lutteTraficStupefiantNbNavireSaisisMer: this.lutteTraficStupefiantNbNavireSaisisMer,
-                    lutteTraficStupefiantKgSaisis: this.lutteTraficStupefiantKgSaisis,
-                    lutteTraficEspecesNbHeuresMer: this.lutteTraficEspecesNbHeuresMer,
-                    lutteTraficEspecesNbHeuresVol: this.lutteTraficEspecesNbHeuresVol,
-                    lutteTraficEspecesNbNaviresSaisisMer: this.lutteTraficEspecesNbNaviresSaisisMer,
-                    lutteTraficEspecesNbSaisis: this.lutteTraficEspecesNbSaisis,
+                  controleMer: this.controleMer,
+                  controleTerre: this.controleTerre,
+                  controleAerien: this.controleAerien,
+                  controleAireProtegeeMer: this.controleAireProtegeeMer,
+                  controleAireProtegeeTerre: this.controleAireProtegeeTerre,
+                  controleAireProtegeeAerien: this.controleAireProtegeeAerien,
+                  controlePollutionMer: this.controlePollutionMer,
+                  controlePollutionTerre: this.controlePollutionTerre,
+                  controlePollutionAerien: this.controlePollutionAerien,
+                  controleEnvironnementMer: this.controleEnvironnementMer,
+                  controleEnvironnementTerre: this.controleEnvironnementTerre,
+                  controleEnvironnementAerien: this.controleEnvironnementAerien,
+                  controleChlordeconeTotalMer: this.controleChlordeconeTotalMer,
+                  controleChlordeconeTotalTerre: this.controleChlordeconeTotalTerre,
+                  controleChlordeconePartielMer: this.controleChlordeconePartielMer,
+                  controleChlordeconePartielTerre: this.controleChlordeconePartielTerre,
+                  controleCroise: this.controleCroise,
+                  immigration: this.immigration,
+                  visiteSecurite: this.visiteSecurite,
+                  nombreVisiteSecurite: this.nombreVisiteSecurite,
+                  surveillanceManifestationMer: this.surveillanceManifestationMer,
+                  surveillanceManifestationTerre: this.surveillanceManifestationTerre,
+                  surveillanceDpmMer: this.surveillanceDpmMer,
+                  surveillanceDpmTerre: this.surveillanceDpmTerre,
+                  surete: this.surete,
+                  maintienOrdre: this.maintienOrdre,
+                  assistance: this.assistance,
+                  plongee: this.plongee,
+                  sauvegardeHumaineNbHeureMer: this.sauvegardeHumaineNbHeureMer,
+                  sauvegardeHumaineNbHeuresVol: this.sauvegardeHumaineNbHeuresVol,
+                  sauvegardeHumaineNbOpeConduites: this.sauvegardeHumaineNbOpeConduites,
+                  sauvegardeHumaineNbPersonnesSecourues: this.sauvegardeHumaineNbPersonnesSecourues,
+                  sauvegardeHumaineMigratoireNbHeuresVol: this.sauvegardeHumaineMigratoireNbHeuresVol,
+                  sauvegardeHumaineMigratoireNbHeuresMer: this.sauvegardeHumaineMigratoireNbHeuresMer,
+                  sauvegardeHumaineMigratoireNbOpeConduite: this.sauvegardeHumaineMigratoireNbOpeConduite,
+                  sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre: this.sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre,
+                  sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention: this.sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention,
+                  sauvegardeHumaineMigratoireNbPersonnesSecourues: this.sauvegardeHumaineMigratoireNbPersonnesSecourues,
+                  sauvegardeHumaineMigratoireNbOpeSauvetageConduites: this.sauvegardeHumaineMigratoireNbOpeSauvetageConduites,
+                  assistanceNbOpeANED: this.assistanceNbOpeANED,
+                  assistanceNbInterventionMiseEnDemeure: this.assistanceNbInterventionMiseEnDemeure,
+                  assistanceNbMiseEnDemeureEvaluation: this.assistanceNbMiseEnDemeureEvaluation,
+                  assistanceNbMiseEnOeuvreCAPINAV: this.assistanceNbMiseEnOeuvreCAPINAV,
+                  assistanceNbRemorquages: this.assistanceNbRemorquages,
+                  assistanceNbOpeMaintenanceSignalisation: this.assistanceNbOpeMaintenanceSignalisation,
+                  assistanceNbOpeDeminage: this.assistanceNbOpeDeminage,
+                  assistanceNbMunitionsDetruites: this.assistanceNbMunitionsDetruites,
+                  assistancePoidsMatiereActive: this.assistancePoidsMatiereActive,
+                  assistanceNbHeuresMer: this.assistanceNbHeuresMer,
+                  assistanceNbHeuresVol: this.assistanceNbHeuresVol,
+                  lutteTraficArmesNbHeuresMer: this.lutteTraficArmesNbHeuresMer ,
+                  lutteTraficArmesNbHeureVol: this.lutteTraficArmesNbHeureVol ,
+                  lutteTraficArmesNbOpeMer: this.lutteTraficArmesNbOpeMer ,
+                  lutteTraficArmesNbInspectionsMer: this.lutteTraficArmesNbInspectionsMer ,
+                  lutteTraficArmesNbNaviresSaisisMer: this.lutteTraficArmesNbNaviresSaisisMer ,
+                  lutteTraficArmesNbArmesMunitionsSaisies: this.lutteTraficArmesNbArmesMunitionsSaisies ,
+                  lutteTraficStupefiantNbHeuresMer: this.lutteTraficStupefiantNbHeuresMer,
+                  lutteTraficStupefiantNbHeuresVol: this.lutteTraficStupefiantNbHeuresVol,
+                  lutteTraficStupefiantNbOpeNARCO: this.lutteTraficStupefiantNbOpeNARCO,
+                  lutteTraficStupefiantNbInspectionsMer: this.lutteTraficStupefiantNbInspectionsMer,
+                  lutteTraficStupefiantNbNavireSaisisMer: this.lutteTraficStupefiantNbNavireSaisisMer,
+                  lutteTraficStupefiantKgSaisis: this.lutteTraficStupefiantKgSaisis,
+                  lutteTraficEspecesNbHeuresMer: this.lutteTraficEspecesNbHeuresMer,
+                  lutteTraficEspecesNbHeuresVol: this.lutteTraficEspecesNbHeuresVol,
+                  lutteTraficEspecesNbNaviresSaisisMer: this.lutteTraficEspecesNbNaviresSaisisMer,
+                  lutteTraficEspecesNbSaisis: this.lutteTraficEspecesNbSaisis,
+                  immigrationNbPasseursInterceptes: this.immigrationNbPasseursInterceptes,
+                  immigrationNbHeuresVol: this.immigrationNbHeuresVol,
+                  immigrationNbNaviresInterceptes: this.immigrationNbNaviresInterceptes,
+                  immigrationNbMigrantInterceptes: this.immigrationNbMigrantInterceptes,
+
                 };
             }
         },

@@ -261,6 +261,23 @@ class RapportRepartitionHeuresType extends AbstractType {
             'required' => false,
           ])
 
+          ->add('immigrationNbHeuresVol', TimeType::class, [
+            'required' => false,
+            'widget' => 'single_text'
+          ])
+
+          ->add('immigrationNbNaviresInterceptes', IntegerType::class, [
+            'required' => false,
+          ])
+
+          ->add('immigrationNbMigrantInterceptes', IntegerType::class, [
+            'required' => false,
+          ])
+
+          ->add('immigrationNbPasseursInterceptes', IntegerType::class, [
+            'required' => false,
+          ])
+
 
         ;
         $builder->get('controleMer')
@@ -347,6 +364,8 @@ class RapportRepartitionHeuresType extends AbstractType {
         $builder->get('lutteTraficEspecesNbHeuresVol')
           ->addModelTransformer($this->transformer);
 
+      $builder->get('immigrationNbHeuresVol')
+        ->addModelTransformer($this->transformer);
 
 
     }
