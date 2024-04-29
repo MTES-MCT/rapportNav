@@ -19,117 +19,154 @@ class RapportRepartitionHeuresType extends AbstractType {
     }
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('controleMer', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleTerre', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleAerien', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleAireProtegeeMer', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleAireProtegeeTerre', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleAireProtegeeAerien', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controlePollutionMer', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controlePollutionTerre', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controlePollutionAerien', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleEnvironnementMer', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleEnvironnementTerre', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleEnvironnementAerien', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleChlordeconePartielMer', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleChlordeconePartielTerre', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleChlordeconeTotalMer', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleChlordeconeTotalTerre', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('controleCroise', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('immigration', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('visiteSecurite', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('nombreVisiteSecurite', IntegerType::class, [
-                'required' => false,
-            ])
-            ->add('surveillanceManifestationMer', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('surveillanceManifestationTerre', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('surveillanceDpmMer', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('surveillanceDpmTerre', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('surete', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('maintienOrdre', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('assistance', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
-            ->add('plongee', TimeType::class, [
-                'widget' => "single_text",
-                'required' => false,
-            ])
+          ->add('controleMer', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleTerre', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleAerien', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleAireProtegeeMer', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleAireProtegeeTerre', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleAireProtegeeAerien', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controlePollutionMer', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controlePollutionTerre', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controlePollutionAerien', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleEnvironnementMer', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleEnvironnementTerre', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleEnvironnementAerien', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleChlordeconePartielMer', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleChlordeconePartielTerre', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleChlordeconeTotalMer', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleChlordeconeTotalTerre', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('controleCroise', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('immigration', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('visiteSecurite', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('nombreVisiteSecurite', IntegerType::class, [
+              'required' => false,
+          ])
+          ->add('surveillanceManifestationMer', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('surveillanceManifestationTerre', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('surveillanceDpmMer', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('surveillanceDpmTerre', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('surete', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('maintienOrdre', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('assistance', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('plongee', TimeType::class, [
+              'widget' => "single_text",
+              'required' => false,
+          ])
+          ->add('sauvegardeHumaineNbHeureMer', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineNbHeuresVol', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineNbOpeConduites', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineNbPersonnesSecourues', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineMigratoireNbHeuresMer', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineMigratoireNbHeuresVol', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineMigratoireNbOpeConduite', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineMigratoireNbOpeSauvetageConduites', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('sauvegardeHumaineMigratoireNbPersonnesSecourues', IntegerType::class, [
+            'required' => false,
+          ])
         ;
         $builder->get('controleMer')
             ->addModelTransformer($this->transformer);
@@ -185,6 +222,15 @@ class RapportRepartitionHeuresType extends AbstractType {
             ->addModelTransformer($this->transformer);
         $builder->get('plongee')
             ->addModelTransformer($this->transformer);
+        $builder->get('sauvegardeHumaineNbHeureMer')
+          ->addModelTransformer($this->transformer);
+        $builder->get('sauvegardeHumaineNbHeuresVol')
+          ->addModelTransformer($this->transformer);
+        $builder->get('sauvegardeHumaineMigratoireNbHeuresMer')
+          ->addModelTransformer($this->transformer);
+        $builder->get('sauvegardeHumaineMigratoireNbHeuresVol')
+          ->addModelTransformer($this->transformer);
+
     }
 
     public function configureOptions(OptionsResolver $resolver) {

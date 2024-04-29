@@ -161,6 +161,61 @@ class RapportRepartitionHeures {
      */
     private $plongee;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineNbHeureMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineNbHeuresVol;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineNbOpeConduites;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineNbPersonnesSecourues;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbHeuresMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbHeuresVol;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbOpeConduite;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, name="sauvegarde_humaine_migratoire_nb_embarcations_assistees_terre")
+     */
+    private $sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbOpeSauvetageConduites;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbPersonnesSecourues;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -440,6 +495,138 @@ class RapportRepartitionHeures {
 
     public function setPlongee(?int $plongee): self {
         $this->plongee = $plongee;
+        return $this;
+    }
+
+    public function getSauvegardeHumaineNbHeureMer(): ?int
+    {
+        return $this->sauvegardeHumaineNbHeureMer;
+    }
+
+    public function setSauvegardeHumaineNbHeureMer(?int $sauvegardeHumaineNbHeureMer): self
+    {
+        $this->sauvegardeHumaineNbHeureMer = $sauvegardeHumaineNbHeureMer;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineNbHeuresVol(): ?int
+    {
+        return $this->sauvegardeHumaineNbHeuresVol;
+    }
+
+    public function setSauvegardeHumaineNbHeuresVol(?int $sauvegardeHumaineNbHeuresVol): self
+    {
+        $this->sauvegardeHumaineNbHeuresVol = $sauvegardeHumaineNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineNbOpeConduites(): ?int
+    {
+        return $this->sauvegardeHumaineNbOpeConduites;
+    }
+
+    public function setSauvegardeHumaineNbOpeConduites(?int $sauvegardeHumaineNbOpeConduites): self
+    {
+        $this->sauvegardeHumaineNbOpeConduites = $sauvegardeHumaineNbOpeConduites;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineNbPersonnesSecourues(): ?int
+    {
+        return $this->sauvegardeHumaineNbPersonnesSecourues;
+    }
+
+    public function setSauvegardeHumaineNbPersonnesSecourues(?int $sauvegardeHumaineNbPersonnesSecourues): self
+    {
+        $this->sauvegardeHumaineNbPersonnesSecourues = $sauvegardeHumaineNbPersonnesSecourues;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbHeuresMer(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbHeuresMer;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbHeuresMer(?int $sauvegardeHumaineMigratoireNbHeuresMer): self
+    {
+        $this->sauvegardeHumaineMigratoireNbHeuresMer = $sauvegardeHumaineMigratoireNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbHeuresVol(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbHeuresVol;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbHeuresVol(?int $sauvegardeHumaineMigratoireNbHeuresVol): self
+    {
+        $this->sauvegardeHumaineMigratoireNbHeuresVol = $sauvegardeHumaineMigratoireNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbOpeConduite(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbOpeConduite;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbOpeConduite(?int $sauvegardeHumaineMigratoireNbOpeConduite): self
+    {
+        $this->sauvegardeHumaineMigratoireNbOpeConduite = $sauvegardeHumaineMigratoireNbOpeConduite;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbEmbarcationsSansIntervention(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbEmbarcationsSansIntervention(?int $sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention): self
+    {
+        $this->sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention = $sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre(?int $sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre): self
+    {
+        $this->sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre = $sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbOpeSauvetageConduites(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbOpeSauvetageConduites;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbOpeSauvetageConduites(?int $sauvegardeHumaineMigratoireNbOpeSauvetageConduites): self
+    {
+        $this->sauvegardeHumaineMigratoireNbOpeSauvetageConduites = $sauvegardeHumaineMigratoireNbOpeSauvetageConduites;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbPersonnesSecourues(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbPersonnesSecourues;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbPersonnesSecourues(?int $sauvegardeHumaineMigratoireNbPersonnesSecourues): self
+    {
+        $this->sauvegardeHumaineMigratoireNbPersonnesSecourues = $sauvegardeHumaineMigratoireNbPersonnesSecourues;
+
         return $this;
     }
 }

@@ -321,6 +321,7 @@ class DefaultController extends AbstractController {
         $controlesGMSousItem = [];
         $controlesGMPersonnel = [];
         $controlesGMPersonnelSousItem = [];
+        $controlesULAM = [];
 
 
         foreach($catControlesGM as $controle) {
@@ -597,6 +598,17 @@ class DefaultController extends AbstractController {
             'maintienOrdre' => $rH->getMaintienOrdre() ? TimeConvert::minutesToTime($rH->getMaintienOrdre())->format("H:i") : null,
             'assistance' => $rH->getAssistance() ? TimeConvert::minutesToTime($rH->getAssistance())->format("H:i") : null,
             'plongee' => $rH->getPlongee() ? TimeConvert::minutesToTime($rH->getPlongee())->format("H:i") : null,
+            'sauvegardeHumaineNbHeureMer' => $rH->getSauvegardeHumaineNbHeureMer() ? TimeConvert::minutesToTime($rH->getSauvegardeHumaineNbHeureMer())->format("H:i") : null,
+            'sauvegardeHumaineNbHeuresVol' => $rH->getSauvegardeHumaineNbHeuresVol() ? TimeConvert::minutesToTime($rH->getSauvegardeHumaineNbHeuresVol())->format("H:i") : null,
+            'sauvegardeHumaineNbOpeConduites' => $rH->getSauvegardeHumaineNbOpeConduites() ?: null,
+            'sauvegardeHumaineNbPersonnesSecourues' => $rH->getSauvegardeHumaineNbPersonnesSecourues() ?: null,
+            'sauvegardeHumaineMigratoireNbHeuresMer' => $rH->getSauvegardeHumaineMigratoireNbHeuresMer() ? TimeConvert::minutesToTime($rH->getSauvegardeHumaineMigratoireNbHeuresMer())->format("H:i") : null,
+            'sauvegardeHumaineMigratoireNbHeuresVol' => $rH->getSauvegardeHumaineMigratoireNbHeuresVol() ? TimeConvert::minutesToTime($rH->getSauvegardeHumaineMigratoireNbHeuresVol())->format("H:i") : null,
+            'sauvegardeHumaineMigratoireNbOpeConduite' => $rH->getSauvegardeHumaineMigratoireNbOpeConduite(),
+            'sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre' => $rH->getSauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre(),
+            'sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention' => $rH->getSauvegardeHumaineMigratoireNbEmbarcationsSansIntervention(),
+            'sauvegardeHumaineMigratoireNbOpeSauvetageConduites' => $rH->getSauvegardeHumaineMigratoireNbOpeSauvetageConduites(),
+            'sauvegardeHumaineMigratoireNbPersonnesSecourues' => $rH->getSauvegardeHumaineMigratoireNbPersonnesSecourues()
         ];
     }
 

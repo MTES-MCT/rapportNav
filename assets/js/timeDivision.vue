@@ -9,6 +9,7 @@
                 <th style="width: 8em;">En mer</th>
                 <th style="width: 8em;">À terre</th>
                 <th style="width: 8em;">Aérien</th>
+                <th style="width: 8em;"></th>
             </tr>
             <tr>
                 <td>Contrôle / surveillance</td>
@@ -113,6 +114,89 @@
                 <td/>
                 <td/>
             </tr>
+            <tr>
+              <td><strong>Sauvegarde de la vie humaine hors cadre d'un phénomène migratoire</strong></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'heures</td>
+              <td><input type="time" class="" v-model="sauvegardeHumaineNbHeureMer"></td>
+              <td></td>
+              <td><input type="time" class="" v-model="sauvegardeHumaineNbHeuresVol"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'opérations conduites</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" class="" v-model="sauvegardeHumaineNbOpeConduites"></td>
+            </tr>
+            <tr>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de personnes secourues</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" class="" v-model="sauvegardeHumaineNbPersonnesSecourues" placeholder="0"></td>
+            </tr>
+          <tr>
+            <td><strong>Sauvegarde de la vie humaine dans le cadre d'un phénomène migratoire</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'heures</td>
+            <td><input type="time" class="" v-model="sauvegardeHumaineMigratoireNbHeuresMer"></td>
+            <td></td>
+            <td><input type="time" class="" v-model="sauvegardeHumaineMigratoireNbHeuresVol"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'opérations conduites</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="sauvegardeHumaineMigratoireNbOpeConduite" placeholder="0"></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;(SAR migrants) Nombre d'embarcations suivies sans nécessité d'intervention</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention" placeholder="0"></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;(SAR migrants)Nombre d'embarcations assistées pour un retour à terre</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre" placeholder="0"></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;(SAR migrants) Nombre d'opérations de sauvetage conduites </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="sauvegardeHumaineMigratoireNbOpeSauvetageConduites" placeholder="0"></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;(SAR migrants)Nombre de personnes secourues</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="sauvegardeHumaineMigratoireNbPersonnesSecourues" placeholder="0"></td>
+          </tr>
+
         </table>
     </div>
 </template>
@@ -154,6 +238,18 @@
                 maintienOrdre: this.value.maintienOrdre || null,
                 assistance: this.value.assistance || null,
                 plongee: this.value.plongee || null,
+                sauvegardeHumaineNbHeureMer: this.value.sauvegardeHumaineNbHeureMer || null,
+                sauvegardeHumaineNbHeuresVol: this.value.sauvegardeHumaineNbHeuresVol || null,
+                sauvegardeHumaineNbOpeConduites: this.value.sauvegardeHumaineNbOpeConduites || null,
+                sauvegardeHumaineNbPersonnesSecourues: this.value.sauvegardeHumaineNbPersonnesSecourues || null,
+                sauvegardeHumaineMigratoireNbHeuresVol: this.value.sauvegardeHumaineMigratoireNbHeuresVol || null,
+                sauvegardeHumaineMigratoireNbHeuresMer: this.value.sauvegardeHumaineMigratoireNbHeuresMer || null,
+                sauvegardeHumaineMigratoireNbOpeConduite: this.value.sauvegardeHumaineMigratoireNbOpeConduite || null,
+                sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention: this.value.sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention || null,
+                sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre: this.value.sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre || null,
+                sauvegardeHumaineMigratoireNbOpeSauvetageConduites: this.value.sauvegardeHumaineMigratoireNbOpeSauvetageConduites,
+                sauvegardeHumaineMigratoireNbPersonnesSecourues: this.value.sauvegardeHumaineMigratoireNbPersonnesSecourues
+
             }
         },
         computed: {
@@ -187,6 +283,17 @@
                     maintienOrdre: this.maintienOrdre,
                     assistance: this.assistance,
                     plongee: this.plongee,
+                    sauvegardeHumaineNbHeureMer: this.sauvegardeHumaineNbHeureMer,
+                    sauvegardeHumaineNbHeuresVol: this.sauvegardeHumaineNbHeuresVol,
+                    sauvegardeHumaineNbOpeConduites: this.sauvegardeHumaineNbOpeConduites,
+                    sauvegardeHumaineNbPersonnesSecourues: this.sauvegardeHumaineNbPersonnesSecourues,
+                    sauvegardeHumaineMigratoireNbHeuresVol: this.sauvegardeHumaineMigratoireNbHeuresVol,
+                    sauvegardeHumaineMigratoireNbHeuresMer: this.sauvegardeHumaineMigratoireNbHeuresMer,
+                    sauvegardeHumaineMigratoireNbOpeConduite: this.sauvegardeHumaineMigratoireNbOpeConduite,
+                    sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre: this.sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre,
+                    sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention: this.sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention,
+                    sauvegardeHumaineMigratoireNbPersonnesSecourues: this.sauvegardeHumaineMigratoireNbPersonnesSecourues,
+                    sauvegardeHumaineMigratoireNbOpeSauvetageConduites: this.sauvegardeHumaineMigratoireNbOpeSauvetageConduites
                 };
             }
         },
