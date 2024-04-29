@@ -197,6 +197,89 @@
             <td><input type="number" class="" v-model="sauvegardeHumaineMigratoireNbPersonnesSecourues" placeholder="0"></td>
           </tr>
 
+
+          <tr>
+            <td><strong>Assistance aux navires en difficulté et sécurité maritime</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'heures</td>
+            <td><input type="time" class="" v-model="assistanceNbHeuresMer"></td>
+            <td></td>
+            <td><input type="time" class="" v-model="assistanceNbHeuresVol"></td>
+            <td></td>
+          </tr>
+
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'opérations ANED (mise en œuvre de moyens nautique ou aérien)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="assistanceNbOpeANED" placeholder="0"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'intervention faisant suite à une mise en demeure</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="assistanceNbInterventionMiseEnDemeure" placeholder="0"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de mises en œuvre de l'équipe d'évaluation et d'intervention</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="assistanceNbMiseEnDemeureEvaluation" placeholder="0"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de mise en oeuvre de la CAPINAV</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="assistanceNbMiseEnOeuvreCAPINAV" placeholder="0"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de remorquages</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="assistanceNbRemorquages" placeholder="0"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'opération de maintenance des systèmes de signalisation maritime</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="assistanceNbOpeMaintenanceSignalisation" placeholder="0"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'opérations de déminage</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="assistanceNbOpeDeminage" placeholder="0"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de munitions détruites</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="assistanceNbMunitionsDetruites" placeholder="0"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Poids de la matière active correspondante (en kg)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="assistancePoidsMatiereActive" placeholder="0"></td>
+          </tr>
+
+
         </table>
     </div>
 </template>
@@ -248,7 +331,18 @@
                 sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention: this.value.sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention || null,
                 sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre: this.value.sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre || null,
                 sauvegardeHumaineMigratoireNbOpeSauvetageConduites: this.value.sauvegardeHumaineMigratoireNbOpeSauvetageConduites,
-                sauvegardeHumaineMigratoireNbPersonnesSecourues: this.value.sauvegardeHumaineMigratoireNbPersonnesSecourues
+                sauvegardeHumaineMigratoireNbPersonnesSecourues: this.value.sauvegardeHumaineMigratoireNbPersonnesSecourues,
+                assistanceNbOpeANED: this.value.assistanceNbOpeANED || null,
+                assistanceNbInterventionMiseEnDemeure: this.value.assistanceNbInterventionMiseEnDemeure || null,
+                assistanceNbMiseEnDemeureEvaluation: this.value.assistanceNbMiseEnDemeureEvaluation || null,
+                assistanceNbMiseEnOeuvreCAPINAV: this.value.assistanceNbMiseEnOeuvreCAPINAV || null,
+                assistanceNbRemorquages: this.value.assistanceNbRemorquages || null,
+                assistanceNbOpeMaintenanceSignalisation: this.value.assistanceNbOpeMaintenanceSignalisation || null,
+                assistanceNbOpeDeminage: this.value.assistanceNbOpeDeminage || null,
+                assistanceNbMunitionsDetruites: this.value.assistanceNbMunitionsDetruites || null,
+                assistancePoidsMatiereActive: this.value.assistancePoidsMatiereActive || null,
+                assistanceNbHeuresMer: this.value.assistanceNbHeuresMer || null,
+                assistanceNbHeuresVol: this.value.assistanceNbHeuresVol || null
 
             }
         },
@@ -293,7 +387,18 @@
                     sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre: this.sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre,
                     sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention: this.sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention,
                     sauvegardeHumaineMigratoireNbPersonnesSecourues: this.sauvegardeHumaineMigratoireNbPersonnesSecourues,
-                    sauvegardeHumaineMigratoireNbOpeSauvetageConduites: this.sauvegardeHumaineMigratoireNbOpeSauvetageConduites
+                    sauvegardeHumaineMigratoireNbOpeSauvetageConduites: this.sauvegardeHumaineMigratoireNbOpeSauvetageConduites,
+                    assistanceNbOpeANED: this.assistanceNbOpeANED,
+                    assistanceNbInterventionMiseEnDemeure: this.assistanceNbInterventionMiseEnDemeure,
+                    assistanceNbMiseEnDemeureEvaluation: this.assistanceNbMiseEnDemeureEvaluation,
+                    assistanceNbMiseEnOeuvreCAPINAV: this.assistanceNbMiseEnOeuvreCAPINAV,
+                    assistanceNbRemorquages: this.assistanceNbRemorquages,
+                    assistanceNbOpeMaintenanceSignalisation: this.assistanceNbOpeMaintenanceSignalisation,
+                    assistanceNbOpeDeminage: this.assistanceNbOpeDeminage,
+                    assistanceNbMunitionsDetruites: this.assistanceNbMunitionsDetruites,
+                    assistancePoidsMatiereActive: this.assistancePoidsMatiereActive,
+                    assistanceNbHeuresMer: this.assistanceNbHeuresMer,
+                    assistanceNbHeuresVol: this.assistanceNbHeuresVol
                 };
             }
         },

@@ -167,6 +167,45 @@ class RapportRepartitionHeuresType extends AbstractType {
           ->add('sauvegardeHumaineMigratoireNbPersonnesSecourues', IntegerType::class, [
             'required' => false,
           ])
+          ->add('assistanceNbHeuresMer', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('assistanceNbHeuresVol', TimeType::class, [
+            'widget' => "single_text",
+            'required' => false,
+          ])
+          ->add('assistanceNbOpeANED', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('assistanceNbInterventionMiseEnDemeure', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('assistanceNbMiseEnDemeureEvaluation', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('assistanceNbMiseEnOeuvreCAPINAV', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('assistanceNbRemorquages', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('assistanceNbOpeMaintenanceSignalisation', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('assistanceNbOpeDeminage', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('assistanceNbMunitionsDetruites', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('assistanceNbMunitionsDetruites', IntegerType::class, [
+            'required' => false,
+          ])
+          ->add('assistancePoidsMatiereActive', IntegerType::class, [
+            'required' => false,
+          ])
+
         ;
         $builder->get('controleMer')
             ->addModelTransformer($this->transformer);
@@ -229,6 +268,11 @@ class RapportRepartitionHeuresType extends AbstractType {
         $builder->get('sauvegardeHumaineMigratoireNbHeuresMer')
           ->addModelTransformer($this->transformer);
         $builder->get('sauvegardeHumaineMigratoireNbHeuresVol')
+          ->addModelTransformer($this->transformer);
+
+        $builder->get('assistanceNbHeuresMer')
+          ->addModelTransformer($this->transformer);
+        $builder->get('assistanceNbHeuresVol')
           ->addModelTransformer($this->transformer);
 
     }

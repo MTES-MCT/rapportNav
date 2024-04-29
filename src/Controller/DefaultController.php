@@ -608,7 +608,19 @@ class DefaultController extends AbstractController {
             'sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre' => $rH->getSauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre(),
             'sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention' => $rH->getSauvegardeHumaineMigratoireNbEmbarcationsSansIntervention(),
             'sauvegardeHumaineMigratoireNbOpeSauvetageConduites' => $rH->getSauvegardeHumaineMigratoireNbOpeSauvetageConduites(),
-            'sauvegardeHumaineMigratoireNbPersonnesSecourues' => $rH->getSauvegardeHumaineMigratoireNbPersonnesSecourues()
+            'sauvegardeHumaineMigratoireNbPersonnesSecourues' => $rH->getSauvegardeHumaineMigratoireNbPersonnesSecourues(),
+            'assistanceNbHeuresMer' => $rH->getAssistanceNbHeuresMer() ? TimeConvert::minutesToTime($rH->getAssistanceNbHeuresMer())->format("H:i") : null,
+            'assistanceNbHeuresVol' => $rH->getAssistanceNbHeuresVol() ? TimeConvert::minutesToTime($rH->getAssistanceNbHeuresVol())->format("H:i") : null,
+            'assistanceNbOpeANED' => $rH->getAssistanceNbOpeANED(),
+            'assistanceNbInterventionMiseEnDemeure' => $rH->getAssistanceNbInterventionMiseEnDemeure(),
+            'assistanceNbMiseEnDemeureEvaluation' => $rH->getAssistanceNbMiseEnDemeureEvaluation(),
+            'assistanceNbMiseEnOeuvreCAPINAV' => $rH->getAssistanceNbMiseEnOeuvreCAPINAV(),
+            'assistanceNbRemorquages' => $rH->getAssistanceNbRemorquages(),
+            'assistanceNbOpeMaintenanceSignalisation' => $rH->getAssistanceNbOpeMaintenanceSignalisation(),
+            'assistanceNbOpeDeminage' => $rH->getAssistanceNbOpeDeminage(),
+            'assistanceNbMunitionsDetruites' => $rH->getAssistanceNbMunitionsDetruites(),
+            'assistancePoidsMatiereActive' => $rH->getAssistancePoidsMatiereActive(),
+
         ];
     }
 

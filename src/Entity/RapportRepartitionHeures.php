@@ -216,6 +216,61 @@ class RapportRepartitionHeures {
      */
     private $sauvegardeHumaineMigratoireNbPersonnesSecourues;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbHeuresMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbHeuresVol;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbOpeANED;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbInterventionMiseEnDemeure;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbMiseEnDemeureEvaluation;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, name="assistance_nb_mise_en_oeuvre_capinav")
+     */
+    private $assistanceNbMiseEnOeuvreCAPINAV;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbRemorquages;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbOpeMaintenanceSignalisation;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbOpeDeminage;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbMunitionsDetruites;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistancePoidsMatiereActive;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -626,6 +681,138 @@ class RapportRepartitionHeures {
     public function setSauvegardeHumaineMigratoireNbPersonnesSecourues(?int $sauvegardeHumaineMigratoireNbPersonnesSecourues): self
     {
         $this->sauvegardeHumaineMigratoireNbPersonnesSecourues = $sauvegardeHumaineMigratoireNbPersonnesSecourues;
+
+        return $this;
+    }
+
+    public function getAssistanceNbHeuresMer(): ?int
+    {
+        return $this->assistanceNbHeuresMer;
+    }
+
+    public function setAssistanceNbHeuresMer(?int $assistanceNbHeuresMer): self
+    {
+        $this->assistanceNbHeuresMer = $assistanceNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getAssistanceNbHeuresVol(): ?int
+    {
+        return $this->assistanceNbHeuresVol;
+    }
+
+    public function setAssistanceNbHeuresVol(?int $assistanceNbHeuresVol): self
+    {
+        $this->assistanceNbHeuresVol = $assistanceNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getAssistanceNbOpeANED(): ?int
+    {
+        return $this->assistanceNbOpeANED;
+    }
+
+    public function setAssistanceNbOpeANED(?int $assistanceNbOpeANED): self
+    {
+        $this->assistanceNbOpeANED = $assistanceNbOpeANED;
+
+        return $this;
+    }
+
+    public function getAssistanceNbInterventionMiseEnDemeure(): ?int
+    {
+        return $this->assistanceNbInterventionMiseEnDemeure;
+    }
+
+    public function setAssistanceNbInterventionMiseEnDemeure(?int $assistanceNbInterventionMiseEnDemeure): self
+    {
+        $this->assistanceNbInterventionMiseEnDemeure = $assistanceNbInterventionMiseEnDemeure;
+
+        return $this;
+    }
+
+    public function getAssistanceNbMiseEnDemeureEvaluation(): ?int
+    {
+        return $this->assistanceNbMiseEnDemeureEvaluation;
+    }
+
+    public function setAssistanceNbMiseEnDemeureEvaluation(?int $assistanceNbMiseEnDemeureEvaluation): self
+    {
+        $this->assistanceNbMiseEnDemeureEvaluation = $assistanceNbMiseEnDemeureEvaluation;
+
+        return $this;
+    }
+
+    public function getAssistanceNbMiseEnOeuvreCAPINAV(): ?int
+    {
+        return $this->assistanceNbMiseEnOeuvreCAPINAV;
+    }
+
+    public function setAssistanceNbMiseEnOeuvreCAPINAV(?int $assistanceNbMiseEnOeuvreCAPINAV): self
+    {
+        $this->assistanceNbMiseEnOeuvreCAPINAV = $assistanceNbMiseEnOeuvreCAPINAV;
+
+        return $this;
+    }
+
+    public function getAssistanceNbRemorquages(): ?int
+    {
+        return $this->assistanceNbRemorquages;
+    }
+
+    public function setAssistanceNbRemorquages(?int $assistanceNbRemorquages): self
+    {
+        $this->assistanceNbRemorquages = $assistanceNbRemorquages;
+
+        return $this;
+    }
+
+    public function getAssistanceNbOpeMaintenanceSignalisation(): ?int
+    {
+        return $this->assistanceNbOpeMaintenanceSignalisation;
+    }
+
+    public function setAssistanceNbOpeMaintenanceSignalisation(?int $assistanceNbOpeMaintenanceSignalisation): self
+    {
+        $this->assistanceNbOpeMaintenanceSignalisation = $assistanceNbOpeMaintenanceSignalisation;
+
+        return $this;
+    }
+
+    public function getAssistanceNbOpeDeminage(): ?int
+    {
+        return $this->assistanceNbOpeDeminage;
+    }
+
+    public function setAssistanceNbOpeDeminage(?int $assistanceNbOpeDeminage): self
+    {
+        $this->assistanceNbOpeDeminage = $assistanceNbOpeDeminage;
+
+        return $this;
+    }
+
+    public function getAssistanceNbMunitionsDetruites(): ?int
+    {
+        return $this->assistanceNbMunitionsDetruites;
+    }
+
+    public function setAssistanceNbMunitionsDetruites(?int $assistanceNbMunitionsDetruites): self
+    {
+        $this->assistanceNbMunitionsDetruites = $assistanceNbMunitionsDetruites;
+
+        return $this;
+    }
+
+    public function getAssistancePoidsMatiereActive(): ?int
+    {
+        return $this->assistancePoidsMatiereActive;
+    }
+
+    public function setAssistancePoidsMatiereActive(?int $assistancePoidsMatiereActive): self
+    {
+        $this->assistancePoidsMatiereActive = $assistancePoidsMatiereActive;
 
         return $this;
     }
