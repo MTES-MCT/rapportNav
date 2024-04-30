@@ -371,6 +371,36 @@ class RapportRepartitionHeures {
        */
       private $immigrationNbPasseursInterceptes;
 
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionParticipationANTIPOL;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionDeploiementEnMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionNbInfractions;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionPV;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionNbDeroutements;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionNbPollutionsDetectees;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -1153,6 +1183,78 @@ class RapportRepartitionHeures {
     public function setImmigrationNbPasseursInterceptes(?int $immigrationNbPasseursInterceptes): self
     {
         $this->immigrationNbPasseursInterceptes = $immigrationNbPasseursInterceptes;
+
+        return $this;
+    }
+
+    public function getLuttePollutionParticipationANTIPOL(): ?int
+    {
+        return $this->luttePollutionParticipationANTIPOL;
+    }
+
+    public function setLuttePollutionParticipationANTIPOL(?int $luttePollutionParticipationANTIPOL): self
+    {
+        $this->luttePollutionParticipationANTIPOL = $luttePollutionParticipationANTIPOL;
+
+        return $this;
+    }
+
+    public function getLuttePollutionDeploiementEnMer(): ?int
+    {
+        return $this->luttePollutionDeploiementEnMer;
+    }
+
+    public function setLuttePollutionDeploiementEnMer(?int $luttePollutionDeploiementEnMer): self
+    {
+        $this->luttePollutionDeploiementEnMer = $luttePollutionDeploiementEnMer;
+
+        return $this;
+    }
+
+    public function getLuttePollutionNbInfractions(): ?int
+    {
+        return $this->luttePollutionNbInfractions;
+    }
+
+    public function setLuttePollutionNbInfractions(?int $luttePollutionNbInfractions): self
+    {
+        $this->luttePollutionNbInfractions = $luttePollutionNbInfractions;
+
+        return $this;
+    }
+
+    public function getLuttePollutionPV(): ?int
+    {
+        return $this->luttePollutionPV;
+    }
+
+    public function setLuttePollutionPV(?int $luttePollutionPV): self
+    {
+        $this->luttePollutionPV = $luttePollutionPV;
+
+        return $this;
+    }
+
+    public function getLuttePollutionNbDeroutements(): ?int
+    {
+        return $this->luttePollutionNbDeroutements;
+    }
+
+    public function setLuttePollutionNbDeroutements(?int $luttePollutionNbDeroutements): self
+    {
+        $this->luttePollutionNbDeroutements = $luttePollutionNbDeroutements;
+
+        return $this;
+    }
+
+    public function getLuttePollutionNbPollutionsDetectees(): ?int
+    {
+        return $this->luttePollutionNbPollutionsDetectees;
+    }
+
+    public function setLuttePollutionNbPollutionsDetectees(?int $luttePollutionNbPollutionsDetectees): self
+    {
+        $this->luttePollutionNbPollutionsDetectees = $luttePollutionNbPollutionsDetectees;
 
         return $this;
     }
