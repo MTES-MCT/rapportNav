@@ -645,7 +645,9 @@ class DefaultController extends AbstractController {
           'luttePollutionNbInfractions' => $rH->getLuttePollutionNbInfractions(),
           'luttePollutionPV' => $rH->getLuttePollutionPV(),
           'luttePollutionParticipationANTIPOL' => $rH->getLuttePollutionParticipationANTIPOL(),
-          'luttePollutionNbPollutionsDetectees' => $rH->getLuttePollutionNbPollutionsDetectees()
+          'luttePollutionNbPollutionsDetectees' => $rH->getLuttePollutionNbPollutionsDetectees(),
+          'luttePecheNbNavireControleVHFmer' => $rH->getLuttePecheNbNavireControleVHFmer(),
+          'luttePecheKgProduitsSaisisMer' => $rH->getLuttePecheKgProduitsSaisisMer()
         ];
 
     }

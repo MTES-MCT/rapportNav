@@ -401,6 +401,16 @@ class RapportRepartitionHeures {
        */
       private $luttePollutionNbPollutionsDetectees;
 
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePecheNbNavireControleVHFmer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePecheKgProduitsSaisisMer;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -1255,6 +1265,30 @@ class RapportRepartitionHeures {
     public function setLuttePollutionNbPollutionsDetectees(?int $luttePollutionNbPollutionsDetectees): self
     {
         $this->luttePollutionNbPollutionsDetectees = $luttePollutionNbPollutionsDetectees;
+
+        return $this;
+    }
+
+    public function getLuttePecheNbNavireControleVHFmer(): ?int
+    {
+        return $this->luttePecheNbNavireControleVHFmer;
+    }
+
+    public function setLuttePecheNbNavireControleVHFmer(?int $luttePecheNbNavireControleVHFmer): self
+    {
+        $this->luttePecheNbNavireControleVHFmer = $luttePecheNbNavireControleVHFmer;
+
+        return $this;
+    }
+
+    public function getLuttePecheKgProduitsSaisisMer(): ?int
+    {
+        return $this->luttePecheKgProduitsSaisisMer;
+    }
+
+    public function setLuttePecheKgProduitsSaisisMer(?int $luttePecheKgProduitsSaisisMer): self
+    {
+        $this->luttePecheKgProduitsSaisisMer = $luttePecheKgProduitsSaisisMer;
 
         return $this;
     }

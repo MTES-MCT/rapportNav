@@ -356,8 +356,6 @@
           </tr>
 
 
-
-
           <tr>
             <td><strong>Lutte contre le trafic en mer de produits stupéfiants</strong></td>
             <td></td>
@@ -471,6 +469,30 @@
             <td><input type="number" class="" v-model="immigrationNbPasseursInterceptes"></td>
           </tr>
 
+          <tr>
+            <td><strong> Lutte contre les activités de pêche illégale</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre de navires de pêche contrôlés par VHF en mer </td>
+            <td><input type="number" class="" v-model="luttePecheNbNavireControleVHFmer" placeholder="0"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Quantitée de produits de la pêche saisis/rejetés en mer(en kg)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="luttePecheKgProduitsSaisisMer" placeholder="0"></td>
+          </tr>
+
 
         </table>
     </div>
@@ -560,7 +582,9 @@
               luttePollutionNbInfractions: this.value.luttePollutionNbInfractions || null,
               luttePollutionPV: this.value.luttePollutionPV || null,
               luttePollutionParticipationANTIPOL: this.value.luttePollutionParticipationANTIPOL || null,
-              luttePollutionNbPollutionsDetectees: this.value.luttePollutionNbPollutionsDetectees || null
+              luttePollutionNbPollutionsDetectees: this.value.luttePollutionNbPollutionsDetectees || null,
+              luttePecheNbNavireControleVHFmer: this.value.luttePecheNbNavireControleVHFmer || null,
+              luttePecheKgProduitsSaisisMer: this.value.luttePecheKgProduitsSaisisMer || null
             }
         },
         computed: {
@@ -641,7 +665,9 @@
                   luttePollutionNbInfractions: this.luttePollutionNbInfractions,
                   luttePollutionPV: this.luttePollutionPV,
                   luttePollutionParticipationANTIPOL: this.luttePollutionParticipationANTIPOL,
-                  luttePollutionNbPollutionsDetectees: this.luttePollutionNbPollutionsDetectees
+                  luttePollutionNbPollutionsDetectees: this.luttePollutionNbPollutionsDetectees,
+                  luttePecheKgProduitsSaisisMer: this.luttePecheKgProduitsSaisisMer,
+                  luttePecheNbNavireControleVHFmer: this.luttePecheNbNavireControleVHFmer
                 };
             }
         },

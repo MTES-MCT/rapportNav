@@ -295,6 +295,12 @@ class RapportRepartitionHeuresType extends AbstractType {
           ->add('luttePollutionNbPollutionsDetectees', IntegerType::class, [
             'required' => false
           ])
+          ->add('luttePecheNbNavireControleVHFmer', IntegerType::class, [
+            'required' => false
+          ])
+          ->add('luttePecheKgProduitsSaisisMer', IntegerType::class, [
+            'required' => false
+          ])
 
 
         ;
