@@ -120,10 +120,11 @@
                 <td/>
             </tr>
             <tr>
-                <td>Nombre d'heures de mer pour la sûreté maritime (y compris VIGIMER )</td>
+                <td>Nombre d'heures pour la sûreté maritime (y compris VIGIMER )</td>
                 <td><input type="time" class="" v-model="surete"></td>
-                <td/>
-                <td/>
+                <td></td>
+                <td><input type="time" class="" v-model="sureteMaritimeNbHeuresVol"></td>
+                <td></td>
             </tr>
             <tr>
                 <td>Nombre d'heures de mer de maintien de l'ordre public en mer</td>
@@ -132,7 +133,21 @@
                 <td/>
             </tr>
             <tr>
-                <td>Nombre d'heures de mer pour assistance aux navires en difficulté et sécurité maritime (AEM 2.1)</td>
+              <td>Nombre d'opérations de maintien de l'ordre public en mer</td>
+              <td><input type="number" class="" v-model="sureteMaritimeNbOpeMer"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Nombre de traversées protégées par des équipes d'agents de l'Etat</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" class="" v-model="sureteMaritimeNbTraverseesProtegees"></td>
+            </tr>
+            <tr>
+                <td>Nombre d'heures de mer pour assistance aux navires en difficulté et sécurité maritime</td>
                 <td><input type="time" class="" v-model="assistance"></td>
                 <td/>
                 <td/>
@@ -619,7 +634,10 @@
               luttePecheKgProduitsSaisisMer: this.value.luttePecheKgProduitsSaisisMer || null,
               protectionCulturelNbHeuresMer: this.value.protectionCulturelNbHeuresMer || null,
               protectionCulturelNbOpePoliceBCM: this.value.protectionCulturelNbOpePoliceBCM || null,
-              protectionCulturelNbOpeScientifiques: this.value.protectionCulturelNbOpeScientifiques || null
+              protectionCulturelNbOpeScientifiques: this.value.protectionCulturelNbOpeScientifiques || null,
+              sureteMaritimeNbHeuresVol: this.value.sureteMaritimeNbHeuresVol || null,
+              sureteMaritimeNbOpeMer: this.value.sureteMaritimeNbOpeMer || null,
+              sureteMaritimeNbTraverseesProtegees: this.sureteMaritimeNbTraverseesProtegees || null
             }
         },
         computed: {
@@ -705,7 +723,10 @@
                   luttePecheNbNavireControleVHFmer: this.luttePecheNbNavireControleVHFmer,
                   protectionCulturelNbHeuresMer: this.protectionCulturelNbHeuresMer,
                   protectionCulturelNbOpePoliceBCM: this.protectionCulturelNbOpePoliceBCM,
-                  protectionCulturelNbOpeScientifiques: this.protectionCulturelNbOpeScientifiques
+                  protectionCulturelNbOpeScientifiques: this.protectionCulturelNbOpeScientifiques,
+                  sureteMaritimeNbHeuresVol: this.sureteMaritimeNbHeuresVol,
+                  sureteMaritimeNbOpeMer: this.sureteMaritimeNbOpeMer,
+                  sureteMaritimeNbTraverseesProtegees: this.sureteMaritimeNbTraverseesProtegees
                 };
             }
         },

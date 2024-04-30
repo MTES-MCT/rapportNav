@@ -426,6 +426,21 @@ class RapportRepartitionHeures {
        */
       private $protectionCulturelNbOpePoliceBCM;
 
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $sureteMaritimeNbHeuresVol;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $sureteMaritimeNbOpeMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $sureteMaritimeNbTraverseesProtegees;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -1340,6 +1355,42 @@ class RapportRepartitionHeures {
     public function setProtectionCulturelNbOpePoliceBCM(?int $protectionCulturelNbOpePoliceBCM): self
     {
         $this->protectionCulturelNbOpePoliceBCM = $protectionCulturelNbOpePoliceBCM;
+
+        return $this;
+    }
+
+    public function getSureteMaritimeNbHeuresVol(): ?int
+    {
+        return $this->sureteMaritimeNbHeuresVol;
+    }
+
+    public function setSureteMaritimeNbHeuresVol(?int $sureteMaritimeNbHeuresVol): self
+    {
+        $this->sureteMaritimeNbHeuresVol = $sureteMaritimeNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getSureteMaritimeNbOpeMer(): ?int
+    {
+        return $this->sureteMaritimeNbOpeMer;
+    }
+
+    public function setSureteMaritimeNbOpeMer(?int $sureteMaritimeNbOpeMer): self
+    {
+        $this->sureteMaritimeNbOpeMer = $sureteMaritimeNbOpeMer;
+
+        return $this;
+    }
+
+    public function getSureteMaritimeNbTraverseesProtegees(): ?int
+    {
+        return $this->sureteMaritimeNbTraverseesProtegees;
+    }
+
+    public function setSureteMaritimeNbTraverseesProtegees(?int $sureteMaritimeNbTraverseesProtegees): self
+    {
+        $this->sureteMaritimeNbTraverseesProtegees = $sureteMaritimeNbTraverseesProtegees;
 
         return $this;
     }
