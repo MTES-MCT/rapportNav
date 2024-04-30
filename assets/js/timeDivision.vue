@@ -540,6 +540,30 @@
             <td><input type="number" class="" v-model="protectionCulturelNbOpePoliceBCM" placeholder="0"></td>
           </tr>
 
+          <tr>
+            <td><strong>Souveraineté et protection des intérêts nationaux </strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre total de navires reconnus dans les approches maritimes (ZEE)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="souveraineteNbNavireApprocheMaritime" placeholder="0"></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d’heures dédiées à un évènement de piraterie ou brigandage</td>
+            <td><input type="time" class="" v-model="souveraineteNbHeuresMerPiraterie"></td>
+            <td></td>
+            <td><input type="time" class="" v-model="souveraineteNbHeuresVolPiraterie"></td>
+            <td></td>
+          </tr>
+
 
         </table>
     </div>
@@ -637,7 +661,10 @@
               protectionCulturelNbOpeScientifiques: this.value.protectionCulturelNbOpeScientifiques || null,
               sureteMaritimeNbHeuresVol: this.value.sureteMaritimeNbHeuresVol || null,
               sureteMaritimeNbOpeMer: this.value.sureteMaritimeNbOpeMer || null,
-              sureteMaritimeNbTraverseesProtegees: this.sureteMaritimeNbTraverseesProtegees || null
+              sureteMaritimeNbTraverseesProtegees: this.value.sureteMaritimeNbTraverseesProtegees || null,
+              souveraineteNbNavireApprocheMaritime: this.value.souveraineteNbNavireApprocheMaritime || null,
+              souveraineteNbHeuresMerPiraterie: this.value.souveraineteNbHeuresMerPiraterie || null,
+              souveraineteNbHeuresVolPiraterie: this.value.souveraineteNbHeuresVolPiraterie || null
             }
         },
         computed: {
@@ -726,7 +753,10 @@
                   protectionCulturelNbOpeScientifiques: this.protectionCulturelNbOpeScientifiques,
                   sureteMaritimeNbHeuresVol: this.sureteMaritimeNbHeuresVol,
                   sureteMaritimeNbOpeMer: this.sureteMaritimeNbOpeMer,
-                  sureteMaritimeNbTraverseesProtegees: this.sureteMaritimeNbTraverseesProtegees
+                  sureteMaritimeNbTraverseesProtegees: this.sureteMaritimeNbTraverseesProtegees,
+                  souveraineteNbNavireApprocheMaritime: this.souveraineteNbNavireApprocheMaritime,
+                  souveraineteNbHeuresMerPiraterie: this.souveraineteNbHeuresMerPiraterie,
+                  souveraineteNbHeuresVolPiraterie: this.souveraineteNbHeuresVolPiraterie
                 };
             }
         },

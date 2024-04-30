@@ -653,7 +653,10 @@ class DefaultController extends AbstractController {
           'protectionCulturelNbOpeScientifiques' => $rH->getProtectionCulturelNbOpeScientifiques(),
           'sureteMaritimeNbHeuresVol' => $rH->getSureteMaritimeNbHeuresVol() ? TimeConvert::minutesToTime($rH->getSureteMaritimeNbHeuresVol())->format("H:i") : null,
           'sureteMaritimeNbOpeMer' => $rH->getSureteMaritimeNbOpeMer(),
-          'sureteMaritimeNbTraverseesProtegees' => $rH->getSureteMaritimeNbTraverseesProtegees()
+          'sureteMaritimeNbTraverseesProtegees' => $rH->getSureteMaritimeNbTraverseesProtegees(),
+          'souveraineteNbNavireApprocheMaritime' => $rH->getSouveraineteNbNavireApprocheMaritime(),
+          'souveraineteNbHeuresMerPiraterie' => $rH->getSouveraineteNbHeuresMerPiraterie() ? TimeConvert::minutesToTime($rH->getSouveraineteNbHeuresMerPiraterie())->format("H:i") : null,
+          'souveraineteNbHeuresVolPiraterie' => $rH->getSouveraineteNbHeuresVolPiraterie() ? TimeConvert::minutesToTime($rH->getSouveraineteNbHeuresVolPiraterie())->format("H:i") : null
         ];
 
     }

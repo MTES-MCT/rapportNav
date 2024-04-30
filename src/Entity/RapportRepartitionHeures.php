@@ -441,6 +441,21 @@ class RapportRepartitionHeures {
        */
       private $sureteMaritimeNbTraverseesProtegees;
 
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $souveraineteNbNavireApprocheMaritime;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $souveraineteNbHeuresMerPiraterie;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $souveraineteNbHeuresVolPiraterie;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -1391,6 +1406,42 @@ class RapportRepartitionHeures {
     public function setSureteMaritimeNbTraverseesProtegees(?int $sureteMaritimeNbTraverseesProtegees): self
     {
         $this->sureteMaritimeNbTraverseesProtegees = $sureteMaritimeNbTraverseesProtegees;
+
+        return $this;
+    }
+
+    public function getSouveraineteNbNavireApprocheMaritime(): ?int
+    {
+        return $this->souveraineteNbNavireApprocheMaritime;
+    }
+
+    public function setSouveraineteNbNavireApprocheMaritime(?int $souveraineteNbNavireApprocheMaritime): self
+    {
+        $this->souveraineteNbNavireApprocheMaritime = $souveraineteNbNavireApprocheMaritime;
+
+        return $this;
+    }
+
+    public function getSouveraineteNbHeuresMerPiraterie(): ?int
+    {
+        return $this->souveraineteNbHeuresMerPiraterie;
+    }
+
+    public function setSouveraineteNbHeuresMerPiraterie(?int $souveraineteNbHeuresMerPiraterie): self
+    {
+        $this->souveraineteNbHeuresMerPiraterie = $souveraineteNbHeuresMerPiraterie;
+
+        return $this;
+    }
+
+    public function getSouveraineteNbHeuresVolPiraterie(): ?int
+    {
+        return $this->souveraineteNbHeuresVolPiraterie;
+    }
+
+    public function setSouveraineteNbHeuresVolPiraterie(?int $souveraineteNbHeuresVolPiraterie): self
+    {
+        $this->souveraineteNbHeuresVolPiraterie = $souveraineteNbHeuresVolPiraterie;
 
         return $this;
     }

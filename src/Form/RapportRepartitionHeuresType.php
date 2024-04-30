@@ -321,6 +321,17 @@ class RapportRepartitionHeuresType extends AbstractType {
           ->add('sureteMaritimeNbTraverseesProtegees', IntegerType::class, [
             'required' => false
           ])
+          ->add('souveraineteNbNavireApprocheMaritime', IntegerType::class, [
+            'required' => false
+          ])
+          ->add('souveraineteNbHeuresMerPiraterie', TimeType::class, [
+            'required' => false,
+            'widget' => 'single_text'
+          ])
+          ->add('souveraineteNbHeuresVolPiraterie', TimeType::class, [
+            'required' => false,
+            'widget' => 'single_text'
+          ])
 
 
         ;
@@ -415,6 +426,12 @@ class RapportRepartitionHeuresType extends AbstractType {
         ->addModelTransformer($this->transformer);
 
       $builder->get('sureteMaritimeNbHeuresVol')
+        ->addModelTransformer($this->transformer);
+
+      $builder->get('souveraineteNbHeuresMerPiraterie')
+        ->addModelTransformer($this->transformer);
+
+      $builder->get('souveraineteNbHeuresVolPiraterie')
         ->addModelTransformer($this->transformer);
 
 
