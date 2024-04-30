@@ -647,7 +647,10 @@ class DefaultController extends AbstractController {
           'luttePollutionParticipationANTIPOL' => $rH->getLuttePollutionParticipationANTIPOL(),
           'luttePollutionNbPollutionsDetectees' => $rH->getLuttePollutionNbPollutionsDetectees(),
           'luttePecheNbNavireControleVHFmer' => $rH->getLuttePecheNbNavireControleVHFmer(),
-          'luttePecheKgProduitsSaisisMer' => $rH->getLuttePecheKgProduitsSaisisMer()
+          'luttePecheKgProduitsSaisisMer' => $rH->getLuttePecheKgProduitsSaisisMer(),
+          'protectionCulturelNbHeuresMer' => $rH->getProtectionCulturelNbHeuresMer() ? TimeConvert::minutesToTime($rH->getProtectionCulturelNbHeuresMer())->format("H:i") : null,
+          'protectionCulturelNbOpePoliceBCM' => $rH->getProtectionCulturelNbOpePoliceBCM(),
+          'protectionCulturelNbOpeScientifiques' => $rH->getProtectionCulturelNbOpeScientifiques()
         ];
 
     }

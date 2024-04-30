@@ -493,6 +493,38 @@
             <td><input type="number" class="" v-model="luttePecheKgProduitsSaisisMer" placeholder="0"></td>
           </tr>
 
+          <tr>
+            <td><strong>Protection des biens culturels maritimes</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'heures</td>
+            <td><input type="time" class="" v-model="protectionCulturelNbHeuresMer"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'opérations scientifiques</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="protectionCulturelNbOpeScientifiques" placeholder="0"></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;Nombre d'opération de police des BCM</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="number" class="" v-model="protectionCulturelNbOpePoliceBCM" placeholder="0"></td>
+          </tr>
+
 
         </table>
     </div>
@@ -584,7 +616,10 @@
               luttePollutionParticipationANTIPOL: this.value.luttePollutionParticipationANTIPOL || null,
               luttePollutionNbPollutionsDetectees: this.value.luttePollutionNbPollutionsDetectees || null,
               luttePecheNbNavireControleVHFmer: this.value.luttePecheNbNavireControleVHFmer || null,
-              luttePecheKgProduitsSaisisMer: this.value.luttePecheKgProduitsSaisisMer || null
+              luttePecheKgProduitsSaisisMer: this.value.luttePecheKgProduitsSaisisMer || null,
+              protectionCulturelNbHeuresMer: this.value.protectionCulturelNbHeuresMer || null,
+              protectionCulturelNbOpePoliceBCM: this.value.protectionCulturelNbOpePoliceBCM || null,
+              protectionCulturelNbOpeScientifiques: this.value.protectionCulturelNbOpeScientifiques || null
             }
         },
         computed: {
@@ -667,7 +702,10 @@
                   luttePollutionParticipationANTIPOL: this.luttePollutionParticipationANTIPOL,
                   luttePollutionNbPollutionsDetectees: this.luttePollutionNbPollutionsDetectees,
                   luttePecheKgProduitsSaisisMer: this.luttePecheKgProduitsSaisisMer,
-                  luttePecheNbNavireControleVHFmer: this.luttePecheNbNavireControleVHFmer
+                  luttePecheNbNavireControleVHFmer: this.luttePecheNbNavireControleVHFmer,
+                  protectionCulturelNbHeuresMer: this.protectionCulturelNbHeuresMer,
+                  protectionCulturelNbOpePoliceBCM: this.protectionCulturelNbOpePoliceBCM,
+                  protectionCulturelNbOpeScientifiques: this.protectionCulturelNbOpeScientifiques
                 };
             }
         },

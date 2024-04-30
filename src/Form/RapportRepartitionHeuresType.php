@@ -301,94 +301,107 @@ class RapportRepartitionHeuresType extends AbstractType {
           ->add('luttePecheKgProduitsSaisisMer', IntegerType::class, [
             'required' => false
           ])
+          ->add('protectionCulturelNbHeuresMer', TimeType::class, [
+            'required' => false,
+            'widget' => 'single_text'
+          ])
+          ->add('protectionCulturelNbOpePoliceBCM', IntegerType::class, [
+            'required' => false
+          ])
+          ->add('protectionCulturelNbOpeScientifiques', IntegerType::class, [
+            'required' => false
+          ])
 
 
         ;
-        $builder->get('controleMer')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleTerre')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleAerien')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleAireProtegeeMer')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleAireProtegeeTerre')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleAireProtegeeAerien')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controlePollutionMer')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controlePollutionTerre')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controlePollutionAerien')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleEnvironnementMer')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleEnvironnementTerre')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleEnvironnementAerien')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleChlordeconeTotalMer')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleChlordeconeTotalTerre')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleChlordeconePartielMer')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleChlordeconePartielTerre')
-            ->addModelTransformer($this->transformer);
-        $builder->get('controleCroise')
-            ->addModelTransformer($this->transformer);
-        $builder->get('immigration')
-            ->addModelTransformer($this->transformer);
-        $builder->get('visiteSecurite')
-            ->addModelTransformer($this->transformer);
-        $builder->get('surveillanceManifestationMer')
-            ->addModelTransformer($this->transformer);
-        $builder->get('surveillanceManifestationTerre')
-            ->addModelTransformer($this->transformer);
-        $builder->get('surveillanceDpmMer')
-            ->addModelTransformer($this->transformer);
-        $builder->get('surveillanceDpmTerre')
-            ->addModelTransformer($this->transformer);
-        $builder->get('surete')
-            ->addModelTransformer($this->transformer);
-        $builder->get('maintienOrdre')
-            ->addModelTransformer($this->transformer);
-        $builder->get('assistance')
-            ->addModelTransformer($this->transformer);
-        $builder->get('plongee')
-            ->addModelTransformer($this->transformer);
-        $builder->get('sauvegardeHumaineNbHeureMer')
+      $builder->get('controleMer')
           ->addModelTransformer($this->transformer);
-        $builder->get('sauvegardeHumaineNbHeuresVol')
+      $builder->get('controleTerre')
           ->addModelTransformer($this->transformer);
-        $builder->get('sauvegardeHumaineMigratoireNbHeuresMer')
+      $builder->get('controleAerien')
           ->addModelTransformer($this->transformer);
-        $builder->get('sauvegardeHumaineMigratoireNbHeuresVol')
+      $builder->get('controleAireProtegeeMer')
           ->addModelTransformer($this->transformer);
+      $builder->get('controleAireProtegeeTerre')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controleAireProtegeeAerien')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controlePollutionMer')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controlePollutionTerre')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controlePollutionAerien')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controleEnvironnementMer')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controleEnvironnementTerre')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controleEnvironnementAerien')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controleChlordeconeTotalMer')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controleChlordeconeTotalTerre')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controleChlordeconePartielMer')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controleChlordeconePartielTerre')
+          ->addModelTransformer($this->transformer);
+      $builder->get('controleCroise')
+          ->addModelTransformer($this->transformer);
+      $builder->get('immigration')
+          ->addModelTransformer($this->transformer);
+      $builder->get('visiteSecurite')
+          ->addModelTransformer($this->transformer);
+      $builder->get('surveillanceManifestationMer')
+          ->addModelTransformer($this->transformer);
+      $builder->get('surveillanceManifestationTerre')
+          ->addModelTransformer($this->transformer);
+      $builder->get('surveillanceDpmMer')
+          ->addModelTransformer($this->transformer);
+      $builder->get('surveillanceDpmTerre')
+          ->addModelTransformer($this->transformer);
+      $builder->get('surete')
+          ->addModelTransformer($this->transformer);
+      $builder->get('maintienOrdre')
+          ->addModelTransformer($this->transformer);
+      $builder->get('assistance')
+          ->addModelTransformer($this->transformer);
+      $builder->get('plongee')
+          ->addModelTransformer($this->transformer);
+      $builder->get('sauvegardeHumaineNbHeureMer')
+        ->addModelTransformer($this->transformer);
+      $builder->get('sauvegardeHumaineNbHeuresVol')
+        ->addModelTransformer($this->transformer);
+      $builder->get('sauvegardeHumaineMigratoireNbHeuresMer')
+        ->addModelTransformer($this->transformer);
+      $builder->get('sauvegardeHumaineMigratoireNbHeuresVol')
+        ->addModelTransformer($this->transformer);
 
-        $builder->get('assistanceNbHeuresMer')
-          ->addModelTransformer($this->transformer);
-        $builder->get('assistanceNbHeuresVol')
-          ->addModelTransformer($this->transformer);
+      $builder->get('assistanceNbHeuresMer')
+        ->addModelTransformer($this->transformer);
+      $builder->get('assistanceNbHeuresVol')
+        ->addModelTransformer($this->transformer);
 
 
-        $builder->get('lutteTraficArmesNbHeuresMer')
-          ->addModelTransformer($this->transformer);
-        $builder->get('lutteTraficArmesNbHeureVol')
-          ->addModelTransformer($this->transformer);
+      $builder->get('lutteTraficArmesNbHeuresMer')
+        ->addModelTransformer($this->transformer);
+      $builder->get('lutteTraficArmesNbHeureVol')
+        ->addModelTransformer($this->transformer);
 
-        $builder->get('lutteTraficStupefiantNbHeuresMer')
-          ->addModelTransformer($this->transformer);
-        $builder->get('lutteTraficStupefiantNbHeuresVol')
-          ->addModelTransformer($this->transformer);
+      $builder->get('lutteTraficStupefiantNbHeuresMer')
+        ->addModelTransformer($this->transformer);
+      $builder->get('lutteTraficStupefiantNbHeuresVol')
+        ->addModelTransformer($this->transformer);
 
-        $builder->get('lutteTraficEspecesNbHeuresMer')
-          ->addModelTransformer($this->transformer);
-        $builder->get('lutteTraficEspecesNbHeuresVol')
-          ->addModelTransformer($this->transformer);
+      $builder->get('lutteTraficEspecesNbHeuresMer')
+        ->addModelTransformer($this->transformer);
+      $builder->get('lutteTraficEspecesNbHeuresVol')
+        ->addModelTransformer($this->transformer);
 
       $builder->get('immigrationNbHeuresVol')
+        ->addModelTransformer($this->transformer);
+
+      $builder->get('protectionCulturelNbHeuresMer')
         ->addModelTransformer($this->transformer);
 
 

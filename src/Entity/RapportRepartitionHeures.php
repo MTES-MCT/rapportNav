@@ -411,6 +411,21 @@ class RapportRepartitionHeures {
        */
       private $luttePecheKgProduitsSaisisMer;
 
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $protectionCulturelNbHeuresMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $protectionCulturelNbOpeScientifiques;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $protectionCulturelNbOpePoliceBCM;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -1289,6 +1304,42 @@ class RapportRepartitionHeures {
     public function setLuttePecheKgProduitsSaisisMer(?int $luttePecheKgProduitsSaisisMer): self
     {
         $this->luttePecheKgProduitsSaisisMer = $luttePecheKgProduitsSaisisMer;
+
+        return $this;
+    }
+
+    public function getProtectionCulturelNbHeuresMer(): ?int
+    {
+        return $this->protectionCulturelNbHeuresMer;
+    }
+
+    public function setProtectionCulturelNbHeuresMer(?int $protectionCulturelNbHeuresMer): self
+    {
+        $this->protectionCulturelNbHeuresMer = $protectionCulturelNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getProtectionCulturelNbOpeScientifiques(): ?int
+    {
+        return $this->protectionCulturelNbOpeScientifiques;
+    }
+
+    public function setProtectionCulturelNbOpeScientifiques(?int $protectionCulturelNbOpeScientifiques): self
+    {
+        $this->protectionCulturelNbOpeScientifiques = $protectionCulturelNbOpeScientifiques;
+
+        return $this;
+    }
+
+    public function getProtectionCulturelNbOpePoliceBCM(): ?int
+    {
+        return $this->protectionCulturelNbOpePoliceBCM;
+    }
+
+    public function setProtectionCulturelNbOpePoliceBCM(?int $protectionCulturelNbOpePoliceBCM): self
+    {
+        $this->protectionCulturelNbOpePoliceBCM = $protectionCulturelNbOpePoliceBCM;
 
         return $this;
     }
