@@ -639,7 +639,13 @@ class DefaultController extends AbstractController {
           'immigrationNbHeuresVol' => $rH->getImmigrationNbHeuresVol() ? TimeConvert::minutesToTime($rH->getImmigrationNbHeuresVol())->format("H:i") : null,
           'immigrationNbNaviresInterceptes' => $rH->getImmigrationNbNaviresInterceptes(),
           'immigrationNbMigrantInterceptes' => $rH->getImmigrationNbMigrantInterceptes(),
-          'immigrationNbPasseursInterceptes' => $rH->getImmigrationNbPasseursInterceptes()
+          'immigrationNbPasseursInterceptes' => $rH->getImmigrationNbPasseursInterceptes(),
+          'luttePollutionDeploiementEnMer' => $rH->getLuttePollutionDeploiementEnMer(),
+          'luttePollutionNbDeroutements' => $rH->getLuttePollutionNbDeroutements(),
+          'luttePollutionNbInfractions' => $rH->getLuttePollutionNbInfractions(),
+          'luttePollutionPV' => $rH->getLuttePollutionPV(),
+          'luttePollutionParticipationANTIPOL' => $rH->getLuttePollutionParticipationANTIPOL(),
+          'luttePollutionNbPollutionsDetectees' => $rH->getLuttePollutionNbPollutionsDetectees()
         ];
 
     }

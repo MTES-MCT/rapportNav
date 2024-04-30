@@ -51,6 +51,41 @@
                 <td/>
             </tr>
             <tr>
+              <td>Participation à une opération de lutte ANTIPOL en mer (simple brassage)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" class="" v-model="luttePollutionParticipationANTIPOL"></td>
+            </tr>
+            <tr>
+              <td>Déploiement d’un dispositif de lutte anti-pollution en mer (dispersant, barrage, etc…)</td>
+              <td><input type="number" class="" v-model="luttePollutionDeploiementEnMer"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Nombre d'infractions constatées (Répression contre les rejets illicites, lutte contre les pollutions)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" class="" v-model="luttePollutionNbInfractions"></td>
+            </tr>
+            <tr>
+              <td>Nombre de déroutements effectués (Répression contre les rejets illicites, lutte contre les pollutions)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" class="" v-model="luttePollutionNbDeroutements"></td>
+            </tr>
+            <tr>
+              <td>Nombre de pollutions détectées et/ou constatées par un agent habilité (AEM 4.2.8)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="number" class="" v-model="luttePollutionNbPollutionsDetectees"></td>
+            </tr>
+            <tr>
                 <td>Contrôle croisés</td>
                 <td/>
                 <td><input type="time" class="" v-model="controleCroise">
@@ -519,8 +554,13 @@
               immigrationNbHeuresVol: this.value.immigrationNbHeuresVol || null,
               immigrationNbNaviresInterceptes: this.value.immigrationNbNaviresInterceptes || null,
               immigrationNbMigrantInterceptes: this.value.immigrationNbMigrantInterceptes || null,
-              immigrationNbPasseursInterceptes: this.value.immigrationNbPasseursInterceptes || null
-
+              immigrationNbPasseursInterceptes: this.value.immigrationNbPasseursInterceptes || null,
+              luttePollutionDeploiementEnMer: this.value.luttePollutionDeploiementEnMer || null,
+              luttePollutionNbDeroutements: this.value.luttePollutionNbDeroutements || null,
+              luttePollutionNbInfractions: this.value.luttePollutionNbInfractions || null,
+              luttePollutionPV: this.value.luttePollutionPV || null,
+              luttePollutionParticipationANTIPOL: this.value.luttePollutionParticipationANTIPOL || null,
+              luttePollutionNbPollutionsDetectees: this.value.luttePollutionNbPollutionsDetectees || null
             }
         },
         computed: {
@@ -596,7 +636,12 @@
                   immigrationNbHeuresVol: this.immigrationNbHeuresVol,
                   immigrationNbNaviresInterceptes: this.immigrationNbNaviresInterceptes,
                   immigrationNbMigrantInterceptes: this.immigrationNbMigrantInterceptes,
-
+                  luttePollutionDeploiementEnMer: this.luttePollutionDeploiementEnMer,
+                  luttePollutionNbDeroutements: this.luttePollutionNbDeroutements,
+                  luttePollutionNbInfractions: this.luttePollutionNbInfractions,
+                  luttePollutionPV: this.luttePollutionPV,
+                  luttePollutionParticipationANTIPOL: this.luttePollutionParticipationANTIPOL,
+                  luttePollutionNbPollutionsDetectees: this.luttePollutionNbPollutionsDetectees
                 };
             }
         },

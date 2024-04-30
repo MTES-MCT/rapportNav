@@ -277,6 +277,24 @@ class RapportRepartitionHeuresType extends AbstractType {
           ->add('immigrationNbPasseursInterceptes', IntegerType::class, [
             'required' => false,
           ])
+          ->add('luttePollutionDeploiementEnMer', IntegerType::class, [
+            'required' => false
+          ])
+          ->add('luttePollutionNbDeroutements', IntegerType::class, [
+            'required' => false
+          ])
+          ->add('luttePollutionNbInfractions', IntegerType::class, [
+            'required' => false
+          ])
+          ->add('luttePollutionPV', IntegerType::class, [
+            'required' => false
+          ])
+          ->add('luttePollutionParticipationANTIPOL', IntegerType::class, [
+            'required' => false
+          ])
+          ->add('luttePollutionNbPollutionsDetectees', IntegerType::class, [
+            'required' => false
+          ])
 
 
         ;
