@@ -161,6 +161,301 @@ class RapportRepartitionHeures {
      */
     private $plongee;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineNbHeureMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineNbHeuresVol;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineNbOpeConduites;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineNbPersonnesSecourues;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbHeuresMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbHeuresVol;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbOpeConduite;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, name="sauvegarde_humaine_migratoire_nb_embarcations_assistees_terre")
+     */
+    private $sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbOpeSauvetageConduites;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sauvegardeHumaineMigratoireNbPersonnesSecourues;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbHeuresMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbHeuresVol;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbOpeANED;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbInterventionMiseEnDemeure;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbMiseEnDemeureEvaluation;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, name="assistance_nb_mise_en_oeuvre_capinav")
+     */
+    private $assistanceNbMiseEnOeuvreCAPINAV;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbRemorquages;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbOpeMaintenanceSignalisation;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbOpeDeminage;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistanceNbMunitionsDetruites;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assistancePoidsMatiereActive;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $lutteTraficArmesNbHeuresMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $lutteTraficArmesNbHeureVol;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $lutteTraficArmesNbOpeMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $lutteTraficArmesNbInspectionsMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $lutteTraficArmesNbNaviresSaisisMer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $lutteTraficArmesNbArmesMunitionsSaisies;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+      private $lutteTraficStupefiantNbHeuresMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantNbHeuresVol;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantNbOpeNARCO;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantNbInspectionsMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantNbNavireSaisisMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficStupefiantKgSaisis;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficEspecesNbHeuresMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficEspecesNbHeuresVol;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficEspecesNbNaviresSaisisMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $lutteTraficEspecesNbSaisis;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $immigrationNbHeuresVol;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $immigrationNbNaviresInterceptes;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $immigrationNbMigrantInterceptes;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $immigrationNbPasseursInterceptes;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionParticipationANTIPOL;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionDeploiementEnMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionNbInfractions;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionPV;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionNbDeroutements;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePollutionNbPollutionsDetectees;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePecheNbNavireControleVHFmer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $luttePecheKgProduitsSaisisMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $protectionCulturelNbHeuresMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $protectionCulturelNbOpeScientifiques;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $protectionCulturelNbOpePoliceBCM;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $sureteMaritimeNbHeuresVol;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $sureteMaritimeNbOpeMer;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $sureteMaritimeNbTraverseesProtegees;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $souveraineteNbNavireApprocheMaritime;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $souveraineteNbHeuresMerPiraterie;
+
+      /**
+       * @ORM\Column(type="integer", nullable=true)
+       */
+      private $souveraineteNbHeuresVolPiraterie;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -440,6 +735,714 @@ class RapportRepartitionHeures {
 
     public function setPlongee(?int $plongee): self {
         $this->plongee = $plongee;
+        return $this;
+    }
+
+    public function getSauvegardeHumaineNbHeureMer(): ?int
+    {
+        return $this->sauvegardeHumaineNbHeureMer;
+    }
+
+    public function setSauvegardeHumaineNbHeureMer(?int $sauvegardeHumaineNbHeureMer): self
+    {
+        $this->sauvegardeHumaineNbHeureMer = $sauvegardeHumaineNbHeureMer;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineNbHeuresVol(): ?int
+    {
+        return $this->sauvegardeHumaineNbHeuresVol;
+    }
+
+    public function setSauvegardeHumaineNbHeuresVol(?int $sauvegardeHumaineNbHeuresVol): self
+    {
+        $this->sauvegardeHumaineNbHeuresVol = $sauvegardeHumaineNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineNbOpeConduites(): ?int
+    {
+        return $this->sauvegardeHumaineNbOpeConduites;
+    }
+
+    public function setSauvegardeHumaineNbOpeConduites(?int $sauvegardeHumaineNbOpeConduites): self
+    {
+        $this->sauvegardeHumaineNbOpeConduites = $sauvegardeHumaineNbOpeConduites;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineNbPersonnesSecourues(): ?int
+    {
+        return $this->sauvegardeHumaineNbPersonnesSecourues;
+    }
+
+    public function setSauvegardeHumaineNbPersonnesSecourues(?int $sauvegardeHumaineNbPersonnesSecourues): self
+    {
+        $this->sauvegardeHumaineNbPersonnesSecourues = $sauvegardeHumaineNbPersonnesSecourues;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbHeuresMer(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbHeuresMer;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbHeuresMer(?int $sauvegardeHumaineMigratoireNbHeuresMer): self
+    {
+        $this->sauvegardeHumaineMigratoireNbHeuresMer = $sauvegardeHumaineMigratoireNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbHeuresVol(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbHeuresVol;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbHeuresVol(?int $sauvegardeHumaineMigratoireNbHeuresVol): self
+    {
+        $this->sauvegardeHumaineMigratoireNbHeuresVol = $sauvegardeHumaineMigratoireNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbOpeConduite(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbOpeConduite;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbOpeConduite(?int $sauvegardeHumaineMigratoireNbOpeConduite): self
+    {
+        $this->sauvegardeHumaineMigratoireNbOpeConduite = $sauvegardeHumaineMigratoireNbOpeConduite;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbEmbarcationsSansIntervention(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbEmbarcationsSansIntervention(?int $sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention): self
+    {
+        $this->sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention = $sauvegardeHumaineMigratoireNbEmbarcationsSansIntervention;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre(?int $sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre): self
+    {
+        $this->sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre = $sauvegardeHumaineMigratoireNbEmbarcationsAssisteesRetourTerre;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbOpeSauvetageConduites(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbOpeSauvetageConduites;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbOpeSauvetageConduites(?int $sauvegardeHumaineMigratoireNbOpeSauvetageConduites): self
+    {
+        $this->sauvegardeHumaineMigratoireNbOpeSauvetageConduites = $sauvegardeHumaineMigratoireNbOpeSauvetageConduites;
+
+        return $this;
+    }
+
+    public function getSauvegardeHumaineMigratoireNbPersonnesSecourues(): ?int
+    {
+        return $this->sauvegardeHumaineMigratoireNbPersonnesSecourues;
+    }
+
+    public function setSauvegardeHumaineMigratoireNbPersonnesSecourues(?int $sauvegardeHumaineMigratoireNbPersonnesSecourues): self
+    {
+        $this->sauvegardeHumaineMigratoireNbPersonnesSecourues = $sauvegardeHumaineMigratoireNbPersonnesSecourues;
+
+        return $this;
+    }
+
+    public function getAssistanceNbHeuresMer(): ?int
+    {
+        return $this->assistanceNbHeuresMer;
+    }
+
+    public function setAssistanceNbHeuresMer(?int $assistanceNbHeuresMer): self
+    {
+        $this->assistanceNbHeuresMer = $assistanceNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getAssistanceNbHeuresVol(): ?int
+    {
+        return $this->assistanceNbHeuresVol;
+    }
+
+    public function setAssistanceNbHeuresVol(?int $assistanceNbHeuresVol): self
+    {
+        $this->assistanceNbHeuresVol = $assistanceNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getAssistanceNbOpeANED(): ?int
+    {
+        return $this->assistanceNbOpeANED;
+    }
+
+    public function setAssistanceNbOpeANED(?int $assistanceNbOpeANED): self
+    {
+        $this->assistanceNbOpeANED = $assistanceNbOpeANED;
+
+        return $this;
+    }
+
+    public function getAssistanceNbInterventionMiseEnDemeure(): ?int
+    {
+        return $this->assistanceNbInterventionMiseEnDemeure;
+    }
+
+    public function setAssistanceNbInterventionMiseEnDemeure(?int $assistanceNbInterventionMiseEnDemeure): self
+    {
+        $this->assistanceNbInterventionMiseEnDemeure = $assistanceNbInterventionMiseEnDemeure;
+
+        return $this;
+    }
+
+    public function getAssistanceNbMiseEnDemeureEvaluation(): ?int
+    {
+        return $this->assistanceNbMiseEnDemeureEvaluation;
+    }
+
+    public function setAssistanceNbMiseEnDemeureEvaluation(?int $assistanceNbMiseEnDemeureEvaluation): self
+    {
+        $this->assistanceNbMiseEnDemeureEvaluation = $assistanceNbMiseEnDemeureEvaluation;
+
+        return $this;
+    }
+
+    public function getAssistanceNbMiseEnOeuvreCAPINAV(): ?int
+    {
+        return $this->assistanceNbMiseEnOeuvreCAPINAV;
+    }
+
+    public function setAssistanceNbMiseEnOeuvreCAPINAV(?int $assistanceNbMiseEnOeuvreCAPINAV): self
+    {
+        $this->assistanceNbMiseEnOeuvreCAPINAV = $assistanceNbMiseEnOeuvreCAPINAV;
+
+        return $this;
+    }
+
+    public function getAssistanceNbRemorquages(): ?int
+    {
+        return $this->assistanceNbRemorquages;
+    }
+
+    public function setAssistanceNbRemorquages(?int $assistanceNbRemorquages): self
+    {
+        $this->assistanceNbRemorquages = $assistanceNbRemorquages;
+
+        return $this;
+    }
+
+    public function getAssistanceNbOpeMaintenanceSignalisation(): ?int
+    {
+        return $this->assistanceNbOpeMaintenanceSignalisation;
+    }
+
+    public function setAssistanceNbOpeMaintenanceSignalisation(?int $assistanceNbOpeMaintenanceSignalisation): self
+    {
+        $this->assistanceNbOpeMaintenanceSignalisation = $assistanceNbOpeMaintenanceSignalisation;
+
+        return $this;
+    }
+
+    public function getAssistanceNbOpeDeminage(): ?int
+    {
+        return $this->assistanceNbOpeDeminage;
+    }
+
+    public function setAssistanceNbOpeDeminage(?int $assistanceNbOpeDeminage): self
+    {
+        $this->assistanceNbOpeDeminage = $assistanceNbOpeDeminage;
+
+        return $this;
+    }
+
+    public function getAssistanceNbMunitionsDetruites(): ?int
+    {
+        return $this->assistanceNbMunitionsDetruites;
+    }
+
+    public function setAssistanceNbMunitionsDetruites(?int $assistanceNbMunitionsDetruites): self
+    {
+        $this->assistanceNbMunitionsDetruites = $assistanceNbMunitionsDetruites;
+
+        return $this;
+    }
+
+    public function getAssistancePoidsMatiereActive(): ?int
+    {
+        return $this->assistancePoidsMatiereActive;
+    }
+
+    public function setAssistancePoidsMatiereActive(?int $assistancePoidsMatiereActive): self
+    {
+        $this->assistancePoidsMatiereActive = $assistancePoidsMatiereActive;
+
+        return $this;
+    }
+
+    public function getLutteTraficArmesNbHeuresMer(): ?int
+    {
+        return $this->lutteTraficArmesNbHeuresMer;
+    }
+
+    public function setLutteTraficArmesNbHeuresMer(?int $lutteTraficArmesNbHeuresMer): self
+    {
+        $this->lutteTraficArmesNbHeuresMer = $lutteTraficArmesNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficArmesNbHeureVol(): ?int
+    {
+        return $this->lutteTraficArmesNbHeureVol;
+    }
+
+    public function setLutteTraficArmesNbHeureVol(?int $lutteTraficArmesNbHeureVol): self
+    {
+        $this->lutteTraficArmesNbHeureVol = $lutteTraficArmesNbHeureVol;
+
+        return $this;
+    }
+
+    public function getLutteTraficArmesNbOpeMer(): ?int
+    {
+        return $this->lutteTraficArmesNbOpeMer;
+    }
+
+    public function setLutteTraficArmesNbOpeMer(?int $lutteTraficArmesNbOpeMer): self
+    {
+        $this->lutteTraficArmesNbOpeMer = $lutteTraficArmesNbOpeMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficArmesNbInspectionsMer(): ?int
+    {
+        return $this->lutteTraficArmesNbInspectionsMer;
+    }
+
+    public function setLutteTraficArmesNbInspectionsMer(?int $lutteTraficArmesNbInspectionsMer): self
+    {
+        $this->lutteTraficArmesNbInspectionsMer = $lutteTraficArmesNbInspectionsMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficArmesNbNaviresSaisisMer(): ?int
+    {
+        return $this->lutteTraficArmesNbNaviresSaisisMer;
+    }
+
+    public function setLutteTraficArmesNbNaviresSaisisMer(?int $lutteTraficArmesNbNaviresSaisisMer): self
+    {
+        $this->lutteTraficArmesNbNaviresSaisisMer = $lutteTraficArmesNbNaviresSaisisMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficArmesNbArmesMunitionsSaisies(): ?int
+    {
+        return $this->lutteTraficArmesNbArmesMunitionsSaisies;
+    }
+
+    public function setLutteTraficArmesNbArmesMunitionsSaisies(?int $lutteTraficArmesNbArmesMunitionsSaisies): self
+    {
+        $this->lutteTraficArmesNbArmesMunitionsSaisies = $lutteTraficArmesNbArmesMunitionsSaisies;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbHeuresMer(): ?int
+    {
+        return $this->lutteTraficStupefiantNbHeuresMer;
+    }
+
+    public function setLutteTraficStupefiantNbHeuresMer(?int $lutteTraficStupefiantNbHeuresMer): self
+    {
+        $this->lutteTraficStupefiantNbHeuresMer = $lutteTraficStupefiantNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbHeuresVol(): ?int
+    {
+        return $this->lutteTraficStupefiantNbHeuresVol;
+    }
+
+    public function setLutteTraficStupefiantNbHeuresVol(?int $lutteTraficStupefiantNbHeuresVol): self
+    {
+        $this->lutteTraficStupefiantNbHeuresVol = $lutteTraficStupefiantNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbOpeNARCO(): ?int
+    {
+        return $this->lutteTraficStupefiantNbOpeNARCO;
+    }
+
+    public function setLutteTraficStupefiantNbOpeNARCO(?int $lutteTraficStupefiantNbOpeNARCO): self
+    {
+        $this->lutteTraficStupefiantNbOpeNARCO = $lutteTraficStupefiantNbOpeNARCO;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbInspectionsMer(): ?int
+    {
+        return $this->lutteTraficStupefiantNbInspectionsMer;
+    }
+
+    public function setLutteTraficStupefiantNbInspectionsMer(?int $lutteTraficStupefiantNbInspectionsMer): self
+    {
+        $this->lutteTraficStupefiantNbInspectionsMer = $lutteTraficStupefiantNbInspectionsMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantNbNavireSaisisMer(): ?int
+    {
+        return $this->lutteTraficStupefiantNbNavireSaisisMer;
+    }
+
+    public function setLutteTraficStupefiantNbNavireSaisisMer(?int $lutteTraficStupefiantNbNavireSaisisMer): self
+    {
+        $this->lutteTraficStupefiantNbNavireSaisisMer = $lutteTraficStupefiantNbNavireSaisisMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficStupefiantKgSaisis(): ?int
+    {
+        return $this->lutteTraficStupefiantKgSaisis;
+    }
+
+    public function setLutteTraficStupefiantKgSaisis(?int $lutteTraficStupefiantKgSaisis): self
+    {
+        $this->lutteTraficStupefiantKgSaisis = $lutteTraficStupefiantKgSaisis;
+
+        return $this;
+    }
+
+    public function getLutteTraficEspecesNbHeuresMer(): ?int
+    {
+        return $this->lutteTraficEspecesNbHeuresMer;
+    }
+
+    public function setLutteTraficEspecesNbHeuresMer(?int $lutteTraficEspecesNbHeuresMer): self
+    {
+        $this->lutteTraficEspecesNbHeuresMer = $lutteTraficEspecesNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficEspecesNbHeuresVol(): ?int
+    {
+        return $this->lutteTraficEspecesNbHeuresVol;
+    }
+
+    public function setLutteTraficEspecesNbHeuresVol(?int $lutteTraficEspecesNbHeuresVol): self
+    {
+        $this->lutteTraficEspecesNbHeuresVol = $lutteTraficEspecesNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getLutteTraficEspecesNbNaviresSaisisMer(): ?int
+    {
+        return $this->lutteTraficEspecesNbNaviresSaisisMer;
+    }
+
+    public function setLutteTraficEspecesNbNaviresSaisisMer(?int $lutteTraficEspecesNbNaviresSaisisMer): self
+    {
+        $this->lutteTraficEspecesNbNaviresSaisisMer = $lutteTraficEspecesNbNaviresSaisisMer;
+
+        return $this;
+    }
+
+    public function getLutteTraficEspecesNbSaisis(): ?int
+    {
+        return $this->lutteTraficEspecesNbSaisis;
+    }
+
+    public function setLutteTraficEspecesNbSaisis(?int $lutteTraficEspecesNbSaisis): self
+    {
+        $this->lutteTraficEspecesNbSaisis = $lutteTraficEspecesNbSaisis;
+
+        return $this;
+    }
+
+    public function getImmigrationNbHeuresVol(): ?int
+    {
+        return $this->immigrationNbHeuresVol;
+    }
+
+    public function setImmigrationNbHeuresVol(?int $immigrationNbHeuresVol): self
+    {
+        $this->immigrationNbHeuresVol = $immigrationNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getImmigrationNbNaviresInterceptes(): ?int
+    {
+        return $this->immigrationNbNaviresInterceptes;
+    }
+
+    public function setImmigrationNbNaviresInterceptes(?int $immigrationNbNaviresInterceptes): self
+    {
+        $this->immigrationNbNaviresInterceptes = $immigrationNbNaviresInterceptes;
+
+        return $this;
+    }
+
+    public function getImmigrationNbMigrantInterceptes(): ?int
+    {
+        return $this->immigrationNbMigrantInterceptes;
+    }
+
+    public function setImmigrationNbMigrantInterceptes(?int $immigrationNbMigrantInterceptes): self
+    {
+        $this->immigrationNbMigrantInterceptes = $immigrationNbMigrantInterceptes;
+
+        return $this;
+    }
+
+    public function getImmigrationNbPasseursInterceptes(): ?int
+    {
+        return $this->immigrationNbPasseursInterceptes;
+    }
+
+    public function setImmigrationNbPasseursInterceptes(?int $immigrationNbPasseursInterceptes): self
+    {
+        $this->immigrationNbPasseursInterceptes = $immigrationNbPasseursInterceptes;
+
+        return $this;
+    }
+
+    public function getLuttePollutionParticipationANTIPOL(): ?int
+    {
+        return $this->luttePollutionParticipationANTIPOL;
+    }
+
+    public function setLuttePollutionParticipationANTIPOL(?int $luttePollutionParticipationANTIPOL): self
+    {
+        $this->luttePollutionParticipationANTIPOL = $luttePollutionParticipationANTIPOL;
+
+        return $this;
+    }
+
+    public function getLuttePollutionDeploiementEnMer(): ?int
+    {
+        return $this->luttePollutionDeploiementEnMer;
+    }
+
+    public function setLuttePollutionDeploiementEnMer(?int $luttePollutionDeploiementEnMer): self
+    {
+        $this->luttePollutionDeploiementEnMer = $luttePollutionDeploiementEnMer;
+
+        return $this;
+    }
+
+    public function getLuttePollutionNbInfractions(): ?int
+    {
+        return $this->luttePollutionNbInfractions;
+    }
+
+    public function setLuttePollutionNbInfractions(?int $luttePollutionNbInfractions): self
+    {
+        $this->luttePollutionNbInfractions = $luttePollutionNbInfractions;
+
+        return $this;
+    }
+
+    public function getLuttePollutionPV(): ?int
+    {
+        return $this->luttePollutionPV;
+    }
+
+    public function setLuttePollutionPV(?int $luttePollutionPV): self
+    {
+        $this->luttePollutionPV = $luttePollutionPV;
+
+        return $this;
+    }
+
+    public function getLuttePollutionNbDeroutements(): ?int
+    {
+        return $this->luttePollutionNbDeroutements;
+    }
+
+    public function setLuttePollutionNbDeroutements(?int $luttePollutionNbDeroutements): self
+    {
+        $this->luttePollutionNbDeroutements = $luttePollutionNbDeroutements;
+
+        return $this;
+    }
+
+    public function getLuttePollutionNbPollutionsDetectees(): ?int
+    {
+        return $this->luttePollutionNbPollutionsDetectees;
+    }
+
+    public function setLuttePollutionNbPollutionsDetectees(?int $luttePollutionNbPollutionsDetectees): self
+    {
+        $this->luttePollutionNbPollutionsDetectees = $luttePollutionNbPollutionsDetectees;
+
+        return $this;
+    }
+
+    public function getLuttePecheNbNavireControleVHFmer(): ?int
+    {
+        return $this->luttePecheNbNavireControleVHFmer;
+    }
+
+    public function setLuttePecheNbNavireControleVHFmer(?int $luttePecheNbNavireControleVHFmer): self
+    {
+        $this->luttePecheNbNavireControleVHFmer = $luttePecheNbNavireControleVHFmer;
+
+        return $this;
+    }
+
+    public function getLuttePecheKgProduitsSaisisMer(): ?int
+    {
+        return $this->luttePecheKgProduitsSaisisMer;
+    }
+
+    public function setLuttePecheKgProduitsSaisisMer(?int $luttePecheKgProduitsSaisisMer): self
+    {
+        $this->luttePecheKgProduitsSaisisMer = $luttePecheKgProduitsSaisisMer;
+
+        return $this;
+    }
+
+    public function getProtectionCulturelNbHeuresMer(): ?int
+    {
+        return $this->protectionCulturelNbHeuresMer;
+    }
+
+    public function setProtectionCulturelNbHeuresMer(?int $protectionCulturelNbHeuresMer): self
+    {
+        $this->protectionCulturelNbHeuresMer = $protectionCulturelNbHeuresMer;
+
+        return $this;
+    }
+
+    public function getProtectionCulturelNbOpeScientifiques(): ?int
+    {
+        return $this->protectionCulturelNbOpeScientifiques;
+    }
+
+    public function setProtectionCulturelNbOpeScientifiques(?int $protectionCulturelNbOpeScientifiques): self
+    {
+        $this->protectionCulturelNbOpeScientifiques = $protectionCulturelNbOpeScientifiques;
+
+        return $this;
+    }
+
+    public function getProtectionCulturelNbOpePoliceBCM(): ?int
+    {
+        return $this->protectionCulturelNbOpePoliceBCM;
+    }
+
+    public function setProtectionCulturelNbOpePoliceBCM(?int $protectionCulturelNbOpePoliceBCM): self
+    {
+        $this->protectionCulturelNbOpePoliceBCM = $protectionCulturelNbOpePoliceBCM;
+
+        return $this;
+    }
+
+    public function getSureteMaritimeNbHeuresVol(): ?int
+    {
+        return $this->sureteMaritimeNbHeuresVol;
+    }
+
+    public function setSureteMaritimeNbHeuresVol(?int $sureteMaritimeNbHeuresVol): self
+    {
+        $this->sureteMaritimeNbHeuresVol = $sureteMaritimeNbHeuresVol;
+
+        return $this;
+    }
+
+    public function getSureteMaritimeNbOpeMer(): ?int
+    {
+        return $this->sureteMaritimeNbOpeMer;
+    }
+
+    public function setSureteMaritimeNbOpeMer(?int $sureteMaritimeNbOpeMer): self
+    {
+        $this->sureteMaritimeNbOpeMer = $sureteMaritimeNbOpeMer;
+
+        return $this;
+    }
+
+    public function getSureteMaritimeNbTraverseesProtegees(): ?int
+    {
+        return $this->sureteMaritimeNbTraverseesProtegees;
+    }
+
+    public function setSureteMaritimeNbTraverseesProtegees(?int $sureteMaritimeNbTraverseesProtegees): self
+    {
+        $this->sureteMaritimeNbTraverseesProtegees = $sureteMaritimeNbTraverseesProtegees;
+
+        return $this;
+    }
+
+    public function getSouveraineteNbNavireApprocheMaritime(): ?int
+    {
+        return $this->souveraineteNbNavireApprocheMaritime;
+    }
+
+    public function setSouveraineteNbNavireApprocheMaritime(?int $souveraineteNbNavireApprocheMaritime): self
+    {
+        $this->souveraineteNbNavireApprocheMaritime = $souveraineteNbNavireApprocheMaritime;
+
+        return $this;
+    }
+
+    public function getSouveraineteNbHeuresMerPiraterie(): ?int
+    {
+        return $this->souveraineteNbHeuresMerPiraterie;
+    }
+
+    public function setSouveraineteNbHeuresMerPiraterie(?int $souveraineteNbHeuresMerPiraterie): self
+    {
+        $this->souveraineteNbHeuresMerPiraterie = $souveraineteNbHeuresMerPiraterie;
+
+        return $this;
+    }
+
+    public function getSouveraineteNbHeuresVolPiraterie(): ?int
+    {
+        return $this->souveraineteNbHeuresVolPiraterie;
+    }
+
+    public function setSouveraineteNbHeuresVolPiraterie(?int $souveraineteNbHeuresVolPiraterie): self
+    {
+        $this->souveraineteNbHeuresVolPiraterie = $souveraineteNbHeuresVolPiraterie;
+
         return $this;
     }
 }

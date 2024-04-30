@@ -39,6 +39,7 @@ security:
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/public_api/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/healthcheck/alive, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: ROLE_ADMIN }
         - { path: ^/resetting, role: ROLE_ADMIN }
         - { path: ^/pam/*, roles:  [ROLE_PAM, ROLE_ADMIN, ROLE_SUPER_ADMIN] }
@@ -46,4 +47,5 @@ security:
         - { path: ^/api/contacts/*, roles: [ROLE_USER] }
         - { path: ^/api/pam, roles: [ROLE_PAM, ROLE_ADMIN, ROLE_SUPER_ADMIN] }
         - { path: ^/navpro/*, roles: [ROLE_ADMIN, ROLE_GM, ROLE_SUPER_ADMIN] }
+        - { path: ^/profile/*, roles: ROLE_USER }
         - { path: ^/, roles: [ROLE_ULAM, ROLE_ADMIN, ROLE_SUPER_ADMIN] }
