@@ -37,6 +37,8 @@ class ExportOdtRequest
 
   private ?array $crew;
 
+  private ?string $observations;
+
   private ?array $rescueInfo;
 
   private ?array $nauticalEventsInfo;
@@ -189,6 +191,15 @@ class ExportOdtRequest
 
   public function setCrew(array $crew): ExportOdtRequest {
     $this->crew = $crew;
+    return $this;
+  }
+
+  public function getObservations(): array {
+    return $this->observations;
+  }
+
+  public function setObservations(array $observations): ExportOdtRequest {
+    $this->observations = $observations;
     return $this;
   }
 

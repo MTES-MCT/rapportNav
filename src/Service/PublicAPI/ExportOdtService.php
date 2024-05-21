@@ -73,6 +73,7 @@ class ExportOdtService {
       'dureeMission' => $request->getDureeMission(),
       'destinataireCopies' => $copys,
 
+      'observations' => $request->getObservations() ?? '',
       'rescueInfoCount' => $rescueInfo['count'] ?? '',
       'rescueInfoHours' => $rescueInfo['durationInHours'] ?? '',
       'nauticalEventsInfoCount' => $nauticalEventsInfo['count'] ?? '',
