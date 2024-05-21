@@ -38,6 +38,12 @@ class ExportOdtService {
       $copys = 'DIRM MEMN/DIAM/SRCAM';
     }
 
+    $nauticalEventsInfo = $request->getNauticalEventsInfo() ?? [];
+    $antiPollutionInfo = $request->getAntiPollutionInfo() ?? [];
+    $rescueInfo = $request->getRescueInfo() ?? [];
+    $vigimerInfo = $request->getVigimerInfo() ?? [];
+    $traficSurveillanceInfo = $request->getTraficSurveillanceInfo() ?? [];
+
     $templateProcessor = new TemplateProcessor($this->templateDir . 'SAMPLE_Rapport_mission_rpn63.docx');
 
     $templateProcessor->setValues([
@@ -66,6 +72,20 @@ class ExportOdtService {
       'goMarine' => $request->getGoMarine(),
       'dureeMission' => $request->getDureeMission(),
       'destinataireCopies' => $copys,
+
+      'rescueInfoCount' => $rescueInfo['count'] ?? '',
+      'rescueInfoHours' => $rescueInfo['durationInHours'] ?? '',
+      'nauticalEventsInfoCount' => $nauticalEventsInfo['count'] ?? '',
+      'nauticalEventsInfoHours' => $nauticalEventsInfo['durationInHours'] ?? '',
+      'antiPollutionInfoCount' => $antiPollutionInfo['count'] ?? '',
+      'antiPollutionInfoHours' => $antiPollutionInfo['durationInHours'] ?? '',
+      'baaemAndVigimerInfoCount' => $vigimerInfo['count'] ?? '',
+      'baaemAndVigimerInfoHours' => $vigimerInfo['durationInHours'] ?? '',
+      'baaemAndVigimerInfoShips' => $vigimerInfo['amountOfInterrogatedShips'] ?? '',
+      'traficSurveillanceInfoCount' => $traficSurveillanceInfo['count'] ?? '',
+      'traficSurveillanceInfoHours' => $traficSurveillanceInfo['durationInHours'] ?? '',
+      'traficSurveillanceInfoShips' => $traficSurveillanceInfo['amountOfInterrogatedShips'] ?? '',
+
       /*'nomCommandant' => $nomCommandant,
       'roleBordee' => $bordee,*/
     ]);

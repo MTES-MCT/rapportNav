@@ -37,6 +37,17 @@ class ExportOdtRequest
 
   private ?array $crew;
 
+  private ?array $rescueInfo;
+
+  private ?array $nauticalEventsInfo;
+
+  private ?array $antiPollutionInfo;
+
+  private ?array $baaemAndVigimerInfo;
+
+  private ?array $traficSurveillanceInfo;
+
+
   public function getId(): string {
     return $this->id;
   }
@@ -178,6 +189,51 @@ class ExportOdtRequest
 
   public function setCrew(array $crew): ExportOdtRequest {
     $this->crew = $crew;
+    return $this;
+  }
+
+  public function getRescueInfo(): array {
+    return $this->rescueInfo;
+  }
+
+  public function setRescueInfo(array $rescueInfo): ExportOdtRequest {
+    $this->rescueInfo = $rescueInfo;
+    return $this;
+  }
+
+  public function getNauticalEventsInfo(): array {
+    return $this->nauticalEventsInfo;
+  }
+
+  public function setNauticalEventsInfo(array $nauticalEventsInfo): ExportOdtRequest {
+    $this->nauticalEventsInfo = $nauticalEventsInfo;
+    return $this;
+  }
+
+  public function getAntiPollutionInfo(): array {
+    return $this->antiPollutionInfo;
+  }
+
+  public function setAntiPollutionInfo(array $antiPollutionInfo): ExportOdtRequest {
+    $this->antiPollutionInfo = $antiPollutionInfo;
+    return $this;
+  }
+
+  public function getVigimerInfo(): array {
+    return $this->baaemAndVigimerInfo;
+  }
+
+  public function setVigimerInfo(array $baaemAndVigimerInfo): ExportOdtRequest {
+    $this->baaemAndVigimerInfo = $baaemAndVigimerInfo;
+    return $this;
+  }
+
+  public function getTraficSurveillanceInfo(): array {
+    return $this->traficSurveillanceInfo;
+  }
+
+  public function setTraficSurveillanceInfo(array $traficSurveillanceInfo): ExportOdtRequest {
+    $this->traficSurveillanceInfo = $traficSurveillanceInfo;
     return $this;
   }
 }
