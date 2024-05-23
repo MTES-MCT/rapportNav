@@ -37,17 +37,17 @@ class ExportOdtRequest
 
   private ?array $crew;
 
-  private ?string $observations;
+  private ?string $observations = null;
 
-  private ?array $rescueInfo;
+  private ?array $rescueInfo = null;
 
-  private ?array $nauticalEventsInfo;
+  private ?array $nauticalEventsInfo = null;
 
-  private ?array $antiPollutionInfo;
+  private ?array $antiPollutionInfo = null;
 
-  private ?array $baaemAndVigimerInfo;
-
-  private ?array $traficSurveillanceInfo;
+  private ?array $baaemAndVigimerInfo = null;
+  
+  private ?array $traficSurveillanceInfo = null;
 
 
   public function getId(): string {
@@ -194,56 +194,56 @@ class ExportOdtRequest
     return $this;
   }
 
-  public function getObservations(): array {
+  public function getObservations(): ?string {
     return $this->observations;
   }
 
-  public function setObservations(array $observations): ExportOdtRequest {
+  public function setObservations(?string $observations): ExportOdtRequest {
     $this->observations = $observations;
     return $this;
   }
 
-  public function getRescueInfo(): array {
+  public function getRescueInfo(): ?array {
     return $this->rescueInfo;
   }
 
-  public function setRescueInfo(array $rescueInfo): ExportOdtRequest {
+  public function setRescueInfo(?array $rescueInfo): ExportOdtRequest {
     $this->rescueInfo = $rescueInfo;
     return $this;
   }
 
-  public function getNauticalEventsInfo(): array {
+  public function getNauticalEventsInfo(): ?array {
     return $this->nauticalEventsInfo;
   }
 
-  public function setNauticalEventsInfo(array $nauticalEventsInfo): ExportOdtRequest {
+  public function setNauticalEventsInfo(?array $nauticalEventsInfo): ExportOdtRequest {
     $this->nauticalEventsInfo = $nauticalEventsInfo;
     return $this;
   }
 
-  public function getAntiPollutionInfo(): array {
+  public function getAntiPollutionInfo(): ?array {
     return $this->antiPollutionInfo;
   }
 
-  public function setAntiPollutionInfo(array $antiPollutionInfo): ExportOdtRequest {
+  public function setAntiPollutionInfo(?array $antiPollutionInfo): ExportOdtRequest {
     $this->antiPollutionInfo = $antiPollutionInfo;
     return $this;
   }
 
-  public function getVigimerInfo(): array {
+  public function getVigimerInfo(): ?array {
     return $this->baaemAndVigimerInfo;
   }
 
-  public function setVigimerInfo(array $baaemAndVigimerInfo): ExportOdtRequest {
+  public function setVigimerInfo(?array $baaemAndVigimerInfo): ExportOdtRequest {
     $this->baaemAndVigimerInfo = $baaemAndVigimerInfo;
     return $this;
   }
 
-  public function getTraficSurveillanceInfo(): array {
+  public function getTraficSurveillanceInfo(): ?array {
     return $this->traficSurveillanceInfo;
   }
 
-  public function setTraficSurveillanceInfo(array $traficSurveillanceInfo): ExportOdtRequest {
+  public function setTraficSurveillanceInfo(?array $traficSurveillanceInfo): ExportOdtRequest {
     $this->traficSurveillanceInfo = $traficSurveillanceInfo;
     return $this;
   }
