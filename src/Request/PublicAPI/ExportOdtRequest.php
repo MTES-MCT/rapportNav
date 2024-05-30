@@ -23,9 +23,9 @@ class ExportOdtRequest
 
   private int $dureeMission;
 
-  private int $patrouilleEnv;
+  private ?float $patrouilleSurveillanceEnvInHours;
 
-  private int $patrouilleMigrant;
+  private ?float $patrouilleMigrantInHours;
 
   private float $distanceMilles;
 
@@ -131,21 +131,21 @@ class ExportOdtRequest
     return $this;
   }
 
-  public function getPatrouilleEnv(): int {
-    return $this->patrouilleEnv;
+  public function getPatrouilleSurveillanceEnvInHours(): ?float {
+    return $this->patrouilleSurveillanceEnvInHours;
   }
 
-  public function setPatrouilleEnv(int $patrouilleEnv): ExportOdtRequest {
-    $this->patrouilleEnv = $patrouilleEnv;
+  public function setPatrouilleSurveillanceEnvInHours(?float $patrouilleSurveillanceEnvInHours): ExportOdtRequest {
+    $this->patrouilleSurveillanceEnvInHours = $patrouilleSurveillanceEnvInHours;
     return $this;
   }
 
-  public function getPatrouilleMigrant(): int {
-    return $this->patrouilleMigrant;
+  public function getPatrouilleMigrantInHours(): ?float {
+    return $this->patrouilleMigrantInHours;
   }
 
-  public function setPatrouilleMigrant(int $patrouilleMigrant): ExportOdtRequest {
-    $this->patrouilleMigrant = $patrouilleMigrant;
+  public function setPatrouilleMigrantInHours(?float $patrouilleMigrantInHours): ExportOdtRequest {
+    $this->patrouilleMigrantInHours = $patrouilleMigrantInHours;
     return $this;
   }
 
