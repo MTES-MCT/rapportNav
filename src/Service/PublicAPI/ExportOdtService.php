@@ -72,7 +72,6 @@ class ExportOdtService {
       'goMarine' => $request->getGoMarine(),
       'dureeMission' => $request->getDureeMission(),
       'destinataireCopies' => $copys,
-
       'observations' => $request->getObservations() ?? '',
       'rescueInfoCount' => $rescueInfo['count'] ?? '',
       'rescueInfoHours' => $rescueInfo['durationInHours'] ?? '',
@@ -86,6 +85,8 @@ class ExportOdtService {
       'traficSurveillanceInfoCount' => $traficSurveillanceInfo['count'] ?? '',
       'traficSurveillanceInfoHours' => $traficSurveillanceInfo['durationInHours'] ?? '',
       'traficSurveillanceInfoShips' => $traficSurveillanceInfo['amountOfInterrogatedShips'] ?? '',
+      'patrouilleSurveillanceEnvInHours' => $request->getPatrouilleSurveillanceEnvInHours() ?? '',
+      'patrouilleMigrantInHours' => $request->getPatrouilleMigrantInHours() ?? '',
 
       /*'nomCommandant' => $nomCommandant,
       'roleBordee' => $bordee,*/
