@@ -23,9 +23,9 @@ class ExportOdtRequest
 
   private int $dureeMission;
 
-  private ?float $patrouilleSurveillanceEnvInHours;
+  private ?float $patrouilleSurveillanceEnvInHours = null;
 
-  private ?float $patrouilleMigrantInHours;
+  private ?float $patrouilleMigrantInHours = null;
 
   private float $distanceMilles;
 
