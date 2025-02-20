@@ -55,3 +55,5 @@ assets/js/params.json
 .docker/data
 docker-compose.yml
 /public/.htaccess
+
+/metabase_questions/

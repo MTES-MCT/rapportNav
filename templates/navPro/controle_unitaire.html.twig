@@ -15,15 +15,31 @@
                         </div>
                     </div>
                     <div class="fr-grid-row fr-mt-3w">
-                        <div class="fr-col-5">
+                        <div class="fr-col-6">
                                 <div class="fr-grid-row fr-mt-4w">
-                                    <div class="fr-col-12">
+                                    <div class="fr-col-12" id="enregistrementNavireForm">
                                         {{ form_label(form.navire) }}
                                         <small><em>Si le navire est sans immatriculation, cochez "Navire étrangers" </em></small>
                                         {{ form_widget(form.navire) }}
                                     </div>
+                                  <div class="fr-col-12 fr-hidden" id="newVesselCheckboxSection">
+                                    <div class="fr-grid-row fr-mt-3w">
+                                      <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
+                                        <div class="fr-fieldset__element fr-fieldset__element--inline">
+                                          <div class="fr-checkbox-group">
+                                            <input type="checkbox" id="new-vessel" name="new-vessel"> <label for="new-vessel">Ajouter un nouveau navire</label>
+                                          </div>
+                                        </div>
+                                      </fieldset>
+                                    </div>
+                                  </div>
+                                  <div class="fr-col-12 fr-hidden" id="newVesselSection">
+                                    <div class="fr-grid-row fr-mt-3w fr-background-contrast--beige-gris-galet fr-p-2w">
+                                      {{ form_widget(form.nouveauNavire) }}
+                                    </div>
+                                  </div>
                                 </div>
-                                <div class="fr-grid-row fr-mt-3w">
+                                <div class="fr-grid-row fr-mt-3w" id="foreignVesselSection">
                                     <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
                                         <div class="fr-fieldset__element fr-fieldset__element--inline">
                                             <div class="fr-checkbox-group">
@@ -194,87 +210,135 @@
 
 {% block javascripts %}
     <script>
-        let $checkbox = document.getElementsByClassName('pv-emis-checkbox');
-        $checkbox = $checkbox[0];
-        const $downloadDocx = document.getElementById('download-rapport-docx');
-        const $downloadOdt = document.getElementById('download-rapport-odt');
-        const $downloadModelesPV = document.getElementById('downloadModelesPV');
-        const $nbPv = document.getElementById('nbPV');
-        const $nbPVInput = document.getElementById('controle_unitaire_nbPv');
-        const $btnUpload = document.getElementById('btnUpload');
+        $(document).ready(function () {
+          const $enregistrement = $('.fr-input-enregistrement')
+          let $checkbox = document.getElementsByClassName('pv-emis-checkbox');
+          $checkbox = $checkbox[0];
+          const $downloadDocx = document.getElementById('download-rapport-docx');
+          const $downloadOdt = document.getElementById('download-rapport-odt');
+          const $downloadModelesPV = document.getElementById('downloadModelesPV');
+          const $nbPv = document.getElementById('nbPV');
+          const $nbPVInput = document.getElementById('controle_unitaire_nbPv');
+          const $btnUpload = document.getElementById('btnUpload');
 
-        handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
-        handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
+          handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
+          handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
 
-        $checkbox.addEventListener('change', function(){
+          $checkbox.addEventListener('change', function(){
             handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
             handleCheckbox($checkbox, $downloadModelesPV, $nbPv)
-        })
+          })
 
-        function handleCheckbox(checkbox, download, nbPv) {
+          function handleCheckbox(checkbox, download, nbPv) {
             if(checkbox.checked) {
-                download.style.display = 'block';
-                nbPv.style.display = 'block';
+              download.style.display = 'block';
+              nbPv.style.display = 'block';
             } else {
-                download.style.display = 'none';
-                nbPv.style.display = 'none';
+              download.style.display = 'none';
+              nbPv.style.display = 'none';
             }
-        }
+          }
 
-        const $btnBrouillon = document.getElementById("btn-brouillon");
-        const $form = document.getElementById("form-controle");
-        $btnBrouillon.addEventListener('click', function(e) {
+          const $btnBrouillon = document.getElementById("btn-brouillon");
+          const $form = document.getElementById("form-controle");
+          $btnBrouillon.addEventListener('click', function(e) {
             e.preventDefault();
             $form.action = "{{ action }}" + "?brouillon=true"
             $form.submit()
-        })
+          })
 
-        const $btnReset = document.getElementById("btn-reset");
-        const $fermerModale = document.getElementById("fermer-modale");
+          const $btnReset = document.getElementById("btn-reset");
+          const $fermerModale = document.getElementById("fermer-modale");
 
-        $btnReset.addEventListener('click', function(e) {
+          $btnReset.addEventListener('click', function(e) {
             $form.reset();
             $fermerModale.click();
-        })
+          })
 
 
 
-       $('.fr-input-enregistrement').select2({
+          $enregistrement.select2({
             minimumInputLength: 2,
             allowClear: true,
             placeholder: "Immatriculation du navire",
             language: { inputTooShort: function () { return 'Merci de renseigner l\'immatriculation du navire'; } },
-        });
+          });
 
 
-        const $collectionHolder = $("#collectionHolder");
+          const $collectionHolder = $("#collectionHolder");
 
-        $($btnUpload).on('click', function(e){
+          $($btnUpload).on('click', function(e){
             const nbPv = $($nbPVInput).val()
             for(let i=1; i <= nbPv; i++){
-                addFormToCollection($collectionHolder, i)
+              addFormToCollection($collectionHolder, i)
             }
-        })
+          })
 
-        const addFormToCollection = (collectionHolder, index) => {
+          const addFormToCollection = (collectionHolder, index) => {
             const lengthUploadSection = $('.uploadSection').length;
 
             if(lengthUploadSection < index) {
 
-                let prototype = collectionHolder.data('prototype');
-                prototype = prototype.replace(/__name__/g, index);
-                prototype = prototype.replace(/__index__/g, index);
-                prototype = prototype.replace(/__numeropv__/g, index);
-                collectionHolder.append(prototype);
-                const $suppUpload = $('.suppUpload' + index);
-                const $section = $('.section' + index);
-                $suppUpload.click(function(e) {
-                    e.preventDefault();
-                    $section.remove()
-                })
+              let prototype = collectionHolder.data('prototype');
+              prototype = prototype.replace(/__name__/g, index);
+              prototype = prototype.replace(/__index__/g, index);
+              prototype = prototype.replace(/__numeropv__/g, index);
+              collectionHolder.append(prototype);
+              const $suppUpload = $('.suppUpload' + index);
+              const $section = $('.section' + index);
+              $suppUpload.click(function(e) {
+                e.preventDefault();
+                $section.remove()
+              })
             }
-        };
+          };
 
+
+
+          $enregistrement.on('select2:open', function() {
+            let searchField = $('.select2-search__field');
+
+            searchField.on('input', function() {
+              let searchValue = $(this).val().toLowerCase();
+              let availableOptions = [];
+
+              $('.fr-input-enregistrement option').each(function() {
+                let optionText = $(this).text().toLowerCase();
+
+                if (optionText.includes(searchValue)) {
+                  availableOptions.push($(this).text());
+                }
+              });
+
+              if(searchValue.length >= 6 && availableOptions.length === 0) {
+                let scrollPosition = $(window).scrollTop();
+
+                $("#newVesselCheckboxSection").toggleClass('fr-hidden')
+                $enregistrement.select2('close');
+
+                setTimeout(() => {
+                  $(window).scrollTop(scrollPosition);
+                }, 1);
+
+                $('#newVesselCheckboxSection').attr('tabindex', '-1').focus();
+
+
+                const $newVesselCheckbox = $("#new-vessel")
+
+                $newVesselCheckbox.on('change', function(e) {
+                  $("#enregistrementNavireForm").toggleClass('fr-hidden')
+                  const $newVesselFormSection = $("#newVesselSection")
+                  $newVesselFormSection.toggleClass('fr-hidden')
+                  $("#foreignVesselSection").toggleClass("fr-hidden")
+                  if(!$newVesselCheckbox.prop('checked')) {
+                    $("#newVesselCheckboxSection").removeClass('fr-hidden')
+                  }
+
+                })
+              }
+            });
+          });
+        })
 
     </script>
 

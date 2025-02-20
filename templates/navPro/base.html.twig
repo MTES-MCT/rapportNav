@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" data-fr-scheme="system">
+<html lang="fr" data-fr-theme="light" >
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,8 +28,12 @@
                         <div class="fr-header__brand-top">
                             <div class="fr-header__logo">
                                 <p class="fr-logo">
-                                    Secretariat d'état
-                                    <br>chargé de la mer
+                                  Ministère
+                                  <br>de la transition
+                                  <br>écologique
+                                  <br>de la biodiversité,
+                                  <br>de la forêt, de la mer
+                                  <br>et de la pêche
                                 </p>
                             </div>
                         </div>
@@ -78,10 +82,14 @@
         <div class="fr-container">
             <div class="fr-footer__body">
                 <div class="fr-footer__brand fr-enlarge-link">
-                    <a href="{{ path('app_navpro_accueil') }}" title="Retour à l’accueil du site - Secrétariat d'état chargé de la Mer">
+                    <a href="{{ path('app_navpro_accueil') }}" title="Retour à l’accueil du site">
                         <p class="fr-logo">
-                            Secrétariat d'état
-                            <br>chargé de la mer
+                            Ministère
+                            <br>de la transition
+                          <br>écologique
+                          <br>de ka biodiversité,
+                          <br>de la forêt, de la mer
+                          <br>et de la pêche
                         </p>
                     </a>
                 </div>
@@ -107,5 +115,9 @@
 
     {% block javascripts %}{% endblock %}
     {% block modals %}{% endblock %}
+
+    <script>
+      localStorage.setItem('scheme', 'light');
+    </script>
     </body>
 </html>

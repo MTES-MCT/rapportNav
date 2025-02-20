@@ -7,6 +7,8 @@ use App\Entity\CategorieControlePersonnel;
 use App\Entity\Navire;
 use App\Entity\NavPro\ControleUnitaire;
 use App\Form\DocumentType;
+use App\Form\NavireNavProType;
+use App\Form\NavireType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -96,6 +98,10 @@ class ControleUnitaireType extends AbstractType
                 'allow_add' => true,
                 'prototype' => true
             ])
+          ->add('nouveauNavire', NavireNavProType::class, [
+            'mapped' => false,
+            'label' => false,
+          ])
         ;
     }
 
