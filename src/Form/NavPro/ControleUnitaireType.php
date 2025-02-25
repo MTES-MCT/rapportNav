@@ -72,13 +72,15 @@ class ControleUnitaireType extends AbstractType
                     // adds a class like attending_yes, attending_no, etc
                     return ['class' => 'test'];
                 },
+              'required' => false
             ])
             ->add('controleRealisesGM', EntityType::class, [
                 'class' => CategorieControlePersonnel::class,
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'Contrôles réalisés (gens de mer)',
-                'label_attr' => ['class' => 'fr-label']
+                'label_attr' => ['class' => 'fr-label'],
+                'required' => false
             ])
             ->add('date', DateType::class, [
                 'attr' => ['class' => 'fr-input'],

@@ -16,3 +16,7 @@
 .gm-controle-icon {
     color: #8585f6;
 }
+
+label.required:after {
+  content: " *";
+}

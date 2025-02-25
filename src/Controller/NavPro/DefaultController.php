@@ -88,26 +88,25 @@ class DefaultController extends AbstractController
         $form = $this->createForm(ControleUnitaireType::class, $controleUnitaire);
         $form->handleRequest($request);
 
-      //  dd($form->has('nouveauNavire'));
         if($form->isSubmitted() && $form->isValid()) {
           if($form->has('nouveauNavire')) {
             $nouveauNavireForm = $form->get('nouveauNavire');
             $data = $nouveauNavireForm->getData();
-            $navire = $em->getRepository(Navire::class)->findOneBy(['immatriculation' => $data->getImmatriculation()]);
-            if(!$navire) {
-              $navire = new Navire();
-              $navire->setNom($data->getNom())
-                ->setImmatriculation($data->getImmatriculation())
-                ->setPavillon($data->getPavillon())
-                ->setEtranger($data->getEtranger());
+            if($data->getNom() && $data->getImmatriculation() && $data->getPavillon()) {
+              $navire = $em->getRepository(Navire::class)->findOneBy(['immatriculation' => $data->getImmatriculation()]);
+              if(!$navire) {
+                $navire = new Navire();
+                $navire->setNom($data->getNom())
+                  ->setImmatriculation($data->getImmatriculation())
+                  ->setPavillon($data->getPavillon())
+                  ->setCategorieUsageNavire($data->getCategorieUsageNavire());
+              }
+              $em->persist($navire);
+              $em->flush();
+
+              $controleUnitaire->setNavire($navire);
             }
-            $em->persist($navire);
-            $em->flush();
           }
-
-
-
-          $controleUnitaire->setNavire($navire);
 
             if($request->query->get('brouillon')) {
                 $controleUnitaire->setBrouillon(true);
