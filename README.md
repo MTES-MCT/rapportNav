@@ -1,5 +1,7 @@
 # RapportNav
 
+Pour le déploiement c'est ici : [Deploiement.md](./Deploiement.md)
+
 [![SymfonyInsight](https://insight.symfony.com/projects/62fceeb0-e3cc-4217-8b0e-88f55742c626/mini.svg)](https://insight.symfony.com/projects/62fceeb0-e3cc-4217-8b0e-88f55742c626)
 
 Outil pour éditer des rapports de mission de contrôle, à destination des agents de la Direction des Affaires Maritimes (DAM). 
