@@ -38,6 +38,7 @@ class DefaultController extends AbstractController
 
         $controleLot = new ControleLot();
         $controleLot->setCreatedBy($this->getUser()->getService());
+        $controleLot->setCreatedByUser($this->getUser());
         $form = $this->createForm(ControleLotType::class, $controleLot);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -84,6 +85,7 @@ class DefaultController extends AbstractController
 
         $controleUnitaire = new ControleUnitaire();
         $controleUnitaire->setCreatedBy($this->getUser()->getService());
+        $controleUnitaire->setCreatedByUser($this->getUser());
         $controleUnitaire->setType($type);
         $form = $this->createForm(ControleUnitaireType::class, $controleUnitaire);
         $form->handleRequest($request);
