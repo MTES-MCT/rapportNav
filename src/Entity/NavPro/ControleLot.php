@@ -6,6 +6,7 @@ use App\Entity\CategorieControleArmement;
 use App\Entity\CategorieControlePersonnel;
 use App\Entity\Document;
 use App\Entity\Service;
+use App\Entity\User;
 use App\Repository\NavPro\ControleLotRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -85,6 +86,11 @@ class ControleLot
      * @ORM\OneToMany(targetEntity=Document::class, mappedBy="navProControleLot", cascade={"persist", "remove"})
      */
     private $documents;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private $createdByUser;
 
     public function __construct()
     {
@@ -281,6 +287,18 @@ class ControleLot
                 $document->setNavProControleLot(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedByUser(): ?User
+    {
+        return $this->createdByUser;
+    }
+
+    public function setCreatedByUser(?User $createdByUser): self
+    {
+        $this->createdByUser = $createdByUser;
 
         return $this;
     }

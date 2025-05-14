@@ -7,6 +7,7 @@ use App\Entity\CategorieControlePersonnel;
 use App\Entity\Document;
 use App\Entity\Navire;
 use App\Entity\Service;
+use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -86,6 +87,11 @@ class ControleUnitaire
      * @ORM\OneToMany(targetEntity=Document::class, mappedBy="navProControleUnitaire", cascade={"persist", "remove"})
      */
     private $documents;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private $createdByUser;
 
     public function __construct()
     {
@@ -282,6 +288,18 @@ class ControleUnitaire
                 $document->setNavProControleUnitaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedByUser(): ?User
+    {
+        return $this->createdByUser;
+    }
+
+    public function setCreatedByUser(?User $createdByUser): self
+    {
+        $this->createdByUser = $createdByUser;
 
         return $this;
     }

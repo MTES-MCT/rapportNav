@@ -27,6 +27,7 @@
                                       <fieldset class="fr-fieldset" id="checkboxes-inline" aria-labelledby="checkboxes-inline-legend checkboxes-inline-messages">
                                         <div class="fr-fieldset__element fr-fieldset__element--inline">
                                           <div class="fr-checkbox-group">
+                                            <small class="text-red"><em>Aucun navire n'a été trouvé, voulez-vous ajouter un nouveau navire ?</em></small>
                                             <input type="checkbox" id="new-vessel" name="new-vessel"> <label for="new-vessel">Ajouter un nouveau navire</label>
                                           </div>
                                         </div>
@@ -211,6 +212,7 @@
 {% block javascripts %}
     <script>
         $(document).ready(function () {
+          toggleRequiredFields(false)
           const $enregistrement = $('.fr-input-enregistrement')
           let $checkbox = document.getElementsByClassName('pv-emis-checkbox');
           $checkbox = $checkbox[0];
@@ -240,10 +242,11 @@
           }
 
           const $btnBrouillon = document.getElementById("btn-brouillon");
+
           const $form = document.getElementById("form-controle");
           $btnBrouillon.addEventListener('click', function(e) {
             e.preventDefault();
-            $form.action = "{{ action }}" + "?brouillon=true"
+            $form.action = "{{ action }}" + "&brouillon=true"
             $form.submit()
           })
 
@@ -261,7 +264,7 @@
             minimumInputLength: 2,
             allowClear: true,
             placeholder: "Immatriculation du navire",
-            language: { inputTooShort: function () { return 'Merci de renseigner l\'immatriculation du navire'; } },
+            language: { inputTooShort: function () { return 'Merci de renseigner les 6 chiffres de l\'immatriculation du navire'; } },
           });
 
 
@@ -296,6 +299,7 @@
 
 
           $enregistrement.on('select2:open', function() {
+            $("#newVesselCheckboxSection").addClass('fr-hidden')
             let searchField = $('.select2-search__field');
 
             searchField.on('input', function() {
@@ -320,24 +324,43 @@
                   $(window).scrollTop(scrollPosition);
                 }, 1);
 
-                $('#newVesselCheckboxSection').attr('tabindex', '-1').focus();
-
 
                 const $newVesselCheckbox = $("#new-vessel")
+                console.log($newVesselCheckbox)
 
                 $newVesselCheckbox.on('change', function(e) {
-                  $("#enregistrementNavireForm").toggleClass('fr-hidden')
                   const $newVesselFormSection = $("#newVesselSection")
-                  $newVesselFormSection.toggleClass('fr-hidden')
-                  $("#foreignVesselSection").toggleClass("fr-hidden")
-                  if(!$newVesselCheckbox.prop('checked')) {
+                  if($newVesselCheckbox.prop('checked')) {
+                    toggleRequiredFields(true)
+                    $("#enregistrementNavireForm").addClass('fr-hidden')
                     $("#newVesselCheckboxSection").removeClass('fr-hidden')
+                    $newVesselFormSection.removeClass('fr-hidden')
+                    $("#foreignVesselSection").addClass("fr-hidden")
+                  } else {
+                    toggleRequiredFields(false)
+                    $("#enregistrementNavireForm").removeClass('fr-hidden')
+                    $("#newVesselCheckboxSection").addClass('fr-hidden')
+                    $newVesselFormSection.addClass('fr-hidden')
+                    $("#foreignVesselSection").removeClass("fr-hidden")
                   }
-
                 })
               }
             });
           });
+
+
+          function toggleRequiredFields(isTrue) {
+            const $immat = $("#controle_unitaire_nouveauNavire_immatriculation")
+            const $pavillon = $("#controle_unitaire_nouveauNavire_pavillon")
+            const $nom = $("#controle_unitaire_nouveauNavire_nom")
+            const $categorie = $("#controle_unitaire_nouveauNavire_categorieUsageNavire")
+
+            $immat.prop('required', isTrue)
+            $pavillon.prop('required', isTrue)
+            $nom.prop('required', isTrue)
+            $categorie.prop('required', isTrue)
+
+          }
         })
 
     </script>
